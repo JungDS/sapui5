@@ -1,68 +1,301 @@
 <!DOCTYPE html>
-
 <html lang="ko">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>SAP 개발 디버깅 / 트러블슈팅 통합 가이드 · 혼합 문체 · SAP Developer Learning Library v3</title>
-<link href="../assets/common.css" rel="stylesheet"/>
-<script defer="" src="../assets/common.js"></script>
-<!-- data-prose required: concept | structure | practice | checklist | warning | teacher | reference | summary --></head>
-<body data-active-category="roadmap" data-active-doc="debug" data-prose-root="true">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SAP 디버깅 / 트러블슈팅 통합 가이드 · SAP Developer Learning Library v3</title>
+<link rel="stylesheet" href="../assets/common.css" />
+<script src="../assets/common.js" defer></script>
+<!-- data-prose required: concept | structure | practice | checklist | warning | teacher | reference | summary -->
+</head>
+<body data-active-category="roadmap" data-active-doc="debugging" data-prose-root="true">
 <header class="library-topbar prose-summary" data-prose="summary">
-<div class="library-topbar__inner">
-<a class="library-home" href="../index.html">← SAP 학습자료 홈</a>
-<div class="library-meta">
-<span class="badge blue">v3</span>
-<span class="badge green">00. 로드맵 / 학습전략</span>
-<span class="badge amber">배포자: 정훈영</span>
-<span class="badge purple">혼합 문체</span></div>
-</div>
+  <div class="library-topbar__inner">
+    <a class="library-home" href="../index.html">← SAP 학습자료 홈</a>
+    <div class="library-meta">
+      <span class="badge blue">v3</span>
+      <span class="badge green">00. 로드맵 / 학습전략</span>
+      <span class="badge amber">배포자: 정훈영</span>
+      <span class="badge purple">Stage 6 Detail</span>
+    </div>
+  </div>
 </header>
+
 <div class="library-shell">
-<section class="hero prose-summary" data-prose="summary">
-<div class="breadcrumb" data-prose="summary">
-<a href="../index.html">Home</a>
-<span>›</span>
-<a href="../pages/roadmap.html">로드맵 / 학습전략</a>
-<span>›</span>
-<span>현재 문서</span>
+  <section class="hero prose-summary" data-prose="summary">
+    <div class="breadcrumb" data-prose="summary">
+      <a href="../index.html">Home</a>
+      <span>›</span>
+      <a href="../pages/roadmap.html">로드맵 / 학습전략</a>
+      <span>›</span>
+      <span>현재 문서</span>
+    </div>
+    <div class="eyebrow">SAP Developer Learning Library</div>
+    <h1>SAP 디버깅 / 트러블슈팅 통합 가이드</h1>
+    <p class="lead">
+      ABAP, OData, SAPUI5 화면에서 문제가 발생했을 때 원인을 좁혀가는 순서를 정리한다.
+      초급자는 “어디에서 깨졌는가”를 먼저 판단해야 한다.
+    </p>
+    <div class="hero-actions">
+      <span class="badge blue">P0</span>
+      <span class="badge green">디버깅</span>
+      <span class="badge purple">문제 해결 흐름</span>
+      <span class="badge amber">예상 35~45분</span>
+    </div>
+  </section>
+
+  <main>
+    <section class="section-card prose-structure" data-prose="structure" id="principle">
+      <div class="section-label">01 · 기본 원칙</div>
+      <h2>디버깅은 추측이 아니라 범위 축소 과정이다</h2>
+      <p class="lead-text">
+        SAP 개발에서 오류가 발생하면 화면, OData 서비스, ABAP 로직, 데이터, 권한, 설정 중 어느 위치에서
+        문제가 시작되었는지 먼저 구분한다. 처음부터 코드를 무작정 고치면 원인이 흐려지고 같은 오류가 반복된다.
+      </p>
+      <div class="grid-3">
+        <div class="mini-card prose-structure" data-prose="structure">
+          <h3>현상 확인</h3>
+          <p>사용자가 보는 오류 메시지, 발생 화면, 입력값, 재현 절차를 먼저 고정한다.</p>
+        </div>
+        <div class="mini-card prose-structure" data-prose="structure">
+          <h3>계층 분리</h3>
+          <p>UI, OData, ABAP, DB, 설정 중 어느 계층에서 오류가 발생했는지 나눈다.</p>
+        </div>
+        <div class="mini-card prose-structure" data-prose="structure">
+          <h3>증거 기반 수정</h3>
+          <p>Network 응답, Debugger 값, 로그, 메시지 클래스를 근거로 수정 대상을 결정한다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-card prose-structure" data-prose="structure" id="layers">
+      <div class="section-label">02 · 오류 계층</div>
+      <h2>오류 위치를 계층별로 나누어 판단한다</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>계층</th>
+            <th>대표 증상</th>
+            <th>확인 도구</th>
+            <th>첫 판단 기준</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>UI5 화면</td>
+            <td>버튼이 동작하지 않음, 값이 비어 있음, Console 오류</td>
+            <td>Browser DevTools, VS Code/BAS</td>
+            <td>이벤트 함수명, Binding Path, Model 데이터 존재 여부</td>
+          </tr>
+          <tr>
+            <td>OData 서비스</td>
+            <td>404, 500, Metadata 오류, EntitySet 응답 없음</td>
+            <td>Gateway Client, Browser Network</td>
+            <td>서비스 URL, HTTP 상태, 응답 payload, 오류 메시지</td>
+          </tr>
+          <tr>
+            <td>ABAP 로직</td>
+            <td>계산 결과 오류, Validation 실패, Dump 발생</td>
+            <td>ADT Debugger, SAP GUI Debugger, ST22</td>
+            <td>입력 파라미터, Internal Table, 조건문, 예외 발생 지점</td>
+          </tr>
+          <tr>
+            <td>데이터 / 권한</td>
+            <td>특정 사용자만 오류, 조회 결과 차이, 빈 결과</td>
+            <td>SAP GUI, SU53, ST05, SQL Trace</td>
+            <td>권한 객체, 필터 조건, 테이블 데이터 존재 여부</td>
+          </tr>
+          <tr>
+            <td>설정 / 배포</td>
+            <td>로컬은 정상이나 서버 배포 후 오류</td>
+            <td>FLP 설정, 서비스 등록, 캐시, 로그</td>
+            <td>배포 경로, Component ID, Target Mapping, 캐시 상태</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section-card prose-practice" data-prose="practice" id="flow">
+      <div class="section-label">03 · 표준 점검 순서</div>
+      <h2>화면 오류는 바깥에서 안쪽으로 추적한다</h2>
+      <div class="flow">
+        <div class="flow-step prose-practice" data-prose="practice">
+          <span class="num">1</span>
+          <div>
+            <div class="flow-title">재현 조건 고정</div>
+            <p>사용자, 화면, 입력값, 클릭 순서, 발생 시각을 기록한다.</p>
+          </div>
+        </div>
+        <div class="flow-step prose-practice" data-prose="practice">
+          <span class="num">2</span>
+          <div>
+            <div class="flow-title">Browser Console 확인</div>
+            <p>JavaScript 오류, UI5 모듈 로딩 오류, Binding 경고를 확인한다.</p>
+          </div>
+        </div>
+        <div class="flow-step prose-practice" data-prose="practice">
+          <span class="num">3</span>
+          <div>
+            <div class="flow-title">Browser Network 확인</div>
+            <p>OData 요청 URL, HTTP 상태 코드, 응답 payload, CSRF Token 흐름을 확인한다.</p>
+          </div>
+        </div>
+        <div class="flow-step prose-practice" data-prose="practice">
+          <span class="num">4</span>
+          <div>
+            <div class="flow-title">Gateway Client 단독 테스트</div>
+            <p>UI를 제외하고 서비스 자체가 정상 응답하는지 확인한다.</p>
+          </div>
+        </div>
+        <div class="flow-step prose-practice" data-prose="practice">
+          <span class="num">5</span>
+          <div>
+            <div class="flow-title">ABAP Debugger 진입</div>
+            <p>서비스 로직, CDS 조건, RAP Behavior, Validation/Determination의 실제 값을 확인한다.</p>
+          </div>
+        </div>
+        <div class="flow-step prose-practice" data-prose="practice">
+          <span class="num">6</span>
+          <div>
+            <div class="flow-title">로그와 설정 확인</div>
+            <p>ST22, SU53, Gateway Error Log, 서비스 등록, FLP 설정을 확인한다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-card prose-structure" data-prose="structure" id="cases">
+      <div class="section-label">04 · 증상별 판단표</div>
+      <h2>자주 발생하는 증상은 첫 확인 위치가 정해져 있다</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>증상</th>
+            <th>우선 확인</th>
+            <th>다음 확인</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>화면에 데이터가 표시되지 않음</td>
+            <td>Network 응답에 데이터가 있는지 확인</td>
+            <td>Binding Path, Model 이름, Formatter 확인</td>
+          </tr>
+          <tr>
+            <td>저장 버튼 클릭 후 403 오류</td>
+            <td>CSRF Token 요청/전달 여부 확인</td>
+            <td>권한, 서비스 설정, HTTP Method 확인</td>
+          </tr>
+          <tr>
+            <td>OData 500 오류</td>
+            <td>Gateway Error Log와 응답 메시지 확인</td>
+            <td>ABAP Debugger, ST22 Dump 확인</td>
+          </tr>
+          <tr>
+            <td>특정 사용자만 오류 발생</td>
+            <td>SU53, 권한 객체, 사용자별 조직값 확인</td>
+            <td>필터 조건, User Exit/BAdI, CDS 권한 확인</td>
+          </tr>
+          <tr>
+            <td>로컬 미리보기는 정상이나 FLP에서 오류</td>
+            <td>Component ID, manifest, Target Mapping 확인</td>
+            <td>UI5 cache, app index, 배포 경로 확인</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section-card prose-concept" data-prose="concept" id="debugger">
+      <div class="section-label">05 · ABAP Debugger 관점</div>
+      <h2>ABAP Debugger에서는 값의 흐름을 확인한다</h2>
+      <p>
+        ABAP Debugger는 코드가 실행되는지 확인하는 도구가 아니라, 입력값이 어떤 조건을 지나 어떤 결과로 바뀌는지
+        추적하는 도구다. 초급자는 Breakpoint를 많이 찍기보다 “값이 처음 달라지는 지점”을 찾는 데 집중한다.
+      </p>
+      <div class="grid-2">
+        <div class="mini-card prose-concept" data-prose="concept">
+          <h3>확인할 값</h3>
+          <p>Importing parameter, Internal Table, Work Area, SELECT 결과, 메시지 변수, Exception 객체를 확인한다.</p>
+        </div>
+        <div class="mini-card prose-concept" data-prose="concept">
+          <h3>확인할 흐름</h3>
+          <p>조건문 진입 여부, Loop 처리 건수, MODIFY/APPEND 결과, RETURN 이전 메시지 생성 지점을 확인한다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-card prose-warning" data-prose="warning" id="pitfalls">
+      <div class="section-label">06 · 주의점</div>
+      <h2>초급자는 오류 메시지보다 먼저 원인 계층을 판단해야 한다</h2>
+      <div class="warning prose-warning" data-prose="warning">
+        <strong>주의</strong>
+        같은 500 오류라도 원인은 ABAP Dump, 권한 문제, 데이터 형식 오류, 메시지 처리 오류일 수 있다.
+        HTTP 상태 코드만 보고 결론을 내리지 않는다.
+      </div>
+      <div class="warning prose-warning" data-prose="warning">
+        <strong>주의</strong>
+        화면이 비어 있을 때 곧바로 서버 로직을 수정하지 않는다. Network 응답에 데이터가 있는지 먼저 확인한다.
+        응답에 데이터가 있으면 UI5 Binding 또는 Formatter 문제일 가능성이 높다.
+      </div>
+    </section>
+
+    <section class="section-card prose-checklist" data-prose="checklist" id="checklist">
+      <div class="section-label">07 · 학습 완료 체크</div>
+      <h2>다음 문서로 넘어가기 전에 확인한다</h2>
+      <ol>
+        <li>UI5, OData, ABAP, 데이터/권한, 설정 계층을 구분한다.</li>
+        <li>화면 오류가 발생했을 때 Browser Console과 Network를 먼저 확인한다.</li>
+        <li>OData 오류가 발생했을 때 Gateway Client로 서비스를 단독 테스트한다.</li>
+        <li>ABAP Debugger에서 입력값, Internal Table, 메시지 생성 지점을 확인한다.</li>
+        <li>특정 사용자만 오류가 발생할 때 SU53과 권한 조건을 확인한다.</li>
+        <li>오류 수정 전 재현 조건과 증거를 기록한다.</li>
+      </ol>
+    </section>
+
+    <section class="section-card prose-summary" data-prose="summary" id="next">
+      <div class="section-label">08 · 다음 문서</div>
+      <h2>문제 해결 흐름을 익힌 뒤 개발 영역별 기본기로 이동한다</h2>
+      <div class="grid-2">
+        <div class="mini-card prose-summary" data-prose="summary">
+          <h3>ABAP 기본기</h3>
+          <p><a href="../v3/abap-classic-report-itab-alv-beginner-v3.html">Classic ABAP Report, Internal Table, ALV 입문</a></p>
+        </div>
+        <div class="mini-card prose-summary" data-prose="summary">
+          <h3>OData 흐름</h3>
+          <p><a href="../v3/sap-cds-to-odata-beginner-guide-v3.html">CDS View에서 OData 노출까지</a></p>
+        </div>
+        <div class="mini-card prose-summary" data-prose="summary">
+          <h3>UI5 메시지 처리</h3>
+          <p><a href="../v3/sapui5-message-manager-beginner-guide-v3.html">SAPUI5 MessageManager 입문</a></p>
+        </div>
+        <div class="mini-card prose-summary" data-prose="summary">
+          <h3>RAP 전체 흐름</h3>
+          <p><a href="../v3/sap-rap-end-to-end-beginner-guide-v3.html">RAP End-to-End 입문</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <aside class="toc prose-reference" data-prose="reference">
+    <div class="library-tree" data-nav-tree="main" data-prose="reference"></div>
+    <hr class="tree-separator" />
+    <div class="local-page-tools" data-prose="reference">
+      <h2>이 문서 안에서</h2>
+    </div>
+    <h2>학습 목차</h2>
+    <a href="#principle">01. 기본 원칙</a>
+    <a href="#layers">02. 오류 계층</a>
+    <a href="#flow">03. 점검 순서</a>
+    <a href="#cases">04. 증상별 판단표</a>
+    <a href="#debugger">05. ABAP Debugger</a>
+    <a href="#pitfalls">06. 주의점</a>
+    <a href="#checklist">07. 완료 체크</a>
+    <a href="#next">08. 다음 문서</a>
+  </aside>
 </div>
 
-<div class="eyebrow">SAP Developer Learning Library</div>
-<h1>SAP 개발 디버깅 / 트러블슈팅 통합 가이드</h1>
-<p class="lead">ABAP, Gateway, UI5 오류를 어디서부터 확인할지 초급자용 루틴으로 정리한다.</p>
-<div class="hero-actions"><span class="badge amber">P1</span><span class="badge red">트러블슈팅</span><span class="badge purple">본문 평서형</span><span class="badge amber">실습 지시형</span></div>
-</section>
-<main><section class="section-card prose-structure" data-prose="structure" id="first">
-<div class="section-label">01 · 오류 위치</div>
-<h2>오류는 먼저 위치를 나눠야 한다</h2>
-<table><thead><tr><th>증상</th><th>우선 확인 위치</th><th>대표 도구</th></tr></thead><tbody><tr><td>ABAP 로직 결과가 이상함</td><td>서버 로직</td><td>ADT Debugger</td></tr><tr><td>OData 호출 실패</td><td>Gateway / HTTP 응답</td><td>Gateway Client, Network</td></tr><tr><td>화면 버튼이 작동 안 함</td><td>UI5 Controller</td><td>Browser Console</td></tr><tr><td>Input 오류 표시가 이상함</td><td>Binding / Messaging</td><td>MessageModel, Support Assistant</td></tr></tbody></table>
-</section>
-<section class="section-card prose-practice" data-prose="practice" id="routine">
-<div class="section-label">02 · 루틴</div>
-<h2>실무에서 쓰는 기본 확인 순서</h2>
-<div class="flow"><div class="flow-step prose-practice" data-prose="practice"><span class="num">1</span><div><div class="flow-title">재현 조건 고정</div><p>어떤 입력값과 어떤 버튼에서 문제가 나는지 먼저 고정한다.</p></div></div><div class="flow-step prose-practice" data-prose="practice"><span class="num">2</span><div><div class="flow-title">브라우저 Network 확인</div><p>요청이 서버까지 갔는지, HTTP 상태가 무엇인지 확인한다.</p></div></div><div class="flow-step prose-practice" data-prose="practice"><span class="num">3</span><div><div class="flow-title">서버 로그 확인</div><p>Gateway Error Log 또는 ABAP Debugger로 서버 오류를 확인한다.</p></div></div><div class="flow-step prose-practice" data-prose="practice"><span class="num">4</span><div><div class="flow-title">UI5 바인딩 확인</div><p>Control ID, binding path, MessageModel을 확인한다.</p></div></div></div>
-</section>
-<section class="section-card prose-checklist" data-prose="checklist" id="console">
-<div class="section-label">03 · UI5 콘솔</div>
-<h2>콘솔 확인은 임시 진단용으로 사용한다</h2>
-<div class="code-block prose-reference" data-prose="reference">
-<div class="code-header"><span>브라우저 콘솔 예시</span></div>
-<pre><code>// 실제 런타임 ID를 알 때만 사용합니다.
-sap.ui.getCore().byId("application-...--idInput").getBinding("value").getPath();
-
-// Controller 내부에서는 보통 this.byId("idInput")을 우선 사용합니다.</code></pre>
-</div>
-</section></main>
-<aside class="toc prose-reference" data-prose="reference">
-<div class="library-tree" data-nav-tree="main" data-prose="reference"></div>
-<hr class="tree-separator"/>
-<div class="local-page-tools" data-prose="reference">
-<h2>이 문서 안에서</h2>
-</div>
-<h2>학습 목차</h2><a href="#first">01. 먼저 구분</a><a href="#routine">02. 확인 루틴</a><a href="#console">03. UI5 콘솔</a></aside>
-</div>
-<footer class="library-footer prose-summary" data-prose="summary">SAP 개발 디버깅 / 트러블슈팅 통합 가이드 · v3 · 2026-05-27 · 배포자: 정훈영 · 혼합 문체 기준 · Final</footer>
+<footer class="library-footer prose-summary" data-prose="summary">
+  SAP 디버깅 / 트러블슈팅 통합 가이드 · Stage 6 Detail · 2026-05-27 · 배포자: 정훈영
+</footer>
 </body>
 </html>

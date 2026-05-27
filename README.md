@@ -77,8 +77,8 @@ cd sapui5
 ### 6-2. SAP 개발 환경과 도구 입문
 
 - 대상 문서: `v3/sap-development-tools-overview-v3.html`
-- 작업 브랜치: `feature/stage6-tools-detail`
-- 상태: PR 준비 중
+- 반영 PR: `#3 Stage 6: SAP 개발 환경과 도구 입문 상세화`
+- 상태: main 반영 완료
 - 반영 내용:
   - SAP GUI, ADT, VS Code/BAS, Gateway Client, Browser DevTools 역할 상세화
   - 계층별 문제 확인 관점 추가
@@ -89,13 +89,28 @@ cd sapui5
   - 다음 문서 이동 카드 추가
   - `data-prose` 기준 문체 정리
 
+### 6-3. SAP 디버깅 / 트러블슈팅 통합 가이드
+
+- 대상 문서: `v3/sap-debugging-troubleshooting-guide-v3.html`
+- 작업 브랜치: `feature/stage6-debugging-detail`
+- 상태: PR 준비 중
+- 반영 내용:
+  - 디버깅 기본 원칙을 “범위 축소 과정” 관점으로 재정리
+  - UI5, OData, ABAP, 데이터/권한, 설정 계층별 오류 판단표 추가
+  - 화면 오류 발생 시 표준 점검 순서 추가
+  - 증상별 우선 확인 위치와 다음 확인 위치 정리
+  - ABAP Debugger에서 확인해야 할 값과 흐름 보강
+  - 초급자가 주의해야 할 오해와 확인 순서 추가
+  - 학습 완료 체크리스트 추가
+  - 다음 문서 이동 카드 추가
+
 ## 다음 상세화 후보
 
-- `v3/sap-debugging-troubleshooting-guide-v3.html`
 - `v3/abap-classic-report-itab-alv-beginner-v3.html`
 - `v3/sap-cds-to-odata-beginner-guide-v3.html`
 - `v3/sap-gateway-odata-v2-crud-beginner-guide-v3.html`
 - `v3/sap-rap-end-to-end-beginner-guide-v3.html`
+- `v3/sapui5-controller-function-intro-v3.html`
 
 ## 운영 원칙
 
