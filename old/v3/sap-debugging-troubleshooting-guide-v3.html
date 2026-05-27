@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SAP 개발 디버깅 / 트러블슈팅 통합 가이드 · 혼합 문체 · SAP Developer Learning Library v3</title>
+<link href="../assets/common.css" rel="stylesheet"/>
+<script defer="" src="../assets/common.js"></script>
+<!-- data-prose required: concept | structure | practice | checklist | warning | teacher | reference | summary --></head>
+<body data-active-category="roadmap" data-active-doc="debug" data-prose-root="true">
+<header class="library-topbar prose-summary" data-prose="summary">
+<div class="library-topbar__inner">
+<a class="library-home" href="../index.html">← SAP 학습자료 홈</a>
+<div class="library-meta">
+<span class="badge blue">v3</span>
+<span class="badge green">00. 로드맵 / 학습전략</span>
+<span class="badge amber">배포자: 정훈영</span>
+<span class="badge purple">혼합 문체</span></div>
+</div>
+</header>
+<div class="library-shell">
+<section class="hero prose-summary" data-prose="summary">
+<div class="breadcrumb" data-prose="summary">
+<a href="../index.html">Home</a>
+<span>›</span>
+<a href="../pages/roadmap.html">로드맵 / 학습전략</a>
+<span>›</span>
+<span>현재 문서</span>
+</div>
+
+<div class="eyebrow">SAP Developer Learning Library</div>
+<h1>SAP 개발 디버깅 / 트러블슈팅 통합 가이드</h1>
+<p class="lead">ABAP, Gateway, UI5 오류를 어디서부터 확인할지 초급자용 루틴으로 정리한다.</p>
+<div class="hero-actions"><span class="badge amber">P1</span><span class="badge red">트러블슈팅</span><span class="badge purple">본문 평서형</span><span class="badge amber">실습 지시형</span></div>
+</section>
+<main><section class="section-card prose-structure" data-prose="structure" id="first">
+<div class="section-label">01 · 오류 위치</div>
+<h2>오류는 먼저 위치를 나눠야 한다</h2>
+<table><thead><tr><th>증상</th><th>우선 확인 위치</th><th>대표 도구</th></tr></thead><tbody><tr><td>ABAP 로직 결과가 이상함</td><td>서버 로직</td><td>ADT Debugger</td></tr><tr><td>OData 호출 실패</td><td>Gateway / HTTP 응답</td><td>Gateway Client, Network</td></tr><tr><td>화면 버튼이 작동 안 함</td><td>UI5 Controller</td><td>Browser Console</td></tr><tr><td>Input 오류 표시가 이상함</td><td>Binding / Messaging</td><td>MessageModel, Support Assistant</td></tr></tbody></table>
+</section>
+<section class="section-card prose-practice" data-prose="practice" id="routine">
+<div class="section-label">02 · 루틴</div>
+<h2>실무에서 쓰는 기본 확인 순서</h2>
+<div class="flow"><div class="flow-step prose-practice" data-prose="practice"><span class="num">1</span><div><div class="flow-title">재현 조건 고정</div><p>어떤 입력값과 어떤 버튼에서 문제가 나는지 먼저 고정한다.</p></div></div><div class="flow-step prose-practice" data-prose="practice"><span class="num">2</span><div><div class="flow-title">브라우저 Network 확인</div><p>요청이 서버까지 갔는지, HTTP 상태가 무엇인지 확인한다.</p></div></div><div class="flow-step prose-practice" data-prose="practice"><span class="num">3</span><div><div class="flow-title">서버 로그 확인</div><p>Gateway Error Log 또는 ABAP Debugger로 서버 오류를 확인한다.</p></div></div><div class="flow-step prose-practice" data-prose="practice"><span class="num">4</span><div><div class="flow-title">UI5 바인딩 확인</div><p>Control ID, binding path, MessageModel을 확인한다.</p></div></div></div>
+</section>
+<section class="section-card prose-checklist" data-prose="checklist" id="console">
+<div class="section-label">03 · UI5 콘솔</div>
+<h2>콘솔 확인은 임시 진단용으로 사용한다</h2>
+<div class="code-block prose-reference" data-prose="reference">
+<div class="code-header"><span>브라우저 콘솔 예시</span></div>
+<pre><code>// 실제 런타임 ID를 알 때만 사용합니다.
+sap.ui.getCore().byId("application-...--idInput").getBinding("value").getPath();
+
+// Controller 내부에서는 보통 this.byId("idInput")을 우선 사용합니다.</code></pre>
+</div>
+</section></main>
+<aside class="toc prose-reference" data-prose="reference">
+<div class="library-tree" data-nav-tree="main" data-prose="reference"></div>
+<hr class="tree-separator"/>
+<div class="local-page-tools" data-prose="reference">
+<h2>이 문서 안에서</h2>
+</div>
+<h2>학습 목차</h2><a href="#first">01. 먼저 구분</a><a href="#routine">02. 확인 루틴</a><a href="#console">03. UI5 콘솔</a></aside>
+</div>
+<footer class="library-footer prose-summary" data-prose="summary">SAP 개발 디버깅 / 트러블슈팅 통합 가이드 · v3 · 2026-05-27 · 배포자: 정훈영 · 혼합 문체 기준 · Final</footer>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Classic ABAP 기본기 · 혼합 문체 · SAP Developer Learning Library v3</title>
+<link href="../assets/common.css" rel="stylesheet"/>
+<script defer="" src="../assets/common.js"></script>
+<!-- data-prose required: concept | structure | practice | checklist | warning | teacher | reference | summary --></head>
+<body data-active-category="abap" data-active-doc="abap-classic" data-prose-root="true">
+<header class="library-topbar prose-summary" data-prose="summary">
+<div class="library-topbar__inner">
+<a class="library-home" href="../index.html">← SAP 학습자료 홈</a>
+<div class="library-meta">
+<span class="badge blue">v3</span>
+<span class="badge green">01. ABAP 개발</span>
+<span class="badge amber">배포자: 정훈영</span>
+<span class="badge purple">혼합 문체</span></div>
+</div>
+</header>
+<div class="library-shell">
+<section class="hero prose-summary" data-prose="summary">
+<div class="breadcrumb" data-prose="summary">
+<a href="../index.html">Home</a>
+<span>›</span>
+<a href="../pages/abap.html">ABAP 개발</a>
+<span>›</span>
+<span>현재 문서</span>
+</div>
+
+<div class="eyebrow">SAP Developer Learning Library</div>
+<h1>Classic ABAP 기본기</h1>
+<p class="lead">Report, Selection Screen, Internal Table, Open SQL, ALV의 기본 흐름을 하나의 개발 사이클로 이해한다.</p>
+<div class="hero-actions"><span class="badge blue">P0</span><span class="badge green">Classic ABAP</span><span class="badge purple">본문 평서형</span><span class="badge amber">실습 지시형</span></div>
+</section>
+<main><section class="section-card prose-structure" data-prose="structure" id="role">
+<div class="section-label">01 · 역할</div>
+<h2>Classic ABAP은 여전히 기본기입니다</h2>
+<p><button class="term" data-term="Classic ABAP" type="button">Classic ABAP</button>은 Report, Selection Screen, Internal Table, ALV 같은 전통적인 서버 개발 패턴을 의미한다. 최신 <button class="term" data-term="RAP" type="button">RAP</button>을 배우더라도 데이터 조회, 구조화, 디버깅 기본기는 Classic ABAP에서 시작된다.</p>
+</section>
+<section class="section-card prose-practice" data-prose="practice" id="flow">
+<div class="section-label">02 · 기본 흐름</div>
+<h2>Report 프로그램의 전형적인 흐름</h2>
+<div class="flow"><div class="flow-step prose-practice" data-prose="practice"><span class="num">1</span><div><div class="flow-title">입력 받기</div><p>Selection Screen에서 조건을 입력받습니다.</p></div></div><div class="flow-step prose-practice" data-prose="practice"><span class="num">2</span><div><div class="flow-title">데이터 조회</div><p>Open SQL로 필요한 컬럼만 조회한다.</p></div></div><div class="flow-step prose-practice" data-prose="practice"><span class="num">3</span><div><div class="flow-title">내부 테이블 가공</div><p>Internal Table에서 정렬, 필터, 집계를 수행한다.</p></div></div><div class="flow-step prose-practice" data-prose="practice"><span class="num">4</span><div><div class="flow-title">출력</div><p>ALV 또는 콘솔로 결과를 보여준다.</p></div></div></div>
+</section>
+<section class="section-card prose-structure" data-prose="structure" id="code">
+<div class="section-label">03 · 코드</div>
+<h2>초급자용 Report 뼈대</h2>
+<div class="code-block prose-reference" data-prose="reference">
+<div class="code-header"><span>Report 기본 구조</span></div>
+<pre><code>REPORT zr_demo_flight.
+
+SELECT-OPTIONS so_carr FOR sflight-carrid.
+
+START-OF-SELECTION.
+  SELECT carrid, connid, fldate, price, currency
+    FROM sflight
+    WHERE carrid IN @so_carr
+    INTO TABLE @DATA(lt_flight).
+
+  cl_demo_output=&gt;display( lt_flight ).</code></pre>
+</div>
+</section>
+<section class="section-card prose-practice" data-prose="practice" id="check">
+<div class="section-label">04 · 체크리스트</div>
+<h2>처음부터 습관화할 기준</h2>
+<ol><li><code>SELECT *</code>를 지양한다.</li><li>LOOP 안 SELECT를 피한다.</li><li>입력, 조회, 가공, 출력을 함수나 메서드로 분리한다.</li></ol>
+</section></main>
+<aside class="toc prose-reference" data-prose="reference">
+<div class="library-tree" data-nav-tree="main" data-prose="reference"></div>
+<hr class="tree-separator"/>
+<div class="local-page-tools" data-prose="reference">
+<h2>이 문서 안에서</h2>
+</div>
+<h2>학습 목차</h2><a href="#role">01. 역할</a><a href="#flow">02. 기본 흐름</a><a href="#code">03. 작은 예시</a><a href="#check">04. 체크</a></aside>
+</div>
+<footer class="library-footer prose-summary" data-prose="summary">Classic ABAP 기본기 · v3 · 2026-05-27 · 배포자: 정훈영 · 혼합 문체 기준 · Final</footer>
+</body>
+</html>

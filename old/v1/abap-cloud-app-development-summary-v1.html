@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>ABAP Cloud App Development 정리</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 40px;
+            color: #333;
+        }
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            background: #ffffff;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        h1 {
+            font-size: 32px;
+            border-bottom: 3px solid #2d6cdf;
+            padding-bottom: 10px;
+        }
+        h2 {
+            margin-top: 40px;
+            color: #2d6cdf;
+        }
+        h3 {
+            margin-top: 25px;
+        }
+        ul {
+            line-height: 1.8;
+        }
+        .flow {
+            background: #eef4ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: Consolas, monospace;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th {
+            background: #f1f3f5;
+            padding: 12px;
+        }
+        td {
+            padding: 10px;
+        }
+        .footer {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 14px;
+            color: #777;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 3px 6px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+<h1>ABAP Cloud App Development 정리</h1>
+
+<h2>1. 현대 ABAP 개발 방향</h2>
+<div class="flow">
+SELECT → Internal Table → ALV → Web 확장
+</div>
+<p>
+기존 방식은 ABAP에서 데이터를 가공한 후 화면에 출력하는 구조였습니다. 
+현재는 <span class="highlight">Code Push Down</span> 개념을 기반으로 DB 레벨에서 최대한 처리하는 구조로 발전하였습니다.
+</p>
+
+<h2>2. Core Data Service (CDS)</h2>
+<ul>
+<li>Association (Join)</li>
+<li>Aggregation (합계, 개수)</li>
+<li>통화/수량 환산</li>
+<li>계산 필드</li>
+<li>Annotation 기반 UI 제어</li>
+</ul>
+<p>CDS는 단순 조회가 아니라, DB View를 고도화한 모델링 기술입니다.</p>
+
+<h2>3. RAP (Restful Application Programming Model)</h2>
+<ul>
+<li>CRUD 지원</li>
+<li>Draft (임시저장)</li>
+<li>Validation</li>
+<li>Determination</li>
+<li>Action</li>
+<li>Numbering</li>
+</ul>
+
+<h2>4. RAP 전체 구조</h2>
+<div class="flow">
+Database Table<br>
+↓<br>
+CDS Interface View<br>
+↓<br>
+CDS Projection View<br>
+↓<br>
+Metadata Extension<br>
+↓<br>
+Behavior Definition<br>
+↓<br>
+Behavior Projection<br>
+↓<br>
+Service Definition<br>
+↓<br>
+Service Binding
+</div>
+
+<h2>5. OData Service 구현 방식</h2>
+
+<h3>① SAP GUI (SEGW) 방식</h3>
+<ul>
+<li>Data Model 정의</li>
+<li>ABAP Class로 CRUD 직접 구현</li>
+<li>RFC / Search Help / CDS 연결 가능</li>
+</ul>
+
+<h3>② CDS 기반 자동 서비스</h3>
+<ul>
+<li>@OData.publish: true</li>
+<li>조회 전용</li>
+<li>/IWFND/MAINT_SERVICE 등록 필요</li>
+</ul>
+
+<h3>③ RAP 기반 서비스</h3>
+<ul>
+<li>CRUD 가능</li>
+<li>Draft 가능</li>
+<li>비즈니스 로직 Class 구현</li>
+<li>Cloud 표준 개발 모델</li>
+</ul>
+
+<h2>6. 실무 설계 방향</h2>
+<ul>
+<li>Master(기준정보) 테이블 설계</li>
+<li>Transaction 테이블 설계</li>
+<li>Data Element / Domain 명확화</li>
+<li>CDS 기반 모델링</li>
+<li>RAP 확장</li>
+</ul>
+
+<h2>7. 학습 로드맵</h2>
+<ol>
+<li>CDS 조회 이해</li>
+<li>@OData.publish 실습</li>
+<li>SEGW CRUD 경험</li>
+<li>RAP 구조 이해</li>
+<li>Draft, Action, Determination 심화</li>
+</ol>
+
+<div class="footer">
+강사 정훈영<br>
+ABAP Cloud · RAP · CDS Architecture
+</div>
+
+</div>
+</body>
+</html>

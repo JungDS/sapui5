@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SAP 개발자 학습 로드맵 · 혼합 문체 · SAP Developer Learning Library v3</title>
+<link href="../assets/common.css" rel="stylesheet"/>
+<script defer="" src="../assets/common.js"></script>
+<!-- data-prose required: concept | structure | practice | checklist | warning | teacher | reference | summary --></head>
+<body data-active-category="roadmap" data-active-doc="roadmap" data-prose-root="true">
+<header class="library-topbar prose-summary" data-prose="summary">
+<div class="library-topbar__inner">
+<a class="library-home" href="../index.html">← SAP 학습자료 홈</a>
+<div class="library-meta">
+<span class="badge blue">v3</span>
+<span class="badge green">00. 로드맵 / 학습전략</span>
+<span class="badge amber">배포자: 정훈영</span>
+<span class="badge purple">혼합 문체</span></div>
+</div>
+</header>
+<div class="library-shell">
+<section class="hero prose-summary" data-prose="summary">
+<div class="breadcrumb" data-prose="summary">
+<a href="../index.html">Home</a>
+<span>›</span>
+<a href="../pages/roadmap.html">로드맵 / 학습전략</a>
+<span>›</span>
+<span>현재 문서</span>
+</div>
+
+<div class="eyebrow">SAP Developer Learning Library</div>
+<h1>SAP 개발자 학습 로드맵</h1>
+<p class="lead">ABAP Classic, Gateway, RAP, SAPUI5, Fiori Elements, 모듈 기초지식을 어떤 순서로 학습할지 안내한다.</p>
+<div class="hero-actions"><span class="badge blue">P0</span><span class="badge green">입문</span><span class="badge purple">본문 평서형</span><span class="badge amber">실습 지시형</span></div>
+</section>
+<main><section class="section-card prose-structure" data-prose="structure" id="start">
+<div class="section-label">01 · 큰 그림</div>
+<h2>SAP 개발자는 기술과 업무를 함께 봐야 한다</h2>
+<p class="lead-text">SAP 개발 학습은 <button class="term" data-term="ABAP" type="button">ABAP</button> 문법만 익히는 것으로 끝나지 않습니다. 화면은 <button class="term" data-term="SAPUI5" type="button">SAPUI5</button>나 <button class="term" data-term="Fiori Elements" type="button">Fiori Elements</button>로 만들고, 데이터는 <button class="term" data-term="OData" type="button">OData</button>나 <button class="term" data-term="RAP" type="button">RAP</button>으로 노출하며, 요구사항은 <button class="term" data-term="MM" type="button">MM</button>, <button class="term" data-term="SD" type="button">SD</button>, <button class="term" data-term="FI" type="button">FI</button> 같은 모듈 업무에서 나온다.</p>
+<div class="grid-3">
+<div class="mini-card prose-structure" data-prose="structure"><h3>서버 개발</h3><p><button class="term" data-term="Classic ABAP" type="button">Classic ABAP</button>, <button class="term" data-term="Gateway" type="button">Gateway</button>, <button class="term" data-term="RAP" type="button">RAP</button>을 단계적으로 학습한다.</p></div>
+<div class="mini-card prose-structure" data-prose="structure"><h3>화면 개발</h3><p>Freestyle UI5와 Fiori Elements를 분리해서 배웁니다.</p></div>
+<div class="mini-card prose-structure" data-prose="structure"><h3>업무 이해</h3><p>MM/PP/SD/FI/CO의 주요 프로세스와 테이블 구조를 익힌다.</p></div>
+</div>
+</section>
+<section class="section-card prose-structure" data-prose="structure" id="path">
+<div class="section-label">02 · 권장 순서</div>
+<h2>초심자에게 추천하는 학습 순서</h2>
+<div class="flow"><div class="flow-step prose-structure" data-prose="structure"><span class="num">1</span><div><div class="flow-title">1단계: 개발 환경과 도구</div><p>SAP GUI, ADT, 브라우저 개발자 도구, Gateway Client가 각각 언제 쓰이는지 먼저 파악한다.</p></div></div><div class="flow-step prose-structure" data-prose="structure"><span class="num">2</span><div><div class="flow-title">2단계: Classic ABAP</div><p>Report, Internal Table, Open SQL, ALV로 서버 개발 기본기를 만든다.</p></div></div><div class="flow-step prose-structure" data-prose="structure"><span class="num">3</span><div><div class="flow-title">3단계: CDS와 OData</div><p>DB에서 데이터를 잘 모델링하고 UI나 외부 시스템에 노출하는 흐름을 배웁니다.</p></div></div><div class="flow-step prose-structure" data-prose="structure"><span class="num">4</span><div><div class="flow-title">4단계: SAPUI5</div><p>View, Controller, Model, Binding, ODataModel, Messaging을 연결한다.</p></div></div><div class="flow-step prose-structure" data-prose="structure"><span class="num">5</span><div><div class="flow-title">5단계: RAP / Fiori Elements</div><p>현대 S/4HANA 앱 개발 방식으로 확장한다.</p></div></div><div class="flow-step prose-structure" data-prose="structure"><span class="num">6</span><div><div class="flow-title">6단계: 모듈 기초</div><p>개발 요구사항을 이해하기 위해 MM/PP/SD/FI/CO 프로세스와 테이블을 배웁니다.</p></div></div></div>
+</section>
+<section class="section-card prose-practice" data-prose="practice" id="tracks">
+<div class="section-label">03 · 트랙</div>
+<h2>목표에 따라 학습 트랙을 선택한다</h2>
+<table><thead><tr><th>목표</th><th>우선 학습</th></tr></thead><tbody><tr><td>ABAP 개발자</td><td>Classic ABAP → CDS → Gateway → RAP</td></tr><tr><td>UI5 개발자</td><td>UI5 Controller → ODataModel CRUD → Messaging → Routing</td></tr><tr><td>Fiori Elements 개발자</td><td>CDS/RAP → Annotation → Fiori Elements → FLP 배포</td></tr><tr><td>업무 개발자</td><td>모듈 기초 → Standard Table Map → 통합 실습</td></tr></tbody></table>
+</section></main>
+<aside class="toc prose-reference" data-prose="reference">
+<div class="library-tree" data-nav-tree="main" data-prose="reference"></div>
+<hr class="tree-separator"/>
+<div class="local-page-tools" data-prose="reference">
+<h2>이 문서 안에서</h2>
+</div>
+<h2>학습 목차</h2><a href="#start">01. 큰 그림</a><a href="#path">02. 권장 순서</a><a href="#tracks">03. 트랙 선택</a></aside>
+</div>
+<footer class="library-footer prose-summary" data-prose="summary">SAP 개발자 학습 로드맵 · v3 · 2026-05-27 · 배포자: 정훈영 · 혼합 문체 기준 · Final</footer>
+</body>
+</html>

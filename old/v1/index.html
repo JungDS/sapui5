@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SAP 학습자료 HTML 라이브러리</title>
+<style>
+  :root {
+    --bg: #f6f8fb;
+    --paper: #ffffff;
+    --ink: #102033;
+    --muted: #64748b;
+    --line: #dbe5ef;
+    --blue: #0a6ed1;
+    --blue-dark: #064f9e;
+    --blue-soft: #eaf4ff;
+    --green: #16835f;
+    --green-soft: #edf8f3;
+    --amber: #b36b00;
+    --amber-soft: #fff7e6;
+    --purple: #6d3fc0;
+    --purple-soft: #f4efff;
+    --shadow: 0 18px 45px rgba(16, 32, 51, .08);
+    --radius: 22px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    color: var(--ink);
+    background:
+      radial-gradient(circle at 10% 0%, rgba(10, 110, 209, .10), transparent 26rem),
+      radial-gradient(circle at 90% 10%, rgba(22, 131, 95, .10), transparent 26rem),
+      var(--bg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", Arial, sans-serif;
+    line-height: 1.65;
+  }
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 34px 22px 80px;
+  }
+  .hero {
+    background: linear-gradient(135deg, #ffffff 0%, #eef7ff 100%);
+    border: 1px solid var(--line);
+    border-radius: 30px;
+    padding: 42px;
+    box-shadow: var(--shadow);
+    margin-bottom: 24px;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--blue-dark);
+    font-size: .86rem;
+    font-weight: 850;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--blue);
+  }
+  h1 {
+    margin: 12px 0 12px;
+    font-size: clamp(2.1rem, 5vw, 4rem);
+    line-height: 1.08;
+    letter-spacing: -.06em;
+  }
+  .subtitle {
+    max-width: 860px;
+    margin: 0;
+    color: var(--muted);
+    font-size: 1.08rem;
+  }
+  .summary {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 26px;
+  }
+  .summary a {
+    display: block;
+    background: rgba(255,255,255,.76);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 16px;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .summary a:hover {
+    border-color: #a8ccec;
+    background: var(--blue-soft);
+  }
+  .summary strong {
+    display: block;
+    font-size: 1.5rem;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .summary span {
+    color: var(--muted);
+    font-size: .9rem;
+  }
+  .toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: center;
+    background: rgba(246,248,251,.88);
+    backdrop-filter: blur(10px);
+    padding: 14px 0;
+    margin-bottom: 14px;
+  }
+  .search {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: #fff;
+    padding: 13px 16px;
+    font-size: 1rem;
+    color: var(--ink);
+    box-shadow: 0 8px 20px rgba(16,32,51,.04);
+  }
+  .actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .chip {
+    border: 1px solid var(--line);
+    background: #fff;
+    color: var(--ink);
+    border-radius: 999px;
+    padding: 9px 12px;
+    font-weight: 750;
+    cursor: pointer;
+  }
+  .chip.active, .chip:hover {
+    color: var(--blue-dark);
+    background: var(--blue-soft);
+    border-color: #afd2f3;
+  }
+  section {
+    margin-top: 26px;
+  }
+  .section-head {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0 0 12px;
+  }
+  h2 {
+    margin: 0;
+    font-size: 1.55rem;
+    letter-spacing: -.035em;
+  }
+  .section-desc {
+    margin: 4px 0 0;
+    color: var(--muted);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px;
+    box-shadow: 0 12px 30px rgba(16,32,51,.06);
+    display: flex;
+    flex-direction: column;
+    min-height: 245px;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    transition: transform .15s ease;
+    border-color: #b8d7f3;
+  }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .level, .size {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 5px 10px;
+    font-size: .78rem;
+    font-weight: 800;
+  }
+  .level { color: var(--blue-dark); background: var(--blue-soft); }
+  .size { color: var(--green); background: var(--green-soft); }
+  h3 {
+    margin: 0 0 10px;
+    font-size: 1.18rem;
+    line-height: 1.35;
+  }
+  .card p {
+    margin: 0 0 16px;
+    color: var(--muted);
+    flex: 1;
+  }
+  .open-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    width: fit-content;
+    color: #fff;
+    background: var(--blue);
+    border-radius: 12px;
+    padding: 9px 12px;
+    text-decoration: none;
+    font-weight: 800;
+  }
+  .open-link:hover {
+    background: var(--blue-dark);
+  }
+  .filename {
+    margin-top: 12px;
+    font-family: Consolas, Monaco, "Courier New", monospace;
+    font-size: .82rem;
+    color: var(--muted);
+    word-break: break-all;
+  }
+  details {
+    margin-top: 34px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    box-shadow: 0 10px 26px rgba(16,32,51,.05);
+    overflow: hidden;
+  }
+  summary {
+    cursor: pointer;
+    padding: 18px 22px;
+    font-weight: 850;
+    color: var(--blue-dark);
+  }
+  .table-wrap {
+    overflow-x: auto;
+    border-top: 1px solid var(--line);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 840px;
+    font-size: .92rem;
+  }
+  th, td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: #f8fbff;
+    color: #33465c;
+  }
+  code {
+    color: #8a1f3d;
+    background: #fff2f6;
+    border: 1px solid #ffd7e3;
+    border-radius: 7px;
+    padding: 1px 6px;
+    font-family: Consolas, Monaco, "Courier New", monospace;
+    font-size: .9em;
+  }
+  .empty {
+    display: none;
+    background: #fff;
+    border: 1px dashed #b6c8dc;
+    border-radius: 18px;
+    padding: 24px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 18px;
+  }
+  footer {
+    margin-top: 48px;
+    color: var(--muted);
+    font-size: .92rem;
+    text-align: center;
+  }
+  @media (max-width: 900px) {
+    .summary, .grid { grid-template-columns: 1fr; }
+    .toolbar { grid-template-columns: 1fr; }
+    .actions { justify-content: flex-start; }
+    .hero { padding: 30px 24px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">SAP HTML Learning Library</div>
+    <h1>SAP 학습자료 첫 페이지</h1>
+    <p class="subtitle">
+      이 페이지는 같은 폴더에 있는 정리된 HTML 파일을 상대 경로로 엽니다.
+      파일명은 한글, 괄호, 임시 생성명을 제거하고 영문 소문자 kebab-case 기준으로 정리했습니다.
+    </p>
+    <div class="summary">
+      <a href="#sapui5-odata"><strong>🧩 4</strong><span>SAPUI5 / OData</span></a><a href="#abap-rap"><strong>⚙️ 2</strong><span>ABAP / RAP</span></a><a href="#pp-scm"><strong>📦 3</strong><span>PP / SCM</span></a><a href="#fi"><strong>💼 3</strong><span>FI</span></a><a href="#flight"><strong>✈️ 4</strong><span>Flight 통합 실습</span></a>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <input id="search" class="search" type="search" placeholder="자료명, 파일명, 설명 검색..." />
+    <div class="actions" aria-label="카테고리 필터">
+      <button class="chip active" data-filter="all">전체</button>
+      <button class="chip" data-filter="SAPUI5 / OData">SAPUI5 / OData</button><button class="chip" data-filter="ABAP / RAP">ABAP / RAP</button><button class="chip" data-filter="PP / SCM">PP / SCM</button><button class="chip" data-filter="FI">FI</button><button class="chip" data-filter="Flight 통합 실습">Flight 통합 실습</button>
+    </div>
+  </div>
+
+  <main>
+    
+    <section id="sapui5-odata" data-section-category="SAPUI5 / OData">
+      <div class="section-head">
+        <div>
+          <h2>🧩 SAPUI5 / OData</h2>
+          <p class="section-desc">UI5 문법, Messaging, OData 노출과 데이터 흐름 자료</p>
+        </div>
+      </div>
+      <div class="grid">
+        
+          <article class="card" data-category="SAPUI5 / OData" data-title="sap 데이터를 외부로 내보내는 방법 정리" data-file="sap-odata-external-export-summary.html">
+            <div class="card-top">
+              <span class="level">개념 정리</span>
+              <span class="size">10.0 KB</span>
+            </div>
+            <h3>SAP 데이터를 외부로 내보내는 방법 정리</h3>
+            <p>SAP 데이터를 외부 시스템 또는 인터넷으로 노출하는 방식과 선택 기준을 정리한 자료입니다.</p>
+            <a class="open-link" href="./sap-odata-external-export-summary.html">열기 <span aria-hidden="true">→</span></a>
+            <div class="filename">sap-odata-external-export-summary.html</div>
+          </article>
+        
+
+          <article class="card" data-category="SAPUI5 / OData" data-title="ui5 controller 함수 문법 입문" data-file="sapui5-controller-function-intro-v7.html">
+            <div class="card-top">
+              <span class="level">입문</span>
+              <span class="size">74.5 KB</span>
+            </div>
+            <h3>UI5 Controller 함수 문법 입문</h3>
+            <p>SAPUI5 Controller의 함수 문법과 이벤트 핸들러 구조를 초급자 기준으로 설명합니다.</p>
+            <a class="open-link" href="./sapui5-controller-function-intro-v7.html">열기 <span aria-hidden="true">→</span></a>
+            <div class="filename">sapui5-controller-function-intro-v7.html</div>
+          </article>
+        
+
+          <article class="card" data-category="SAPUI5 / OData" data-title="sapui5 messaging과 input validation 실무 입문 v4.4" data-file="sapui5-messaging-input-validation-v4-4.html">
+            <div class="card-top">
+              <span class="level">실무 입문</span>
+              <span class="size">60.9 KB</span>
+            </div>
+            <h3>SAPUI5 Messaging과 Input Validation 실무 입문 v4.4</h3>
+            <p>Input 화면 값과 Model 값의 차이, Messaging, 저장 Guard, OData/RAP 메시지 디버깅까지 다룹니다.</p>
+            <a class="open-link" href="./sapui5-messaging-input-validation-v4-4.html">열기 <span aria-hidden="true">→</span></a>
+            <div class="filename">sapui5-messaging-input-validation-v4-4.html</div>
+          </article>
+        
+
+          <article class="card" data-category="SAPUI5 / OData" data-title="sapui5 데이터 흐름과 messaging의 모든 것 v5.0" data-file="sapui5-messaging-data-flow-v5.html">
+            <div class="card-top">
+              <span class="level">참고</span>
+              <span class="size">22.1 KB</span>
+            </div>
+            <h3>SAPUI5 데이터 흐름과 Messaging의 모든 것 v5.0</h3>
+            <p>SAPUI5 데이터 흐름과 Messaging 아키텍처를 탭 기반 문서로 정리한 참고 자료입니다.</p>
+            <a class="open-link" href="./sapui5-messaging-data-flow-v5.html">열기 <span aria-hidden="true">→</span></a>
+            <div class="filename">sapui5-messaging-data-flow-v5.html</div>
+          </article>
+        
+      </div>
+    </section>
+    
+    <section id="abap-rap" data-section-category="ABAP / RAP">
+      <div class="section-head">
+        <div>
+          <h2>⚙️ ABAP / RAP</h2>
+          <p class="section-desc">ABAP Cloud, CDS/RAP, Action 처리 구조 자료</p>
+        </div>
+      </div>
+      <div class="grid">
+        
+          <article class="card" data-category="ABAP / RAP" data-title="abap cloud app development 정리" data-file="abap-cloud-app-development-summary.html">
+            <div class="card-top">
+              <span class="level">정리</span>
+              <span class="size">3.9 KB</span>
+            </div>
+            <h3>ABAP Cloud App Development 정리</h3>
+            <p>현대 ABAP 개발 방향, CDS, RAP, ABAP Cloud 개발 구조를 정리한 자료입니다.</p>
+            <a class="open-link" href="./abap-cloud-app-development-summary.html">열기 <span aria-hidden="true">→</span></a>
+            <div class="filename">abap-cloud-app-development-summary.html</div>
+          </article>
+        
+
+          <article class="card" data-category="ABAP / RAP" data-title="rap action 다건 선택 처리 정리" data-file="rap-action-invocation-grouping-v2.html">
+            <div class="card-top">
+              <span class="level">실무 정리</span>
+              <span class="size">10.6 KB</span>
+            </div>
+            <h3>RAP Action 다건 선택 처리 정리</h3>
+            <p>RAP Action을 다건 선택 시 한 번의 호출로 Keys를 일괄 전달하는 구조를 설명합니다.</p>
+            <a class="open-link" href="./rap-action-invocation-grouping-v2.html">열기 <span aria-hidden="true">→</span></a>
+            <div class="filename">rap-action-invocation-grouping-v2.html</div>
+          </article>
+        
+      </div>
+    </section>
+    
+    <section id="pp-scm" data-section-category="PP / SCM">
+      <div class="section-head">
+        <div>
+          <h2>📦 PP / SCM</h2>
+          <p class="section-desc">ATP, MRP, 안전재고 등 물류·생산계획 학습자료</p>
+        </div>
+      </div>
+      <div class="grid">
+        
+          <article class="card" data-category="PP / SCM" data-title="sap atp 학생 학습 패키지" data-file="sap-pp-atp-learning-package.html">
+            <div class="card-top">
+              <span class="level">학습 패키지</span>
+              <span class="size">28.4 KB</span>
+            </div>
+            <h3>SAP ATP 학생 학습 패키지</h3>
+            <p>ATP, 판매오더 승인 흐름, 재고와 가용수량의 관계를 학생용으로 설명합니다.</p>
+            <a class="open-link" href="./sap-pp-atp-learning-package.html">열기 <span aria-hidden="true">→</span></a>
+            <div class="filename">sap-pp-atp-learning-package.html</div>
+          </article>
+        
+
+          <article class="card" data-category="PP / SCM" data-title="mrp 학생 배포용 학습 패키지" data-file="sap-pp-mrp-learning-package.html">
+            <div class="card-top">
+              <span class="level">학습 패키지</span>
+              <span class="size">19.6 KB</span>
+            </div>
+            <h3>MRP 학생 배포용 학습 패키지</h3>
+            <p>MRP(Material Requirements Planning)의 기본 흐름과 실무 개념을 교육용으로 정리합니다.</p>
+            <a class="open-link" href="./sap-pp-mrp-learning-package.html">열기 <span aria-hidden="true">→</span></a>
+            <div class="filename">sap-pp-mrp-learning-package.html</div>
+          </article>
+        
+
+          <article class="card" data-category="PP / SCM" data-title="sap 안전재고 관리 학생 학습 패키지" data-file="sap-pp-safety-stock-learning-package.html">
+            <div class="card-top">
+              <span class="level">학습 패키지</span>
+              <span class="size">26.3 KB</span>
+            </div>
+            <h3>SAP 안전재고 관리 학생 학습 패키지</h3>
+            <p>안전재고 관리 개념과 운영 포인트를 학생용 학습자료로 구성합니다.</p>
+            <a class="open-link" href="./sap-pp-safety-stock-learning-package.html">열기 <span aria-hidden="true">→</span></a>
+            <div class="filename">sap-pp-safety-stock-learning-package.html</div>
+          </article>
+        
+      </div>
+    </section>
+    
+    <section id="fi" data-section-category="FI">
+      <div class="section-head">
+        <div>
+          <h2>💼 FI</h2>
+          <p class="section-desc">G/L Accounts 번호범위와 FI 기초 설명자료</p>
+        </div>
+      </div>
+      <div class="grid">
+        
+          <article class="card" data-category="FI" data-title="sap fi g/l accounts 번호범위 visual deck" data-file="sap-fi-gl-number-range-visual-deck.html">
+            <div class="card-top">
+              <span class="level">시각 자료</span>
+              <span class="size">25.7 KB</span>
+            </div>
+            <h3>SAP FI G/L Accounts 번호범위 Visual Deck</h3>
+            <p>G/L Accounts 번호범위를 슬라이드형 인터랙티브 문서로 시각화한 자료입니다.</p>
+            <a class="open-link" href="./sap-fi-gl-number-range-visual-deck.html">열기 <span aria-hidden="true">→</span></a>
+            <div class="filename">sap-fi-gl-number-range-visual-deck.html</div>
+          </article>
+        
+
+          <article class="card" data-category="FI" data-title="sap fi g/l accounts 번호범위 정리 - 성인용" data-file="sap-fi-gl-number-range-adult.html">
+            <div class="card-top">
+              <span class="level">정리</span>
+              <span class="size">13.9 KB</span>
+            </div>
+            <h3>SAP FI G/L Accounts 번호범위 정리 - 성인용</h3>
+            <p>G/L 계정 번호범위 구조를 성인 학습자 기준으로 정리한 자료입니다.</p>
+            <a class="open-link" href="./sap-fi-gl-number-range-adult.html">열기 <span aria-hidden="true">→</span></a>
+            <div class="filename">sap-fi-gl-number-range-adult.html</div>
+          </article>
+        
+
+          <article class="card" data-category="FI" data-title="sap fi g/l accounts 번호범위 정리 - 초급 비유형" data-file="sap-fi-gl-number-range-elementary.html">
+            <div class="card-top">
+              <span class="level">초급</span>
+              <span class="size">10.6 KB</span>
+            </div>
+            <h3>SAP FI G/L Accounts 번호범위 정리 - 초급 비유형</h3>
+            <p>G/L 계정 번호범위를 쉬운 비유 중심으로 설명한 초급자용 자료입니다.</p>
+            <a class="open-link" href="./sap-fi-gl-number-range-elementary.html">열기 <span aria-hidden="true">→</span></a>
+            <div class="filename">sap-fi-gl-number-range-elementary.html</div>
+          </article>
+        
+      </div>
+    </section>
+    
+    <section id="flight" data-section-category="Flight 통합 실습">
+      <div class="section-head">
+        <div>
+          <h2>✈️ Flight 통합 실습</h2>
+          <p class="section-desc">Flight 모델 기반 통합 실습·시험 패키지</p>
+        </div>
+      </div>
+      <div class="grid">
+        
+          <article class="card" data-category="Flight 통합 실습" data-title="sap flight 통합 실습 시험 패키지 v1" data-file="sap-flight-practice-exam-v1-integrated.html">
+            <div class="card-top">
+              <span class="level">v1</span>
+              <span class="size">12.3 KB</span>
+            </div>
+            <h3>SAP Flight 통합 실습 시험 패키지 v1</h3>
+            <p>D75AW, GW100, S4D400, S4D401, S4D437을 하나의 Flight 시나리오로 묶은 초기 통합형 문제 세트입니다.</p>
+            <a class="open-link" href="./sap-flight-practice-exam-v1-integrated.html">열기 <span aria-hidden="true">→</span></a>
+            <div class="filename">sap-flight-practice-exam-v1-integrated.html</div>
+          </article>
+        
+
+          <article class="card" data-category="Flight 통합 실습" data-title="sap flight 통합 실습 시험 패키지 v2 - 단계형" data-file="sap-flight-practice-exam-v2-step-by-step.html">
+            <div class="card-top">
+              <span class="level">v2</span>
+              <span class="size">19.1 KB</span>
+            </div>
+            <h3>SAP Flight 통합 실습 시험 패키지 v2 - 단계형</h3>
+            <p>Flight 통합 실습을 단계별 문제로 풀 수 있도록 구성한 하루 코스형 자료입니다.</p>
+            <a class="open-link" href="./sap-flight-practice-exam-v2-step-by-step.html">열기 <span aria-hidden="true">→</span></a>
+            <div class="filename">sap-flight-practice-exam-v2-step-by-step.html</div>
+          </article>
+        
+
+          <article class="card" data-category="Flight 통합 실습" data-title="sap flight 통합 실습 시험 패키지 v3 - 답안지 수준" data-file="sap-flight-practice-exam-v3-answer-key.html">
+            <div class="card-top">
+              <span class="level">v3</span>
+              <span class="size">18.6 KB</span>
+            </div>
+            <h3>SAP Flight 통합 실습 시험 패키지 v3 - 답안지 수준</h3>
+            <p>출제자 또는 강사용 해설본/답안지 수준으로 상세화한 Flight 통합 실습 자료입니다.</p>
+            <a class="open-link" href="./sap-flight-practice-exam-v3-answer-key.html">열기 <span aria-hidden="true">→</span></a>
+            <div class="filename">sap-flight-practice-exam-v3-answer-key.html</div>
+          </article>
+        
+
+          <article class="card" data-category="Flight 통합 실습" data-title="sap flight 통합 실습 시험 패키지 v4 - classrun, gw, ui5" data-file="sap-flight-practice-exam-v4-classrun-gw-ui5.html">
+            <div class="card-top">
+              <span class="level">v4</span>
+              <span class="size">16.9 KB</span>
+            </div>
+            <h3>SAP Flight 통합 실습 시험 패키지 v4 - ClassRun, GW, UI5</h3>
+            <p>ClassRun 단독 실행, Gateway CRUD, UI5 연동까지 포함한 최신 Flight 통합 실습 스펙입니다.</p>
+            <a class="open-link" href="./sap-flight-practice-exam-v4-classrun-gw-ui5.html">열기 <span aria-hidden="true">→</span></a>
+            <div class="filename">sap-flight-practice-exam-v4-classrun-gw-ui5.html</div>
+          </article>
+        
+      </div>
+    </section>
+    
+
+    <div class="empty" id="empty">검색 조건에 맞는 자료가 없습니다.</div>
+
+    <details>
+      <summary>파일명 변경표 보기</summary>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>기존 파일명</th>
+              <th>변경 파일명</th>
+              <th>분류</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+      <tr>
+        <td>01</td>
+        <td><code>ABAP_Cloud_App_Development_정리.html</code></td>
+        <td><a href="./abap-cloud-app-development-summary.html"><code>abap-cloud-app-development-summary.html</code></a></td>
+        <td>ABAP / RAP</td>
+      </tr>
+    
+
+      <tr>
+        <td>02</td>
+        <td><code>RAP_Action_Invocation_Grouping_정리_v2.html</code></td>
+        <td><a href="./rap-action-invocation-grouping-v2.html"><code>rap-action-invocation-grouping-v2.html</code></a></td>
+        <td>ABAP / RAP</td>
+      </tr>
+    
+
+      <tr>
+        <td>03</td>
+        <td><code>sap_odata_export_summary.html</code></td>
+        <td><a href="./sap-odata-external-export-summary.html"><code>sap-odata-external-export-summary.html</code></a></td>
+        <td>SAPUI5 / OData</td>
+      </tr>
+    
+
+      <tr>
+        <td>04</td>
+        <td><code>ui5_controller_function_intro_v7(1).html</code></td>
+        <td><a href="./sapui5-controller-function-intro-v7.html"><code>sapui5-controller-function-intro-v7.html</code></a></td>
+        <td>SAPUI5 / OData</td>
+      </tr>
+    
+
+      <tr>
+        <td>05</td>
+        <td><code>ui5-message-manager-beginner-guide-1.120-v4.4(1).html</code></td>
+        <td><a href="./sapui5-messaging-input-validation-v4-4.html"><code>sapui5-messaging-input-validation-v4-4.html</code></a></td>
+        <td>SAPUI5 / OData</td>
+      </tr>
+    
+
+      <tr>
+        <td>06</td>
+        <td><code>gemini-code-1779869734188.html</code></td>
+        <td><a href="./sapui5-messaging-data-flow-v5.html"><code>sapui5-messaging-data-flow-v5.html</code></a></td>
+        <td>SAPUI5 / OData</td>
+      </tr>
+    
+
+      <tr>
+        <td>07</td>
+        <td><code>atp_student_learning_package(1).html</code></td>
+        <td><a href="./sap-pp-atp-learning-package.html"><code>sap-pp-atp-learning-package.html</code></a></td>
+        <td>PP / SCM</td>
+      </tr>
+    
+
+      <tr>
+        <td>08</td>
+        <td><code>mrp_student_learning_package.html</code></td>
+        <td><a href="./sap-pp-mrp-learning-package.html"><code>sap-pp-mrp-learning-package.html</code></a></td>
+        <td>PP / SCM</td>
+      </tr>
+    
+
+      <tr>
+        <td>09</td>
+        <td><code>safety_stock_student_learning_package(2).html</code></td>
+        <td><a href="./sap-pp-safety-stock-learning-package.html"><code>sap-pp-safety-stock-learning-package.html</code></a></td>
+        <td>PP / SCM</td>
+      </tr>
+    
+
+      <tr>
+        <td>10</td>
+        <td><code>sap_fi_gl_ppt_visual_pro.html</code></td>
+        <td><a href="./sap-fi-gl-number-range-visual-deck.html"><code>sap-fi-gl-number-range-visual-deck.html</code></a></td>
+        <td>FI</td>
+      </tr>
+    
+
+      <tr>
+        <td>11</td>
+        <td><code>sap_gl_number_range_adult-1.html</code></td>
+        <td><a href="./sap-fi-gl-number-range-adult.html"><code>sap-fi-gl-number-range-adult.html</code></a></td>
+        <td>FI</td>
+      </tr>
+    
+
+      <tr>
+        <td>12</td>
+        <td><code>sap_gl_number_range_elementary.html</code></td>
+        <td><a href="./sap-fi-gl-number-range-elementary.html"><code>sap-fi-gl-number-range-elementary.html</code></a></td>
+        <td>FI</td>
+      </tr>
+    
+
+      <tr>
+        <td>13</td>
+        <td><code>SAP_Flight_Practice_Exam_Pack(1).html</code></td>
+        <td><a href="./sap-flight-practice-exam-v1-integrated.html"><code>sap-flight-practice-exam-v1-integrated.html</code></a></td>
+        <td>Flight 통합 실습</td>
+      </tr>
+    
+
+      <tr>
+        <td>14</td>
+        <td><code>SAP_Flight_Practice_Exam_Pack_v2_StepByStep.html</code></td>
+        <td><a href="./sap-flight-practice-exam-v2-step-by-step.html"><code>sap-flight-practice-exam-v2-step-by-step.html</code></a></td>
+        <td>Flight 통합 실습</td>
+      </tr>
+    
+
+      <tr>
+        <td>15</td>
+        <td><code>SAP_Flight_Practice_Exam_Pack_v3_AnswerKeyLevel.html</code></td>
+        <td><a href="./sap-flight-practice-exam-v3-answer-key.html"><code>sap-flight-practice-exam-v3-answer-key.html</code></a></td>
+        <td>Flight 통합 실습</td>
+      </tr>
+    
+
+      <tr>
+        <td>16</td>
+        <td><code>SAP_Flight_Practice_Exam_Pack_v4_ClassRun_GW_UI5.html</code></td>
+        <td><a href="./sap-flight-practice-exam-v4-classrun-gw-ui5.html"><code>sap-flight-practice-exam-v4-classrun-gw-ui5.html</code></a></td>
+        <td>Flight 통합 실습</td>
+      </tr>
+    
+          </tbody>
+        </table>
+      </div>
+    </details>
+  </main>
+
+  <footer>
+    index.html · 상대경로 링크 기준 · 총 16개 HTML 자료 · 생성일 2026-05-27
+  </footer>
+</div>
+
+<script>
+(function () {
+  var search = document.getElementById('search');
+  var chips = Array.from(document.querySelectorAll('.chip'));
+  var cards = Array.from(document.querySelectorAll('.card'));
+  var sections = Array.from(document.querySelectorAll('section[data-section-category]'));
+  var empty = document.getElementById('empty');
+  var activeFilter = 'all';
+
+  function normalize(value) {
+    return (value || '').toLowerCase().trim();
+  }
+
+  function applyFilter() {
+    var keyword = normalize(search.value);
+    var visibleCount = 0;
+
+    cards.forEach(function (card) {
+      var category = card.getAttribute('data-category');
+      var text = normalize(card.textContent + ' ' + card.getAttribute('data-file') + ' ' + card.getAttribute('data-title'));
+      var matchCategory = activeFilter === 'all' || category === activeFilter;
+      var matchKeyword = !keyword || text.indexOf(keyword) >= 0;
+      var show = matchCategory && matchKeyword;
+      card.style.display = show ? '' : 'none';
+      if (show) visibleCount += 1;
+    });
+
+    sections.forEach(function (section) {
+      var hasVisibleCard = Array.from(section.querySelectorAll('.card')).some(function (card) {
+        return card.style.display !== 'none';
+      });
+      section.style.display = hasVisibleCard ? '' : 'none';
+    });
+
+    empty.style.display = visibleCount === 0 ? 'block' : 'none';
+  }
+
+  search.addEventListener('input', applyFilter);
+
+  chips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      chips.forEach(function (item) { item.classList.remove('active'); });
+      chip.classList.add('active');
+      activeFilter = chip.getAttribute('data-filter');
+      applyFilter();
+    });
+  });
+
+  applyFilter();
+}());
+</script>
+</body>
+</html>

@@ -1,0 +1,403 @@
+<!doctype html><html lang="ko"><meta charset="utf-8">
+<title>SAP Flight 통합 실습 시험 패키지 v3 (정답지 수준, 단계형)</title>
+<body>
+<h1>SAP Flight 통합 실습 시험 패키지 v3</h1>
+<p><b>대상:</b> D75AW / GW100 / S4D400 / S4D401 / S4D437</p>
+<p><b>형태:</b> “하나의 시나리오”를 끝까지 완성하는 통합형 실습 시험. 본 문서는 <b>해설본/답안지 수준</b>으로 작성되어, 출제자가 그대로 문서화/재작성할 수 있게 구성합니다.</p>
+<hr>
+
+<h2>0. 중요 정정(오류 수정): 클래스(ClassRun)와 SSCR(Selection Screen)</h2>
+<p><b>정정:</b> ABAP 클래스(특히 IF_OO_ADT_CLASSRUN 기반 실행 클래스) 단독으로는 전통적인 Selection Screen(SSCR)을 만들 수 없습니다.</p>
+<ul>
+  <li>Selection Screen은 <b>리포트 프로그램(Report)</b>에서 제공되는 런타임(UI)입니다.</li>
+  <li>따라서 “클래스 + SSCR”을 함께 요구하려면, <b>리포트(SSCR 담당) → 클래스(로직 담당)</b> 구조로 분리해야 합니다.</li>
+</ul>
+
+<h3>권장 표준 구조(시험 산출물 기준)</h3>
+<ol>
+  <li><b>Report</b> (예: ZR_FLT_KPI): SSCR 정의 + 입력 검증 + 클래스 호출</li>
+  <li><b>Class</b> (예: ZCL_FLT_KPI_REPORT): 조회/집계/출력 데이터 생성(순수 로직)</li>
+  <li><b>Interface/DTO</b>(선택): 입력 파라미터 구조(ty_selection)와 결과 구조(ty_kpi_carrier 등)</li>
+</ol>
+<p><b>채점 관점:</b> SSCR/UI는 Report에, 핵심 로직은 Class에 두는 것이 유지보수/테스트/재사용 관점에서 가장 합리적입니다.</p>
+
+<hr>
+
+<h2>1. 공통 Flight 시나리오</h2>
+<p>항공 운영팀은 (1) 운항/좌석/매출 KPI를 빠르게 보고, (2) 외부 채널(UI/API)로 제공하고, (3) 이상 징후(Alert)를 등록해 추적하려 합니다.</p>
+<p>사용 테이블: SCARR, SPFLI, SFLIGHT, SBOOK, SAIRPLANE, SCUSTOM, STRAVELAG</p>
+
+<h3>공통 규칙(채점 공통)</h3>
+<ul>
+  <li>LOOP 안 SELECT 금지(예외 시 근거 + 대안 필수)</li>
+  <li>가능하면 집계/계산은 DB에서 수행(SQL GROUP BY 또는 CDS)</li>
+  <li>필요 컬럼만 SELECT</li>
+  <li>레이어 분리: 입력(Report) / 로직(Class) / 노출(GW/RAP)</li>
+</ul>
+
+<hr>
+
+<h2>2. D75AW – “KPI 리포트(Report + Class)” (단계형 12문항)</h2>
+<p><b>산출물:</b></p>
+<ul>
+  <li><b>Report:</b> ZR_FLT_KPI (Selection Screen + 실행 진입점)</li>
+  <li><b>Class:</b> ZCL_FLT_KPI_REPORT (순수 로직: 조회/집계/예외/출력 데이터 생성)</li>
+</ul>
+
+<h3>공통 데이터 정의(답안 가이드)</h3>
+<p>아래는 “정답 설계”의 최소 기준입니다. 필드명은 시스템 표준에 맞추고, 출력/집계 목적에 맞게 조정 가능합니다.</p>
+<ul>
+  <li><b>ty_selection</b>: carrid range, connid range/param, fldate range, mode, page, size, (옵션) currency handling</li>
+  <li><b>ty_raw_flight</b>: carrid, connid, fldate, seatsmax, seatsocc, (가능하면) planetype/price/currency, cityfrom/cityto, carrname</li>
+  <li><b>ty_raw_book_agg</b>: group key(예: carrid/connid/fldate) + revenue_sum + currency</li>
+  <li><b>ty_kpi_carrier</b>: carrid, carrname, flights_cnt, seatsmax_sum, seatsocc_sum, occupancy_pct, revenue_sum, currency, status</li>
+  <li><b>ty_kpi_route</b>: carrid, connid, cityfrom, cityto, flights_cnt, occupancy_pct, revenue_sum, currency, status</li>
+  <li><b>ty_exception</b>: reason_code, severity, carrid, connid, fldate, details</li>
+</ul>
+
+<h3>문제 1. Report 뼈대 + SSCR 구성(정답지 수준)</h3>
+<p><b>목표:</b> 사용자의 입력을 안정적으로 수집하고, 클래스에 전달할 “표준 입력 구조(ty_selection)”로 변환합니다.</p>
+<p><b>정답 구조:</b></p>
+<ol>
+  <li>Report 생성: ZR_FLT_KPI</li>
+  <li>Selection Screen 정의:
+    <ul>
+      <li>SELECT-OPTIONS: so_carr FOR scarr-carrid</li>
+      <li>SELECT-OPTIONS 또는 PARAMETERS: so_conn(또는 p_conn) for spfli-connid</li>
+      <li>SELECT-OPTIONS: so_date FOR sflight-fldate</li>
+      <li>PARAMETERS: p_mode RADIOBUTTON GROUP g1 (SUMMARY/DETAIL)</li>
+      <li>PARAMETERS: p_page TYPE i DEFAULT 1, p_size TYPE i DEFAULT 50</li>
+    </ul>
+  </li>
+  <li>AT SELECTION-SCREEN 또는 START-OF-SELECTION에서 입력 검증</li>
+  <li>입력값을 ty_selection에 매핑 후 클래스 호출</li>
+</ol>
+<p><b>검증 체크(정답 기준):</b></p>
+<ul>
+  <li>p_page &gt;= 1</li>
+  <li>1 &lt;= p_size &lt;= 500</li>
+  <li>so_date가 비어있으면 기본값(오늘-30~오늘) 자동 설정</li>
+</ul>
+<p><b>왜 이렇게 하는가(해설):</b> SSCR은 Report가 담당하고, Class는 UI에 의존하지 않게 만들어야 재사용(ADT 실행, 배치, 테스트)이 가능합니다.</p>
+
+<h3>문제 2. Class API 설계(입력/출력 계약 정의)</h3>
+<p><b>목표:</b> Report가 호출할 “단일 진입 메소드”와 결과 반환 형태를 고정합니다.</p>
+<p><b>정답 설계 예:</b></p>
+<ul>
+  <li>PUBLIC METHOD run
+    <ul>
+      <li>IMPORTING is_sel TYPE ty_selection</li>
+      <li>EXPORTING et_carrier TYPE tt_kpi_carrier et_route TYPE tt_kpi_route et_detail TYPE tt_raw_flight et_ex TYPE tt_exception</li>
+    </ul>
+  </li>
+</ul>
+<p><b>해설:</b> run( )은 “Use-case 단위”로 설계합니다. 여러 getter를 외부에 노출하면 결합도가 올라가고 시험 채점도 어려워집니다.</p>
+
+<h3>문제 3. 원천 조회 ① Flight Raw (JOIN + 최소 컬럼 + 필터)</h3>
+<p><b>목표:</b> KPI 계산의 기반이 되는 운항 데이터를 한 번에 수집합니다.</p>
+<p><b>정답 접근:</b></p>
+<ol>
+  <li>조회 중심 테이블: SFLIGHT</li>
+  <li>JOIN:
+    <ul>
+      <li>SFLIGHT.carrid = SCARR.carrid</li>
+      <li>SFLIGHT.carrid/connid = SPFLI.carrid/connid (노선의 cityfrom/cityto 얻기 위함)</li>
+    </ul>
+  </li>
+  <li>WHERE:
+    <ul>
+      <li>carrid IN so_carr</li>
+      <li>connid IN so_conn(또는 = p_conn)</li>
+      <li>fldate IN so_date</li>
+    </ul>
+  </li>
+  <li>SELECT 컬럼(예시, 최소):
+    <ul>
+      <li>carrid, connid, fldate, seatsmax, seatsocc</li>
+      <li>carrname, cityfrom, cityto</li>
+    </ul>
+  </li>
+</ol>
+<p><b>정답 품질 기준:</b> SELECT * 사용하지 않음. JOIN/WHERE는 DB에서 수행. 결과는 정렬 기준(키) 일관.</p>
+
+<h3>문제 4. 원천 조회 ② Booking Revenue (집계 형태로 가져오기)</h3>
+<p><b>목표:</b> SBOOK의 금액을 “필요한 집계 단위”로 DB에서 미리 집계합니다.</p>
+<p><b>정답 설계(권장):</b></p>
+<ul>
+  <li>Carrier KPI용: GROUP BY carrid, (가능하면) currency</li>
+  <li>Route KPI용: GROUP BY carrid, connid, (가능하면) currency</li>
+  <li>상세/일자까지 필요하면: GROUP BY carrid, connid, fldate, currency</li>
+</ul>
+<p><b>통화 처리(정답 기준):</b></p>
+<ul>
+  <li>최소 정답: currency가 섞이면 합산을 분리(통화별)하거나, “단일 통화만 지원”을 명시하고 예외로 분류</li>
+  <li>가산점: 기준통화 파라미터를 받아 환산 후 합산(시스템 기능/제약이 있으면 설명 포함)</li>
+</ul>
+
+<h3>문제 5. KPI 집계 ① Carrier KPI 생성(집계 + 상태 분류)</h3>
+<p><b>목표:</b> 항공사 단위 KPI 테이블을 생성합니다.</p>
+<p><b>정답 계산식:</b></p>
+<ul>
+  <li>flights_cnt = 항공편 건수</li>
+  <li>seatsmax_sum = SUM(seatsmax)</li>
+  <li>seatsocc_sum = SUM(seatsocc)</li>
+  <li>occupancy_pct = (seatsocc_sum / seatsmax_sum) * 100</li>
+</ul>
+<p><b>0 나누기 방지(정답 처리):</b> seatsmax_sum = 0이면 occupancy_pct는 0 또는 initial 처리 + 예외 목록(reason=SEATSMAX_ZERO)로 이동.</p>
+<p><b>상태(status) 분류(정답 예):</b></p>
+<ul>
+  <li>occupancy_pct &gt;= 85 → 'HIGH'</li>
+  <li>50~84 → 'MID'</li>
+  <li>그 외 → 'LOW'</li>
+</ul>
+
+<h3>문제 6. KPI 집계 ② Route KPI 생성(노선 단위)</h3>
+<p><b>목표:</b> carrid+connid 단위로 KPI를 생성하고, cityfrom/cityto를 포함합니다.</p>
+<p><b>정답 포인트:</b></p>
+<ul>
+  <li>Group key가 route 기준(carrid+connid)으로 일관되어야 합니다.</li>
+  <li>cityfrom/cityto는 SPFLI에서 확보되며, 조인/매핑이 정확해야 합니다.</li>
+</ul>
+
+<h3>문제 7. 매출(Revenue) 결합 로직(정답: 키 기반 매핑)</h3>
+<p><b>목표:</b> Booking 집계 결과를 KPI 테이블에 결합합니다.</p>
+<p><b>정답 구현 원칙:</b></p>
+<ul>
+  <li>ITAB을 HASHED(키=그룹키)로 만들고 READ TABLE로 결합</li>
+  <li>또는 SQL 단계에서 조인하여 KPI를 완성(성능/가산점)</li>
+</ul>
+<p><b>실격 패턴:</b> KPI LOOP 안에서 SBOOK을 다시 SELECT하는 구조.</p>
+
+<h3>문제 8. 예외/이상치 목록(Exception) 설계 및 생성</h3>
+<p><b>목표:</b> 운영 관점에서 “데이터 품질/경보” 정보를 제공할 수 있어야 합니다.</p>
+<p><b>정답 예외 규칙(최소 4개 이상):</b></p>
+<ul>
+  <li>SEATSMAX=0</li>
+  <li>SEATSOCC &gt; SEATSMAX</li>
+  <li>필터 범위 밖(입력 검증 실패 포함)</li>
+  <li>통화 혼합으로 합산 불가</li>
+</ul>
+<p><b>정답 출력:</b> reason_code + severity + key(carrid/connid/fldate) + 설명(details)을 명확히 남김.</p>
+
+<h3>문제 9. 페이징: DB 페이징 우선 + 대안 제시(정답지)</h3>
+<p><b>정답 설계:</b></p>
+<ul>
+  <li>정렬 기준 고정: carrid, connid, fldate (가능하면 추가 키)</li>
+  <li>offset = (page-1) * size</li>
+  <li>DB에서 OFFSET/UP TO 적용 가능하면 그대로 적용</li>
+</ul>
+<p><b>대안(Seek 방식) 정답 설명:</b> offset이 커질수록 비용이 증가할 수 있으므로, 마지막 키를 기준으로 “그 이후”를 조회하는 방식도 제시할 수 있습니다. 단, 이 방식은 UI가 last_key를 기억해야 하므로 계약이 바뀝니다.</p>
+
+<h3>문제 10. 출력(Report에서) – SUMMARY/DETAIL 분기(정답 기준)</h3>
+<p><b>정답 구조:</b> 출력은 Report가 담당합니다(클래스는 결과만 반환).</p>
+<ul>
+  <li>SUMMARY: Carrier KPI / Route KPI / Exception 3블록 출력</li>
+  <li>DETAIL: SUMMARY + Flight Detail(페이징 적용) 추가 출력</li>
+</ul>
+<p><b>채점 기준:</b> 데이터가 많아도 UI/출력이 깨지지 않으며, 모드 전환이 명확합니다.</p>
+
+<h3>문제 11 (추가). 입력/출력 계약 문서화(“API 계약서” 제출)</h3>
+<p><b>목표:</b> 학습자가 “프로그램 인터페이스를 문서화”하도록 유도합니다(실무 필수 역량).</p>
+<p><b>정답 제출물:</b></p>
+<ul>
+  <li>입력: ty_selection 필드 정의 + 기본값 + 유효범위</li>
+  <li>출력: Carrier/Route/Detail/Exception 필드 정의 + 의미</li>
+  <li>정렬 기준/페이징 규칙</li>
+</ul>
+
+<h3>문제 12 (추가). 회귀 테스트 시나리오 8개 설계(테스트 케이스 표)</h3>
+<p><b>목표:</b> “정확성”을 스스로 검증하는 방법을 문제로 학습합니다.</p>
+<p><b>정답 기준(최소 8개):</b></p>
+<ul>
+  <li>기본 실행(최근 30일) – 정상 출력</li>
+  <li>특정 carrid만 – 건수 감소 확인</li>
+  <li>date 범위 1일 – 결과 일관성</li>
+  <li>p_size=1, p_page=2 – 페이징 정확성</li>
+  <li>SEATSMAX=0 존재 시 – Exception 생성 확인</li>
+  <li>통화 혼합 시 – 분리/예외 처리 확인</li>
+  <li>DETAIL 모드 – 상세 + 요약 동시 출력</li>
+  <li>입력 오류(p_page=0) – 사용자 오류 처리</li>
+</ul>
+
+<hr>
+
+<h2>3. S4D400 – “Pushdown 리팩토링” (정답지 수준 10문항)</h2>
+<p><b>핵심:</b> D75AW 결과는 유지하면서, “DB에서 할 수 있는 일을 DB로” 옮겨 성능/가독성을 올립니다.</p>
+
+<h3>문제 1. 병목 진단표 작성(정답 제출물)</h3>
+<ul>
+  <li>DB 호출 횟수(개선 전/후)</li>
+  <li>조회 컬럼 수(개선 전/후)</li>
+  <li>ABAP 후처리량(LOOP/READ 횟수 정성)</li>
+</ul>
+
+<h3>문제 2. Carrier KPI를 단일 SQL 집계로 구현(정답 패턴)</h3>
+<p><b>정답 패턴:</b> SFLIGHT를 GROUP BY carrid로 집계하여 flights_cnt, seats sums를 산출. occupancy는 계산식(0 처리 포함)을 DB 또는 ABAP에서 수행.</p>
+
+<h3>문제 3. Route KPI를 단일 SQL 집계로 구현</h3>
+<p><b>정답 포인트:</b> GROUP BY carrid, connid + SPFLI 조인으로 cityfrom/cityto 제공.</p>
+
+<h3>문제 4. Revenue 결합을 “집계 후 조인” 또는 “서브쿼리”로 처리(정답 선택지)</h3>
+<ul>
+  <li>선택지 A: SBOOK 집계 결과를 내부 조인</li>
+  <li>선택지 B: 서브쿼리로 revenue를 붙임(가독성/성능 근거 필요)</li>
+</ul>
+
+<h3>문제 5. New Open SQL 기능 2개 이상 활용(정답 예)</h3>
+<ul>
+  <li>CASE로 status 산출</li>
+  <li>COALESCE로 NULL 처리</li>
+  <li>CAST로 정밀도 보정</li>
+</ul>
+
+<h3>문제 6. Seek 페이징(대량 데이터 대비) 설계 문서(정답 제출물)</h3>
+<p>last_key(carrid, connid, fldate, ...) 기반으로 “그 이후”를 조회하는 WHERE 조건을 설계하고, UI/API 계약 변경점을 서술합니다.</p>
+
+<h3>문제 7. 회귀 비교(정답 기준)</h3>
+<p>동일 입력에서 KPI 총합/점유율(오차 허용 범위) 일치 여부를 비교합니다. 불일치 시 그룹키/통화/조인 중복을 의심하는 분석을 적습니다.</p>
+
+<h3>문제 8. 결과 ITAB 타입 재선정(정답 기준)</h3>
+<ul>
+  <li>DB에서 집계 후 결과 건수가 작아지면 STANDARD 유지 가능</li>
+  <li>키 조회가 많으면 HASHED 채택</li>
+</ul>
+
+<h3>문제 9. 실행 메트릭 출력(가산점 정답)</h3>
+<p>실행 시간, 결과 건수, DB 호출 수 등을 최소 출력합니다(운영 관점).</p>
+
+<h3>문제 10. 리팩토링 보고서(정답 제출물)</h3>
+<ul>
+  <li>전/후 구조(텍스트 다이어그램)</li>
+  <li>핵심 SQL 2~3개</li>
+  <li>남은 리스크(통화/대량 데이터/정렬 안정성)</li>
+</ul>
+
+<hr>
+
+<h2>4. S4D401 – “CDS 레이어링 + UI Annotation” (정답지 수준 10문항)</h2>
+<p><b>핵심:</b> ZI(데이터/비즈니스 의미)와 ZC(소비/UI) 분리. Metadata Extension으로 UI 구조화.</p>
+
+<h3>문제 1. 필드/키 설계서(정답 제출물)</h3>
+<p>Carrier KPI / Route KPI 중 최소 1개를 CDS로 구현해도 되지만, 정답 권장은 “Route KPI”까지 포함합니다.</p>
+
+<h3>문제 2. ZI_FlightKpi 생성(정답 패턴)</h3>
+<ul>
+  <li>FROM SFLIGHT</li>
+  <li>JOIN SPFLI, SCARR</li>
+  <li>(선택) JOIN 또는 별도 집계로 SBOOK revenue 포함</li>
+  <li>SUM/COUNT + GROUP BY</li>
+</ul>
+
+<h3>문제 3. 계산 필드/상태(CASE) 추가</h3>
+<p>occupancy_pct, seatsfree, status 등을 CDS에서 산출하고 0 나누기 방지 로직을 설계합니다.</p>
+
+<h3>문제 4. 금액/통화 Semantics 적용(정답)</h3>
+<p>amount 필드에 currencyCode를 연결해 UI가 통화를 인식하도록 합니다.</p>
+
+<h3>문제 5. 파라미터 CDS(가산점 정답)</h3>
+<p>기간 파라미터를 두어 “범위를 강제”하고 성능/일관성을 높입니다.</p>
+
+<h3>문제 6. ZC_FlightKpi Projection 생성</h3>
+<p>Projection에는 UI/검색/소비 관점 annotation을 집중합니다.</p>
+
+<h3>문제 7. Search 설정</h3>
+<p>carrname/cityfrom/cityto를 검색 대상에 포함하고, 검색 의도를 문서화합니다.</p>
+
+<h3>문제 8. Metadata Extension – Facet 3개 Section</h3>
+<p>요구: Key+Description / 핵심 KPI / 감사/기타 로 구성.</p>
+
+<h3>문제 9. List Report 설계(컬럼/정렬)</h3>
+<p>기본 정렬은 revenue desc 또는 occupancy desc 등으로 의도 설정.</p>
+
+<h3>문제 10. GW100/RAP 재사용 연결성 문서</h3>
+<p>CDS를 Gateway에서 직접 소비할지, 또는 DPC_EXT에서 직접 SQL로 조회할지 선택 근거를 작성합니다.</p>
+
+<hr>
+
+<h2>5. GW100 – “Flight KPI OData V2 서비스” (정답지 수준 10문항)</h2>
+<p><b>핵심:</b> Query Option을 “정확하게” 반영하고, $count/inlinecount의 조건 불일치가 없도록 구현합니다.</p>
+
+<h3>문제 1. 서비스 경계(정답)</h3>
+<p>KPI는 읽기 전용. 변경은 RAP Alert로 분리. 이유: 표준 테이블 변경 회피 + Clean Core.</p>
+
+<h3>문제 2. Entity/Key 설계(정답)</h3>
+<ul>
+  <li>CarrierKpi: Key=carrid (+currency가 섞이면 currency도 키 고려)</li>
+  <li>RouteKpi: Key=carrid+connid (+currency)</li>
+  <li>FlightDetail: Key=carrid+connid+fldate(+flightno)</li>
+</ul>
+
+<h3>문제 3. GET_ENTITYSET 기본</h3>
+<p>기본 기간(최근 30일) 적용. 필터 없으면 제한을 강제(대량 방지).</p>
+
+<h3>문제 4. $filter</h3>
+<p>지원 필드만 허용. 미지원 필터는 400으로 명확히 거절.</p>
+
+<h3>문제 5. $orderby</h3>
+<p>revenue/occupancy 정렬을 DB 쪽 ORDER BY로 반영.</p>
+
+<h3>문제 6. $top/$skip</h3>
+<p>DB 페이징 적용. max top 제한 정책(예: 500) 제시.</p>
+
+<h3>문제 7. $count/inlinecount</h3>
+<p>count는 동일한 WHERE/필터/조인 조건으로 계산되어야 합니다.</p>
+
+<h3>문제 8. $select(가산점)</h3>
+<p>요청된 property만 가져오도록 select list 조정 가능 범위를 문서화.</p>
+
+<h3>문제 9. Navigation(가산점)</h3>
+<p>Carrier → Routes 확장. 구현 난이도가 높으면 “왜 생략하는지”와 대안을 제시.</p>
+
+<h3>문제 10. 운영 체크리스트</h3>
+<p>지원 옵션, 최대 top, 기본 기간 제한, DB 호출 수를 문서화.</p>
+
+<hr>
+
+<h2>6. S4D437 – “Flight Alert RAP BO” (정답지 수준 10문항)</h2>
+<p><b>핵심:</b> 표준 데이터는 건드리지 않고, Alert를 커스텀 테이블에 저장하여 확장합니다.</p>
+
+<h3>문제 1. Clean Core 결정문(정답)</h3>
+<p>표준 Flight 테이블 직접 업데이트 금지 → 업그레이드 안정성/표준 무결성/지원 정책.</p>
+
+<h3>문제 2. ZFLT_ALERT 테이블 설계</h3>
+<p>Key는 UUID 권장. 필수 필드(severity/status/reason/audit) 포함. KPI snapshot은 선택.</p>
+
+<h3>문제 3. ZI_Alert</h3>
+<p>테이블 기반 Interface View 생성 + 의미 라벨 정리.</p>
+
+<h3>문제 4. Managed Behavior</h3>
+<p>Create/Update/Delete 허용, audit 필드 read-only.</p>
+
+<h3>문제 5. Determination</h3>
+<p>created/changed 자동 세팅.</p>
+
+<h3>문제 6. Validation</h3>
+<p>severity 값 검증, OPEN에서만 close 가능 등 규칙.</p>
+
+<h3>문제 7. Action: CloseAlert</h3>
+<p>OPEN→CLOSED 전환 + 이미 CLOSED면 오류.</p>
+
+<h3>문제 8. Projection Layer</h3>
+<p>외부 노출 필드 최소화 + UI annotation 최소 적용.</p>
+
+<h3>문제 9. Service Definition/Binding</h3>
+<p>ZC_Alert expose. 접근제어 전략 간단 기술.</p>
+
+<h3>문제 10. KPI↔Alert 통합 흐름 문서화</h3>
+<p>KPI 결과에서 Alert 후보를 뽑는 규칙(예: occupancy HIGH + revenue 하락)을 정의하고, Alert 생성/해제 사용자 흐름을 설명합니다.</p>
+
+<hr>
+
+<h2>7. 최종 제출물(정답 패키지 구성)</h2>
+<ul>
+  <li>ZR_FLT_KPI + ZCL_FLT_KPI_REPORT</li>
+  <li>리팩토링 V2 또는 개선 SQL 적용 버전</li>
+  <li>ZI/ZC + Metadata Extension</li>
+  <li>SEGW 프로젝트 + DPC_EXT 구현 요약</li>
+  <li>RAP Alert BO 전체 + Clean Core 결정문</li>
+  <li>API 계약서 + 회귀 테스트 케이스 표</li>
+</ul>
+
+<hr>
+<p>끝.</p>
+</body></html>

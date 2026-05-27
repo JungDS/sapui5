@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SAPUI5 데이터 흐름과 Messaging의 모든 것 (v5.0)</title>
+<style>
+  :root {
+    --slate-900: #0f172a;
+    --slate-800: #1e293b;
+    --slate-700: #334155;
+    --slate-100: #f1f5f9;
+    --slate-50: #f8fafc;
+    --sky-600: #0284c7;
+    --sky-50: #f0f9ff;
+    --emerald-600: #059669;
+    --emerald-50: #ecfdf5;
+    --rose-600: #e11d48;
+    --rose-50: #fff1f2;
+    --indigo-600: #4f46e5;
+    --indigo-50: #e0e7ff;
+    --border: #e2e8f0;
+    --text-main: #475569;
+    --text-dark: #0f172a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--text-main);
+    background-color: var(--slate-50);
+    line-height: 1.7;
+    padding: 0 16px;
+  }
+
+  .container { max-width: 820px; margin: 60px auto; }
+
+  /* 미니멀 헤더 */
+  header { margin-bottom: 40px; border-bottom: 2px solid var(--text-dark); padding-bottom: 20px; }
+  .tag { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--sky-600); font-weight: 700; }
+  h1 { font-size: 2.2rem; color: var(--text-dark); letter-spacing: -0.04em; margin-top: 6px; line-height: 1.2; }
+  .subtitle { font-size: 1.1rem; color: #64748b; margin-top: 8px; }
+
+  /* 공간 압축을 위한 내비게이션 탭 */
+  .tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 32px; gap: 8px; }
+  .tab-btn {
+    padding: 12px 20px;
+    border: none;
+    background: none;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    border-radius: 8px 8px 0 0;
+    position: relative;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { color: var(--text-dark); background-color: var(--slate-100); }
+  .tab-btn.active { color: var(--sky-600); }
+  .tab-btn.active::after {
+    content: "";
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: var(--sky-600);
+  }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+  h2 { font-size: 1.5rem; color: var(--text-dark); letter-spacing: -0.02em; margin: 32px 0 16px; display: flex; align-items: center; gap: 10px; }
+  h2::before { content: ""; display: inline-block; width: 4px; height: 20px; background-color: var(--text-dark); }
+  p { margin-bottom: 16px; }
+
+  /* 반할 구조 뷰 */
+  .split-view { display: flex; gap: 16px; margin: 20px 0; }
+  .view-pane { flex: 1; background: #fff; border: 1px solid var(--border); padding: 20px; border-radius: 12px; }
+  .view-pane.screen { border-top: 4px solid var(--rose-600); }
+  .view-pane.memory { border-top: 4px solid var(--emerald-600); }
+  .view-pane h4 { font-size: 1rem; color: var(--text-dark); margin-bottom: 6px; }
+
+  /* 시뮬레이터 */
+  .sim-box { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin: 20px 0; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+  .sim-input { width: 100%; border: 2px solid #cbd5e1; border-radius: 10px; padding: 10px 14px; font-size: 1.1rem; font-weight: bold; outline: none; transition: all 0.2s; }
+  .sim-input:focus { border-color: var(--sky-600); }
+  .sim-input.error { border-color: var(--rose-600); background-color: var(--rose-50); }
+  .sim-input.success { border-color: var(--emerald-600); background-color: var(--emerald-50); }
+  .btn-group { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+  .btn { padding: 8px 14px; border: 1px solid var(--border); background: #fff; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 0.9rem; }
+  .btn:hover { background: var(--slate-100); }
+  .btn.primary { background: var(--sky-600); color: #fff; border: none; }
+  .btn.primary:hover { background: #0369a1; }
+  .btn.danger { background: var(--rose-50); color: var(--rose-600); border-color: #fecaca; }
+
+  /* 안내 블록 */
+  blockquote { background: var(--slate-100); border-left: 4px solid var(--slate-800); padding: 16px; border-radius: 0 10px 10px 0; margin: 20px 0; }
+  blockquote strong { color: var(--text-dark); display: block; margin-bottom: 2px; }
+  .callout-box { padding: 16px; border-radius: 12px; margin: 16px 0; font-size: 0.95rem; border-left: 4px solid var(--border); }
+  .callout-box.warn { background: var(--rose-50); border-left-color: var(--rose-600); color: #9f1239; }
+  .callout-box.info { background: var(--sky-50); border-left-color: var(--sky-600); color: #0369a1; }
+  .callout-box.success { background: var(--emerald-50); border-left-color: var(--emerald-600); color: #065f46; }
+
+  /* 아코디언 사전 */
+  .glossary { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 4px 16px; margin: 20px 0; }
+  summary { padding: 12px 0; font-weight: 600; color: var(--sky-600); cursor: pointer; }
+  .glossary-content { padding: 12px 0; border-top: 1px dashed var(--border); font-size: 0.95rem; }
+
+  /* 지뢰밭 대형 카드 */
+  .card { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 24px; }
+  .card-badge { display: inline-block; padding: 2px 8px; background: var(--slate-900); color: #fff; font-size: 0.75rem; font-weight: 700; border-radius: 4px; margin-bottom: 12px; }
+  .card-badge.critical { background: var(--rose-600); }
+  .card-badge.pro { background: var(--indigo-600); }
+
+  /* 테치 코딩 박스 */
+  .code-window { background: var(--slate-900); border-radius: 12px; overflow: hidden; margin: 16px 0; }
+  .code-bar { background: #1e293b; padding: 10px 16px; font-size: 0.8rem; font-family: monospace; color: #94a3b8; }
+  pre { padding: 16px 20px; overflow-x: auto; color: #e2e8f0; font-family: "Fira Code", Consolas, monospace; font-size: 0.88rem; line-height: 1.6; }
+  .kw { color: #f472b6; }
+  .str { color: #38bdf8; }
+  .com { color: #64748b; font-style: italic; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="tag">Standard Training Material</div>
+    <h1>UI5 데이터 흐름과 Messaging 아키텍처</h1>
+    <div class="subtitle">초급 디딤돌부터 백엔드 동기화, 그리고 Fragment 예외 처리까지</div>
+  </header>
+
+  <nav class="tabs" aria-label="학습 단계 선택">
+    <button class="tab-btn active" onclick="switchTab(event, 'level1')">1단계: 입문 & 시뮬레이터</button>
+    <button class="tab-btn" onclick="switchTab(event, 'level2')">2단계: 실무 가드 & 팝업</button>
+    <button class="tab-btn" onclick="switchTab(event, 'level3')">3단계: 고급 지뢰밭 탈출</button>
+  </nav>
+
+  <main>
+    <div id="level1" class="tab-content active">
+      <h2>눈에 보이는 화면 값 vs 메모리의 Model 값</h2>
+      <p>UI5 입문자가 자만하기 가장 좋은 순간은 "Input 상자에 타이핑했으니 바인딩된 변수도 즉시 바뀐다"고 믿을 때입니다. 화면에 적힌 글자는 검증을 통과하기 전까지는 실제 데이터 금고(<span style="color: var(--emerald-600); font-weight: 600;">Model</span>)에 들어가지 못합니다.</p>
+      
+      <div class="split-view">
+        <div class="view-pane screen">
+          <h4>Input 화면 값 (외면)</h4>
+          <p id="ui-val" style="font-size: 1.4rem; font-weight: 800; color: var(--rose-600); margin: 6px 0;">20</p>
+          <p style="font-size: 0.8rem; color:#64748b;">사용자가 타이핑 중인 가변 후보 상태.</p>
+        </div>
+        <div class="view-pane memory">
+          <h4>Model 실제 값 (내면)</h4>
+          <p id="model-val" style="font-size: 1.4rem; font-weight: 800; color: var(--emerald-600); margin: 6px 0;">20</p>
+          <p style="font-size: 0.8rem; color:#64748b;">유효성 필터를 완벽히 통과한 확정 상태.</p>
+        </div>
+      </div>
+
+      <blockquote>
+        <strong>💡 핵심 패러다임</strong>
+        오류가 터졌을 때 화면에 빨간 선이 그어지는 현상은, 모델에 에러 데이터가 주입되었다는 뜻이 아닙니다. 반대로 <strong>"위험한 데이터라 모델 내부로 진입하지 못하게 프론트엔드가 문을 걸어 잠그고 입구를 통제한 상태"</strong>입니다.
+      </blockquote>
+
+      <h2>체험형 가상 런타임 시뮬레이터</h2>
+      <p>조건: <code>Integer</code> (정수 형태), <code>최소: 1</code>, <code>최대: 120</code> 제약 조건이 걸려있는 상태를 가상으로 만져봅니다.</p>
+      
+      <div class="sim-box">
+        <p style="font-size: 0.85rem; font-weight: 700; color: var(--text-dark); margin-bottom: 6px;">나이 입력 필드 (정수형, 1 ~ 120)</p>
+        <input type="text" id="simInput" class="sim-input" value="20" oninput="runSimValidation()">
+        
+        <div class="btn-group">
+          <button class="btn" onclick="fillSim('abc')">"abc" 입력 (문자열 오타 테스트)</button>
+          <button class="btn" onclick="fillSim('999')">"999" 입력 (범위 초과 테스트)</button>
+          <button class="btn" onclick="fillSim('35')">"35" 입력 (정상값 데이터 테스트)</button>
+          <button class="btn danger" onclick="resetSim()">시뮬레이터 리셋</button>
+        </div>
+
+        <div id="sim-status" class="callout-box info" style="margin-bottom: 0;">
+          현재 깨끗한 상태입니다. 정상 값 20이 모델과 동기화되어 있습니다.
+        </div>
+      </div>
+
+      <div class="glossary">
+        <details>
+          <summary>처음 보는 UI5 필수 용어집 (클릭하여 펼치기)</summary>
+          <div class="glossary-content">
+            <p style="margin-bottom: 8px;"><strong>• parseValue (해석 단계):</strong> 화면에 입력된 문자열을 컴퓨터 자료형(정수, 날짜 등)으로 해석하는 첫 번째 검문소입니다. 문자 입력 시 <code>parseError</code>가 터집니다.</p>
+            <p style="margin-bottom: 8px;"><strong>• validateValue (검증 단계):</strong> 해석은 완료되었으나 비즈니스 규칙(Constraints: 최소/최대값)을 충족하는지 따지는 두 번째 검문소입니다. 범위를 넘어서면 <code>validationError</code>가 유발됩니다.</p>
+            <p><strong>• Messaging (메시징 모듈):</strong> 위 검문소에서 적발된 에러 리포트들을 모아서 관리하고, 에러가 난 입력창에 경고 테두리를 매핑해 주는 UI5 전담 비서 모듈입니다.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <div id="level2" class="tab-content">
+      <h2>실무 가드(Guard) 코드 장착하기</h2>
+      <p>화면에 에러 테두리가 선명하게 켜져 있음에도, 아무 처리 없이 '저장' 버튼을 누르면 모델의 예전 정상 데이터가 백엔드로 전송되는 대참사가 일어납니다. 프론트엔드 단에서 통신 페이로드 송신을 원천 격리하는 인터셉터 코드를 심어야 합니다.</p>
+
+      <div class="code-window">
+        <div class="code-bar">Main.controller.js (방어벽 설계 패턴)</div>
+        <pre><code>sap.ui.define([
+    <span class="kw">"sap/ui/core/mvc/Controller"</span>,
+    <span class="kw">"sap/ui/core/Messaging"</span>,
+    <span class="kw">"sap/m/MessageBox"</span>
+], <span class="kw">function</span> (Controller, Messaging, MessageBox) {
+    <span class="kw">"use strict"</span>;
+
+    <span class="kw">return</span> Controller.extend(<span class="kw">"demo.controller.Main"</span>, {
+        onInit: <span class="kw">function</span> () {
+            <span class="kw">this</span>.getView().setModel(Messaging.getMessageModel(), <span class="kw">"message"</span>);
+        },
+
+        onSave: <span class="kw">function</span> () {
+            <span class="kw">var</span> aMessages = Messaging.getMessageModel().getData();
+            
+            <span class="kw">// 에러 장부 스캔 루프 개시</span>
+            <span class="kw">var</span> bHasError = aMessages.some(<span class="kw">function</span> (oMsg) {
+                <span class="kw">return</span> oMsg.getType() === <span class="kw">"Error"</span>;
+            });
+
+            <span class="kw">if</span> (bHasError) {
+                MessageBox.error(<span class="kw">"미해결된 입력 오류가 존재합니다. 가드(Guard) 작동."</span>);
+                <span class="kw">return</span>; <span class="com">// 프로세스 전송 즉시 차단</span>
+            }
+
+            MessageBox.success(<span class="kw">"안전지대 확인. 트랜잭션을 백엔드로 Submit 합니다."</span>);
+        }
+    });
+});</code></pre>
+      </div>
+
+      <h2>💡 시니어 벨류: handleValidation이 먹통이 되는 유일한 순간</h2>
+      <p>현업 프로젝트 도중 주니어들이 사수 자리에 가장 많이 뛰어오는 지점이 있습니다. <strong>"사수님, manifest에 분명 설정을 켰는데 팝업창 입력 검증은 테두리가 안 쳐집니다!"</strong></p>
+      
+      <div class="callout-box warn">
+        <strong>Fragment 팝업의 맹점 원인 분석</strong><br>
+        XML View와 달리 <code>sap.m.Dialog</code>나 <code>Fragment</code>로 띄우는 팝업 컴포넌트들은 UI5 프레임워크가 관리하는 메인 라이프사이클 컨텍스트 밖에 독립적으로 생성됩니다. 때문에 글로벌 선언형 옵션인 <code>"handleValidation": true</code>의 감시망을 유유히 벗어납니다.
+      </div>
+
+      <p>이를 해결하려면 팝업을 동적으로 인스턴스화하는 컨트롤러 시점에 <strong>감시 비서(Messaging)를 수동으로 강제 바인딩</strong>해 줘야 합니다.</p>
+
+      <div class="code-window">
+        <div class="code-bar">Main.controller.js (Fragment 수동 계약 패턴)</div>
+        <pre><code>onOpenDialog: <span class="kw">function</span> () {
+    <span class="kw">var</span> oView = <span class="kw">this</span>.getView();
+
+    <span class="kw">if</span> (!<span class="kw">this</span>._pDialog) {
+        <span class="kw">this</span>._pDialog = Fragment.load({
+            id: oView.getId(),
+            name: <span class="kw">"demo.view.DetailDialog"</span>,
+            controller: <span class="kw">this</span>
+        }).then(<span class="kw">function</span> (oDialog) {
+            oView.addDependent(oDialog);
+
+            <span class="com">// [핵심] 독립된 팝업 오브젝트에 감시 체계를 수동으로 연결해 줍니다.</span>
+            Messaging.registerObject(oDialog, <span class="kw">true</span>); 
+            <span class="kw">return</span> oDialog;
+        });
+    }
+    <span class="kw">this</span>._pDialog.then(<span class="kw">function</span>(oDialog) { oDialog.open(); });
+}</code></pre>
+      </div>
+    </div>
+
+    <div id="level3" class="tab-content">
+      <h2>초보 개발자 지뢰밭 집중 분해 수첩</h2>
+      <p>단순한 이론을 넘어 현업 부서에서 매일 발생하는 진짜 지뢰들을 선별했습니다.</p>
+
+      <div class="card">
+        <span class="card-badge critical">지뢰 01</span>
+        <h3>[취소]나 [초기화] 버튼을 눌러 데이터를 밀어버렸는데 빨간 선이 남는 현상</h3>
+        <p>초보자들은 화면을 리셋할 때 <code>oModel.setData({})</code>를 호출합니다. 데이터 청소는 깔끔하게 끝나지만, <strong>화면의 밸리데이션 테두리는 지워지지 않고 지저분하게 남아있습니다.</strong></p>
+        <div class="callout-box info">
+          <strong>이유:</strong> UI5 프레임워크 사상에서 데이터 금고를 비우는 행위와 에러 비서(Messaging)가 들고 있는 장부를 찢어버리는 행위는 별개의 트랙입니다.
+        </div>
+        <p><strong>🛠 해결 코드:</strong> 초기화 함수 끝자락에 장부 전역 소거 API 코드를 동시 호출 처리하십시오.</p>
+        <div class="code-window">
+          <div class="code-bar">Clear Handler 예시</div>
+          <pre><code>onResetForm: <span class="kw">function</span>() {
+    <span class="kw">this</span>.getView().getModel(<span class="kw">"view"</span>).setData({ Age: 20 }); <span class="com">// 모델 청소</span>
+    Messaging.removeAllMessages(); <span class="com">// [해결책] 중앙 에러 장부 소거 (테두리 즉시 증발)</span>
+}</code></pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-badge pro">지뢰 02</span>
+        <h3>백엔드 서버 에러가 났을 때 테크니컬 네임으로 표시되는 가독성 문제</h3>
+        <p>OData/RAP 아키텍처 상 백엔드 검증 로직에서 에러를 던지면, 팝오버 창에 필드 기술명인 <code>[SeatsOcc] 값이 잘못되었습니다</code>라고 흉측하게 뜨곤 합니다. 화면 Label에는 "예약석 수"라고 예쁘게 적혀있는데 말이죠.</p>
+        <div class="callout-box success">
+          <strong>해결 아키텍처: SAP 메타데이터 동기화 원리</strong><br>
+          ABAP 백엔드 설계 시 SE11 Dictionary 레벨이나 RAP의 데이터 엘리먼트 텍스트 룰에 한글 라벨(<code>sap:label</code> 속성)을 정확히 바인딩해 두면, UI5의 <code>ODataMetaModel</code> 분석기가 에러 발생 시 <code>target</code> 명칭을 실시간 분석하여 화면에 떠 있는 인간 친화적 Label 텍스트와 에러 문구를 자동으로 결합해 줍니다. 백엔드 테크니컬 컴플라이언스를 준수해야 하는 실무적 당위성입니다.
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="card-badge">지뢰 03</span>
+        <h3>서버 에러 페이로드는 수신되었으나 특정 Input 인터페이스와 연동 실패</h3>
+        <p>브라우저 Network 탭에는 분명 400 에러와 리포트 내용이 잡히는데, 정작 화면의 해당 입력창에는 빨간 테두리가 매핑되지 않는 기이한 현상입니다.</p>
+        <p><strong>🛠 디버깅 콘솔 추적 마스터 기법:</strong> 백엔드가 응답으로 보낸 <code>"target": "/FlightSet(Carrid='AA')/SeatsOcc"</code> 문자열 주소와 프론트엔드 UI 컨트롤의 바인딩 결합 정보 주소가 대소문자나 키값 하나까지 정확히 일치해야 자동 바인딩이 수행됩니다. 불일치가 의심될 때 브라우저 콘솔창(<kbd>F12</kbd> -> Console)에 아래 마법의 한 줄 코드를 입력해 절대 경로를 정밀 대조하세요.</p>
+        
+        <div class="code-window">
+          <div class="code-bar">Chrome Console Debugging Snippet</div>
+          <pre><code><span class="com">// 타겟 입력 컨트롤의 프론트엔드 실시간 결합 경로 추출법</span>
+<span class="kw">var</span> oCtrl = sap.ui.getCore().byId(<span class="kw">"idSeatsInput"</span>); (oCtrl.getBindingContext(<span class="kw">"odata"</span>) ? oCtrl.getBindingContext(<span class="kw">"odata"</span>).getPath() + <span class="kw">"/"</span> : <span class="kw">""</span>) + oCtrl.getBinding(<span class="kw">"value"</span>).getPath();</code></pre>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer style="text-align: center; font-size: 0.85rem; color: #94a3b8; margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--border);">
+    Modern Compact Guide Style by Gemini · Compliance Standard for SAPUI5 1.120+
+  </footer>
+</div>
+
+<script>
+  // 탭 스위칭 아키텍처 구현
+  function switchTab(evt, tabId) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tab-content");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].classList.remove("active");
+    }
+    tablinks = document.getElementsByClassName("tab-btn");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].classList.remove("active");
+    }
+    document.getElementById(tabId).classList.add("active");
+    evt.currentTarget.classList.add("active");
+  }
+
+  // 가상 시뮬레이터 핵심 로직
+  var virtualModelValue = 20;
+
+  function runSimValidation() {
+    var oInput = document.getElementById("simInput");
+    var oStatus = document.getElementById("sim-status");
+    var oUiVal = document.getElementById("ui-val");
+    var oModelVal = document.getElementById("model-val");
+    
+    var sRaw = oInput.value.trim();
+    oUiVal.textContent = sRaw === "" ? "(빈 값)" : sRaw;
+
+    oInput.classList.remove("error", "success");
+    oStatus.classList.remove("warn", "success", "info");
+
+    // 검문소 1: parseValue 시뮬레이션
+    if (!/^-?\d+$/.test(sRaw)) {
+      oInput.classList.add("error");
+      oStatus.classList.add("warn");
+      oStatus.innerHTML = "<strong>🚨 parseError 발생:</strong> 정수형 타입으로 변환할 수 없는 문자열입니다. [모델 보호 작동: 실제 Model 값은 여전히 " + virtualModelValue + "입니다.]";
+      return;
+    }
+
+    var iParsed = parseInt(sRaw, 10);
+
+    // 검문소 2: validateValue 시뮬레이션
+    if (iParsed < 1 || iParsed > 120) {
+      oInput.classList.add("error");
+      oStatus.classList.add("warn");
+      oStatus.innerHTML = "<strong>⚠️ validationError 발생:</strong> 타입은 통과했으나 Constraints(1~120 범위) 조건을 위반했습니다. [모델 보호 작동: 실제 Model 값은 여전히 " + virtualModelValue + "입니다.]";
+      return;
+    }
+
+    // 통과 완료: 모델 업데이트
+    virtualModelValue = iParsed;
+    oModelVal.textContent = virtualModelValue;
+    oInput.classList.add("success");
+    oStatus.classList.add("success");
+    oStatus.innerHTML = "<strong>✅ 검증 성공 (validationSuccess):</strong> 깨끗한 데이터입니다. 실제 데이터 창고(Model) 값이 " + virtualModelValue + "(으)로 안전하게 동기화 갱신되었습니다.";
+  }
+
+  function fillSim(val) {
+    var oInput = document.getElementById("simInput");
+    oInput.value = val;
+    runSimValidation();
+  }
+
+  function resetSim() {
+    virtualModelValue = 20;
+    document.getElementById("simInput").value = "20";
+    document.getElementById("ui-val").textContent = "20";
+    document.getElementById("model-val").textContent = "20";
+    var oInput = document.getElementById("simInput");
+    var oStatus = document.getElementById("sim-status");
+    oInput.classList.remove("error", "success");
+    oStatus.classList.remove("warn", "success");
+    oStatus.classList.add("info");
+    oStatus.textContent = "초기화 완료: 현재 가상 Model 값은 20입니다.";
+  }
+</script>
+</body>
+</html>

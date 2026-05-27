@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SAP FI G/L Accounts 번호범위 Visual Deck · v2</title>
+<style>
+:root {
+  --bg:#071120;
+  --bg2:#0d1b33;
+  --card:#12233f;
+  --card2:#0f1d36;
+  --line:rgba(255,255,255,.08);
+  --text:#f8fafc;
+  --muted:#cbd5e1;
+  --blue:#60a5fa;
+  --cyan:#67e8f9;
+  --green:#6ee7b7;
+  --orange:#fdba74;
+  --red:#fca5a5;
+  --shadow:0 18px 50px rgba(0,0,0,.32);
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:"Segoe UI","Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:radial-gradient(circle at top left,#133265 0%,#091425 42%,#040915 100%);color:var(--text)}
+#deck{position:relative;width:100vw;height:100vh}
+.slide{position:absolute;inset:0;padding:56px 74px 70px;display:none;opacity:0;transform:translateX(30px) scale(.985);transition:opacity .35s ease, transform .35s ease}
+.slide.active{display:block;opacity:1;transform:translateX(0) scale(1)}
+.slide-no{position:absolute;right:30px;top:22px;font-size:14px;font-weight:800;color:#dbeafe;letter-spacing:.08em}
+h1{font-size:66px;line-height:1.12;margin:0 0 16px;letter-spacing:-.03em}
+h2{font-size:42px;line-height:1.22;margin:0 0 22px;letter-spacing:-.02em}
+h3{font-size:24px;margin:0 0 8px;color:#dbeafe}
+p,li{font-size:23px;line-height:1.58}
+.subtitle{font-size:29px;color:var(--muted);margin:0 0 18px}
+.desc{font-size:22px;color:#bfdbfe;max-width:980px}
+.pill-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.pill{display:inline-block;padding:8px 14px;border-radius:999px;background:rgba(96,165,250,.16);border:1px solid rgba(96,165,250,.26);color:#bfdbfe;font-size:13px;font-weight:800;letter-spacing:.06em}
+.title-slide{padding-top:70px}
+.vs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.vs-card{background:linear-gradient(180deg,rgba(18,35,63,.95),rgba(10,21,40,.95));border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:var(--shadow);min-height:220px}
+.vs-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.vs-num{font-size:32px;font-weight:900;color:var(--orange)}
+.vs-icon{font-size:32px}
+.vs-card p{color:#cbd5e1;font-size:18px}
+.compare-grid,.voucher-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.panel{background:linear-gradient(180deg,rgba(18,35,63,.96),rgba(10,21,40,.96));border:1px solid var(--line);border-radius:24px;padding:22px;box-shadow:var(--shadow)}
+.panel-head{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.icon{font-size:30px}
+.timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.time-step{background:linear-gradient(180deg,rgba(18,35,63,.95),rgba(10,21,40,.95));border:1px solid var(--line);border-radius:24px;padding:22px;box-shadow:var(--shadow);position:relative}
+.time-step::after{content:"";position:absolute;inset:auto 18px 0 18px;height:4px;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:999px}
+.time-title{font-size:24px;font-weight:800;margin-bottom:8px}
+.time-sub{font-size:18px;color:#bfdbfe}
+.section-slide{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;height:100%}
+.section-slide h1{font-size:74px}
+.cluster-head{display:flex;align-items:center;gap:18px;margin-bottom:18px}
+.big-icon{font-size:54px}
+.cluster-head p{margin:0;color:#bfdbfe}
+.mini-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.mini-card{background:linear-gradient(180deg,rgba(18,35,63,.96),rgba(10,21,40,.96));border:1px solid var(--line);border-radius:24px;padding:20px;box-shadow:var(--shadow);min-height:220px}
+.mini-main{font-size:24px;color:#e0f2fe;font-weight:700}
+.mini-sub{font-size:18px;color:#cbd5e1}
+pre{margin:0;background:#020617;color:#e2e8f0;border:1px solid rgba(255,255,255,.08);border-radius:24px;padding:24px;font-size:24px;line-height:1.7;box-shadow:var(--shadow)}
+.funnel-box{max-width:800px;background:linear-gradient(180deg,rgba(18,35,63,.96),rgba(10,21,40,.96));border:1px solid var(--line);border-radius:24px;padding:18px 22px;box-shadow:var(--shadow)}
+.funnel-row{display:flex;align-items:center;gap:16px;padding:14px 4px;border-bottom:1px solid rgba(255,255,255,.07)}
+.ficon{font-size:26px} .fname{font-size:24px;flex:1} .funnel-row strong{font-size:26px;color:var(--orange)}
+.principle-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.principle{background:linear-gradient(180deg,rgba(18,35,63,.96),rgba(10,21,40,.96));border:1px solid var(--line);border-radius:24px;padding:22px;box-shadow:var(--shadow)}
+.warning-box{max-width:1100px;background:rgba(127,29,29,.16);border:1px solid rgba(252,165,165,.2);border-radius:24px;padding:24px}
+table{width:100%;border-collapse:collapse;background:rgba(18,35,63,.9);border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:var(--shadow)}
+th,td{padding:18px 20px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left;font-size:22px}
+th{background:rgba(96,165,250,.13);color:#dbeafe}
+.summary-list li{margin:12px 0}
+.footer-name{margin-top:28px;font-size:22px;color:#93c5fd;font-weight:800}
+.controls{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:30}
+button{background:#1d4ed8;border:none;color:#fff;padding:12px 18px;border-radius:12px;font-size:16px;cursor:pointer;box-shadow:var(--shadow)}
+button:hover{background:#2563eb}
+.help{position:fixed;left:26px;bottom:22px;color:#cbd5e1;font-size:14px;z-index:30}
+.progress{position:fixed;top:0;left:0;height:5px;width:0;background:linear-gradient(90deg,#60a5fa,#67e8f9);z-index:40;transition:width .28s ease}
+.fragment{opacity:0;transform:translateY(12px) scale(.99);transition:opacity .25s ease, transform .25s ease}
+.fragment.visible{opacity:1;transform:translateY(0) scale(1)}
+@media (max-width:1200px){
+  .slide{padding:48px 48px 76px}
+  h1{font-size:50px} h2{font-size:34px} p,li{font-size:20px}
+  .vs-grid,.mini-grid,.timeline,.compare-grid,.voucher-grid,.principle-grid{grid-template-columns:1fr}
+}
+</style>
+
+<style id="library-v2-enhancement-style">
+  .lib-enhance-header,
+  .lib-enhance-panel,
+  .lib-enhance-footer {
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", Arial, sans-serif;
+  }
+  .lib-enhance-header {
+    position: sticky;
+    top: 0;
+    z-index: 9998;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 10px 18px;
+    background: rgba(255,255,255,.92);
+    border-bottom: 1px solid #dbe5ef;
+    box-shadow: 0 8px 24px rgba(16,32,51,.06);
+    backdrop-filter: blur(8px);
+  }
+  .lib-enhance-header a {
+    color: #064f9e;
+    text-decoration: none;
+    font-weight: 800;
+  }
+  .lib-enhance-header a:hover {
+    text-decoration: underline;
+  }
+  .lib-enhance-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    color: #62748a;
+    font-size: 13px;
+  }
+  .lib-badge {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #cfe0f2;
+    background: #eaf4ff;
+    color: #064f9e;
+    border-radius: 999px;
+    padding: 4px 9px;
+    font-size: 12px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+  .lib-badge.green {
+    background: #edf8f3;
+    color: #16835f;
+    border-color: #cbe9dc;
+  }
+  .lib-enhance-panel {
+    width: min(1120px, calc(100% - 32px));
+    margin: 20px auto;
+    padding: 22px 24px;
+    background:
+      radial-gradient(circle at 0% 0%, rgba(10,110,209,.10), transparent 18rem),
+      #ffffff;
+    border: 1px solid #dbe5ef;
+    border-radius: 22px;
+    box-shadow: 0 12px 32px rgba(16,32,51,.07);
+    color: #102033;
+    line-height: 1.7;
+  }
+  .lib-enhance-panel h2 {
+    margin: 0 0 10px;
+    font-size: 24px;
+    letter-spacing: -.03em;
+    color: #102033;
+    line-height: 1.3;
+  }
+  .lib-enhance-panel p {
+    margin: 0 0 12px;
+    color: #4f647a;
+  }
+  .lib-grid {
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap: 16px;
+    margin-top: 14px;
+  }
+  .lib-box {
+    border: 1px solid #e2ebf4;
+    background: #fbfdff;
+    border-radius: 16px;
+    padding: 16px;
+  }
+  .lib-box strong {
+    display: block;
+    margin-bottom: 8px;
+    color: #064f9e;
+  }
+  .lib-box ul {
+    margin: 0;
+    padding-left: 20px;
+  }
+  .lib-box li {
+    margin: 5px 0;
+  }
+  .lib-kws {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  .lib-kw {
+    display: inline-flex;
+    border-radius: 999px;
+    padding: 5px 10px;
+    background: #fff7e6;
+    border: 1px solid #ffe0a8;
+    color: #9b5a00;
+    font-size: 12px;
+    font-weight: 800;
+  }
+  .lib-enhance-footer {
+    width: min(1120px, calc(100% - 32px));
+    margin: 28px auto 50px;
+    color: #64748b;
+    font-size: 13px;
+    text-align: center;
+  }
+  @media (max-width: 800px) {
+    .lib-enhance-header {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+    .lib-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="lib-enhance-header">
+<div>
+<a href="../index.html">← SAP 학습자료 홈</a>
+</div>
+<div class="lib-enhance-meta">
+<span class="lib-badge">v2 보완본</span>
+<span class="lib-badge green">FI</span>
+<a href="../v1/sap-fi-gl-number-range-visual-deck-v1.html">v1 원본 보기</a>
+</div>
+</div>
+
+<div class="lib-enhance-panel" id="v2-review-panel">
+<h2>v2 보완 안내 · SAP FI G/L Accounts 번호범위 Visual Deck</h2>
+<p>G/L Accounts 번호범위를 슬라이드형 인터랙티브 문서로 시각화한 자료입니다.</p>
+<div class="lib-kws"><span class="lib-kw">FI</span><span class="lib-kw">G/L</span><span class="lib-kw">번호범위</span><span class="lib-kw">Visual</span></div>
+<div class="lib-grid">
+<div class="lib-box">
+<strong>학습 목표</strong>
+<ul><li>G/L 계정 번호범위의 큰 구조를 시각적으로 이해할 수 있다.</li><li>슬라이드 흐름에 따라 계정군과 번호범위의 관계를 설명할 수 있다.</li><li>일반 문서가 아니라 발표용 자료로 활용할 수 있다.</li></ul>
+</div>
+<div class="lib-box">
+<strong>검수 후 보완 포인트</strong>
+<ul><li>시각 자료 성격이 강해 일반 문서와 조작 방식이 다를 수 있습니다.</li><li>v2에서는 슬라이드형 자료임을 명확히 표시하고, 사용 안내를 상단에 추가합니다.</li><li>강의 중 프로젝터 사용을 고려해 홈 링크와 버전 배지를 최소한으로 배치합니다.</li></ul>
+</div>
+</div>
+</div>
+
+<div class="progress" id="progress"></div>
+<div id="deck">
+<section class="slide"><div class="slide-no">01 / 24</div>
+<div class="title-slide">
+<div class="pill-row">
+<span class="pill">SAP FI</span>
+<span class="pill">Visual Pro</span>
+<span class="pill">Presentation Mode</span>
+</div>
+<h1>SAP FI G/L Accounts 번호범위</h1>
+<p class="subtitle">Visual Pro Deck · Bicycle Manufacturing Case</p>
+<p class="desc">실제 강의에 바로 사용할 수 있도록 시각 요소, 아이콘형 카드, 다이어그램을 강화한 발표용 HTML 슬라이드</p>
+</div></section><section class="slide"><div class="slide-no">02 / 24</div><h2>전체 구조 한눈에 보기</h2><div class="vs-grid">
+<div class="vs-card fragment">
+<div class="vs-top"><span class="vs-num">1</span><span class="vs-icon">💳</span></div>
+<h3>Asset</h3>
+<p>회사가 가진 것</p>
+</div>
+<div class="vs-card fragment">
+<div class="vs-top"><span class="vs-num">2</span><span class="vs-icon">📌</span></div>
+<h3>Liability</h3>
+<p>갚아야 할 것</p>
+</div>
+<div class="vs-card fragment">
+<div class="vs-top"><span class="vs-num">3</span><span class="vs-icon">🏛️</span></div>
+<h3>Equity</h3>
+<p>주주 몫</p>
+</div>
+<div class="vs-card fragment">
+<div class="vs-top"><span class="vs-num">4</span><span class="vs-icon">📈</span></div>
+<h3>Revenue</h3>
+<p>벌어들인 돈</p>
+</div>
+<div class="vs-card fragment">
+<div class="vs-top"><span class="vs-num">5</span><span class="vs-icon">🧩</span></div>
+<h3>Cost</h3>
+<p>제품 몸값</p>
+</div>
+<div class="vs-card fragment">
+<div class="vs-top"><span class="vs-num">6</span><span class="vs-icon">🛠️</span></div>
+<h3>Expense</h3>
+<p>회사를 굴리는 비용</p>
+</div>
+<div class="vs-card fragment">
+<div class="vs-top"><span class="vs-num">7</span><span class="vs-icon">🏦</span></div>
+<h3>Financial / Tax</h3>
+<p>마지막 계산</p>
+</div></div></section><section class="slide"><div class="slide-no">03 / 24</div>
+<h2>B/S 와 P/L</h2>
+<div class="compare-grid">
+<div class="panel">
+<div class="panel-head"><span class="icon">📷</span><h3>Balance Sheet</h3></div>
+<ul><li class="fragment">특정 시점의 재무 상태</li><li class="fragment">자산 · 부채 · 자본</li><li class="fragment">사진처럼 현재 상태를 보여줌</li></ul>
+</div>
+<div class="panel">
+<div class="panel-head"><span class="icon">🎬</span><h3>Profit &amp; Loss</h3></div>
+<ul><li class="fragment">일정 기간의 경영 성과</li><li class="fragment">매출 · 비용 · 이익</li><li class="fragment">동영상처럼 흐름을 보여줌</li></ul>
+</div>
+</div></section><section class="slide"><div class="slide-no">04 / 24</div><h2>자전거 회사의 돈 흐름</h2><div class="timeline">
+<div class="time-step fragment">
+<div class="time-title">자본 투자</div>
+<div class="time-sub">3번대</div>
+</div>
+<div class="time-step fragment">
+<div class="time-title">부품 구매</div>
+<div class="time-sub">5번대 + 2번대</div>
+</div>
+<div class="time-step fragment">
+<div class="time-title">생산 진행</div>
+<div class="time-sub">5번대</div>
+</div>
+<div class="time-step fragment">
+<div class="time-title">제품 판매</div>
+<div class="time-sub">4번대 + 1번대</div>
+</div>
+<div class="time-step fragment">
+<div class="time-title">운영비 지급</div>
+<div class="time-sub">6번대 + 1번대</div>
+</div>
+<div class="time-step fragment">
+<div class="time-title">이자·세금</div>
+<div class="time-sub">7번대 + 1번대</div>
+</div></div></section><section class="slide"><div class="slide-no">05 / 24</div><div class="section-slide"><h1>1 ~ 3번대</h1><p class="subtitle">회사의 현재 상태를 보여주는 계정</p></div></section><section class="slide"><div class="slide-no">06 / 24</div>
+<h2>1번대 · Asset</h2>
+<div class="cluster-head"><span class="big-icon">💳</span><p>회사 손안에 있는 경제적 가치</p></div>
+<div class="mini-grid">
+<div class="mini-card fragment">
+<h3>Bank Account</h3>
+<p class="mini-main">은행 잔액</p>
+<p class="mini-sub">자금 흐름의 중심</p>
+</div>
+<div class="mini-card fragment">
+<h3>Petty Cash</h3>
+<p class="mini-main">소액 현금</p>
+<p class="mini-sub">작은 지출 처리</p>
+</div>
+<div class="mini-card fragment">
+<h3>Fixed Asset</h3>
+<p class="mini-main">기계·설비</p>
+<p class="mini-sub">오래 쓰는 자산</p>
+</div></div></section><section class="slide"><div class="slide-no">07 / 24</div>
+<h2>1번대 전표 예시</h2>
+<div class="voucher-grid">
+<pre>차변 110000  Bank Account      50,000,000
+대변 310000  Share Capital     50,000,000</pre>
+<div class="panel">
+<div class="panel-head"><span class="icon">🧾</span><h3>해석</h3></div>
+<ul><li class="fragment">은행 자산 증가</li><li class="fragment">자본 증가</li><li class="fragment">1번대와 3번대 연결</li></ul>
+</div>
+</div></section><section class="slide"><div class="slide-no">08 / 24</div>
+<h2>2번대 · Liability</h2>
+<div class="cluster-head"><span class="big-icon">📌</span><p>회사가 앞으로 갚아야 할 의무</p></div>
+<div class="mini-grid">
+<div class="mini-card fragment">
+<h3>Trade Payable</h3>
+<p class="mini-main">거래처 외상값</p>
+<p class="mini-sub">부품 매입 후 미지급</p>
+</div>
+<div class="mini-card fragment">
+<h3>Tax Payable</h3>
+<p class="mini-main">세금 의무</p>
+<p class="mini-sub">납부 전 단계</p>
+</div>
+<div class="mini-card fragment">
+<h3>Accrued Payroll</h3>
+<p class="mini-main">미지급 급여</p>
+<p class="mini-sub">발생주의 반영</p>
+</div></div></section><section class="slide"><div class="slide-no">09 / 24</div>
+<h2>2번대 전표 예시</h2>
+<div class="voucher-grid">
+<pre>차변 510000  Frame Material Cost   7,000,000
+대변 210000  Trade Payable         7,000,000</pre>
+<div class="panel">
+<div class="panel-head"><span class="icon">🧾</span><h3>해석</h3></div>
+<ul><li class="fragment">재료비 발생</li><li class="fragment">현금 미지급</li><li class="fragment">부채 생성</li></ul>
+</div>
+</div></section><section class="slide"><div class="slide-no">10 / 24</div>
+<h2>3번대 · Equity</h2>
+<div class="cluster-head"><span class="big-icon">🏛️</span><p>회사 소유주의 몫</p></div>
+<div class="mini-grid">
+<div class="mini-card fragment">
+<h3>Share Capital</h3>
+<p class="mini-main">주주 투자금</p>
+<p class="mini-sub">회사 시작 자본</p>
+</div>
+<div class="mini-card fragment">
+<h3>Retained Earnings</h3>
+<p class="mini-main">이익잉여금</p>
+<p class="mini-sub">벌어서 남긴 힘</p>
+</div>
+<div class="mini-card fragment">
+<h3>Owner’s Portion</h3>
+<p class="mini-main">소유자 몫</p>
+<p class="mini-sub">순수한 자기 자금</p>
+</div></div></section><section class="slide"><div class="slide-no">11 / 24</div><div class="section-slide"><h1>4 ~ 7번대</h1><p class="subtitle">회사의 기간 성과를 보여주는 계정</p></div></section><section class="slide"><div class="slide-no">12 / 24</div>
+<h2>4번대 · Revenue</h2>
+<div class="cluster-head"><span class="big-icon">📈</span><p>회사가 벌어들인 돈의 시작점</p></div>
+<div class="mini-grid">
+<div class="mini-card fragment">
+<h3>Bicycle Sales</h3>
+<p class="mini-main">완성 자전거 판매</p>
+<p class="mini-sub">본업 수익</p>
+</div>
+<div class="mini-card fragment">
+<h3>Sales Discount</h3>
+<p class="mini-main">판매 할인</p>
+<p class="mini-sub">매출 차감</p>
+</div>
+<div class="mini-card fragment">
+<h3>Sales Deduction</h3>
+<p class="mini-main">리베이트·반품</p>
+<p class="mini-sub">실질 매출 감소</p>
+</div></div></section><section class="slide"><div class="slide-no">13 / 24</div>
+<h2>4번대 전표 예시</h2>
+<div class="voucher-grid">
+<pre>차변 110000  Bank Account       1,500,000
+대변 410000  Bicycle Sales      1,500,000</pre>
+<div class="panel">
+<div class="panel-head"><span class="icon">🧾</span><h3>해석</h3></div>
+<ul><li class="fragment">대금 입금</li><li class="fragment">매출 발생</li><li class="fragment">1번대와 4번대 연결</li></ul>
+</div>
+</div></section><section class="slide"><div class="slide-no">14 / 24</div>
+<h2>5번대 · Cost</h2>
+<div class="cluster-head"><span class="big-icon">🧩</span><p>제품 몸값을 만드는 비용</p></div>
+<div class="mini-grid">
+<div class="mini-card fragment">
+<h3>Frame</h3>
+<p class="mini-main">프레임 비용</p>
+<p class="mini-sub">직접 재료비</p>
+</div>
+<div class="mini-card fragment">
+<h3>Tire</h3>
+<p class="mini-main">타이어 비용</p>
+<p class="mini-sub">제품 구성 부품</p>
+</div>
+<div class="mini-card fragment">
+<h3>Inventory Change</h3>
+<p class="mini-main">재고 변동</p>
+<p class="mini-sub">제조업 해석 핵심</p>
+</div></div></section><section class="slide"><div class="slide-no">15 / 24</div>
+<h2>5번대 vs 6번대</h2>
+<div class="compare-grid">
+<div class="panel">
+<div class="panel-head"><span class="icon">🧩</span><h3>5번대 · 원가</h3></div>
+<ul><li class="fragment">제품을 직접 만드는 비용</li><li class="fragment">프레임·타이어·브레이크</li><li class="fragment">제조업 수익성의 중심</li></ul>
+</div>
+<div class="panel">
+<div class="panel-head"><span class="icon">🛠️</span><h3>6번대 · 운영비</h3></div>
+<ul><li class="fragment">회사를 운영하는 비용</li><li class="fragment">급여·광고·출장비</li><li class="fragment">조직 유지와 판매 지원</li></ul>
+</div>
+</div></section><section class="slide"><div class="slide-no">16 / 24</div>
+<h2>6번대 · Expense</h2>
+<div class="cluster-head"><span class="big-icon">🛠️</span><p>회사를 굴리기 위해 필요한 비용</p></div>
+<div class="mini-grid">
+<div class="mini-card fragment">
+<h3>Payroll</h3>
+<p class="mini-main">직원 급여</p>
+<p class="mini-sub">조직 유지</p>
+</div>
+<div class="mini-card fragment">
+<h3>Travel</h3>
+<p class="mini-main">출장비</p>
+<p class="mini-sub">영업·미팅 활동</p>
+</div>
+<div class="mini-card fragment">
+<h3>Marketing / Rent</h3>
+<p class="mini-main">광고·임차료</p>
+<p class="mini-sub">판매와 운영 지원</p>
+</div></div></section><section class="slide"><div class="slide-no">17 / 24</div>
+<h2>6번대 전표 예시</h2>
+<div class="voucher-grid">
+<pre>차변 610000  Payroll Expense     3,000,000
+대변 110000  Bank Account         3,000,000</pre>
+<div class="panel">
+<div class="panel-head"><span class="icon">🧾</span><h3>해석</h3></div>
+<ul><li class="fragment">운영비 발생</li><li class="fragment">은행 감소</li><li class="fragment">손익 직접 영향</li></ul>
+</div>
+</div></section><section class="slide"><div class="slide-no">18 / 24</div>
+<h2>7번대 · Financial / Tax</h2>
+<div class="cluster-head"><span class="big-icon">🏦</span><p>마지막으로 순이익을 조정하는 영역</p></div>
+<div class="mini-grid">
+<div class="mini-card fragment">
+<h3>Interest</h3>
+<p class="mini-main">이자 비용</p>
+<p class="mini-sub">차입금 대가</p>
+</div>
+<div class="mini-card fragment">
+<h3>Valuation</h3>
+<p class="mini-main">평가손익</p>
+<p class="mini-sub">환율·평가 변동</p>
+</div>
+<div class="mini-card fragment">
+<h3>Tax</h3>
+<p class="mini-main">세금</p>
+<p class="mini-sub">최종 비용</p>
+</div></div></section><section class="slide"><div class="slide-no">19 / 24</div>
+<h2>7번대 전표 예시</h2>
+<div class="voucher-grid">
+<pre>차변 710000  Interest Expense    300,000
+대변 110000  Bank Account         300,000</pre>
+<div class="panel">
+<div class="panel-head"><span class="icon">🧾</span><h3>해석</h3></div>
+<ul><li class="fragment">금융비용 발생</li><li class="fragment">현금 감소</li><li class="fragment">최종이익 감소</li></ul>
+</div>
+</div></section><section class="slide"><div class="slide-no">20 / 24</div><h2>왜 매출이 높아도 이익이 낮을 수 있는가</h2><div class="funnel-box">
+<div class="funnel-row fragment">
+<span class="ficon">📈</span>
+<span class="fname">매출</span>
+<strong>1,500,000</strong>
+</div>
+<div class="funnel-row fragment">
+<span class="ficon">🧩</span>
+<span class="fname">원가</span>
+<strong>1,300,000</strong>
+</div>
+<div class="funnel-row fragment">
+<span class="ficon">🛠️</span>
+<span class="fname">운영비</span>
+<strong>150,000</strong>
+</div>
+<div class="funnel-row fragment">
+<span class="ficon">🏦</span>
+<span class="fname">이자·세금</span>
+<strong>30,000</strong>
+</div>
+<div class="funnel-row fragment">
+<span class="ficon">✅</span>
+<span class="fname">최종이익</span>
+<strong>20,000</strong>
+</div></div></section><section class="slide"><div class="slide-no">21 / 24</div><h2>좋은 계정 설계 원칙</h2><div class="principle-grid">
+<div class="principle fragment">
+<h3>쉽게 이해되는 구조</h3>
+<p>번호만 보고도 대략 성격을 추정 가능</p>
+</div>
+<div class="principle fragment">
+<h3>분석 가능한 구조</h3>
+<p>매출·원가·운영비·금융을 구분</p>
+</div>
+<div class="principle fragment">
+<h3>확장 가능한 구조</h3>
+<p>세부계정 추가 여유 확보</p>
+</div>
+<div class="principle fragment">
+<h3>유지보수 쉬운 구조</h3>
+<p>새 인력이 와도 빠르게 적응 가능</p>
+</div></div></section><section class="slide"><div class="slide-no">22 / 24</div><h2>하지 말아야 할 설계</h2><div class="warning-box"><ul><li class="fragment">원가와 운영비를 섞어 두기</li><li class="fragment">매출과 할인 차감을 구분하지 않기</li><li class="fragment">이자와 세금을 운영비에 섞기</li><li class="fragment">세부계정을 과도하게 쪼개어 분석만 복잡하게 만들기</li></ul></div></section><section class="slide"><div class="slide-no">23 / 24</div><h2>퀴즈</h2><table><thead><tr><th>거래</th><th>정답 번호대</th></tr></thead><tbody><tr class="fragment"><td>자전거 판매</td><td>4번대</td></tr><tr class="fragment"><td>프레임 구매</td><td>5번대</td></tr><tr class="fragment"><td>직원 급여</td><td>6번대</td></tr><tr class="fragment"><td>은행 대출 이자</td><td>7번대</td></tr><tr class="fragment"><td>회사 설립 투자</td><td>3번대</td></tr></tbody></table></section><section class="slide"><div class="slide-no">24 / 24</div><h2>최종 요약</h2><ul class="summary-list"><li class="fragment">1~3번대 = 회사의 현재 상태</li><li class="fragment">4~7번대 = 회사의 기간 성과</li><li class="fragment">5번대는 제조업의 핵심</li><li class="fragment">6번대와 7번대를 나누어야 영업성과 해석이 쉬움</li><li class="fragment">계정 번호는 숫자가 아니라 돈의 이야기를 읽는 지도</li></ul><div class="footer-name">강사 정훈영</div></section>
+</div>
+<div class="controls">
+<button onclick="prev()">◀ Prev</button>
+<button onclick="toggleOverview()">Overview</button>
+<button onclick="next()">Next ▶</button>
+</div>
+<div class="help">← / → 이동 · Space 다음 단계 · O 개요 · F 전체화면</div>
+<script>
+const slides = Array.from(document.querySelectorAll('.slide'));
+let current = 0;
+let fragIndex = 0;
+let overview = false;
+
+function getFragments(slide) {
+  return Array.from(slide.querySelectorAll('.fragment'));
+}
+function resetFragments(slide) {
+  getFragments(slide).forEach(x => x.classList.remove('visible'));
+}
+function show(index) {
+  slides[current].classList.remove('active');
+  current = (index + slides.length) % slides.length;
+  slides[current].classList.add('active');
+  fragIndex = 0;
+  resetFragments(slides[current]);
+  updateProgress();
+}
+function next() {
+  const frags = getFragments(slides[current]);
+  if (fragIndex < frags.length) {
+    frags[fragIndex].classList.add('visible');
+    fragIndex++;
+    return;
+  }
+  show(current + 1);
+}
+function prev() {
+  show(current - 1);
+}
+function updateProgress() {
+  document.getElementById('progress').style.width = (((current + 1) / slides.length) * 100) + '%';
+}
+function toggleOverview() {
+  overview = !overview;
+  const deck = document.getElementById('deck');
+  if (overview) {
+    deck.style.display = 'grid';
+    deck.style.gridTemplateColumns = 'repeat(3,1fr)';
+    deck.style.gap = '18px';
+    deck.style.padding = '20px';
+    deck.style.overflow = 'auto';
+    slides.forEach((s, i) => {
+      s.classList.add('active');
+      s.style.position = 'relative';
+      s.style.height = '320px';
+      s.style.inset = 'auto';
+      s.style.padding = '22px';
+      s.style.transform = 'none';
+      s.style.opacity = '1';
+      s.style.cursor = 'pointer';
+      s.onclick = () => { toggleOverview(); show(i); };
+      s.querySelectorAll('.fragment').forEach(f => f.classList.add('visible'));
+    });
+  } else {
+    deck.removeAttribute('style');
+    slides.forEach(s => {
+      s.onclick = null;
+      s.removeAttribute('style');
+      s.classList.remove('active');
+      resetFragments(s);
+    });
+    slides[current].classList.add('active');
+    updateProgress();
+  }
+}
+document.addEventListener('keydown', (e) => {
+  if (overview) {
+    if (e.key.toLowerCase() === 'o') toggleOverview();
+    return;
+  }
+  if (e.key === 'ArrowRight' || e.key === 'PageDown') next();
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') prev();
+  if (e.key === ' ') { e.preventDefault(); next(); }
+  if (e.key.toLowerCase() === 'o') toggleOverview();
+  if (e.key.toLowerCase() === 'f') {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+});
+slides[0].classList.add('active');
+updateProgress();
+</script>
+
+<div class="lib-enhance-footer">
+  SAP FI G/L Accounts 번호범위 Visual Deck · v2 보완본 · 원본 보존: <code>sap-fi-gl-number-range-visual-deck-v1.html</code>
+</div>
+</body>
+</html>

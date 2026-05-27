@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SD 프로세스와 주요 테이블 입문 · 혼합 문체 · SAP Developer Learning Library v3</title>
+<link href="../assets/common.css" rel="stylesheet"/>
+<script defer="" src="../assets/common.js"></script>
+<!-- data-prose required: concept | structure | practice | checklist | warning | teacher | reference | summary --></head>
+<body data-active-category="module" data-active-doc="sd" data-prose-root="true">
+<header class="library-topbar prose-summary" data-prose="summary">
+<div class="library-topbar__inner">
+<a class="library-home" href="../index.html">← SAP 학습자료 홈</a>
+<div class="library-meta">
+<span class="badge blue">v3</span>
+<span class="badge green">03. SAP 모듈 기초</span>
+<span class="badge amber">배포자: 정훈영</span>
+<span class="badge purple">혼합 문체</span></div>
+</div>
+</header>
+<div class="library-shell">
+<section class="hero prose-summary" data-prose="summary">
+<div class="breadcrumb" data-prose="summary">
+<a href="../index.html">Home</a>
+<span>›</span>
+<a href="../pages/module-basics.html">SAP 모듈 기초</a>
+<span>›</span>
+<span>현재 문서</span>
+</div>
+
+<div class="eyebrow">SAP Developer Learning Library</div>
+<h1>SD 프로세스와 주요 테이블 입문</h1>
+<p class="lead">판매오더, 납품, 출고, 청구와 문서 흐름을 개발자 관점에서 이해한다.</p>
+<div class="hero-actions"><span class="badge green">SD</span><span class="badge blue">모듈 기초</span><span class="badge purple">본문 평서형</span><span class="badge amber">실습 지시형</span></div>
+</section>
+<main><section class="section-card prose-practice" data-prose="practice" id="process">
+<div class="section-label">01 · 프로세스</div>
+<h2>SD 기본 흐름</h2>
+<div class="flow"><div class="flow-step prose-practice" data-prose="practice"><span class="num">1</span><div><div class="flow-title">판매오더</div><p>고객, 자재, 수량, 가격, 납기를 입력한다.</p></div></div><div class="flow-step prose-practice" data-prose="practice"><span class="num">2</span><div><div class="flow-title">납품</div><p>출고할 물류 문서를 생성한다.</p></div></div><div class="flow-step prose-practice" data-prose="practice"><span class="num">3</span><div><div class="flow-title">출고</div><p>재고가 감소하고 회계/물류 흐름이 진행된다.</p></div></div><div class="flow-step prose-practice" data-prose="practice"><span class="num">4</span><div><div class="flow-title">청구</div><p>고객에게 청구하고 회계 전표와 연결된다.</p></div></div></div>
+</section>
+<section class="section-card prose-structure" data-prose="structure" id="tables">
+<div class="section-label">02 · 테이블</div>
+<h2>개발자가 먼저 알아야 할 테이블</h2>
+<table><thead><tr><th>구분</th><th>테이블</th><th>설명</th></tr></thead><tbody><tr><td>판매오더</td><td>VBAK, VBAP</td><td>Sales Order Header/Item</td></tr><tr><td>납품</td><td>LIKP, LIPS</td><td>Delivery Header/Item</td></tr><tr><td>청구</td><td>VBRK, VBRP</td><td>Billing Header/Item</td></tr><tr><td>문서흐름</td><td>VBFA</td><td>SD 문서 간 연결</td></tr></tbody></table>
+</section>
+<section class="section-card prose-concept" data-prose="concept" id="dev">
+<div class="section-label">03 · 개발 관점</div>
+<h2>개발 요구사항은 이렇게 들어온다</h2>
+<ul><li>문서 상태를 조회하는 리포트</li><li>Header/Item 기준의 OData API</li><li>특정 기간·조직·자재 기준의 집계</li><li>오류 데이터 또는 미처리 문서 모니터링</li></ul>
+</section></main>
+<aside class="toc prose-reference" data-prose="reference">
+<div class="library-tree" data-nav-tree="main" data-prose="reference"></div>
+<hr class="tree-separator"/>
+<div class="local-page-tools" data-prose="reference">
+<h2>이 문서 안에서</h2>
+</div>
+<h2>학습 목차</h2><a href="#process">01. 프로세스</a><a href="#tables">02. 주요 테이블</a><a href="#dev">03. 개발 관점</a></aside>
+</div>
+<footer class="library-footer prose-summary" data-prose="summary">SD 프로세스와 주요 테이블 입문 · v3 · 2026-05-27 · 배포자: 정훈영 · 혼합 문체 기준 · Final</footer>
+</body>
+</html>
