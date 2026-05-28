@@ -2,25 +2,25 @@
 
 ## 운영 대시보드
 
-- 최종 수정: 2026-05-28 10:59 KST
+- 최종 수정: 2026-05-28 11:07 KST
 - 배포자: 정훈영
 - 저장소: https://github.com/JungDS/sapui5
 - GitHub Pages: https://jungds.github.io/sapui5/
 - 운영 방식: Branch → Pull Request → Review/Merge
 - 현재 진행: Stage 6 상세화
-- 현재 PR: #12 `Stage 6: Gateway OData V2 CRUD 입문 상세화`
+- 현재 PR: #12 `Stage 6: Gateway OData V2 CRUD 입문 상세화 및 README 운영 대시보드 재작성`
 
 ---
 
 ## 최근 수정 페이지
 
-| 구분 | 문서 | 현재 페이지 | 수정 전 페이지 | PR |
+| 구분 | 문서 | 수정 후 웹페이지 | 수정 전 웹페이지 | PR |
 |---|---|---|---|---|
-| 진행 중 | Gateway / OData V2 CRUD 입문 | https://jungds.github.io/sapui5/v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html | https://github.com/JungDS/sapui5/blob/ff7965769e4eb83352194d43007a2925ec838f41/v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html | https://github.com/JungDS/sapui5/pull/12 |
-| 완료 | CDS View에서 OData 노출까지 | https://jungds.github.io/sapui5/v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html | https://github.com/JungDS/sapui5/blob/a27f73cd52ece5eabdfb6f90661175527b27f3aa/v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html | https://github.com/JungDS/sapui5/pull/10 |
-| 완료 | 홈 화면 | https://jungds.github.io/sapui5/ | https://github.com/JungDS/sapui5/blob/a15b63382b08112732d120f02754bfc92b4fa840/index.html | https://github.com/JungDS/sapui5/pull/7 |
+| 진행 중 | Gateway / OData V2 CRUD 입문 | https://jungds.github.io/sapui5/v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html | https://jungds.github.io/sapui5/archive/before/stage6-6-gateway-odata-v2-crud-before.html | https://github.com/JungDS/sapui5/pull/12 |
+| 완료 | CDS View에서 OData 노출까지 | https://jungds.github.io/sapui5/v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html | https://jungds.github.io/sapui5/archive/before/stage6-5-cds-to-odata-before.html | https://github.com/JungDS/sapui5/pull/10 |
+| 완료 | 홈 화면 | https://jungds.github.io/sapui5/ | https://jungds.github.io/sapui5/archive/before/stage7-1-index-home-layout-before.html | https://github.com/JungDS/sapui5/pull/7 |
 
-> 수정 전 페이지는 GitHub Pages 링크가 아니라 GitHub commit 기준 파일 링크로 남긴다. 이렇게 해야 배포 페이지에서 사라진 과거 버전도 비교할 수 있다.
+> 수정 전 페이지는 소스 보기 링크가 아니라 GitHub Pages에서 직접 열리는 비교용 HTML로 보관한다. 비교용 HTML은 `archive/before/` 아래에 두며, 일반 `index.html` Navigation에서는 노출하지 않는다.
 
 ---
 
@@ -54,6 +54,9 @@ data/
   document-catalog.json
   site-map.json
   *audit*.json
+archive/
+  before/
+    stage*-before.html
 v3/
   00-roadmap/
   01-abap/
@@ -70,6 +73,8 @@ v1/
 - `index.html`은 전체 학습자료 첫 화면이다.
 - `pages/*.html`은 영역별 Landing Page다.
 - `v3/` 하위 폴더는 현재 운영 기준 문서다.
+- `archive/before/`는 수정 전 화면 비교용 HTML 보관 위치다.
+- `archive/before/`의 문서는 README에서만 링크하고, 일반 Navigation에서는 노출하지 않는다.
 - `v1/`, `v2/`는 이전 버전 보관용이다.
 - 문서가 하위 폴더로 이동하면 CSS/JS 상대 경로를 함께 수정한다.
 - 현재 `data/site-map.json`은 실제 Navigation 기준 데이터다.
@@ -120,11 +125,13 @@ v1/
 
 1. `최종 수정` 날짜와 시간은 KST 기준으로 작성한다.
 2. `현재 진행`과 `현재 PR`을 최신 상태로 바꾼다.
-3. `최근 수정 페이지` 표에 현재 페이지와 수정 전 페이지를 추가한다.
-4. 수정 전 페이지는 변경 직전 main commit의 GitHub blob URL로 기록한다.
-5. `Stage 6 진행 현황`의 상태와 PR 번호를 최신화한다.
-6. 새 문서가 추가되거나 이동되면 `저장소 구조`와 `현재 경로`를 갱신한다.
-7. 문서 footer의 `배포자: 정훈영` 표기를 확인한다.
+3. 변경 대상 문서의 수정 전 HTML을 `archive/before/` 아래에 보관한다.
+4. 수정 전 HTML 파일명은 `stage<단계>-<문서키>-before.html` 형식을 사용한다.
+5. `최근 수정 페이지` 표에는 수정 후 웹페이지와 수정 전 웹페이지를 모두 `https://jungds.github.io/sapui5/...` 링크로 기록한다.
+6. 수정 전 웹페이지는 일반 Navigation에 넣지 않는다.
+7. `Stage 6 진행 현황`의 상태와 PR 번호를 최신화한다.
+8. 새 문서가 추가되거나 이동되면 `저장소 구조`와 `현재 경로`를 갱신한다.
+9. 문서 footer의 `배포자: 정훈영` 표기를 확인한다.
 
 ---
 
@@ -132,6 +139,7 @@ v1/
 
 ```text
 작업 브랜치 생성
+→ 수정 전 HTML을 archive/before에 보관
 → 문서/코드 수정
 → README 변경사항 반영
 → fallback ZIP 생성
@@ -151,7 +159,9 @@ v1/
 ### 링크 기준
 
 - 배포 링크는 GitHub Pages URL을 사용한다.
-- 비교용 이전 버전은 GitHub commit blob URL을 사용한다.
+- 수정 전 비교 페이지도 GitHub Pages URL을 사용한다.
+- 수정 전 HTML은 `archive/before/` 아래에 보관한다.
+- GitHub blob URL은 내부 검수용으로만 사용하고, README의 비교 링크로 사용하지 않는다.
 - 하위 폴더 문서에서는 `../../assets/common.css`, `../../assets/common.js`를 사용한다.
 - 같은 폴더 내 문서 링크는 파일명만 사용한다.
 - 다른 영역 문서 링크는 상대 경로를 명확히 작성한다.
@@ -169,7 +179,7 @@ v1/
 1. 최신 main commit을 확인한다.
 2. 열린 PR이 있는지 확인한다.
 3. `현재 진행`과 `Stage 6 진행 현황`을 확인한다.
-4. 최근 수정 페이지의 현재 페이지와 수정 전 페이지를 비교한다.
+4. 최근 수정 페이지의 수정 후 웹페이지와 수정 전 웹페이지를 비교한다.
 5. 다음 상세화 후보 중 가장 앞선 문서를 대상으로 새 브랜치를 만든다.
 6. 작업 후 README를 먼저 갱신한 뒤 PR을 만든다.
 
@@ -179,5 +189,6 @@ v1/
 
 - `v3` 루트 HTML 중복 파일은 제거된 상태다.
 - `v3/` 문서는 영역별 하위 폴더 기준으로 관리한다.
+- `archive/before/`는 README 비교용 이전 화면 보관 위치다.
 - `data/site-map.json`은 새 하위 폴더 경로를 사용한다.
 - `data/document-catalog.json`은 후속 데이터 정비 PR에서 경로 필드 보강이 필요하다.
