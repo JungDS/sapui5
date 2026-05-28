@@ -604,8 +604,8 @@
       "reference",
       "summary"
     ],
-    "rules_file": "v3/sap-developer-writing-style-guide-v3.html",
-    "audit_report_html": "v3/prose-audit-report-v3-5.html",
+    "rules_file": "v3/99-reference/sap-developer-writing-style-guide-v3.html",
+    "audit_report_html": "v3/99-reference/prose-audit-report-v3-5.html",
     "audit_report_json": "data/prose-audit-report.json",
     "summary": {
       "html_file_count": 36,

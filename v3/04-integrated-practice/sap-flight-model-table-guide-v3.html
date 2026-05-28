@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SAP Flight Model 데이터 구조 해설 · 혼합 문체 · SAP Developer Learning Library v3</title>
+<link href="../../assets/common.css" rel="stylesheet"/>
+<script defer="" src="../../assets/common.js"></script>
+<!-- data-prose required: concept | structure | practice | checklist | warning | teacher | reference | summary --></head>
+<body data-active-category="practice" data-active-doc="flight-model" data-prose-root="true">
+<header class="library-topbar prose-summary" data-prose="summary">
+<div class="library-topbar__inner">
+<a class="library-home" href="../../index.html">← SAP 학습자료 홈</a>
+<div class="library-meta">
+<span class="badge blue">v3</span>
+<span class="badge green">04. 통합 실습</span>
+<span class="badge amber">배포자: 정훈영</span>
+<span class="badge purple">혼합 문체</span></div>
+</div>
+</header>
+<div class="library-shell">
+<section class="hero prose-summary" data-prose="summary">
+<div class="breadcrumb" data-prose="summary">
+<a href="../../index.html">Home</a>
+<span>›</span>
+<a href="../../pages/integrated-practice.html">통합 실습</a>
+<span>›</span>
+<span>현재 문서</span>
+</div>
+
+<div class="eyebrow">SAP Developer Learning Library</div>
+<h1>SAP Flight Model 데이터 구조 해설</h1>
+<p class="lead">SCARR, SPFLI, SFLIGHT, SBOOK 등 Flight 모델 테이블 관계를 통합 실습 전 선행 지식으로 정리한다.</p>
+<div class="hero-actions"><span class="badge amber">P1</span><span class="badge green">Flight Model</span><span class="badge purple">본문 평서형</span><span class="badge amber">실습 지시형</span></div>
+</section>
+<main><section class="section-card prose-structure" data-prose="structure" id="tables">
+<div class="section-label">01 · 테이블</div>
+<h2>Flight 모델의 주요 테이블</h2>
+<table><thead><tr><th>테이블</th><th>의미</th><th>관계</th></tr></thead><tbody><tr><td>SCARR</td><td>항공사</td><td>CARRID 기준 최상위</td></tr><tr><td>SPFLI</td><td>노선/연결편</td><td>CARRID + CONNID</td></tr><tr><td>SFLIGHT</td><td>일자별 운항</td><td>CARRID + CONNID + FLDATE</td></tr><tr><td>SBOOK</td><td>예약</td><td>Flight에 대한 예약 상세</td></tr><tr><td>SCUSTOM</td><td>고객</td><td>예약 고객 정보</td></tr></tbody></table>
+</section>
+<section class="section-card prose-structure" data-prose="structure" id="flow">
+<div class="section-label">02 · 관계</div>
+<h2>관계는 항공사 → 노선 → 운항 → 예약 순서입니다</h2>
+<div class="flow"><div class="flow-step prose-structure" data-prose="structure"><span class="num">1</span><div><div class="flow-title">항공사</div><p>SCARR에서 항공사 기본 정보를 본다.</p></div></div><div class="flow-step prose-structure" data-prose="structure"><span class="num">2</span><div><div class="flow-title">노선</div><p>SPFLI에서 출발/도착 도시를 본다.</p></div></div><div class="flow-step prose-structure" data-prose="structure"><span class="num">3</span><div><div class="flow-title">운항</div><p>SFLIGHT에서 날짜별 좌석/가격을 본다.</p></div></div><div class="flow-step prose-structure" data-prose="structure"><span class="num">4</span><div><div class="flow-title">예약</div><p>SBOOK에서 고객 예약을 본다.</p></div></div></div>
+</section></main>
+<aside class="toc prose-reference" data-prose="reference">
+<div class="library-tree" data-nav-tree="main" data-prose="reference"></div>
+<hr class="tree-separator"/>
+<div class="local-page-tools" data-prose="reference">
+<h2>이 문서 안에서</h2>
+</div>
+<h2>학습 목차</h2><a href="#tables">01. 테이블</a><a href="#flow">02. 관계</a></aside>
+</div>
+<footer class="library-footer prose-summary" data-prose="summary">SAP Flight Model 데이터 구조 해설 · v3 · 2026-05-27 · 배포자: 정훈영 · 혼합 문체 기준 · Final</footer>
+</body>
+</html>

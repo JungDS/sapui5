@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UI5 Controller 함수 문법 입문 · 혼합 문체 · SAP Developer Learning Library v3</title>
+<link href="../../assets/common.css" rel="stylesheet"/>
+<script defer="" src="../../assets/common.js"></script>
+<!-- data-prose required: concept | structure | practice | checklist | warning | teacher | reference | summary --></head>
+<body data-active-category="ui5" data-active-doc="ui5-controller" data-prose-root="true">
+<header class="library-topbar prose-summary" data-prose="summary">
+<div class="library-topbar__inner">
+<a class="library-home" href="../../index.html">← SAP 학습자료 홈</a>
+<div class="library-meta">
+<span class="badge blue">v3</span>
+<span class="badge green">02. UI5 / Fiori 개발</span>
+<span class="badge amber">배포자: 정훈영</span>
+<span class="badge purple">혼합 문체</span></div>
+</div>
+</header>
+<div class="library-shell">
+<section class="hero prose-summary" data-prose="summary">
+<div class="breadcrumb" data-prose="summary">
+<a href="../../index.html">Home</a>
+<span>›</span>
+<a href="../../pages/ui5-fiori.html">UI5 / Fiori 개발</a>
+<span>›</span>
+<span>현재 문서</span>
+</div>
+
+<div class="eyebrow">SAP Developer Learning Library</div>
+<h1>UI5 Controller 함수 문법 입문</h1>
+<p class="lead">View와 Controller의 역할을 분리해서 이해하고, 버튼 클릭과 함수 실행 흐름을 초심자 기준으로 익힌다.</p>
+<div class="hero-actions"><span class="badge blue">P0</span><span class="badge green">SAPUI5</span><span class="badge purple">본문 평서형</span><span class="badge amber">실습 지시형</span></div>
+</section>
+<main><section class="section-card prose-practice" data-prose="practice" id="why">
+<div class="section-label">01 · 시작하기</div>
+<h2>Controller는 화면의 행동을 담당한다</h2>
+<p class="lead-text"><button class="term" data-term="View" type="button">View</button>가 화면 구조라면, <button class="term" data-term="Controller" type="button">Controller</button>는 사용자가 버튼을 눌렀을 때 무엇을 할지 정하는 파일입니다.</p>
+<div class="grid-2"><div class="mini-card prose-practice" data-prose="practice"><h3>View</h3><p>Input, Button, Table 같은 Control을 배치한다.</p></div><div class="mini-card prose-practice" data-prose="practice"><h3>Controller</h3><p>버튼 클릭, 입력 변경, 화면 초기화 같은 동작을 함수로 작성한다.</p></div></div>
+</section>
+<section class="section-card prose-structure" data-prose="structure" id="shape">
+<div class="section-label">02 · 기본 구조</div>
+<h2>UI5 Controller 파일은 보통 이 모양입니다</h2>
+<div class="code-block prose-reference" data-prose="reference">
+<div class="code-header"><span>Main.controller.js</span></div>
+<pre><code>sap.ui.define([
+    "sap/ui/core/mvc/Controller",
+    "sap/m/MessageToast"
+], function (Controller, MessageToast) {
+    "use strict";
+
+    return Controller.extend("demo.controller.Main", {
+        onInit: function () {
+            // 화면이 처음 만들어질 때 실행됩니다.
+        },
+
+        onPressHello: function () {
+            MessageToast.show("안녕하세요!");
+        }
+    });
+});</code></pre>
+</div>
+</section>
+<section class="section-card prose-checklist" data-prose="checklist" id="event">
+<div class="section-label">03 · 이벤트</div>
+<h2>XML의 press와 Controller 함수가 연결된다</h2>
+<div class="code-block prose-reference" data-prose="reference">
+<div class="code-header"><span>View와 Controller 연결</span></div>
+<pre><code>&lt;!-- Main.view.xml --&gt;
+&lt;Button text="확인" press=".onPressConfirm" /&gt;
+
+// Main.controller.js
+onPressConfirm: function () {
+    sap.m.MessageToast.show("버튼을 눌렀습니다.");
+}</code></pre>
+</div>
+</section>
+<section class="section-card prose-practice" data-prose="practice" id="this">
+<div class="section-label">04 · this</div>
+<h2>Controller 안의 this는 현재 Controller를 가리킵니다</h2>
+<p><button class="term" data-term="this" type="button">this</button>를 통해 현재 화면의 View를 찾거나, 특정 ID의 Control을 가져올 수 있다.</p><div class="code-block prose-reference" data-prose="reference">
+<div class="code-header"><span>Input 값 읽기</span></div>
+<pre><code>onCheckName: function () {
+    var sName = this.byId("idNameInput").getValue();
+    sap.m.MessageToast.show("입력한 이름: " + sName);
+}</code></pre>
+</div>
+</section></main>
+<aside class="toc prose-reference" data-prose="reference">
+<div class="library-tree" data-nav-tree="main" data-prose="reference"></div>
+<hr class="tree-separator"/>
+<div class="local-page-tools" data-prose="reference">
+<h2>이 문서 안에서</h2>
+</div>
+<h2>학습 목차</h2><a href="#why">01. 왜 Controller인가</a><a href="#shape">02. 기본 모양</a><a href="#event">03. 이벤트 핸들러</a><a href="#this">04. this와 byId</a></aside>
+</div>
+<footer class="library-footer prose-summary" data-prose="summary">UI5 Controller 함수 문법 입문 · v3 · 2026-05-27 · 배포자: 정훈영 · 혼합 문체 기준 · Final</footer>
+</body>
+</html>

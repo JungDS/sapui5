@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RAP Action 다건 선택 처리 · 혼합 문체 · SAP Developer Learning Library v3</title>
+<link href="../../assets/common.css" rel="stylesheet"/>
+<script defer="" src="../../assets/common.js"></script>
+<!-- data-prose required: concept | structure | practice | checklist | warning | teacher | reference | summary --></head>
+<body data-active-category="abap" data-active-doc="rap-action" data-prose-root="true">
+<header class="library-topbar prose-summary" data-prose="summary">
+<div class="library-topbar__inner">
+<a class="library-home" href="../../index.html">← SAP 학습자료 홈</a>
+<div class="library-meta">
+<span class="badge blue">v3</span>
+<span class="badge green">01. ABAP 개발</span>
+<span class="badge amber">배포자: 정훈영</span>
+<span class="badge purple">혼합 문체</span></div>
+</div>
+</header>
+<div class="library-shell">
+<section class="hero prose-summary" data-prose="summary">
+<div class="breadcrumb" data-prose="summary">
+<a href="../../index.html">Home</a>
+<span>›</span>
+<a href="../../pages/abap.html">ABAP 개발</a>
+<span>›</span>
+<span>현재 문서</span>
+</div>
+
+<div class="eyebrow">SAP Developer Learning Library</div>
+<h1>RAP Action 다건 선택 처리</h1>
+<p class="lead">RAP Action에서 다건 선택 시 호출 단위와 Keys 일괄 전달 구조를 이해한다.</p>
+<div class="hero-actions"><span class="badge purple">P2</span><span class="badge green">RAP</span><span class="badge purple">본문 평서형</span><span class="badge amber">실습 지시형</span></div>
+</section>
+<main><section class="section-card prose-structure" data-prose="structure" id="problem">
+<div class="section-label">01 · 문제상황</div>
+<h2>여러 행을 선택했을 때 Action은 몇 번 호출될까요?</h2>
+<p>UI에서 여러 행을 선택해 Action 버튼을 누르면, 프레임워크 설정에 따라 건별 호출처럼 보일 수도 있고, 여러 Key가 한 번에 전달될 수도 있다. 실무에서는 이 차이를 이해해야 성능과 트랜잭션 처리를 설계할 수 있다.</p>
+</section>
+<section class="section-card prose-structure" data-prose="structure" id="keys">
+<div class="section-label">02 · Keys</div>
+<h2>다건 처리는 Keys 테이블을 기준으로 생각한다</h2>
+<div class="code-block prose-reference" data-prose="reference">
+<div class="code-header"><span>개념 예시</span></div>
+<pre><code>METHOD approve.
+  LOOP AT keys INTO DATA(ls_key).
+    " 선택된 각 인스턴스 처리
+  ENDLOOP.
+ENDMETHOD.</code></pre>
+</div>
+</section>
+<section class="section-card prose-practice" data-prose="practice" id="check">
+<div class="section-label">03 · 확인</div>
+<h2>테스트 시 볼 것</h2>
+<ol><li>Action 구현 메서드가 몇 번 호출되는지 확인한다.</li><li>keys에 몇 건이 들어오는지 확인한다.</li><li>성공/실패 메시지가 건별로 구분되는지 확인한다.</li></ol>
+</section></main>
+<aside class="toc prose-reference" data-prose="reference">
+<div class="library-tree" data-nav-tree="main" data-prose="reference"></div>
+<hr class="tree-separator"/>
+<div class="local-page-tools" data-prose="reference">
+<h2>이 문서 안에서</h2>
+</div>
+<h2>학습 목차</h2><a href="#problem">01. 문제상황</a><a href="#keys">02. Keys</a><a href="#check">03. 확인</a></aside>
+</div>
+<footer class="library-footer prose-summary" data-prose="summary">RAP Action 다건 선택 처리 · v3 · 2026-05-27 · 배포자: 정훈영 · 혼합 문체 기준 · Final</footer>
+</body>
+</html>

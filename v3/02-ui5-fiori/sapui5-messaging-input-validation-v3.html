@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Messaging과 Input Validation 실무 입문 · 혼합 문체 · SAP Developer Learning Library v3</title>
+<link href="../../assets/common.css" rel="stylesheet"/>
+<script defer="" src="../../assets/common.js"></script>
+<!-- data-prose required: concept | structure | practice | checklist | warning | teacher | reference | summary --></head>
+<body data-active-category="ui5" data-active-doc="ui5-messaging" data-prose-root="true">
+<header class="library-topbar prose-summary" data-prose="summary">
+<div class="library-topbar__inner">
+<a class="library-home" href="../../index.html">← SAP 학습자료 홈</a>
+<div class="library-meta">
+<span class="badge blue">v3</span>
+<span class="badge green">02. UI5 / Fiori 개발</span>
+<span class="badge amber">배포자: 정훈영</span>
+<span class="badge purple">혼합 문체</span></div>
+</div>
+</header>
+<div class="library-shell">
+<section class="hero prose-summary" data-prose="summary">
+<div class="breadcrumb" data-prose="summary">
+<a href="../../index.html">Home</a>
+<span>›</span>
+<a href="../../pages/ui5-fiori.html">UI5 / Fiori 개발</a>
+<span>›</span>
+<span>현재 문서</span>
+</div>
+
+<div class="eyebrow">SAP Developer Learning Library</div>
+<h1>Messaging과 Input Validation 실무 입문</h1>
+<p class="lead">Input 화면 값과 Model 값의 차이를 직접 실습하고, Messaging과 저장 전 Guard까지 초심자 기준으로 이해한다.</p>
+<div class="hero-actions"><span class="badge blue">P0</span><span class="badge green">실습 포함</span><span class="badge purple">본문 평서형</span><span class="badge amber">실습 지시형</span></div>
+</section>
+<main><section class="section-card prose-practice" data-prose="practice" id="practice">
+<div class="section-label">01 · 먼저 해보는 실습</div>
+<h2>Input 값은 바뀌었는데 Model 값은 왜 그대로일까요?</h2>
+<p class="lead-text">아래 실습은 <button class="term" data-term="SAPUI5" type="button">SAPUI5</button> 런타임을 흉내 낸 시뮬레이터입니다. <code>abc</code>, <code>999</code>, <code>30</code>을 차례로 눌러 보며 <button class="term" data-term="Input" type="button">Input</button> 화면 값과 <button class="term" data-term="Model" type="button">Model</button> 확정값의 차이를 확인한다.</p>
+<div class="practice-lab prose-structure" data-practice="ui5-validation" data-prose="structure">
+<div class="lab-grid">
+<div class="lab-panel prose-practice" data-prose="practice">
+<h3>실습 입력창</h3>
+<p>조건은 <code>Integer</code>, <code>minimum: 1</code>, <code>maximum: 120</code>입니다. 초기 Model 값은 <code>20</code>입니다.</p>
+<label class="lab-label">Input 화면 값</label>
+<input class="lab-input" data-lab-input="" type="text" value="20"/>
+<div class="lab-actions">
+<button class="lab-btn" data-lab-fill="abc">abc 입력</button>
+<button class="lab-btn" data-lab-fill="999">999 입력</button>
+<button class="lab-btn" data-lab-fill="30">30 입력</button>
+<button class="lab-btn primary" data-lab-save="">저장 Guard 검사</button>
+<button class="lab-btn" data-lab-reset="">초기화</button>
+</div>
+<div class="lab-status" data-lab-status=""></div>
+</div>
+<div class="lab-panel prose-practice" data-prose="practice">
+<h3>현재 상태</h3>
+<div class="lab-result">
+<div class="lab-metric"><div class="label">Input 화면 값</div><div class="data" data-lab-screen="">20</div></div>
+<div class="lab-metric"><div class="label">Model 확정값</div><div class="data" data-lab-model="">20</div></div>
+</div>
+<h3>MessageModel 상태</h3>
+<div class="lab-message-list" data-lab-messages=""></div>
+</div>
+</div>
+</div>
+</section>
+<section class="section-card prose-practice" data-prose="practice" id="concept">
+<div class="section-label">02 · 핵심 개념</div>
+<h2>Input에서 Model까지 가는 길에는 검문소가 있다</h2>
+<div class="flow"><div class="flow-step prose-practice" data-prose="practice"><span class="num">1</span><div><div class="flow-title">사용자 입력</div><p><button class="term" data-term="Input" type="button">Input</button>에 값이 표시된다. 아직 확정 데이터는 아닙니다.</p></div></div><div class="flow-step prose-practice" data-prose="practice"><span class="num">2</span><div><div class="flow-title">parse</div><p><button class="term" data-term="Binding Type" type="button">Binding Type</button>이 문자열을 정수, 날짜, 금액 같은 타입으로 해석한다.</p></div></div><div class="flow-step prose-practice" data-prose="practice"><span class="num">3</span><div><div class="flow-title">validate</div><p>타입은 맞지만 <button class="term" data-term="constraints" type="button">constraints</button>를 통과하는지 본다.</p></div></div><div class="flow-step prose-practice" data-prose="practice"><span class="num">4</span><div><div class="flow-title">Model 반영 또는 Message 생성</div><p>성공하면 <button class="term" data-term="Model" type="button">Model</button>에 반영되고, 실패하면 <button class="term" data-term="Messaging" type="button">Messaging</button>이 오류 메시지를 관리한다.</p></div></div></div>
+</section>
+<section class="section-card prose-concept" data-prose="concept" id="code">
+<div class="section-label">03 · 표준 코드</div>
+<h2>1.120 기준으로도 Messaging 중심 예제가 좋다</h2>
+<div class="code-block prose-reference" data-prose="reference">
+<div class="code-header"><span>View.view.xml</span></div>
+<pre><code>&lt;Input
+    id="idAgeInput"
+    valueLiveUpdate="true"
+    value="{
+        path: 'view&gt;/Age',
+        type: 'sap.ui.model.type.Integer',
+        constraints: {
+            minimum: 1,
+            maximum: 120
+        }
+    }" /&gt;</code></pre>
+</div><div class="code-block prose-reference" data-prose="reference">
+<div class="code-header"><span>Controller 저장 전 Guard</span></div>
+<pre><code>var bHasError = Messaging
+    .getMessageModel()
+    .getData()
+    .some(function (oMessage) {
+        return oMessage.type === MessageType.Error;
+    });
+
+if (bHasError) {
+    MessageBox.error("입력 오류를 먼저 수정해 주세요.");
+    return;
+}</code></pre>
+</div>
+</section>
+<section class="section-card prose-concept" data-prose="concept" id="backend">
+<div class="section-label">04 · 실무 확장</div>
+<h2>프론트엔드 검증과 백엔드 메시지는 구분해야 한다</h2>
+<table><thead><tr><th>구분</th><th>발생 위치</th><th>대표 사례</th></tr></thead><tbody><tr><td>프론트엔드 검증</td><td>브라우저 UI5</td><td>숫자 타입 오류, 최소/최대값 위반</td></tr><tr><td>백엔드 메시지</td><td>OData/RAP 서버</td><td>권한 오류, 저장 검증 오류, 비즈니스 규칙 위반</td></tr></tbody></table>
+</section></main>
+<aside class="toc prose-reference" data-prose="reference">
+<div class="library-tree" data-nav-tree="main" data-prose="reference"></div>
+<hr class="tree-separator"/>
+<div class="local-page-tools" data-prose="reference">
+<h2>이 문서 안에서</h2>
+</div>
+<h2>학습 목차</h2><a href="#practice">01. 먼저 실습</a><a href="#concept">02. 핵심 개념</a><a href="#code">03. 표준 코드</a><a href="#backend">04. 백엔드 메시지</a></aside>
+</div>
+<footer class="library-footer prose-summary" data-prose="summary">Messaging과 Input Validation 실무 입문 · v3 · 2026-05-27 · 배포자: 정훈영 · 혼합 문체 기준 · Final</footer>
+</body>
+</html>

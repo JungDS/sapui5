@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SAP ATP 학생 학습 패키지 · 혼합 문체 · SAP Developer Learning Library v3</title>
+<link href="../../assets/common.css" rel="stylesheet"/>
+<script defer="" src="../../assets/common.js"></script>
+<!-- data-prose required: concept | structure | practice | checklist | warning | teacher | reference | summary --></head>
+<body data-active-category="module" data-active-doc="atp" data-prose-root="true">
+<header class="library-topbar prose-summary" data-prose="summary">
+<div class="library-topbar__inner">
+<a class="library-home" href="../../index.html">← SAP 학습자료 홈</a>
+<div class="library-meta">
+<span class="badge blue">v3</span>
+<span class="badge green">03. SAP 모듈 기초</span>
+<span class="badge amber">배포자: 정훈영</span>
+<span class="badge purple">혼합 문체</span></div>
+</div>
+</header>
+<div class="library-shell">
+<section class="hero prose-summary" data-prose="summary">
+<div class="breadcrumb" data-prose="summary">
+<a href="../../index.html">Home</a>
+<span>›</span>
+<a href="../../pages/module-basics.html">SAP 모듈 기초</a>
+<span>›</span>
+<span>현재 문서</span>
+</div>
+
+<div class="eyebrow">SAP Developer Learning Library</div>
+<h1>SAP ATP 학생 학습 패키지</h1>
+<p class="lead">재고와 가용수량의 차이를 먼저 이해하고, 판매오더에서 납기 약속이 어떻게 판단되는지 학습한다.</p>
+<div class="hero-actions"><span class="badge green">PP/SCM</span><span class="badge blue">계산 실습</span><span class="badge purple">본문 평서형</span><span class="badge amber">실습 지시형</span></div>
+</section>
+<main><section class="section-card prose-concept" data-prose="concept" id="hook">
+<div class="section-label">01 · 먼저 생각하기</div>
+<h2>재고가 100개면 고객에게 100개를 약속해도 될까요?</h2>
+<p class="lead-text">답은 보통 “아니다”입니다. 이미 다른 고객에게 예약된 수량, 출고 예정 수량, 입고 예정 수량을 함께 봐야 한다. 이 판단을 돕는 개념이 <button class="term" data-term="ATP" type="button">ATP</button>입니다.</p>
+</section>
+<section class="section-card prose-practice" data-prose="practice" id="calc">
+<div class="section-label">02 · 계산 실습</div>
+<h2>간단한 ATP 계산기</h2>
+<div class="practice-lab prose-practice" data-practice="atp-calc" data-prose="practice">
+<div class="grid-2">
+<div class="lab-panel prose-practice" data-prose="practice">
+<label class="lab-label">현재 재고</label><input class="calc-input" data-atp-stock="" type="number" value="100"/>
+<label class="lab-label">이미 예약된 주문</label><input class="calc-input" data-atp-reserved="" type="number" value="60"/>
+<label class="lab-label">납기 전 입고 예정</label><input class="calc-input" data-atp-receipt="" type="number" value="30"/>
+<label class="lab-label">신규 고객 요청수량</label><input class="calc-input" data-atp-request="" type="number" value="50"/>
+</div>
+<div class="lab-panel prose-practice" data-prose="practice"><h3>판단 결과</h3><div class="calc-result" data-atp-result=""></div></div>
+</div>
+</div>
+</section>
+<section class="section-card prose-checklist" data-prose="checklist" id="flow">
+<div class="section-label">03 · 판매오더 흐름</div>
+<h2>ATP는 판매오더 중간에서 납기를 판단한다</h2>
+<div class="flow"><div class="flow-step prose-checklist" data-prose="checklist"><span class="num">1</span><div><div class="flow-title">고객 주문</div><p>고객이 자재, 수량, 희망 납기를 요청한다.</p></div></div><div class="flow-step prose-checklist" data-prose="checklist"><span class="num">2</span><div><div class="flow-title">ATP 확인</div><p>재고, 예약, 입고 예정 정보를 바탕으로 약속 가능 여부를 확인한다.</p></div></div><div class="flow-step prose-checklist" data-prose="checklist"><span class="num">3</span><div><div class="flow-title">납기 확정</div><p>가능한 수량과 날짜를 확정하거나 조정한다.</p></div></div></div>
+</section></main>
+<aside class="toc prose-reference" data-prose="reference">
+<div class="library-tree" data-nav-tree="main" data-prose="reference"></div>
+<hr class="tree-separator"/>
+<div class="local-page-tools" data-prose="reference">
+<h2>이 문서 안에서</h2>
+</div>
+<h2>학습 목차</h2><a href="#hook">01. 먼저 질문</a><a href="#calc">02. 계산 실습</a><a href="#flow">03. 판매오더</a></aside>
+</div>
+<footer class="library-footer prose-summary" data-prose="summary">SAP ATP 학생 학습 패키지 · v3 · 2026-05-27 · 배포자: 정훈영 · 혼합 문체 기준 · Final</footer>
+</body>
+</html>
