@@ -2,13 +2,13 @@
 
 ## 운영 대시보드
 
-- 최종 수정: 2026-05-28 17:05 KST
+- 최종 수정: 2026-05-28 17:15 KST
 - 배포자: 정훈영
 - 저장소: https://github.com/JungDS/sapui5
 - GitHub Pages: https://jungds.github.io/sapui5/
 - 운영 방식: Branch → Pull Request → Review/Merge
-- 현재 진행: Stage 7 · 공통 CSS/JS Shell 초안
-- 현재 PR: #19 `Stage 7 공통 CSS/JS Shell 초안 추가`
+- 현재 진행: Stage 7 · Gateway 문서 docs 시범 전환
+- 현재 PR: #20 `Stage 7 Gateway 문서 docs 시범 전환`
 
 ---
 
@@ -64,7 +64,7 @@ archive/
         20260528_164134_v3.0.html
     abap/
       gateway-odata-v2-crud/
-        20260528_161042_v4.0.html
+        20260528_171530_v3.0.html
   before/
     legacy-pr-comparison/
   v3/
@@ -123,8 +123,8 @@ archive/
   data-doc-id="gateway-odata-v2-crud"
   data-doc-title="Gateway / OData V2 CRUD 입문"
   data-doc-version="4.0"
-  data-doc-created-at="2026-05-28T14:23:15+09:00"
-  data-doc-updated-at="2026-05-28T16:10:42+09:00"
+  data-doc-created-at="2026-05-28T17:15:30+09:00"
+  data-doc-updated-at="2026-05-28T17:15:30+09:00"
   data-distributor="정훈영">
 ```
 
@@ -157,8 +157,7 @@ archive/docs/<category>/<doc-id>/<YYYYMMDD>_<hhmmss>_v<version>.html
 
 ```text
 archive/docs/home/index/20260528_164134_v3.0.html
-archive/docs/abap/gateway-odata-v2-crud/20260528_161042_v4.0.html
-archive/docs/abap/gateway-odata-v2-crud/20260528_171530_v4.0.html
+archive/docs/abap/gateway-odata-v2-crud/20260528_171530_v3.0.html
 archive/docs/abap/gateway-odata-v2-crud/20260610_093000_v4.1.html
 ```
 
@@ -170,6 +169,7 @@ archive/docs/abap/gateway-odata-v2-crud/20260610_093000_v4.1.html
 - 동일 파일명이 이미 존재하면 현재 문서의 `data-doc-updated-at` 또는 archive 생성 로직을 재확인한다.
 - 충돌이 불가피한 경우에만 새 timestamp로 재생성한다.
 - 기존 문서에 메타데이터가 없는 최초 전환 작업에서는 전환 시점의 기준 timestamp를 사용하고, README에 예외로 기록한다.
+- 기존 v3 문서를 직접 수정하지 않고 docs 경로를 신규 생성하는 시범 전환 작업에서는 archive 파일이 v3 원본으로 이동하는 비교 안내 페이지일 수 있다.
 
 ### 버전 증가 기준
 
@@ -262,8 +262,8 @@ Stage 7 Shell은 `body[data-page-type]`이 있는 페이지에서만 동작한�
 | 7-0 | README 운영 기준 정리 | `README.md` | Global Shell 기준, archive 기준 | 완료 (#17) |
 | 7-1 | 최종 로컬 샘플 확정 | local sample | Header/Nav 최종 디자인 | 완료 |
 | 7-2 | index.html 메타데이터 적용 | `index.html` | Home Shell 기준 적용 | 완료 (#18) |
-| 7-3 | 공통 CSS/JS Shell 초안 | `assets/stage7-shell.css`, `assets/stage7-shell.js` | Header/Nav 자동 생성 기반 | 진행 중 (#19) |
-| 7-4 | Gateway 문서 1개 시범 전환 | `docs/abap/gateway-odata-v2-crud.html` | docs 구조 검증 | 진행 예정 |
+| 7-3 | 공통 CSS/JS Shell 초안 | `assets/stage7-shell.css`, `assets/stage7-shell.js` | Header/Nav 자동 생성 기반 | 완료 (#19) |
+| 7-4 | Gateway 문서 1개 시범 전환 | `docs/abap/gateway-odata-v2-crud.html` | docs 구조 검증 | 진행 중 (#20) |
 | 7-5 | pages Landing 전환 | `pages/*.html` | landing 메타데이터/레이아웃 | 진행 예정 |
 | 7-6 | v3 운영 문서 docs로 이관 | `v3/**/*.html` → `docs/**` | 최신 운영 문서 경로 정리 | 진행 예정 |
 | 7-7 | archive/v3 보존 또는 redirect 결정 | `v3/`, `archive/v3/` | 기존 링크 정책 확정 | 진행 예정 |
@@ -305,7 +305,8 @@ Stage 7 Shell은 `body[data-page-type]`이 있는 페이지에서만 동작한�
 
 | 구분 | 문서 | 수정 후 웹페이지 | 수정 전 웹페이지 | PR |
 |---|---|---|---|---|
-| 진행 중 | Stage 7 공통 CSS/JS Shell 초안 | https://jungds.github.io/sapui5/assets/stage7-shell.css | - | https://github.com/JungDS/sapui5/pull/19 |
+| 진행 중 | Gateway docs Stage 7 시범 전환 | https://jungds.github.io/sapui5/docs/abap/gateway-odata-v2-crud.html | https://jungds.github.io/sapui5/archive/docs/abap/gateway-odata-v2-crud/20260528_171530_v3.0.html | https://github.com/JungDS/sapui5/pull/20 |
+| 완료 | Stage 7 공통 CSS/JS Shell 초안 | https://jungds.github.io/sapui5/assets/stage7-shell.css | - | https://github.com/JungDS/sapui5/pull/19 |
 | 완료 | index.html Stage 7 Home Shell | https://jungds.github.io/sapui5/ | https://jungds.github.io/sapui5/archive/docs/home/index/20260528_164134_v3.0.html | https://github.com/JungDS/sapui5/pull/18 |
 | 완료 | Gateway Navigation 우측 독립 패널 | https://jungds.github.io/sapui5/v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html | https://jungds.github.io/sapui5/archive/before/stage6-6-gateway-hybrid-navigation-before.html | https://github.com/JungDS/sapui5/pull/16 |
 | 완료 | Gateway Scroll Spy | https://jungds.github.io/sapui5/v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html | https://jungds.github.io/sapui5/archive/before/stage6-6-gateway-hybrid-navigation-before.html | https://github.com/JungDS/sapui5/pull/15 |
@@ -324,6 +325,7 @@ Stage 7 Shell은 `body[data-page-type]`이 있는 페이지에서만 동작한�
 - SAP 모듈 기초: https://jungds.github.io/sapui5/pages/module-basics.html
 - 통합 실습: https://jungds.github.io/sapui5/pages/integrated-practice.html
 - Reference/운영: https://jungds.github.io/sapui5/pages/reference.html
+- Gateway docs 시범 전환: https://jungds.github.io/sapui5/docs/abap/gateway-odata-v2-crud.html
 
 ---
 
@@ -368,9 +370,10 @@ Stage 7 Shell은 `body[data-page-type]`이 있는 페이지에서만 동작한�
 
 ## 현재 메모
 
-- Stage 7 공통 Shell 초안은 기존 `common.css/common.js`에 직접 섞지 않고 `stage7-shell.css/stage7-shell.js`로 분리했다.
-- Stage 7 Shell은 `body[data-page-type]`이 있는 페이지에서만 동작한다.
-- 다음 단계는 Gateway 문서 1개를 `docs/abap/gateway-odata-v2-crud.html`로 시범 전환하는 것이다.
+- Gateway 문서 1개를 `docs/abap/gateway-odata-v2-crud.html` 경로로 시범 전환했다.
+- 기존 v3 Gateway 문서는 삭제하거나 수정하지 않고 그대로 유지한다.
+- 이번 archive 파일은 v3 원본으로 이동하는 비교 안내 페이지다.
+- 다음 단계는 pages Landing 전환 또는 Gateway docs 시범 전환 결과 검수다.
 - archive 파일명은 현재 운영본의 `data-doc-updated-at` 값을 사용한다.
 - archive 파일명 표준은 `<YYYYMMDD>_<hhmmss>_v<version>.html`이다.
 - 문서별 archive 경로는 `archive/docs/<category>/<doc-id>/`를 사용한다.
