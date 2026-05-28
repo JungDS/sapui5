@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CDS View에서 OData 노출까지 · SAP Developer Learning Library</title>
+<link rel="stylesheet" href="../../assets/common.css" />
+<link rel="stylesheet" href="../../assets/stage7-shell.css" />
+<script src="../../assets/common.js" defer></script>
+<script src="../../assets/stage7-shell.js" defer></script>
+</head>
+<body data-page-type="doc" data-active-category="abap" data-doc-id="cds-odata" data-doc-title="CDS View에서 OData 노출까지" data-doc-version="4.0" data-doc-created-at="2026-05-28T21:25:00+09:00" data-doc-updated-at="2026-05-28T21:25:00+09:00" data-distributor="정훈영" data-prose-root="true">
+<div class="stage7-doc-layout">
+  <section class="stage7-hero prose-summary" data-prose="summary">
+    <div class="breadcrumb" data-prose="summary"><a href="../../index.html">Home</a><span>›</span><a href="../../pages/abap.html">ABAP 개발</a><span>›</span><span>CDS View에서 OData 노출까지</span></div>
+    <div class="stage7-hero__eyebrow">SAP Developer Learning Library</div>
+    <h1>CDS View에서 OData 노출까지</h1>
+    <p class="lead">Interface View, Projection View, Association, Service Definition, Service Binding의 연결 구조를 초급 개발자 관점에서 정리한다.</p>
+    <div class="home-badges"><span class="stage7-badge blue">Stage 7</span><span class="stage7-badge green">ABAP 개발</span><span class="stage7-badge purple">CDS / OData</span><span class="stage7-badge amber">배포자: 정훈영</span></div>
+  </section>
+  <main>
+    <section class="stage7-section prose-concept" data-prose="concept" id="architecture">
+      <div class="stage7-section__label">01 · 아키텍처</div>
+      <h2>CDS는 데이터 모델이고 OData는 외부 소비를 위한 서비스 계층입니다</h2>
+      <p>CDS View는 SAP HANA와 ABAP Dictionary 위에서 의미 있는 데이터 모델을 정의한다. OData는 그 모델을 UI5, Fiori Elements, 외부 시스템이 호출할 수 있는 HTTP 기반 서비스로 노출한다. 실무에서는 데이터 모델과 서비스 노출 책임을 분리하는 것이 중요하다.</p>
+      <div class="note" data-prose="concept"><strong>표준 의도</strong> Interface View는 재사용 가능한 안정 계층, Projection View는 소비 목적에 맞춘 노출 계층으로 보는 것이 좋다.</div>
+    </section>
+    <section class="stage7-section prose-structure" data-prose="structure" id="layers">
+      <div class="stage7-section__label">02 · 계층</div>
+      <h2>ZI_*와 ZC_*를 분리하면 변경 영향도를 줄일 수 있습니다</h2>
+      <div class="stage7-card-grid two">
+        <article class="stage7-card"><h3>Interface View · ZI_*</h3><p>테이블 또는 표준 View를 기반으로 핵심 필드, Association, Semantics를 정의한다. 여러 소비 View가 재사용할 수 있는 기반이다.</p></article>
+        <article class="stage7-card"><h3>Projection View · ZC_*</h3><p>화면, API, 분석 등 특정 소비 목적에 맞춰 필드와 Association을 노출한다. UI Annotation도 이 계층에 두는 편이 관리하기 쉽다.</p></article>
+        <article class="stage7-card"><h3>Service Definition</h3><p>어떤 Entity를 서비스에 포함할지 선언한다. 외부에 보여줄 모델의 경계를 정하는 단계다.</p></article>
+        <article class="stage7-card"><h3>Service Binding</h3><p>OData V2/V4 등 프로토콜과 런타임 노출 방식을 결정하고 publish한다.</p></article>
+      </div>
+    </section>
+    <section class="stage7-section prose-practice" data-prose="practice" id="example">
+      <div class="stage7-section__label">03 · 예제</div>
+      <h2>Flight 모델은 CDS와 OData 흐름을 설명하기 좋은 예제입니다</h2>
+      <pre><code>@EndUserText.label: 'Interface View 항공사'
+define view entity ZI_JHY_Carrier
+  as select from scarr
+{
+  key carrid   as Carrid,
+      carrname as Carrname,
+      currcode as Currcode,
+      url      as Url
+}
+
+@EndUserText.label: 'Projection View 항공사'
+define view entity ZC_JHY_Carrier
+  as projection on ZI_JHY_Carrier
+{
+  key Carrid,
+      Carrname,
+      Currcode,
+      Url
+}</code></pre>
+      <p>교육에서는 반드시 Interface View와 Projection View를 함께 보여주는 편이 좋다. 학생들이 처음부터 소비 계층과 재사용 계층의 차이를 이해할 수 있기 때문이다.</p>
+    </section>
+    <section class="stage7-section prose-warning" data-prose="warning" id="pitfalls">
+      <div class="stage7-section__label">04 · 주의점</div>
+      <h2>OData 노출은 CDS 생성의 마지막 단계일 뿐입니다</h2>
+      <ul><li>키 필드가 안정적이지 않으면 OData Entity 식별이 흔들린다.</li><li>수량과 금액 필드는 Unit, Currency Semantics를 함께 지정한다.</li><li>Association Cardinality를 실제 데이터 관계와 맞춘다.</li><li>권한 체크가 필요한 경우 Access Control과 서비스 노출 범위를 함께 검토한다.</li></ul>
+    </section>
+    <section class="stage7-section prose-checklist" data-prose="checklist" id="checklist">
+      <div class="stage7-section__label">05 · 완료 체크</div>
+      <h2>다음 단계로 가기 전 확인합니다</h2>
+      <ol><li>Interface View와 Projection View의 역할 차이를 설명할 수 있다.</li><li>Association이 OData Navigation으로 연결되는 흐름을 설명할 수 있다.</li><li>Service Definition과 Service Binding의 역할을 구분할 수 있다.</li><li>Gateway Client 또는 Browser에서 Metadata와 EntitySet을 확인할 수 있다.</li></ol>
+    </section>
+  </main>
+</div>
+</body>
+</html>

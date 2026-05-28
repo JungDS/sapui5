@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CDS View에서 OData 노출까지 · SAP Developer Learning Library v3</title>
+<link rel="stylesheet" href="../../assets/common.css" />
+<script src="../../assets/common.js" defer></script>
+<!-- data-prose required: concept | structure | practice | checklist | warning | teacher | reference | summary -->
+</head>
+<body data-active-category="abap" data-active-doc="cds-odata" data-prose-root="true">
+<header class="library-topbar prose-summary" data-prose="summary">
+  <div class="library-topbar__inner">
+    <a class="library-home" href="../../index.html">← SAP 학습자료 홈</a>
+    <div class="library-meta">
+      <span class="badge blue">v3</span>
+      <span class="badge green">01. ABAP 개발</span>
+      <span class="badge amber">배포자: 정훈영</span>
+      <span class="badge purple">Stage 6 Detail</span>
+    </div>
+  </div>
+</header>
+
+<div class="library-shell">
+  <section class="hero prose-summary" data-prose="summary">
+    <div class="breadcrumb" data-prose="summary">
+      <a href="../../index.html">Home</a>
+      <span>›</span>
+      <a href="../../pages/abap.html">ABAP 개발</a>
+      <span>›</span>
+      <span>현재 문서</span>
+    </div>
+    <div class="eyebrow">SAP Developer Learning Library</div>
+    <h1>CDS View에서 OData 노출까지</h1>
+    <p class="lead">
+      S/4HANA에서 CDS View를 설계하고, Interface View와 Projection View를 분리한 뒤,
+      Service Definition과 Service Binding으로 OData 서비스를 노출하는 전체 흐름을 정리한다.
+    </p>
+    <div class="hero-actions">
+      <span class="badge blue">P0</span>
+      <span class="badge green">CDS</span>
+      <span class="badge purple">OData</span>
+      <span class="badge amber">예상 50~60분</span>
+    </div>
+  </section>
+
+  <main>
+    <section class="section-card prose-structure" data-prose="structure" id="overview">
+      <div class="section-label">01 · 큰 그림</div>
+      <h2>CDS는 데이터 모델이고 OData는 외부로 노출되는 서비스 계약이다</h2>
+      <p class="lead-text">
+        CDS View는 DB 테이블을 직접 화면에 연결하기 위한 도구가 아니다. 데이터 의미, 키, 연관관계,
+        금액/수량 단위, 권한, 노출 범위를 명확히 정의하는 모델링 계층이다. OData는 이 모델을 UI5,
+        Fiori Elements, 외부 소비자가 사용할 수 있도록 HTTP 기반 서비스로 노출하는 계약이다.
+      </p>
+      <div class="flow">
+        <div class="flow-step prose-structure" data-prose="structure">
+          <span class="num">1</span>
+          <div>
+            <div class="flow-title">원천 테이블 확인</div>
+            <p>SCARR, SPFLI, SFLIGHT 같은 표준 테이블의 키, 단위, 관계를 확인한다.</p>
+          </div>
+        </div>
+        <div class="flow-step prose-structure" data-prose="structure">
+          <span class="num">2</span>
+          <div>
+            <div class="flow-title">Interface View 작성</div>
+            <p>ZI_* View에서 원천 데이터를 안정적인 재사용 모델로 정의한다.</p>
+          </div>
+        </div>
+        <div class="flow-step prose-structure" data-prose="structure">
+          <span class="num">3</span>
+          <div>
+            <div class="flow-title">Projection View 작성</div>
+            <p>ZC_* View에서 UI나 서비스 소비자에게 보여줄 필드와 의미를 정리한다.</p>
+          </div>
+        </div>
+        <div class="flow-step prose-structure" data-prose="structure">
+          <span class="num">4</span>
+          <div>
+            <div class="flow-title">Service Definition / Binding</div>
+            <p>노출 대상을 선택하고 OData V2 또는 V4 서비스로 바인딩한다.</p>
+          </div>
+        </div>
+        <div class="flow-step prose-structure" data-prose="structure">
+          <span class="num">5</span>
+          <div>
+            <div class="flow-title">Metadata와 EntitySet 테스트</div>
+            <p>Service Binding Preview, Gateway Client, Browser Network에서 실제 응답을 확인한다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-card prose-concept" data-prose="concept" id="layers">
+      <div class="section-label">02 · View Layer</div>
+      <h2>Interface View와 Projection View를 분리하면 변경 영향이 줄어든다</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>구분</th>
+            <th>이름 예시</th>
+            <th>역할</th>
+            <th>초급자 관점</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Interface View</td>
+            <td>ZI_JHY_Flight</td>
+            <td>원천 테이블을 재사용 가능한 의미 모델로 감싼다.</td>
+            <td>DB 구조를 바로 노출하지 않고 안정적인 내부 모델을 만든다.</td>
+          </tr>
+          <tr>
+            <td>Projection View</td>
+            <td>ZC_JHY_Flight</td>
+            <td>소비자에게 필요한 필드와 노출 형태를 정리한다.</td>
+            <td>UI, OData, Fiori Elements가 사용할 외부 계약에 가깝다.</td>
+          </tr>
+          <tr>
+            <td>Service Definition</td>
+            <td>ZUI_JHY_FLIGHT</td>
+            <td>어떤 Projection View를 서비스로 노출할지 선언한다.</td>
+            <td>서비스에 포함할 Entity 목록을 정한다.</td>
+          </tr>
+          <tr>
+            <td>Service Binding</td>
+            <td>ZUI_JHY_FLIGHT_O2</td>
+            <td>OData 프로토콜과 런타임 노출 방식을 결정한다.</td>
+            <td>Preview와 Metadata 확인의 출발점이다.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section-card prose-practice" data-prose="practice" id="interface-view">
+      <div class="section-label">03 · Interface View</div>
+      <h2>ZI_* View는 원천 데이터를 안정적으로 감싸는 계층이다</h2>
+      <p>
+        아래 예시는 SFLIGHT를 기준으로 항공편 데이터를 읽는 Interface View다.
+        실습에서는 먼저 키 필드와 금액/통화 필드를 명확히 지정한다.
+      </p>
+      <pre><code>@AbapCatalog.viewEnhancementCategory: [#NONE]
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Interface View 항공편'
+@Metadata.ignorePropagatedAnnotations: true
+define view entity ZI_JHY_Flight
+  as select from sflight
+{
+  key carrid     as Carrid,
+  key connid     as Connid,
+  key fldate     as Fldate,
+
+      @Semantics.amount.currencyCode: 'Currency'
+      price      as Price,
+      currency   as Currency,
+      planetype  as Planetype,
+      seatsmax   as Seatsmax,
+      seatsocc   as Seatsocc,
+
+      @Semantics.amount.currencyCode: 'Currency'
+      paymentsum as Paymentsum
+}</code></pre>
+      <div class="tip prose-practice" data-prose="practice">
+        <strong>실습 기준</strong>
+        금액 필드는 통화 필드와 함께 의미를 지정한다. 수량, 단위, 금액, 통화는 나중에 UI와 OData Metadata에서 중요한 의미 정보가 된다.
+      </div>
+    </section>
+
+    <section class="section-card prose-practice" data-prose="practice" id="projection-view">
+      <div class="section-label">04 · Projection View</div>
+      <h2>ZC_* View는 서비스 소비자에게 보여줄 형태를 정리한다</h2>
+      <p>
+        Projection View는 Interface View를 그대로 외부에 내보내는 것이 아니라, 소비자 관점에서 필요한 필드와
+        노출 이름, UI 관련 Annotation, 검색/필터 기준을 정리하는 계층이다.
+      </p>
+      <pre><code>@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Projection View 항공편'
+@Metadata.ignorePropagatedAnnotations: true
+define view entity ZC_JHY_Flight
+  as projection on ZI_JHY_Flight
+{
+  key Carrid,
+  key Connid,
+  key Fldate,
+      Price,
+      Currency,
+      Planetype,
+      Seatsmax,
+      Seatsocc,
+      Paymentsum
+}</code></pre>
+      <div class="warning prose-warning" data-prose="warning">
+        <strong>주의</strong>
+        교육용 예제에서는 `authorizationCheck: #NOT_REQUIRED`를 사용할 수 있다. 실무에서는 권한 모델과 DCL 적용 여부를 반드시 별도로 판단한다.
+      </div>
+    </section>
+
+    <section class="section-card prose-practice" data-prose="practice" id="service-definition">
+      <div class="section-label">05 · Service Definition</div>
+      <h2>Service Definition은 노출할 Entity를 선언한다</h2>
+      <p>
+        Service Definition에서는 어떤 CDS Entity를 외부 서비스에 포함할지 결정한다.
+        여러 Projection View를 하나의 서비스에 묶을 수도 있지만, 초급 단계에서는 하나의 Entity부터 시작한다.
+      </p>
+      <pre><code>@EndUserText.label: 'Flight Service Definition'
+define service ZUI_JHY_FLIGHT {
+  expose ZC_JHY_Flight as Flight;
+}</code></pre>
+      <div class="tip prose-practice" data-prose="practice">
+        <strong>명명 기준</strong>
+        교육용 예제에서는 Service Definition을 `ZUI_*` 또는 프로젝트 기준 Prefix로 통일하면 찾기 쉽다.
+        중요한 것은 CDS View와 Service 객체의 역할을 이름에서 구분하는 것이다.
+      </div>
+    </section>
+
+    <section class="section-card prose-structure" data-prose="structure" id="service-binding">
+      <div class="section-label">06 · Service Binding</div>
+      <h2>Service Binding은 실제 OData 런타임 노출 지점이다</h2>
+      <p>
+        ADT에서 Service Binding을 생성하면 Service Definition을 어떤 프로토콜로 노출할지 선택한다.
+        S/4HANA 실습에서는 시스템 상황에 따라 OData V2 또는 OData V4 바인딩을 사용한다.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>확인 항목</th>
+            <th>의미</th>
+            <th>문제가 있을 때</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Activate</td>
+            <td>Service Binding이 활성화되어야 Preview와 Metadata가 가능하다.</td>
+            <td>관련 CDS View, Service Definition 활성화 오류를 먼저 확인한다.</td>
+          </tr>
+          <tr>
+            <td>Preview</td>
+            <td>EntitySet 목록과 기본 조회 결과를 확인한다.</td>
+            <td>권한, 필드 타입, 키 정의, 데이터 존재 여부를 확인한다.</td>
+          </tr>
+          <tr>
+            <td>$metadata</td>
+            <td>OData 소비자가 읽는 서비스 구조 계약이다.</td>
+            <td>Entity 이름, 필드 이름, 타입, 단위/통화 Annotation을 확인한다.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section-card prose-practice" data-prose="practice" id="test-flow">
+      <div class="section-label">07 · 테스트 흐름</div>
+      <h2>UI를 만들기 전에 서비스가 단독으로 정상 응답해야 한다</h2>
+      <ol>
+        <li>CDS View Entity가 활성화되는지 확인한다.</li>
+        <li>Projection View에서 필요한 필드가 보이는지 확인한다.</li>
+        <li>Service Definition에 Entity가 expose 되었는지 확인한다.</li>
+        <li>Service Binding을 활성화하고 Preview를 실행한다.</li>
+        <li>$metadata에서 EntityType, EntitySet, 필드 타입을 확인한다.</li>
+        <li>EntitySet URL을 호출해 실제 데이터가 반환되는지 확인한다.</li>
+        <li>오류가 발생하면 Browser Network와 Gateway Client에서 HTTP 상태와 응답 메시지를 확인한다.</li>
+      </ol>
+    </section>
+
+    <section class="section-card prose-warning" data-prose="warning" id="pitfalls">
+      <div class="section-label">08 · 자주 발생하는 문제</div>
+      <h2>CDS 자체 오류와 OData 노출 오류를 구분한다</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>증상</th>
+            <th>가능한 원인</th>
+            <th>확인 위치</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>CDS View가 활성화되지 않음</td>
+            <td>키 누락, 타입 오류, Annotation 위치 오류</td>
+            <td>ADT Problems, DDL Source 활성화 로그</td>
+          </tr>
+          <tr>
+            <td>Preview에 Entity가 보이지 않음</td>
+            <td>Service Definition에 expose 누락</td>
+            <td>Service Definition Source</td>
+          </tr>
+          <tr>
+            <td>$metadata는 보이나 데이터가 없음</td>
+            <td>원천 테이블 데이터 없음, WHERE 조건, 권한</td>
+            <td>CDS Data Preview, SQL Console, 권한 확인</td>
+          </tr>
+          <tr>
+            <td>UI5 바인딩에서 필드가 비어 있음</td>
+            <td>OData 필드명과 UI Binding Path 불일치</td>
+            <td>Browser Network 응답 payload, XML View Binding</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section-card prose-checklist" data-prose="checklist" id="checklist">
+      <div class="section-label">09 · 학습 완료 체크</div>
+      <h2>다음 단계로 넘어가기 전에 확인한다</h2>
+      <ol>
+        <li>ZI_* Interface View와 ZC_* Projection View의 역할 차이를 설명한다.</li>
+        <li>금액 필드와 통화 필드를 Metadata 관점에서 함께 봐야 하는 이유를 설명한다.</li>
+        <li>Service Definition과 Service Binding의 역할 차이를 설명한다.</li>
+        <li>$metadata와 EntitySet 응답을 각각 확인한다.</li>
+        <li>UI 오류를 보기 전에 OData 서비스 단독 테스트를 먼저 수행한다.</li>
+        <li>CDS 활성화 오류와 OData 런타임 오류를 구분한다.</li>
+      </ol>
+    </section>
+
+    <section class="section-card prose-summary" data-prose="summary" id="next">
+      <div class="section-label">10 · 다음 문서</div>
+      <h2>CDS/OData 흐름 이후 CRUD와 RAP으로 확장한다</h2>
+      <div class="grid-2">
+        <div class="mini-card prose-summary" data-prose="summary">
+          <h3>Gateway CRUD</h3>
+          <p><a href="sap-gateway-odata-v2-crud-beginner-guide-v3.html">Gateway / OData V2 CRUD 입문</a></p>
+        </div>
+        <div class="mini-card prose-summary" data-prose="summary">
+          <h3>RAP 전체 흐름</h3>
+          <p><a href="sap-rap-end-to-end-beginner-guide-v3.html">RAP End-to-End 입문</a></p>
+        </div>
+        <div class="mini-card prose-summary" data-prose="summary">
+          <h3>UI5 연동</h3>
+          <p><a href="../02-ui5-fiori/sapui5-odata-model-crud-beginner-guide-v3.html">SAPUI5 OData Model과 CRUD 입문</a></p>
+        </div>
+        <div class="mini-card prose-summary" data-prose="summary">
+          <h3>디버깅</h3>
+          <p><a href="../00-roadmap/sap-debugging-troubleshooting-guide-v3.html">SAP 디버깅 / 트러블슈팅 통합 가이드</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <aside class="toc prose-reference" data-prose="reference">
+    <div class="library-tree" data-nav-tree="main" data-prose="reference"></div>
+    <hr class="tree-separator" />
+    <div class="local-page-tools" data-prose="reference">
+      <h2>이 문서 안에서</h2>
+    </div>
+    <h2>학습 목차</h2>
+    <a href="#overview">01. 큰 그림</a>
+    <a href="#layers">02. View Layer</a>
+    <a href="#interface-view">03. Interface View</a>
+    <a href="#projection-view">04. Projection View</a>
+    <a href="#service-definition">05. Service Definition</a>
+    <a href="#service-binding">06. Service Binding</a>
+    <a href="#test-flow">07. 테스트 흐름</a>
+    <a href="#pitfalls">08. 자주 발생하는 문제</a>
+    <a href="#checklist">09. 완료 체크</a>
+    <a href="#next">10. 다음 문서</a>
+  </aside>
+</div>
+
+<footer class="library-footer prose-summary" data-prose="summary">
+  CDS View에서 OData 노출까지 · Stage 6 Detail · 2026-05-28 · 배포자: 정훈영
+</footer>
+</body>
+</html>
