@@ -1,0 +1,61 @@
+{
+  "version": "stage7-operating-docs-map-v1",
+  "updated_at": "2026-05-28T23:10:00+09:00",
+  "distributor": "정훈영",
+  "description": "Stage 7 docs 운영화 과정에서 legacy v3 문서와 최신 docs 운영본의 매핑을 관리한다.",
+  "documents": {
+    "abap-classic": {
+      "title": "Classic ABAP 기본기",
+      "category": "abap",
+      "status": "operating",
+      "operating_path": "docs/abap/abap-classic-report-itab-alv.html",
+      "operating_href_from_root": "docs/abap/abap-classic-report-itab-alv.html",
+      "operating_href_from_pages": "../docs/abap/abap-classic-report-itab-alv.html",
+      "legacy_path": "v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html",
+      "archive_path": "archive/v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html",
+      "source_pr": 29,
+      "navigation_pr": 30
+    },
+    "abap-new-syntax": {
+      "title": "ABAP New Syntax 입문",
+      "category": "abap",
+      "status": "operating",
+      "operating_path": "docs/abap/abap-new-syntax.html",
+      "operating_href_from_root": "docs/abap/abap-new-syntax.html",
+      "operating_href_from_pages": "../docs/abap/abap-new-syntax.html",
+      "legacy_path": "v3/01-abap/abap-new-syntax-beginner-guide-v3.html",
+      "archive_path": "archive/v3/01-abap/abap-new-syntax-beginner-guide-v3.html",
+      "source_pr": 29,
+      "navigation_pr": 30
+    },
+    "cds-odata": {
+      "title": "CDS View에서 OData 노출까지",
+      "category": "abap",
+      "status": "operating",
+      "operating_path": "docs/abap/cds-to-odata.html",
+      "operating_href_from_root": "docs/abap/cds-to-odata.html",
+      "operating_href_from_pages": "../docs/abap/cds-to-odata.html",
+      "legacy_path": "v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html",
+      "archive_path": "archive/v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html",
+      "source_pr": 29,
+      "navigation_pr": 30
+    },
+    "gateway-odata-v2-crud": {
+      "title": "Gateway / OData V2 CRUD 입문",
+      "category": "abap",
+      "status": "operating",
+      "operating_path": "docs/abap/gateway-odata-v2-crud.html",
+      "operating_href_from_root": "docs/abap/gateway-odata-v2-crud.html",
+      "operating_href_from_pages": "../docs/abap/gateway-odata-v2-crud.html",
+      "legacy_path": "v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html",
+      "archive_path": "archive/v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html",
+      "source_pr": 25,
+      "navigation_pr": 30
+    }
+  },
+  "next_actions": [
+    "data/site-map.json의 ABAP 핵심 3개 href를 docs 기준으로 갱신한다.",
+    "data/document-catalog.json의 ABAP 핵심 3개 path/href를 docs 기준으로 갱신한다.",
+    "v3 legacy URL 안내 페이지 또는 redirect 전환을 적용한다."
+  ]
+}
