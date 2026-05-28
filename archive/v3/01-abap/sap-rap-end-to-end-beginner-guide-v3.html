@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RAP End-to-End 입문 · 혼합 문체 · SAP Developer Learning Library v3</title>
+<link href="../../assets/common.css" rel="stylesheet"/>
+<script defer="" src="../../assets/common.js"></script>
+<!-- data-prose required: concept | structure | practice | checklist | warning | teacher | reference | summary --></head>
+<body data-active-category="abap" data-active-doc="rap-e2e" data-prose-root="true">
+<header class="library-topbar prose-summary" data-prose="summary">
+<div class="library-topbar__inner">
+<a class="library-home" href="../../index.html">← SAP 학습자료 홈</a>
+<div class="library-meta">
+<span class="badge blue">v3</span>
+<span class="badge green">01. ABAP 개발</span>
+<span class="badge amber">배포자: 정훈영</span>
+<span class="badge purple">혼합 문체</span></div>
+</div>
+</header>
+<div class="library-shell">
+<section class="hero prose-summary" data-prose="summary">
+<div class="breadcrumb" data-prose="summary">
+<a href="../../index.html">Home</a>
+<span>›</span>
+<a href="../../pages/abap.html">ABAP 개발</a>
+<span>›</span>
+<span>현재 문서</span>
+</div>
+
+<div class="eyebrow">SAP Developer Learning Library</div>
+<h1>RAP End-to-End 입문</h1>
+<p class="lead">Business Object, Behavior Definition, Validation, Determination, Action, Service Binding까지 전체 흐름을 익힌다.</p>
+<div class="hero-actions"><span class="badge blue">P0</span><span class="badge green">RAP</span><span class="badge purple">본문 평서형</span><span class="badge amber">실습 지시형</span></div>
+</section>
+<main><section class="section-card prose-reference" data-prose="reference" id="what">
+<div class="section-label">01 · 정의</div>
+<h2>RAP은 S/4HANA의 현대적 비즈니스 객체 개발 방식이다</h2>
+<p><button class="term" data-term="RAP" type="button">RAP</button>에서는 데이터 구조를 <button class="term" data-term="CDS" type="button">CDS</button>로 정의하고, 동작은 Behavior Definition/Implementation으로 선언하고 구현한다.</p>
+</section>
+<section class="section-card prose-structure" data-prose="structure" id="pieces">
+<div class="section-label">02 · 구성요소</div>
+<h2>RAP BO를 구성하는 핵심 요소</h2>
+<table><thead><tr><th>요소</th><th>역할</th><th>초급자 해석</th></tr></thead><tbody><tr><td>Root View Entity</td><td>비즈니스 객체의 데이터 구조</td><td>어떤 데이터를 다루는가</td></tr><tr><td>Behavior Definition</td><td>가능한 동작 선언</td><td>생성/수정/삭제/액션 가능 여부</td></tr><tr><td>Behavior Implementation</td><td>동작의 실제 로직</td><td>검증, 계산, 액션 구현</td></tr><tr><td>Service Binding</td><td>OData 노출</td><td>화면/외부에서 호출 가능하게 함</td></tr></tbody></table>
+</section>
+<section class="section-card prose-practice" data-prose="practice" id="actions">
+<div class="section-label">03 · 확장</div>
+<h2>Validation, Determination, Action</h2>
+<div class="flow"><div class="flow-step prose-practice" data-prose="practice"><span class="num">1</span><div><div class="flow-title">Validation</div><p>저장 전에 데이터가 맞는지 검사한다.</p></div></div><div class="flow-step prose-practice" data-prose="practice"><span class="num">2</span><div><div class="flow-title">Determination</div><p>특정 값이 바뀌면 다른 값을 자동 계산한다.</p></div></div><div class="flow-step prose-practice" data-prose="practice"><span class="num">3</span><div><div class="flow-title">Action</div><p>승인, 취소, 상태변경처럼 명시적인 업무 버튼을 구현한다.</p></div></div></div>
+</section></main>
+<aside class="toc prose-reference" data-prose="reference">
+<div class="library-tree" data-nav-tree="main" data-prose="reference"></div>
+<hr class="tree-separator"/>
+<div class="local-page-tools" data-prose="reference">
+<h2>이 문서 안에서</h2>
+</div>
+<h2>학습 목차</h2><a href="#what">01. RAP이란</a><a href="#pieces">02. 구성요소</a><a href="#actions">03. 확장</a></aside>
+</div>
+<footer class="library-footer prose-summary" data-prose="summary">RAP End-to-End 입문 · v3 · 2026-05-27 · 배포자: 정훈영 · 혼합 문체 기준 · Final</footer>
+</body>
+</html>
