@@ -1,25 +1,30 @@
 # SAP Developer Learning Library v3
 
-- 생성일: 2026-05-27
+## 운영 대시보드
+
+- 최종 수정: 2026-05-28 10:59 KST
 - 배포자: 정훈영
-- 운영 방식: GitHub branch + Pull Request 기준
-- 배포 주소: https://jungds.github.io/sapui5/
 - 저장소: https://github.com/JungDS/sapui5
+- GitHub Pages: https://jungds.github.io/sapui5/
+- 운영 방식: Branch → Pull Request → Review/Merge
+- 현재 진행: Stage 6 상세화
+- 현재 PR: #12 `Stage 6: Gateway OData V2 CRUD 입문 상세화`
 
-## Clean Rebuild 기준
+---
 
-이 저장소는 2026-05-28 기준으로 `feature/clean-rebuild-learning-library` 브랜치에서 전체 파일 세트를 다시 구성한다.
-기준 배포본은 Stage 5 Navigation 패키지이며, Stage 6에서 상세화한 핵심 문서를 덮어쓴다.
+## 최근 수정 페이지
 
-정리 목적은 다음과 같다.
+| 구분 | 문서 | 현재 페이지 | 수정 전 페이지 | PR |
+|---|---|---|---|---|
+| 진행 중 | Gateway / OData V2 CRUD 입문 | https://jungds.github.io/sapui5/v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html | https://github.com/JungDS/sapui5/blob/ff7965769e4eb83352194d43007a2925ec838f41/v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html | https://github.com/JungDS/sapui5/pull/12 |
+| 완료 | CDS View에서 OData 노출까지 | https://jungds.github.io/sapui5/v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html | https://github.com/JungDS/sapui5/blob/a27f73cd52ece5eabdfb6f90661175527b27f3aa/v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html | https://github.com/JungDS/sapui5/pull/10 |
+| 완료 | 홈 화면 | https://jungds.github.io/sapui5/ | https://github.com/JungDS/sapui5/blob/a15b63382b08112732d120f02754bfc92b4fa840/index.html | https://github.com/JungDS/sapui5/pull/7 |
 
-- 잘못 생성된 테스트 파일 제거
-- 중복 PR과 브랜치로 인한 상태 혼선 해소
-- GitHub Pages 배포 기준을 root `index.html`로 고정
-- README를 운영 현황판으로 재정리
-- 이후 변경은 PR 단위로 관리
+> 수정 전 페이지는 GitHub Pages 링크가 아니라 GitHub commit 기준 파일 링크로 남긴다. 이렇게 해야 배포 페이지에서 사라진 과거 버전도 비교할 수 있다.
 
-## 웹페이지
+---
+
+## 웹페이지 입구
 
 - 전체 학습자료 홈: https://jungds.github.io/sapui5/
 - 로드맵: https://jungds.github.io/sapui5/pages/roadmap.html
@@ -29,91 +34,101 @@
 - 통합 실습: https://jungds.github.io/sapui5/pages/integrated-practice.html
 - Reference/운영: https://jungds.github.io/sapui5/pages/reference.html
 
-## 구조
+---
 
-- `index.html`: 전체 학습자료 첫 화면
-- `pages/*.html`: 영역별 Landing Page
-- `assets/common.css`: 공통 디자인
-- `assets/common.js`: 용어 팝업, 코드 복사, 좌측 Tree Navigation
-- `v3/00-roadmap/*.html`: 로드맵 / 학습전략 문서
-- `v3/01-abap/*.html`: ABAP, CDS, Gateway, RAP 문서
-- `v3/02-ui5-fiori/*.html`: SAPUI5 / Fiori 문서
-- `v3/03-module-basics/*.html`: MM, PP, SD, FI, CO, 표준 테이블 문서
-- `v3/04-integrated-practice/*.html`: Flight 통합 실습 문서
-- `v3/99-reference/*.html`: 용어, 문체, 검수 리포트 문서
-- `v2/*.html`, `v1/*.html`: 이전 버전 보관 문서
-- `data/document-catalog.json`: 문서 목록
-- `data/site-map.json`: 카테고리와 추천 경로 데이터
-- `data/*audit*.json`: 검수 리포트 데이터
+## 저장소 구조
+
+```text
+index.html
+pages/
+  roadmap.html
+  abap.html
+  ui5-fiori.html
+  module-basics.html
+  integrated-practice.html
+  reference.html
+assets/
+  common.css
+  common.js
+data/
+  document-catalog.json
+  site-map.json
+  *audit*.json
+v3/
+  00-roadmap/
+  01-abap/
+  02-ui5-fiori/
+  03-module-basics/
+  04-integrated-practice/
+  99-reference/
+v2/
+v1/
+```
+
+### 구조 기준
+
+- `index.html`은 전체 학습자료 첫 화면이다.
+- `pages/*.html`은 영역별 Landing Page다.
+- `v3/` 하위 폴더는 현재 운영 기준 문서다.
+- `v1/`, `v2/`는 이전 버전 보관용이다.
+- 문서가 하위 폴더로 이동하면 CSS/JS 상대 경로를 함께 수정한다.
+- 현재 `data/site-map.json`은 실제 Navigation 기준 데이터다.
+- `data/document-catalog.json`은 후속 정비에서 `href/path` 필드 기준으로 보강한다.
+
+---
 
 ## 문체 기준
 
-- 개념 설명: 평서형
-- 실습/체크리스트: 지시형
-- 강사용 메모: 존칭형
-- 주요 콘텐츠 블록은 `data-prose` 기준으로 관리
-- 모든 배포 문서 하단에는 `배포자: 정훈영` 표기 유지
+| 영역 | 문체 | 기준 |
+|---|---|---|
+| 개념 설명 | 평서형 | 표준 개념과 구조를 설명한다. |
+| 실습 절차 | 지시형 | 학습자가 따라 할 수 있게 단계적으로 작성한다. |
+| 체크리스트 | 지시형 / 확인형 | 완료 조건을 명확히 적는다. |
+| 강사용 메모 | 존칭형 | 강의 진행 관점의 보충 설명을 적는다. |
+| 경고 / 주의 | 단정형 | 실무 위험과 오해를 명확히 적는다. |
 
-## Stage 6 Detail 진행 현황
+모든 주요 콘텐츠 블록에는 가능한 한 `data-prose`를 유지한다.
+모든 배포 문서 하단에는 `배포자: 정훈영` 표기를 유지한다.
 
-핵심 문서를 하나씩 상세화한다. 변경사항은 문서 본문과 함께 README에도 반영한다.
+---
 
-### 6-1. SAP 개발자 학습 로드맵
+## Stage 6 진행 현황
 
-- 대상 문서: `v3/00-roadmap/sap-developer-learning-roadmap-v3.html`
-- 상태: clean rebuild 세트에 포함
-- 반영 내용:
-  - SAP 개발 학습의 큰 그림 재정리
-  - 데이터 흐름 중심 학습 관점 추가
-  - 초급자 권장 학습 순서 확장
-  - 목표별 학습 트랙 표 보강
-  - 학습 완료 체크리스트 추가
-  - 다음 문서 이동 카드 추가
+| 단계 | 문서 | 상태 | PR | 현재 경로 |
+|---|---|---|---|---|
+| 6-1 | SAP 개발자 학습 로드맵 | 완료 | #2 | `v3/00-roadmap/sap-developer-learning-roadmap-v3.html` |
+| 6-2 | SAP 개발 환경과 도구 입문 | 완료 | #3 | `v3/00-roadmap/sap-development-tools-overview-v3.html` |
+| 6-3 | SAP 디버깅 / 트러블슈팅 통합 가이드 | 완료 | #4 | `v3/00-roadmap/sap-debugging-troubleshooting-guide-v3.html` |
+| 6-4 | Classic ABAP 기본기 | 완료 | Clean Rebuild | `v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html` |
+| 6-5 | CDS View에서 OData 노출까지 | 완료 | #10 | `v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html` |
+| 6-6 | Gateway / OData V2 CRUD 입문 | PR 진행 중 | #12 | `v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html` |
 
-### 6-2. SAP 개발 환경과 도구 입문
+### 다음 상세화 후보
 
-- 대상 문서: `v3/00-roadmap/sap-development-tools-overview-v3.html`
-- 상태: clean rebuild 세트에 포함
-- 반영 내용:
-  - SAP GUI, ADT, VS Code/BAS, Gateway Client, Browser DevTools 역할 상세화
-  - 계층별 문제 확인 관점 추가
-  - 개발 흐름별 도구 사용 순서 보강
-  - 증상별 첫 확인 도구 선택표 추가
-  - 학습 완료 체크리스트 추가
+| 우선순위 | 문서 | 경로 |
+|---|---|---|
+| 6-7 | RAP End-to-End 입문 | `v3/01-abap/sap-rap-end-to-end-beginner-guide-v3.html` |
+| 6-8 | SAPUI5 Controller 함수 문법 입문 | `v3/02-ui5-fiori/sapui5-controller-function-intro-v3.html` |
+| 6-9 | Fiori Elements Annotation Practice | `v3/02-ui5-fiori/fiori-elements-annotation-practice-v3.html` |
+| 6-10 | SAPUI5 OData Model과 CRUD 입문 | `v3/02-ui5-fiori/sapui5-odata-model-crud-beginner-guide-v3.html` |
 
-### 6-3. SAP 디버깅 / 트러블슈팅 통합 가이드
+---
 
-- 대상 문서: `v3/00-roadmap/sap-debugging-troubleshooting-guide-v3.html`
-- 상태: clean rebuild 세트에 포함
-- 반영 내용:
-  - 디버깅을 범위 축소 과정으로 재정의
-  - UI5, OData, ABAP, 데이터/권한, 설정 계층별 오류 판단표 추가
-  - 화면 오류 발생 시 표준 점검 순서 추가
-  - ABAP Debugger 확인 관점과 체크리스트 보강
+## 변경 기록 작성 규칙
 
-### 6-4. Classic ABAP 기본기
+새 PR을 만들 때 README의 아래 항목을 반드시 갱신한다.
 
-- 대상 문서: `v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html`
-- 상태: clean rebuild 세트에 포함
-- 반영 내용:
-  - Report Program 기본 구조 상세화
-  - Selection Screen, PARAMETERS, SELECT-OPTIONS 설명 보강
-  - Internal Table, Work Area, Structure 차이 정리
-  - Open SQL 기본 조회 예시 추가
-  - LOOP, READ, MODIFY, APPEND 처리 흐름 정리
-  - ALV 출력 예시와 초급자 실수 정리
+1. `최종 수정` 날짜와 시간은 KST 기준으로 작성한다.
+2. `현재 진행`과 `현재 PR`을 최신 상태로 바꾼다.
+3. `최근 수정 페이지` 표에 현재 페이지와 수정 전 페이지를 추가한다.
+4. 수정 전 페이지는 변경 직전 main commit의 GitHub blob URL로 기록한다.
+5. `Stage 6 진행 현황`의 상태와 PR 번호를 최신화한다.
+6. 새 문서가 추가되거나 이동되면 `저장소 구조`와 `현재 경로`를 갱신한다.
+7. 문서 footer의 `배포자: 정훈영` 표기를 확인한다.
 
-## 다음 상세화 후보
-
-- 6-5. `v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html`
-- 6-6. `v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html`
-- 6-7. `v3/01-abap/sap-rap-end-to-end-beginner-guide-v3.html`
-- 6-8. `v3/02-ui5-fiori/sapui5-controller-function-intro-v3.html`
-- 6-9. `v3/fiori-elements-annotation-practice-v3.html`
+---
 
 ## 운영 원칙
-
-앞으로 큰 변경은 다음 흐름으로 진행한다.
 
 ```text
 작업 브랜치 생성
@@ -122,6 +137,47 @@
 → fallback ZIP 생성
 → Pull Request 생성
 → 리뷰 후 main 병합
+→ README의 진행 현황 최신화
 ```
 
-GitHub API timeout, 확인 버튼 누락, 업로드 실패가 발생하면 같은 변경분을 수동 반영 가능한 ZIP으로 남긴다.
+### Pull Request 기준
+
+- PR 제목과 본문은 한국어로 작성한다.
+- 의미 있는 변경은 main 직접 수정 대신 PR로 처리한다.
+- PR 본문에는 작업 개요, 변경 내용, 확인 포인트를 작성한다.
+- 문서 상세화 PR은 가능하면 한 문서 단위로 작게 유지한다.
+- 대량 이동, 구조 변경, clean rebuild는 별도 PR로 분리한다.
+
+### 링크 기준
+
+- 배포 링크는 GitHub Pages URL을 사용한다.
+- 비교용 이전 버전은 GitHub commit blob URL을 사용한다.
+- 하위 폴더 문서에서는 `../../assets/common.css`, `../../assets/common.js`를 사용한다.
+- 같은 폴더 내 문서 링크는 파일명만 사용한다.
+- 다른 영역 문서 링크는 상대 경로를 명확히 작성한다.
+
+### 오류 / timeout 대응
+
+- GitHub 도구 timeout이나 확인 버튼 누락이 발생하면 같은 변경분을 수동 반영 가능한 ZIP으로 남긴다.
+- ZIP에는 변경 파일, 삭제 파일 목록, 수동 적용 안내 문서를 포함한다.
+- 불확실한 상태에서는 main에 추가 변경을 진행하지 말고, 먼저 GitHub 상태를 검수한다.
+
+### 채팅방이 없어졌을 때의 재개 기준
+
+이 README를 먼저 읽고 다음 순서로 재개한다.
+
+1. 최신 main commit을 확인한다.
+2. 열린 PR이 있는지 확인한다.
+3. `현재 진행`과 `Stage 6 진행 현황`을 확인한다.
+4. 최근 수정 페이지의 현재 페이지와 수정 전 페이지를 비교한다.
+5. 다음 상세화 후보 중 가장 앞선 문서를 대상으로 새 브랜치를 만든다.
+6. 작업 후 README를 먼저 갱신한 뒤 PR을 만든다.
+
+---
+
+## 현재 메모
+
+- `v3` 루트 HTML 중복 파일은 제거된 상태다.
+- `v3/` 문서는 영역별 하위 폴더 기준으로 관리한다.
+- `data/site-map.json`은 새 하위 폴더 경로를 사용한다.
+- `data/document-catalog.json`은 후속 데이터 정비 PR에서 경로 필드 보강이 필요하다.
