@@ -1,80 +1,361 @@
 <!DOCTYPE html>
-
 <html lang="ko">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Classic ABAP 기본기 · 혼합 문체 · SAP Developer Learning Library v3</title>
-<link href="../assets/common.css" rel="stylesheet"/>
-<script defer="" src="../assets/common.js"></script>
-<!-- data-prose required: concept | structure | practice | checklist | warning | teacher | reference | summary --></head>
-<body data-active-category="abap" data-active-doc="abap-classic" data-prose-root="true">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Classic ABAP Report / Internal Table / ALV 입문 · SAP Developer Learning Library v3</title>
+<link rel="stylesheet" href="../assets/common.css" />
+<script src="../assets/common.js" defer></script>
+<!-- data-prose required: concept | structure | practice | checklist | warning | teacher | reference | summary -->
+</head>
+<body data-active-category="abap" data-active-doc="classic-abap-report" data-prose-root="true">
 <header class="library-topbar prose-summary" data-prose="summary">
-<div class="library-topbar__inner">
-<a class="library-home" href="../index.html">← SAP 학습자료 홈</a>
-<div class="library-meta">
-<span class="badge blue">v3</span>
-<span class="badge green">01. ABAP 개발</span>
-<span class="badge amber">배포자: 정훈영</span>
-<span class="badge purple">혼합 문체</span></div>
-</div>
+  <div class="library-topbar__inner">
+    <a class="library-home" href="../index.html">← SAP 학습자료 홈</a>
+    <div class="library-meta">
+      <span class="badge blue">v3</span>
+      <span class="badge green">01. ABAP 개발</span>
+      <span class="badge amber">배포자: 정훈영</span>
+      <span class="badge purple">Stage 6 Detail</span>
+    </div>
+  </div>
 </header>
+
 <div class="library-shell">
-<section class="hero prose-summary" data-prose="summary">
-<div class="breadcrumb" data-prose="summary">
-<a href="../index.html">Home</a>
-<span>›</span>
-<a href="../pages/abap.html">ABAP 개발</a>
-<span>›</span>
-<span>현재 문서</span>
-</div>
+  <section class="hero prose-summary" data-prose="summary">
+    <div class="breadcrumb" data-prose="summary">
+      <a href="../index.html">Home</a>
+      <span>›</span>
+      <a href="../pages/abap.html">ABAP 개발</a>
+      <span>›</span>
+      <span>현재 문서</span>
+    </div>
+    <div class="eyebrow">SAP Developer Learning Library</div>
+    <h1>Classic ABAP Report / Internal Table / ALV 입문</h1>
+    <p class="lead">
+      SAP 개발의 첫 기본기는 조건을 입력받고, 데이터를 조회하고, Internal Table에 담은 뒤,
+      ALV로 출력하는 흐름을 이해하는 것이다.
+    </p>
+    <div class="hero-actions">
+      <span class="badge blue">P0</span>
+      <span class="badge green">ABAP 기본기</span>
+      <span class="badge purple">실습 중심</span>
+      <span class="badge amber">예상 45~60분</span>
+    </div>
+  </section>
 
-<div class="eyebrow">SAP Developer Learning Library</div>
-<h1>Classic ABAP 기본기</h1>
-<p class="lead">Report, Selection Screen, Internal Table, Open SQL, ALV의 기본 흐름을 하나의 개발 사이클로 이해한다.</p>
-<div class="hero-actions"><span class="badge blue">P0</span><span class="badge green">Classic ABAP</span><span class="badge purple">본문 평서형</span><span class="badge amber">실습 지시형</span></div>
-</section>
-<main><section class="section-card prose-structure" data-prose="structure" id="role">
-<div class="section-label">01 · 역할</div>
-<h2>Classic ABAP은 여전히 기본기입니다</h2>
-<p><button class="term" data-term="Classic ABAP" type="button">Classic ABAP</button>은 Report, Selection Screen, Internal Table, ALV 같은 전통적인 서버 개발 패턴을 의미한다. 최신 <button class="term" data-term="RAP" type="button">RAP</button>을 배우더라도 데이터 조회, 구조화, 디버깅 기본기는 Classic ABAP에서 시작된다.</p>
-</section>
-<section class="section-card prose-practice" data-prose="practice" id="flow">
-<div class="section-label">02 · 기본 흐름</div>
-<h2>Report 프로그램의 전형적인 흐름</h2>
-<div class="flow"><div class="flow-step prose-practice" data-prose="practice"><span class="num">1</span><div><div class="flow-title">입력 받기</div><p>Selection Screen에서 조건을 입력받습니다.</p></div></div><div class="flow-step prose-practice" data-prose="practice"><span class="num">2</span><div><div class="flow-title">데이터 조회</div><p>Open SQL로 필요한 컬럼만 조회한다.</p></div></div><div class="flow-step prose-practice" data-prose="practice"><span class="num">3</span><div><div class="flow-title">내부 테이블 가공</div><p>Internal Table에서 정렬, 필터, 집계를 수행한다.</p></div></div><div class="flow-step prose-practice" data-prose="practice"><span class="num">4</span><div><div class="flow-title">출력</div><p>ALV 또는 콘솔로 결과를 보여준다.</p></div></div></div>
-</section>
-<section class="section-card prose-structure" data-prose="structure" id="code">
-<div class="section-label">03 · 코드</div>
-<h2>초급자용 Report 뼈대</h2>
-<div class="code-block prose-reference" data-prose="reference">
-<div class="code-header"><span>Report 기본 구조</span></div>
-<pre><code>REPORT zr_demo_flight.
+  <main>
+    <section class="section-card prose-structure" data-prose="structure" id="overview">
+      <div class="section-label">01 · 큰 그림</div>
+      <h2>Classic ABAP Report는 조회형 프로그램의 기본 흐름이다</h2>
+      <p class="lead-text">
+        Classic ABAP Report는 사용자가 Selection Screen에서 조건을 입력하고,
+        ABAP 프로그램이 DB에서 데이터를 조회한 뒤, Internal Table에 담아 가공하고,
+        최종 결과를 ALV로 보여주는 구조다. 이 흐름은 이후 CDS, OData, RAP, UI5를 배울 때도
+        데이터 처리 사고방식의 기준이 된다.
+      </p>
+      <div class="flow">
+        <div class="flow-step prose-structure" data-prose="structure">
+          <span class="num">1</span>
+          <div>
+            <div class="flow-title">조건 입력</div>
+            <p>PARAMETERS와 SELECT-OPTIONS로 사용자가 조회 조건을 입력한다.</p>
+          </div>
+        </div>
+        <div class="flow-step prose-structure" data-prose="structure">
+          <span class="num">2</span>
+          <div>
+            <div class="flow-title">DB 조회</div>
+            <p>Open SQL로 테이블이나 CDS View에서 필요한 데이터를 읽는다.</p>
+          </div>
+        </div>
+        <div class="flow-step prose-structure" data-prose="structure">
+          <span class="num">3</span>
+          <div>
+            <div class="flow-title">Internal Table 처리</div>
+            <p>조회 결과를 Internal Table에 담고 LOOP, READ, MODIFY, APPEND로 처리한다.</p>
+          </div>
+        </div>
+        <div class="flow-step prose-structure" data-prose="structure">
+          <span class="num">4</span>
+          <div>
+            <div class="flow-title">ALV 출력</div>
+            <p>사용자가 확인할 수 있도록 결과 데이터를 표 형태로 출력한다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-SELECT-OPTIONS so_carr FOR sflight-carrid.
+    <section class="section-card prose-concept" data-prose="concept" id="report-structure">
+      <div class="section-label">02 · Report 구조</div>
+      <h2>Report Program은 이벤트 블록을 기준으로 읽는다</h2>
+      <p>
+        초급자는 처음부터 모든 ABAP 이벤트를 외우기보다, 조회형 Report에서 자주 쓰는 구조를 먼저 익힌다.
+        Selection Screen 정의, START-OF-SELECTION, 데이터 조회, 출력 호출 순서가 핵심이다.
+      </p>
+      <pre><code>REPORT z_demo_flight_report.
+
+TABLES: sflight.
+
+PARAMETERS p_carrid TYPE sflight-carrid.
+SELECT-OPTIONS s_fldate FOR sflight-fldate.
 
 START-OF-SELECTION.
-  SELECT carrid, connid, fldate, price, currency
-    FROM sflight
-    WHERE carrid IN @so_carr
-    INTO TABLE @DATA(lt_flight).
+  "1. 조건 기준으로 데이터 조회
+  "2. Internal Table 가공
+  "3. ALV 출력</code></pre>
+      <div class="tip prose-concept" data-prose="concept">
+        <strong>핵심</strong>
+        Report Program은 “입력 조건 → 조회 → 가공 → 출력” 순서로 읽는다.
+        코드가 길어져도 이 네 단계를 기준으로 나누면 구조가 단순해진다.
+      </div>
+    </section>
 
-  cl_demo_output=&gt;display( lt_flight ).</code></pre>
+    <section class="section-card prose-structure" data-prose="structure" id="selection-screen">
+      <div class="section-label">03 · Selection Screen</div>
+      <h2>PARAMETERS와 SELECT-OPTIONS는 입력 조건을 만드는 도구다</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>구문</th>
+            <th>용도</th>
+            <th>예시</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>PARAMETERS</td>
+            <td>단일 값을 입력받는다.</td>
+            <td>항공사 코드 1개, 회사 코드 1개</td>
+          </tr>
+          <tr>
+            <td>SELECT-OPTIONS</td>
+            <td>범위, 복수 값, 제외 조건을 입력받는다.</td>
+            <td>기간, 전표번호 범위, 자재번호 목록</td>
+          </tr>
+        </tbody>
+      </table>
+      <pre><code>PARAMETERS p_carrid TYPE sflight-carrid OBLIGATORY.
+SELECT-OPTIONS s_fldate FOR sflight-fldate.</code></pre>
+      <p>
+        Selection Screen은 단순한 화면이 아니라 SQL 조건의 출발점이다. 잘못 설계된 입력 조건은
+        불필요한 대량 조회와 성능 문제로 이어질 수 있다.
+      </p>
+    </section>
+
+    <section class="section-card prose-concept" data-prose="concept" id="itab">
+      <div class="section-label">04 · Internal Table</div>
+      <h2>Internal Table은 ABAP 프로그램 내부의 작업용 데이터 집합이다</h2>
+      <p>
+        DB 테이블은 시스템에 저장된 원본 데이터이고, Internal Table은 ABAP 프로그램 안에서 처리하는 임시 데이터다.
+        조회 결과를 그대로 출력하는 경우도 있지만, 실무에서는 대부분 Internal Table에서 계산, 텍스트 보강,
+        상태 판단, 합계 처리 같은 가공을 수행한다.
+      </p>
+      <div class="grid-3">
+        <div class="mini-card prose-concept" data-prose="concept">
+          <h3>Internal Table</h3>
+          <p>여러 행을 담는 메모리상의 표 구조다.</p>
+        </div>
+        <div class="mini-card prose-concept" data-prose="concept">
+          <h3>Work Area</h3>
+          <p>Internal Table의 한 행을 담아 처리하는 구조다.</p>
+        </div>
+        <div class="mini-card prose-concept" data-prose="concept">
+          <h3>Structure</h3>
+          <p>필드 묶음의 타입 또는 단일 행 구조를 의미한다.</p>
+        </div>
+      </div>
+      <pre><code>TYPES: BEGIN OF ty_flight,
+         carrid TYPE sflight-carrid,
+         connid TYPE sflight-connid,
+         fldate TYPE sflight-fldate,
+         price  TYPE sflight-price,
+       END OF ty_flight.
+
+DATA gt_flight TYPE STANDARD TABLE OF ty_flight.
+DATA gs_flight TYPE ty_flight.</code></pre>
+    </section>
+
+    <section class="section-card prose-practice" data-prose="practice" id="open-sql">
+      <div class="section-label">05 · Open SQL</div>
+      <h2>Open SQL은 필요한 데이터만 읽도록 작성한다</h2>
+      <p>
+        초급자는 SELECT 구문을 쓸 때 “무엇을 얼마나 읽는가”를 먼저 생각해야 한다.
+        전체 컬럼과 전체 행을 읽는 습관은 성능 문제로 이어진다.
+      </p>
+      <pre><code>SELECT carrid,
+       connid,
+       fldate,
+       price
+  FROM sflight
+ WHERE carrid = @p_carrid
+   AND fldate IN @s_fldate
+  INTO TABLE @gt_flight.</code></pre>
+      <div class="warning prose-warning" data-prose="warning">
+        <strong>주의</strong>
+        실무 프로그램에서 조건 없는 SELECT는 피한다. 테스트 목적이라도 조회 건수와 조건을 먼저 제한한다.
+      </div>
+    </section>
+
+    <section class="section-card prose-practice" data-prose="practice" id="process">
+      <div class="section-label">06 · 데이터 처리</div>
+      <h2>LOOP, READ, MODIFY, APPEND는 Internal Table 처리의 기본 동작이다</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>구문</th>
+            <th>역할</th>
+            <th>초급자 관점</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>LOOP AT</td>
+            <td>Internal Table을 한 행씩 반복 처리한다.</td>
+            <td>전체 데이터 가공의 기본이다.</td>
+          </tr>
+          <tr>
+            <td>READ TABLE</td>
+            <td>조건에 맞는 한 행을 찾는다.</td>
+            <td>키 기준 검색과 실패 처리를 함께 본다.</td>
+          </tr>
+          <tr>
+            <td>MODIFY</td>
+            <td>Internal Table의 기존 행을 변경한다.</td>
+            <td>어떤 행을 바꾸는지 명확해야 한다.</td>
+          </tr>
+          <tr>
+            <td>APPEND</td>
+            <td>Internal Table에 새 행을 추가한다.</td>
+            <td>출력용 결과 테이블을 만들 때 자주 쓴다.</td>
+          </tr>
+        </tbody>
+      </table>
+      <pre><code>LOOP AT gt_flight INTO gs_flight.
+  IF gs_flight-price &gt; 1000.
+    "고가 항공편 표시 로직
+  ENDIF.
+ENDLOOP.</code></pre>
+    </section>
+
+    <section class="section-card prose-practice" data-prose="practice" id="alv">
+      <div class="section-label">07 · ALV 출력</div>
+      <h2>ALV는 조회 결과를 실무자가 읽을 수 있는 표로 보여준다</h2>
+      <p>
+        ALV는 단순 출력 도구가 아니라 정렬, 필터, 합계, 레이아웃 저장 같은 실무 기능을 제공한다.
+        초급 단계에서는 Internal Table을 ALV에 넘겨 화면에 표시하는 흐름을 먼저 익힌다.
+      </p>
+      <pre><code>DATA go_alv TYPE REF TO cl_salv_table.
+
+cl_salv_table=&gt;factory(
+  IMPORTING
+    r_salv_table = go_alv
+  CHANGING
+    t_table      = gt_flight ).
+
+go_alv-&gt;display( ).</code></pre>
+      <div class="tip prose-practice" data-prose="practice">
+        <strong>실습 방향</strong>
+        먼저 SELECT 결과를 그대로 ALV로 출력하고, 이후 컬럼명, 정렬, 합계, 이벤트를 단계적으로 추가한다.
+      </div>
+    </section>
+
+    <section class="section-card prose-warning" data-prose="warning" id="pitfalls">
+      <div class="section-label">08 · 초급자 실수</div>
+      <h2>문법보다 데이터 흐름을 놓치는 실수가 더 많다</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>실수</th>
+            <th>문제</th>
+            <th>예방 방법</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>조건 없는 SELECT</td>
+            <td>대량 데이터 조회와 성능 저하</td>
+            <td>Selection Screen 조건과 최대 조회 범위를 먼저 설계한다.</td>
+          </tr>
+          <tr>
+            <td>Internal Table 구조 혼동</td>
+            <td>필드 접근 오류 또는 잘못된 가공</td>
+            <td>TYPES, DATA 선언을 먼저 읽고 테이블 구조를 확인한다.</td>
+          </tr>
+          <tr>
+            <td>READ 실패 처리 누락</td>
+            <td>빈 값 또는 이전 값 사용</td>
+            <td>READ TABLE 후 `sy-subrc` 또는 결과 존재 여부를 확인한다.</td>
+          </tr>
+          <tr>
+            <td>ALV 출력만 확인</td>
+            <td>조회/가공 단계의 오류를 놓침</td>
+            <td>Debugger에서 SELECT 결과와 가공 후 결과를 각각 확인한다.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section-card prose-checklist" data-prose="checklist" id="checklist">
+      <div class="section-label">09 · 학습 완료 체크</div>
+      <h2>다음 단계로 넘어가기 전에 확인한다</h2>
+      <ol>
+        <li>Report Program의 기본 흐름을 입력 조건, 조회, 가공, 출력으로 설명한다.</li>
+        <li>PARAMETERS와 SELECT-OPTIONS의 차이를 설명한다.</li>
+        <li>Internal Table, Work Area, Structure의 차이를 설명한다.</li>
+        <li>Open SQL에서 필요한 컬럼과 조건만 조회해야 하는 이유를 설명한다.</li>
+        <li>LOOP, READ, MODIFY, APPEND의 역할을 구분한다.</li>
+        <li>Internal Table을 ALV로 출력하는 기본 코드를 읽는다.</li>
+        <li>Debugger로 SELECT 결과와 ALV 출력 전 데이터를 확인한다.</li>
+      </ol>
+    </section>
+
+    <section class="section-card prose-summary" data-prose="summary" id="next">
+      <div class="section-label">10 · 다음 문서</div>
+      <h2>Classic ABAP 기본기 이후 데이터 모델링으로 확장한다</h2>
+      <div class="grid-2">
+        <div class="mini-card prose-summary" data-prose="summary">
+          <h3>CDS / OData</h3>
+          <p><a href="../v3/sap-cds-to-odata-beginner-guide-v3.html">CDS View에서 OData 노출까지</a></p>
+        </div>
+        <div class="mini-card prose-summary" data-prose="summary">
+          <h3>Gateway CRUD</h3>
+          <p><a href="../v3/sap-gateway-odata-v2-crud-beginner-guide-v3.html">Gateway / OData V2 CRUD 입문</a></p>
+        </div>
+        <div class="mini-card prose-summary" data-prose="summary">
+          <h3>디버깅</h3>
+          <p><a href="../v3/sap-debugging-troubleshooting-guide-v3.html">SAP 디버깅 / 트러블슈팅 통합 가이드</a></p>
+        </div>
+        <div class="mini-card prose-summary" data-prose="summary">
+          <h3>RAP 확장</h3>
+          <p><a href="../v3/sap-rap-end-to-end-beginner-guide-v3.html">RAP End-to-End 입문</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <aside class="toc prose-reference" data-prose="reference">
+    <div class="library-tree" data-nav-tree="main" data-prose="reference"></div>
+    <hr class="tree-separator" />
+    <div class="local-page-tools" data-prose="reference">
+      <h2>이 문서 안에서</h2>
+    </div>
+    <h2>학습 목차</h2>
+    <a href="#overview">01. 큰 그림</a>
+    <a href="#report-structure">02. Report 구조</a>
+    <a href="#selection-screen">03. Selection Screen</a>
+    <a href="#itab">04. Internal Table</a>
+    <a href="#open-sql">05. Open SQL</a>
+    <a href="#process">06. 데이터 처리</a>
+    <a href="#alv">07. ALV 출력</a>
+    <a href="#pitfalls">08. 초급자 실수</a>
+    <a href="#checklist">09. 완료 체크</a>
+    <a href="#next">10. 다음 문서</a>
+  </aside>
 </div>
-</section>
-<section class="section-card prose-practice" data-prose="practice" id="check">
-<div class="section-label">04 · 체크리스트</div>
-<h2>처음부터 습관화할 기준</h2>
-<ol><li><code>SELECT *</code>를 지양한다.</li><li>LOOP 안 SELECT를 피한다.</li><li>입력, 조회, 가공, 출력을 함수나 메서드로 분리한다.</li></ol>
-</section></main>
-<aside class="toc prose-reference" data-prose="reference">
-<div class="library-tree" data-nav-tree="main" data-prose="reference"></div>
-<hr class="tree-separator"/>
-<div class="local-page-tools" data-prose="reference">
-<h2>이 문서 안에서</h2>
-</div>
-<h2>학습 목차</h2><a href="#role">01. 역할</a><a href="#flow">02. 기본 흐름</a><a href="#code">03. 작은 예시</a><a href="#check">04. 체크</a></aside>
-</div>
-<footer class="library-footer prose-summary" data-prose="summary">Classic ABAP 기본기 · v3 · 2026-05-27 · 배포자: 정훈영 · 혼합 문체 기준 · Final</footer>
+
+<footer class="library-footer prose-summary" data-prose="summary">
+  Classic ABAP Report / Internal Table / ALV 입문 · Stage 6 Detail · 2026-05-27 · 배포자: 정훈영
+</footer>
 </body>
 </html>
