@@ -14,7 +14,7 @@
 - GitHub Pages: https://jungds.github.io/sapui5/
 - 운영 방식: Branch → Pull Request → Review/Merge
 - 현재 진행: Stage 7 · 우측 Document Navigation 완성
-- 현재 PR: 준비 중
+- 현재 PR: #24 `Stage 7 우측 Document Navigation 완성`
 
 ---
 

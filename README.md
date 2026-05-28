@@ -11,7 +11,7 @@ SAP 개발자를 위한 HTML 학습자료 저장소입니다.
 ## 현재 진행 상황
 
 - 현재 단계: Stage 7 · 우측 Document Navigation 완성
-- 현재 PR: 준비 중
+- 현재 PR: #24 `Stage 7 우측 Document Navigation 완성`
 - 최종 수정: 2026-05-28 18:51 KST
 
 ---
