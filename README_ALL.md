@@ -8,13 +8,13 @@
 
 ## 1. 운영 대시보드
 
-- 최종 수정: 2026-05-29 02:04 KST
+- 최종 수정: 2026-05-29 05:05 KST
 - 배포자: 정훈영
 - 저장소: https://github.com/JungDS/sapui5
 - GitHub Pages: https://jungds.github.io/sapui5/
 - 운영 방식: Branch → Pull Request → Review/Merge
-- 현재 진행: Stage 7 · v3 문서 docs 운영화 및 운영 데이터 정비
-- 현재 작업: SAP 모듈 기초 v3 문서 13개 docs 운영화 및 v3 원본 정리
+- 현재 진행: Stage 7 · 완료 (v5.0 전체 개정 및 메타데이터 정비 완료)
+- 현재 작업: 전체 78개 문서 목차 개정 체계 반영, 스태퍼 UI 및 준비 중 UX 적용, 배포자 메타데이터 전역 클렌징
 
 ---
 
@@ -25,7 +25,7 @@
 - SAP 표준 동작과 아키텍처 의도를 우선 설명하고, 불가피한 추정은 `[ 추정 ]`으로 표시한다.
 - RAP 예제나 과제에는 Interface View `ZI_*`와 Projection View `ZC_*`를 함께 제시한다.
 - `SSCR`은 Selection Screen 의미로 사용한다.
-- HTML 학습자료는 밝고 깔끔한 교재형 디자인을 유지하고, 모든 배포 문서에는 `배포자: 정훈영`을 표기한다.
+- HTML 학습자료는 밝고 깔끔한 교재형 디자인을 유지하며, v5.0 기준 문서 내 배포자 정보는 제거한다.
 
 ---
 
@@ -163,7 +163,7 @@ archive/
 | `data-doc-version` | 문서 버전 | 내용/구조 변경 기준 |
 | `data-doc-created-at` | 문서 최초 생성 시각 | KST ISO 8601 |
 | `data-doc-updated-at` | 현재 운영본 마지막 수정 시각 | archive 파일명 생성 기준 |
-| `data-distributor` | 배포자 | 기본값 `정훈영` |
+| `data-distributor` | 배포자 | v5.0 이후 제거 (Deprecated) |
 
 ---
 
@@ -288,7 +288,7 @@ Stage 7 Shell은 `body[data-page-type]`이 있는 페이지에서만 동작한�
 | 7-5b | Navigation/Data 기준 정비 | `data/site-map.json`, `data/document-catalog.json`, `assets/stage7-shell.*`, `assets/common.js` | 완료 (#23) |
 | 7-5c | 나머지 Landing 전환 | `pages/roadmap.html`, `pages/ui5-fiori.html`, `pages/module-basics.html`, `pages/integrated-practice.html`, `pages/reference.html` | 완료 (#23) |
 | 7-6 | 우측 Document Navigation 완성 | `assets/stage7-shell.css`, `assets/stage7-shell.js` | 완료 (#24) |
-| 7-7 | v3 운영 문서 docs로 이관 | `v3/**/*.html` → `docs/**` | 진행 중 |
+| 7-7 | v3 운영 문서 docs로 이관 | `v3/**/*.html` → `docs/**` | 완료 |
 | 7-7a | 로드맵 문서 3개 docs 이관 | `docs/roadmap/*` | 완료 (#25) |
 | 7-7b | Home inline CSS 분리 | `assets/stage7-home.css` | 완료 (#26) |
 | 7-7c | 로드맵 v3 원본 archive 보존 | `archive/v3/00-roadmap/*` | 완료 (#27) |
@@ -296,17 +296,17 @@ Stage 7 Shell은 `body[data-page-type]`이 있는 페이지에서만 동작한�
 | 7-7e | ABAP 핵심 3개 문서 docs 운영화 | `docs/abap/*` | 완료 (#29) |
 | 7-7f | ABAP docs Navigation 연결 | `stage7-shell.js`, `pages/abap.html` | 완료 (#30) |
 | 7-7g | 운영 문서 매핑 데이터 추가 | `data/stage7-operating-docs-map.json` | 완료 (#31) |
-| 7-7h | README / README_ALL 진행 이력 보강 | `README.md`, `README_ALL.md` | 진행 중 (#32) |
+| 7-7h | README / README_ALL 진행 이력 보강 | `README.md`, `README_ALL.md` | 완료 (#32) |
 | 7-7i | Stage 7 Shell 문서목차 인식 보정 | `assets/stage7-shell.js` | 완료 |
 | 7-7j | RAP End-to-End 운영 링크 연결 | `stage7-shell.js`, `pages/abap.html`, `data/*.json` | 완료 |
 | 7-7k | UI5/Fiori 문서 7개 docs 운영화 | `docs/ui5/*.html`, `pages/ui5-fiori.html`, `data/*.json` | 완료 |
 | 7-7l | ABAP 잔여 문서 2개 docs 운영화 | `docs/abap/rap-action.html`, `docs/abap/abap-cloud.html`, `data/*.json` | 완료 |
 | 7-7m | 통합 실습 문서 2개 docs 운영화 | `docs/practice/*.html`, `pages/integrated-practice.html`, `data/*.json` | 완료 |
 | 7-7n | SAP 모듈 기초 문서 13개 docs 운영화 | `docs/module/*.html`, `pages/module-basics.html`, `data/*.json` | 완료 |
-| 7-8 | archive/v3 보존 또는 redirect 결정 | `v3/`, `archive/v3/` | 진행 중 |
-| 7-9 | 교재형 본문 보강 | `docs/**/*.html` | 진행 중 |
-| 7-10 | 전체 링크/UX 검수 | 전체 HTML | 진행 예정 |
-| 7-11 | README 최종 갱신 | `README.md`, `README_ALL.md` | 진행 중 |
+| 7-8 | archive/v3 보존 또는 redirect 결정 | `v3/`, `archive/v3/` | 완료 |
+| 7-9 | 교재형 본문 보강 | `docs/**/*.html` | 완료 |
+| 7-10 | 전체 링크/UX 검수 | 전체 HTML | 완료 |
+| 7-11 | README 최종 갱신 | `README.md`, `README_ALL.md` | 완료 |
 
 ---
 
@@ -314,6 +314,7 @@ Stage 7 Shell은 `body[data-page-type]`이 있는 페이지에서만 동작한�
 
 | 구분 | 문서 | PR |
 |---|---|---|
+| 완료 | SAP DLL v5.0 개정 및 메타데이터 전역 클렌징 | 로컬 작업 (PR 예정) |
 | 완료 | ABAP Landing Page 아코디언 및 트랙 개편 | 로컬 작업 |
 | 완료 | Stage 7 Shell 문서목차 인식 보정 | 로컬 작업 |
 | 완료 | RAP End-to-End 운영 링크 연결 | 로컬 작업 |
