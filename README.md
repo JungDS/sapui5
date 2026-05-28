@@ -10,9 +10,9 @@ SAP 개발자를 위한 HTML 학습자료 저장소입니다.
 
 ## 현재 진행 상황
 
-- 현재 단계: Stage 7 · 우측 Document Navigation 완성
-- 현재 PR: #24 `Stage 7 우측 Document Navigation 완성`
-- 최종 수정: 2026-05-28 18:51 KST
+- 현재 단계: Stage 7 · 로드맵 문서 docs 이관
+- 현재 PR: 준비 중
+- 최종 수정: 2026-05-28 19:45 KST
 
 ---
 
@@ -25,7 +25,8 @@ SAP 개발자를 위한 HTML 학습자료 저장소입니다.
 - SAP 모듈 기초: https://jungds.github.io/sapui5/pages/module-basics.html
 - 통합 실습: https://jungds.github.io/sapui5/pages/integrated-practice.html
 - Reference/운영: https://jungds.github.io/sapui5/pages/reference.html
-- Gateway docs 시범 전환: https://jungds.github.io/sapui5/docs/abap/gateway-odata-v2-crud.html
+- Gateway docs 전환본: https://jungds.github.io/sapui5/docs/abap/gateway-odata-v2-crud.html
+- 로드맵 docs 전환본: https://jungds.github.io/sapui5/docs/roadmap/developer-learning-roadmap.html
 
 ---
 
@@ -39,11 +40,11 @@ SAP 개발자를 위한 HTML 학습자료 저장소입니다.
 | 7-3 | 공통 CSS/JS Shell 초안 | 완료 |
 | 7-4 | Gateway 문서 docs 시범 전환 | 완료 |
 | 7-5 | ABAP Landing 전환 | 완료 |
-| 7-5a | README / README_ALL 분리 | 진행 중 |
+| 7-5a | README / README_ALL 분리 | 완료 |
 | 7-5b | Navigation/Data 기준 정비 | 완료 |
 | 7-5c | 나머지 Landing 전환 | 완료 |
 | 7-6 | 우측 Document Navigation 완성 | 완료 |
-| 7-7 | v3 운영 문서 docs 이관 | 예정 |
+| 7-7 | v3 운영 문서 docs 이관 | 진행 중 |
 | 7-8 | archive/v3 보존 또는 redirect 결정 | 예정 |
 | 7-9 | 교재형 본문 보강 | 예정 |
 | 7-10 | 전체 링크/UX 검수 | 예정 |
@@ -55,7 +56,10 @@ SAP 개발자를 위한 HTML 학습자료 저장소입니다.
 
 | 구분 | 문서 | 링크 |
 |---|---|---|
-| 진행 중 | README / README_ALL 분리 | https://github.com/JungDS/sapui5/pull/22 |
+| 진행 중 | Stage 7 로드맵 문서 docs 이관 | 신규 PR 예정 |
+| 완료 | Stage 7 우측 Document Navigation 완성 | https://github.com/JungDS/sapui5/pull/24 |
+| 완료 | Stage 7 Navigation/Data 기준 정비 및 Landing 전환 | https://github.com/JungDS/sapui5/pull/23 |
+| 완료 | README / README_ALL 운영 문서 분리 | https://github.com/JungDS/sapui5/pull/22 |
 | 완료 | ABAP Landing Stage 7 전환 | https://github.com/JungDS/sapui5/pull/21 |
 | 완료 | Gateway docs Stage 7 시범 전환 | https://github.com/JungDS/sapui5/pull/20 |
 | 완료 | Stage 7 공통 CSS/JS Shell 초안 | https://github.com/JungDS/sapui5/pull/19 |
