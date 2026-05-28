@@ -2,13 +2,13 @@
 
 ## 운영 대시보드
 
-- 최종 수정: 2026-05-28 13:58 KST
+- 최종 수정: 2026-05-28 16:45 KST
 - 배포자: 정훈영
 - 저장소: https://github.com/JungDS/sapui5
 - GitHub Pages: https://jungds.github.io/sapui5/
 - 운영 방식: Branch → Pull Request → Review/Merge
-- 현재 진행: Stage 7 · Global Shell Refactor 준비
-- 현재 PR: #16 `Gateway Navigation을 우측 독립 패널로 분리`
+- 현재 진행: Stage 7 · index.html Home Shell 적용
+- 현재 PR: #18 `Stage 7 index Home Shell 적용`
 
 ---
 
@@ -57,6 +57,9 @@ data/
   document-catalog.json
 archive/
   docs/
+    home/
+      index/
+        20260528_164134_v3.0.html
     abap/
       gateway-odata-v2-crud/
         20260528_161042_v4.0.html
@@ -89,8 +92,8 @@ archive/
   data-doc-id="index"
   data-doc-title="SAP Developer Learning Library"
   data-doc-version="4.0"
-  data-doc-created-at="2026-05-28T00:00:00+09:00"
-  data-doc-updated-at="2026-05-28T13:58:00+09:00"
+  data-doc-created-at="2026-05-28T16:41:34+09:00"
+  data-doc-updated-at="2026-05-28T16:45:00+09:00"
   data-distributor="정훈영">
 ```
 
@@ -150,6 +153,7 @@ archive/docs/<category>/<doc-id>/<YYYYMMDD>_<hhmmss>_v<version>.html
 예시:
 
 ```text
+archive/docs/home/index/20260528_164134_v3.0.html
 archive/docs/abap/gateway-odata-v2-crud/20260528_161042_v4.0.html
 archive/docs/abap/gateway-odata-v2-crud/20260528_171530_v4.0.html
 archive/docs/abap/gateway-odata-v2-crud/20260610_093000_v4.1.html
@@ -162,6 +166,7 @@ archive/docs/abap/gateway-odata-v2-crud/20260610_093000_v4.1.html
 - 파일명 형식은 `<YYYYMMDD>_<hhmmss>_v<version>.html`을 사용한다.
 - 동일 파일명이 이미 존재하면 현재 문서의 `data-doc-updated-at` 또는 archive 생성 로직을 재확인한다.
 - 충돌이 불가피한 경우에만 새 timestamp로 재생성한다.
+- 기존 문서에 메타데이터가 없는 최초 전환 작업에서는 전환 시점의 기준 timestamp를 사용하고, README에 예외로 기록한다.
 
 ### 버전 증가 기준
 
@@ -229,9 +234,9 @@ archive/docs/abap/gateway-odata-v2-crud/20260610_093000_v4.1.html
 
 | 단계 | 작업 | 대상 | 산출물 | 상태 |
 |---|---|---|---|---|
-| 7-0 | README 운영 기준 정리 | `README.md` | Global Shell 기준, archive 기준 | 진행 중 |
-| 7-1 | 최종 로컬 샘플 확정 | local sample | Header/Nav 최종 디자인 | 진행 예정 |
-| 7-2 | index.html 메타데이터 적용 | `index.html` | Home Shell 기준 적용 | 진행 예정 |
+| 7-0 | README 운영 기준 정리 | `README.md` | Global Shell 기준, archive 기준 | 완료 (#17) |
+| 7-1 | 최종 로컬 샘플 확정 | local sample | Header/Nav 최종 디자인 | 완료 |
+| 7-2 | index.html 메타데이터 적용 | `index.html` | Home Shell 기준 적용 | 진행 중 (#18) |
 | 7-3 | 공통 CSS/JS Shell 초안 | `assets/common.css`, `assets/common.js` | Header/Nav 자동 생성 기반 | 진행 예정 |
 | 7-4 | Gateway 문서 1개 시범 전환 | `docs/abap/gateway-odata-v2-crud.html` | docs 구조 검증 | 진행 예정 |
 | 7-5 | pages Landing 전환 | `pages/*.html` | landing 메타데이터/레이아웃 | 진행 예정 |
@@ -255,8 +260,8 @@ archive/docs/abap/gateway-odata-v2-crud/20260610_093000_v4.1.html
   data-doc-id="index"
   data-doc-title="SAP Developer Learning Library"
   data-doc-version="4.0"
-  data-doc-created-at="2026-05-28T00:00:00+09:00"
-  data-doc-updated-at="2026-05-28T13:58:00+09:00"
+  data-doc-created-at="2026-05-28T16:41:34+09:00"
+  data-doc-updated-at="2026-05-28T16:45:00+09:00"
   data-distributor="정훈영">
 ```
 
@@ -275,12 +280,12 @@ archive/docs/abap/gateway-odata-v2-crud/20260610_093000_v4.1.html
 
 | 구분 | 문서 | 수정 후 웹페이지 | 수정 전 웹페이지 | PR |
 |---|---|---|---|---|
-| 진행 중 | Gateway Navigation 우측 독립 패널 | https://jungds.github.io/sapui5/v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html | https://jungds.github.io/sapui5/archive/before/stage6-6-gateway-hybrid-navigation-before.html | https://github.com/JungDS/sapui5/pull/16 |
+| 진행 중 | index.html Stage 7 Home Shell | https://jungds.github.io/sapui5/ | https://jungds.github.io/sapui5/archive/docs/home/index/20260528_164134_v3.0.html | https://github.com/JungDS/sapui5/pull/18 |
+| 완료 | Gateway Navigation 우측 독립 패널 | https://jungds.github.io/sapui5/v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html | https://jungds.github.io/sapui5/archive/before/stage6-6-gateway-hybrid-navigation-before.html | https://github.com/JungDS/sapui5/pull/16 |
 | 완료 | Gateway Scroll Spy | https://jungds.github.io/sapui5/v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html | https://jungds.github.io/sapui5/archive/before/stage6-6-gateway-hybrid-navigation-before.html | https://github.com/JungDS/sapui5/pull/15 |
 | 완료 | Gateway Hybrid Navigation | https://jungds.github.io/sapui5/v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html | https://jungds.github.io/sapui5/archive/before/stage6-6-gateway-hybrid-navigation-before.html | https://github.com/JungDS/sapui5/pull/14 |
 | 완료 | Gateway / OData V2 CRUD 입문 상세화 | https://jungds.github.io/sapui5/v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html | https://jungds.github.io/sapui5/archive/before/stage6-6-gateway-odata-v2-crud-before.html | https://github.com/JungDS/sapui5/pull/12 |
 | 완료 | CDS View에서 OData 노출까지 | https://jungds.github.io/sapui5/v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html | https://jungds.github.io/sapui5/archive/before/stage6-5-cds-to-odata-before.html | https://github.com/JungDS/sapui5/pull/10 |
-| 완료 | 홈 화면 | https://jungds.github.io/sapui5/ | https://jungds.github.io/sapui5/archive/before/stage7-1-index-home-layout-before.html | https://github.com/JungDS/sapui5/pull/7 |
 
 ---
 
@@ -337,8 +342,9 @@ archive/docs/abap/gateway-odata-v2-crud/20260610_093000_v4.1.html
 
 ## 현재 메모
 
-- Stage 7의 실제 첫 적용 대상은 `index.html`이다.
-- `index.html`에도 문서 메타데이터를 둔다.
+- Stage 7의 첫 실제 적용 대상인 `index.html` 전환을 진행 중이다.
+- `index.html`에 Home Shell 메타데이터를 추가했다.
+- 기존 index에는 Stage 7 메타데이터가 없었으므로 최초 archive는 전환 시점 기준 `20260528_164134_v3.0.html`로 보관했다.
 - v3를 계속 최신 운영 경로로 유지하지 않고, `docs/`를 최신 운영 문서 경로로 전환하는 방향을 우선 검토한다.
 - archive 파일명은 현재 운영본의 `data-doc-updated-at` 값을 사용한다.
 - archive 파일명 표준은 `<YYYYMMDD>_<hhmmss>_v<version>.html`이다.
