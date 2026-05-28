@@ -1,0 +1,43 @@
+{
+  "version": "stage7-abap-catalog-update-targets-v1",
+  "updated_at": "2026-05-28T23:30:00+09:00",
+  "distributor": "정훈영",
+  "target_files": [
+    "data/site-map.json",
+    "data/document-catalog.json"
+  ],
+  "documents": {
+    "abap-classic": {
+      "href": "../docs/abap/abap-classic-report-itab-alv.html",
+      "path": "docs/abap/abap-classic-report-itab-alv.html",
+      "file": "abap-classic-report-itab-alv.html",
+      "legacy_href": "../v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html",
+      "legacy_path": "v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html"
+    },
+    "abap-new-syntax": {
+      "href": "../docs/abap/abap-new-syntax.html",
+      "path": "docs/abap/abap-new-syntax.html",
+      "file": "abap-new-syntax.html",
+      "legacy_href": "../v3/01-abap/abap-new-syntax-beginner-guide-v3.html",
+      "legacy_path": "v3/01-abap/abap-new-syntax-beginner-guide-v3.html"
+    },
+    "cds-odata": {
+      "href": "../docs/abap/cds-to-odata.html",
+      "path": "docs/abap/cds-to-odata.html",
+      "file": "cds-to-odata.html",
+      "legacy_href": "../v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html",
+      "legacy_path": "v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html"
+    }
+  },
+  "site_map_rules": [
+    "documents.<docId>.href를 href 값으로 변경한다.",
+    "documents.<docId>.file을 file 값으로 변경한다.",
+    "documents.<docId>.legacy_href, legacy_path, operating_path, canonical_id를 추가한다."
+  ],
+  "document_catalog_rules": [
+    "documents[].docId가 일치하는 항목의 href를 href 값으로 변경한다.",
+    "documents[].docId가 일치하는 항목의 path를 path 값으로 변경한다.",
+    "documents[].docId가 일치하는 항목의 file을 file 값으로 변경한다.",
+    "legacyHref, legacyPath, operatingPath를 추가한다."
+  ]
+}

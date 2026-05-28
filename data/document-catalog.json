@@ -99,10 +99,14 @@
       "status": "핵심",
       "time": "40분",
       "summary": "Report, Selection Screen, Internal Table, Open SQL, ALV의 기본 흐름을 익힌다.",
-      "href": "../v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html",
-      "path": "v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html",
-      "file": "abap-classic-report-itab-alv-beginner-v3.html",
-      "order": 4
+      "href": "../docs/abap/abap-classic-report-itab-alv.html",
+      "path": "docs/abap/abap-classic-report-itab-alv.html",
+      "file": "abap-classic-report-itab-alv.html",
+      "order": 4,
+      "legacyId": "abap-classic",
+      "legacyHref": "../v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html",
+      "legacyPath": "v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html",
+      "operatingPath": "docs/abap/abap-classic-report-itab-alv.html"
     },
     {
       "docId": "abap-new-syntax",
@@ -114,10 +118,14 @@
       "status": "확장",
       "time": "30분",
       "summary": "DATA(...), VALUE, CORRESPONDING, FOR 등 실무 코드를 읽기 위한 신문법을 정리한다.",
-      "href": "../v3/01-abap/abap-new-syntax-beginner-guide-v3.html",
-      "path": "v3/01-abap/abap-new-syntax-beginner-guide-v3.html",
-      "file": "abap-new-syntax-beginner-guide-v3.html",
-      "order": 5
+      "href": "../docs/abap/abap-new-syntax.html",
+      "path": "docs/abap/abap-new-syntax.html",
+      "file": "abap-new-syntax.html",
+      "order": 5,
+      "legacyId": "abap-new-syntax",
+      "legacyHref": "../v3/01-abap/abap-new-syntax-beginner-guide-v3.html",
+      "legacyPath": "v3/01-abap/abap-new-syntax-beginner-guide-v3.html",
+      "operatingPath": "docs/abap/abap-new-syntax.html"
     },
     {
       "docId": "cds-odata",
@@ -129,10 +137,14 @@
       "status": "핵심",
       "time": "45분",
       "summary": "ZI_* Interface View, ZC_* Projection View, Association, Service Binding 흐름을 학습한다.",
-      "href": "../v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html",
-      "path": "v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html",
-      "file": "sap-cds-to-odata-beginner-guide-v3.html",
-      "order": 6
+      "href": "../docs/abap/cds-to-odata.html",
+      "path": "docs/abap/cds-to-odata.html",
+      "file": "cds-to-odata.html",
+      "order": 6,
+      "legacyId": "cds-odata",
+      "legacyHref": "../v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html",
+      "legacyPath": "v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html",
+      "operatingPath": "docs/abap/cds-to-odata.html"
     },
     {
       "docId": "odata-export",
