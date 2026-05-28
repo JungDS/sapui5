@@ -7,6 +7,11 @@
 <link rel="stylesheet" href="../../assets/common.css" />
 <script src="../../assets/common.js" defer></script>
 <style>
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px;
+  }
+
   .gateway-shell {
     align-items: start;
   }
@@ -173,17 +178,9 @@
     background: #94a3b8;
   }
 
-  .gateway-hybrid-nav .group-dot.green {
-    background: #059669;
-  }
-
-  .gateway-hybrid-nav .group-dot.blue {
-    background: #2563eb;
-  }
-
-  .gateway-hybrid-nav .group-dot.purple {
-    background: #7c3aed;
-  }
+  .gateway-hybrid-nav .group-dot.green { background: #059669; }
+  .gateway-hybrid-nav .group-dot.blue { background: #2563eb; }
+  .gateway-hybrid-nav .group-dot.purple { background: #7c3aed; }
 
   .gateway-hybrid-nav .step-card {
     position: relative;
@@ -210,9 +207,7 @@
     background: #e2e8f0;
   }
 
-  .gateway-hybrid-nav .step-card.last::before {
-    display: none;
-  }
+  .gateway-hybrid-nav .step-card.last::before { display: none; }
 
   .gateway-hybrid-nav .step-no {
     z-index: 1;
@@ -298,6 +293,7 @@
     color: #475569;
     font-size: .82rem;
     text-decoration: none;
+    transition: background .15s ease, color .15s ease, font-weight .15s ease;
   }
 
   .gateway-hybrid-nav .local-toc a:hover,
@@ -374,41 +370,11 @@
         응답으로 돌아가는 흐름을 먼저 이해해야 한다.
       </p>
       <div class="flow">
-        <div class="flow-step prose-structure" data-prose="structure">
-          <span class="num">1</span>
-          <div>
-            <div class="flow-title">Model 정의</div>
-            <p>SEGW에서 Entity Type, Entity Set, Key, Property를 정의한다. 이 정의가 $metadata의 기준이 된다.</p>
-          </div>
-        </div>
-        <div class="flow-step prose-structure" data-prose="structure">
-          <span class="num">2</span>
-          <div>
-            <div class="flow-title">Runtime Artifact 생성</div>
-            <p>MPC, DPC, MPC_EXT, DPC_EXT 클래스를 생성한다. 초급 단계의 핵심 구현 위치는 DPC_EXT다.</p>
-          </div>
-        </div>
-        <div class="flow-step prose-structure" data-prose="structure">
-          <span class="num">3</span>
-          <div>
-            <div class="flow-title">DPC_EXT 구현</div>
-            <p>GET_ENTITYSET, GET_ENTITY, CREATE_ENTITY 같은 CRUD 메서드에 조회와 변경 로직을 작성한다.</p>
-          </div>
-        </div>
-        <div class="flow-step prose-structure" data-prose="structure">
-          <span class="num">4</span>
-          <div>
-            <div class="flow-title">서비스 등록</div>
-            <p>/IWFND/MAINT_SERVICE에서 서비스를 등록하고, Gateway Client에서 호출 가능한 상태인지 확인한다.</p>
-          </div>
-        </div>
-        <div class="flow-step prose-structure" data-prose="structure">
-          <span class="num">5</span>
-          <div>
-            <div class="flow-title">단독 테스트</div>
-            <p>$metadata, EntitySet, 단건 조회, CUD 요청을 UI5 연결 전에 Gateway Client로 먼저 검증한다.</p>
-          </div>
-        </div>
+        <div class="flow-step prose-structure" data-prose="structure"><span class="num">1</span><div><div class="flow-title">Model 정의</div><p>SEGW에서 Entity Type, Entity Set, Key, Property를 정의한다. 이 정의가 $metadata의 기준이 된다.</p></div></div>
+        <div class="flow-step prose-structure" data-prose="structure"><span class="num">2</span><div><div class="flow-title">Runtime Artifact 생성</div><p>MPC, DPC, MPC_EXT, DPC_EXT 클래스를 생성한다. 초급 단계의 핵심 구현 위치는 DPC_EXT다.</p></div></div>
+        <div class="flow-step prose-structure" data-prose="structure"><span class="num">3</span><div><div class="flow-title">DPC_EXT 구현</div><p>GET_ENTITYSET, GET_ENTITY, CREATE_ENTITY 같은 CRUD 메서드에 조회와 변경 로직을 작성한다.</p></div></div>
+        <div class="flow-step prose-structure" data-prose="structure"><span class="num">4</span><div><div class="flow-title">서비스 등록</div><p>/IWFND/MAINT_SERVICE에서 서비스를 등록하고, Gateway Client에서 호출 가능한 상태인지 확인한다.</p></div></div>
+        <div class="flow-step prose-structure" data-prose="structure"><span class="num">5</span><div><div class="flow-title">단독 테스트</div><p>$metadata, EntitySet, 단건 조회, CUD 요청을 UI5 연결 전에 Gateway Client로 먼저 검증한다.</p></div></div>
       </div>
     </section>
 
@@ -420,9 +386,7 @@
         Entity Type은 한 건의 구조이고, Entity Set은 그 구조를 가진 데이터 집합이며, 사용자는 보통 Entity Set URL을 호출한다.
       </p>
       <table>
-        <thead>
-          <tr><th>용어</th><th>의미</th><th>초급자 관점</th></tr>
-        </thead>
+        <thead><tr><th>용어</th><th>의미</th><th>초급자 관점</th></tr></thead>
         <tbody>
           <tr><td>Entity Type</td><td>데이터 한 건의 구조를 정의한다.</td><td>항공편 한 건, 고객 한 건, 주문 한 건의 필드 구조다.</td></tr>
           <tr><td>Entity Set</td><td>Entity Type의 집합이다.</td><td>URL에서 조회하는 목록 단위다. 예: <code>FlightSet</code></td></tr>
@@ -441,9 +405,7 @@
       <div class="section-label">03 · CRUD 메서드</div>
       <h2>HTTP Method와 DPC_EXT 메서드를 연결해서 이해한다</h2>
       <table>
-        <thead>
-          <tr><th>동작</th><th>HTTP Method</th><th>DPC_EXT 대표 메서드</th><th>의미</th></tr>
-        </thead>
+        <thead><tr><th>동작</th><th>HTTP Method</th><th>DPC_EXT 대표 메서드</th><th>의미</th></tr></thead>
         <tbody>
           <tr><td>목록 조회</td><td>GET</td><td><code>GET_ENTITYSET</code></td><td>여러 건을 조회한다.</td></tr>
           <tr><td>단건 조회</td><td>GET</td><td><code>GET_ENTITY</code></td><td>Key 기준으로 한 건을 조회한다.</td></tr>
@@ -452,20 +414,13 @@
           <tr><td>삭제</td><td>DELETE</td><td><code>DELETE_ENTITY</code></td><td>Key 기준으로 데이터를 삭제한다.</td></tr>
         </tbody>
       </table>
-      <div class="warning prose-warning" data-prose="warning">
-        <strong>주의</strong>
-        OData V2에서 수정은 시스템과 클라이언트 설정에 따라 PUT 또는 MERGE로 테스트할 수 있다.
-        초급 단계에서는 Gateway Client에서 실제 허용 Method와 응답 메시지를 확인한다.
-      </div>
+      <div class="warning prose-warning" data-prose="warning"><strong>주의</strong> OData V2에서 수정은 시스템과 클라이언트 설정에 따라 PUT 또는 MERGE로 테스트할 수 있다.</div>
     </section>
 
     <section class="section-card prose-practice" data-prose="practice" id="get-entityset">
       <div class="section-label">04 · GET_ENTITYSET</div>
       <h2>목록 조회는 필터와 반환 테이블을 중심으로 구현한다</h2>
-      <p>
-        GET_ENTITYSET은 여러 건을 조회해 EntitySet으로 반환하는 메서드다. 실무에서는 $filter, $top,
-        $skip, 정렬, 페이징 등을 고려하지만 초급 단계에서는 먼저 조회 조건과 반환 구조를 명확히 한다.
-      </p>
+      <p>GET_ENTITYSET은 여러 건을 조회해 EntitySet으로 반환하는 메서드다. 실무에서는 $filter, $top, $skip, 정렬, 페이징 등을 고려하지만 초급 단계에서는 먼저 조회 조건과 반환 구조를 명확히 한다.</p>
       <pre><code>METHOD flightset_get_entityset.
 
   SELECT carrid,
@@ -479,28 +434,16 @@
 
 ENDMETHOD.</code></pre>
       <div class="gateway-note-grid">
-        <div class="mini-card prose-practice" data-prose="practice">
-          <h3>처음에는 단순 조회</h3>
-          <p>먼저 응답 구조가 맞는지 확인한 뒤 필터와 페이징을 추가한다.</p>
-        </div>
-        <div class="mini-card prose-practice" data-prose="practice">
-          <h3>필드명 확인</h3>
-          <p>ABAP 필드명과 Entity Property 명칭이 응답에서 의도대로 매핑되는지 확인한다.</p>
-        </div>
-        <div class="mini-card prose-practice" data-prose="practice">
-          <h3>UI5보다 먼저 API</h3>
-          <p>화면 오류를 보기 전에 Gateway Client에서 EntitySet 응답을 먼저 검증한다.</p>
-        </div>
+        <div class="mini-card prose-practice" data-prose="practice"><h3>처음에는 단순 조회</h3><p>먼저 응답 구조가 맞는지 확인한 뒤 필터와 페이징을 추가한다.</p></div>
+        <div class="mini-card prose-practice" data-prose="practice"><h3>필드명 확인</h3><p>ABAP 필드명과 Entity Property 명칭이 응답에서 의도대로 매핑되는지 확인한다.</p></div>
+        <div class="mini-card prose-practice" data-prose="practice"><h3>UI5보다 먼저 API</h3><p>화면 오류를 보기 전에 Gateway Client에서 EntitySet 응답을 먼저 검증한다.</p></div>
       </div>
     </section>
 
     <section class="section-card prose-practice" data-prose="practice" id="get-entity">
       <div class="section-label">05 · GET_ENTITY</div>
       <h2>단건 조회는 Key 값을 정확히 읽는 것이 핵심이다</h2>
-      <p>
-        GET_ENTITY는 URL에 포함된 Key를 기준으로 한 건을 조회한다. 초급자가 자주 놓치는 부분은
-        Key 이름과 Entity Property 이름이 일치하는지, 타입 변환이 필요한지 확인하는 것이다.
-      </p>
+      <p>GET_ENTITY는 URL에 포함된 Key를 기준으로 한 건을 조회한다. 초급자가 자주 놓치는 부분은 Key 이름과 Entity Property 이름이 일치하는지, 타입 변환이 필요한지 확인하는 것이다.</p>
       <pre><code>METHOD flightset_get_entity.
 
   DATA lv_carrid TYPE sflight-carrid.
@@ -540,18 +483,9 @@ ENDMETHOD.</code></pre>
       <div class="section-label">06 · CUD 구현 관점</div>
       <h2>생성, 수정, 삭제는 요청 Body와 Key 처리 기준이 다르다</h2>
       <div class="grid-3">
-        <div class="mini-card prose-practice" data-prose="practice">
-          <h3>CREATE_ENTITY</h3>
-          <p>요청 Body를 읽어 신규 데이터를 만든다. Key가 서버에서 채번되는지, 클라이언트가 보내는지 먼저 결정한다.</p>
-        </div>
-        <div class="mini-card prose-practice" data-prose="practice">
-          <h3>UPDATE_ENTITY</h3>
-          <p>URL Key로 대상 데이터를 찾고, Body의 변경 값을 반영한다. 전체 변경과 부분 변경의 기준을 확인한다.</p>
-        </div>
-        <div class="mini-card prose-practice" data-prose="practice">
-          <h3>DELETE_ENTITY</h3>
-          <p>URL Key 기준으로 삭제한다. 실제 삭제인지 삭제 플래그 처리인지 업무 기준을 먼저 정한다.</p>
-        </div>
+        <div class="mini-card prose-practice" data-prose="practice"><h3>CREATE_ENTITY</h3><p>요청 Body를 읽어 신규 데이터를 만든다. Key가 서버에서 채번되는지, 클라이언트가 보내는지 먼저 결정한다.</p></div>
+        <div class="mini-card prose-practice" data-prose="practice"><h3>UPDATE_ENTITY</h3><p>URL Key로 대상 데이터를 찾고, Body의 변경 값을 반영한다. 전체 변경과 부분 변경의 기준을 확인한다.</p></div>
+        <div class="mini-card prose-practice" data-prose="practice"><h3>DELETE_ENTITY</h3><p>URL Key 기준으로 삭제한다. 실제 삭제인지 삭제 플래그 처리인지 업무 기준을 먼저 정한다.</p></div>
       </div>
       <pre><code>METHOD flightset_create_entity.
 
@@ -565,10 +499,7 @@ ENDMETHOD.</code></pre>
   er_entity = ls_input.
 
 ENDMETHOD.</code></pre>
-      <div class="tip prose-practice" data-prose="practice">
-        <strong>CUD 구현 체크</strong>
-        변경 로직에서는 권한, 중복, 잠금, 저장 성공 여부, 메시지 반환, 트랜잭션 처리 기준을 반드시 별도로 설계한다.
-      </div>
+      <div class="tip prose-practice" data-prose="practice"><strong>CUD 구현 체크</strong> 변경 로직에서는 권한, 중복, 잠금, 저장 성공 여부, 메시지 반환, 트랜잭션 처리 기준을 반드시 별도로 설계한다.</div>
     </section>
 
     <section class="section-card prose-structure" data-prose="structure" id="gateway-client">
@@ -584,19 +515,14 @@ ENDMETHOD.</code></pre>
         <li>DELETE 요청으로 DELETE_ENTITY가 호출되는지 확인한다.</li>
         <li>오류가 발생하면 HTTP Status, 응답 Body, SAP Message, Error Log를 함께 확인한다.</li>
       </ol>
-      <div class="tip prose-practice" data-prose="practice">
-        <strong>테스트 우선순위</strong>
-        UI5 화면에서 오류가 발생했을 때 바로 Controller 코드를 보기보다, 같은 URL이 Gateway Client에서 정상 응답하는지 먼저 확인한다.
-      </div>
+      <div class="tip prose-practice" data-prose="practice"><strong>테스트 우선순위</strong> UI5 화면에서 오류가 발생했을 때 바로 Controller 코드를 보기보다, 같은 URL이 Gateway Client에서 정상 응답하는지 먼저 확인한다.</div>
     </section>
 
     <section class="section-card prose-warning" data-prose="warning" id="errors">
       <div class="section-label">08 · 오류 처리</div>
       <h2>Gateway 오류는 HTTP 상태와 SAP 메시지를 함께 봐야 한다</h2>
       <table>
-        <thead>
-          <tr><th>증상</th><th>가능한 원인</th><th>확인 위치</th></tr>
-        </thead>
+        <thead><tr><th>증상</th><th>가능한 원인</th><th>확인 위치</th></tr></thead>
         <tbody>
           <tr><td>404 Not Found</td><td>서비스 등록 누락, EntitySet 이름 오류, URL 오류</td><td>/IWFND/MAINT_SERVICE, $metadata</td></tr>
           <tr><td>405 Method Not Allowed</td><td>해당 EntitySet에 Method 구현 또는 허용이 맞지 않음</td><td>DPC_EXT 메서드, Gateway Client Method</td></tr>
@@ -604,11 +530,7 @@ ENDMETHOD.</code></pre>
           <tr><td>응답은 200이지만 데이터가 비어 있음</td><td>조회 조건 오류, 원천 데이터 없음, 필드 매핑 불일치</td><td>DPC_EXT Debugging, SQL Console, 응답 Body</td></tr>
         </tbody>
       </table>
-      <div class="warning prose-warning" data-prose="warning">
-        <strong>초급자 주의</strong>
-        HTTP 200만 보고 성공으로 판단하면 안 된다. 응답 Body, Entity Key, Error Message,
-        반환 필드명이 화면 Binding과 맞는지까지 확인한다.
-      </div>
+      <div class="warning prose-warning" data-prose="warning"><strong>초급자 주의</strong> HTTP 200만 보고 성공으로 판단하면 안 된다. 응답 Body, Entity Key, Error Message, 반환 필드명이 화면 Binding과 맞는지까지 확인한다.</div>
     </section>
 
     <section class="section-card prose-checklist" data-prose="checklist" id="checklist">
@@ -629,22 +551,10 @@ ENDMETHOD.</code></pre>
       <div class="section-label">10 · 다음 문서</div>
       <h2>Gateway 이후에는 UI5 연동과 RAP으로 확장한다</h2>
       <div class="grid-2">
-        <div class="mini-card prose-summary" data-prose="summary">
-          <h3>UI5 ODataModel</h3>
-          <p><a href="../02-ui5-fiori/sapui5-odata-model-crud-beginner-guide-v3.html">SAPUI5 OData Model과 CRUD 입문</a></p>
-        </div>
-        <div class="mini-card prose-summary" data-prose="summary">
-          <h3>RAP End-to-End</h3>
-          <p><a href="sap-rap-end-to-end-beginner-guide-v3.html">RAP End-to-End 입문</a></p>
-        </div>
-        <div class="mini-card prose-summary" data-prose="summary">
-          <h3>CDS/OData 흐름 복습</h3>
-          <p><a href="sap-cds-to-odata-beginner-guide-v3.html">CDS View에서 OData 노출까지</a></p>
-        </div>
-        <div class="mini-card prose-summary" data-prose="summary">
-          <h3>디버깅</h3>
-          <p><a href="../00-roadmap/sap-debugging-troubleshooting-guide-v3.html">SAP 디버깅 / 트러블슈팅 통합 가이드</a></p>
-        </div>
+        <div class="mini-card prose-summary" data-prose="summary"><h3>UI5 ODataModel</h3><p><a href="../02-ui5-fiori/sapui5-odata-model-crud-beginner-guide-v3.html">SAPUI5 OData Model과 CRUD 입문</a></p></div>
+        <div class="mini-card prose-summary" data-prose="summary"><h3>RAP End-to-End</h3><p><a href="sap-rap-end-to-end-beginner-guide-v3.html">RAP End-to-End 입문</a></p></div>
+        <div class="mini-card prose-summary" data-prose="summary"><h3>CDS/OData 흐름 복습</h3><p><a href="sap-cds-to-odata-beginner-guide-v3.html">CDS View에서 OData 노출까지</a></p></div>
+        <div class="mini-card prose-summary" data-prose="summary"><h3>디버깅</h3><p><a href="../00-roadmap/sap-debugging-troubleshooting-guide-v3.html">SAP 디버깅 / 트러블슈팅 통합 가이드</a></p></div>
       </div>
     </section>
   </main>
@@ -654,74 +564,34 @@ ENDMETHOD.</code></pre>
       <div class="nav-title">ABAP 개발 학습 경로</div>
       <a class="area-home" href="../../pages/abap.html">ABAP 개발 홈 <small>전체 목록</small></a>
 
-      <div class="progress-card">
-        <div class="progress-head">
-          <span>현재 4 / 6</span>
-          <span>67%</span>
-        </div>
-        <div class="progress-bar"><span></span></div>
-      </div>
+      <div class="progress-card"><div class="progress-head"><span>현재 4 / 6</span><span>67%</span></div><div class="progress-bar"><span></span></div></div>
 
-      <div class="focus-card">
-        <div class="label">현재 문서 · 4단계</div>
-        <strong>Gateway / OData V2 CRUD 입문</strong>
-        <small>SEGW · DPC_EXT · CRUD · Gateway Client</small>
-      </div>
+      <div class="focus-card"><div class="label">현재 문서 · 4단계</div><strong>Gateway / OData V2 CRUD 입문</strong><small>SEGW · DPC_EXT · CRUD · Gateway Client</small></div>
 
       <div class="prev-next">
-        <a href="sap-cds-to-odata-beginner-guide-v3.html">
-          <span>이전</span>
-          <strong>CDS View에서 OData 노출까지</strong>
-        </a>
-        <a href="sap-rap-end-to-end-beginner-guide-v3.html">
-          <span>다음</span>
-          <strong>RAP End-to-End 입문</strong>
-        </a>
+        <a href="sap-cds-to-odata-beginner-guide-v3.html"><span>이전</span><strong>CDS View에서 OData 노출까지</strong></a>
+        <a href="sap-rap-end-to-end-beginner-guide-v3.html"><span>다음</span><strong>RAP End-to-End 입문</strong></a>
       </div>
 
       <div class="group">
         <div class="group-title"><span><i class="group-dot green"></i>Classic ABAP</span><span>완료</span></div>
-        <a class="step-card done" href="abap-classic-report-itab-alv-beginner-v3.html">
-          <span class="step-no">1</span>
-          <span class="step-text"><strong>Classic ABAP 기본기</strong><small>Report · ITAB · ALV</small></span>
-          <span class="status done">완료</span>
-        </a>
-        <a class="step-card done" href="abap-new-syntax-beginner-guide-v3.html">
-          <span class="step-no">2</span>
-          <span class="step-text"><strong>ABAP New Syntax 입문</strong><small>현대 ABAP 문법</small></span>
-          <span class="status done">완료</span>
-        </a>
+        <a class="step-card done" href="abap-classic-report-itab-alv-beginner-v3.html"><span class="step-no">1</span><span class="step-text"><strong>Classic ABAP 기본기</strong><small>Report · ITAB · ALV</small></span><span class="status done">완료</span></a>
+        <a class="step-card done" href="abap-new-syntax-beginner-guide-v3.html"><span class="step-no">2</span><span class="step-text"><strong>ABAP New Syntax 입문</strong><small>현대 ABAP 문법</small></span><span class="status done">완료</span></a>
       </div>
 
       <div class="group">
         <div class="group-title"><span><i class="group-dot blue"></i>CDS / Gateway</span><span>진행 중</span></div>
-        <a class="step-card done" href="sap-cds-to-odata-beginner-guide-v3.html">
-          <span class="step-no">3</span>
-          <span class="step-text"><strong>CDS View에서 OData 노출까지</strong><small>ZI_* · ZC_* · Binding</small></span>
-          <span class="status done">완료</span>
-        </a>
-        <a class="step-card active" href="#overview">
-          <span class="step-no">4</span>
-          <span class="step-text"><strong>Gateway / OData V2 CRUD 입문</strong><small>SEGW · DPC_EXT · CRUD</small></span>
-          <span class="status now">현재</span>
-        </a>
+        <a class="step-card done" href="sap-cds-to-odata-beginner-guide-v3.html"><span class="step-no">3</span><span class="step-text"><strong>CDS View에서 OData 노출까지</strong><small>ZI_* · ZC_* · Binding</small></span><span class="status done">완료</span></a>
+        <a class="step-card active" href="#overview"><span class="step-no">4</span><span class="step-text"><strong>Gateway / OData V2 CRUD 입문</strong><small>SEGW · DPC_EXT · CRUD</small></span><span class="status now">현재</span></a>
       </div>
 
       <div class="group">
         <div class="group-title"><span><i class="group-dot purple"></i>RAP / UI5 연계</span><span>다음</span></div>
-        <a class="step-card next" href="sap-rap-end-to-end-beginner-guide-v3.html">
-          <span class="step-no">5</span>
-          <span class="step-text"><strong>RAP End-to-End 입문</strong><small>Behavior · Service</small></span>
-          <span class="status next">다음</span>
-        </a>
-        <a class="step-card next last" href="../02-ui5-fiori/sapui5-odata-model-crud-beginner-guide-v3.html">
-          <span class="step-no">6</span>
-          <span class="step-text"><strong>UI5 ODataModel CRUD</strong><small>화면 연동</small></span>
-          <span class="status next">다음</span>
-        </a>
+        <a class="step-card next" href="sap-rap-end-to-end-beginner-guide-v3.html"><span class="step-no">5</span><span class="step-text"><strong>RAP End-to-End 입문</strong><small>Behavior · Service</small></span><span class="status next">다음</span></a>
+        <a class="step-card next last" href="../02-ui5-fiori/sapui5-odata-model-crud-beginner-guide-v3.html"><span class="step-no">6</span><span class="step-text"><strong>UI5 ODataModel CRUD</strong><small>화면 연동</small></span><span class="status next">다음</span></a>
       </div>
 
-      <div class="local-toc">
+      <div class="local-toc" data-scrollspy="gateway">
         <div class="nav-title">이 문서 안에서</div>
         <a class="active" href="#overview">01. 큰 그림</a>
         <a href="#terms">02. 핵심 용어</a>
@@ -738,8 +608,82 @@ ENDMETHOD.</code></pre>
   </aside>
 </div>
 
-<footer class="library-footer prose-summary" data-prose="summary">
-  Gateway / OData V2 CRUD 입문 · Hybrid Navigation Trial · 2026-05-28 · 배포자: 정훈영
-</footer>
+<footer class="library-footer prose-summary" data-prose="summary">Gateway / OData V2 CRUD 입문 · Hybrid Navigation Trial · 2026-05-28 · 배포자: 정훈영</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  function initGatewayScrollSpy() {
+    const nav = document.querySelector("[data-scrollspy='gateway']");
+    if (!nav) return;
+
+    const links = Array.from(nav.querySelectorAll("a[href^='#']"));
+    const entries = links
+      .map(function (link) {
+        const id = decodeURIComponent(link.getAttribute("href").slice(1));
+        const section = document.getElementById(id);
+        return section ? { id: id, link: link, section: section } : null;
+      })
+      .filter(Boolean);
+
+    if (!entries.length) return;
+
+    function setActive(id) {
+      links.forEach(function (link) {
+        link.classList.toggle("active", link.getAttribute("href") === "#" + id);
+      });
+    }
+
+    function findCurrent() {
+      const marker = Math.max(120, window.innerHeight * 0.28);
+      let current = entries[0];
+
+      entries.forEach(function (entry) {
+        const rect = entry.section.getBoundingClientRect();
+        if (rect.top <= marker) {
+          current = entry;
+        }
+      });
+
+      const last = entries[entries.length - 1];
+      if (last.section.getBoundingClientRect().top <= window.innerHeight * 0.55) {
+        current = last;
+      }
+
+      setActive(current.id);
+    }
+
+    let ticking = false;
+    function requestUpdate() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(function () {
+        findCurrent();
+        ticking = false;
+      });
+    }
+
+    links.forEach(function (link) {
+      link.addEventListener("click", function () {
+        const id = decodeURIComponent(link.getAttribute("href").slice(1));
+        setActive(id);
+        window.setTimeout(findCurrent, 120);
+        window.setTimeout(findCurrent, 420);
+      });
+    });
+
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+    findCurrent();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initGatewayScrollSpy);
+  } else {
+    initGatewayScrollSpy();
+  }
+}());
+</script>
 </body>
 </html>
