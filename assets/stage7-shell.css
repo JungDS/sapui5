@@ -1,0 +1,412 @@
+/* SAP Developer Learning Library - Stage 7 Global Shell Draft
+   Opt-in CSS. Existing v3 pages are not affected unless these classes are used. */
+
+:root {
+  --stage7-bg: #f6f8fb;
+  --stage7-paper: #ffffff;
+  --stage7-line: #e2e8f0;
+  --stage7-text: #0f172a;
+  --stage7-muted: #64748b;
+  --stage7-blue: #2563eb;
+  --stage7-blue-soft: #dbeafe;
+  --stage7-green: #059669;
+  --stage7-green-soft: #d1fae5;
+  --stage7-amber: #d97706;
+  --stage7-amber-soft: #fef3c7;
+  --stage7-purple: #7c3aed;
+  --stage7-purple-soft: #ede9fe;
+  --stage7-shadow: 0 22px 58px rgba(15, 23, 42, .13);
+}
+
+[data-page-type] {
+  scroll-behavior: smooth;
+}
+
+.stage7-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(37, 99, 235, .12), transparent 34rem),
+    radial-gradient(circle at top right, rgba(124, 58, 237, .10), transparent 30rem),
+    var(--stage7-bg);
+}
+
+.stage7-shell {
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 30px 0 46px;
+}
+
+.stage7-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 1200;
+  border-bottom: 1px solid rgba(226, 232, 240, .95);
+  background: rgba(255, 255, 255, .90);
+  backdrop-filter: blur(12px);
+}
+
+.stage7-topbar__inner {
+  width: min(1280px, calc(100% - 48px));
+  min-height: 66px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.stage7-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #1d4ed8;
+  text-decoration: none;
+  font-weight: 950;
+  letter-spacing: -.02em;
+  white-space: nowrap;
+}
+
+.stage7-brand:hover {
+  text-decoration: none;
+}
+
+.stage7-brand__icon {
+  display: inline-grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid #bfdbfe;
+  border-radius: 13px;
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.stage7-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.stage7-info-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 11px;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffffff, #f8fafc);
+  color: #475569;
+  font-size: .76rem;
+  font-weight: 850;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, .04);
+  white-space: nowrap;
+}
+
+.stage7-info-pill strong {
+  color: var(--stage7-text);
+  font-weight: 950;
+}
+
+.stage7-quick-link,
+.stage7-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid #bfdbfe;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  text-decoration: none;
+  font-size: .78rem;
+  font-weight: 950;
+  white-space: nowrap;
+}
+
+.stage7-quick-link {
+  padding: 7px 11px;
+}
+
+.stage7-icon-button {
+  width: 36px;
+  height: 34px;
+  border-radius: 13px;
+  background: #ffffff;
+  box-shadow: 0 8px 18px rgba(37, 99, 235, .08);
+}
+
+.stage7-quick-link:hover,
+.stage7-icon-button:hover {
+  background: #dbeafe;
+  text-decoration: none;
+}
+
+.stage7-hero {
+  margin: 28px 0 28px;
+  padding: 44px;
+  border: 1px solid rgba(148, 163, 184, .28);
+  border-radius: 32px;
+  background: linear-gradient(135deg, #ffffff 0%, #eef6ff 100%);
+  box-shadow: 0 22px 52px rgba(15, 23, 42, .09);
+}
+
+.stage7-hero__eyebrow {
+  color: var(--stage7-blue);
+  font-size: .82rem;
+  font-weight: 950;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+.stage7-hero h1 {
+  max-width: 790px;
+  margin: 10px 0 14px;
+  color: var(--stage7-text);
+  font-size: clamp(2.0rem, 4vw, 3.05rem);
+  line-height: 1.14;
+  letter-spacing: -.052em;
+}
+
+.stage7-hero .lead {
+  max-width: 870px;
+  color: #334155;
+  font-size: 1.08rem;
+}
+
+.stage7-section {
+  margin: 22px 0;
+  padding: 28px;
+  border: 1px solid var(--stage7-line);
+  border-radius: 26px;
+  background: var(--stage7-paper);
+  box-shadow: 0 16px 38px rgba(15, 23, 42, .06);
+}
+
+.stage7-section__label {
+  color: var(--stage7-blue);
+  font-size: .78rem;
+  font-weight: 950;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+.stage7-section h2 {
+  margin: 8px 0 14px;
+  color: var(--stage7-text);
+  font-size: clamp(1.45rem, 3vw, 2.0rem);
+  line-height: 1.25;
+  letter-spacing: -.04em;
+}
+
+.stage7-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: .76rem;
+  font-weight: 950;
+}
+
+.stage7-badge.blue { color: #1d4ed8; background: var(--stage7-blue-soft); }
+.stage7-badge.green { color: #047857; background: var(--stage7-green-soft); }
+.stage7-badge.amber { color: #b45309; background: var(--stage7-amber-soft); }
+.stage7-badge.purple { color: #6d28d9; background: var(--stage7-purple-soft); }
+
+.stage7-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.stage7-card-grid.two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.stage7-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding: 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 22px;
+  background: #ffffff;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, .05);
+}
+
+.stage7-card:hover {
+  border-color: #bfdbfe;
+  box-shadow: 0 18px 38px rgba(37, 99, 235, .10);
+  transform: translateY(-1px);
+}
+
+.stage7-card h3 {
+  margin: 0 0 8px;
+  color: var(--stage7-text);
+  font-size: 1.04rem;
+  line-height: 1.28;
+}
+
+.stage7-card p {
+  color: #475569;
+  font-size: .94rem;
+}
+
+.stage7-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  padding: 10px 12px;
+  border: 1px solid #bfdbfe;
+  border-radius: 14px;
+  background: var(--stage7-blue);
+  color: #ffffff;
+  font-size: .88rem;
+  font-weight: 950;
+  text-decoration: none;
+}
+
+.stage7-button.secondary {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.stage7-button:hover {
+  filter: brightness(.98);
+  text-decoration: none;
+}
+
+.stage7-footer {
+  margin: 28px 0 0;
+  color: var(--stage7-muted);
+  text-align: center;
+  font-size: .9rem;
+}
+
+.stage7-doc-layout {
+  width: min(1160px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 30px 0 46px;
+}
+
+.stage7-doc-side-nav {
+  position: fixed;
+  top: 84px;
+  right: 18px;
+  z-index: 1100;
+  width: 360px;
+  max-width: calc(100vw - 44px);
+  height: calc(100vh - 104px);
+  border: 1px solid var(--stage7-line);
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: var(--stage7-shadow);
+  overflow: hidden;
+  transition: transform .22s ease;
+}
+
+.stage7-doc-side-nav__scroll {
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  padding: 14px;
+}
+
+.stage7-doc-current {
+  padding: 13px;
+  border: 1px solid #bfdbfe;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #eff6ff, #ffffff);
+}
+
+.stage7-doc-current .label {
+  margin-bottom: 5px;
+  color: #1d4ed8;
+  font-size: .74rem;
+  font-weight: 900;
+}
+
+.stage7-doc-current strong {
+  display: block;
+  color: var(--stage7-text);
+  font-size: .96rem;
+  line-height: 1.25;
+}
+
+.stage7-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  margin: 14px 0;
+}
+
+.stage7-tabs button {
+  border: 1px solid var(--stage7-line);
+  background: #f8fafc;
+  color: #475569;
+  border-radius: 12px;
+  padding: 9px 6px;
+  font-size: .76rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.stage7-tabs button.active {
+  background: var(--stage7-blue-soft);
+  color: #1d4ed8;
+  border-color: #bfdbfe;
+}
+
+.stage7-local-toc a {
+  display: block;
+  padding: 6px 8px;
+  border-radius: 10px;
+  color: #475569;
+  font-size: .82rem;
+  text-decoration: none;
+}
+
+.stage7-local-toc a:hover,
+.stage7-local-toc a.active {
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-weight: 900;
+}
+
+@media (max-width: 1020px) {
+  .stage7-card-grid,
+  .stage7-card-grid.two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .stage7-topbar__inner {
+    width: min(100%, calc(100% - 24px));
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 10px 0;
+  }
+
+  .stage7-actions {
+    justify-content: flex-start;
+  }
+
+  .stage7-shell,
+  .stage7-doc-layout {
+    width: min(100%, calc(100% - 28px));
+    padding-top: 22px;
+  }
+
+  .stage7-hero {
+    padding: 30px 24px;
+  }
+
+  .stage7-card-grid,
+  .stage7-card-grid.two {
+    grid-template-columns: 1fr;
+  }
+}
