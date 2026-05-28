@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>UI5 / Fiori 개발 · SAP Developer Learning Library v3</title>
+<link rel="stylesheet" href="../assets/common.css" />
+<script src="../assets/common.js" defer></script>
+</head>
+<body data-prose-root="true" data-active-page="ui5" data-active-category="ui5">
+<header class="library-topbar prose-summary" data-prose="summary">
+  <div class="library-topbar__inner">
+    <a class="library-home" href="../index.html">← SAP 학습자료 홈</a>
+    <div class="library-meta">
+      <span class="badge blue">Stage 5 Navigation</span>
+      <span class="badge green">배포자: 정훈영</span>
+    </div>
+  </div>
+</header>
+
+<div class="library-shell library-shell--nav">
+  <section class="hero prose-summary" data-prose="summary">
+    <div class="eyebrow">SAP Developer Learning Library</div>
+    <h1>UI5 / Fiori 개발</h1>
+    <p class="lead">Freestyle SAPUI5와 Fiori Elements를 구분해 화면 개발 흐름을 학습한다.</p>
+    <div class="hero-actions"><span class="badge blue">영역 페이지</span><span class="badge green">7개 문서</span><span class="badge purple">좌측 트리</span></div>
+  </section>
+
+  <main>
+    
+<section class="section-card prose-summary" data-prose="summary" id="recommended">
+  <div class="section-label">추천 순서</div>
+  <h2>이 영역은 다음 순서로 보는 것이 좋다</h2>
+  
+<div class="learning-path-panel" data-prose="structure">
+  <h3>UI5/Fiori 개발자 경로</h3>
+  <p>화면 개발과 Fiori 앱 구현을 목표로 하는 학습자를 위한 순서이다.</p>
+  <ol class="learning-path-list">
+    
+<li class="path-step" data-prose="structure">
+  <span class="path-num">1</span>
+  <div>
+    <a href="../v3/02-ui5-fiori/sapui5-controller-function-intro-v3.html">UI5 Controller 함수 문법 입문</a>
+    <p>View와 Controller, 이벤트 핸들러, this/byId 기본 패턴을 익힌다.</p>
+  </div>
+</li>
+<li class="path-step" data-prose="structure">
+  <span class="path-num">2</span>
+  <div>
+    <a href="../v3/02-ui5-fiori/sapui5-odata-model-crud-beginner-guide-v3.html">SAPUI5 OData Model과 CRUD 입문</a>
+    <p>JSONModel과 ODataModel, bindElement/bindItems, create/update/delete 흐름을 학습한다.</p>
+  </div>
+</li>
+<li class="path-step" data-prose="structure">
+  <span class="path-num">3</span>
+  <div>
+    <a href="../v3/02-ui5-fiori/sapui5-messaging-input-validation-v3.html">Messaging과 Input Validation 실무 입문</a>
+    <p>Input 화면 값과 Model 값의 차이, Messaging, 저장 Guard를 실습으로 이해한다.</p>
+  </div>
+</li>
+<li class="path-step" data-prose="structure">
+  <span class="path-num">4</span>
+  <div>
+    <a href="../v3/02-ui5-fiori/sapui5-routing-layout-beginner-guide-v3.html">SAPUI5 Routing과 Layout 입문</a>
+    <p>manifest routing, targets, List/Detail 이동, FlexibleColumnLayout의 기본 구조를 익힌다.</p>
+  </div>
+</li>
+<li class="path-step" data-prose="structure">
+  <span class="path-num">5</span>
+  <div>
+    <a href="../v3/02-ui5-fiori/sap-fiori-elements-beginner-guide-v3.html">Fiori Elements 입문</a>
+    <p>Annotation과 OData 메타데이터 기반의 List Report/Object Page 생성 방식을 이해한다.</p>
+  </div>
+</li>
+<li class="path-step" data-prose="structure">
+  <span class="path-num">6</span>
+  <div>
+    <a href="../v3/02-ui5-fiori/sap-fiori-launchpad-deployment-beginner-guide-v3.html">Fiori Launchpad 배포와 Semantic Object 입문</a>
+    <p>Tile, Target Mapping, Semantic Object, Action, Catalog/Space/Page를 이해한다.</p>
+  </div>
+</li>
+  </ol>
+</div>
+
+<div class="learning-path-panel" data-prose="structure">
+  <h3>실무형 빠른 경로</h3>
+  <p>핵심 개념을 빠르게 보고 통합 실습으로 넘어가는 경로이다.</p>
+  <ol class="learning-path-list">
+    
+<li class="path-step" data-prose="structure">
+  <span class="path-num">1</span>
+  <div>
+    <a href="../v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html">CDS View에서 OData 노출까지</a>
+    <p>ZI_* Interface View, ZC_* Projection View, Association, Service Binding 흐름을 학습한다.</p>
+  </div>
+</li>
+<li class="path-step" data-prose="structure">
+  <span class="path-num">2</span>
+  <div>
+    <a href="../v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html">Gateway / OData V2 CRUD 입문</a>
+    <p>SEGW, EntitySet, MPC/DPC, CRUD 메서드와 테스트 흐름을 이해한다.</p>
+  </div>
+</li>
+<li class="path-step" data-prose="structure">
+  <span class="path-num">3</span>
+  <div>
+    <a href="../v3/02-ui5-fiori/sapui5-odata-model-crud-beginner-guide-v3.html">SAPUI5 OData Model과 CRUD 입문</a>
+    <p>JSONModel과 ODataModel, bindElement/bindItems, create/update/delete 흐름을 학습한다.</p>
+  </div>
+</li>
+<li class="path-step" data-prose="structure">
+  <span class="path-num">4</span>
+  <div>
+    <a href="../v3/02-ui5-fiori/sapui5-messaging-input-validation-v3.html">Messaging과 Input Validation 실무 입문</a>
+    <p>Input 화면 값과 Model 값의 차이, Messaging, 저장 Guard를 실습으로 이해한다.</p>
+  </div>
+</li>
+<li class="path-step" data-prose="structure">
+  <span class="path-num">5</span>
+  <div>
+    <a href="../v3/04-integrated-practice/sap-flight-model-table-guide-v3.html">SAP Flight Model 데이터 구조 해설</a>
+    <p>SCARR, SPFLI, SFLIGHT, SBOOK 등 Flight 모델 테이블 관계를 정리한다.</p>
+  </div>
+</li>
+<li class="path-step" data-prose="structure">
+  <span class="path-num">6</span>
+  <div>
+    <a href="../v3/04-integrated-practice/sap-flight-integrated-practice-classrun-gateway-ui5-v3.html">Flight 통합 실습 최신본</a>
+    <p>ClassRun, Gateway CRUD, UI5 연동, RAP BO까지 이어지는 종합 실습이다.</p>
+  </div>
+</li>
+  </ol>
+</div>
+
+</section>
+
+<section class="section-card prose-summary" data-prose="summary" id="documents" data-landing-scope>
+  <div class="section-label">문서 목록</div>
+  <h2>UI5 / Fiori 개발 문서</h2>
+  <p class="muted">이 영역 안에서 필요한 문서를 검색하거나 순서대로 학습한다.</p>
+  <input class="landing-search" data-landing-search type="search" placeholder="이 영역 문서 검색..." />
+  
+<div class="category-doc-section" data-prose="summary">
+  <h3>Freestyle SAPUI5</h3>
+  <div class="doc-grid">
+    
+<article class="learning-doc-card" data-prose="summary" data-doc-card data-group="Freestyle SAPUI5">
+  <div class="library-meta">
+    <span class="badge blue">입문</span>
+    <span class="badge green">핵심</span>
+    <span class="badge gray">30분</span>
+  </div>
+  <h3>UI5 Controller 함수 문법 입문</h3>
+  <p>View와 Controller, 이벤트 핸들러, this/byId 기본 패턴을 익힌다.</p>
+  <a class="button-link" href="../v3/02-ui5-fiori/sapui5-controller-function-intro-v3.html">문서 열기 →</a>
+</article>
+
+<article class="learning-doc-card" data-prose="summary" data-doc-card data-group="Freestyle SAPUI5">
+  <div class="library-meta">
+    <span class="badge blue">실무 입문</span>
+    <span class="badge green">핵심</span>
+    <span class="badge gray">45분</span>
+  </div>
+  <h3>SAPUI5 OData Model과 CRUD 입문</h3>
+  <p>JSONModel과 ODataModel, bindElement/bindItems, create/update/delete 흐름을 학습한다.</p>
+  <a class="button-link" href="../v3/02-ui5-fiori/sapui5-odata-model-crud-beginner-guide-v3.html">문서 열기 →</a>
+</article>
+
+<article class="learning-doc-card" data-prose="summary" data-doc-card data-group="Freestyle SAPUI5">
+  <div class="library-meta">
+    <span class="badge blue">실무 입문</span>
+    <span class="badge green">실습 포함</span>
+    <span class="badge gray">45분</span>
+  </div>
+  <h3>Messaging과 Input Validation 실무 입문</h3>
+  <p>Input 화면 값과 Model 값의 차이, Messaging, 저장 Guard를 실습으로 이해한다.</p>
+  <a class="button-link" href="../v3/02-ui5-fiori/sapui5-messaging-input-validation-v3.html">문서 열기 →</a>
+</article>
+
+<article class="learning-doc-card" data-prose="summary" data-doc-card data-group="Freestyle SAPUI5">
+  <div class="library-meta">
+    <span class="badge blue">입문</span>
+    <span class="badge amber">확장</span>
+    <span class="badge gray">35분</span>
+  </div>
+  <h3>SAPUI5 Routing과 Layout 입문</h3>
+  <p>manifest routing, targets, List/Detail 이동, FlexibleColumnLayout의 기본 구조를 익힌다.</p>
+  <a class="button-link" href="../v3/02-ui5-fiori/sapui5-routing-layout-beginner-guide-v3.html">문서 열기 →</a>
+</article>
+
+<article class="learning-doc-card" data-prose="summary" data-doc-card data-group="Freestyle SAPUI5">
+  <div class="library-meta">
+    <span class="badge blue">참고</span>
+    <span class="badge blue">참고</span>
+    <span class="badge gray">25분</span>
+  </div>
+  <h3>SAPUI5 데이터 흐름과 Messaging 아키텍처</h3>
+  <p>SAPUI5 데이터 흐름과 Messaging을 개념형 참고자료로 정리한다.</p>
+  <a class="button-link" href="../v3/02-ui5-fiori/sapui5-messaging-data-flow-v3.html">문서 열기 →</a>
+</article>
+
+  </div>
+</div>
+
+<div class="category-doc-section" data-prose="summary">
+  <h3>Fiori Elements</h3>
+  <div class="doc-grid">
+    
+<article class="learning-doc-card" data-prose="summary" data-doc-card data-group="Fiori Elements">
+  <div class="library-meta">
+    <span class="badge blue">실무 입문</span>
+    <span class="badge green">핵심</span>
+    <span class="badge gray">45분</span>
+  </div>
+  <h3>Fiori Elements 입문</h3>
+  <p>Annotation과 OData 메타데이터 기반의 List Report/Object Page 생성 방식을 이해한다.</p>
+  <a class="button-link" href="../v3/02-ui5-fiori/sap-fiori-elements-beginner-guide-v3.html">문서 열기 →</a>
+</article>
+
+  </div>
+</div>
+
+<div class="category-doc-section" data-prose="summary">
+  <h3>Fiori Launchpad</h3>
+  <div class="doc-grid">
+    
+<article class="learning-doc-card" data-prose="summary" data-doc-card data-group="Fiori Launchpad">
+  <div class="library-meta">
+    <span class="badge blue">실무 입문</span>
+    <span class="badge amber">확장</span>
+    <span class="badge gray">30분</span>
+  </div>
+  <h3>Fiori Launchpad 배포와 Semantic Object 입문</h3>
+  <p>Tile, Target Mapping, Semantic Object, Action, Catalog/Space/Page를 이해한다.</p>
+  <a class="button-link" href="../v3/02-ui5-fiori/sap-fiori-launchpad-deployment-beginner-guide-v3.html">문서 열기 →</a>
+</article>
+
+  </div>
+</div>
+
+</section>
+
+
+<section class="section-card prose-summary" data-prose="summary" id="coming-soon">
+  <div class="section-label">확장 예정</div>
+  <h2>앞으로 추가하면 좋은 문서</h2>
+  <div class="coming-grid">
+    <article class="coming-card" data-prose="summary"><span class="badge gray">준비 중</span><h3>UI5 프로젝트 구조와 배포 가이드</h3><p>UI5 Tooling, npm, 배포 구조</p></article><article class="coming-card" data-prose="summary"><span class="badge gray">준비 중</span><h3>Fiori Elements Annotation 실습</h3><p>List Report/Object Page Annotation 실습</p></article><article class="coming-card" data-prose="summary"><span class="badge gray">준비 중</span><h3>SAP 개발 요구사항 분석법</h3><p>요구사항을 테이블, API, 화면 흐름으로 분해하는 방법</p></article>
+  </div>
+</section>
+
+
+  </main>
+
+  <aside class="toc prose-reference library-global-panel" data-prose="reference">
+    <div class="library-tree" data-nav-tree="main"></div>
+    <hr class="tree-separator" />
+    <div class="local-page-tools">
+      <h2>페이지 도구</h2>
+      <a href="../index.html">첫 화면</a>
+      <a href="#recommended">추천 순서</a>
+      <a href="#documents">문서 목록</a>
+      <a href="#coming-soon">확장 예정</a>
+    </div>
+  </aside>
+</div>
+
+<footer class="library-footer prose-summary" data-prose="summary">
+  UI5 / Fiori 개발 · Stage 5 Navigation · 2026-05-27 · 배포자: 정훈영
+</footer>
+</body>
+</html>

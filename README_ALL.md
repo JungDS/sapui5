@@ -8,13 +8,24 @@
 
 ## 1. 운영 대시보드
 
-- 최종 수정: 2026-05-28 17:40 KST
+- 최종 수정: 2026-05-28 18:51 KST
 - 배포자: 정훈영
 - 저장소: https://github.com/JungDS/sapui5
 - GitHub Pages: https://jungds.github.io/sapui5/
 - 운영 방식: Branch → Pull Request → Review/Merge
-- 현재 진행: Stage 7 · README 분리
-- 현재 PR: #22 `README / README_ALL 운영 문서 분리`
+- 현재 진행: Stage 7 · 나머지 Landing 전환 완료
+- 현재 PR: 준비 중
+
+---
+
+### 1.1 인수인계 반영 기준
+
+- 응답과 문서는 한국어로 정중하고 전문적인 강의 스타일을 유지한다.
+- SAP 설명은 기본적으로 S/4HANA와 SAP GUI 800 기준으로 작성한다.
+- SAP 표준 동작과 아키텍처 의도를 우선 설명하고, 불가피한 추정은 `[ 추정 ]`으로 표시한다.
+- RAP 예제나 과제에는 Interface View `ZI_*`와 Projection View `ZC_*`를 함께 제시한다.
+- `SSCR`은 Selection Screen 의미로 사용한다.
+- HTML 학습자료는 밝고 깔끔한 교재형 디자인을 유지하고, 모든 배포 문서에는 `배포자: 정훈영`을 표기한다.
 
 ---
 
@@ -205,7 +216,7 @@ Home에서는 왼쪽에 홈/라이브러리 식별을 두고, 오른쪽에 수�
 
 Landing Page에서는 왼쪽에 `SAP 학습자료 홈` 아이콘 링크를 두고, 오른쪽에 수정일자, 배포자, 상위/관련 영역 이동을 둔다.
 
-Document Page에서는 왼쪽에 `SAP 학습자료 홈` 아이콘 링크를 두고, 오른쪽에 수정일자, 배포자, 영역 홈, 이전 문서, 다음 문서를 둔다. 이전/다음은 문자 화살표가 아니라 SVG 아이콘 버튼을 사용한다.
+Document Page에서는 왼쪽에 `SAP 학습자료 홈` 아이콘 링크를 두고, 오른쪽에 수정일자, 배포자, 영역 홈, 이전 문서, 다음 문서를 둔다. 홈 이동은 뒤로가기 화살표가 아니라 집 모양 Home 아이콘을 사용하고, 이전/다음은 문자 화살표가 아니라 SVG 아이콘 버튼을 사용한다.
 
 ### 6.2 Document Navigation
 
@@ -226,6 +237,8 @@ Document Page에서는 왼쪽에 `SAP 학습자료 홈` 아이콘 링크를 두�
    - 완료 / 현재 / 다음 상태
 5. 접기/열기 토글 버튼
 6. Scroll Spy active 표시
+
+관련 문서는 문서목차 탭 안에서만 표시하고, 학습경로 탭에는 표시하지 않는다. Navigation 안쪽 상단에는 `ABAP 개발 학습 경로`처럼 현재 문서 카드와 중복되는 제목을 두지 않는다.
 
 ### 6.3 디자인 기준
 
@@ -270,12 +283,14 @@ Stage 7 Shell은 `body[data-page-type]`이 있는 페이지에서만 동작한�
 | 7-4 | Gateway 문서 1개 시범 전환 | `docs/abap/gateway-odata-v2-crud.html` | 완료 (#20) |
 | 7-5 | ABAP Landing 전환 | `pages/abap.html` | 완료 (#21) |
 | 7-5a | README / README_ALL 분리 | `README.md`, `README_ALL.md` | 진행 중 (#22) |
-| 7-5b | 나머지 Landing 전환 | `pages/*.html` | 진행 예정 |
-| 7-6 | v3 운영 문서 docs로 이관 | `v3/**/*.html` → `docs/**` | 진행 예정 |
-| 7-7 | archive/v3 보존 또는 redirect 결정 | `v3/`, `archive/v3/` | 진행 예정 |
-| 7-8 | data 정비 | `data/site-map.json`, `data/document-catalog.json` | 진행 예정 |
-| 7-9 | 전체 링크 검수 | 전체 HTML | 진행 예정 |
-| 7-10 | README 최종 갱신 | `README.md`, `README_ALL.md` | 진행 예정 |
+| 7-5b | Navigation/Data 기준 정비 | `data/site-map.json`, `data/document-catalog.json`, `assets/stage7-shell.*`, `assets/common.js` | 완료 |
+| 7-5c | 나머지 Landing 전환 | `pages/roadmap.html`, `pages/ui5-fiori.html`, `pages/module-basics.html`, `pages/integrated-practice.html`, `pages/reference.html` | 완료 |
+| 7-6 | 우측 Document Navigation 완성 | `assets/stage7-shell.css`, `assets/stage7-shell.js` | 진행 예정 |
+| 7-7 | v3 운영 문서 docs로 이관 | `v3/**/*.html` → `docs/**` | 진행 예정 |
+| 7-8 | archive/v3 보존 또는 redirect 결정 | `v3/`, `archive/v3/` | 진행 예정 |
+| 7-9 | 교재형 본문 보강 | `docs/**/*.html` | 진행 예정 |
+| 7-10 | 전체 링크/UX 검수 | 전체 HTML | 진행 예정 |
+| 7-11 | README 최종 갱신 | `README.md`, `README_ALL.md` | 진행 예정 |
 
 ---
 
@@ -356,7 +371,7 @@ Stage 7 Shell은 `body[data-page-type]`이 있는 페이지에서만 동작한�
 - ABAP Landing Page는 Stage 7 Shell 기준으로 전환 완료했다.
 - ABAP Landing의 Gateway 항목은 신규 `docs/abap/gateway-odata-v2-crud.html`로 연결한다.
 - 기존 v3 ABAP 문서 링크는 아직 유지한다.
-- 다음 단계는 나머지 Landing Page 전환 또는 data 정비다.
+- 다음 단계는 우측 Document Navigation 완성이다.
 - archive 파일명은 현재 운영본의 `data-doc-updated-at` 값을 사용한다.
 - archive 파일명 표준은 `<YYYYMMDD>_<hhmmss>_v<version>.html`이다.
 - 문서별 archive 경로는 `archive/docs/<category>/<doc-id>/`를 사용한다.
