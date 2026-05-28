@@ -1,5 +1,5 @@
 {
-  "version": "v3-stage5-navigation",
+  "version": "stage7-navigation-data-v1",
   "created": "2026-05-27",
   "distributor": "정훈영",
   "categories": {
@@ -78,7 +78,10 @@
       "level": "실무 입문",
       "status": "참고",
       "time": "30~40분",
-      "summary": "ABAP, Gateway, UI5 오류를 어디서부터 확인할지 루틴으로 정리한다."
+      "summary": "ABAP, Gateway, UI5 오류를 어디서부터 확인할지 루틴으로 정리한다.",
+      "aliases": [
+        "debugging"
+      ]
     },
     "abap-classic": {
       "title": "Classic ABAP 기본기",
@@ -126,14 +129,19 @@
     },
     "gateway": {
       "title": "Gateway / OData V2 CRUD 입문",
-      "href": "../v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html",
+      "href": "../docs/abap/gateway-odata-v2-crud.html",
       "file": "sap-gateway-odata-v2-crud-beginner-guide-v3.html",
       "category": "abap",
       "group": "Gateway",
       "level": "실무 입문",
       "status": "핵심",
       "time": "45분",
-      "summary": "SEGW, EntitySet, MPC/DPC, CRUD 메서드와 테스트 흐름을 이해한다."
+      "summary": "SEGW, EntitySet, MPC/DPC, CRUD 메서드와 테스트 흐름을 이해한다.",
+      "legacy_id": "gateway",
+      "canonical_id": "gateway-odata-v2-crud",
+      "legacy_href": "../v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html",
+      "operating_path": "docs/abap/gateway-odata-v2-crud.html",
+      "legacy_path": "v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html"
     },
     "rap-e2e": {
       "title": "RAP End-to-End 입문",
@@ -701,5 +709,37 @@
         "final-audit"
       ]
     }
-  ]
+  ],
+  "updated": "2026-05-28",
+  "stage7": {
+    "operating_root": "docs",
+    "legacy_root": "v3",
+    "current_focus": "navigation-data-criteria",
+    "canonical_aliases": {
+      "gateway": "gateway-odata-v2-crud",
+      "debugging": "debug"
+    },
+    "shell_contract": {
+      "page_types": [
+        "home",
+        "landing",
+        "doc"
+      ],
+      "required_body_fields": [
+        "data-page-type",
+        "data-doc-id",
+        "data-doc-title",
+        "data-doc-version",
+        "data-doc-updated-at",
+        "data-distributor"
+      ],
+      "doc_body_fields": [
+        "data-active-category"
+      ],
+      "navigation_panels": [
+        "toc",
+        "path"
+      ]
+    }
+  }
 }

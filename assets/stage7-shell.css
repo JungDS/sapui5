@@ -137,6 +137,14 @@
   box-shadow: 0 8px 18px rgba(37, 99, 235, .08);
 }
 
+.stage7-icon-button.disabled {
+  color: #94a3b8;
+  border-color: #e2e8f0;
+  background: #f8fafc;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
 .stage7-quick-link:hover,
 .stage7-icon-button:hover {
   background: #dbeafe;
@@ -376,10 +384,143 @@
   font-weight: 900;
 }
 
+.stage7-side-heading {
+  margin: 14px 0 8px;
+  color: #334155;
+  font-size: .78rem;
+  font-weight: 950;
+}
+
+.stage7-related-docs {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--stage7-line);
+}
+
+.stage7-related-docs a {
+  display: block;
+  padding: 7px 8px;
+  border-radius: 10px;
+  color: #475569;
+  font-size: .82rem;
+  text-decoration: none;
+}
+
+.stage7-related-docs a:hover {
+  background: #f0fdf4;
+  color: #047857;
+  font-weight: 900;
+}
+
+.stage7-progress-card {
+  padding: 12px;
+  border: 1px solid #bfdbfe;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #eff6ff, #ffffff);
+}
+
+.stage7-progress-card div:first-child {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: #475569;
+  font-size: .78rem;
+  font-weight: 900;
+}
+
+.stage7-progress-card strong {
+  color: #1d4ed8;
+}
+
+.stage7-progress-bar {
+  height: 8px;
+  margin-top: 10px;
+  border-radius: 999px;
+  background: #dbeafe;
+  overflow: hidden;
+}
+
+.stage7-progress-bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #2563eb;
+}
+
+.stage7-path-steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stage7-path-steps li {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 8px;
+  align-items: start;
+  padding: 7px 0;
+}
+
+.stage7-step-no {
+  display: inline-grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border-radius: 999px;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: .72rem;
+  font-weight: 950;
+}
+
+.stage7-path-steps a {
+  display: block;
+  padding: 4px 6px;
+  border-radius: 9px;
+  color: #475569;
+  font-size: .82rem;
+  line-height: 1.3;
+  text-decoration: none;
+}
+
+.stage7-path-steps li.done .stage7-step-no {
+  background: #d1fae5;
+  color: #047857;
+}
+
+.stage7-path-steps li.active .stage7-step-no {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.stage7-path-steps li.active a {
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-weight: 950;
+}
+
+.stage7-path-steps li.next .stage7-step-no {
+  background: #fef3c7;
+  color: #b45309;
+}
+
 @media (max-width: 1020px) {
   .stage7-card-grid,
   .stage7-card-grid.two {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stage7-doc-side-nav {
+    position: static;
+    width: min(100%, calc(100% - 48px));
+    height: auto;
+    max-width: 1160px;
+    margin: 0 auto 24px;
+  }
+
+  .stage7-doc-side-nav__scroll {
+    max-height: none;
   }
 }
 

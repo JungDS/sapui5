@@ -10,9 +10,9 @@ SAP 개발자를 위한 HTML 학습자료 저장소입니다.
 
 ## 현재 진행 상황
 
-- 현재 단계: Stage 7 · README / README_ALL 운영 문서 분리
-- 현재 PR: #22 `README / README_ALL 운영 문서 분리`
-- 최종 수정: 2026-05-28 17:40 KST
+- 현재 단계: Stage 7 · 나머지 Landing 전환 완료
+- 현재 PR: 준비 중
+- 최종 수정: 2026-05-28 18:51 KST
 
 ---
 
@@ -40,12 +40,14 @@ SAP 개발자를 위한 HTML 학습자료 저장소입니다.
 | 7-4 | Gateway 문서 docs 시범 전환 | 완료 |
 | 7-5 | ABAP Landing 전환 | 완료 |
 | 7-5a | README / README_ALL 분리 | 진행 중 |
-| 7-5b | 나머지 Landing 전환 | 예정 |
-| 7-6 | v3 운영 문서 docs 이관 | 예정 |
-| 7-7 | archive/v3 보존 또는 redirect 결정 | 예정 |
-| 7-8 | data 정비 | 예정 |
-| 7-9 | 전체 링크 검수 | 예정 |
-| 7-10 | 최종 README 갱신 | 예정 |
+| 7-5b | Navigation/Data 기준 정비 | 완료 |
+| 7-5c | 나머지 Landing 전환 | 완료 |
+| 7-6 | 우측 Document Navigation 완성 | 예정 |
+| 7-7 | v3 운영 문서 docs 이관 | 예정 |
+| 7-8 | archive/v3 보존 또는 redirect 결정 | 예정 |
+| 7-9 | 교재형 본문 보강 | 예정 |
+| 7-10 | 전체 링크/UX 검수 | 예정 |
+| 7-11 | 최종 README 갱신 | 예정 |
 
 ---
 
