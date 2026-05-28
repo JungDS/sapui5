@@ -6,6 +6,7 @@
   const ICON_HOME = '<svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3 2.5 11.2l1.3 1.5L5 11.6V20h5.5v-5h3v5H19v-8.4l1.2 1.1 1.3-1.5L12 3Zm0 2.6 5 4.3V18h-1.5v-5h-7v5H7v-8.1l5-4.3Z"/></svg>';
   const ICON_PREV = '<svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14.7 6.3 9 12l5.7 5.7-1.4 1.4L6.2 12l7.1-7.1 1.4 1.4Z"/></svg>';
   const ICON_NEXT = '<svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m9.3 17.7 5.7-5.7-5.7-5.7 1.4-1.4 7.1 7.1-7.1 7.1-1.4-1.4Z"/></svg>';
+  const ICON_PANEL = '<svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 5h16v14H4V5Zm2 2v10h9V7H6Zm11 0v10h1V7h-1Z"/></svg>';
 
   const CATEGORY_HOME = {
     roadmap: { title: "로드맵", href: "pages/roadmap.html" },
@@ -171,12 +172,13 @@
 
   function buildLocalToc() {
     const headings = Array.from(document.querySelectorAll("main h2[id], main h3[id], .stage7-shell h2[id], .stage7-shell h3[id]"));
-    if (!headings.length) return "";
-    return '<nav class="stage7-local-toc" aria-label="이 문서 안에서">' +
+    if (!headings.length) return '<p class="muted">이 문서 안의 이동 가능한 제목이 아직 없다.</p>';
+    return '<div class="stage7-side-heading">이 문서 안에서</div>' +
+      '<nav class="stage7-local-toc" aria-label="이 문서 안에서">' +
       headings.map(function (h) {
         return '<a href="#' + h.id + '">' + h.textContent.trim() + '</a>';
       }).join("") +
-    '</nav>';
+      '</nav>';
   }
 
   function docHref(docId, prefix) {
@@ -263,6 +265,7 @@
 
   function buildDocSideNav(meta) {
     const side = document.createElement("aside");
+    side.id = "stage7DocSideNav";
     side.className = "stage7-doc-side-nav";
     side.setAttribute("aria-label", "문서 Navigation");
     side.innerHTML = '' +
@@ -273,19 +276,69 @@
           (meta.version ? '<span class="stage7-badge blue">v' + meta.version + '</span>' : '') +
         '</div>' +
         '<div class="stage7-tabs" role="tablist">' +
-          '<button type="button" class="active" data-stage7-tab="toc">문서목차</button>' +
-          '<button type="button" data-stage7-tab="path">학습경로</button>' +
+          '<button type="button" class="active" data-stage7-tab="toc" aria-selected="true" aria-controls="stage7TocPanel">문서목차</button>' +
+          '<button type="button" data-stage7-tab="path" aria-selected="false" aria-controls="stage7PathPanel">학습경로</button>' +
         '</div>' +
-        '<section data-stage7-panel="toc">' + buildLocalToc() + buildRelatedDocs(meta) + '</section>' +
-        '<section data-stage7-panel="path" hidden>' + buildLearningPath(meta) + '</section>' +
+        '<section id="stage7TocPanel" data-stage7-panel="toc">' + buildLocalToc() + buildRelatedDocs(meta) + '</section>' +
+        '<section id="stage7PathPanel" data-stage7-panel="path" hidden>' + buildLearningPath(meta) + '</section>' +
       '</div>';
     return side;
+  }
+
+  function buildDocNavToggle() {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "stage7-doc-nav-toggle";
+    button.setAttribute("aria-controls", "stage7DocSideNav");
+    button.setAttribute("aria-expanded", "true");
+    button.innerHTML = '<span class="stage7-doc-nav-toggle__icon">' + ICON_PANEL + '</span><span data-stage7-toggle-label>Navigation 접기</span>';
+    return button;
   }
 
   function ensureDocumentSideNav(meta) {
     if (meta.pageType !== "doc") return;
     if (document.querySelector(".stage7-doc-side-nav")) return;
     document.body.appendChild(buildDocSideNav(meta));
+  }
+
+  function ensureDocumentNavToggle(meta) {
+    if (meta.pageType !== "doc") return;
+    if (document.querySelector(".stage7-doc-nav-toggle")) return;
+    document.body.appendChild(buildDocNavToggle());
+  }
+
+  function setDocNavCollapsed(collapsed) {
+    const side = document.querySelector(".stage7-doc-side-nav");
+    const button = document.querySelector(".stage7-doc-nav-toggle");
+    const label = button && button.querySelector("[data-stage7-toggle-label]");
+    document.body.classList.toggle("stage7-doc-nav-collapsed", collapsed);
+    if (side) side.setAttribute("aria-hidden", String(collapsed));
+    if (button) {
+      button.setAttribute("aria-expanded", String(!collapsed));
+      button.setAttribute("title", collapsed ? "Navigation 열기" : "Navigation 접기");
+    }
+    if (label) label.textContent = collapsed ? "Navigation 열기" : "Navigation 접기";
+    try {
+      window.localStorage.setItem("stage7-doc-nav-collapsed", collapsed ? "1" : "0");
+    } catch (error) {
+      // localStorage can be blocked for file:// previews.
+    }
+  }
+
+  function initDocumentNavToggle(meta) {
+    if (meta.pageType !== "doc") return;
+    let collapsed = false;
+    try {
+      collapsed = window.localStorage.getItem("stage7-doc-nav-collapsed") === "1";
+    } catch (error) {
+      collapsed = false;
+    }
+    setDocNavCollapsed(collapsed);
+    document.addEventListener("click", function (event) {
+      const button = event.target.closest(".stage7-doc-nav-toggle");
+      if (!button) return;
+      setDocNavCollapsed(!document.body.classList.contains("stage7-doc-nav-collapsed"));
+    });
   }
 
   function initTabs() {
@@ -297,6 +350,7 @@
       const tab = button.getAttribute("data-stage7-tab");
       side.querySelectorAll("[data-stage7-tab]").forEach(function (el) {
         el.classList.toggle("active", el === button);
+        el.setAttribute("aria-selected", String(el === button));
       });
       side.querySelectorAll("[data-stage7-panel]").forEach(function (panel) {
         panel.hidden = panel.getAttribute("data-stage7-panel") !== tab;
@@ -329,7 +383,9 @@
     document.body.classList.add("stage7-page");
     ensureTopbar(meta);
     ensureDocumentSideNav(meta);
+    ensureDocumentNavToggle(meta);
     initTabs();
+    initDocumentNavToggle(meta);
     initLocalTocSpy();
   }
 
