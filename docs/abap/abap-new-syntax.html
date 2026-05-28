@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ABAP New Syntax 입문 · SAP Developer Learning Library</title>
+<link rel="stylesheet" href="../../assets/common.css" />
+<link rel="stylesheet" href="../../assets/stage7-shell.css" />
+<script src="../../assets/common.js" defer></script>
+<script src="../../assets/stage7-shell.js" defer></script>
+</head>
+<body data-page-type="doc" data-active-category="abap" data-doc-id="abap-new-syntax" data-doc-title="ABAP New Syntax 입문" data-doc-version="4.0" data-doc-created-at="2026-05-28T21:20:00+09:00" data-doc-updated-at="2026-05-28T21:20:00+09:00" data-distributor="정훈영" data-prose-root="true">
+<div class="stage7-doc-layout">
+  <section class="stage7-hero prose-summary" data-prose="summary">
+    <div class="breadcrumb" data-prose="summary"><a href="../../index.html">Home</a><span>›</span><a href="../../pages/abap.html">ABAP 개발</a><span>›</span><span>ABAP New Syntax 입문</span></div>
+    <div class="stage7-hero__eyebrow">SAP Developer Learning Library</div>
+    <h1>ABAP New Syntax 입문</h1>
+    <p class="lead">DATA(...), VALUE, CORRESPONDING, FOR, inline declaration, table expression을 실무 코드 독해 관점에서 정리한다.</p>
+    <div class="home-badges"><span class="stage7-badge blue">Stage 7</span><span class="stage7-badge green">ABAP 개발</span><span class="stage7-badge purple">New Syntax</span><span class="stage7-badge amber">배포자: 정훈영</span></div>
+  </section>
+  <main>
+    <section class="stage7-section prose-concept" data-prose="concept" id="why">
+      <div class="stage7-section__label">01 · 목적</div>
+      <h2>New Syntax는 짧게 쓰기 위한 문법이 아니라 의도를 드러내기 위한 문법입니다</h2>
+      <p>현대 ABAP 코드는 선언 위치를 사용 위치 가까이에 두고, 테이블 변환과 구조 매핑을 표현식으로 처리한다. 초급자는 문법 이름보다 이 코드가 데이터를 새로 만드는지, 기존 데이터를 변환하는지, 일부 필드만 옮기는지를 먼저 읽어야 한다.</p>
+      <div class="note" data-prose="concept"><strong>실무 기준</strong> New Syntax는 코드량을 줄이지만, 과도하게 중첩하면 오히려 유지보수가 어려워진다. 교육용 코드는 명확성을 우선한다.</div>
+    </section>
+    <section class="stage7-section prose-structure" data-prose="structure" id="core">
+      <div class="stage7-section__label">02 · 핵심 문법</div>
+      <h2>초급자는 5가지 패턴부터 익히면 대부분의 코드를 읽을 수 있습니다</h2>
+      <div class="stage7-card-grid two">
+        <article class="stage7-card"><h3>DATA(...)</h3><p>타입을 컴파일러가 추론해 변수 선언을 줄인다. 조회 결과나 메서드 반환값을 받을 때 자주 사용한다.</p></article>
+        <article class="stage7-card"><h3>VALUE #( )</h3><p>구조나 내부 테이블 값을 한 번에 만든다. 테스트 데이터, 반환 구조, 메시지 목록 구성에 유용하다.</p></article>
+        <article class="stage7-card"><h3>CORRESPONDING #( )</h3><p>동일한 이름의 필드를 기준으로 구조를 매핑한다. Projection 구조나 DTO 변환에서 자주 등장한다.</p></article>
+        <article class="stage7-card"><h3>FOR ... IN</h3><p>내부 테이블을 반복하면서 새로운 내부 테이블을 구성한다. 단순 변환에는 LOOP보다 의도가 선명하다.</p></article>
+      </div>
+    </section>
+    <section class="stage7-section prose-practice" data-prose="practice" id="example">
+      <div class="stage7-section__label">03 · 예제</div>
+      <h2>기존 LOOP 변환을 표현식 기반으로 바꿀 수 있습니다</h2>
+      <pre><code>SELECT carrid, connid, fldate, price, currency
+  FROM sflight
+  WHERE carrid = @p_carrid
+  INTO TABLE @DATA(lt_flight).
+
+DATA(lt_result) = VALUE tt_result(
+  FOR ls_flight IN lt_flight
+  ( carrid   = ls_flight-carrid
+    connid   = ls_flight-connid
+    fldate   = ls_flight-fldate
+    amount   = ls_flight-price
+    currency = ls_flight-currency ) ).</code></pre>
+      <p>이 코드는 조회 결과를 화면 출력용 구조로 변환한다. LOOP로 작성해도 되지만, 단순 변환은 VALUE와 FOR를 사용하면 결과 테이블을 만든다는 의도가 더 분명해진다.</p>
+    </section>
+    <section class="stage7-section prose-warning" data-prose="warning" id="pitfalls">
+      <div class="stage7-section__label">04 · 주의점</div>
+      <h2>짧은 코드가 항상 좋은 코드는 아닙니다</h2>
+      <ul><li>중첩 FOR와 COND를 과도하게 섞지 않는다.</li><li>예외 처리가 필요한 로직은 단계적으로 나누어 읽기 쉽게 작성한다.</li><li>CORRESPONDING은 필드명이 같을 때만 안전하므로 매핑 누락을 확인한다.</li><li>학생 교육용 예제에서는 최신 문법과 전통 문법을 함께 보여준다.</li></ul>
+    </section>
+    <section class="stage7-section prose-checklist" data-prose="checklist" id="checklist">
+      <div class="stage7-section__label">05 · 완료 체크</div>
+      <h2>다음 단계로 가기 전 확인합니다</h2>
+      <ol><li>DATA(...)의 타입 추론 의미를 설명할 수 있다.</li><li>VALUE #( )로 구조와 내부 테이블을 만들 수 있다.</li><li>CORRESPONDING #( )의 장점과 위험을 구분할 수 있다.</li><li>FOR 표현식과 LOOP의 사용 기준을 설명할 수 있다.</li></ol>
+    </section>
+  </main>
+</div>
+</body>
+</html>
