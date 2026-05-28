@@ -1,11 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>SAP Developer Learning Library</title>
 <link rel="stylesheet" href="./assets/common.css" />
-<link rel="stylesheet" href="./assets/stage7-home.css" />
+<link rel="stylesheet" href="./assets/stage7-home2.css" />
 <script src="./assets/common.js" defer></script>
 </head>
 <body
@@ -15,18 +15,15 @@
   data-doc-title="SAP Developer Learning Library"
   data-doc-version="4.0"
   data-doc-created-at="2026-05-28T16:41:34+09:00"
-  data-doc-updated-at="2026-05-29T02:04:04+09:00"
-  data-distributor="정훈영"
+  data-doc-updated-at="2026-05-29T03:33:44+09:00"
   data-prose-root="true">
 <header class="home-topbar prose-summary" data-prose="summary">
   <div class="home-topbar__inner">
     <a class="home-brand" href="./index.html" aria-label="SAP 학습자료 홈">
       <span class="home-brand__icon" aria-hidden="true">⌂</span>
       <span>SAP 학습자료 홈</span>
-   </a>
-    <div class="home-header-actions" aria-label="홈 운영 정보">
-      <span class="home-info-pill">수정일자 <strong>2026-05-28</strong></span>
-      <span class="home-info-pill">배포자 <strong>정훈영</strong></span>
+    </a>
+    <div class="home-header-actions" aria-label="홈 메뉴">
       <a class="home-quick-link" href="./pages/roadmap.html">로드맵</a>
       <a class="home-quick-link" href="./pages/abap.html">ABAP</a>
       <a class="home-quick-link" href="./pages/ui5-fiori.html">UI5/Fiori</a>
@@ -39,93 +36,131 @@
     <div class="home-hero__eyebrow">SAP Developer Learning Library</div>
     <h1>ABAP과 UI5 개발자를 위한 SAP 학습 가이드</h1>
     <p class="lead">
-      첫 화면은 학습자가 어디로 들어가야 할지 빠르게 판단하는 포털이다.
-      ABAP, UI5/Fiori, 모듈 기초, 통합 실습 중 필요한 영역을 선택해 상세 학습으로 이동한다.
+      SAP 개발에 입문하는 초급자부터 실무 역량을 강화하려는 개발자까지, 단계별 학습 경로와 핵심 영역별 가이드를 체계적으로 제공합니다. 아래에서 필요한 학습 목적을 선택하거나 통합 검색을 사용해 보세요.
     </p>
     <div class="home-badges">
-      <span class="home-badge blue">Stage 7 Home Shell</span>
+      <span class="home-badge blue">v4.0</span>
       <span class="home-badge green">총 37개 학습 문서</span>
-      <span class="home-badge purple">Global Shell 준비</span>
-      <span class="home-badge amber">배포자: 정훈영</span>
+      <span class="home-badge amber">최근 업데이트: 2026-05-28</span>
     </div>
   </section>
 
+  <!-- 검색 및 요약 통계 영역 -->
+  <div class="home-search-container">
+    <input type="text" id="home-search" class="home-search-bar" placeholder="배우고 싶은 기술이나 문서를 검색해 보세요 (예: RAP, OData, ALV, UI5, CDS)...">
+    <div class="home-quick-tags">
+      <span class="home-tag" onclick="filterSearch('#ABAP')">#ABAP_Classic</span>
+      <span class="home-tag" onclick="filterSearch('#RAP')">#RAP</span>
+      <span class="home-tag" onclick="filterSearch('#OData')">#OData_V2</span>
+      <span class="home-tag" onclick="filterSearch('#UI5')">#UI5_Basics</span>
+      <span class="home-tag" onclick="filterSearch('#Fiori')">#Fiori_Elements</span>
+      <span class="home-tag" onclick="filterSearch('#CDS')">#CDS_View</span>
+    </div>
+  </div>
+
+  <div class="home-stats-board">
+    <div class="home-stat-card">
+      <span class="home-stat-count">3</span>
+      <span class="home-stat-name">로드맵</span>
+    </div>
+    <div class="home-stat-card">
+      <span class="home-stat-count">8</span>
+      <span class="home-stat-name">ABAP 개발</span>
+    </div>
+    <div class="home-stat-card">
+      <span class="home-stat-count">7</span>
+      <span class="home-stat-name">UI5 / Fiori</span>
+    </div>
+    <div class="home-stat-card">
+      <span class="home-stat-count">13</span>
+      <span class="home-stat-name">모듈 기초</span>
+    </div>
+    <div class="home-stat-card">
+      <span class="home-stat-count">2</span>
+      <span class="home-stat-name">통합 실습</span>
+    </div>
+    <div class="home-stat-card">
+      <span class="home-stat-count">4</span>
+      <span class="home-stat-name">Reference</span>
+    </div>
+  </div>
+
   <section class="home-section prose-summary" data-prose="summary">
-    <div class="home-section__label">먼저 선택하기</div>
-    <h2>나는 무엇을 배우고 싶은가?</h2>
+    <div class="home-section__label">맞춤형 학습 목표</div>
+    <h2>나에게 맞는 학습 방향 찾기</h2>
     <div class="goal-grid">
       <article class="home-card prose-summary" data-prose="summary">
-        <span class="home-badge green">처음 시작</span>
-        <h3>SAP 개발이 처음이다</h3>
-        <p>전체 순서를 먼저 보고 개발 도구와 모듈 기초를 확인한다.</p>
-        <a class="home-button secondary" href="./pages/roadmap.html">로드맵 보기</a>
+        <span class="home-badge green">초급 입문</span>
+        <h3>SAP 개발이 처음이신가요?</h3>
+        <p>전체 학습 로드맵과 개발 도구 설정, 업무 모듈 기초부터 체계적으로 시작해 보세요.</p>
+        <a class="home-button secondary" href="./pages/roadmap.html">초급자 로드맵 보기</a>
       </article>
       <article class="home-card prose-summary" data-prose="summary">
-        <span class="home-badge blue">ABAP</span>
-        <h3>ABAP부터 배우고 싶다</h3>
-        <p>Classic ABAP에서 CDS, Gateway, RAP으로 확장한다.</p>
-        <a class="home-button secondary" href="./pages/abap.html">ABAP 영역 보기</a>
+        <span class="home-badge blue">백엔드</span>
+        <h3>ABAP 서버 개발이 목표인가요?</h3>
+        <p>Classic Report 기본기부터 데이터 모델 설계(CDS View), Gateway API 및 RAP 클라우드 기술로 확장합니다.</p>
+        <a class="home-button secondary" href="./pages/abap.html">ABAP 개발 영역 보기</a>
       </article>
       <article class="home-card prose-summary" data-prose="summary">
-        <span class="home-badge purple">UI5 / Fiori</span>
-        <h3>화면 개발을 배우고 싶다</h3>
-        <p>Controller, ODataModel, Messaging, Fiori Elements 순서로 학습한다.</p>
-        <a class="home-button secondary" href="./pages/ui5-fiori.html">UI5 영역 보기</a>
+        <span class="home-badge purple">프론트엔드</span>
+        <h3>화면/UI 개발을 마스터하고 싶나요?</h3>
+        <p>XML View, Controller 로직 설계, ODataModel 연결 및 메시지 처리, Fiori Elements 실무를 학습합니다.</p>
+        <a class="home-button secondary" href="./pages/ui5-fiori.html">UI5 개발 영역 보기</a>
       </article>
       <article class="home-card prose-summary" data-prose="summary">
-        <span class="home-badge amber">모듈</span>
-        <h3>업무와 테이블을 알고 싶다</h3>
-        <p>MM, PP, SD, FI, CO의 프로세스와 테이블을 개발자 관점으로 익힌다.</p>
+        <span class="home-badge amber">업무 분석</span>
+        <h3>업무와 DB 구조가 궁금하신가요?</h3>
+        <p>FI, CO, MM, PP, SD 등 SAP 핵심 모듈의 업무 프로세스와 테이블 구조를 개발자 관점에서 파악합니다.</p>
         <a class="home-button secondary" href="./pages/module-basics.html">모듈 기초 보기</a>
       </article>
     </div>
   </section>
 
   <section class="home-section prose-summary" data-prose="summary">
-    <div class="home-section__label">큰 학습 영역</div>
-    <h2>학습 영역으로 이동한다</h2>
+    <div class="home-section__label">주요 학습 분야</div>
+    <h2>관심 분야별 전체 문서 둘러보기</h2>
     <div class="portal-grid">
       <article class="home-card prose-summary" data-prose="summary">
         <div class="home-card__icon">🧭</div>
         <h3>로드맵 / 학습전략</h3>
-        <p>어디서 시작해야 하는지, 어떤 도구를 써야 하는지 먼저 확인한다.</p>
-        <div class="home-card__meta"><span class="home-badge green">3개 문서</span><span class="home-badge blue">영역 이동</span></div>
-        <a class="home-button" href="./pages/roadmap.html">이 영역 보기</a>
+        <p>시작 지점 탐색, 필수 개발 환경 및 도구 설정 등 개발 시작을 위한 첫 단계를 가이드합니다.</p>
+        <div class="home-card__meta"><span class="home-badge green">3개 문서</span></div>
+        <a class="home-button" href="./pages/roadmap.html">로드맵 확인하기</a>
       </article>
       <article class="home-card prose-summary" data-prose="summary">
         <div class="home-card__icon">⚙️</div>
         <h3>ABAP 개발</h3>
-        <p>서버 로직, 데이터 모델, OData/RAP 서비스를 구현하는 개발 흐름을 학습한다.</p>
-        <div class="home-card__meta"><span class="home-badge green">8개 문서</span><span class="home-badge blue">영역 이동</span></div>
-        <a class="home-button" href="./pages/abap.html">이 영역 보기</a>
+        <p>서버 로직 구현, 효율적인 데이터 조회를 위한 CDS 모델링, Gateway 및 RAP 비즈니스 서비스를 학습합니다.</p>
+        <div class="home-card__meta"><span class="home-badge green">8개 문서</span></div>
+        <a class="home-button" href="./pages/abap.html">ABAP 가이드 보기</a>
       </article>
       <article class="home-card prose-summary" data-prose="summary">
         <div class="home-card__icon">🧩</div>
         <h3>UI5 / Fiori 개발</h3>
-        <p>XML View, Controller, ODataModel, Messaging, Fiori Elements를 학습한다.</p>
-        <div class="home-card__meta"><span class="home-badge green">7개 문서</span><span class="home-badge blue">영역 이동</span></div>
-        <a class="home-button" href="./pages/ui5-fiori.html">이 영역 보기</a>
+        <p>반응형 XML UI 설계, 클라이언트 로직 제어, OData 연동, 유효성 검증 및 메시지 처리를 학습합니다.</p>
+        <div class="home-card__meta"><span class="home-badge green">7개 문서</span></div>
+        <a class="home-button" href="./pages/ui5-fiori.html">UI5 가이드 보기</a>
       </article>
       <article class="home-card prose-summary" data-prose="summary">
         <div class="home-card__icon">🏢</div>
         <h3>SAP 모듈 기초</h3>
-        <p>개발 요구사항을 이해하기 위한 모듈 프로세스와 테이블 구조를 익힌다.</p>
-        <div class="home-card__meta"><span class="home-badge green">13개 문서</span><span class="home-badge blue">영역 이동</span></div>
-        <a class="home-button" href="./pages/module-basics.html">이 영역 보기</a>
+        <p>개발 요구사항을 정확히 분석하고 구현하기 위한 모듈 프로세스(SD/MM/PP/FI/CO)와 핵심 테이블을 설명합니다.</p>
+        <div class="home-card__meta"><span class="home-badge green">13개 문서</span></div>
+        <a class="home-button" href="./pages/module-basics.html">모듈 가이드 보기</a>
       </article>
       <article class="home-card prose-summary" data-prose="summary">
         <div class="home-card__icon">✈️</div>
         <h3>통합 실습</h3>
-        <p>배운 내용을 하나의 Flight 시나리오로 연결해 실습한다.</p>
-        <div class="home-card__meta"><span class="home-badge green">2개 문서</span><span class="home-badge blue">영역 이동</span></div>
-        <a class="home-button" href="./pages/integrated-practice.html">이 영역 보기</a>
+        <p>Flight 시나리오를 바탕으로 ABAP 백엔드 데이터 구축부터 UI5 화면 표출까지 Full-Stack 실습을 진행합니다.</p>
+        <div class="home-card__meta"><span class="home-badge green">2개 문서</span></div>
+        <a class="home-button" href="./pages/integrated-practice.html">통합 실습 시작하기</a>
       </article>
       <article class="home-card prose-summary" data-prose="summary">
         <div class="home-card__icon">📚</div>
         <h3>Reference / 운영</h3>
-        <p>용어, 문체 기준, 검수 리포트 등 운영 참고자료를 확인한다.</p>
-        <div class="home-card__meta"><span class="home-badge green">4개 문서</span><span class="home-badge blue">영역 이동</span></div>
-        <a class="home-button" href="./pages/reference.html">이 영역 보기</a>
+        <p>문서 표준 가이드라인, 코딩 용어집, 오류 트러블슈팅 자료 및 사이트 검수 리포트를 제공합니다.</p>
+        <div class="home-card__meta"><span class="home-badge green">4개 문서</span></div>
+        <a class="home-button" href="./pages/reference.html">참고 자료 확인하기</a>
       </article>
     </div>
   </section>
@@ -136,13 +171,13 @@
     <div class="learning-grid">
       <div class="learning-panel" data-prose="structure">
         <h3>초급자 추천 경로</h3>
-        <p>SAP 개발을 처음 배우는 학습자를 위한 순서이다.</p>
+        <p>SAP 개발을 처음 배우는 학습자를 위한 순서입니다.</p>
         <ol class="learning-list">
           <li class="learning-step"><span class="learning-step__num">1</span><div><a href="docs/roadmap/developer-learning-roadmap.html">SAP 개발자 학습 로드맵</a><p>전체 학습 순서를 먼저 확인한다.</p></div></li>
           <li class="learning-step"><span class="learning-step__num">2</span><div><a href="docs/roadmap/development-tools-overview.html">SAP 개발 환경과 도구 입문</a><p>SAP GUI, ADT, VS Code/BAS 등 도구 목적을 정리한다.</p></div></li>
           <li class="learning-step"><span class="learning-step__num">3</span><div><a href="docs/module/module-basics-for-developers.html">SAP 모듈 기초와 개발자 관점</a><p>업무 흐름과 테이블을 개발 관점에서 이해한다.</p></div></li>
           <li class="learning-step"><span class="learning-step__num">4</span><div><a href="docs/abap/abap-classic-report-itab-alv.html">Classic ABAP 기본기</a><p>Report, Selection Screen, Internal Table, ALV를 익힌다.</p></div></li>
-          <li class="learning-step"><span class="learning-step__num">5</span><div><a href="docs/abap/cds-to-odata.html">CDS View에서 OData 노출까지</a><p>ZI_*, ZC_*, Service Binding 흐름을 학습한다.</p></div></li>
+          <li class="learning-step"><span class="learning-step__num">5</span><div><a href="docs/abap/abap-new-syntax.html">ABAP New Syntax 입문</a><p>DATA(...), VALUE, CORRESPONDING 등 실무형 신규 문법을 익힌다.</p></div></li>
         </ol>
       </div>
       <div class="learning-panel" data-prose="structure">
@@ -151,25 +186,87 @@
         <ol class="learning-list">
           <li class="learning-step"><span class="learning-step__num">1</span><div><a href="docs/abap/cds-to-odata.html">CDS View에서 OData 노출까지</a><p>데이터 모델과 OData 노출 흐름을 확인한다.</p></div></li>
           <li class="learning-step"><span class="learning-step__num">2</span><div><a href="docs/abap/gateway-odata-v2-crud.html">Gateway / OData V2 CRUD 입문</a><p>SEGW, EntitySet, DPC_EXT, CRUD 흐름을 이해한다.</p></div></li>
-          <li class="learning-step"><span class="learning-step__num">3</span><div><a href="docs/ui5/sapui5-odata-model-crud.html">SAPUI5 OData Model과 CRUD 입문</a><p>ODataModel을 화면과 연결한다.</p></div></li>
-          <li class="learning-step"><span class="learning-step__num">4</span><div><a href="docs/ui5/sapui5-messaging-input-validation.html">Messaging과 Input Validation 실무 입문</a><p>입력값, 모델값, 메시지 처리를 분리해서 이해한다.</p></div></li>
-          <li class="learning-step"><span class="learning-step__num">5</span><div><a href="docs/practice/flight-integrated-practice.html">Flight 통합 실습 최신본</a><p>ABAP, Gateway, UI5를 하나의 실습으로 연결한다.</p></div></li>
+          <li class="learning-step"><span class="learning-step__num">3</span><div><a href="docs/ui5/ui5-odata-crud.html">SAPUI5 OData Model과 CRUD 입문</a><p>ODataModel을 화면과 연결한다.</p></div></li>
+          <li class="learning-step"><span class="learning-step__num">4</span><div><a href="docs/ui5/ui5-validation-messaging.html">Messaging과 Input Validation 실무 입문</a><p>입력값, 모델값, 메시지 처리를 분리해서 이해한다.</p></div></li>
+          <li class="learning-step"><span class="learning-step__num">5</span><div><a href="docs/practice/flight-practice.html">Flight 통합 실습 최신본</a><p>ABAP, Gateway, UI5를 하나의 실습으로 연결한다.</p></div></li>
         </ol>
       </div>
     </div>
   </section>
 
   <section class="home-section prose-summary" data-prose="summary">
-    <div class="home-section__label">운영 메모</div>
-    <h2>Stage 7부터는 공통 Shell 기준으로 단계적으로 전환한다</h2>
-    <p>
-      현재 홈은 Stage 7 Home Shell의 첫 적용 대상이다. 이후 Landing Page와 개별 문서를 순차적으로 `docs/` 운영 구조와 공통 Header/Navigation 기준에 맞춰 전환한다.
-    </p>
+    <div class="home-section__label">공지 및 업데이트 안내</div>
+    <h2>최근 업데이트 소식</h2>
+    <div class="update-list">
+      <div class="update-item">
+        <span class="update-date">2026-05-28</span>
+        <span class="update-desc">UI5/Fiori 및 ABAP 통합 실습 시나리오 최신 버전(Stage 7) 반영 및 라이브러리 홈페이지 리뉴얼 (검색 바 및 대시보드 추가)</span>
+      </div>
+      <div class="update-item">
+        <span class="update-date">2026-05-15</span>
+        <span class="update-desc">RAP(Restful ABAP Programming) 동작 구현을 위한 Action 및 Service Binding 가이드 최신화</span>
+      </div>
+      <div class="update-item">
+        <span class="update-date">2026-05-02</span>
+        <span class="update-desc">SAP 모듈 기초(FI/CO/MM/PP/SD) 개발자 맞춤형 프로세스 및 핵심 테이블 가이드 보완</span>
+      </div>
+    </div>
   </section>
 
   <footer class="home-footer prose-summary" data-prose="summary">
-    SAP Developer Learning Library · Stage 7 Home Shell · 2026-05-28 · 배포자: 정훈영
+    © 2026 SAP Developer Learning Library. 최근 업데이트: 2026-05-28
   </footer>
 </div>
+
+<script>
+  // 인터랙티브 검색 기능 (텍스트 필터링)
+  document.getElementById('home-search').addEventListener('keyup', function(e) {
+    var query = e.target.value.toLowerCase().trim();
+    
+    // 추천 경로 단계 필터링
+    var steps = document.querySelectorAll('.learning-step');
+    steps.forEach(function(step) {
+      var text = step.textContent.toLowerCase();
+      if (text.includes(query)) {
+        step.style.opacity = '1';
+        step.style.pointerEvents = 'auto';
+      } else {
+        step.style.opacity = '0.2';
+        step.style.pointerEvents = 'none';
+      }
+    });
+
+    // 메인 학습 도메인 및 추천 카드 흐릿하게 제어
+    var cards = document.querySelectorAll('.home-card');
+    cards.forEach(function(card) {
+      var text = card.textContent.toLowerCase();
+      if (text.includes(query)) {
+        card.style.opacity = '1';
+        card.style.pointerEvents = 'auto';
+        card.style.transform = '';
+      } else {
+        card.style.opacity = '0.3';
+        card.style.pointerEvents = 'none';
+      }
+    });
+  });
+
+  // 퀵 해시태그 클릭 시 검색 바 적용 함수
+  function filterSearch(tag) {
+    var searchInput = document.getElementById('home-search');
+    var query = tag.replace('#', '').toLowerCase();
+    
+    // 만약 이미 해당 텍스트가 들어가 있으면 검색 초기화
+    if (searchInput.value === tag.replace('#', '')) {
+      searchInput.value = '';
+    } else {
+      searchInput.value = tag.replace('#', '');
+    }
+    
+    // 키업 이벤트 수동 발생 시켜 필터링 진행
+    var event = new Event('keyup');
+    searchInput.dispatchEvent(event);
+  }
+</script>
 </body>
 </html>

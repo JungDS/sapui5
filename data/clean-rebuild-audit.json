@@ -61,15 +61,15 @@
     "v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html",
     "v3/01-abap/abap-cloud-app-development-summary-v3.html",
     "v3/01-abap/abap-new-syntax-beginner-guide-v3.html",
-    "v3/99-reference/final-audit-report-v3.html",
-    "v3/99-reference/prose-audit-report-v3-5.html",
+    "archive/v3/99-reference/final-audit-report-v3.html",
+    "archive/v3/99-reference/prose-audit-report-v3-5.html",
     "v3/01-abap/rap-action-invocation-grouping-v3.html",
     "v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html",
     "v3/03-module-basics/sap-co-process-and-tables-beginner-v3.html",
     "v3/00-roadmap/sap-debugging-troubleshooting-guide-v3.html",
-    "v3/99-reference/sap-developer-glossary-v3.html",
+    "docs/reference/sap-developer-glossary.html",
     "v3/00-roadmap/sap-developer-learning-roadmap-v3.html",
-    "v3/99-reference/sap-developer-writing-style-guide-v3.html",
+    "docs/reference/sap-developer-writing-style-guide.html",
     "v3/00-roadmap/sap-development-tools-overview-v3.html",
     "v3/03-module-basics/sap-fi-gl-number-range-adult-v3.html",
     "v3/03-module-basics/sap-fi-gl-number-range-elementary-v3.html",
@@ -82,7 +82,7 @@
     "v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html",
     "v3/03-module-basics/sap-mm-process-and-tables-beginner-v3.html",
     "v3/03-module-basics/sap-module-basics-for-developers-v3.html",
-    "v3/99-reference/sap-odata-external-export-summary-v3.html",
+    "docs/abap/abap-odata-export.html",
     "v3/03-module-basics/sap-pp-atp-learning-package-v3.html",
     "v3/03-module-basics/sap-pp-mrp-learning-package-v3.html",
     "v3/03-module-basics/sap-pp-process-and-tables-beginner-v3.html",
@@ -95,6 +95,6 @@
     "v3/02-ui5-fiori/sapui5-messaging-input-validation-v3.html",
     "v3/02-ui5-fiori/sapui5-odata-model-crud-beginner-guide-v3.html",
     "v3/02-ui5-fiori/sapui5-routing-layout-beginner-guide-v3.html",
-    "v3/99-reference/stage5-navigation-audit.html"
+    "archive/v3/99-reference/stage5-navigation-audit.html"
   ]
 }

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ABAP 개발 · SAP Developer Learning Library</title>
+<link rel="stylesheet" href="../assets/common.css" />
+<link rel="stylesheet" href="../assets/stage7-shell.css" />
+<script src="../assets/common.js" defer></script>
+<script src="../assets/stage7-shell.js" defer></script>
+</head>
+<body
+  data-page-type="landing"
+  data-active-category="abap"
+  data-doc-id="abap"
+  data-doc-title="ABAP 개발"
+  data-doc-version="4.0"
+  data-doc-created-at="2026-05-28T17:30:00+09:00"
+  data-doc-updated-at="2026-05-29T01:55:02+09:00"
+  data-distributor="정훈영"
+  data-prose-root="true">
+
+<div class="stage7-shell">
+  <section class="stage7-hero prose-summary" data-prose="summary">
+    <div class="breadcrumb" data-prose="summary">
+      <a href="../index.html">Home</a>
+      <span>›</span>
+      <span>ABAP 개발</span>
+    </div>
+    <div class="stage7-hero__eyebrow">SAP Developer Learning Library</div>
+    <h1>ABAP 개발</h1>
+    <p class="lead">
+      Classic ABAP, ABAP New Syntax, CDS, Gateway, RAP, ABAP Cloud를 단계적으로 학습한다.
+      Stage 7부터는 최신 운영 문서를 `docs/` 구조로 전환하고, 기존 v3 문서는 보존본으로 유지한다.
+    </p>
+    <div class="home-badges">
+      <span class="stage7-badge blue">Landing Page</span>
+      <span class="stage7-badge green">ABAP 개발</span>
+      <span class="stage7-badge purple">Stage 7</span>
+      <span class="stage7-badge amber">배포자: 정훈영</span>
+    </div>
+  </section>
+
+  <main>
+    <section class="stage7-section prose-summary" data-prose="summary" id="recommended">
+      <div class="stage7-section__label">추천 순서</div>
+      <h2>이 영역은 다음 순서로 보는 것이 좋다</h2>
+      <div class="stage7-card-grid two">
+        <article class="stage7-card prose-structure" data-prose="structure">
+          <h3>ABAP 개발자 경로</h3>
+          <p>서버 개발과 OData/RAP 서비스를 구현하려는 학습자를 위한 기본 경로다.</p>
+          <ol class="learning-path-list">
+            <li class="path-step" data-prose="structure"><span class="path-num">1</span><div><a href="../docs/abap/abap-classic-report-itab-alv.html">Classic ABAP 기본기</a><p>Report, Selection Screen, Internal Table, Open SQL, ALV의 기본 흐름을 익힌다.</p></div></li>
+            <li class="path-step" data-prose="structure"><span class="path-num">2</span><div><a href="../docs/abap/abap-new-syntax.html">ABAP New Syntax 입문</a><p>실무 코드를 읽기 위한 현대 ABAP 문법을 정리한다.</p></div></li>
+            <li class="path-step" data-prose="structure"><span class="path-num">3</span><div><a href="../docs/abap/cds-to-odata.html">CDS View에서 OData 노출까지</a><p>ZI_* Interface View, ZC_* Projection View, Association, Service Binding 흐름을 학습한다.</p></div></li>
+            <li class="path-step" data-prose="structure"><span class="path-num">4</span><div><a href="../docs/abap/gateway-odata-v2-crud.html">Gateway / OData V2 CRUD 입문</a><p>SEGW, EntitySet, MPC/DPC, CRUD 메서드와 테스트 흐름을 이해한다.</p></div></li>
+            <li class="path-step" data-prose="structure"><span class="path-num">5</span><div><a href="../docs/abap/rap-end-to-end.html">RAP End-to-End 입문</a><p>RAP BO, Behavior Definition, Validation, Determination, Action, Service Binding을 연결한다.</p></div></li>
+          </ol>
+        </article>
+        <article class="stage7-card prose-structure" data-prose="structure">
+          <h3>실무형 빠른 경로</h3>
+          <p>핵심 개념을 빠르게 보고 통합 실습으로 넘어가는 경로다.</p>
+          <ol class="learning-path-list">
+            <li class="path-step" data-prose="structure"><span class="path-num">1</span><div><a href="../docs/abap/cds-to-odata.html">CDS View에서 OData 노출까지</a><p>데이터 모델과 OData 노출 흐름을 먼저 확인한다.</p></div></li>
+            <li class="path-step" data-prose="structure"><span class="path-num">2</span><div><a href="../docs/abap/gateway-odata-v2-crud.html">Gateway / OData V2 CRUD 입문</a><p>Stage 7 docs 시범 전환 문서로 Gateway 구조를 확인한다.</p></div></li>
+            <li class="path-step" data-prose="structure"><span class="path-num">3</span><div><a href="../docs/ui5/sapui5-odata-model-crud.html">SAPUI5 OData Model과 CRUD 입문</a><p>ODataModel을 UI5 화면과 연결한다.</p></div></li>
+            <li class="path-step" data-prose="structure"><span class="path-num">4</span><div><a href="../docs/ui5/sapui5-messaging-input-validation.html">Messaging과 Input Validation 실무 입문</a><p>입력값, 모델값, 메시지 처리를 분리해서 이해한다.</p></div></li>
+            <li class="path-step" data-prose="structure"><span class="path-num">5</span><div><a href="../docs/practice/flight-integrated-practice.html">Flight 통합 실습 최신본</a><p>ABAP, Gateway, UI5를 하나의 실습으로 연결한다.</p></div></li>
+          </ol>
+        </article>
+      </div>
+    </section>
+
+    <section class="stage7-section prose-summary" data-prose="summary" id="documents" data-landing-scope>
+      <div class="stage7-section__label">문서 목록</div>
+      <h2>ABAP 개발 문서</h2>
+      <p class="muted">이 영역 안에서 필요한 문서를 검색하거나 순서대로 학습한다.</p>
+      <input class="landing-search" data-landing-search type="search" placeholder="ABAP 개발 문서 검색..." />
+
+      <div class="category-doc-section" data-prose="summary">
+        <h3>Classic ABAP</h3>
+        <div class="stage7-card-grid two">
+          <article class="stage7-card" data-prose="summary" data-doc-card>
+            <div class="library-meta"><span class="stage7-badge blue">입문</span><span class="stage7-badge green">핵심</span></div>
+            <h3>Classic ABAP 기본기</h3>
+            <p>Report, Selection Screen, Internal Table, Open SQL, ALV의 기본 흐름을 익힌다.</p>
+            <a class="stage7-button" href="../docs/abap/abap-classic-report-itab-alv.html">docs 문서 열기</a>
+          </article>
+          <article class="stage7-card" data-prose="summary" data-doc-card>
+            <div class="library-meta"><span class="stage7-badge blue">입문</span><span class="stage7-badge amber">확장</span></div>
+            <h3>ABAP New Syntax 입문</h3>
+            <p>DATA(...), VALUE, CORRESPONDING, FOR 등 실무 코드를 읽기 위한 신문법을 정리한다.</p>
+            <a class="stage7-button" href="../docs/abap/abap-new-syntax.html">docs 문서 열기</a>
+          </article>
+        </div>
+      </div>
+
+      <div class="category-doc-section" data-prose="summary">
+        <h3>CDS / OData</h3>
+        <div class="stage7-card-grid two">
+          <article class="stage7-card" data-prose="summary" data-doc-card>
+            <div class="library-meta"><span class="stage7-badge blue">입문</span><span class="stage7-badge green">핵심</span></div>
+            <h3>CDS View에서 OData 노출까지</h3>
+            <p>ZI_* Interface View, ZC_* Projection View, Association, Service Binding 흐름을 학습한다.</p>
+            <a class="stage7-button" href="../docs/abap/cds-to-odata.html">docs 문서 열기</a>
+          </article>
+          <article class="stage7-card" data-prose="summary" data-doc-card>
+            <div class="library-meta"><span class="stage7-badge blue">개념</span><span class="stage7-badge purple">참고</span></div>
+            <h3>SAP 데이터를 외부로 내보내는 방법 정리</h3>
+            <p>OData, API, 파일, RFC 등 외부 연계 방식을 선택하는 기준을 정리한다.</p>
+            <a class="stage7-button" href="../v3/99-reference/sap-odata-external-export-summary-v3.html">문서 열기</a>
+          </article>
+        </div>
+      </div>
+
+      <div class="category-doc-section" data-prose="summary">
+        <h3>Gateway</h3>
+        <div class="stage7-card-grid two">
+          <article class="stage7-card" data-prose="summary" data-doc-card>
+            <div class="library-meta"><span class="stage7-badge blue">Stage 7</span><span class="stage7-badge green">신규 docs</span></div>
+            <h3>Gateway / OData V2 CRUD 입문</h3>
+            <p>SEGW, EntitySet, MPC/DPC, CRUD 메서드와 테스트 흐름을 이해한다.</p>
+            <a class="stage7-button" href="../docs/abap/gateway-odata-v2-crud.html">docs 문서 열기</a>
+          </article>
+        </div>
+      </div>
+
+      <div class="category-doc-section" data-prose="summary">
+        <h3>RAP / ABAP Cloud</h3>
+        <div class="stage7-card-grid two">
+          <article class="stage7-card" data-prose="summary" data-doc-card>
+            <div class="library-meta"><span class="stage7-badge blue">실무 입문</span><span class="stage7-badge green">핵심</span></div>
+            <h3>RAP End-to-End 입문</h3>
+            <p>RAP BO, Behavior Definition, Validation, Determination, Action, Service Binding을 연결한다.</p>
+            <a class="stage7-button" href="../docs/abap/rap-end-to-end.html">docs 문서 열기</a>
+          </article>
+          <article class="stage7-card" data-prose="summary" data-doc-card>
+            <div class="library-meta"><span class="stage7-badge blue">정리</span><span class="stage7-badge purple">참고</span></div>
+            <h3>ABAP Cloud App Development 정리</h3>
+            <p>ABAP Cloud, CDS, RAP, Code Pushdown의 현대 ABAP 개발 방향을 정리한다.</p>
+            <a class="stage7-button" href="../docs/abap/abap-cloud.html">docs 문서 열기</a>
+          </article>
+          <article class="stage7-card" data-prose="summary" data-doc-card>
+            <div class="library-meta"><span class="stage7-badge blue">심화</span><span class="stage7-badge purple">Action</span></div>
+            <h3>RAP Action 다건 선택 처리</h3>
+            <p>RAP Action 다건 선택 시 호출 단위와 Keys 일괄 전달 구조를 이해한다.</p>
+            <a class="stage7-button" href="../docs/abap/rap-action.html">docs 문서 열기</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="stage7-section prose-summary" data-prose="summary" id="coming-soon">
+      <div class="stage7-section__label">확장 예정</div>
+      <h2>앞으로 추가하면 좋은 문서</h2>
+      <div class="stage7-card-grid two">
+        <article class="stage7-card" data-prose="summary"><span class="stage7-badge amber">준비 중</span><h3>Authorization / 권한 개념 입문</h3><p>권한 객체, Role, Authorization Check 기본 개념</p></article>
+        <article class="stage7-card" data-prose="summary"><span class="stage7-badge amber">준비 중</span><h3>Transport Request / CTS 입문</h3><p>개발 오브젝트 이관과 요청 관리</p></article>
+        <article class="stage7-card" data-prose="summary"><span class="stage7-badge amber">준비 중</span><h3>ABAP Unit Test 입문</h3><p>ABAP 테스트 코드 작성과 테스트 가능한 구조</p></article>
+        <article class="stage7-card" data-prose="summary"><span class="stage7-badge amber">준비 중</span><h3>SAP 개발 요구사항 분석법</h3><p>요구사항을 테이블, API, 화면 흐름으로 분해하는 방법</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="stage7-footer prose-summary" data-prose="summary">
+    SAP Developer Learning Library · ABAP 개발 · 2026-05-28 · 배포자: 정훈영
+  </footer>
+</div>
+</body>
+</html>
