@@ -273,19 +273,295 @@
 (function () {
   "use strict";
 
-  const NAV_DOCS = {"roadmap": {"title": "SAP 개발자 학습 로드맵", "file": "sap-developer-learning-roadmap-v3.html", "category": "roadmap"}, "tools": {"title": "SAP 개발 환경과 도구 입문", "file": "sap-development-tools-overview-v3.html", "category": "roadmap"}, "debug": {"title": "SAP 개발 디버깅 / 트러블슈팅 통합 가이드", "file": "sap-debugging-troubleshooting-guide-v3.html", "category": "roadmap"}, "abap-classic": {"title": "Classic ABAP 기본기", "file": "abap-classic-report-itab-alv-beginner-v3.html", "category": "abap"}, "abap-new-syntax": {"title": "ABAP New Syntax 입문", "file": "abap-new-syntax-beginner-guide-v3.html", "category": "abap"}, "abap-cloud": {"title": "ABAP Cloud App Development 정리", "file": "abap-cloud-app-development-summary-v3.html", "category": "abap"}, "cds-odata": {"title": "CDS View에서 OData 노출까지", "file": "sap-cds-to-odata-beginner-guide-v3.html", "category": "abap"}, "gateway": {"title": "Gateway / OData V2 CRUD 입문", "file": "sap-gateway-odata-v2-crud-beginner-guide-v3.html", "category": "abap"}, "rap-e2e": {"title": "RAP End-to-End 입문", "file": "sap-rap-end-to-end-beginner-guide-v3.html", "category": "abap"}, "rap-action": {"title": "RAP Action 다건 선택 처리", "file": "rap-action-invocation-grouping-v3.html", "category": "abap"}, "odata-export": {"title": "SAP 데이터를 외부로 내보내는 방법 정리", "file": "sap-odata-external-export-summary-v3.html", "category": "abap"}, "ui5-controller": {"title": "UI5 Controller 함수 문법 입문", "file": "sapui5-controller-function-intro-v3.html", "category": "ui5"}, "ui5-odata-crud": {"title": "SAPUI5 OData Model과 CRUD 입문", "file": "sapui5-odata-model-crud-beginner-guide-v3.html", "category": "ui5"}, "ui5-messaging": {"title": "Messaging과 Input Validation 실무 입문", "file": "sapui5-messaging-input-validation-v3.html", "category": "ui5"}, "ui5-routing": {"title": "SAPUI5 Routing과 Layout 입문", "file": "sapui5-routing-layout-beginner-guide-v3.html", "category": "ui5"}, "ui5-data-flow": {"title": "SAPUI5 데이터 흐름과 Messaging 아키텍처", "file": "sapui5-messaging-data-flow-v3.html", "category": "ui5"}, "fiori-elements": {"title": "Fiori Elements 입문", "file": "sap-fiori-elements-beginner-guide-v3.html", "category": "ui5"}, "flp": {"title": "Fiori Launchpad 배포와 Semantic Object 입문", "file": "sap-fiori-launchpad-deployment-beginner-guide-v3.html", "category": "ui5"}, "module-overview": {"title": "SAP 모듈 기초와 개발자 관점", "file": "sap-module-basics-for-developers-v3.html", "category": "module"}, "table-map": {"title": "SAP Standard Table Map 입문", "file": "sap-standard-table-map-for-developers-v3.html", "category": "module"}, "mm": {"title": "MM 프로세스와 주요 테이블 입문", "file": "sap-mm-process-and-tables-beginner-v3.html", "category": "module"}, "pp": {"title": "PP 프로세스와 주요 테이블 입문", "file": "sap-pp-process-and-tables-beginner-v3.html", "category": "module"}, "sd": {"title": "SD 프로세스와 주요 테이블 입문", "file": "sap-sd-process-and-tables-beginner-v3.html", "category": "module"}, "fi": {"title": "FI 프로세스와 주요 테이블 입문", "file": "sap-fi-process-and-tables-beginner-v3.html", "category": "module"}, "co": {"title": "CO 프로세스와 주요 테이블 입문", "file": "sap-co-process-and-tables-beginner-v3.html", "category": "module"}, "atp": {"title": "SAP ATP 학생 학습 패키지", "file": "sap-pp-atp-learning-package-v3.html", "category": "module"}, "mrp": {"title": "MRP 학생 배포용 학습 패키지", "file": "sap-pp-mrp-learning-package-v3.html", "category": "module"}, "safety-stock": {"title": "SAP 안전재고 관리 학생 학습 패키지", "file": "sap-pp-safety-stock-learning-package-v3.html", "category": "module"}, "fi-gl-adult": {"title": "SAP FI G/L Accounts 번호범위 정리", "file": "sap-fi-gl-number-range-adult-v3.html", "category": "module"}, "fi-gl-elementary": {"title": "SAP FI G/L Accounts 번호범위 초급 비유형", "file": "sap-fi-gl-number-range-elementary-v3.html", "category": "module"}, "fi-gl-visual": {"title": "SAP FI G/L Accounts 번호범위 Visual Guide", "file": "sap-fi-gl-number-range-visual-deck-v3.html", "category": "module"}, "flight-model": {"title": "SAP Flight Model 데이터 구조 해설", "file": "sap-flight-model-table-guide-v3.html", "category": "practice"}, "flight-integrated": {"title": "Flight 통합 실습 최신본", "file": "sap-flight-integrated-practice-classrun-gateway-ui5-v3.html", "category": "practice"}, "glossary": {"title": "SAP 개발자 용어사전", "file": "sap-developer-glossary-v3.html", "category": "reference"}, "style-guide": {"title": "SAP Developer Learning Library 문체 기준", "file": "sap-developer-writing-style-guide-v3.html", "category": "reference"}, "prose-audit": {"title": "문체 구조화 자동 검수 리포트", "file": "prose-audit-report-v3-5.html", "category": "reference"}, "final-audit": {"title": "SAP Developer Learning Library v3 최종 검수 리포트", "file": "final-audit-report-v3.html", "category": "reference"}};
-  const NAV_TREE = [{"id": "roadmap", "title": "로드맵 / 학습전략", "href": "pages/roadmap.html", "docs": ["roadmap", "tools", "debug"]}, {"id": "abap", "title": "ABAP 개발", "href": "pages/abap.html", "groups": [{"title": "Classic ABAP", "docs": ["abap-classic", "abap-new-syntax"]}, {"title": "CDS / OData", "docs": ["cds-odata", "odata-export"]}, {"title": "Gateway", "docs": ["gateway"]}, {"title": "RAP", "docs": ["rap-e2e", "rap-action"]}, {"title": "ABAP Cloud", "docs": ["abap-cloud"]}]}, {"id": "ui5", "title": "UI5 / Fiori 개발", "href": "pages/ui5-fiori.html", "groups": [{"title": "Freestyle SAPUI5", "docs": ["ui5-controller", "ui5-odata-crud", "ui5-messaging", "ui5-routing", "ui5-data-flow"]}, {"title": "Fiori Elements", "docs": ["fiori-elements"]}, {"title": "Fiori Launchpad", "docs": ["flp"]}]}, {"id": "module", "title": "SAP 모듈 기초", "href": "pages/module-basics.html", "groups": [{"title": "모듈 전체", "docs": ["module-overview", "table-map"]}, {"title": "MM", "docs": ["mm"]}, {"title": "PP", "docs": ["pp", "atp", "mrp", "safety-stock"]}, {"title": "SD", "docs": ["sd"]}, {"title": "FI", "docs": ["fi", "fi-gl-adult", "fi-gl-elementary", "fi-gl-visual"]}, {"title": "CO", "docs": ["co"]}]}, {"id": "practice", "title": "통합 실습", "href": "pages/integrated-practice.html", "docs": ["flight-model", "flight-integrated"]}, {"id": "reference", "title": "Reference / 운영", "href": "pages/reference.html", "docs": ["glossary", "style-guide", "prose-audit", "final-audit"]}];
-  const NAV_CATEGORIES = {"roadmap": {"title": "로드맵 / 학습전략", "page": "roadmap.html"}, "abap": {"title": "ABAP 개발", "page": "abap.html"}, "ui5": {"title": "UI5 / Fiori 개발", "page": "ui5-fiori.html"}, "module": {"title": "SAP 모듈 기초", "page": "module-basics.html"}, "practice": {"title": "통합 실습", "page": "integrated-practice.html"}, "reference": {"title": "Reference / 운영", "page": "reference.html"}};
-  const NAV_PATHS = {"roadmap":"v3/00-roadmap/sap-developer-learning-roadmap-v3.html","tools":"v3/00-roadmap/sap-development-tools-overview-v3.html","debug":"v3/00-roadmap/sap-debugging-troubleshooting-guide-v3.html","abap-classic":"v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html","abap-new-syntax":"v3/01-abap/abap-new-syntax-beginner-guide-v3.html","abap-cloud":"v3/01-abap/abap-cloud-app-development-summary-v3.html","cds-odata":"v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html","gateway":"v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html","rap-e2e":"v3/01-abap/sap-rap-end-to-end-beginner-guide-v3.html","rap-action":"v3/01-abap/rap-action-invocation-grouping-v3.html","odata-export":"v3/99-reference/sap-odata-external-export-summary-v3.html","ui5-controller":"v3/02-ui5-fiori/sapui5-controller-function-intro-v3.html","ui5-odata-crud":"v3/02-ui5-fiori/sapui5-odata-model-crud-beginner-guide-v3.html","ui5-messaging":"v3/02-ui5-fiori/sapui5-messaging-input-validation-v3.html","ui5-routing":"v3/02-ui5-fiori/sapui5-routing-layout-beginner-guide-v3.html","ui5-data-flow":"v3/02-ui5-fiori/sapui5-messaging-data-flow-v3.html","fiori-elements":"v3/02-ui5-fiori/sap-fiori-elements-beginner-guide-v3.html","flp":"v3/02-ui5-fiori/sap-fiori-launchpad-deployment-beginner-guide-v3.html","module-overview":"v3/03-module-basics/sap-module-basics-for-developers-v3.html","table-map":"v3/03-module-basics/sap-standard-table-map-for-developers-v3.html","mm":"v3/03-module-basics/sap-mm-process-and-tables-beginner-v3.html","pp":"v3/03-module-basics/sap-pp-process-and-tables-beginner-v3.html","sd":"v3/03-module-basics/sap-sd-process-and-tables-beginner-v3.html","fi":"v3/03-module-basics/sap-fi-process-and-tables-beginner-v3.html","co":"v3/03-module-basics/sap-co-process-and-tables-beginner-v3.html","atp":"v3/03-module-basics/sap-pp-atp-learning-package-v3.html","mrp":"v3/03-module-basics/sap-pp-mrp-learning-package-v3.html","safety-stock":"v3/03-module-basics/sap-pp-safety-stock-learning-package-v3.html","fi-gl-adult":"v3/03-module-basics/sap-fi-gl-number-range-adult-v3.html","fi-gl-elementary":"v3/03-module-basics/sap-fi-gl-number-range-elementary-v3.html","fi-gl-visual":"v3/03-module-basics/sap-fi-gl-number-range-visual-deck-v3.html","flight-model":"v3/04-integrated-practice/sap-flight-model-table-guide-v3.html","flight-integrated":"v3/04-integrated-practice/sap-flight-integrated-practice-classrun-gateway-ui5-v3.html","glossary":"v3/99-reference/sap-developer-glossary-v3.html","style-guide":"v3/99-reference/sap-developer-writing-style-guide-v3.html","prose-audit":"v3/99-reference/prose-audit-report-v3-5.html","final-audit":"v3/99-reference/final-audit-report-v3.html"};
+  const NAV_DOCS = {
+    // Area A: Roadmap
+    "roadmap": { "title": "SAP 개발자 학습 로드맵", "file": "developer-learning-roadmap.html", "category": "roadmap" },
+    "tools": { "title": "SAP 개발 환경과 도구 입문", "file": "development-tools-overview.html", "category": "roadmap" },
+    "debug": { "title": "SAP 개발 디버깅 / 트러블슈팅 통합 가이드", "file": "dev-debugging.html", "category": "roadmap" },
+    "requirements-analysis": { "title": "SAP 개발 요구사항 분석법", "file": "requirements-analysis-guide.html", "category": "roadmap", "preparing": true },
+    "cts-transport": { "title": "Transport Request / CTS 입문", "file": "cts-transport-intro.html", "category": "roadmap", "preparing": true },
+
+    // Area B: ABAP Development
+    "abap-as-abap-overview": { "title": "SAP AS ABAP 개요 & 아키텍처 기초", "file": "abap-as-abap-overview.html", "category": "abap", "preparing": true },
+    "abap-basic-syntax": { "title": "ABAP 기본 문법 및 메모리 처리", "file": "abap-basic-syntax.html", "category": "abap", "preparing": true },
+    "abap-ddic-basics": { "title": "ABAP Dictionary (DDIC) 설계", "file": "abap-ddic-basics.html", "category": "abap", "preparing": true },
+    "abap-classic": { "title": "Classic Report & ALV 기초", "file": "abap-classic-report-itab-alv.html", "category": "abap" },
+    "abap-db-luw-lock": { "title": "DB 제어 및 트랜잭션 관리", "file": "abap-db-luw-lock.html", "category": "abap", "preparing": true },
+    "abap-screen-dynpro": { "title": "Screen UI 개발 (Dynpro)", "file": "abap-screen-dynpro.html", "category": "abap", "preparing": true },
+    "abap-object-oriented": { "title": "Object-Oriented ABAP", "file": "abap-object-oriented.html", "category": "abap", "preparing": true },
+    "abap-debugging-analysis": { "title": "디버깅 및 런타임 분석", "file": "abap-debugging-analysis.html", "category": "abap", "preparing": true },
+    "abap-enhancement-badi": { "title": "표준 확장 및 Enhancement", "file": "abap-enhancement-badi.html", "category": "abap", "preparing": true },
+    "abap-new-syntax": { "title": "Modern ABAP & Clean Code", "file": "abap-new-syntax.html", "category": "abap" },
+    "abap-clean-unit-test": { "title": "Clean ABAP & ABAP Unit Test", "file": "abap-clean-unit-test.html", "category": "abap", "preparing": true },
+    "cds-odata": { "title": "ABAP Core Data Services (CDS)", "file": "cds-to-odata.html", "category": "abap" },
+    "odata-export": { "title": "SAP 데이터를 외부로 내보내는 방법 정리", "file": "abap-odata-export.html", "category": "abap" },
+    "gateway-odata-v2-crud": { "title": "Gateway / OData V2 CRUD 입문", "file": "gateway-odata-v2-crud.html", "category": "abap" },
+    "rap-e2e": { "title": "RAP End-to-End 입문", "file": "rap-end-to-end.html", "category": "abap" },
+    "rap-action": { "title": "RAP Action 다건 선택 처리", "file": "rap-action.html", "category": "abap" },
+    "abap-cloud": { "title": "ABAP Cloud App Development 정리", "file": "abap-cloud.html", "category": "abap" },
+    "abap-rfc-bapi": { "title": "RFC / BAPI 인터페이스 입문", "file": "abap-rfc-bapi.html", "category": "abap", "preparing": true },
+    "abap-idoc-intro": { "title": "IDoc 연계 아키텍처 입문", "file": "abap-idoc-intro.html", "category": "abap", "preparing": true },
+    "abap-amdp-tuning": { "title": "AMDP & SQL Performance Tuning", "file": "abap-amdp-tuning.html", "category": "abap", "preparing": true },
+    "abap-smart-adobe-forms": { "title": "SAP 출력 Form (Smart Forms / Adobe Forms)", "file": "abap-smart-adobe-forms.html", "category": "abap", "preparing": true },
+
+    // Area C: UI5 / Fiori Development
+    "js-core-basics": { "title": "Modern Javascript 핵심", "file": "js-core-basics.html", "category": "ui5", "preparing": true },
+    "js-async-promise": { "title": "비동기 Javascript 입문", "file": "js-async-promise.html", "category": "ui5", "preparing": true },
+    "ui5-architecture-project": { "title": "UI5 아키텍처 및 개발 환경", "file": "ui5-architecture-project.html", "category": "ui5", "preparing": true },
+    "ui5-mvc-xmlview": { "title": "UI5 MVC 패턴과 XML View 기초", "file": "ui5-mvc-xmlview.html", "category": "ui5", "preparing": true },
+    "ui5-controller": { "title": "UI5 Controller 함수 문법 입문", "file": "ui5-controller-basics.html", "category": "ui5" },
+    "ui5-odata-crud": { "title": "SAPUI5 OData Model과 CRUD 입문", "file": "ui5-odata-crud.html", "category": "ui5" },
+    "ui5-messaging": { "title": "Messaging과 Input Validation 실무 입문", "file": "ui5-validation-messaging.html", "category": "ui5" },
+    "ui5-routing": { "title": "SAPUI5 Routing과 Layout 입문", "file": "ui5-routing-layout.html", "category": "ui5" },
+    "ui5-fragment-dialog": { "title": "UI5 Fragment & Dialog 활용", "file": "ui5-fragment-dialog.html", "category": "ui5", "preparing": true },
+    "ui5-i18n-multilingual": { "title": "UI5 i18n 글로벌 다국어 처리", "file": "ui5-i18n-multilingual.html", "category": "ui5", "preparing": true },
+    "ui5-custom-control": { "title": "Custom Control 및 Reuse Component 구현", "file": "sapui5-custom-control.html", "category": "ui5", "preparing": true },
+    "ui5-metadata-patterns": { "title": "Metadata 활용 및 애플리케이션 패턴", "file": "ui5-metadata-patterns.html", "category": "ui5", "preparing": true },
+    "ui5-mockserver-git": { "title": "UI5 Mock Server와 Git 협업 기법", "file": "ui5-mockserver-git.html", "category": "ui5", "preparing": true },
+    "ui5-qunit-opa-testing": { "title": "UI5 테스팅 기초 (QUnit & OPA)", "file": "ui5-qunit-opa-testing.html", "category": "ui5", "preparing": true },
+    "ui5-data-flow": { "title": "SAPUI5 데이터 흐름과 Messaging 아키텍처", "file": "ui5-data-flow.html", "category": "ui5" },
+    "gateway-segw-crud-details": { "title": "SAP Gateway & OData V2 CRUD 개발 실무", "file": "gateway-segw-crud-details.html", "category": "ui5", "preparing": true },
+    "gateway-odata-advanced": { "title": "OData 고급 연계 (Batch, Function Import)", "file": "gateway-odata-advanced.html", "category": "ui5", "preparing": true },
+    "flp": { "title": "Fiori 디자인 원칙과 Launchpad 배포", "file": "fiori-launchpad.html", "category": "ui5" },
+    "fiori-intent-navigation": { "title": "Intent Navigation과 Semantic Object 설계", "file": "fiori-intent-navigation.html", "category": "ui5", "preparing": true },
+    "fiori-elements-annotation": { "title": "CDS View와 OData Annotation 설계", "file": "fiori-elements-annotation.html", "category": "ui5", "preparing": true },
+    "fiori-elements": { "title": "Fiori Elements 애플리케이션 개발", "file": "fiori-elements.html", "category": "ui5" },
+    "fiori-elements-advanced": { "title": "Fiori Elements 심화 (Action, Draft)", "file": "fiori-elements-advanced.html", "category": "ui5", "preparing": true },
+    "rap-behavior-logic": { "title": "RAP Behavior와 비즈니스 로직 구현", "file": "rap-behavior-logic.html", "category": "ui5", "preparing": true },
+    "rap-service-binding-ui": { "title": "RAP 기반 Service Definition 및 UI 연동", "file": "rap-service-binding-ui.html", "category": "ui5", "preparing": true },
+    "rap-fiori-elements-advanced": { "title": "RAP Fiori Elements 자동 생성 및 Draft 연동", "file": "rap-fiori-elements-advanced.html", "category": "ui5", "preparing": true },
+
+    // Area D: SAP Module Basics
+    "module-overview": { "title": "SAP 모듈 기초와 개발자 관점", "file": "module-basics-for-developers.html", "category": "module" },
+    "table-map": { "title": "SAP Standard Table Map 입문", "file": "standard-table-map.html", "category": "module" },
+    "mm": { "title": "MM 프로세스와 주요 테이블 입문", "file": "mm-process-tables.html", "category": "module" },
+    "pp": { "title": "PP 프로세스와 주요 테이블 입문", "file": "pp-process-tables.html", "category": "module" },
+    "atp": { "title": "SAP ATP 학생 학습 패키지", "file": "pp-atp.html", "category": "module" },
+    "mrp": { "title": "MRP 학생 배포용 학습 패키지", "file": "pp-mrp.html", "category": "module" },
+    "safety-stock": { "title": "SAP 안전재고 관리 학생 학습 패키지", "file": "pp-safety-stock.html", "category": "module" },
+    "sd": { "title": "SD 프로세스와 주요 테이블 입문", "file": "sd-process-tables.html", "category": "module" },
+    "fi": { "title": "FI 프로세스와 주요 테이블 입문", "file": "fi-process-tables.html", "category": "module" },
+    "fi-gl-adult": { "title": "SAP FI G/L Accounts 번호범위 정리", "file": "fi-gl-number-range.html", "category": "module" },
+    "fi-gl-elementary": { "title": "SAP FI G/L Accounts 번호범위 초급 비유형", "file": "fi-gl-number-range-elementary.html", "category": "module" },
+    "fi-gl-visual": { "title": "SAP FI G/L Accounts 번호범위 Visual Guide", "file": "fi-gl-number-range-visual-guide.html", "category": "module" },
+    "co": { "title": "CO 프로세스와 주요 테이블 입문", "file": "co-process-tables.html", "category": "module" },
+    "auth-intro": { "title": "Authorization / 권한 개념 입문", "file": "auth-intro.html", "category": "module", "preparing": true },
+    "wm-ewm-basics": { "title": "WM/EWM 창고관리 기초 (개발자 관점)", "file": "wm-ewm-basics.html", "category": "module", "preparing": true },
+    "hr-hcm-basics": { "title": "HR/HCM 인사관리 기초 (개발자 관점)", "file": "hr-hcm-basics.html", "category": "module", "preparing": true },
+
+    // Area E: Integrated Practice
+    "flight-model": { "title": "SAP Flight Model 데이터 구조 해설", "file": "flight-model-guide.html", "category": "practice" },
+    "flight-integrated": { "title": "Flight 통합 실습 — Classic ABAP + Gateway + UI5", "file": "flight-practice.html", "category": "practice" },
+    "flight-rap-migration": { "title": "Flight 통합 실습 — RAP BO 전환 시나리오", "file": "flight-rap-migration.html", "category": "practice", "preparing": true },
+    "mini-project-sd": { "title": "미니 프로젝트 — 주문/납품 조회 시스템 설계", "file": "mini-project-sd-query.html", "category": "practice", "preparing": true },
+
+    // Area F: Reference / Operations
+    "glossary": { "title": "SAP 개발자 용어사전", "file": "sap-developer-glossary.html", "category": "reference" },
+    "style-guide": { "title": "SAP Developer Learning Library 문체 기준", "file": "sap-developer-writing-style-guide.html", "category": "reference" },
+    "prose-audit": { "title": "문체 구조화 자동 검수 리포트", "file": "prose-audit-report-v3-5.html", "category": "reference" },
+    "final-audit": { "title": "SAP Developer Learning Library v3 최종 검수 리포트", "file": "final-audit-report-v3.html", "category": "reference" },
+    "stage5-navigation-report": { "title": "Stage 5 Navigation 검수 리포트", "file": "stage5-navigation-report.html", "category": "reference" },
+    "abap-unit-test-intro": { "title": "ABAP Unit Test 입문", "file": "abap-unit-test-intro.html", "category": "reference", "preparing": true },
+    "sap-coding-convention": { "title": "SAP 코딩 컨벤션 가이드", "file": "sap-coding-convention.html", "category": "reference", "preparing": true }
+  };
+
+  const NAV_PATHS = {
+    // Area A: Roadmap
+    "roadmap": "docs/roadmap/developer-learning-roadmap.html",
+    "tools": "docs/roadmap/development-tools-overview.html",
+    "debug": "docs/roadmap/dev-debugging.html",
+    "requirements-analysis": "docs/roadmap/requirements-analysis-guide.html",
+    "cts-transport": "docs/roadmap/cts-transport-intro.html",
+
+    // Area B: ABAP Development
+    "abap-as-abap-overview": "docs/abap/abap-as-abap-overview.html",
+    "abap-basic-syntax": "docs/abap/abap-basic-syntax.html",
+    "abap-ddic-basics": "docs/abap/abap-ddic-basics.html",
+    "abap-classic": "docs/abap/abap-classic-report-itab-alv.html",
+    "abap-db-luw-lock": "docs/abap/abap-db-luw-lock.html",
+    "abap-screen-dynpro": "docs/abap/abap-screen-dynpro.html",
+    "abap-object-oriented": "docs/abap/abap-object-oriented.html",
+    "abap-debugging-analysis": "docs/abap/abap-debugging-analysis.html",
+    "abap-enhancement-badi": "docs/abap/abap-enhancement-badi.html",
+    "abap-new-syntax": "docs/abap/abap-new-syntax.html",
+    "abap-clean-unit-test": "docs/abap/abap-clean-unit-test.html",
+    "cds-odata": "docs/abap/cds-to-odata.html",
+    "odata-export": "docs/abap/abap-odata-export.html",
+    "gateway-odata-v2-crud": "docs/abap/gateway-odata-v2-crud.html",
+    "rap-e2e": "docs/abap/rap-end-to-end.html",
+    "rap-action": "docs/abap/rap-action.html",
+    "abap-cloud": "docs/abap/abap-cloud.html",
+    "abap-rfc-bapi": "docs/abap/abap-rfc-bapi.html",
+    "abap-idoc-intro": "docs/abap/abap-idoc-intro.html",
+    "abap-amdp-tuning": "docs/abap/abap-amdp-tuning.html",
+    "abap-smart-adobe-forms": "docs/abap/abap-smart-adobe-forms.html",
+
+    // Area C: UI5 / Fiori Development
+    "js-core-basics": "docs/ui5/js-core-basics.html",
+    "js-async-promise": "docs/ui5/js-async-promise.html",
+    "ui5-architecture-project": "docs/ui5/ui5-architecture-project.html",
+    "ui5-mvc-xmlview": "docs/ui5/ui5-mvc-xmlview.html",
+    "ui5-controller": "docs/ui5/ui5-controller-basics.html",
+    "ui5-odata-crud": "docs/ui5/ui5-odata-crud.html",
+    "ui5-messaging": "docs/ui5/ui5-validation-messaging.html",
+    "ui5-routing": "docs/ui5/ui5-routing-layout.html",
+    "ui5-fragment-dialog": "docs/ui5/ui5-fragment-dialog.html",
+    "ui5-i18n-multilingual": "docs/ui5/ui5-i18n-multilingual.html",
+    "ui5-custom-control": "docs/ui5/sapui5-custom-control.html",
+    "ui5-metadata-patterns": "docs/ui5/ui5-metadata-patterns.html",
+    "ui5-mockserver-git": "docs/ui5/ui5-mockserver-git.html",
+    "ui5-qunit-opa-testing": "docs/ui5/ui5-qunit-opa-testing.html",
+    "ui5-data-flow": "docs/ui5/ui5-data-flow.html",
+    "gateway-segw-crud-details": "docs/ui5/gateway-segw-crud-details.html",
+    "gateway-odata-advanced": "docs/ui5/gateway-odata-advanced.html",
+    "flp": "docs/ui5/fiori-launchpad.html",
+    "fiori-intent-navigation": "docs/ui5/fiori-intent-navigation.html",
+    "fiori-elements-annotation": "docs/ui5/fiori-elements-annotation.html",
+    "fiori-elements": "docs/ui5/fiori-elements.html",
+    "fiori-elements-advanced": "docs/ui5/fiori-elements-advanced.html",
+    "rap-behavior-logic": "docs/ui5/rap-behavior-logic.html",
+    "rap-service-binding-ui": "docs/ui5/rap-service-binding-ui.html",
+    "rap-fiori-elements-advanced": "docs/ui5/rap-fiori-elements-advanced.html",
+
+    // Area D: SAP Module Basics
+    "module-overview": "docs/module/module-basics-for-developers.html",
+    "table-map": "docs/module/standard-table-map.html",
+    "mm": "docs/module/mm-process-tables.html",
+    "pp": "docs/module/pp-process-tables.html",
+    "atp": "docs/module/pp-atp.html",
+    "mrp": "docs/module/pp-mrp.html",
+    "safety-stock": "docs/module/pp-safety-stock.html",
+    "sd": "docs/module/sd-process-tables.html",
+    "fi": "docs/module/fi-process-tables.html",
+    "fi-gl-adult": "docs/module/fi-gl-number-range.html",
+    "fi-gl-elementary": "docs/module/fi-gl-number-range-elementary.html",
+    "fi-gl-visual": "docs/module/fi-gl-number-range-visual-guide.html",
+    "co": "docs/module/co-process-tables.html",
+    "auth-intro": "docs/module/auth-intro.html",
+    "wm-ewm-basics": "docs/module/wm-ewm-basics.html",
+    "hr-hcm-basics": "docs/module/hr-hcm-basics.html",
+
+    // Area E: Integrated Practice
+    "flight-model": "docs/practice/flight-model-guide.html",
+    "flight-integrated": "docs/practice/flight-practice.html",
+    "flight-rap-migration": "docs/practice/flight-rap-migration.html",
+    "mini-project-sd": "docs/practice/mini-project-sd-query.html",
+
+    // Area F: Reference / Operations
+    "glossary": "docs/reference/sap-developer-glossary.html",
+    "style-guide": "docs/reference/sap-developer-writing-style-guide.html",
+    "prose-audit": "archive/v3/99-reference/prose-audit-report-v3-5.html",
+    "final-audit": "archive/v3/99-reference/final-audit-report-v3.html",
+    "stage5-navigation-report": "archive/v3/99-reference/stage5-navigation-report.html",
+    "abap-unit-test-intro": "docs/reference/abap-unit-test-intro.html",
+    "sap-coding-convention": "docs/reference/sap-coding-convention.html"
+  };
+
+  const NAV_CATEGORIES = {
+    "roadmap": { "title": "로드맵 / 학습전략", "page": "roadmap.html" },
+    "abap": { "title": "ABAP 개발", "page": "abap.html" },
+    "ui5": { "title": "UI5 / Fiori 개발", "page": "ui5-fiori.html" },
+    "module": { "title": "SAP 모듈 기초", "page": "module-basics.html" },
+    "practice": { "title": "통합 실습", "page": "integrated-practice.html" },
+    "reference": { "title": "Reference / 운영", "page": "reference.html" }
+  };
+
+  const NAV_TREE = [
+    {
+      "id": "roadmap",
+      "title": "로드맵 / 학습전략",
+      "href": "pages/roadmap.html",
+      "docs": ["roadmap", "tools", "debug", "requirements-analysis", "cts-transport"]
+    },
+    {
+      "id": "abap",
+      "title": "ABAP 개발",
+      "href": "pages/abap.html",
+      "groups": [
+        { "title": "1단계. 아키텍처 기초", "docs": ["abap-as-abap-overview"] },
+        { "title": "2단계. 기본 문법", "docs": ["abap-basic-syntax"] },
+        { "title": "3단계. DDIC 설계", "docs": ["abap-ddic-basics"] },
+        { "title": "4단계. Classic Report", "docs": ["abap-classic"] },
+        { "title": "5단계. DB & 트랜잭션", "docs": ["abap-db-luw-lock"] },
+        { "title": "6단계. Dynpro UI", "docs": ["abap-screen-dynpro"] },
+        { "title": "7단계. OO ABAP", "docs": ["abap-object-oriented"] },
+        { "title": "8단계. 성능 분석", "docs": ["abap-debugging-analysis"] },
+        { "title": "9단계. 표준 확장", "docs": ["abap-enhancement-badi"] },
+        { "title": "10단계. Modern ABAP", "docs": ["abap-new-syntax", "abap-clean-unit-test"] },
+        { "title": "11단계. CDS View", "docs": ["cds-odata", "odata-export"] },
+        { "title": "12단계. 현대적 개발 모델", "docs": ["gateway-odata-v2-crud", "rap-e2e", "rap-action", "abap-cloud"] },
+        { "title": "부록. 실무 심화", "docs": ["abap-rfc-bapi", "abap-idoc-intro", "abap-amdp-tuning", "abap-smart-adobe-forms"] }
+      ]
+    },
+    {
+      "id": "ui5",
+      "title": "UI5 / Fiori 개발",
+      "href": "pages/ui5-fiori.html",
+      "groups": [
+        { "title": "Part 1. JS 기초", "docs": ["js-core-basics", "js-async-promise"] },
+        { "title": "Part 2. UI5 입문", "docs": ["ui5-architecture-project", "ui5-mvc-xmlview", "ui5-controller", "ui5-odata-crud", "ui5-messaging", "ui5-routing", "ui5-fragment-dialog", "ui5-i18n-multilingual"] },
+        { "title": "Part 3. UI5 심화", "docs": ["ui5-custom-control", "ui5-metadata-patterns", "ui5-mockserver-git", "ui5-qunit-opa-testing", "ui5-data-flow"] },
+        { "title": "Part 4. Gateway 연동", "docs": ["gateway-segw-crud-details", "gateway-odata-advanced"] },
+        { "title": "Part 5. FLP 통합", "docs": ["flp", "fiori-intent-navigation"] },
+        { "title": "Part 6. Fiori Elements", "docs": ["fiori-elements-annotation", "fiori-elements", "fiori-elements-advanced"] },
+        { "title": "Part 7. RAP + UI5 통합", "docs": ["rap-behavior-logic", "rap-service-binding-ui", "rap-fiori-elements-advanced"] }
+      ]
+    },
+    {
+      "id": "module",
+      "title": "SAP 모듈 기초",
+      "href": "pages/module-basics.html",
+      "groups": [
+        { "title": "공통 지식", "docs": ["module-overview", "table-map"] },
+        { "title": "구매 (MM)", "docs": ["mm"] },
+        { "title": "생산 (PP)", "docs": ["pp", "atp", "mrp", "safety-stock"] },
+        { "title": "영업 (SD)", "docs": ["sd"] },
+        { "title": "회계 (FI)", "docs": ["fi", "fi-gl-adult", "fi-gl-elementary", "fi-gl-visual"] },
+        { "title": "원가 (CO)", "docs": ["co"] },
+        { "title": "추가 핵심 모듈", "docs": ["auth-intro", "wm-ewm-basics", "hr-hcm-basics"] }
+      ]
+    },
+    {
+      "id": "practice",
+      "title": "통합 실습",
+      "href": "pages/integrated-practice.html",
+      "groups": [
+        { "title": "실습 준비", "docs": ["flight-model"] },
+        { "title": "실습 수행", "docs": ["flight-integrated", "flight-rap-migration", "mini-project-sd"] }
+      ]
+    },
+    {
+      "id": "reference",
+      "title": "Reference / 운영",
+      "href": "pages/reference.html",
+      "groups": [
+        { "title": "참고 자료", "docs": ["glossary"] },
+        { "title": "운영 가이드", "docs": ["style-guide", "prose-audit", "final-audit", "stage5-navigation-report"] },
+        { "title": "추가 가이드", "docs": ["abap-unit-test-intro", "sap-coding-convention"] }
+      ]
+    }
+  ];
 
   function depthPrefix() {
     const path = window.location.pathname;
     if (path.includes("/v3/")) return "../../";
+    if (path.includes("/docs/")) {
+      // docs folder has subfolders: /docs/roadmap/file.html etc.
+      // So path will have 2 levels below root.
+      const match = path.match(/\/docs\/[^\/]+\/[^\/]+$/);
+      if (match) return "../../";
+      return "../";
+    }
     if (path.includes("/pages/")) return "../";
+    if (path.includes("/archive/")) return "../../../";
     return "./";
   }
 
   function docHref(docId) {
+    const doc = NAV_DOCS[docId];
+    if (doc && doc.preparing) {
+      return "javascript:void(0)";
+    }
     const prefix = depthPrefix();
     return prefix + (NAV_PATHS[docId] || ("v3/" + NAV_DOCS[docId].file));
   }
@@ -299,6 +575,9 @@
     const doc = NAV_DOCS[docId];
     if (!doc) return "";
     const isActive = activeDoc && doc.file === activeDoc;
+    if (doc.preparing) {
+      return '<a class="tree-link disabled" style="pointer-events: none; color: #94a3b8; cursor: default;" href="javascript:void(0)" title="준비 중">' + doc.title + ' <span style="font-size: 0.65rem; padding: 1px 5px; border-radius: 999px; background: #fef3c7; color: #d97706; font-weight: 900; margin-left: 4px;">준비 중</span></a>';
+    }
     return '<a class="tree-link' + (isActive ? ' active' : '') + '" href="' + docHref(docId) + '">' + doc.title + '</a>';
   }
 

@@ -278,7 +278,7 @@
       "style_issue_count": 1
     },
     {
-      "file": "v3/99-reference/sap-developer-glossary-v3.html",
+      "file": "docs/reference/sap-developer-glossary.html",
       "block_count": 6,
       "counts": {
         "summary": 3,
@@ -304,7 +304,7 @@
       "style_issue_count": 0
     },
     {
-      "file": "v3/99-reference/sap-developer-writing-style-guide-v3.html",
+      "file": "docs/reference/sap-developer-writing-style-guide.html",
       "block_count": 10,
       "counts": {
         "summary": 3,
@@ -315,7 +315,7 @@
       "invalid": [],
       "style_issues": [
         {
-          "file": "v3/99-reference/sap-developer-writing-style-guide-v3.html",
+          "file": "docs/reference/sap-developer-writing-style-guide.html",
           "block": 3,
           "block_id": "principle",
           "data_prose": "practice",
@@ -324,7 +324,7 @@
           "sample": "01 · 원칙 문체는 문서의 기능에 맞춘다 개념 설명은 기술 서적처럼 간결한 평서형을 사용한다.\n        실습 절차와 체크리스트는 학습자의 행동을 이끄는 지시형을 사용한다.\n        강사용 메모는 수업 진행자에게 전달하는 안내이므로 존칭형을 유지합니다. 개념 설명 평서형을 사용한다. 예: UI5는 입력값을 Mo"
         },
         {
-          "file": "v3/99-reference/sap-developer-writing-style-guide-v3.html",
+          "file": "docs/reference/sap-developer-writing-style-guide.html",
           "block": 6,
           "block_id": "mini-card",
           "data_prose": "practice",
@@ -333,7 +333,7 @@
           "sample": "강사용 메모 존칭형을 사용합니다. 예: 이 단계에서는 학생에게 화면 값과 Model 값의 차이를 먼저 질문하는 것이 좋습니다."
         },
         {
-          "file": "v3/99-reference/sap-developer-writing-style-guide-v3.html",
+          "file": "docs/reference/sap-developer-writing-style-guide.html",
           "block": 7,
           "block_id": "examples",
           "data_prose": "practice",
@@ -342,7 +342,7 @@
           "sample": "02 · 예시 같은 내용을 상황별로 다르게 표현한다 상황 권장 표현 사용 위치 개념 설명 Input은 사용자가 값을 입력하는 UI Control이다. 본문, 개념 카드, 표 설명 절차 안내 Input에 abc를 입력한다. Model 값이 변경되지 않는지 확인한다. 실습, 따라하기, 체크리스트 주의사항 화면 값과 Model"
         },
         {
-          "file": "v3/99-reference/sap-developer-writing-style-guide-v3.html",
+          "file": "docs/reference/sap-developer-writing-style-guide.html",
           "block": 8,
           "block_id": "rewrite",
           "data_prose": "reference",
@@ -581,7 +581,7 @@
       "style_issue_count": 0
     },
     {
-      "file": "v3/99-reference/sap-odata-external-export-summary-v3.html",
+      "file": "docs/abap/abap-odata-export.html",
       "block_count": 7,
       "counts": {
         "summary": 3,
@@ -917,7 +917,7 @@
       "sample": "01 · 오류 위치 오류는 먼저 위치를 나눠야 한다 증상 우선 확인 위치 대표 도구 ABAP 로직 결과가 이상함 서버 로직 ADT Debugger OData 호출 실패 Gateway / HTTP 응답 Gateway Client, Network 화면 버튼이 작동 안 함 UI5 Controller Browser Console"
     },
     {
-      "file": "v3/99-reference/sap-developer-writing-style-guide-v3.html",
+      "file": "docs/reference/sap-developer-writing-style-guide.html",
       "block": 3,
       "block_id": "principle",
       "data_prose": "practice",
@@ -926,7 +926,7 @@
       "sample": "01 · 원칙 문체는 문서의 기능에 맞춘다 개념 설명은 기술 서적처럼 간결한 평서형을 사용한다.\n        실습 절차와 체크리스트는 학습자의 행동을 이끄는 지시형을 사용한다.\n        강사용 메모는 수업 진행자에게 전달하는 안내이므로 존칭형을 유지합니다. 개념 설명 평서형을 사용한다. 예: UI5는 입력값을 Mo"
     },
     {
-      "file": "v3/99-reference/sap-developer-writing-style-guide-v3.html",
+      "file": "docs/reference/sap-developer-writing-style-guide.html",
       "block": 6,
       "block_id": "mini-card",
       "data_prose": "practice",
@@ -935,7 +935,7 @@
       "sample": "강사용 메모 존칭형을 사용합니다. 예: 이 단계에서는 학생에게 화면 값과 Model 값의 차이를 먼저 질문하는 것이 좋습니다."
     },
     {
-      "file": "v3/99-reference/sap-developer-writing-style-guide-v3.html",
+      "file": "docs/reference/sap-developer-writing-style-guide.html",
       "block": 7,
       "block_id": "examples",
       "data_prose": "practice",
@@ -944,7 +944,7 @@
       "sample": "02 · 예시 같은 내용을 상황별로 다르게 표현한다 상황 권장 표현 사용 위치 개념 설명 Input은 사용자가 값을 입력하는 UI Control이다. 본문, 개념 카드, 표 설명 절차 안내 Input에 abc를 입력한다. Model 값이 변경되지 않는지 확인한다. 실습, 따라하기, 체크리스트 주의사항 화면 값과 Model"
     },
     {
-      "file": "v3/99-reference/sap-developer-writing-style-guide-v3.html",
+      "file": "docs/reference/sap-developer-writing-style-guide.html",
       "block": 8,
       "block_id": "rewrite",
       "data_prose": "reference",

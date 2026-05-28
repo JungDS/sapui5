@@ -314,6 +314,7 @@ Stage 7 Shell은 `body[data-page-type]`이 있는 페이지에서만 동작한�
 
 | 구분 | 문서 | PR |
 |---|---|---|
+| 완료 | ABAP Landing Page 아코디언 및 트랙 개편 | 로컬 작업 |
 | 완료 | Stage 7 Shell 문서목차 인식 보정 | 로컬 작업 |
 | 완료 | RAP End-to-End 운영 링크 연결 | 로컬 작업 |
 | 완료 | SAP 모듈 기초 문서 13개 docs 운영화 | 로컬 작업 |
@@ -400,6 +401,13 @@ docs/abap/cds-to-odata.html
 ---
 
 ## 10.1 2026-05-29 로컬 진행 이력
+
+### ABAP Landing Page 아코디언 및 트랙 개편
+
+- `pages/abap.html`을 기존의 단순 목록형에서 2대 트랙(Modern Fiori App 개발, 실무 필수 핵심 기술) 및 10대 핵심 영역 아코디언(접이식) 레이아웃으로 개편했다.
+- Classic ABAP 기초(문법 ➔ DDIC ➔ ITAB ➔ SQL/ALV)를 4단계 순차 서브 카드로 구조화했다.
+- 준비 중인 영역의 카드 디자인을 점선 스타일로 깔끔히 반영하고, 검색 필터 시 해당 아코디언이 자동 개방되는 미크로 스크립트를 구현했다.
+- 수정 전 Landing Page 원본은 `archive/docs/landing/abap/20260529_015502_v4.0.html`에 보관하고 버전을 `v5.0`으로 갱신했다.
 
 ### Stage 7 Shell 문서목차 인식 보정
 

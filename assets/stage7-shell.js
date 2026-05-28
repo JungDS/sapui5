@@ -6,7 +6,6 @@
   const ICON_HOME = '<svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3 2.5 11.2l1.3 1.5L5 11.6V20h5.5v-5h3v5H19v-8.4l1.2 1.1 1.3-1.5L12 3Zm0 2.6 5 4.3V18h-1.5v-5h-7v5H7v-8.1l5-4.3Z"/></svg>';
   const ICON_PREV = '<svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14.7 6.3 9 12l5.7 5.7-1.4 1.4L6.2 12l7.1-7.1 1.4 1.4Z"/></svg>';
   const ICON_NEXT = '<svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m9.3 17.7 5.7-5.7-5.7-5.7 1.4-1.4 7.1 7.1-7.1 7.1-1.4-1.4Z"/></svg>';
-  const ICON_PANEL = '<svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 5h16v14H4V5Zm2 2v10h9V7H6Zm11 0v10h1V7h-1Z"/></svg>';
 
   const CATEGORY_HOME = {
     roadmap: { title: "로드맵", href: "pages/roadmap.html" },
@@ -18,65 +17,140 @@
   };
 
   const DOCS = {
-    "roadmap": { title: "SAP 개발자 학습 로드맵", category: "roadmap", href: "v3/00-roadmap/sap-developer-learning-roadmap-v3.html" },
-    "tools": { title: "SAP 개발 환경과 도구 입문", category: "roadmap", href: "v3/00-roadmap/sap-development-tools-overview-v3.html" },
-    "debug": { title: "SAP 개발 디버깅 / 트러블슈팅 통합 가이드", category: "roadmap", href: "v3/00-roadmap/sap-debugging-troubleshooting-guide-v3.html", aliases: ["debugging"] },
-    "abap-classic": { title: "Classic ABAP 기본기", category: "abap", href: "docs/abap/abap-classic-report-itab-alv.html", legacyHref: "v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html" },
-    "abap-new-syntax": { title: "ABAP New Syntax 입문", category: "abap", href: "docs/abap/abap-new-syntax.html", legacyHref: "v3/01-abap/abap-new-syntax-beginner-guide-v3.html" },
-    "cds-odata": { title: "CDS View에서 OData 노출까지", category: "abap", href: "docs/abap/cds-to-odata.html", legacyHref: "v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html" },
-    "gateway-odata-v2-crud": { title: "Gateway / OData V2 CRUD 입문", category: "abap", href: "docs/abap/gateway-odata-v2-crud.html", legacyHref: "v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html", aliases: ["gateway"] },
-    "rap-e2e": { title: "RAP End-to-End 입문", category: "abap", href: "docs/abap/rap-end-to-end.html", legacyHref: "v3/01-abap/sap-rap-end-to-end-beginner-guide-v3.html" },
-    "rap-action": { title: "RAP Action 다건 선택 처리", category: "abap", href: "docs/abap/rap-action.html", legacyHref: "v3/01-abap/rap-action-invocation-grouping-v3.html" },
-    "abap-cloud": { title: "ABAP Cloud App Development 정리", category: "abap", href: "docs/abap/abap-cloud.html", legacyHref: "v3/01-abap/abap-cloud-app-development-summary-v3.html" },
-    "odata-export": { title: "SAP 데이터를 외부로 내보내는 방법 정리", category: "abap", href: "v3/99-reference/sap-odata-external-export-summary-v3.html" },
-    "ui5-controller": { title: "UI5 Controller 함수 문법 입문", category: "ui5", href: "docs/ui5/sapui5-controller-function-intro.html", legacyHref: "v3/02-ui5-fiori/sapui5-controller-function-intro-v3.html" },
-    "ui5-odata-crud": { title: "SAPUI5 OData Model과 CRUD 입문", category: "ui5", href: "docs/ui5/sapui5-odata-model-crud.html", legacyHref: "v3/02-ui5-fiori/sapui5-odata-model-crud-beginner-guide-v3.html" },
-    "ui5-messaging": { title: "Messaging과 Input Validation 실무 입문", category: "ui5", href: "docs/ui5/sapui5-messaging-input-validation.html", legacyHref: "v3/02-ui5-fiori/sapui5-messaging-input-validation-v3.html" },
-    "ui5-routing": { title: "SAPUI5 Routing과 Layout 입문", category: "ui5", href: "docs/ui5/sapui5-routing-layout.html", legacyHref: "v3/02-ui5-fiori/sapui5-routing-layout-beginner-guide-v3.html" },
-    "ui5-data-flow": { title: "SAPUI5 데이터 흐름과 Messaging 아키텍처", category: "ui5", href: "docs/ui5/sapui5-messaging-data-flow.html", legacyHref: "v3/02-ui5-fiori/sapui5-messaging-data-flow-v3.html" },
-    "fiori-elements": { title: "Fiori Elements 입문", category: "ui5", href: "docs/ui5/fiori-elements.html", legacyHref: "v3/02-ui5-fiori/sap-fiori-elements-beginner-guide-v3.html" },
-    "flp": { title: "Fiori Launchpad 배포와 Semantic Object 입문", category: "ui5", href: "docs/ui5/fiori-launchpad-deployment.html", legacyHref: "v3/02-ui5-fiori/sap-fiori-launchpad-deployment-beginner-guide-v3.html" },
-    "module-overview": { title: "SAP 모듈 기초와 개발자 관점", category: "module", href: "docs/module/module-basics-for-developers.html", legacyHref: "v3/03-module-basics/sap-module-basics-for-developers-v3.html" },
-    "table-map": { title: "SAP Standard Table Map 입문", category: "module", href: "docs/module/standard-table-map.html", legacyHref: "v3/03-module-basics/sap-standard-table-map-for-developers-v3.html" },
-    "mm": { title: "MM 프로세스와 주요 테이블 입문", category: "module", href: "docs/module/mm-process-tables.html", legacyHref: "v3/03-module-basics/sap-mm-process-and-tables-beginner-v3.html" },
-    "pp": { title: "PP 프로세스와 주요 테이블 입문", category: "module", href: "docs/module/pp-process-tables.html", legacyHref: "v3/03-module-basics/sap-pp-process-and-tables-beginner-v3.html" },
-    "sd": { title: "SD 프로세스와 주요 테이블 입문", category: "module", href: "docs/module/sd-process-tables.html", legacyHref: "v3/03-module-basics/sap-sd-process-and-tables-beginner-v3.html" },
-    "fi": { title: "FI 프로세스와 주요 테이블 입문", category: "module", href: "docs/module/fi-process-tables.html", legacyHref: "v3/03-module-basics/sap-fi-process-and-tables-beginner-v3.html" },
-    "co": { title: "CO 프로세스와 주요 테이블 입문", category: "module", href: "docs/module/co-process-tables.html", legacyHref: "v3/03-module-basics/sap-co-process-and-tables-beginner-v3.html" },
-    "atp": { title: "SAP ATP 학생 학습 패키지", category: "module", href: "docs/module/pp-atp.html", legacyHref: "v3/03-module-basics/sap-pp-atp-learning-package-v3.html" },
-    "mrp": { title: "MRP 학생 배포용 학습 패키지", category: "module", href: "docs/module/pp-mrp.html", legacyHref: "v3/03-module-basics/sap-pp-mrp-learning-package-v3.html" },
-    "safety-stock": { title: "SAP 안전재고 관리 학생 학습 패키지", category: "module", href: "docs/module/pp-safety-stock.html", legacyHref: "v3/03-module-basics/sap-pp-safety-stock-learning-package-v3.html" },
-    "fi-gl-adult": { title: "SAP FI G/L Accounts 번호범위 정리", category: "module", href: "docs/module/fi-gl-number-range.html", legacyHref: "v3/03-module-basics/sap-fi-gl-number-range-adult-v3.html" },
-    "fi-gl-elementary": { title: "SAP FI G/L Accounts 번호범위 초급 비유형", category: "module", href: "docs/module/fi-gl-number-range-elementary.html", legacyHref: "v3/03-module-basics/sap-fi-gl-number-range-elementary-v3.html" },
-    "fi-gl-visual": { title: "SAP FI G/L Accounts 번호범위 Visual Guide", category: "module", href: "docs/module/fi-gl-number-range-visual-guide.html", legacyHref: "v3/03-module-basics/sap-fi-gl-number-range-visual-deck-v3.html" },
-    "flight-model": { title: "SAP Flight Model 데이터 구조 해설", category: "practice", href: "docs/practice/flight-model-table-guide.html", legacyHref: "v3/04-integrated-practice/sap-flight-model-table-guide-v3.html" },
-    "flight-integrated": { title: "Flight 통합 실습 최신본", category: "practice", href: "docs/practice/flight-integrated-practice.html", legacyHref: "v3/04-integrated-practice/sap-flight-integrated-practice-classrun-gateway-ui5-v3.html" },
-    "glossary": { title: "SAP 개발자 용어사전", category: "reference", href: "v3/99-reference/sap-developer-glossary-v3.html" },
-    "style-guide": { title: "SAP Developer Learning Library 문체 기준", category: "reference", href: "v3/99-reference/sap-developer-writing-style-guide-v3.html" },
-    "prose-audit": { title: "문체 구조화 자동 검수 리포트", category: "reference", href: "v3/99-reference/prose-audit-report-v3-5.html" },
-    "final-audit": { title: "SAP Developer Learning Library v3 최종 검수 리포트", category: "reference", href: "v3/99-reference/final-audit-report-v3.html" }
+    // Area A: Roadmap (로드맵)
+    "roadmap": { title: "SAP 개발자 학습 로드맵", category: "roadmap", href: "docs/roadmap/developer-learning-roadmap.html", group: "학습 가이드" },
+    "tools": { title: "SAP 개발 환경과 도구 입문", category: "roadmap", href: "docs/roadmap/development-tools-overview.html", group: "학습 가이드" },
+    "debug": { title: "SAP 개발 디버깅 / 트러블슈팅 통합 가이드", category: "roadmap", href: "docs/roadmap/dev-debugging.html", aliases: ["debugging"], group: "학습 가이드" },
+    "requirements-analysis": { title: "SAP 개발 요구사항 분석법", category: "roadmap", href: "docs/roadmap/requirements-analysis-guide.html", preparing: true, group: "학습 가이드" },
+    "cts-transport": { title: "Transport Request / CTS 입문", category: "roadmap", href: "docs/roadmap/cts-transport-intro.html", preparing: true, group: "학습 가이드" },
+
+    // Area B: ABAP 개발 (ABAP)
+    "abap-as-abap-overview": { title: "SAP AS ABAP 개요 & 아키텍처 기초", category: "abap", href: "docs/abap/abap-as-abap-overview.html", preparing: true, group: "1단계. 아키텍처 기초" },
+    "abap-basic-syntax": { title: "ABAP 기본 문법 및 메모리 처리", category: "abap", href: "docs/abap/abap-basic-syntax.html", preparing: true, group: "2단계. 기본 문법" },
+    "abap-ddic-basics": { title: "ABAP Dictionary (DDIC) 설계", category: "abap", href: "docs/abap/abap-ddic-basics.html", preparing: true, group: "3단계. DDIC 설계" },
+    "abap-classic": { title: "Classic Report & ALV 기초", category: "abap", href: "docs/abap/abap-classic-report-itab-alv.html", legacyHref: "v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html", group: "4단계. Classic Report" },
+    "abap-db-luw-lock": { title: "DB 제어 및 트랜잭션 관리", category: "abap", href: "docs/abap/abap-db-luw-lock.html", preparing: true, group: "5단계. DB & 트랜잭션" },
+    "abap-screen-dynpro": { title: "Screen UI 개발 (Dynpro)", category: "abap", href: "docs/abap/abap-screen-dynpro.html", preparing: true, group: "6단계. Dynpro UI" },
+    "abap-object-oriented": { title: "Object-Oriented ABAP", category: "abap", href: "docs/abap/abap-object-oriented.html", preparing: true, group: "7단계. OO ABAP" },
+    "abap-debugging-analysis": { title: "디버깅 및 런타임 분석", category: "abap", href: "docs/abap/abap-debugging-analysis.html", preparing: true, group: "8단계. 성능 분석" },
+    "abap-enhancement-badi": { title: "표준 확장 및 Enhancement", category: "abap", href: "docs/abap/abap-enhancement-badi.html", preparing: true, group: "9단계. 표준 확장" },
+    "abap-new-syntax": { title: "Modern ABAP & Clean Code", category: "abap", href: "docs/abap/abap-new-syntax.html", legacyHref: "v3/01-abap/abap-new-syntax-beginner-guide-v3.html", group: "10단계. Modern ABAP" },
+    "abap-clean-unit-test": { title: "Clean ABAP & ABAP Unit Test", category: "abap", href: "docs/abap/abap-clean-unit-test.html", preparing: true, group: "10단계. Modern ABAP" },
+    "cds-odata": { title: "ABAP Core Data Services (CDS)", category: "abap", href: "docs/abap/cds-to-odata.html", legacyHref: "v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html", group: "11단계. CDS View" },
+    "odata-export": { title: "SAP 데이터를 외부로 내보내는 방법 정리", category: "abap", href: "docs/abap/abap-odata-export.html", group: "11단계. CDS View" },
+    "gateway-odata-v2-crud": { title: "Gateway / OData V2 CRUD 입문", category: "abap", href: "docs/abap/gateway-odata-v2-crud.html", legacyHref: "v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html", aliases: ["gateway"], group: "12단계. 현대적 개발 모델" },
+    "rap-e2e": { title: "RAP End-to-End 입문", category: "abap", href: "docs/abap/rap-end-to-end.html", legacyHref: "v3/01-abap/sap-rap-end-to-end-beginner-guide-v3.html", group: "12단계. 현대적 개발 모델" },
+    "rap-action": { title: "RAP Action 다건 선택 처리", category: "abap", href: "docs/abap/rap-action.html", legacyHref: "v3/01-abap/rap-action-invocation-grouping-v3.html", group: "12단계. 현대적 개발 모델" },
+    "abap-cloud": { title: "ABAP Cloud App Development 정리", category: "abap", href: "docs/abap/abap-cloud.html", legacyHref: "v3/01-abap/abap-cloud-app-development-summary-v3.html", group: "12단계. 현대적 개발 모델" },
+    "abap-rfc-bapi": { title: "RFC / BAPI 인터페이스 입문", category: "abap", href: "docs/abap/abap-rfc-bapi.html", preparing: true, group: "부록. 실무 심화" },
+    "abap-idoc-intro": { title: "IDoc 연계 아키텍처 입문", category: "abap", href: "docs/abap/abap-idoc-intro.html", preparing: true, group: "부록. 실무 심화" },
+    "abap-amdp-tuning": { title: "AMDP & SQL Performance Tuning", category: "abap", href: "docs/abap/abap-amdp-tuning.html", preparing: true, group: "부록. 실무 심화" },
+    "abap-smart-adobe-forms": { title: "SAP 출력 Form (Smart Forms / Adobe Forms)", category: "abap", href: "docs/abap/abap-smart-adobe-forms.html", preparing: true, group: "부록. 실무 심화" },
+
+    // Area C: UI5/Fiori 개발 (UI5)
+    "js-core-basics": { title: "Modern Javascript 핵심", category: "ui5", href: "docs/ui5/js-core-basics.html", preparing: true, group: "Part 1. JS 기초" },
+    "js-async-promise": { title: "비동기 Javascript 입문", category: "ui5", href: "docs/ui5/js-async-promise.html", preparing: true, group: "Part 1. JS 기초" },
+    "ui5-architecture-project": { title: "UI5 아키텍처 및 개발 환경", category: "ui5", href: "docs/ui5/ui5-architecture-project.html", preparing: true, group: "Part 2. UI5 입문" },
+    "ui5-mvc-xmlview": { title: "UI5 MVC 패턴과 XML View 기초", category: "ui5", href: "docs/ui5/ui5-mvc-xmlview.html", preparing: true, group: "Part 2. UI5 입문" },
+    "ui5-controller": { title: "UI5 Controller 함수 문법 입문", category: "ui5", href: "docs/ui5/ui5-controller-basics.html", legacyHref: "v3/02-ui5-fiori/sapui5-controller-function-intro-v3.html", group: "Part 2. UI5 입문" },
+    "ui5-odata-crud": { title: "SAPUI5 OData Model과 CRUD 입문", category: "ui5", href: "docs/ui5/ui5-odata-crud.html", legacyHref: "v3/02-ui5-fiori/sapui5-odata-model-crud-beginner-guide-v3.html", group: "Part 2. UI5 입문" },
+    "ui5-messaging": { title: "Messaging과 Input Validation 실무 입문", category: "ui5", href: "docs/ui5/ui5-validation-messaging.html", legacyHref: "v3/02-ui5-fiori/sapui5-messaging-input-validation-v3.html", group: "Part 2. UI5 입문" },
+    "ui5-routing": { title: "SAPUI5 Routing과 Layout 입문", category: "ui5", href: "docs/ui5/ui5-routing-layout.html", legacyHref: "v3/02-ui5-fiori/sapui5-routing-layout-beginner-guide-v3.html", group: "Part 2. UI5 입문" },
+    "ui5-fragment-dialog": { title: "UI5 Fragment & Dialog 활용", category: "ui5", href: "docs/ui5/ui5-fragment-dialog.html", preparing: true, group: "Part 2. UI5 입문" },
+    "ui5-i18n-multilingual": { title: "UI5 i18n 글로벌 다국어 처리", category: "ui5", href: "docs/ui5/ui5-i18n-multilingual.html", preparing: true, group: "Part 2. UI5 입문" },
+    "ui5-custom-control": { title: "Custom Control 및 Reuse Component 구현", category: "ui5", href: "docs/ui5/sapui5-custom-control.html", preparing: true, group: "Part 3. UI5 심화" },
+    "ui5-metadata-patterns": { title: "Metadata 활용 및 애플리케이션 패턴", category: "ui5", href: "docs/ui5/ui5-metadata-patterns.html", preparing: true, group: "Part 3. UI5 심화" },
+    "ui5-mockserver-git": { title: "UI5 Mock Server와 Git 협업 기법", category: "ui5", href: "docs/ui5/ui5-mockserver-git.html", preparing: true, group: "Part 3. UI5 심화" },
+    "ui5-qunit-opa-testing": { title: "UI5 테스팅 기초 (QUnit & OPA)", category: "ui5", href: "docs/ui5/ui5-qunit-opa-testing.html", preparing: true, group: "Part 3. UI5 심화" },
+    "ui5-data-flow": { title: "SAPUI5 데이터 흐름과 Messaging 아키텍처", category: "ui5", href: "docs/ui5/ui5-data-flow.html", legacyHref: "v3/02-ui5-fiori/sapui5-messaging-data-flow-v3.html", group: "Part 3. UI5 심화" },
+    "gateway-segw-crud-details": { title: "SAP Gateway & OData V2 CRUD 개발 실무", category: "ui5", href: "docs/ui5/gateway-segw-crud-details.html", preparing: true, group: "Part 4. Gateway 연동" },
+    "gateway-odata-advanced": { title: "OData 고급 연계 (Batch, Function Import)", category: "ui5", href: "docs/ui5/gateway-odata-advanced.html", preparing: true, group: "Part 4. Gateway 연동" },
+    "flp": { title: "Fiori 디자인 원칙과 Launchpad 배포", category: "ui5", href: "docs/ui5/fiori-launchpad.html", legacyHref: "v3/02-ui5-fiori/sap-fiori-launchpad-deployment-beginner-guide-v3.html", group: "Part 5. Launchpad 통합" },
+    "fiori-intent-navigation": { title: "Intent Navigation과 Semantic Object 설계", category: "ui5", href: "docs/ui5/fiori-intent-navigation.html", preparing: true, group: "Part 5. Launchpad 통합" },
+    "fiori-elements-annotation": { title: "CDS View와 OData Annotation 설계", category: "ui5", href: "docs/ui5/fiori-elements-annotation.html", preparing: true, group: "Part 6. Fiori Elements" },
+    "fiori-elements": { title: "Fiori Elements 애플리케이션 개발", category: "ui5", href: "docs/ui5/fiori-elements.html", legacyHref: "v3/02-ui5-fiori/sap-fiori-elements-beginner-guide-v3.html", group: "Part 6. Fiori Elements" },
+    "fiori-elements-advanced": { title: "Fiori Elements 심화 (Action, Draft)", category: "ui5", href: "docs/ui5/fiori-elements-advanced.html", preparing: true, group: "Part 6. Fiori Elements" },
+    "rap-behavior-logic": { title: "RAP Behavior와 비즈니스 로직 구현", category: "ui5", href: "docs/ui5/rap-behavior-logic.html", preparing: true, group: "Part 7. RAP + UI5 통합" },
+    "rap-service-binding-ui": { title: "RAP 기반 Service Definition 및 UI 연동", category: "ui5", href: "docs/ui5/rap-service-binding-ui.html", preparing: true, group: "Part 7. RAP + UI5 통합" },
+    "rap-fiori-elements-advanced": { title: "RAP Fiori Elements 자동 생성 및 Draft 연동", category: "ui5", href: "docs/ui5/rap-fiori-elements-advanced.html", preparing: true, group: "Part 7. RAP + UI5 통합" },
+
+    // Area D: SAP 모듈 기초 (module)
+    "module-overview": { title: "SAP 모듈 기초와 개발자 관점", category: "module", href: "docs/module/module-basics-for-developers.html", legacyHref: "v3/03-module-basics/sap-module-basics-for-developers-v3.html", group: "공통 지식" },
+    "table-map": { title: "SAP Standard Table Map 입문", category: "module", href: "docs/module/standard-table-map.html", legacyHref: "v3/03-module-basics/sap-standard-table-map-for-developers-v3.html", group: "공통 지식" },
+    "mm": { title: "MM 프로세스와 주요 테이블 입문", category: "module", href: "docs/module/mm-process-tables.html", legacyHref: "v3/03-module-basics/sap-mm-process-and-tables-beginner-v3.html", group: "구매 (MM)" },
+    "pp": { title: "PP 프로세스와 주요 테이블 입문", category: "module", href: "docs/module/pp-process-tables.html", legacyHref: "v3/03-module-basics/sap-pp-process-and-tables-beginner-v3.html", group: "생산 (PP)" },
+    "atp": { title: "SAP ATP 학생 학습 패키지", category: "module", href: "docs/module/pp-atp.html", legacyHref: "v3/03-module-basics/sap-pp-atp-learning-package-v3.html", group: "생산 (PP)" },
+    "mrp": { title: "MRP 학생 배포용 학습 패키지", category: "module", href: "docs/module/pp-mrp.html", legacyHref: "v3/03-module-basics/sap-pp-mrp-learning-package-v3.html", group: "생산 (PP)" },
+    "safety-stock": { title: "SAP 안전재고 관리 학생 학습 패키지", category: "module", href: "docs/module/pp-safety-stock.html", legacyHref: "v3/03-module-basics/sap-pp-safety-stock-learning-package-v3.html", group: "생산 (PP)" },
+    "sd": { title: "SD 프로세스와 주요 테이블 입문", category: "module", href: "docs/module/sd-process-tables.html", legacyHref: "v3/03-module-basics/sap-sd-process-and-tables-beginner-v3.html", group: "영업 (SD)" },
+    "fi": { title: "FI 프로세스와 주요 테이블 입문", category: "module", href: "docs/module/fi-process-tables.html", legacyHref: "v3/03-module-basics/sap-fi-process-and-tables-beginner-v3.html", group: "회계 (FI)" },
+    "fi-gl-adult": { title: "SAP FI G/L Accounts 번호범위 정리", category: "module", href: "docs/module/fi-gl-number-range.html", legacyHref: "v3/03-module-basics/sap-fi-gl-number-range-adult-v3.html", group: "회계 (FI)" },
+    "fi-gl-elementary": { title: "SAP FI G/L Accounts 번호범위 초급 비유형", category: "module", href: "docs/module/fi-gl-number-range-elementary.html", legacyHref: "v3/03-module-basics/sap-fi-gl-number-range-elementary-v3.html", group: "회계 (FI)" },
+    "fi-gl-visual": { title: "SAP FI G/L Accounts 번호범위 Visual Guide", category: "module", href: "docs/module/fi-gl-number-range-visual-guide.html", legacyHref: "v3/03-module-basics/sap-fi-gl-number-range-visual-deck-v3.html", group: "회계 (FI)" },
+    "co": { title: "CO 프로세스와 주요 테이블 입문", category: "module", href: "docs/module/co-process-tables.html", legacyHref: "v3/03-module-basics/sap-co-process-and-tables-beginner-v3.html", group: "원가 (CO)" },
+    "auth-intro": { title: "Authorization / 권한 개념 입문", category: "module", href: "docs/module/auth-intro.html", preparing: true, group: "추가 핵심 모듈" },
+    "wm-ewm-basics": { title: "WM/EWM 창고관리 기초 (개발자 관점)", category: "module", href: "docs/module/wm-ewm-basics.html", preparing: true, group: "추가 핵심 모듈" },
+    "hr-hcm-basics": { title: "HR/HCM 인사관리 기초 (개발자 관점)", category: "module", href: "docs/module/hr-hcm-basics.html", preparing: true, group: "추가 핵심 모듈" },
+
+    // Area E: 통합 실습 (practice)
+    "flight-model": { title: "SAP Flight Model 데이터 구조 해설", category: "practice", href: "docs/practice/flight-model-guide.html", legacyHref: "v3/04-integrated-practice/sap-flight-model-table-guide-v3.html", group: "실습 준비" },
+    "flight-integrated": { title: "Flight 통합 실습 — Classic ABAP + Gateway + UI5", category: "practice", href: "docs/practice/flight-practice.html", legacyHref: "v3/04-integrated-practice/sap-flight-integrated-practice-classrun-gateway-ui5-v3.html", group: "실습 수행" },
+    "flight-rap-migration": { title: "Flight 통합 실습 — RAP BO 전환 시나리오", category: "practice", href: "docs/practice/flight-rap-migration.html", preparing: true, group: "실습 수행" },
+    "mini-project-sd": { title: "미니 프로젝트 — 주문/납품 조회 시스템 설계", category: "practice", href: "docs/practice/mini-project-sd-query.html", preparing: true, group: "실습 수행" },
+
+    // Area F: Reference / 운영 (reference)
+    "glossary": { title: "SAP 개발자 용어사전", category: "reference", href: "docs/reference/sap-developer-glossary.html", group: "참고 자료" },
+    "style-guide": { title: "SAP Developer Learning Library 문체 기준", category: "reference", href: "docs/reference/sap-developer-writing-style-guide.html", group: "운영 가이드" },
+    "prose-audit": { title: "문체 구조화 자동 검수 리포트", category: "reference", href: "archive/v3/99-reference/prose-audit-report-v3-5.html", group: "운영 가이드" },
+    "final-audit": { title: "SAP Developer Learning Library v3 최종 검수 리포트", category: "reference", href: "archive/v3/99-reference/final-audit-report-v3.html", group: "운영 가이드" },
+    "stage5-navigation-report": { title: "Stage 5 Navigation 검수 리포트", category: "reference", href: "archive/v3/99-reference/stage5-navigation-report.html", group: "운영 가이드" },
+    "abap-unit-test-intro": { title: "ABAP Unit Test 입문", category: "reference", href: "docs/reference/abap-unit-test-intro.html", preparing: true, group: "추가 가이드" },
+    "sap-coding-convention": { title: "SAP 코딩 컨벤션 가이드", category: "reference", href: "docs/reference/sap-coding-convention.html", preparing: true, group: "추가 가이드" }
   };
 
   const LEARNING_PATHS = {
-    beginner: {
-      title: "초급자 추천 경로",
-      items: ["roadmap", "tools", "module-overview", "abap-classic", "ui5-controller", "cds-odata", "gateway-odata-v2-crud"]
+    roadmap: {
+      title: "로드맵 / 학습전략",
+      items: ["roadmap", "tools", "debug", "requirements-analysis", "cts-transport"]
     },
     abap: {
       title: "ABAP 개발자 경로",
-      items: ["abap-classic", "abap-new-syntax", "cds-odata", "gateway-odata-v2-crud", "rap-e2e", "rap-action"]
+      items: [
+        "abap-as-abap-overview", "abap-basic-syntax", "abap-ddic-basics", "abap-classic",
+        "abap-db-luw-lock", "abap-screen-dynpro", "abap-object-oriented", "abap-debugging-analysis",
+        "abap-enhancement-badi", "abap-new-syntax", "abap-clean-unit-test", "cds-odata",
+        "odata-export", "gateway-odata-v2-crud", "rap-e2e", "rap-action",
+        "abap-cloud", "abap-rfc-bapi", "abap-idoc-intro", "abap-amdp-tuning", "abap-smart-adobe-forms"
+      ]
     },
     ui5: {
       title: "UI5/Fiori 개발자 경로",
-      items: ["ui5-controller", "ui5-odata-crud", "ui5-messaging", "ui5-routing", "fiori-elements", "flp"]
+      items: [
+        "js-core-basics", "js-async-promise", "ui5-architecture-project", "ui5-mvc-xmlview",
+        "ui5-controller", "ui5-odata-crud", "ui5-messaging", "ui5-routing",
+        "ui5-fragment-dialog", "ui5-i18n-multilingual", "ui5-custom-control", "ui5-metadata-patterns",
+        "ui5-mockserver-git", "ui5-qunit-opa-testing", "ui5-data-flow", "gateway-segw-crud-details",
+        "gateway-odata-advanced", "flp", "fiori-intent-navigation", "fiori-elements-annotation",
+        "fiori-elements", "fiori-elements-advanced", "rap-behavior-logic", "rap-service-binding-ui",
+        "rap-fiori-elements-advanced"
+      ]
     },
     module: {
       title: "모듈/테이블 이해 경로",
-      items: ["module-overview", "table-map", "mm", "pp", "sd", "fi", "co"]
+      items: [
+        "module-overview", "table-map", "mm", "pp",
+        "atp", "mrp", "safety-stock", "sd",
+        "fi", "fi-gl-adult", "fi-gl-elementary", "fi-gl-visual",
+        "co", "auth-intro", "wm-ewm-basics", "hr-hcm-basics"
+      ]
     },
     practice: {
       title: "실무형 빠른 경로",
-      items: ["cds-odata", "gateway-odata-v2-crud", "ui5-odata-crud", "ui5-messaging", "flight-model", "flight-integrated"]
+      items: ["flight-model", "flight-integrated", "flight-rap-migration", "mini-project-sd"]
+    },
+    reference: {
+      title: "Reference / 운영",
+      items: ["glossary", "style-guide", "prose-audit", "final-audit", "stage5-navigation-report", "abap-unit-test-intro", "sap-coding-convention"]
     }
   };
 
@@ -228,13 +302,31 @@
       const path = LEARNING_PATHS[keys[i]];
       const index = path.items.indexOf(canonical);
       if (index >= 0) {
+        // Find previous non-preparing document
+        let prev = "";
+        for (let j = index - 1; j >= 0; j -= 1) {
+          const doc = DOCS[path.items[j]];
+          if (doc && !doc.preparing) {
+            prev = path.items[j];
+            break;
+          }
+        }
+        // Find next non-preparing document
+        let next = "";
+        for (let j = index + 1; j < path.items.length; j += 1) {
+          const doc = DOCS[path.items[j]];
+          if (doc && !doc.preparing) {
+            next = path.items[j];
+            break;
+          }
+        }
         return {
           key: keys[i],
           title: path.title,
           items: path.items,
           index: index,
-          prev: path.items[index - 1] || "",
-          next: path.items[index + 1] || ""
+          prev: prev,
+          next: next
         };
       }
     }
@@ -265,27 +357,103 @@
     if (!path) {
       return '<p class="muted">이 문서는 아직 학습경로에 연결되지 않았다.</p>';
     }
-    const progress = Math.round(((path.index + 1) / path.items.length) * 100);
-    return '<div class="stage7-path-panel">' +
+
+    // Progress calculation based on ACTIVE (non-preparing) documents.
+    let totalActiveCount = 0;
+    let activeItems = [];
+    
+    path.items.forEach(function (id) {
+      const doc = DOCS[id];
+      if (doc && !doc.preparing) {
+        activeItems.push(id);
+      }
+    });
+    
+    totalActiveCount = activeItems.length;
+    const currentActiveIndex = activeItems.indexOf(current);
+    
+    // We consider it completed if it is at or before the current document's position in the active items list.
+    const completedCount = currentActiveIndex >= 0 ? currentActiveIndex + 1 : 0;
+    const progress = totalActiveCount > 0 ? Math.round((completedCount / totalActiveCount) * 100) : 0;
+
+    let html = '<div class="stage7-path-panel">' +
       '<div class="stage7-progress-card">' +
-        '<div><span>진행률</span><strong>' + (path.index + 1) + ' / ' + path.items.length + '</strong></div>' +
+        '<div><span>학습 완료 진행률</span><strong>' + completedCount + ' / ' + totalActiveCount + '</strong></div>' +
         '<div class="stage7-progress-bar"><span style="width:' + progress + '%"></span></div>' +
       '</div>' +
       '<div class="stage7-side-heading">' + path.title + '</div>' +
-      '<ol class="stage7-path-steps">' +
-        path.items.map(function (id, index) {
-          const doc = DOCS[id];
-          if (!doc) return "";
-          let state = "next";
-          if (index < path.index) state = "done";
-          if (index === path.index) state = "active";
-          return '<li class="' + state + '">' +
-            '<span class="stage7-step-no">' + (index + 1) + '</span>' +
-            '<a href="' + docHref(id, prefix) + '">' + doc.title + '</a>' +
-          '</li>';
-        }).join("") +
-      '</ol>' +
-    '</div>';
+      '<div class="stage7-stepper-container">';
+
+    let currentGroup = null;
+    let groupOpen = false;
+
+    path.items.forEach(function (id) {
+      const doc = DOCS[id];
+      if (!doc) return;
+
+      const groupName = doc.group || "일반";
+      if (groupName !== currentGroup) {
+        if (groupOpen) {
+          html += '</div></div>'; // close previous group items and group card
+        }
+        currentGroup = groupName;
+        html += '<div class="stage7-stepper-group">' +
+          '<div class="stage7-stepper-group-header">' +
+            '<span class="stage7-stepper-group-dot"></span>' +
+            '<span class="stage7-stepper-group-title">' + groupName + '</span>' +
+          '</div>' +
+          '<div class="stage7-stepper-group-items">';
+        groupOpen = true;
+      }
+
+      // Determine state: done, active, next, preparing
+      let state = "next";
+      let isCurrent = id === current;
+      
+      if (doc.preparing) {
+        state = "preparing";
+      } else {
+        const itemActiveIdx = activeItems.indexOf(id);
+        if (itemActiveIdx >= 0) {
+          if (itemActiveIdx < currentActiveIndex) {
+            state = "done";
+          } else if (itemActiveIdx === currentActiveIndex) {
+            state = "active";
+          }
+        }
+      }
+
+      // SVG icons for states
+      let icon = "";
+      if (state === "done") {
+        icon = '<svg class="stage7-stepper-card-icon done" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+      } else if (state === "active") {
+        icon = '<svg class="stage7-stepper-card-icon active" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg>';
+      } else if (state === "preparing") {
+        icon = '<svg class="stage7-stepper-card-icon preparing" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>';
+      } else {
+        icon = '<svg class="stage7-stepper-card-icon next" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg>';
+      }
+
+      const cardHref = doc.preparing ? "javascript:void(0)" : docHref(id, prefix);
+      const badgeHtml = doc.preparing ? '<span class="stage7-stepper-badge">준비 중</span>' : '';
+      const disabledAttr = doc.preparing ? ' style="pointer-events: none; cursor: default; color: #94a3b8;"' : '';
+
+      html += '<div class="stage7-stepper-card ' + state + (isCurrent ? ' current' : '') + '">' +
+        '<div class="stage7-stepper-card-left">' + icon + '</div>' +
+        '<div class="stage7-stepper-card-right">' +
+          '<a href="' + cardHref + '"' + disabledAttr + ' class="stage7-stepper-card-title">' + doc.title + '</a>' +
+          badgeHtml +
+        '</div>' +
+      '</div>';
+    });
+
+    if (groupOpen) {
+      html += '</div></div>'; // close the last group
+    }
+
+    html += '</div></div>';
+    return html;
   }
 
   function buildDocSideNav(meta) {
@@ -316,7 +484,8 @@
     button.className = "stage7-doc-nav-toggle";
     button.setAttribute("aria-controls", "stage7DocSideNav");
     button.setAttribute("aria-expanded", "true");
-    button.innerHTML = '<span class="stage7-doc-nav-toggle__icon">' + ICON_PANEL + '</span><span data-stage7-toggle-label>Navigation 접기</span>';
+    button.innerHTML = '<span class="stage7-doc-nav-toggle__close">Navigation 접기</span>' +
+                       '<span class="stage7-doc-nav-toggle__open">Navigation 열기</span>';
     return button;
   }
 
@@ -335,14 +504,12 @@
   function setDocNavCollapsed(collapsed) {
     const side = document.querySelector(".stage7-doc-side-nav");
     const button = document.querySelector(".stage7-doc-nav-toggle");
-    const label = button && button.querySelector("[data-stage7-toggle-label]");
     document.body.classList.toggle("stage7-doc-nav-collapsed", collapsed);
     if (side) side.setAttribute("aria-hidden", String(collapsed));
     if (button) {
       button.setAttribute("aria-expanded", String(!collapsed));
       button.setAttribute("title", collapsed ? "Navigation 열기" : "Navigation 접기");
     }
-    if (label) label.textContent = collapsed ? "Navigation 열기" : "Navigation 접기";
     try {
       window.localStorage.setItem("stage7-doc-nav-collapsed", collapsed ? "1" : "0");
     } catch (error) {
