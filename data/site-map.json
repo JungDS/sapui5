@@ -85,25 +85,35 @@
     },
     "abap-classic": {
       "title": "Classic ABAP 기본기",
-      "href": "../v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html",
-      "file": "abap-classic-report-itab-alv-beginner-v3.html",
+      "href": "../docs/abap/abap-classic-report-itab-alv.html",
+      "file": "abap-classic-report-itab-alv.html",
       "category": "abap",
       "group": "Classic ABAP",
       "level": "입문",
       "status": "핵심",
       "time": "40분",
-      "summary": "Report, Selection Screen, Internal Table, Open SQL, ALV의 기본 흐름을 익힌다."
+      "summary": "Report, Selection Screen, Internal Table, Open SQL, ALV의 기본 흐름을 익힌다.",
+      "legacy_id": "abap-classic",
+      "canonical_id": "abap-classic",
+      "legacy_href": "../v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html",
+      "legacy_path": "v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html",
+      "operating_path": "docs/abap/abap-classic-report-itab-alv.html"
     },
     "abap-new-syntax": {
       "title": "ABAP New Syntax 입문",
-      "href": "../v3/01-abap/abap-new-syntax-beginner-guide-v3.html",
-      "file": "abap-new-syntax-beginner-guide-v3.html",
+      "href": "../docs/abap/abap-new-syntax.html",
+      "file": "abap-new-syntax.html",
       "category": "abap",
       "group": "Classic ABAP",
       "level": "입문",
       "status": "확장",
       "time": "30분",
-      "summary": "DATA(...), VALUE, CORRESPONDING, FOR 등 실무 코드를 읽기 위한 신문법을 정리한다."
+      "summary": "DATA(...), VALUE, CORRESPONDING, FOR 등 실무 코드를 읽기 위한 신문법을 정리한다.",
+      "legacy_id": "abap-new-syntax",
+      "canonical_id": "abap-new-syntax",
+      "legacy_href": "../v3/01-abap/abap-new-syntax-beginner-guide-v3.html",
+      "legacy_path": "v3/01-abap/abap-new-syntax-beginner-guide-v3.html",
+      "operating_path": "docs/abap/abap-new-syntax.html"
     },
     "abap-cloud": {
       "title": "ABAP Cloud App Development 정리",
@@ -118,14 +128,19 @@
     },
     "cds-odata": {
       "title": "CDS View에서 OData 노출까지",
-      "href": "../v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html",
-      "file": "sap-cds-to-odata-beginner-guide-v3.html",
+      "href": "../docs/abap/cds-to-odata.html",
+      "file": "cds-to-odata.html",
       "category": "abap",
       "group": "CDS / OData",
       "level": "입문",
       "status": "핵심",
       "time": "45분",
-      "summary": "ZI_* Interface View, ZC_* Projection View, Association, Service Binding 흐름을 학습한다."
+      "summary": "ZI_* Interface View, ZC_* Projection View, Association, Service Binding 흐름을 학습한다.",
+      "legacy_id": "cds-odata",
+      "canonical_id": "cds-odata",
+      "legacy_href": "../v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html",
+      "legacy_path": "v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html",
+      "operating_path": "docs/abap/cds-to-odata.html"
     },
     "gateway": {
       "title": "Gateway / OData V2 CRUD 입문",
