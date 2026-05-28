@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SAP Flight Model 데이터 구조 해설 · SAP Developer Learning Library</title>
+<link rel="stylesheet" href="../../assets/common.css" />
+<link rel="stylesheet" href="../../assets/stage7-shell.css" />
+<script src="../../assets/common.js" defer></script>
+<script src="../../assets/stage7-shell.js" defer></script>
+</head>
+<body
+  data-page-type="doc"
+  data-active-category="practice"
+  data-doc-id="flight-model"
+  data-doc-title="SAP Flight Model 데이터 구조 해설"
+  data-doc-version="4.0"
+  data-doc-created-at="2026-05-29T01:55:02+09:00"
+  data-doc-updated-at="2026-05-29T01:55:02+09:00"
+  data-distributor="정훈영"
+  data-prose-root="true">
+
+<div class="stage7-doc-layout">
+  <section class="stage7-hero prose-summary" data-prose="summary">
+    <div class="breadcrumb" data-prose="summary">
+      <a href="../../index.html">Home</a>
+      <span>›</span>
+      <a href="../../pages/integrated-practice.html">통합 실습</a>
+      <span>›</span>
+      <span>SAP Flight Model 데이터 구조 해설</span>
+    </div>
+    <div class="stage7-hero__eyebrow">SAP Developer Learning Library</div>
+    <h1>SAP Flight Model 데이터 구조 해설</h1>
+    <p class="lead">
+      Flight 모델은 SAP 학습에서 자주 쓰는 표준 예제 데이터이다. 이 문서는 SCARR, SPFLI, SFLIGHT, SBOOK,
+      SCUSTOM의 관계를 먼저 이해한 뒤 ABAP, Gateway, UI5, RAP 실습으로 넘어갈 수 있도록 정리한다.
+    </p>
+    <div class="home-badges">
+      <span class="stage7-badge blue">Stage 7</span>
+      <span class="stage7-badge green">통합 실습</span>
+      <span class="stage7-badge purple">Flight Model</span>
+      <span class="stage7-badge amber">배포자: 정훈영</span>
+    </div>
+  </section>
+
+  <main>
+    <section class="stage7-section prose-concept" data-prose="concept" id="why">
+      <div class="stage7-section__label">01 · 목적</div>
+      <h2>Flight 모델은 개발 흐름을 설명하기 좋은 작은 업무 도메인입니다</h2>
+      <p>
+        초급자는 ABAP 문법, OData 서비스, UI5 화면을 각각 따로 배우기 쉽다. 하지만 실무 개발은 하나의 업무 데이터를
+        여러 계층에서 다루는 일이다. Flight 모델은 항공사, 노선, 운항, 예약이라는 관계가 비교적 단순해서
+        데이터 모델과 화면 흐름을 함께 설명하기 좋다.
+      </p>
+      <p>
+        이 문서를 먼저 읽으면 이후 ClassRun, Gateway CRUD, UI5 ODataModel, RAP BO 실습에서
+        "지금 어떤 데이터를 다루고 있는지"를 놓치지 않을 수 있다.
+      </p>
+    </section>
+
+    <section class="stage7-section prose-structure" data-prose="structure" id="tables">
+      <div class="stage7-section__label">02 · 주요 테이블</div>
+      <h2>Flight 모델은 항공사에서 예약까지 이어지는 계층 구조입니다</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>테이블</th>
+            <th>의미</th>
+            <th>주요 Key</th>
+            <th>학습 포인트</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>SCARR</td>
+            <td>항공사 마스터</td>
+            <td>CARRID</td>
+            <td>최상위 기준 데이터이다.</td>
+          </tr>
+          <tr>
+            <td>SPFLI</td>
+            <td>항공사별 노선</td>
+            <td>CARRID, CONNID</td>
+            <td>출발/도착 도시와 노선 정보를 가진다.</td>
+          </tr>
+          <tr>
+            <td>SFLIGHT</td>
+            <td>날짜별 운항</td>
+            <td>CARRID, CONNID, FLDATE</td>
+            <td>가격, 좌석 수, 예약 좌석 수를 확인한다.</td>
+          </tr>
+          <tr>
+            <td>SBOOK</td>
+            <td>예약 상세</td>
+            <td>CARRID, CONNID, FLDATE, BOOKID</td>
+            <td>특정 운항에 연결된 예약 데이터를 다룬다.</td>
+          </tr>
+          <tr>
+            <td>SCUSTOM</td>
+            <td>고객 마스터</td>
+            <td>ID</td>
+            <td>예약 고객 정보를 연결할 때 사용한다.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="stage7-section prose-structure" data-prose="structure" id="relationship">
+      <div class="stage7-section__label">03 · 관계</div>
+      <h2>관계는 항공사 → 노선 → 운항 → 예약 순서로 읽습니다</h2>
+      <div class="stage7-card-grid two">
+        <article class="stage7-card" data-prose="structure">
+          <h3>SCARR → SPFLI</h3>
+          <p>하나의 항공사는 여러 노선을 가진다. <code>CARRID</code>가 연결 기준이다.</p>
+        </article>
+        <article class="stage7-card" data-prose="structure">
+          <h3>SPFLI → SFLIGHT</h3>
+          <p>하나의 노선은 여러 날짜의 운항으로 확장된다. <code>CARRID</code>, <code>CONNID</code>가 이어진다.</p>
+        </article>
+        <article class="stage7-card" data-prose="structure">
+          <h3>SFLIGHT → SBOOK</h3>
+          <p>하나의 운항에는 여러 예약이 붙는다. 날짜까지 포함한 Key가 중요하다.</p>
+        </article>
+        <article class="stage7-card" data-prose="structure">
+          <h3>SBOOK → SCUSTOM</h3>
+          <p>예약의 고객 번호를 통해 고객 마스터를 읽는다. 화면에서는 고객명 표시나 필터에 활용할 수 있다.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="stage7-section prose-practice" data-prose="practice" id="query-practice">
+      <div class="stage7-section__label">04 · 조회 연습</div>
+      <h2>처음에는 한 단계씩 JOIN 범위를 넓힙니다</h2>
+      <ol>
+        <li>SCARR만 조회해서 항공사 목록을 확인한다.</li>
+        <li>SPFLI를 붙여 항공사별 노선 수를 확인한다.</li>
+        <li>SFLIGHT를 붙여 날짜별 운항과 좌석 정보를 확인한다.</li>
+        <li>SBOOK을 붙여 예약 건수 또는 예약 금액을 집계한다.</li>
+      </ol>
+      <div class="code-block prose-reference" data-prose="reference">
+        <div class="code-header"><span>관계 확인용 Open SQL 예시</span></div>
+<pre><code>SELECT FROM scarr AS carrier
+  INNER JOIN spfli AS route
+    ON route~carrid = carrier~carrid
+  INNER JOIN sflight AS flight
+    ON flight~carrid = route~carrid
+   AND flight~connid = route~connid
+  FIELDS carrier~carrid,
+         carrier~carrname,
+         route~connid,
+         flight~fldate,
+         flight~seatsmax,
+         flight~seatsocc
+  INTO TABLE @DATA(lt_flights).</code></pre>
+      </div>
+    </section>
+
+    <section class="stage7-section prose-checklist" data-prose="checklist" id="checklist">
+      <div class="stage7-section__label">05 · 체크리스트</div>
+      <h2>통합 실습 전 다음을 설명할 수 있어야 합니다</h2>
+      <ul>
+        <li>SCARR, SPFLI, SFLIGHT, SBOOK의 역할을 구분할 수 있다.</li>
+        <li><code>CARRID</code>, <code>CONNID</code>, <code>FLDATE</code>가 왜 함께 쓰이는지 설명할 수 있다.</li>
+        <li>목록 화면에는 어떤 필드가 필요하고, 상세 화면에는 어떤 필드가 필요한지 나눌 수 있다.</li>
+        <li>Gateway EntitySet 또는 RAP Entity를 만들 때 어떤 테이블을 기준으로 삼을지 판단할 수 있다.</li>
+      </ul>
+      <div class="warning" data-prose="warning">
+        <strong>주의</strong>
+        Flight 모델은 학습용 예제이다. 실무 테이블처럼 모든 업무 규칙이 완전하게 들어 있는 모델은 아니므로,
+        구조 학습과 계층 연결 연습에 초점을 맞춘다.
+      </div>
+    </section>
+  </main>
+
+  <footer class="stage7-footer prose-summary" data-prose="summary">
+    SAP Flight Model 데이터 구조 해설 · Stage 7 Docs · 2026-05-29 · 배포자: 정훈영
+  </footer>
+</div>
+</body>
+</html>

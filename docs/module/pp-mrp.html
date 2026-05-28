@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MRP 학생 배포용 학습 패키지 · SAP Developer Learning Library</title>
+<link rel="stylesheet" href="../../assets/common.css" />
+<link rel="stylesheet" href="../../assets/stage7-shell.css" />
+<script src="../../assets/common.js" defer></script>
+<script src="../../assets/stage7-shell.js" defer></script>
+</head>
+<body
+  data-page-type="doc"
+  data-active-category="module"
+  data-doc-id="mrp"
+  data-doc-title="MRP 학생 배포용 학습 패키지"
+  data-doc-version="4.0"
+  data-doc-created-at="2026-05-29T02:04:04+09:00"
+  data-doc-updated-at="2026-05-29T02:04:04+09:00"
+  data-distributor="정훈영"
+  data-prose-root="true">
+
+<div class="stage7-doc-layout">
+  <section class="stage7-hero prose-summary" data-prose="summary">
+    <div class="breadcrumb" data-prose="summary"><a href="../../index.html">Home</a><span>›</span><a href="../../pages/module-basics.html">SAP 모듈 기초</a><span>›</span><span>MRP 학생 배포용 학습 패키지</span></div>
+    <div class="stage7-hero__eyebrow">SAP Developer Learning Library</div>
+    <h1>MRP 학생 배포용 학습 패키지</h1>
+    <p class="lead">수요, 재고, 조달 제안을 연결해 MRP의 기본 목적과 결과 해석을 학습한다.</p>
+    <div class="home-badges"><span class="stage7-badge blue">Stage 7</span><span class="stage7-badge green">SAP 모듈 기초</span><span class="stage7-badge purple">PP</span><span class="stage7-badge amber">배포자: 정훈영</span></div>
+  </section>
+  <main>
+    <section class="stage7-section prose-concept" data-prose="concept" id="overview"><div class="stage7-section__label">01 · 개념</div><h2>업무 의미를 먼저 잡고 테이블을 읽습니다</h2><p>수요, 재고, 조달 제안을 연결해 MRP의 기본 목적과 결과 해석을 학습한다.</p><p>초급 개발자는 모듈 용어를 외우기보다 업무 흐름, 문서 구조, 주요 테이블이 어떻게 연결되는지 먼저 이해해야 한다.</p></section>
+    <section class="stage7-section prose-structure" data-prose="structure" id="flow"><div class="stage7-section__label">02 · 업무 흐름</div><h2>흐름을 단계로 나누면 개발 포인트가 보입니다</h2><ol><li>업무 문서가 생성되는 시작점을 확인한다.</li><li>Header와 Item 구조를 구분한다.</li><li>후속 문서 또는 회계/재고 영향이 있는지 확인한다.</li><li>상태값, 조직값, 금액/수량 필드를 분리해서 본다.</li><li>화면 요구사항을 테이블, CDS View, API 후보로 나누어 정리한다.</li></ol></section>
+    <section class="stage7-section prose-structure" data-prose="structure" id="tables"><div class="stage7-section__label">03 · 주요 테이블</div><h2>처음에는 기준 테이블과 의미를 함께 봅니다</h2><table><thead><tr><th>대상</th><th>역할</th><th>개발자가 볼 점</th></tr></thead><tbody>
+          <tr><td>MARC</td><td>MRP 설정</td><td>MRP 유형과 로트 크기를 확인한다.</td></tr>
+          <tr><td>MDKP/MDTB</td><td>MRP 실행 결과</td><td>계획 결과를 확인한다.</td></tr>
+          <tr><td>PLAF</td><td>계획오더</td><td>생산 또는 조달 제안을 확인한다.</td></tr>
+          <tr><td>EBAN</td><td>구매요청</td><td>외부 조달 제안을 확인한다.</td></tr>
+          <tr><td>MD04</td><td>Stock/Requirements List</td><td>수요와 공급 결과를 해석한다.</td></tr>
+        </tbody></table></section>
+    <section class="stage7-section prose-practice" data-prose="practice" id="developer-view"><div class="stage7-section__label">04 · 개발자 관점</div><h2>요구사항을 분석할 때 다음 순서로 확인합니다</h2><ul><li>사용자가 말한 업무 단어를 모듈, 문서 유형, 기준 테이블로 바꿔 본다.</li><li>직접 테이블 조회 전에 표준 CDS View나 공개 API가 있는지 확인한다.</li><li>목록 화면, 상세 화면, 저장 처리에 필요한 필드를 나누어 정리한다.</li></ul><div class="note" data-prose="concept"><strong>학습 기준</strong> 모듈 문서는 업무 전문가가 되는 자료가 아니라, 개발자가 요구사항을 테이블과 서비스 구조로 번역하기 위한 출발점이다.</div></section>
+    <section class="stage7-section prose-checklist" data-prose="checklist" id="checklist"><div class="stage7-section__label">05 · 체크리스트</div><h2>문서를 읽은 뒤 다음을 확인합니다</h2><ul><li>이 문서의 업무 흐름을 3단계 이상으로 설명할 수 있다.</li><li>주요 테이블과 개발자가 확인할 필드를 연결할 수 있다.</li><li>실제 프로젝트에서는 회사별 설정과 확장 필드를 추가로 확인해야 함을 이해한다.</li></ul><div class="warning" data-prose="warning"><strong>주의</strong> 표준 테이블 구조는 시스템 버전과 회사 설정에 따라 다르게 보일 수 있다. 운영 개발에서는 권한, 성능, 공개 API 제공 여부를 함께 검토한다.</div></section>
+  </main>
+  <footer class="stage7-footer prose-summary" data-prose="summary">MRP 학생 배포용 학습 패키지 · Stage 7 Docs · 2026-05-29 · 배포자: 정훈영</footer>
+</div>
+</body>
+</html>

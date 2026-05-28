@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SAPUI5 데이터 흐름과 Messaging 아키텍처 · SAP Developer Learning Library</title>
+<link rel="stylesheet" href="../../assets/common.css" />
+<link rel="stylesheet" href="../../assets/stage7-shell.css" />
+<script src="../../assets/common.js" defer></script>
+<script src="../../assets/stage7-shell.js" defer></script>
+</head>
+<body
+  data-page-type="doc"
+  data-active-category="ui5"
+  data-doc-id="ui5-data-flow"
+  data-doc-title="SAPUI5 데이터 흐름과 Messaging 아키텍처"
+  data-doc-version="4.0"
+  data-doc-created-at="2026-05-29T01:26:21+09:00"
+  data-doc-updated-at="2026-05-29T01:26:21+09:00"
+  data-distributor="정훈영"
+  data-prose-root="true">
+
+<div class="stage7-doc-layout">
+  <section class="stage7-hero prose-summary" data-prose="summary">
+    <div class="breadcrumb" data-prose="summary">
+      <a href="../../index.html">Home</a>
+      <span>›</span>
+      <a href="../../pages/ui5-fiori.html">UI5 / Fiori 개발</a>
+      <span>›</span>
+      <span>SAPUI5 데이터 흐름과 Messaging 아키텍처</span>
+    </div>
+    <div class="stage7-hero__eyebrow">SAP Developer Learning Library</div>
+    <h1>SAPUI5 데이터 흐름과 Messaging 아키텍처</h1>
+    <p class="lead">
+      UI5 앱의 데이터 흐름은 화면, 모델, 서버, 메시지 계층을 함께 봐야 안정적으로 이해된다.
+      이 문서는 입력값과 서버 응답이 화면 메시지로 이어지는 구조를 참고자료 형식으로 정리한다.
+    </p>
+    <div class="home-badges">
+      <span class="stage7-badge blue">Stage 7 Docs</span>
+      <span class="stage7-badge green">Data Flow</span>
+      <span class="stage7-badge purple">Architecture</span>
+      <span class="stage7-badge amber">배포자: 정훈영</span>
+    </div>
+  </section>
+
+  <main>
+    <section class="stage7-section prose-concept" data-prose="concept" id="layers">
+      <div class="stage7-section__label">01 · 계층</div>
+      <h2>데이터 흐름은 화면, 모델, 서버 세 층으로 봅니다</h2>
+      <p>
+        화면 컨트롤은 사용자의 입력과 표시를 담당하고, 모델은 화면과 데이터 소스를 연결한다.
+        서버는 업무 데이터와 검증 결과를 제공한다. 메시지는 이 세 층에서 발생한 오류나 안내를
+        사용자가 이해할 수 있는 형태로 연결하는 별도 흐름이다.
+      </p>
+      <div class="flow">
+        <div class="flow-step"><span class="num">1</span><div><div class="flow-title">View</div><p>Input, Table, Form 같은 컨트롤이 값을 표시하고 입력을 받는다.</p></div></div>
+        <div class="flow-step"><span class="num">2</span><div><div class="flow-title">Model</div><p>JSONModel 또는 ODataModel이 View와 데이터 구조를 연결한다.</p></div></div>
+        <div class="flow-step"><span class="num">3</span><div><div class="flow-title">Service</div><p>Gateway 또는 RAP 서비스가 조회, 저장, 검증 결과를 반환한다.</p></div></div>
+        <div class="flow-step"><span class="num">4</span><div><div class="flow-title">Message</div><p>오류와 안내가 MessageModel, MessagePopover, 필드 상태로 표현된다.</p></div></div>
+      </div>
+    </section>
+
+    <section class="stage7-section prose-structure" data-prose="structure" id="binding-events">
+      <div class="stage7-section__label">02 · 이벤트</div>
+      <h2>바인딩과 이벤트는 서로 다른 책임을 가집니다</h2>
+      <p>
+        바인딩은 데이터와 화면을 연결하는 선언이고, 이벤트는 사용자의 행동에 반응하는 함수다.
+        초급자는 이벤트 함수 안에서 모든 값을 직접 읽고 쓰려 하기 쉽지만, 화면 표시 자체는 바인딩에 맡기는 편이 안정적이다.
+      </p>
+      <table>
+        <thead><tr><th>구분</th><th>책임</th><th>예시</th></tr></thead>
+        <tbody>
+          <tr><td>Binding</td><td>데이터를 화면에 표시하고 변경을 반영한다.</td><td><code>items="{/SalesOrderSet}"</code></td></tr>
+          <tr><td>Event</td><td>사용자 행동에 반응해 라우팅, 저장, 필터를 실행한다.</td><td><code>press=".onSave"</code></td></tr>
+          <tr><td>Message</td><td>검증 결과와 서버 응답을 사용자에게 전달한다.</td><td><code>MessagePopover</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="stage7-section prose-reference" data-prose="reference" id="message-types">
+      <div class="stage7-section__label">03 · 메시지 유형</div>
+      <h2>Messaging은 오류를 사용자가 이해할 수 있게 연결합니다</h2>
+      <p>
+        메시지는 단순 알림이 아니라 사용자의 다음 행동을 안내해야 한다.
+        Error는 저장을 막는 문제, Warning은 확인이 필요한 문제, Success는 작업 완료, Information은 참고 안내로 구분한다.
+      </p>
+      <ul>
+        <li>Error: 필수값 누락, 형식 오류, 서버 업무 규칙 위반</li>
+        <li>Warning: 저장은 가능하지만 사용자가 확인해야 하는 상태</li>
+        <li>Success: 생성, 저장, 삭제 완료</li>
+        <li>Information: 작업 조건이나 후속 안내</li>
+      </ul>
+    </section>
+
+    <section class="stage7-section prose-warning" data-prose="warning" id="pitfalls">
+      <div class="stage7-section__label">04 · 주의점</div>
+      <h2>메시지 흐름을 놓치면 저장 오류가 사용자에게 숨겨집니다</h2>
+      <ul>
+        <li>서버 오류를 콘솔에만 남기지 않는다.</li>
+        <li>필드 오류는 가능한 해당 필드와 연결한다.</li>
+        <li>Batch 요청에서는 여러 메시지가 한 번에 돌아올 수 있음을 고려한다.</li>
+        <li>성공 메시지는 실제 서버 저장이 완료된 뒤 표시한다.</li>
+      </ul>
+    </section>
+
+    <section class="stage7-section prose-checklist" data-prose="checklist" id="checklist">
+      <div class="stage7-section__label">05 · 완료 체크</div>
+      <h2>데이터 흐름을 다음 항목으로 확인합니다</h2>
+      <ol>
+        <li>View, Model, Service, Message의 역할을 구분한다.</li>
+        <li>Binding과 Event의 책임 차이를 설명한다.</li>
+        <li>서버 오류를 UI 메시지로 연결해야 하는 이유를 설명한다.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="stage7-footer prose-summary" data-prose="summary">
+    SAPUI5 데이터 흐름과 Messaging 아키텍처 · Stage 7 Docs · 2026-05-29 · 배포자: 정훈영
+  </footer>
+</div>
+</body>
+</html>

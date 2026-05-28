@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Messaging과 Input Validation 실무 입문 · SAP Developer Learning Library</title>
+<link rel="stylesheet" href="../../assets/common.css" />
+<link rel="stylesheet" href="../../assets/stage7-shell.css" />
+<script src="../../assets/common.js" defer></script>
+<script src="../../assets/stage7-shell.js" defer></script>
+</head>
+<body
+  data-page-type="doc"
+  data-active-category="ui5"
+  data-doc-id="ui5-messaging"
+  data-doc-title="Messaging과 Input Validation 실무 입문"
+  data-doc-version="4.0"
+  data-doc-created-at="2026-05-29T01:26:21+09:00"
+  data-doc-updated-at="2026-05-29T01:26:21+09:00"
+  data-distributor="정훈영"
+  data-prose-root="true">
+
+<div class="stage7-doc-layout">
+  <section class="stage7-hero prose-summary" data-prose="summary">
+    <div class="breadcrumb" data-prose="summary">
+      <a href="../../index.html">Home</a>
+      <span>›</span>
+      <a href="../../pages/ui5-fiori.html">UI5 / Fiori 개발</a>
+      <span>›</span>
+      <span>Messaging과 Input Validation 실무 입문</span>
+    </div>
+    <div class="stage7-hero__eyebrow">SAP Developer Learning Library</div>
+    <h1>Messaging과 Input Validation 실무 입문</h1>
+    <p class="lead">
+      입력값 검증은 필드 색을 빨갛게 만드는 작업이 아니라, 사용자가 왜 저장할 수 없는지 이해하게 만드는 흐름이다.
+      이 문서는 Input 값, Model 값, MessageManager, 서버 메시지의 관계를 정리한다.
+    </p>
+    <div class="home-badges">
+      <span class="stage7-badge blue">Stage 7 Docs</span>
+      <span class="stage7-badge green">Messaging</span>
+      <span class="stage7-badge purple">Validation</span>
+      <span class="stage7-badge amber">배포자: 정훈영</span>
+    </div>
+  </section>
+
+  <main>
+    <section class="stage7-section prose-concept" data-prose="concept" id="input-model">
+      <div class="stage7-section__label">01 · 입력값</div>
+      <h2>Input 값은 바뀌었는데 Model 값은 아직 그대로일 수 있습니다</h2>
+      <p>
+        UI5 Input에 사용자가 값을 입력했다고 해서 항상 Model 값이 즉시 바뀌는 것은 아니다.
+        바인딩 모드, 타입 검증, 파서, 포맷터, 이벤트 시점에 따라 화면 값과 모델 값이 잠시 다를 수 있다.
+      </p>
+      <p>
+        초급자는 이 차이를 놓치면 "화면에는 값이 있는데 저장하면 예전 값이 간다"는 문제를 만나기 쉽다.
+        저장 전에는 바인딩 검증과 메시지 상태를 확인하는 습관이 필요하다.
+      </p>
+    </section>
+
+    <section class="stage7-section prose-structure" data-prose="structure" id="validation-pipeline">
+      <div class="stage7-section__label">02 · 검증 흐름</div>
+      <h2>Input에서 Model까지 가는 길에는 여러 검문소가 있습니다</h2>
+      <div class="stage7-card-grid three">
+        <article class="stage7-card" data-prose="concept">
+          <h3>Type</h3>
+          <p>날짜, 숫자, 금액처럼 값의 형식과 제약 조건을 검증한다.</p>
+        </article>
+        <article class="stage7-card" data-prose="concept">
+          <h3>MessageManager</h3>
+          <p>검증 오류와 서버 메시지를 모아 화면에 보여줄 수 있게 관리한다.</p>
+        </article>
+        <article class="stage7-card" data-prose="concept">
+          <h3>Backend Message</h3>
+          <p>Gateway 또는 RAP에서 반환한 업무 오류를 사용자 메시지로 연결한다.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="stage7-section prose-practice" data-prose="practice" id="message-manager">
+      <div class="stage7-section__label">03 · MessageManager</div>
+      <h2>MessageManager를 View에 등록해 검증 메시지를 모읍니다</h2>
+      <pre><code>onInit: function () {
+  const oMessageManager = sap.ui.getCore().getMessageManager();
+  oMessageManager.registerObject(this.getView(), true);
+  this.getView().setModel(oMessageManager.getMessageModel(), "message");
+}</code></pre>
+      <p>
+        이 패턴은 화면의 입력 컨트롤에서 발생한 검증 메시지를 MessageModel에 모으는 기본 구조다.
+        이후 MessagePopover나 MessageStrip과 연결해 사용자가 오류를 찾을 수 있게 만든다.
+      </p>
+    </section>
+
+    <section class="stage7-section prose-practice" data-prose="practice" id="save-guard">
+      <div class="stage7-section__label">04 · 저장 Guard</div>
+      <h2>저장 전에 메시지 상태를 확인합니다</h2>
+      <pre><code>onPressSave: function () {
+  const aMessages = sap.ui.getCore()
+    .getMessageManager()
+    .getMessageModel()
+    .getData();
+
+  const bHasError = aMessages.some(function (oMessage) {
+    return oMessage.type === "Error";
+  });
+
+  if (bHasError) {
+    sap.m.MessageBox.error("입력 오류를 먼저 수정하세요.");
+    return;
+  }
+
+  this.getView().getModel().submitChanges();
+}</code></pre>
+      <p>
+        저장 Guard는 프론트엔드 검증 오류가 남아 있는데 서버 저장을 시도하지 않도록 막는 역할을 한다.
+        다만 서버 검증은 별도로 존재하므로, 프론트엔드 검증을 통과했다고 해서 업무적으로 항상 저장 가능한 것은 아니다.
+      </p>
+    </section>
+
+    <section class="stage7-section prose-warning" data-prose="warning" id="backend">
+      <div class="stage7-section__label">05 · 서버 메시지</div>
+      <h2>프론트엔드 검증과 백엔드 메시지는 역할이 다릅니다</h2>
+      <ul>
+        <li>필수값 누락, 숫자 형식 오류처럼 즉시 알 수 있는 문제는 프론트엔드에서 먼저 잡는다.</li>
+        <li>재고 부족, 승인 상태 불일치, 중복 생성 같은 업무 규칙은 서버에서 최종 검증한다.</li>
+        <li>서버 메시지는 기술 오류 원문을 그대로 보여주지 말고 사용자가 수정할 수 있는 문장으로 연결한다.</li>
+        <li>저장 실패 후에는 관련 필드와 메시지 위치를 사용자가 찾을 수 있어야 한다.</li>
+      </ul>
+    </section>
+
+    <section class="stage7-section prose-checklist" data-prose="checklist" id="checklist">
+      <div class="stage7-section__label">06 · 완료 체크</div>
+      <h2>Messaging 흐름을 다음 항목으로 확인합니다</h2>
+      <ol>
+        <li>Input 값과 Model 값이 다를 수 있는 이유를 설명한다.</li>
+        <li>MessageManager가 어떤 메시지를 관리하는지 설명한다.</li>
+        <li>저장 전 오류 메시지를 확인하는 Guard 로직을 설명한다.</li>
+        <li>프론트엔드 검증과 서버 검증의 역할 차이를 설명한다.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="stage7-footer prose-summary" data-prose="summary">
+    Messaging과 Input Validation 실무 입문 · Stage 7 Docs · 2026-05-29 · 배포자: 정훈영
+  </footer>
+</div>
+</body>
+</html>

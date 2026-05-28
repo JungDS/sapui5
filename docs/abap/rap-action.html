@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RAP Action 다건 선택 처리 · SAP Developer Learning Library</title>
+<link rel="stylesheet" href="../../assets/common.css" />
+<link rel="stylesheet" href="../../assets/stage7-shell.css" />
+<script src="../../assets/common.js" defer></script>
+<script src="../../assets/stage7-shell.js" defer></script>
+</head>
+<body
+  data-page-type="doc"
+  data-active-category="abap"
+  data-doc-id="rap-action"
+  data-doc-title="RAP Action 다건 선택 처리"
+  data-doc-version="4.0"
+  data-doc-created-at="2026-05-29T01:42:30+09:00"
+  data-doc-updated-at="2026-05-29T01:42:30+09:00"
+  data-distributor="정훈영"
+  data-prose-root="true">
+
+<div class="stage7-doc-layout">
+  <section class="stage7-hero prose-summary" data-prose="summary">
+    <div class="breadcrumb" data-prose="summary">
+      <a href="../../index.html">Home</a>
+      <span>›</span>
+      <a href="../../pages/abap.html">ABAP 개발</a>
+      <span>›</span>
+      <span>RAP Action 다건 선택 처리</span>
+    </div>
+    <div class="stage7-hero__eyebrow">SAP Developer Learning Library</div>
+    <h1>RAP Action 다건 선택 처리</h1>
+    <p class="lead">
+      RAP Action은 버튼 하나처럼 보이지만, 실제 구현에서는 선택된 인스턴스의 Key 묶음, 트랜잭션 처리,
+      메시지 반환 방식까지 함께 고려해야 한다. 이 문서는 초급자가 다건 선택 Action을 구현할 때
+      어디를 확인해야 하는지 설명한다.
+    </p>
+    <div class="home-badges">
+      <span class="stage7-badge blue">Stage 7</span>
+      <span class="stage7-badge green">ABAP 개발</span>
+      <span class="stage7-badge purple">RAP Action</span>
+      <span class="stage7-badge amber">배포자: 정훈영</span>
+    </div>
+  </section>
+
+  <main>
+    <section class="stage7-section prose-concept" data-prose="concept" id="problem">
+      <div class="stage7-section__label">01 · 문제상황</div>
+      <h2>여러 행을 선택해도 Action 버튼은 한 번만 눌립니다</h2>
+      <p>
+        Fiori Elements나 UI5 화면에서 사용자가 여러 행을 선택하고 Action 버튼을 누르면, 초급자는
+        "행마다 메서드가 한 번씩 호출될 것"이라고 예상하기 쉽다. 하지만 RAP Action 구현 메서드는
+        선택된 인스턴스들의 Key 묶음을 받아 한 번의 처리 단위로 동작할 수 있다.
+      </p>
+      <p>
+        그래서 RAP Action을 구현할 때는 버튼 클릭 횟수보다 <code>keys</code>에 들어온 인스턴스 수를 기준으로 생각해야 한다.
+        한 건 성공, 한 건 실패 같은 부분 성공 상황도 발생할 수 있으므로 메시지와 결과 반환 구조를 함께 설계한다.
+      </p>
+    </section>
+
+    <section class="stage7-section prose-structure" data-prose="structure" id="keys">
+      <div class="stage7-section__label">02 · Keys</div>
+      <h2>다건 처리는 keys 테이블을 기준으로 반복 처리합니다</h2>
+      <p>
+        RAP Behavior Implementation의 Action 메서드는 선택된 대상의 Key 정보를 전달받는다.
+        초급 단계에서는 <code>keys</code>를 "선택된 행 목록"으로 이해하면 된다.
+        이 목록을 반복하며 대상 데이터를 읽고, 업무 규칙을 검증하고, 상태 변경 또는 메시지 반환을 수행한다.
+      </p>
+      <div class="code-block prose-reference" data-prose="reference">
+        <div class="code-header"><span>개념 예시</span></div>
+<pre><code>METHOD approve.
+  LOOP AT keys INTO DATA(ls_key).
+    " 1. 선택된 인스턴스의 현재 상태를 읽는다.
+    " 2. 승인 가능한 상태인지 검증한다.
+    " 3. 성공 또는 실패 메시지를 reported에 담는다.
+  ENDLOOP.
+ENDMETHOD.</code></pre>
+      </div>
+      <div class="note" data-prose="concept">
+        <strong>핵심 기준</strong>
+        Action 메서드 안에서 <code>keys</code>를 무시하고 단일 건처럼 처리하면 다건 선택에서 누락, 중복 처리,
+        잘못된 메시지 표시가 생길 수 있다.
+      </div>
+    </section>
+
+    <section class="stage7-section prose-structure" data-prose="structure" id="result-message">
+      <div class="stage7-section__label">03 · 결과와 메시지</div>
+      <h2>다건 Action은 성공 여부를 건별로 설명할 수 있어야 합니다</h2>
+      <p>
+        다건 선택 Action에서는 모든 건이 같은 결과를 갖지 않을 수 있다. 예를 들어 세 건을 선택했을 때
+        두 건은 승인 가능하지만 한 건은 이미 마감 상태일 수 있다. 이 경우 전체 실패로 처리할지,
+        가능한 건만 처리하고 실패 건만 메시지로 알려줄지 업무 기준을 정해야 한다.
+      </p>
+      <div class="stage7-card-grid two">
+        <article class="stage7-card" data-prose="structure">
+          <h3>전체 성공 또는 전체 실패</h3>
+          <p>트랜잭션 일관성이 중요할 때 사용한다. 한 건이라도 실패하면 전체 처리를 막는 방식이다.</p>
+        </article>
+        <article class="stage7-card" data-prose="structure">
+          <h3>부분 성공 허용</h3>
+          <p>선택 건마다 독립적으로 처리할 수 있을 때 사용한다. 성공 건과 실패 건의 메시지를 명확히 분리한다.</p>
+        </article>
+      </div>
+      <p>
+        초급자는 처음부터 복잡한 트랜잭션 정책을 외우기보다, "선택된 각 건에 대해 사용자가 이해할 수 있는 결과가
+        화면에 돌아오는가"를 기준으로 구현을 점검한다.
+      </p>
+    </section>
+
+    <section class="stage7-section prose-practice" data-prose="practice" id="test">
+      <div class="stage7-section__label">04 · 테스트</div>
+      <h2>Action 테스트는 한 건과 여러 건을 나누어 확인합니다</h2>
+      <ol>
+        <li>한 건만 선택하고 Action을 실행해 메서드 호출과 메시지를 확인한다.</li>
+        <li>두 건 이상을 선택하고 <code>keys</code>에 몇 건이 들어오는지 디버깅한다.</li>
+        <li>처리 가능한 건과 처리 불가능한 건을 섞어 선택하고 메시지가 건별로 구분되는지 확인한다.</li>
+        <li>Action 실행 후 List Report 또는 Object Page가 기대한 상태로 갱신되는지 확인한다.</li>
+        <li>같은 Action을 반복 실행했을 때 이미 처리된 건을 다시 처리하지 않는지 확인한다.</li>
+      </ol>
+      <div class="warning" data-prose="warning">
+        <strong>주의</strong>
+        다건 Action에서 성능을 생각하지 않고 LOOP 안에서 매번 개별 SELECT를 반복하면 선택 건수가 늘어날수록
+        응답 시간이 급격히 나빠질 수 있다. 가능한 경우 Key 목록을 기준으로 한 번에 읽고, 이후 내부 테이블에서 판단한다.
+      </div>
+    </section>
+
+    <section class="stage7-section prose-checklist" data-prose="checklist" id="checklist">
+      <div class="stage7-section__label">05 · 체크리스트</div>
+      <h2>RAP Action 다건 처리를 구현하기 전 다음을 확인합니다</h2>
+      <ul>
+        <li>Action이 단일 건 전용인지, 다건 선택을 허용하는지 업무 기준을 정했다.</li>
+        <li><code>keys</code>를 반복 처리하며 각 인스턴스의 상태를 확인한다.</li>
+        <li>성공, 실패, 경고 메시지를 사용자가 이해할 수 있는 문장으로 반환한다.</li>
+        <li>부분 성공을 허용할지 전체 실패로 묶을지 결정했다.</li>
+        <li>디버깅 시 메서드 호출 횟수와 <code>keys</code> 건수를 구분해서 본다.</li>
+        <li>대량 선택 시 성능 문제가 생기지 않도록 데이터 조회 방식을 점검한다.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="stage7-footer prose-summary" data-prose="summary">
+    RAP Action 다건 선택 처리 · Stage 7 Docs · 2026-05-29 · 배포자: 정훈영
+  </footer>
+</div>
+</body>
+</html>
