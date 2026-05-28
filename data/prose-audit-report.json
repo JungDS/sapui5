@@ -120,7 +120,7 @@
       "style_issue_count": 2
     },
     {
-      "file": "v3/abap-classic-report-itab-alv-beginner-v3.html",
+      "file": "v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html",
       "block_count": 13,
       "counts": {
         "summary": 3,
@@ -132,7 +132,7 @@
       "invalid": [],
       "style_issues": [
         {
-          "file": "v3/abap-classic-report-itab-alv-beginner-v3.html",
+          "file": "v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html",
           "block": 4,
           "block_id": "flow",
           "data_prose": "practice",
@@ -141,7 +141,7 @@
           "sample": "02 · 기본 흐름 Report 프로그램의 전형적인 흐름 1 입력 받기 Selection Screen에서 조건을 입력받습니다. 2 데이터 조회 Open SQL로 필요한 컬럼만 조회한다. 3 내부 테이블 가공 Internal Table에서 정렬, 필터, 집계를 수행한다. 4 출력 ALV 또는 콘솔로 결과를 보여준다."
         },
         {
-          "file": "v3/abap-classic-report-itab-alv-beginner-v3.html",
+          "file": "v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html",
           "block": 11,
           "block_id": "check",
           "data_prose": "practice",
@@ -153,7 +153,7 @@
       "style_issue_count": 2
     },
     {
-      "file": "v3/abap-cloud-app-development-summary-v3.html",
+      "file": "v3/01-abap/abap-cloud-app-development-summary-v3.html",
       "block_count": 7,
       "counts": {
         "summary": 3,
@@ -165,7 +165,7 @@
       "invalid": [],
       "style_issues": [
         {
-          "file": "v3/abap-cloud-app-development-summary-v3.html",
+          "file": "v3/01-abap/abap-cloud-app-development-summary-v3.html",
           "block": 5,
           "block_id": "check",
           "data_prose": "checklist",
@@ -177,7 +177,7 @@
       "style_issue_count": 1
     },
     {
-      "file": "v3/abap-new-syntax-beginner-guide-v3.html",
+      "file": "v3/01-abap/abap-new-syntax-beginner-guide-v3.html",
       "block_count": 8,
       "counts": {
         "summary": 3,
@@ -191,7 +191,7 @@
       "style_issue_count": 0
     },
     {
-      "file": "v3/rap-action-invocation-grouping-v3.html",
+      "file": "v3/01-abap/rap-action-invocation-grouping-v3.html",
       "block_count": 8,
       "counts": {
         "summary": 3,
@@ -203,7 +203,7 @@
       "invalid": [],
       "style_issues": [
         {
-          "file": "v3/rap-action-invocation-grouping-v3.html",
+          "file": "v3/01-abap/rap-action-invocation-grouping-v3.html",
           "block": 3,
           "block_id": "problem",
           "data_prose": "practice",
@@ -215,7 +215,7 @@
       "style_issue_count": 1
     },
     {
-      "file": "v3/sap-cds-to-odata-beginner-guide-v3.html",
+      "file": "v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html",
       "block_count": 14,
       "counts": {
         "summary": 3,
@@ -228,7 +228,7 @@
       "invalid": [],
       "style_issues": [
         {
-          "file": "v3/sap-cds-to-odata-beginner-guide-v3.html",
+          "file": "v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html",
           "block": 6,
           "block_id": "flow",
           "data_prose": "practice",
@@ -240,7 +240,7 @@
       "style_issue_count": 1
     },
     {
-      "file": "v3/sap-co-process-and-tables-beginner-v3.html",
+      "file": "v3/03-module-basics/sap-co-process-and-tables-beginner-v3.html",
       "block_count": 11,
       "counts": {
         "summary": 3,
@@ -254,7 +254,7 @@
       "style_issue_count": 0
     },
     {
-      "file": "v3/sap-debugging-troubleshooting-guide-v3.html",
+      "file": "v3/00-roadmap/sap-debugging-troubleshooting-guide-v3.html",
       "block_count": 12,
       "counts": {
         "summary": 3,
@@ -266,7 +266,7 @@
       "invalid": [],
       "style_issues": [
         {
-          "file": "v3/sap-debugging-troubleshooting-guide-v3.html",
+          "file": "v3/00-roadmap/sap-debugging-troubleshooting-guide-v3.html",
           "block": 3,
           "block_id": "first",
           "data_prose": "checklist",
@@ -278,7 +278,7 @@
       "style_issue_count": 1
     },
     {
-      "file": "v3/sap-developer-glossary-v3.html",
+      "file": "v3/99-reference/sap-developer-glossary-v3.html",
       "block_count": 6,
       "counts": {
         "summary": 3,
@@ -290,7 +290,7 @@
       "style_issue_count": 0
     },
     {
-      "file": "v3/sap-developer-learning-roadmap-v3.html",
+      "file": "v3/00-roadmap/sap-developer-learning-roadmap-v3.html",
       "block_count": 16,
       "counts": {
         "summary": 3,
@@ -304,7 +304,7 @@
       "style_issue_count": 0
     },
     {
-      "file": "v3/sap-developer-writing-style-guide-v3.html",
+      "file": "v3/99-reference/sap-developer-writing-style-guide-v3.html",
       "block_count": 10,
       "counts": {
         "summary": 3,
@@ -315,7 +315,7 @@
       "invalid": [],
       "style_issues": [
         {
-          "file": "v3/sap-developer-writing-style-guide-v3.html",
+          "file": "v3/99-reference/sap-developer-writing-style-guide-v3.html",
           "block": 3,
           "block_id": "principle",
           "data_prose": "practice",
@@ -324,7 +324,7 @@
           "sample": "01 · 원칙 문체는 문서의 기능에 맞춘다 개념 설명은 기술 서적처럼 간결한 평서형을 사용한다.\n        실습 절차와 체크리스트는 학습자의 행동을 이끄는 지시형을 사용한다.\n        강사용 메모는 수업 진행자에게 전달하는 안내이므로 존칭형을 유지합니다. 개념 설명 평서형을 사용한다. 예: UI5는 입력값을 Mo"
         },
         {
-          "file": "v3/sap-developer-writing-style-guide-v3.html",
+          "file": "v3/99-reference/sap-developer-writing-style-guide-v3.html",
           "block": 6,
           "block_id": "mini-card",
           "data_prose": "practice",
@@ -333,7 +333,7 @@
           "sample": "강사용 메모 존칭형을 사용합니다. 예: 이 단계에서는 학생에게 화면 값과 Model 값의 차이를 먼저 질문하는 것이 좋습니다."
         },
         {
-          "file": "v3/sap-developer-writing-style-guide-v3.html",
+          "file": "v3/99-reference/sap-developer-writing-style-guide-v3.html",
           "block": 7,
           "block_id": "examples",
           "data_prose": "practice",
@@ -342,7 +342,7 @@
           "sample": "02 · 예시 같은 내용을 상황별로 다르게 표현한다 상황 권장 표현 사용 위치 개념 설명 Input은 사용자가 값을 입력하는 UI Control이다. 본문, 개념 카드, 표 설명 절차 안내 Input에 abc를 입력한다. Model 값이 변경되지 않는지 확인한다. 실습, 따라하기, 체크리스트 주의사항 화면 값과 Model"
         },
         {
-          "file": "v3/sap-developer-writing-style-guide-v3.html",
+          "file": "v3/99-reference/sap-developer-writing-style-guide-v3.html",
           "block": 8,
           "block_id": "rewrite",
           "data_prose": "reference",
@@ -354,7 +354,7 @@
       "style_issue_count": 4
     },
     {
-      "file": "v3/sap-development-tools-overview-v3.html",
+      "file": "v3/00-roadmap/sap-development-tools-overview-v3.html",
       "block_count": 13,
       "counts": {
         "summary": 3,
@@ -366,7 +366,7 @@
       "invalid": [],
       "style_issues": [
         {
-          "file": "v3/sap-development-tools-overview-v3.html",
+          "file": "v3/00-roadmap/sap-development-tools-overview-v3.html",
           "block": 3,
           "block_id": "map",
           "data_prose": "practice",
@@ -378,7 +378,7 @@
       "style_issue_count": 1
     },
     {
-      "file": "v3/sap-fi-gl-number-range-adult-v3.html",
+      "file": "v3/03-module-basics/sap-fi-gl-number-range-adult-v3.html",
       "block_count": 6,
       "counts": {
         "summary": 3,
@@ -390,7 +390,7 @@
       "style_issue_count": 0
     },
     {
-      "file": "v3/sap-fi-gl-number-range-elementary-v3.html",
+      "file": "v3/03-module-basics/sap-fi-gl-number-range-elementary-v3.html",
       "block_count": 6,
       "counts": {
         "summary": 3,
@@ -403,7 +403,7 @@
       "style_issue_count": 0
     },
     {
-      "file": "v3/sap-fi-gl-number-range-visual-deck-v3.html",
+      "file": "v3/03-module-basics/sap-fi-gl-number-range-visual-deck-v3.html",
       "block_count": 10,
       "counts": {
         "summary": 3,
@@ -416,7 +416,7 @@
       "style_issue_count": 0
     },
     {
-      "file": "v3/sap-fi-process-and-tables-beginner-v3.html",
+      "file": "v3/03-module-basics/sap-fi-process-and-tables-beginner-v3.html",
       "block_count": 11,
       "counts": {
         "summary": 3,
@@ -430,7 +430,7 @@
       "style_issue_count": 0
     },
     {
-      "file": "v3/sap-fiori-elements-beginner-guide-v3.html",
+      "file": "v3/02-ui5-fiori/sap-fiori-elements-beginner-guide-v3.html",
       "block_count": 12,
       "counts": {
         "summary": 3,
@@ -445,7 +445,7 @@
       "style_issue_count": 0
     },
     {
-      "file": "v3/sap-fiori-launchpad-deployment-beginner-guide-v3.html",
+      "file": "v3/02-ui5-fiori/sap-fiori-launchpad-deployment-beginner-guide-v3.html",
       "block_count": 11,
       "counts": {
         "summary": 3,
@@ -456,7 +456,7 @@
       "invalid": [],
       "style_issues": [
         {
-          "file": "v3/sap-fiori-launchpad-deployment-beginner-guide-v3.html",
+          "file": "v3/02-ui5-fiori/sap-fiori-launchpad-deployment-beginner-guide-v3.html",
           "block": 3,
           "block_id": "role",
           "data_prose": "practice",
@@ -465,7 +465,7 @@
           "sample": "01 · 역할 Fiori Launchpad는 사용자가 앱을 실행하는 출발점입니다 UI5 앱을 만들었다고 사용자가 바로 볼 수 있는 것은 아닙니다. Launchpad에 타일, Target Mapping, 권한을 연결해야 한다."
         },
         {
-          "file": "v3/sap-fiori-launchpad-deployment-beginner-guide-v3.html",
+          "file": "v3/02-ui5-fiori/sap-fiori-launchpad-deployment-beginner-guide-v3.html",
           "block": 4,
           "block_id": "semantic",
           "data_prose": "practice",
@@ -474,7 +474,7 @@
           "sample": "02 · Semantic Object Semantic Object와 Action은 의도를 표현한다 요소 예시 의미 Semantic Object SalesOrder 무엇에 대한 앱인가 Action display, manage 어떤 동작인가 Intent #SalesOrder-manage Launchpad가 해석하는 실행 의도"
         },
         {
-          "file": "v3/sap-fiori-launchpad-deployment-beginner-guide-v3.html",
+          "file": "v3/02-ui5-fiori/sap-fiori-launchpad-deployment-beginner-guide-v3.html",
           "block": 5,
           "block_id": "deploy",
           "data_prose": "practice",
@@ -486,7 +486,7 @@
       "style_issue_count": 3
     },
     {
-      "file": "v3/sap-flight-integrated-practice-classrun-gateway-ui5-v3.html",
+      "file": "v3/04-integrated-practice/sap-flight-integrated-practice-classrun-gateway-ui5-v3.html",
       "block_count": 12,
       "counts": {
         "summary": 3,
@@ -497,7 +497,7 @@
       "invalid": [],
       "style_issues": [
         {
-          "file": "v3/sap-flight-integrated-practice-classrun-gateway-ui5-v3.html",
+          "file": "v3/04-integrated-practice/sap-flight-integrated-practice-classrun-gateway-ui5-v3.html",
           "block": 3,
           "block_id": "goal",
           "data_prose": "practice",
@@ -506,7 +506,7 @@
           "sample": "01 · 목표 하나의 Flight 시나리오로 ABAP과 UI5를 연결한다 이 실습은 단순 문법 문제가 아니라 데이터 모델, 서버 로직, OData, UI5 화면, 메시지 처리를 하나로 연결하는 종합 실습입니다."
         },
         {
-          "file": "v3/sap-flight-integrated-practice-classrun-gateway-ui5-v3.html",
+          "file": "v3/04-integrated-practice/sap-flight-integrated-practice-classrun-gateway-ui5-v3.html",
           "block": 4,
           "block_id": "steps",
           "data_prose": "practice",
@@ -515,7 +515,7 @@
           "sample": "02 · 단계 실습 단계 1 ClassRun KPI Flight 데이터를 읽어 항공사/노선별 KPI를 출력한다. 2 Gateway CRUD 예약 또는 Alert 관리용 OData V2 서비스를 구현한다. 3 UI5 화면 목록/상세/저장 화면을 만들고 ODataModel로 연결한다. 4 Messaging 입력 오류와 백엔드"
         },
         {
-          "file": "v3/sap-flight-integrated-practice-classrun-gateway-ui5-v3.html",
+          "file": "v3/04-integrated-practice/sap-flight-integrated-practice-classrun-gateway-ui5-v3.html",
           "block": 10,
           "block_id": "deliverables",
           "data_prose": "practice",
@@ -527,7 +527,7 @@
       "style_issue_count": 3
     },
     {
-      "file": "v3/sap-flight-model-table-guide-v3.html",
+      "file": "v3/04-integrated-practice/sap-flight-model-table-guide-v3.html",
       "block_count": 10,
       "counts": {
         "summary": 3,
@@ -540,7 +540,7 @@
       "style_issue_count": 0
     },
     {
-      "file": "v3/sap-gateway-odata-v2-crud-beginner-guide-v3.html",
+      "file": "v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html",
       "block_count": 8,
       "counts": {
         "summary": 3,
@@ -554,7 +554,7 @@
       "style_issue_count": 0
     },
     {
-      "file": "v3/sap-mm-process-and-tables-beginner-v3.html",
+      "file": "v3/03-module-basics/sap-mm-process-and-tables-beginner-v3.html",
       "block_count": 11,
       "counts": {
         "summary": 3,
@@ -568,7 +568,7 @@
       "style_issue_count": 0
     },
     {
-      "file": "v3/sap-module-basics-for-developers-v3.html",
+      "file": "v3/03-module-basics/sap-module-basics-for-developers-v3.html",
       "block_count": 6,
       "counts": {
         "summary": 3,
@@ -581,7 +581,7 @@
       "style_issue_count": 0
     },
     {
-      "file": "v3/sap-odata-external-export-summary-v3.html",
+      "file": "v3/99-reference/sap-odata-external-export-summary-v3.html",
       "block_count": 7,
       "counts": {
         "summary": 3,
@@ -594,7 +594,7 @@
       "style_issue_count": 0
     },
     {
-      "file": "v3/sap-pp-atp-learning-package-v3.html",
+      "file": "v3/03-module-basics/sap-pp-atp-learning-package-v3.html",
       "block_count": 13,
       "counts": {
         "summary": 3,
@@ -609,7 +609,7 @@
       "style_issue_count": 0
     },
     {
-      "file": "v3/sap-pp-mrp-learning-package-v3.html",
+      "file": "v3/03-module-basics/sap-pp-mrp-learning-package-v3.html",
       "block_count": 11,
       "counts": {
         "summary": 3,
@@ -622,7 +622,7 @@
       "invalid": [],
       "style_issues": [
         {
-          "file": "v3/sap-pp-mrp-learning-package-v3.html",
+          "file": "v3/03-module-basics/sap-pp-mrp-learning-package-v3.html",
           "block": 9,
           "block_id": "check",
           "data_prose": "checklist",
@@ -634,7 +634,7 @@
       "style_issue_count": 1
     },
     {
-      "file": "v3/sap-pp-process-and-tables-beginner-v3.html",
+      "file": "v3/03-module-basics/sap-pp-process-and-tables-beginner-v3.html",
       "block_count": 11,
       "counts": {
         "summary": 3,
@@ -649,7 +649,7 @@
       "style_issue_count": 0
     },
     {
-      "file": "v3/sap-pp-safety-stock-learning-package-v3.html",
+      "file": "v3/03-module-basics/sap-pp-safety-stock-learning-package-v3.html",
       "block_count": 8,
       "counts": {
         "summary": 3,
@@ -663,7 +663,7 @@
       "style_issue_count": 0
     },
     {
-      "file": "v3/sap-rap-end-to-end-beginner-guide-v3.html",
+      "file": "v3/01-abap/sap-rap-end-to-end-beginner-guide-v3.html",
       "block_count": 10,
       "counts": {
         "summary": 3,
@@ -674,7 +674,7 @@
       "invalid": [],
       "style_issues": [
         {
-          "file": "v3/sap-rap-end-to-end-beginner-guide-v3.html",
+          "file": "v3/01-abap/sap-rap-end-to-end-beginner-guide-v3.html",
           "block": 4,
           "block_id": "pieces",
           "data_prose": "practice",
@@ -683,7 +683,7 @@
           "sample": "02 · 구성요소 RAP BO를 구성하는 핵심 요소 요소 역할 초급자 해석 Root View Entity 비즈니스 객체의 데이터 구조 어떤 데이터를 다루는가 Behavior Definition 가능한 동작 선언 생성/수정/삭제/액션 가능 여부 Behavior Implementation 동작의 실제 로직 검증, 계산, 액션"
         },
         {
-          "file": "v3/sap-rap-end-to-end-beginner-guide-v3.html",
+          "file": "v3/01-abap/sap-rap-end-to-end-beginner-guide-v3.html",
           "block": 5,
           "block_id": "actions",
           "data_prose": "practice",
@@ -695,7 +695,7 @@
       "style_issue_count": 2
     },
     {
-      "file": "v3/sap-sd-process-and-tables-beginner-v3.html",
+      "file": "v3/03-module-basics/sap-sd-process-and-tables-beginner-v3.html",
       "block_count": 11,
       "counts": {
         "summary": 3,
@@ -710,7 +710,7 @@
       "style_issue_count": 0
     },
     {
-      "file": "v3/sap-standard-table-map-for-developers-v3.html",
+      "file": "v3/03-module-basics/sap-standard-table-map-for-developers-v3.html",
       "block_count": 8,
       "counts": {
         "summary": 3,
@@ -724,7 +724,7 @@
       "style_issue_count": 0
     },
     {
-      "file": "v3/sapui5-controller-function-intro-v3.html",
+      "file": "v3/02-ui5-fiori/sapui5-controller-function-intro-v3.html",
       "block_count": 13,
       "counts": {
         "summary": 3,
@@ -737,7 +737,7 @@
       "invalid": [],
       "style_issues": [
         {
-          "file": "v3/sapui5-controller-function-intro-v3.html",
+          "file": "v3/02-ui5-fiori/sapui5-controller-function-intro-v3.html",
           "block": 10,
           "block_id": "this",
           "data_prose": "practice",
@@ -749,7 +749,7 @@
       "style_issue_count": 1
     },
     {
-      "file": "v3/sapui5-messaging-data-flow-v3.html",
+      "file": "v3/02-ui5-fiori/sapui5-messaging-data-flow-v3.html",
       "block_count": 9,
       "counts": {
         "summary": 3,
@@ -763,7 +763,7 @@
       "style_issue_count": 0
     },
     {
-      "file": "v3/sapui5-messaging-input-validation-v3.html",
+      "file": "v3/02-ui5-fiori/sapui5-messaging-input-validation-v3.html",
       "block_count": 17,
       "counts": {
         "summary": 3,
@@ -775,7 +775,7 @@
       "invalid": [],
       "style_issues": [
         {
-          "file": "v3/sapui5-messaging-input-validation-v3.html",
+          "file": "v3/02-ui5-fiori/sapui5-messaging-input-validation-v3.html",
           "block": 4,
           "block_id": "practice-lab",
           "data_prose": "practice",
@@ -784,7 +784,7 @@
           "sample": "실습 입력창 조건은 , , 입니다. 초기 Model 값은 입니다. Input 화면 값 abc 입력 999 입력 30 입력 저장 Guard 검사 초기화 현재 상태 Input 화면 값 20 Model 확정값 20 MessageModel 상태"
         },
         {
-          "file": "v3/sapui5-messaging-input-validation-v3.html",
+          "file": "v3/02-ui5-fiori/sapui5-messaging-input-validation-v3.html",
           "block": 5,
           "block_id": "lab-panel",
           "data_prose": "practice",
@@ -796,7 +796,7 @@
       "style_issue_count": 2
     },
     {
-      "file": "v3/sapui5-odata-model-crud-beginner-guide-v3.html",
+      "file": "v3/02-ui5-fiori/sapui5-odata-model-crud-beginner-guide-v3.html",
       "block_count": 8,
       "counts": {
         "summary": 3,
@@ -810,7 +810,7 @@
       "style_issue_count": 0
     },
     {
-      "file": "v3/sapui5-routing-layout-beginner-guide-v3.html",
+      "file": "v3/02-ui5-fiori/sapui5-routing-layout-beginner-guide-v3.html",
       "block_count": 8,
       "counts": {
         "summary": 3,
@@ -863,7 +863,7 @@
       "sample": "04. 통합 실습 통합 실습 P1 Flight Model SAP Flight Model 데이터 구조 해설 SCARR, SPFLI, SFLIGHT, SBOOK 등 Flight 모델 테이블 관계를 통합 실습 전 선행 지식으로 정리한다. 열기 → P0 종합 실습 Flight 통합 실습 최신본 ClassRun, Gateway C"
     },
     {
-      "file": "v3/abap-classic-report-itab-alv-beginner-v3.html",
+      "file": "v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html",
       "block": 4,
       "block_id": "flow",
       "data_prose": "practice",
@@ -872,7 +872,7 @@
       "sample": "02 · 기본 흐름 Report 프로그램의 전형적인 흐름 1 입력 받기 Selection Screen에서 조건을 입력받습니다. 2 데이터 조회 Open SQL로 필요한 컬럼만 조회한다. 3 내부 테이블 가공 Internal Table에서 정렬, 필터, 집계를 수행한다. 4 출력 ALV 또는 콘솔로 결과를 보여준다."
     },
     {
-      "file": "v3/abap-classic-report-itab-alv-beginner-v3.html",
+      "file": "v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html",
       "block": 11,
       "block_id": "check",
       "data_prose": "practice",
@@ -881,7 +881,7 @@
       "sample": "04 · 체크리스트 처음부터 습관화할 기준 를 지양한다. LOOP 안 SELECT를 피한다. 입력, 조회, 가공, 출력을 함수나 메서드로 분리한다."
     },
     {
-      "file": "v3/abap-cloud-app-development-summary-v3.html",
+      "file": "v3/01-abap/abap-cloud-app-development-summary-v3.html",
       "block": 5,
       "block_id": "check",
       "data_prose": "checklist",
@@ -890,7 +890,7 @@
       "sample": "03 · 체크리스트 ABAP Cloud를 공부할 때 같이 볼 것 CDS View에서 OData 노출까지 RAP End-to-End 입문 Fiori Elements 입문"
     },
     {
-      "file": "v3/rap-action-invocation-grouping-v3.html",
+      "file": "v3/01-abap/rap-action-invocation-grouping-v3.html",
       "block": 3,
       "block_id": "problem",
       "data_prose": "practice",
@@ -899,7 +899,7 @@
       "sample": "01 · 문제상황 여러 행을 선택했을 때 Action은 몇 번 호출될까요? UI에서 여러 행을 선택해 Action 버튼을 누르면, 프레임워크 설정에 따라 건별 호출처럼 보일 수도 있고, 여러 Key가 한 번에 전달될 수도 있다. 실무에서는 이 차이를 이해해야 성능과 트랜잭션 처리를 설계할 수 있다."
     },
     {
-      "file": "v3/sap-cds-to-odata-beginner-guide-v3.html",
+      "file": "v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html",
       "block": 6,
       "block_id": "flow",
       "data_prose": "practice",
@@ -908,7 +908,7 @@
       "sample": "02 · 흐름 CDS에서 OData까지 1 ZI_* Interface View 테이블과 Join/Association을 기반으로 안정적인 데이터 모델을 만든다. 2 ZC_* Projection View 소비자에게 필요한 필드와 Annotation을 정리한다. 3 Service Definition 노출할 View를 서비스 "
     },
     {
-      "file": "v3/sap-debugging-troubleshooting-guide-v3.html",
+      "file": "v3/00-roadmap/sap-debugging-troubleshooting-guide-v3.html",
       "block": 3,
       "block_id": "first",
       "data_prose": "checklist",
@@ -917,7 +917,7 @@
       "sample": "01 · 오류 위치 오류는 먼저 위치를 나눠야 한다 증상 우선 확인 위치 대표 도구 ABAP 로직 결과가 이상함 서버 로직 ADT Debugger OData 호출 실패 Gateway / HTTP 응답 Gateway Client, Network 화면 버튼이 작동 안 함 UI5 Controller Browser Console"
     },
     {
-      "file": "v3/sap-developer-writing-style-guide-v3.html",
+      "file": "v3/99-reference/sap-developer-writing-style-guide-v3.html",
       "block": 3,
       "block_id": "principle",
       "data_prose": "practice",
@@ -926,7 +926,7 @@
       "sample": "01 · 원칙 문체는 문서의 기능에 맞춘다 개념 설명은 기술 서적처럼 간결한 평서형을 사용한다.\n        실습 절차와 체크리스트는 학습자의 행동을 이끄는 지시형을 사용한다.\n        강사용 메모는 수업 진행자에게 전달하는 안내이므로 존칭형을 유지합니다. 개념 설명 평서형을 사용한다. 예: UI5는 입력값을 Mo"
     },
     {
-      "file": "v3/sap-developer-writing-style-guide-v3.html",
+      "file": "v3/99-reference/sap-developer-writing-style-guide-v3.html",
       "block": 6,
       "block_id": "mini-card",
       "data_prose": "practice",
@@ -935,7 +935,7 @@
       "sample": "강사용 메모 존칭형을 사용합니다. 예: 이 단계에서는 학생에게 화면 값과 Model 값의 차이를 먼저 질문하는 것이 좋습니다."
     },
     {
-      "file": "v3/sap-developer-writing-style-guide-v3.html",
+      "file": "v3/99-reference/sap-developer-writing-style-guide-v3.html",
       "block": 7,
       "block_id": "examples",
       "data_prose": "practice",
@@ -944,7 +944,7 @@
       "sample": "02 · 예시 같은 내용을 상황별로 다르게 표현한다 상황 권장 표현 사용 위치 개념 설명 Input은 사용자가 값을 입력하는 UI Control이다. 본문, 개념 카드, 표 설명 절차 안내 Input에 abc를 입력한다. Model 값이 변경되지 않는지 확인한다. 실습, 따라하기, 체크리스트 주의사항 화면 값과 Model"
     },
     {
-      "file": "v3/sap-developer-writing-style-guide-v3.html",
+      "file": "v3/99-reference/sap-developer-writing-style-guide-v3.html",
       "block": 8,
       "block_id": "rewrite",
       "data_prose": "reference",
@@ -953,7 +953,7 @@
       "sample": "03 · 적용 기준 v3 문서 수정 기준 본문의 “합니다/됩니다/있습니다” 표현은 원칙적으로 “한다/된다/있다”로 정리한다. 실습 문장은 “입력한다”, “실행한다”, “확인한다”처럼 행동 중심으로 쓴다. 초심자에게 어려운 단어는 RAP 처럼 용어 팝업으로 연결한다. 강사용 메모와 수업 진행 팁은 존칭형을 유지합니다."
     },
     {
-      "file": "v3/sap-development-tools-overview-v3.html",
+      "file": "v3/00-roadmap/sap-development-tools-overview-v3.html",
       "block": 3,
       "block_id": "map",
       "data_prose": "practice",
@@ -962,7 +962,7 @@
       "sample": "01 · 도구 지도 도구를 먼저 알면 실습 중 길을 잃지 않습니다 도구 주 용도 처음 배울 때의 관점 SAP GUI 전통 SAP 화면, T-Code 실행 표준 테이블 조회, 설정 확인, Gateway 로그 확인 ADT / Eclipse ABAP, CDS, RAP 개발 ClassRun, CDS View, Behavior 구"
     },
     {
-      "file": "v3/sap-fiori-launchpad-deployment-beginner-guide-v3.html",
+      "file": "v3/02-ui5-fiori/sap-fiori-launchpad-deployment-beginner-guide-v3.html",
       "block": 3,
       "block_id": "role",
       "data_prose": "practice",
@@ -971,7 +971,7 @@
       "sample": "01 · 역할 Fiori Launchpad는 사용자가 앱을 실행하는 출발점입니다 UI5 앱을 만들었다고 사용자가 바로 볼 수 있는 것은 아닙니다. Launchpad에 타일, Target Mapping, 권한을 연결해야 한다."
     },
     {
-      "file": "v3/sap-fiori-launchpad-deployment-beginner-guide-v3.html",
+      "file": "v3/02-ui5-fiori/sap-fiori-launchpad-deployment-beginner-guide-v3.html",
       "block": 4,
       "block_id": "semantic",
       "data_prose": "practice",
@@ -980,7 +980,7 @@
       "sample": "02 · Semantic Object Semantic Object와 Action은 의도를 표현한다 요소 예시 의미 Semantic Object SalesOrder 무엇에 대한 앱인가 Action display, manage 어떤 동작인가 Intent #SalesOrder-manage Launchpad가 해석하는 실행 의도"
     },
     {
-      "file": "v3/sap-fiori-launchpad-deployment-beginner-guide-v3.html",
+      "file": "v3/02-ui5-fiori/sap-fiori-launchpad-deployment-beginner-guide-v3.html",
       "block": 5,
       "block_id": "deploy",
       "data_prose": "practice",
@@ -989,7 +989,7 @@
       "sample": "03 · 흐름 배포 후 확인 순서 1 앱 배포 UI5 앱을 ABAP Repository 또는 BTP에 배포한다. 2 타일/Target Mapping Launchpad에서 실행 의도를 연결한다. 3 Catalog/Space/Page 사용자에게 보일 메뉴 구조에 배치한다. 4 권한 역할을 통해 사용자가 접근할 수 있게 한다."
     },
     {
-      "file": "v3/sap-flight-integrated-practice-classrun-gateway-ui5-v3.html",
+      "file": "v3/04-integrated-practice/sap-flight-integrated-practice-classrun-gateway-ui5-v3.html",
       "block": 3,
       "block_id": "goal",
       "data_prose": "practice",
@@ -998,7 +998,7 @@
       "sample": "01 · 목표 하나의 Flight 시나리오로 ABAP과 UI5를 연결한다 이 실습은 단순 문법 문제가 아니라 데이터 모델, 서버 로직, OData, UI5 화면, 메시지 처리를 하나로 연결하는 종합 실습입니다."
     },
     {
-      "file": "v3/sap-flight-integrated-practice-classrun-gateway-ui5-v3.html",
+      "file": "v3/04-integrated-practice/sap-flight-integrated-practice-classrun-gateway-ui5-v3.html",
       "block": 4,
       "block_id": "steps",
       "data_prose": "practice",
@@ -1007,7 +1007,7 @@
       "sample": "02 · 단계 실습 단계 1 ClassRun KPI Flight 데이터를 읽어 항공사/노선별 KPI를 출력한다. 2 Gateway CRUD 예약 또는 Alert 관리용 OData V2 서비스를 구현한다. 3 UI5 화면 목록/상세/저장 화면을 만들고 ODataModel로 연결한다. 4 Messaging 입력 오류와 백엔드"
     },
     {
-      "file": "v3/sap-flight-integrated-practice-classrun-gateway-ui5-v3.html",
+      "file": "v3/04-integrated-practice/sap-flight-integrated-practice-classrun-gateway-ui5-v3.html",
       "block": 10,
       "block_id": "deliverables",
       "data_prose": "practice",
@@ -1016,7 +1016,7 @@
       "sample": "03 · 산출물 완료 기준 실행 가능한 ABAP ClassRun Gateway CRUD 서비스 UI5 List/Detail 앱 입력 검증과 오류 처리 RAP로 확장 가능한 데이터 모델"
     },
     {
-      "file": "v3/sap-pp-mrp-learning-package-v3.html",
+      "file": "v3/03-module-basics/sap-pp-mrp-learning-package-v3.html",
       "block": 9,
       "block_id": "check",
       "data_prose": "checklist",
@@ -1025,7 +1025,7 @@
       "sample": "03 · 체크리스트 MRP 결과를 볼 때 확인할 것 수요 날짜가 맞는가? 현재 재고와 안전재고가 반영되었는가? 리드타임과 Lot Size가 의도대로 작동하는가?"
     },
     {
-      "file": "v3/sap-rap-end-to-end-beginner-guide-v3.html",
+      "file": "v3/01-abap/sap-rap-end-to-end-beginner-guide-v3.html",
       "block": 4,
       "block_id": "pieces",
       "data_prose": "practice",
@@ -1034,7 +1034,7 @@
       "sample": "02 · 구성요소 RAP BO를 구성하는 핵심 요소 요소 역할 초급자 해석 Root View Entity 비즈니스 객체의 데이터 구조 어떤 데이터를 다루는가 Behavior Definition 가능한 동작 선언 생성/수정/삭제/액션 가능 여부 Behavior Implementation 동작의 실제 로직 검증, 계산, 액션"
     },
     {
-      "file": "v3/sap-rap-end-to-end-beginner-guide-v3.html",
+      "file": "v3/01-abap/sap-rap-end-to-end-beginner-guide-v3.html",
       "block": 5,
       "block_id": "actions",
       "data_prose": "practice",
@@ -1043,7 +1043,7 @@
       "sample": "03 · 확장 Validation, Determination, Action 1 Validation 저장 전에 데이터가 맞는지 검사한다. 2 Determination 특정 값이 바뀌면 다른 값을 자동 계산한다. 3 Action 승인, 취소, 상태변경처럼 명시적인 업무 버튼을 구현한다."
     },
     {
-      "file": "v3/sapui5-controller-function-intro-v3.html",
+      "file": "v3/02-ui5-fiori/sapui5-controller-function-intro-v3.html",
       "block": 10,
       "block_id": "this",
       "data_prose": "practice",
@@ -1052,7 +1052,7 @@
       "sample": "04 · this Controller 안의 this는 현재 Controller를 가리킵니다 this 를 통해 현재 화면의 View를 찾거나, 특정 ID의 Control을 가져올 수 있다. Input 값 읽기"
     },
     {
-      "file": "v3/sapui5-messaging-input-validation-v3.html",
+      "file": "v3/02-ui5-fiori/sapui5-messaging-input-validation-v3.html",
       "block": 4,
       "block_id": "practice-lab",
       "data_prose": "practice",
@@ -1061,7 +1061,7 @@
       "sample": "실습 입력창 조건은 , , 입니다. 초기 Model 값은 입니다. Input 화면 값 abc 입력 999 입력 30 입력 저장 Guard 검사 초기화 현재 상태 Input 화면 값 20 Model 확정값 20 MessageModel 상태"
     },
     {
-      "file": "v3/sapui5-messaging-input-validation-v3.html",
+      "file": "v3/02-ui5-fiori/sapui5-messaging-input-validation-v3.html",
       "block": 5,
       "block_id": "lab-panel",
       "data_prose": "practice",

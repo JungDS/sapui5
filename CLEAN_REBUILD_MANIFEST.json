@@ -7,10 +7,10 @@
     "_direct-push-test.md"
   ],
   "stage6_docs": [
-    "v3/sap-developer-learning-roadmap-v3.html",
-    "v3/sap-development-tools-overview-v3.html",
-    "v3/sap-debugging-troubleshooting-guide-v3.html",
-    "v3/abap-classic-report-itab-alv-beginner-v3.html"
+    "v3/00-roadmap/sap-developer-learning-roadmap-v3.html",
+    "v3/00-roadmap/sap-development-tools-overview-v3.html",
+    "v3/00-roadmap/sap-debugging-troubleshooting-guide-v3.html",
+    "v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html"
   ],
   "distributor": "정훈영"
 }

@@ -35,7 +35,12 @@
 - `pages/*.html`: 영역별 Landing Page
 - `assets/common.css`: 공통 디자인
 - `assets/common.js`: 용어 팝업, 코드 복사, 좌측 Tree Navigation
-- `v3/*.html`: 현재 기준 학습 문서
+- `v3/00-roadmap/*.html`: 로드맵 / 학습전략 문서
+- `v3/01-abap/*.html`: ABAP, CDS, Gateway, RAP 문서
+- `v3/02-ui5-fiori/*.html`: SAPUI5 / Fiori 문서
+- `v3/03-module-basics/*.html`: MM, PP, SD, FI, CO, 표준 테이블 문서
+- `v3/04-integrated-practice/*.html`: Flight 통합 실습 문서
+- `v3/99-reference/*.html`: 용어, 문체, 검수 리포트 문서
 - `v2/*.html`, `v1/*.html`: 이전 버전 보관 문서
 - `data/document-catalog.json`: 문서 목록
 - `data/site-map.json`: 카테고리와 추천 경로 데이터
@@ -55,7 +60,7 @@
 
 ### 6-1. SAP 개발자 학습 로드맵
 
-- 대상 문서: `v3/sap-developer-learning-roadmap-v3.html`
+- 대상 문서: `v3/00-roadmap/sap-developer-learning-roadmap-v3.html`
 - 상태: clean rebuild 세트에 포함
 - 반영 내용:
   - SAP 개발 학습의 큰 그림 재정리
@@ -67,7 +72,7 @@
 
 ### 6-2. SAP 개발 환경과 도구 입문
 
-- 대상 문서: `v3/sap-development-tools-overview-v3.html`
+- 대상 문서: `v3/00-roadmap/sap-development-tools-overview-v3.html`
 - 상태: clean rebuild 세트에 포함
 - 반영 내용:
   - SAP GUI, ADT, VS Code/BAS, Gateway Client, Browser DevTools 역할 상세화
@@ -78,7 +83,7 @@
 
 ### 6-3. SAP 디버깅 / 트러블슈팅 통합 가이드
 
-- 대상 문서: `v3/sap-debugging-troubleshooting-guide-v3.html`
+- 대상 문서: `v3/00-roadmap/sap-debugging-troubleshooting-guide-v3.html`
 - 상태: clean rebuild 세트에 포함
 - 반영 내용:
   - 디버깅을 범위 축소 과정으로 재정의
@@ -88,7 +93,7 @@
 
 ### 6-4. Classic ABAP 기본기
 
-- 대상 문서: `v3/abap-classic-report-itab-alv-beginner-v3.html`
+- 대상 문서: `v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html`
 - 상태: clean rebuild 세트에 포함
 - 반영 내용:
   - Report Program 기본 구조 상세화
@@ -100,10 +105,10 @@
 
 ## 다음 상세화 후보
 
-- 6-5. `v3/sap-cds-to-odata-beginner-guide-v3.html`
-- 6-6. `v3/sap-gateway-odata-v2-crud-beginner-guide-v3.html`
-- 6-7. `v3/sap-rap-end-to-end-beginner-guide-v3.html`
-- 6-8. `v3/sapui5-controller-function-intro-v3.html`
+- 6-5. `v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html`
+- 6-6. `v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html`
+- 6-7. `v3/01-abap/sap-rap-end-to-end-beginner-guide-v3.html`
+- 6-8. `v3/02-ui5-fiori/sapui5-controller-function-intro-v3.html`
 - 6-9. `v3/fiori-elements-annotation-practice-v3.html`
 
 ## 운영 원칙

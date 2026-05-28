@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SAP Developer Learning Library 문체 기준 · v3</title>
+<link href="../../assets/common.css" rel="stylesheet"/>
+<script defer="" src="../../assets/common.js"></script>
+<!-- data-prose required: concept | structure | practice | checklist | warning | teacher | reference | summary --></head>
+<body data-active-category="reference" data-active-doc="style-guide" data-prose-root="true">
+<header class="library-topbar prose-summary" data-prose="summary">
+<div class="library-topbar__inner">
+<a class="library-home" href="../../index.html">← SAP 학습자료 홈</a>
+<div class="library-meta">
+<span class="badge blue">v3</span>
+<span class="badge green">Reference</span>
+<span class="badge purple">혼합 문체</span>
+<span class="badge amber">배포자: 정훈영</span>
+</div>
+</div>
+</header>
+<div class="library-shell">
+<section class="hero prose-summary" data-prose="summary">
+<div class="breadcrumb" data-prose="summary">
+<a href="../../index.html">Home</a>
+<span>›</span>
+<a href="../../pages/reference.html">Reference / 운영</a>
+<span>›</span>
+<span>현재 문서</span>
+</div>
+
+<div class="eyebrow">SAP Developer Learning Library</div>
+<h1>SAP Developer Learning Library 문체 기준</h1>
+<p class="lead">
+      본문, 실습, 체크리스트, 강사용 메모의 문체를 상황에 맞게 구분해
+      전체 학습자료의 읽기 흐름을 통일한다.
+    </p>
+<div class="hero-actions">
+<span class="badge purple">본문 평서형</span>
+<span class="badge amber">실습 지시형</span>
+<span class="badge green">강사용 메모 존칭형</span>
+</div>
+</section>
+<main>
+<section class="section-card prose-practice" data-prose="practice" id="principle">
+<div class="section-label">01 · 원칙</div>
+<h2>문체는 문서의 기능에 맞춘다</h2>
+<p class="lead-text">
+        개념 설명은 기술 서적처럼 간결한 평서형을 사용한다.
+        실습 절차와 체크리스트는 학습자의 행동을 이끄는 지시형을 사용한다.
+        강사용 메모는 수업 진행자에게 전달하는 안내이므로 존칭형을 유지한다.
+      </p>
+<div class="grid-3">
+<div class="mini-card prose-practice" data-prose="practice">
+<h3>개념 설명</h3>
+<p>평서형을 사용한다. 예: UI5는 입력값을 Model에 반영하기 전에 타입과 제약조건을 검증한다.</p>
+</div>
+<div class="mini-card prose-practice" data-prose="practice">
+<h3>실습 / 체크리스트</h3>
+<p>지시형을 사용한다. 예: Input에 abc를 입력한다. MessageModel에 Error가 생성되는지 확인한다.</p>
+</div>
+<div class="mini-card prose-practice" data-prose="practice">
+<h3>강사용 메모</h3>
+<p>존칭형을 사용한다. 예: 이 단계에서는 학생에게 화면 값과 Model 값의 차이를 먼저 질문하는 것이 좋다.</p>
+</div>
+</div>
+</section>
+<section class="section-card prose-practice" data-prose="practice" id="examples">
+<div class="section-label">02 · 예시</div>
+<h2>같은 내용을 상황별로 다르게 표현한다</h2>
+<table>
+<thead>
+<tr>
+<th>상황</th>
+<th>권장 표현</th>
+<th>사용 위치</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>개념 설명</td>
+<td>Input은 사용자가 값을 입력하는 UI Control이다.</td>
+<td>본문, 개념 카드, 표 설명</td>
+</tr>
+<tr>
+<td>절차 안내</td>
+<td>Input에 abc를 입력한다. Model 값이 변경되지 않는지 확인한다.</td>
+<td>실습, 따라하기, 체크리스트</td>
+</tr>
+<tr>
+<td>주의사항</td>
+<td>화면 값과 Model 값을 같은 것으로 오해하기 쉽다.</td>
+<td>주의 박스, 팁 박스</td>
+</tr>
+<tr>
+<td>강사용 메모</td>
+<td>이 단계에서는 먼저 질문을 던지는 것이 좋다.</td>
+<td>강사용 주석, 수업 운영 팁</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="section-card prose-reference" data-prose="reference" id="rewrite">
+<div class="section-label">03 · 적용 기준</div>
+<h2>v3 문서 수정 기준</h2>
+<ol>
+<li>본문의 “한다/된다/있다” 표현은 원칙적으로 “한다/된다/있다”로 정리한다.</li>
+<li>실습 문장은 “입력한다”, “실행한다”, “확인한다”처럼 행동 중심으로 쓴다.</li>
+<li>초심자에게 어려운 단어는 <button class="term" data-term="RAP" type="button">RAP</button>처럼 용어 팝업으로 연결한다.</li>
+<li>강사용 메모와 수업 진행 팁은 존칭형을 유지한다.</li>
+</ol>
+</section>
+<section class="section-card prose-checklist" data-prose="checklist" id="data-prose-required">
+<div class="section-label">04 · 필수 규칙</div>
+<h2>모든 주요 콘텐츠 블록에는 data-prose를 반드시 부여한다</h2>
+<ol>
+<li><code>section.section-card</code>, <code>.hero</code>, <code>.index-card</code>, <code>.note</code>, <code>.warning</code>, <code>.teacher-note</code>에는 <code>data-prose</code>를 부여한다.</li>
+<li>문체 검수는 문장 위치가 아니라 <code>data-prose</code> 값을 기준으로 수행한다.</li>
+<li><code>data-prose</code>가 누락된 주요 콘텐츠 블록은 검수 실패로 본다.</li>
+<li>허용 값은 <code>concept</code>, <code>structure</code>, <code>practice</code>, <code>checklist</code>, <code>warning</code>, <code>teacher</code>, <code>reference</code>, <code>summary</code>이다.</li>
+</ol>
+</section>
+</main>
+<aside class="toc prose-reference" data-prose="reference">
+<div class="library-tree" data-nav-tree="main" data-prose="reference"></div>
+<hr class="tree-separator"/>
+<div class="local-page-tools" data-prose="reference">
+<h2>이 문서 안에서</h2>
+</div>
+
+<h2>학습 목차</h2>
+<a href="#principle">01. 원칙</a>
+<a href="#examples">02. 예시</a>
+<a href="#rewrite">03. 적용 기준</a>
+<a href="#data-prose-required">04. 필수 규칙</a></aside>
+</div>
+<footer class="library-footer prose-summary" data-prose="summary">SAP Developer Learning Library 문체 기준 · v3 · 2026-05-27 · 배포자: 정훈영 · Final</footer>
+</body>
+</html>
