@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SAP 개발 환경과 도구 입문 · SAP Developer Learning Library</title>
+<link rel="stylesheet" href="../../assets/common.css" />
+<link rel="stylesheet" href="../../assets/stage7-shell.css" />
+<script src="../../assets/common.js" defer></script>
+<script src="../../assets/stage7-shell.js" defer></script>
+</head>
+<body
+  data-page-type="doc"
+  data-active-category="roadmap"
+  data-doc-id="tools"
+  data-doc-title="SAP 개발 환경과 도구 입문"
+  data-doc-version="4.0"
+  data-doc-created-at="2026-05-28T19:45:00+09:00"
+  data-doc-updated-at="2026-05-28T19:45:00+09:00"
+  data-distributor="정훈영"
+  data-prose-root="true">
+
+<div class="stage7-doc-layout">
+  <section class="stage7-hero prose-summary" data-prose="summary">
+    <div class="breadcrumb" data-prose="summary">
+      <a href="../../index.html">Home</a>
+      <span>›</span>
+      <a href="../../pages/roadmap.html">로드맵 / 학습전략</a>
+      <span>›</span>
+      <span>SAP 개발 환경과 도구 입문</span>
+    </div>
+    <div class="stage7-hero__eyebrow">SAP Developer Learning Library</div>
+    <h1>SAP 개발 환경과 도구 입문</h1>
+    <p class="lead">
+      SAP GUI, ADT, VS Code/BAS, Gateway Client, Browser DevTools가
+      SAP 개발 흐름에서 각각 어떤 역할을 맡는지 초급자 기준으로 정리한다.
+    </p>
+    <div class="home-badges">
+      <span class="stage7-badge blue">Stage 7 Docs</span>
+      <span class="stage7-badge green">로드맵</span>
+      <span class="stage7-badge purple">개발 도구</span>
+      <span class="stage7-badge amber">배포자: 정훈영</span>
+    </div>
+  </section>
+
+  <main>
+    <section class="stage7-section prose-structure" data-prose="structure" id="map">
+      <div class="stage7-section__label">01 · 도구 지도</div>
+      <h2>도구를 먼저 구분하면 실습 흐름이 단순해진다</h2>
+      <p>
+        SAP 개발 도구는 하나의 IDE로 끝나지 않는다. 서버 개발, 서비스 테스트,
+        프론트엔드 구현, 브라우저 디버깅, 운영 확인이 서로 다른 도구에서 이루어진다.
+      </p>
+      <table>
+        <thead><tr><th>도구</th><th>주 용도</th><th>처음 배울 때의 관점</th></tr></thead>
+        <tbody>
+          <tr><td>SAP GUI</td><td>T-Code 실행, 표준 화면 확인, 테이블/로그 확인</td><td>표준 SAP 동작과 시스템 상태 확인</td></tr>
+          <tr><td>ADT / Eclipse</td><td>ABAP, CDS, RAP 개발</td><td>서버 로직과 데이터 모델 작성</td></tr>
+          <tr><td>VS Code / BAS</td><td>SAPUI5, Fiori 앱 개발</td><td>XML View, Controller, Model, npm, UI5 Tooling</td></tr>
+          <tr><td>Gateway Client</td><td>OData V2 요청/응답 테스트</td><td>서비스가 정상 응답하는지 독립 확인</td></tr>
+          <tr><td>Browser DevTools</td><td>UI5 화면, Network, Console 디버깅</td><td>브라우저 실제 요청과 화면 오류 확인</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="stage7-section prose-structure" data-prose="structure" id="layers">
+      <div class="stage7-section__label">02 · 계층별 이해</div>
+      <h2>문제가 발생한 위치에 따라 사용하는 도구가 달라진다</h2>
+      <div class="stage7-card-grid two">
+        <article class="stage7-card" data-prose="concept"><h3>서버 로직 문제</h3><p>ABAP Class, CDS, RAP Behavior는 ADT와 Debugger로 확인한다.</p></article>
+        <article class="stage7-card" data-prose="concept"><h3>서비스 응답 문제</h3><p>OData Metadata, EntitySet, HTTP 상태는 Gateway Client와 Network에서 확인한다.</p></article>
+        <article class="stage7-card" data-prose="concept"><h3>화면 바인딩 문제</h3><p>View, Controller, Model, Binding Path는 VS Code/BAS와 Browser DevTools에서 확인한다.</p></article>
+        <article class="stage7-card" data-prose="concept"><h3>운영 상태 문제</h3><p>서비스 등록, 시스템 설정, 표준 로그는 SAP GUI에서 확인한다.</p></article>
+      </div>
+    </section>
+
+    <section class="stage7-section prose-structure" data-prose="structure" id="choose">
+      <div class="stage7-section__label">03 · 상황별 도구 선택</div>
+      <h2>증상만 보고도 첫 확인 위치를 정할 수 있어야 한다</h2>
+      <table>
+        <thead><tr><th>증상</th><th>먼저 확인할 도구</th><th>판단 기준</th></tr></thead>
+        <tbody>
+          <tr><td>화면 데이터가 비어 있음</td><td>Browser DevTools → Gateway Client</td><td>Network 응답과 Binding 경로를 분리한다.</td></tr>
+          <tr><td>OData 404/500 오류</td><td>Gateway Client → SAP GUI 로그</td><td>서비스 등록, 서버 예외, 메시지를 확인한다.</td></tr>
+          <tr><td>계산 결과 오류</td><td>ADT Debugger</td><td>ABAP 로직과 CDS 조건을 확인한다.</td></tr>
+          <tr><td>UI 이벤트 미실행</td><td>Console → VS Code/BAS</td><td>Controller 함수명과 이벤트 바인딩을 확인한다.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="stage7-section prose-checklist" data-prose="checklist" id="checklist">
+      <div class="stage7-section__label">04 · 학습 완료 체크</div>
+      <h2>다음 문서로 넘어가기 전에 확인한다</h2>
+      <ol>
+        <li>SAP GUI, ADT, VS Code/BAS, Gateway Client, Browser DevTools의 역할을 구분한다.</li>
+        <li>화면 데이터 오류 시 Network와 Gateway Client를 순서대로 확인한다.</li>
+        <li>서버 로직 문제와 화면 바인딩 문제를 증상 기준으로 구분한다.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="stage7-footer prose-summary" data-prose="summary">
+    SAP 개발 환경과 도구 입문 · Stage 7 Docs · 2026-05-28 · 배포자: 정훈영
+  </footer>
+</div>
+</body>
+</html>
