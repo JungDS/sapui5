@@ -1,0 +1,628 @@
+{
+  "version": "v3-stage3.5-prose-structured",
+  "created": "2026-05-27",
+  "distributor": "정훈영",
+  "document_count": 36,
+  "assets": [
+    "assets/common.css",
+    "assets/common.js"
+  ],
+  "documents": [
+    {
+      "filename": "sap-developer-learning-roadmap-v3.html",
+      "category": "00. 로드맵 / 학습전략",
+      "title": "SAP 개발자 학습 로드맵",
+      "subtitle": "ABAP Classic, Gateway, RAP, SAPUI5, Fiori Elements, 모듈 기초지식을 어떤 순서로 학습할지 안내합니다.",
+      "tags": [
+        {
+          "text": "P0",
+          "class": "blue"
+        },
+        {
+          "text": "입문",
+          "class": "green"
+        }
+      ]
+    },
+    {
+      "filename": "sap-development-tools-overview-v3.html",
+      "category": "00. 로드맵 / 학습전략",
+      "title": "SAP 개발 환경과 도구 입문",
+      "subtitle": "SAP GUI, ADT, VS Code/BAS, Gateway Client, Browser DevTools가 각각 어떤 상황에서 필요한지 정리합니다.",
+      "tags": [
+        {
+          "text": "P0",
+          "class": "blue"
+        },
+        {
+          "text": "도구",
+          "class": "green"
+        }
+      ]
+    },
+    {
+      "filename": "sap-debugging-troubleshooting-guide-v3.html",
+      "category": "00. 로드맵 / 학습전략",
+      "title": "SAP 개발 디버깅 / 트러블슈팅 통합 가이드",
+      "subtitle": "ABAP, Gateway, UI5 오류를 어디서부터 확인할지 초급자용 루틴으로 정리합니다.",
+      "tags": [
+        {
+          "text": "P1",
+          "class": "amber"
+        },
+        {
+          "text": "트러블슈팅",
+          "class": "red"
+        }
+      ]
+    },
+    {
+      "filename": "abap-classic-report-itab-alv-beginner-v3.html",
+      "category": "01. ABAP 개발",
+      "title": "Classic ABAP 기본기",
+      "subtitle": "Report, Selection Screen, Internal Table, Open SQL, ALV의 기본 흐름을 하나의 개발 사이클로 이해합니다.",
+      "tags": [
+        {
+          "text": "P0",
+          "class": "blue"
+        },
+        {
+          "text": "Classic ABAP",
+          "class": "green"
+        }
+      ]
+    },
+    {
+      "filename": "abap-new-syntax-beginner-guide-v3.html",
+      "category": "01. ABAP 개발",
+      "title": "ABAP New Syntax 입문",
+      "subtitle": "DATA(...), VALUE, CORRESPONDING, FOR, REDUCE 등 실무 코드를 읽기 위한 신문법을 익힙니다.",
+      "tags": [
+        {
+          "text": "P1",
+          "class": "amber"
+        },
+        {
+          "text": "ABAP",
+          "class": "green"
+        }
+      ]
+    },
+    {
+      "filename": "abap-cloud-app-development-summary-v3.html",
+      "category": "01. ABAP 개발",
+      "title": "ABAP Cloud App Development 정리",
+      "subtitle": "ABAP Cloud, CDS, RAP, Code Pushdown의 현대 ABAP 개발 방향을 초심자 기준으로 다시 정리합니다.",
+      "tags": [
+        {
+          "text": "P1",
+          "class": "amber"
+        },
+        {
+          "text": "ABAP Cloud",
+          "class": "green"
+        }
+      ]
+    },
+    {
+      "filename": "sap-cds-to-odata-beginner-guide-v3.html",
+      "category": "01. ABAP 개발",
+      "title": "CDS View에서 OData 노출까지",
+      "subtitle": "ZI_* Interface View, ZC_* Projection View, Association, Annotation, Service Definition/Binding 흐름을 학습합니다.",
+      "tags": [
+        {
+          "text": "P0",
+          "class": "blue"
+        },
+        {
+          "text": "CDS/OData",
+          "class": "green"
+        }
+      ]
+    },
+    {
+      "filename": "sap-gateway-odata-v2-crud-beginner-guide-v3.html",
+      "category": "01. ABAP 개발",
+      "title": "Gateway / OData V2 CRUD 입문",
+      "subtitle": "SEGW 기반 OData V2 서비스에서 EntitySet, MPC/DPC, CRUD 메서드와 오류 처리를 이해합니다.",
+      "tags": [
+        {
+          "text": "P0",
+          "class": "blue"
+        },
+        {
+          "text": "Gateway",
+          "class": "green"
+        }
+      ]
+    },
+    {
+      "filename": "sap-rap-end-to-end-beginner-guide-v3.html",
+      "category": "01. ABAP 개발",
+      "title": "RAP End-to-End 입문",
+      "subtitle": "Business Object, Behavior Definition, Validation, Determination, Action, Service Binding까지 전체 흐름을 익힙니다.",
+      "tags": [
+        {
+          "text": "P0",
+          "class": "blue"
+        },
+        {
+          "text": "RAP",
+          "class": "green"
+        }
+      ]
+    },
+    {
+      "filename": "rap-action-invocation-grouping-v3.html",
+      "category": "01. ABAP 개발",
+      "title": "RAP Action 다건 선택 처리",
+      "subtitle": "RAP Action에서 다건 선택 시 호출 단위와 Keys 일괄 전달 구조를 이해합니다.",
+      "tags": [
+        {
+          "text": "P2",
+          "class": "purple"
+        },
+        {
+          "text": "RAP",
+          "class": "green"
+        }
+      ]
+    },
+    {
+      "filename": "sapui5-controller-function-intro-v3.html",
+      "category": "02. UI5 / Fiori 개발",
+      "title": "UI5 Controller 함수 문법 입문",
+      "subtitle": "View와 Controller의 역할을 분리해서 이해하고, 버튼 클릭과 함수 실행 흐름을 초심자 기준으로 익힙니다.",
+      "tags": [
+        {
+          "text": "P0",
+          "class": "blue"
+        },
+        {
+          "text": "SAPUI5",
+          "class": "green"
+        }
+      ]
+    },
+    {
+      "filename": "sapui5-messaging-input-validation-v3.html",
+      "category": "02. UI5 / Fiori 개발",
+      "title": "Messaging과 Input Validation 실무 입문",
+      "subtitle": "Input 화면 값과 Model 값의 차이를 직접 실습하고, Messaging과 저장 전 Guard까지 초심자 기준으로 이해합니다.",
+      "tags": [
+        {
+          "text": "P0",
+          "class": "blue"
+        },
+        {
+          "text": "실습 포함",
+          "class": "green"
+        }
+      ]
+    },
+    {
+      "filename": "sapui5-odata-model-crud-beginner-guide-v3.html",
+      "category": "02. UI5 / Fiori 개발",
+      "title": "SAPUI5 OData Model과 CRUD 입문",
+      "subtitle": "JSONModel과 ODataModel의 차이, bindElement/bindItems, create/update/delete, submitBatch 흐름을 학습합니다.",
+      "tags": [
+        {
+          "text": "P0",
+          "class": "blue"
+        },
+        {
+          "text": "ODataModel",
+          "class": "green"
+        }
+      ]
+    },
+    {
+      "filename": "sapui5-routing-layout-beginner-guide-v3.html",
+      "category": "02. UI5 / Fiori 개발",
+      "title": "SAPUI5 Routing과 Layout 입문",
+      "subtitle": "manifest routing, targets, List/Detail 이동, FlexibleColumnLayout의 기본 구조를 이해합니다.",
+      "tags": [
+        {
+          "text": "P1",
+          "class": "amber"
+        },
+        {
+          "text": "Routing",
+          "class": "green"
+        }
+      ]
+    },
+    {
+      "filename": "sap-fiori-elements-beginner-guide-v3.html",
+      "category": "02. UI5 / Fiori 개발",
+      "title": "Fiori Elements 입문",
+      "subtitle": "Annotation과 OData 메타데이터를 기반으로 List Report와 Object Page를 만드는 방식을 이해합니다.",
+      "tags": [
+        {
+          "text": "P0",
+          "class": "blue"
+        },
+        {
+          "text": "Fiori Elements",
+          "class": "green"
+        }
+      ]
+    },
+    {
+      "filename": "sap-fiori-launchpad-deployment-beginner-guide-v3.html",
+      "category": "02. UI5 / Fiori 개발",
+      "title": "Fiori Launchpad 배포와 Semantic Object 입문",
+      "subtitle": "Tile, Target Mapping, Semantic Object, Action, Catalog/Space/Page, 권한 연결의 기본 흐름을 이해합니다.",
+      "tags": [
+        {
+          "text": "P1",
+          "class": "amber"
+        },
+        {
+          "text": "FLP",
+          "class": "green"
+        }
+      ]
+    },
+    {
+      "filename": "sap-module-basics-for-developers-v3.html",
+      "category": "03. SAP 모듈 기초",
+      "title": "SAP 모듈 기초와 개발자 관점",
+      "subtitle": "MM, PP, SD, FI, CO가 어떤 업무를 다루고 개발자가 왜 알아야 하는지 설명합니다.",
+      "tags": [
+        {
+          "text": "P0",
+          "class": "blue"
+        },
+        {
+          "text": "모듈 기초",
+          "class": "green"
+        }
+      ]
+    },
+    {
+      "filename": "sap-standard-table-map-for-developers-v3.html",
+      "category": "03. SAP 모듈 기초",
+      "title": "SAP Standard Table Map 입문",
+      "subtitle": "Header/Item 구조, Document Flow, 주요 모듈 테이블을 개발자 관점에서 지도처럼 정리합니다.",
+      "tags": [
+        {
+          "text": "P0",
+          "class": "blue"
+        },
+        {
+          "text": "Table Map",
+          "class": "green"
+        }
+      ]
+    },
+    {
+      "filename": "sap-mm-process-and-tables-beginner-v3.html",
+      "category": "03. SAP 모듈 기초",
+      "title": "MM 프로세스와 주요 테이블 입문",
+      "subtitle": "구매요청, 구매오더, 입고, 송장 검증의 흐름과 주요 테이블을 개발자 관점으로 이해합니다.",
+      "tags": [
+        {
+          "text": "MM",
+          "class": "green"
+        },
+        {
+          "text": "모듈 기초",
+          "class": "blue"
+        }
+      ]
+    },
+    {
+      "filename": "sap-pp-process-and-tables-beginner-v3.html",
+      "category": "03. SAP 모듈 기초",
+      "title": "PP 프로세스와 주요 테이블 입문",
+      "subtitle": "BOM, Routing, MRP, 생산오더, ATP/안전재고를 생산계획 흐름으로 연결합니다.",
+      "tags": [
+        {
+          "text": "PP",
+          "class": "green"
+        },
+        {
+          "text": "모듈 기초",
+          "class": "blue"
+        }
+      ]
+    },
+    {
+      "filename": "sap-sd-process-and-tables-beginner-v3.html",
+      "category": "03. SAP 모듈 기초",
+      "title": "SD 프로세스와 주요 테이블 입문",
+      "subtitle": "판매오더, 납품, 출고, 청구와 문서 흐름을 개발자 관점에서 이해합니다.",
+      "tags": [
+        {
+          "text": "SD",
+          "class": "green"
+        },
+        {
+          "text": "모듈 기초",
+          "class": "blue"
+        }
+      ]
+    },
+    {
+      "filename": "sap-fi-process-and-tables-beginner-v3.html",
+      "category": "03. SAP 모듈 기초",
+      "title": "FI 프로세스와 주요 테이블 입문",
+      "subtitle": "G/L 계정, 회계 전표, 번호범위, ACDOCA 중심의 FI 기본 구조를 이해합니다.",
+      "tags": [
+        {
+          "text": "FI",
+          "class": "green"
+        },
+        {
+          "text": "모듈 기초",
+          "class": "blue"
+        }
+      ]
+    },
+    {
+      "filename": "sap-co-process-and-tables-beginner-v3.html",
+      "category": "03. SAP 모듈 기초",
+      "title": "CO 프로세스와 주요 테이블 입문",
+      "subtitle": "원가센터, 내부오더, 손익센터와 비용 흐름을 개발자 관점으로 이해합니다.",
+      "tags": [
+        {
+          "text": "CO",
+          "class": "green"
+        },
+        {
+          "text": "모듈 기초",
+          "class": "blue"
+        }
+      ]
+    },
+    {
+      "filename": "sap-flight-model-table-guide-v3.html",
+      "category": "04. 통합 실습",
+      "title": "SAP Flight Model 데이터 구조 해설",
+      "subtitle": "SCARR, SPFLI, SFLIGHT, SBOOK 등 Flight 모델 테이블 관계를 통합 실습 전 선행 지식으로 정리합니다.",
+      "tags": [
+        {
+          "text": "P1",
+          "class": "amber"
+        },
+        {
+          "text": "Flight Model",
+          "class": "green"
+        }
+      ]
+    },
+    {
+      "filename": "sap-flight-integrated-practice-classrun-gateway-ui5-v3.html",
+      "category": "04. 통합 실습",
+      "title": "Flight 통합 실습 최신본",
+      "subtitle": "ClassRun, Gateway CRUD, UI5 연동, RAP BO까지 이어지는 실습을 최신본 중심으로 통합합니다.",
+      "tags": [
+        {
+          "text": "P0",
+          "class": "blue"
+        },
+        {
+          "text": "종합 실습",
+          "class": "green"
+        }
+      ]
+    },
+    {
+      "filename": "sap-developer-glossary-v3.html",
+      "category": "05. Reference",
+      "title": "SAP 개발자 용어사전",
+      "subtitle": "ABAP, UI5, OData, RAP, 모듈 용어를 초심자 기준으로 짧게 정리합니다.",
+      "tags": [
+        {
+          "text": "P2",
+          "class": "purple"
+        },
+        {
+          "text": "Reference",
+          "class": "green"
+        }
+      ]
+    },
+    {
+      "filename": "sap-pp-atp-learning-package-v3.html",
+      "category": "03. SAP 모듈 기초",
+      "title": "SAP ATP 학생 학습 패키지",
+      "subtitle": "재고와 가용수량의 차이를 먼저 이해하고, 판매오더에서 납기 약속이 어떻게 판단되는지 학습합니다.",
+      "tags": [
+        {
+          "text": "PP/SCM",
+          "class": "green"
+        },
+        {
+          "text": "계산 실습",
+          "class": "blue"
+        }
+      ]
+    },
+    {
+      "filename": "sap-pp-mrp-learning-package-v3.html",
+      "category": "03. SAP 모듈 기초",
+      "title": "MRP 학생 배포용 학습 패키지",
+      "subtitle": "수요, 재고, 조달 제안을 연결해 MRP의 기본 목적과 결과 해석을 학습합니다.",
+      "tags": [
+        {
+          "text": "PP/SCM",
+          "class": "green"
+        },
+        {
+          "text": "MRP",
+          "class": "blue"
+        }
+      ]
+    },
+    {
+      "filename": "sap-pp-safety-stock-learning-package-v3.html",
+      "category": "03. SAP 모듈 기초",
+      "title": "SAP 안전재고 관리 학생 학습 패키지",
+      "subtitle": "안전재고를 왜 두는지, 너무 낮거나 높으면 어떤 문제가 생기는지 학습합니다.",
+      "tags": [
+        {
+          "text": "PP/SCM",
+          "class": "green"
+        },
+        {
+          "text": "안전재고",
+          "class": "blue"
+        }
+      ]
+    },
+    {
+      "filename": "sap-fi-gl-number-range-adult-v3.html",
+      "category": "03. SAP 모듈 기초",
+      "title": "SAP FI G/L Accounts 번호범위 정리",
+      "subtitle": "G/L 계정과 번호범위, 계정군의 관계를 성인 학습자 기준으로 정리합니다.",
+      "tags": [
+        {
+          "text": "FI",
+          "class": "green"
+        },
+        {
+          "text": "G/L",
+          "class": "blue"
+        }
+      ]
+    },
+    {
+      "filename": "sap-fi-gl-number-range-elementary-v3.html",
+      "category": "03. SAP 모듈 기초",
+      "title": "SAP FI G/L Accounts 번호범위 초급 비유형",
+      "subtitle": "번호범위를 쉬운 비유로 먼저 이해하고 실제 FI 용어와 연결합니다.",
+      "tags": [
+        {
+          "text": "FI",
+          "class": "green"
+        },
+        {
+          "text": "초급 비유",
+          "class": "amber"
+        }
+      ]
+    },
+    {
+      "filename": "sap-fi-gl-number-range-visual-deck-v3.html",
+      "category": "03. SAP 모듈 기초",
+      "title": "SAP FI G/L Accounts 번호범위 Visual Guide",
+      "subtitle": "G/L 계정 번호범위를 발표용으로 빠르게 설명할 수 있는 시각형 요약 자료입니다.",
+      "tags": [
+        {
+          "text": "FI",
+          "class": "green"
+        },
+        {
+          "text": "시각 자료",
+          "class": "purple"
+        }
+      ]
+    },
+    {
+      "filename": "sap-odata-external-export-summary-v3.html",
+      "category": "01. ABAP 개발",
+      "title": "SAP 데이터를 외부로 내보내는 방법 정리",
+      "subtitle": "SAP 데이터를 외부 시스템으로 노출할 때 OData, API, 파일, RFC 등을 어떤 기준으로 선택할지 설명합니다.",
+      "tags": [
+        {
+          "text": "OData",
+          "class": "green"
+        },
+        {
+          "text": "외부 연계",
+          "class": "blue"
+        }
+      ]
+    },
+    {
+      "filename": "sapui5-messaging-data-flow-v3.html",
+      "category": "02. UI5 / Fiori 개발",
+      "title": "SAPUI5 데이터 흐름과 Messaging 아키텍처",
+      "subtitle": "SAPUI5 데이터 흐름과 Messaging을 개념형 참고자료로 정리합니다.",
+      "tags": [
+        {
+          "text": "참고",
+          "class": "purple"
+        },
+        {
+          "text": "SAPUI5",
+          "class": "green"
+        }
+      ]
+    },
+    {
+      "filename": "sap-developer-writing-style-guide-v3.html",
+      "category": "05. Reference",
+      "title": "SAP Developer Learning Library 문체 기준",
+      "subtitle": "본문, 실습, 체크리스트, 강사용 메모의 문체를 상황에 맞게 구분하는 기준 문서",
+      "tags": [
+        {
+          "text": "문체 기준",
+          "class": "purple"
+        },
+        {
+          "text": "Reference",
+          "class": "green"
+        }
+      ]
+    },
+    {
+      "filename": "prose-audit-report-v3-5.html",
+      "category": "05. Reference",
+      "title": "문체 구조화 자동 검수 리포트",
+      "subtitle": "data-prose 기준으로 주요 콘텐츠 블록과 문체 충돌 후보를 검수하는 리포트",
+      "tags": [
+        {
+          "text": "자동 검수",
+          "class": "green"
+        },
+        {
+          "text": "data-prose",
+          "class": "purple"
+        }
+      ]
+    }
+  ],
+  "writing_style": {
+    "concept_body": "평서형",
+    "practice_steps": "지시형",
+    "checklists": "지시형",
+    "teacher_notes": "존칭형"
+  },
+  "prose_governance": {
+    "mandatory": true,
+    "audit_basis": "data-prose",
+    "valid_values": [
+      "concept",
+      "structure",
+      "practice",
+      "checklist",
+      "warning",
+      "teacher",
+      "reference",
+      "summary"
+    ],
+    "rules_file": "v3/sap-developer-writing-style-guide-v3.html",
+    "audit_report_html": "v3/prose-audit-report-v3-5.html",
+    "audit_report_json": "data/prose-audit-report.json",
+    "summary": {
+      "html_file_count": 36,
+      "total_prose_blocks": 400,
+      "counts": {
+        "summary": 143,
+        "structure": 67,
+        "practice": 85,
+        "reference": 65,
+        "checklist": 9,
+        "concept": 24,
+        "warning": 7
+      },
+      "missing_count": 0,
+      "invalid_count": 0,
+      "style_issue_count": 25,
+      "status": "PASS"
+    }
+  }
+}

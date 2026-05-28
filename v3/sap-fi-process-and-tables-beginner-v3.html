@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FI 프로세스와 주요 테이블 입문 · 혼합 문체 · SAP Developer Learning Library v3</title>
+<link href="../assets/common.css" rel="stylesheet"/>
+<script defer="" src="../assets/common.js"></script>
+<!-- data-prose required: concept | structure | practice | checklist | warning | teacher | reference | summary --></head>
+<body data-active-category="module" data-active-doc="fi" data-prose-root="true">
+<header class="library-topbar prose-summary" data-prose="summary">
+<div class="library-topbar__inner">
+<a class="library-home" href="../index.html">← SAP 학습자료 홈</a>
+<div class="library-meta">
+<span class="badge blue">v3</span>
+<span class="badge green">03. SAP 모듈 기초</span>
+<span class="badge amber">배포자: 정훈영</span>
+<span class="badge purple">혼합 문체</span></div>
+</div>
+</header>
+<div class="library-shell">
+<section class="hero prose-summary" data-prose="summary">
+<div class="breadcrumb" data-prose="summary">
+<a href="../index.html">Home</a>
+<span>›</span>
+<a href="../pages/module-basics.html">SAP 모듈 기초</a>
+<span>›</span>
+<span>현재 문서</span>
+</div>
+
+<div class="eyebrow">SAP Developer Learning Library</div>
+<h1>FI 프로세스와 주요 테이블 입문</h1>
+<p class="lead">G/L 계정, 회계 전표, 번호범위, ACDOCA 중심의 FI 기본 구조를 이해한다.</p>
+<div class="hero-actions"><span class="badge green">FI</span><span class="badge blue">모듈 기초</span><span class="badge purple">본문 평서형</span><span class="badge amber">실습 지시형</span></div>
+</section>
+<main><section class="section-card prose-reference" data-prose="reference" id="process">
+<div class="section-label">01 · 프로세스</div>
+<h2>FI 기본 흐름</h2>
+<div class="flow"><div class="flow-step prose-structure" data-prose="structure"><span class="num">1</span><div><div class="flow-title">계정 정의</div><p>G/L 계정과 계정군, 번호범위를 준비한다.</p></div></div><div class="flow-step prose-structure" data-prose="structure"><span class="num">2</span><div><div class="flow-title">전표 발생</div><p>매입, 매출, 출고, 입고 등에서 회계 전표가 생성된다.</p></div></div><div class="flow-step prose-structure" data-prose="structure"><span class="num">3</span><div><div class="flow-title">조회/분석</div><p>계정별, 기간별, 회사코드별 금액을 조회한다.</p></div></div><div class="flow-step prose-structure" data-prose="structure"><span class="num">4</span><div><div class="flow-title">마감</div><p>기간 마감과 결산 흐름으로 이어진다.</p></div></div></div>
+</section>
+<section class="section-card prose-structure" data-prose="structure" id="tables">
+<div class="section-label">02 · 테이블</div>
+<h2>개발자가 먼저 알아야 할 테이블</h2>
+<table><thead><tr><th>구분</th><th>테이블</th><th>설명</th></tr></thead><tbody><tr><td>전표</td><td>BKPF, BSEG</td><td>회계전표 Header/Line</td></tr><tr><td>Universal Journal</td><td>ACDOCA</td><td>S/4HANA 통합 회계 라인</td></tr><tr><td>G/L 계정</td><td>SKA1, SKB1</td><td>계정과목 기본/회사코드별 정보</td></tr><tr><td>번호범위</td><td>NRIV</td><td>문서번호 범위</td></tr></tbody></table>
+</section>
+<section class="section-card prose-concept" data-prose="concept" id="dev">
+<div class="section-label">03 · 개발 관점</div>
+<h2>개발 요구사항은 이렇게 들어온다</h2>
+<ul><li>문서 상태를 조회하는 리포트</li><li>Header/Item 기준의 OData API</li><li>특정 기간·조직·자재 기준의 집계</li><li>오류 데이터 또는 미처리 문서 모니터링</li></ul>
+</section></main>
+<aside class="toc prose-reference" data-prose="reference">
+<div class="library-tree" data-nav-tree="main" data-prose="reference"></div>
+<hr class="tree-separator"/>
+<div class="local-page-tools" data-prose="reference">
+<h2>이 문서 안에서</h2>
+</div>
+<h2>학습 목차</h2><a href="#process">01. 프로세스</a><a href="#tables">02. 주요 테이블</a><a href="#dev">03. 개발 관점</a></aside>
+</div>
+<footer class="library-footer prose-summary" data-prose="summary">FI 프로세스와 주요 테이블 입문 · v3 · 2026-05-27 · 배포자: 정훈영 · 혼합 문체 기준 · Final</footer>
+</body>
+</html>

@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SAP ATP 학생 학습 패키지 - 판매오더 승인 흐름과 재고/가용수량</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --line: #d9e2ec;
+      --text: #1f2937;
+      --muted: #667085;
+      --primary: #1f5bd7;
+      --primary-soft: #ecf3ff;
+      --green: #0f9d58;
+      --green-soft: #edf9f2;
+      --amber: #b7791f;
+      --amber-soft: #fff8e8;
+      --rose: #b42318;
+      --rose-soft: #fff1f0;
+      --shadow: 0 14px 32px rgba(15, 23, 42, 0.06);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      background: linear-gradient(180deg, #f8fbff 0%, var(--bg) 100%);
+      color: var(--text);
+      line-height: 1.72;
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 32px 0 60px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #ffffff 0%, #f6f9ff 100%);
+      border: 1px solid #dbe6ff;
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 36px 36px 30px;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: var(--primary-soft);
+      color: var(--primary);
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 34px;
+      line-height: 1.24;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 285px minmax(0, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .toc, .section, .summary {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .toc {
+      position: sticky;
+      top: 18px;
+      padding: 20px;
+    }
+
+    .toc h2 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+
+    .toc a {
+      display: block;
+      text-decoration: none;
+      color: var(--text);
+      padding: 8px 10px;
+      border-radius: 12px;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .toc a:hover {
+      background: #f3f6fb;
+      color: var(--primary);
+    }
+
+    .content {
+      display: grid;
+      gap: 20px;
+    }
+
+    .section { padding: 28px; }
+    .section h2 { margin: 0 0 14px; font-size: 26px; }
+    .section h3 { margin: 24px 0 10px; font-size: 20px; }
+    .section p { margin: 0 0 12px; }
+
+    .summary { padding: 22px 24px; }
+    .summary h2 { margin: 0 0 10px; }
+
+    .chips { margin-bottom: 10px; }
+    .chip {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #4338ca;
+      font-size: 12px;
+      font-weight: 800;
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+
+    .info, .tip, .check, .warn {
+      padding: 16px 18px;
+      border-radius: 16px;
+      margin: 14px 0;
+      border: 1px solid transparent;
+    }
+
+    .info { background: #f7faff; border-color: #dbe7ff; }
+    .tip { background: var(--green-soft); border-color: #cfeeda; }
+    .check { background: var(--amber-soft); border-color: #f3dfaa; }
+    .warn { background: var(--rose-soft); border-color: #f5c4c0; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fbfdff;
+      padding: 16px;
+    }
+
+    .card strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+      margin: 14px 0 10px;
+      background: white;
+    }
+
+    th, td {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: 15px;
+    }
+
+    th {
+      background: #f7faff;
+      font-weight: 800;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    ol, ul {
+      margin: 10px 0 14px 22px;
+      padding: 0;
+    }
+
+    li { margin-bottom: 8px; }
+
+    .flow-step, .qa, .exercise, .topic {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fcfdff;
+      padding: 16px 18px;
+      margin-bottom: 12px;
+    }
+
+    .flow-step .num, .exercise .num, .topic .num {
+      display: inline-flex;
+      width: 32px;
+      height: 32px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      font-weight: 800;
+      margin-right: 10px;
+      font-size: 14px;
+    }
+
+    .kicker {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .solution {
+      margin-top: 10px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: #f8fbff;
+      border: 1px dashed #c7d8f9;
+    }
+
+    .footer {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    @media (max-width: 980px) {
+      .layout { grid-template-columns: 1fr; }
+      .toc { position: relative; top: 0; }
+      .cards, .two-col { grid-template-columns: 1fr; }
+      h1 { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow">학생 배포용 학습 패키지</div>
+      <h1>ATP(Available-to-Promise) 이해하기</h1>
+      <p>
+        이 자료는 SAP 초급 학습자가 ATP를 판매오더 승인 흐름과 연결해서 이해할 수 있도록 만든 참고 문서입니다.
+        강의 슬라이드가 아니라, 학생이 혼자 읽고 복습하며 학습할 수 있도록 정의, 흐름, 예시, 과제, 해설까지 함께 담았습니다.
+      </p>
+    </section>
+
+    <div class="layout">
+      <aside class="toc">
+        <h2>목차</h2>
+        <a href="#goal">1. 학습 목표</a>
+        <a href="#definition">2. ATP란 무엇인가</a>
+        <a href="#why">3. 왜 필요한가</a>
+        <a href="#process">4. 판매오더 승인 흐름과 ATP</a>
+        <a href="#stock">5. 재고수량과 가용수량</a>
+        <a href="#example">6. 예시로 이해하기</a>
+        <a href="#mistakes">7. 자주 헷갈리는 부분</a>
+        <a href="#review">8. 복습 포인트</a>
+        <a href="#assignment">9. 학습 과제 3개</a>
+        <a href="#solutions">10. 정답 해설</a>
+        <a href="#next-topics">11. 다음에 배우면 좋은 SCM 주제</a>
+        <a href="#study-order">12. 추천 학습 순서</a>
+      </aside>
+
+      <main class="content">
+        <section class="summary">
+          <h2>먼저 핵심만 기억하기</h2>
+          <div class="chips">
+            <span class="chip">ATP = 약속 가능한 수량 확인</span>
+            <span class="chip">판매오더 확정과 연결</span>
+            <span class="chip">재고 ≠ 가용수량</span>
+          </div>
+          <p>
+            ATP는 단순히 창고 재고를 보는 기능이 아니라, 고객이 원하는 날짜에 몇 개를 실제로 약속할 수 있는지를 판단하는 기능입니다.
+            따라서 판매오더를 입력할 때 ATP 결과가 곧 주문 확정 가능 여부의 핵심 근거가 됩니다.
+          </p>
+        </section>
+
+        <section class="section" id="goal">
+          <h2>1. 학습 목표</h2>
+          <ul>
+            <li>ATP의 의미를 단순 재고조회와 구분해서 설명할 수 있다.</li>
+            <li>판매오더 입력 시 ATP 결과가 왜 중요한지 이해할 수 있다.</li>
+            <li>재고수량과 가용수량의 차이를 예시로 설명할 수 있다.</li>
+            <li>부분확정, 납기 변경, 주문 보류가 왜 발생하는지 이해할 수 있다.</li>
+          </ul>
+        </section>
+
+        <section class="section" id="definition">
+          <h2>2. ATP란 무엇인가</h2>
+          <p>
+            ATP는 <strong>Available-to-Promise</strong>의 약자입니다. 말 그대로 해석하면 “약속 가능한 수량”입니다.
+            SAP에서는 고객이 요청한 납기일과 수량에 대해, 시스템이 실제로 공급 가능한지 확인하는 개념으로 이해하면 됩니다.
+          </p>
+          <div class="info">
+            <strong>쉽게 말하면</strong><br />
+            “현재 몇 개 있나요?”를 보는 것이 재고조회라면,
+            “그중에서 이번 주문에 실제로 몇 개를 약속할 수 있나요?”를 보는 것이 ATP입니다.
+          </div>
+          <p>
+            ATP의 결과는 단순 조회로 끝나지 않고, 판매오더의 확정 수량과 확정일에 반영됩니다.
+            그래서 ATP는 판매 프로세스에서 매우 중요한 판단 기준입니다.
+          </p>
+        </section>
+
+        <section class="section" id="why">
+          <h2>3. 왜 필요한가</h2>
+          <p>
+            고객이 주문했다고 해서 항상 바로 “가능합니다”라고 말할 수는 없습니다.
+            창고 재고가 있더라도 이미 다른 주문이 먼저 예약해 두었을 수 있고,
+            오늘은 부족하지만 내일 입고 예정이 있어서 내일은 가능할 수도 있습니다.
+          </p>
+          <div class="cards">
+            <div class="card">
+              <strong>현재고만 보면 생기는 문제</strong>
+              실제로는 이미 다른 주문이 사용할 물량까지 포함해서 과대 약속할 수 있습니다.
+            </div>
+            <div class="card">
+              <strong>납기 약속의 근거 필요</strong>
+              영업 담당자는 고객에게 날짜와 수량을 근거 있게 답해야 합니다.
+            </div>
+            <div class="card">
+              <strong>후속 업무와 연결</strong>
+              생산 요청, 구매 요청, 주문 보류 같은 후속 판단이 ATP 결과를 기준으로 이루어집니다.
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="process">
+          <h2>4. 판매오더 승인 흐름과 ATP</h2>
+          <p>
+            표준 SAP에서 ATP 자체가 별도의 “승인 버튼”은 아닙니다. 하지만 실무에서는 ATP 결과가 주문 승인 여부를 결정하는 핵심 근거로 사용됩니다.
+            초급 학습자는 아래 흐름으로 이해하면 좋습니다.
+          </p>
+
+          <div class="flow-step">
+            <span class="num">1</span>
+            <strong>고객 주문 접수</strong><br />
+            고객이 제품, 수량, 납기일을 요청합니다.
+          </div>
+
+          <div class="flow-step">
+            <span class="num">2</span>
+            <strong>판매오더 입력</strong><br />
+            영업 담당자가 SAP에서 판매오더를 생성합니다.
+          </div>
+
+          <div class="flow-step">
+            <span class="num">3</span>
+            <strong>ATP 확인</strong><br />
+            시스템이 현재 재고, 예정 입고, 기존 수요 등을 고려하여 요청일에 공급 가능한지 판단합니다.
+          </div>
+
+          <div class="flow-step">
+            <span class="num">4</span>
+            <strong>확정 결과 생성</strong><br />
+            전량 가능하면 요청일에 그대로 확정되고, 부족하면 부분확정 또는 납기 변경이 발생할 수 있습니다.
+          </div>
+
+          <div class="flow-step">
+            <span class="num">5</span>
+            <strong>업무적 승인 판단</strong><br />
+            전량 확정이면 주문 진행, 부족하면 보류·생산 요청·조달 요청·고객 협의로 이어질 수 있습니다.
+          </div>
+
+          <div class="check">
+            <strong>실무 해석 포인트</strong><br />
+            “판매오더 승인”을 ATP가 직접 수행하는 것은 아니지만,
+            회사의 업무 프로세스에서는 ATP 결과를 근거로 승인 여부를 정하는 경우가 많습니다.
+          </div>
+        </section>
+
+        <section class="section" id="stock">
+          <h2>5. 재고수량과 가용수량</h2>
+          <p>초급자가 가장 많이 헷갈리는 부분입니다. 아래 두 개념은 반드시 구분해야 합니다.</p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>구분</th>
+                <th>의미</th>
+                <th>초급자 관점 설명</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>재고수량</td>
+                <td>창고에 물리적으로 존재하는 수량</td>
+                <td>눈에 보이는 실제 수량</td>
+              </tr>
+              <tr>
+                <td>가용수량</td>
+                <td>그중에서 새로운 주문에 약속 가능한 수량</td>
+                <td>기존 예약·출고예정·입고예정 등을 반영한 후의 사용 가능 수량</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="warn">
+            <strong>중요</strong><br />
+            재고가 100개라고 해서 새 주문에 100개를 모두 약속할 수 있는 것은 아닙니다.
+            이미 다른 판매오더가 70개를 사용하기로 확정되어 있다면, 새 주문에 바로 약속 가능한 수량은 줄어듭니다.
+          </div>
+
+          <div class="two-col">
+            <div class="card">
+              <strong>재고수량 중심 사고</strong>
+              “창고에 100개 있으니 50개 주문은 가능하다.”
+            </div>
+            <div class="card">
+              <strong>ATP 중심 사고</strong>
+              “100개 중 이미 70개가 다른 주문에 배정되어 있으면 새 주문에는 30개만 바로 약속 가능하다.”
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="example">
+          <h2>6. 예시로 이해하기</h2>
+          <h3>예시 1. 전량 확정 가능한 경우</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>항목</th>
+                <th>수량</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>현재고</td>
+                <td>100개</td>
+              </tr>
+              <tr>
+                <td>기존 주문 확정수량</td>
+                <td>20개</td>
+              </tr>
+              <tr>
+                <td>새 주문 요청</td>
+                <td>30개</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            현재고 100개에서 이미 20개가 다른 주문에 잡혀 있더라도, 아직 80개 수준은 새 주문에 약속 가능하다고 볼 수 있습니다.
+            따라서 새 주문 30개는 전량 확정될 가능성이 큽니다.
+          </p>
+
+          <h3>예시 2. 부분확정이 발생하는 경우</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>항목</th>
+                <th>수량</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>현재고</td>
+                <td>100개</td>
+              </tr>
+              <tr>
+                <td>기존 주문 확정수량</td>
+                <td>70개</td>
+              </tr>
+              <tr>
+                <td>내일 입고 예정</td>
+                <td>20개</td>
+              </tr>
+              <tr>
+                <td>새 주문 요청</td>
+                <td>40개</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            오늘 시점에 바로 약속 가능한 양은 30개 수준입니다. 그래서 40개 주문이 들어오면,
+            오늘 30개 확정 + 내일 10개 확정처럼 나뉠 수 있습니다. 이것이 부분확정의 대표적인 예입니다.
+          </p>
+
+          <div class="tip">
+            <strong>이 예시에서 학생이 꼭 이해해야 할 점</strong><br />
+            ATP는 “총합 몇 개가 있나”보다 “어느 날짜에 몇 개를 약속할 수 있나”를 판단하는 기능입니다.
+          </div>
+        </section>
+
+        <section class="section" id="mistakes">
+          <h2>7. 자주 헷갈리는 부분</h2>
+          <div class="qa">
+            <strong>Q1. ATP는 그냥 재고조회인가요?</strong>
+            <p>아닙니다. ATP는 현재 재고만 보는 것이 아니라, 기존 수요와 예정 입고까지 고려해서 약속 가능한 수량을 판단합니다.</p>
+          </div>
+
+          <div class="qa">
+            <strong>Q2. ATP가 되면 자동으로 판매오더가 승인되나요?</strong>
+            <p>표준 SAP에서 ATP 결과는 확정 수량과 확정일입니다. 다만 실무에서는 이 결과를 근거로 주문 승인 여부를 판단하는 경우가 많습니다.</p>
+          </div>
+
+          <div class="qa">
+            <strong>Q3. 재고가 있으면 항상 납기일을 지킬 수 있나요?</strong>
+            <p>그렇지 않을 수 있습니다. 이미 다른 주문이 잡혀 있거나, 준비·출고 일정까지 고려하면 요청일에 맞추지 못할 수도 있습니다.</p>
+          </div>
+        </section>
+
+        <section class="section" id="review">
+          <h2>8. 복습 포인트</h2>
+          <ol>
+            <li>ATP는 재고조회가 아니라, 약속 가능한 수량과 날짜를 확인하는 개념이다.</li>
+            <li>판매오더 입력 시 ATP 결과는 확정 수량과 확정일에 영향을 준다.</li>
+            <li>재고수량과 가용수량은 다르다.</li>
+            <li>ATP 결과에 따라 주문 승인, 보류, 생산 요청, 구매 요청 같은 후속 업무가 결정될 수 있다.</li>
+          </ol>
+        </section>
+
+        <section class="section" id="assignment">
+          <h2>9. 학습 과제 3개</h2>
+
+          <div class="exercise">
+            <div class="kicker">기초 이해</div>
+            <span class="num">1</span>
+            <strong>개념 설명형</strong>
+            <p>
+              아래 두 문장을 비교해서 왜 두 번째 문장이 더 SAP ATP 관점에 가까운지 설명해보세요.
+            </p>
+            <ul>
+              <li>문장 A: “재고가 100개 있으니 고객 주문 50개는 가능하다.”</li>
+              <li>문장 B: “재고가 100개 있어도 기존에 확정된 주문 수량을 제외한 후, 실제 약속 가능한 수량을 확인해야 한다.”</li>
+            </ul>
+            <p><strong>요구사항</strong>: 재고수량과 가용수량이라는 용어를 반드시 사용해서 5줄 내외로 작성하세요.</p>
+          </div>
+
+          <div class="exercise">
+            <div class="kicker">수량 계산</div>
+            <span class="num">2</span>
+            <strong>간단 계산형</strong>
+            <p>다음 상황에서 오늘 즉시 확정 가능한 수량과 부족 수량을 구해보세요.</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>항목</th>
+                  <th>수량</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>현재고</td>
+                  <td>120개</td>
+                </tr>
+                <tr>
+                  <td>기존 판매오더 확정수량</td>
+                  <td>90개</td>
+                </tr>
+                <tr>
+                  <td>신규 주문 요청</td>
+                  <td>50개</td>
+                </tr>
+              </tbody>
+            </table>
+            <p><strong>요구사항</strong>: 계산 과정과 함께, 왜 전량 확정이 어려운지 한 문장으로 설명하세요.</p>
+          </div>
+
+          <div class="exercise">
+            <div class="kicker">프로세스 연결</div>
+            <span class="num">3</span>
+            <strong>업무 흐름 설명형</strong>
+            <p>
+              고객이 오늘 40개를 요청했는데, 오늘 확정 가능한 양은 25개이고 내일 20개 입고 예정이라고 가정합니다.
+              이 경우 판매오더 승인 흐름에서 어떤 선택지가 가능한지 설명해보세요.
+            </p>
+            <p><strong>요구사항</strong>: 아래 키워드 중 3개 이상을 사용하세요.</p>
+            <ul>
+              <li>부분확정</li>
+              <li>납기 변경</li>
+              <li>고객 협의</li>
+              <li>주문 보류</li>
+              <li>생산 또는 조달 요청</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="section" id="solutions">
+          <h2>10. 정답 해설</h2>
+
+          <div class="exercise">
+            <span class="num">1</span>
+            <strong>과제 1 해설</strong>
+            <div class="solution">
+              <p>
+                문장 B가 ATP 관점에 더 가깝습니다. 이유는 SAP에서 중요한 것은 단순한 재고수량이 아니라
+                <strong>새 주문에 실제로 약속 가능한 가용수량</strong>이기 때문입니다.
+                창고에 재고가 100개 있더라도 이미 다른 주문에 확정된 수량이 있으면 새 주문에 바로 사용할 수 있는 양은 줄어듭니다.
+                따라서 ATP는 재고수량을 그대로 보는 것이 아니라, 기존 수요를 반영한 후 가용수량을 확인하는 개념입니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="exercise">
+            <span class="num">2</span>
+            <strong>과제 2 해설</strong>
+            <div class="solution">
+              <p><strong>계산</strong></p>
+              <ul>
+                <li>현재고 120개</li>
+                <li>기존 확정수량 90개</li>
+                <li>오늘 새 주문에 바로 약속 가능한 양: 120 - 90 = 30개</li>
+                <li>신규 주문 요청: 50개</li>
+                <li>부족 수량: 50 - 30 = 20개</li>
+              </ul>
+              <p>
+                따라서 <strong>오늘 즉시 확정 가능한 수량은 30개</strong>, <strong>부족 수량은 20개</strong>입니다.
+                전량 확정이 어려운 이유는 현재고가 충분해 보여도, 이미 기존 주문이 90개를 사용하기로 확정되어 있기 때문입니다.
+              </p>
+            </div>
+          </div>
+
+          <div class="exercise">
+            <span class="num">3</span>
+            <strong>과제 3 해설</strong>
+            <div class="solution">
+              <p>가능한 설명 예시는 다음과 같습니다.</p>
+              <ul>
+                <li>오늘 25개만 <strong>부분확정</strong>하고 나머지 15개는 내일 입고 후 추가 확정할 수 있다.</li>
+                <li>고객이 전량을 한 번에 받고 싶다면 <strong>납기 변경</strong> 후 내일 40개 전량 확정하는 방법도 있다.</li>
+                <li>고객이 납기를 바꾸기 어렵다면 일부는 오늘 보내고 나머지는 내일 보내는 방식으로 <strong>고객 협의</strong>가 필요할 수 있다.</li>
+                <li>상황에 따라 주문을 잠시 <strong>보류</strong>하거나, 향후 재고 부족이 반복된다면 <strong>생산 또는 조달 요청</strong>으로 이어질 수도 있다.</li>
+              </ul>
+              <p>
+                이 문제의 핵심은 ATP 결과가 단순 숫자 확인으로 끝나는 것이 아니라, 실제 업무 의사결정으로 이어진다는 점입니다.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="next-topics">
+          <h2>11. 다음에 배우면 좋은 SCM 주제</h2>
+          <p>
+            ATP를 이해한 뒤에는 아래 주제들을 이어서 학습하면 SCM 프로세스를 훨씬 입체적으로 볼 수 있습니다.
+            학생이 처음 학습할 때는 “왜 필요한가”를 먼저 잡고, 그다음 문서 흐름과 시스템 처리 시점을 연결하는 방식이 좋습니다.
+          </p>
+
+          <div class="topic">
+            <span class="num">1</span>
+            <strong>안전재고 관리</strong>
+            <p>
+              안전재고는 예상보다 수요가 늘어나거나 입고가 늦어질 때를 대비하기 위한 완충 재고입니다.
+              ATP를 배운 뒤 안전재고를 공부하면, “왜 가용수량을 다 약속하지 않고 일부를 남겨두는가”를 더 잘 이해할 수 있습니다.
+            </p>
+          </div>
+
+          <div class="topic">
+            <span class="num">2</span>
+            <strong>재주문점 / MRP 기초</strong>
+            <p>
+              재고가 어느 수준 아래로 내려가면 언제 보충 계획을 세우는지 배우는 주제입니다.
+              ATP가 주문 수락 시점의 확인이라면, MRP는 그 부족이 생기지 않도록 미리 계획하는 영역으로 연결됩니다.
+            </p>
+          </div>
+
+          <div class="topic">
+            <span class="num">3</span>
+            <strong>생산 스케줄링</strong>
+            <p>
+              생산오더를 언제 시작하고 언제 완료할지를 계획하는 주제입니다.
+              재고가 없을 때 ATP 결과가 곧바로 생산 요청과 연결될 수 있기 때문에, 판매와 생산의 연결을 배우기에 좋습니다.
+            </p>
+          </div>
+
+          <div class="topic">
+            <span class="num">4</span>
+            <strong>배송 스케줄링 / 출고 일정</strong>
+            <p>
+              제품이 실제로 준비되고 출고되는 데 걸리는 시간을 고려하는 주제입니다.
+              재고가 있다고 해도 바로 납품 가능한 것은 아니므로, ATP와 배송 리드타임의 관계를 이해하면 주문 확정 날짜의 의미가 선명해집니다.
+            </p>
+          </div>
+
+          <div class="topic">
+            <span class="num">5</span>
+            <strong>출고(Delivery / PGI) 과정</strong>
+            <p>
+              판매오더 이후 실제 물류 실행 단계입니다.
+              학생은 판매오더 확정과 실제 재고 감소 시점이 다르다는 점을 여기서 명확히 이해할 수 있습니다.
+            </p>
+          </div>
+
+          <div class="topic">
+            <span class="num">6</span>
+            <strong>청구(Billing) 과정</strong>
+            <p>
+              판매오더와 출고가 끝난 뒤 고객에게 청구서를 발행하고 회계로 연결되는 단계입니다.
+              학생은 “주문 → 출고 → 청구”의 전체 판매 사이클을 이해하면서, 물류와 회계가 어디서 연결되는지 배울 수 있습니다.
+            </p>
+          </div>
+        </section>
+
+        <section class="section" id="study-order">
+          <h2>12. 추천 학습 순서</h2>
+          <ol>
+            <li><strong>ATP</strong>: 주문을 받을 수 있는지 판단하는 기준 이해</li>
+            <li><strong>안전재고 / 재주문점</strong>: 부족을 예방하는 재고 관리 방식 이해</li>
+            <li><strong>MRP</strong>: 필요한 시점에 필요한 수량을 확보하기 위한 계획 이해</li>
+            <li><strong>생산 스케줄링</strong>: 재고가 없을 때 생산으로 어떻게 이어지는지 이해</li>
+            <li><strong>출고 / 배송 스케줄링</strong>: 약속한 납기를 실제로 맞추는 물류 실행 이해</li>
+            <li><strong>청구 과정</strong>: 최종적으로 고객 청구와 회계 반영이 어떻게 되는지 이해</li>
+          </ol>
+
+          <div class="info">
+            <strong>학생용 학습 팁</strong><br />
+            ATP를 배울 때는 “재고가 있느냐”가 아니라 “약속 가능한 수량과 날짜가 무엇이냐”를 기준으로 사고해 보세요.
+            이 관점이 잡히면, 안전재고·MRP·생산·출고·청구까지 자연스럽게 연결됩니다.
+          </div>
+        </section>
+
+        <section class="summary footer">
+          <h2>마무리</h2>
+          <p>
+            이 문서는 SAP 초급 학습자가 ATP를 중심으로 판매오더, 재고, 가용수량, 후속 SCM 프로세스를 연결해서 이해하도록 돕기 위한 학생 배포용 참고자료입니다.
+            강의 중에는 예시를 함께 풀어보는 용도로, 강의 후에는 복습 자료로 활용할 수 있습니다.
+          </p>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SAP FI G/L Accounts 번호범위 정리 - 성인용 · v2</title>
+<style>
+    :root {
+      --bg: #f7f9fc;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #5b6472;
+      --line: #dbe2ea;
+      --primary: #2563eb;
+      --primary-soft: #eaf2ff;
+      --accent: #0f766e;
+      --warn: #9a3412;
+      --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      background: linear-gradient(180deg, #f8fbff 0%, #f7f9fc 100%);
+      color: var(--text);
+      line-height: 1.7;
+    }
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 22px 72px;
+    }
+    .hero {
+      background: linear-gradient(135deg, #ffffff 0%, #eef5ff 100%);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 36px;
+      box-shadow: var(--shadow);
+    }
+    h1, h2, h3 { margin: 0 0 14px; line-height: 1.3; }
+    h1 { font-size: 2.2rem; }
+    h2 {
+      margin-top: 34px;
+      font-size: 1.55rem;
+      padding-left: 14px;
+      border-left: 6px solid var(--primary);
+    }
+    h3 { font-size: 1.12rem; margin-top: 24px; }
+    p { margin: 10px 0; }
+    .muted { color: var(--muted); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-top: 24px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+    .pill {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.92rem;
+      margin-bottom: 10px;
+    }
+    .summary-box, .note-box {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px;
+      margin-top: 18px;
+      box-shadow: var(--shadow);
+    }
+    .note-box {
+      border-left: 6px solid var(--warn);
+      background: #fffaf7;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 18px;
+      overflow: hidden;
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+    th, td {
+      border: 1px solid var(--line);
+      padding: 14px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #f3f7ff;
+      font-size: 0.96rem;
+    }
+    ul { margin: 10px 0 0 18px; }
+    li { margin: 6px 0; }
+    .footer {
+      margin-top: 42px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 18px;
+      margin-top: 20px;
+    }
+    @media (max-width: 860px) {
+      .two-col { grid-template-columns: 1fr; }
+      .hero { padding: 28px; }
+      h1 { font-size: 1.8rem; }
+    }
+  </style>
+<script nonce="654b08e6c5f54c2caffd09a928d" src="//local.adguard.org?ts=1773114954655&amp;type=content-script&amp;dmn=cdn.discordapp.com&amp;url=https%3A%2F%2Fcdn.discordapp.com%2Fattachments%2F1415660906129522729%2F1480778330293669960%2Fsap_gl_number_range_adult-1.html%3Fex%3D69b0e9c9%26is%3D69af9849%26hm%3D2b2742f066ec31bc5a0d454afb232dc758a9ecd5aecf4538a78934c42deb8c1b%26&amp;app=chrome.exe&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1" type="text/javascript"></script><script nonce="654b08e6c5f54c2caffd09a928d" src="//local.adguard.org?ts=1773114954655&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script" type="text/javascript"></script>
+<style id="library-v2-enhancement-style">
+  .lib-enhance-header,
+  .lib-enhance-panel,
+  .lib-enhance-footer {
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", Arial, sans-serif;
+  }
+  .lib-enhance-header {
+    position: sticky;
+    top: 0;
+    z-index: 9998;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 10px 18px;
+    background: rgba(255,255,255,.92);
+    border-bottom: 1px solid #dbe5ef;
+    box-shadow: 0 8px 24px rgba(16,32,51,.06);
+    backdrop-filter: blur(8px);
+  }
+  .lib-enhance-header a {
+    color: #064f9e;
+    text-decoration: none;
+    font-weight: 800;
+  }
+  .lib-enhance-header a:hover {
+    text-decoration: underline;
+  }
+  .lib-enhance-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    color: #62748a;
+    font-size: 13px;
+  }
+  .lib-badge {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #cfe0f2;
+    background: #eaf4ff;
+    color: #064f9e;
+    border-radius: 999px;
+    padding: 4px 9px;
+    font-size: 12px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+  .lib-badge.green {
+    background: #edf8f3;
+    color: #16835f;
+    border-color: #cbe9dc;
+  }
+  .lib-enhance-panel {
+    width: min(1120px, calc(100% - 32px));
+    margin: 20px auto;
+    padding: 22px 24px;
+    background:
+      radial-gradient(circle at 0% 0%, rgba(10,110,209,.10), transparent 18rem),
+      #ffffff;
+    border: 1px solid #dbe5ef;
+    border-radius: 22px;
+    box-shadow: 0 12px 32px rgba(16,32,51,.07);
+    color: #102033;
+    line-height: 1.7;
+  }
+  .lib-enhance-panel h2 {
+    margin: 0 0 10px;
+    font-size: 24px;
+    letter-spacing: -.03em;
+    color: #102033;
+    line-height: 1.3;
+  }
+  .lib-enhance-panel p {
+    margin: 0 0 12px;
+    color: #4f647a;
+  }
+  .lib-grid {
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap: 16px;
+    margin-top: 14px;
+  }
+  .lib-box {
+    border: 1px solid #e2ebf4;
+    background: #fbfdff;
+    border-radius: 16px;
+    padding: 16px;
+  }
+  .lib-box strong {
+    display: block;
+    margin-bottom: 8px;
+    color: #064f9e;
+  }
+  .lib-box ul {
+    margin: 0;
+    padding-left: 20px;
+  }
+  .lib-box li {
+    margin: 5px 0;
+  }
+  .lib-kws {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  .lib-kw {
+    display: inline-flex;
+    border-radius: 999px;
+    padding: 5px 10px;
+    background: #fff7e6;
+    border: 1px solid #ffe0a8;
+    color: #9b5a00;
+    font-size: 12px;
+    font-weight: 800;
+  }
+  .lib-enhance-footer {
+    width: min(1120px, calc(100% - 32px));
+    margin: 28px auto 50px;
+    color: #64748b;
+    font-size: 13px;
+    text-align: center;
+  }
+  @media (max-width: 800px) {
+    .lib-enhance-header {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+    .lib-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="lib-enhance-header">
+<div>
+<a href="../index.html">← SAP 학습자료 홈</a>
+</div>
+<div class="lib-enhance-meta">
+<span class="lib-badge">v2 보완본</span>
+<span class="lib-badge green">FI</span>
+<a href="../v1/sap-fi-gl-number-range-adult-v1.html">v1 원본 보기</a>
+</div>
+</div>
+
+<div class="lib-enhance-panel" id="v2-review-panel">
+<h2>v2 보완 안내 · SAP FI G/L Accounts 번호범위 정리 - 성인용</h2>
+<p>G/L 계정 번호범위 구조를 성인 학습자 기준으로 정리한 자료입니다.</p>
+<div class="lib-kws"><span class="lib-kw">FI</span><span class="lib-kw">G/L</span><span class="lib-kw">계정군</span><span class="lib-kw">번호범위</span></div>
+<div class="lib-grid">
+<div class="lib-box">
+<strong>학습 목표</strong>
+<ul><li>G/L 계정 번호범위의 역할을 설명할 수 있다.</li><li>계정군과 번호범위의 관계를 이해할 수 있다.</li><li>신규 G/L 계정 생성 시 번호범위를 검토해야 하는 이유를 말할 수 있다.</li></ul>
+</div>
+<div class="lib-box">
+<strong>검수 후 보완 포인트</strong>
+<ul><li>성인 학습자 기준의 개념 정리는 좋지만 초반에 학습 목적이 더 분명하면 좋습니다.</li><li>v2에서는 번호범위를 배우는 실무 이유와 체크 질문을 추가합니다.</li><li>계정군, 번호범위, G/L 계정 생성 흐름의 관계를 강조합니다.</li></ul>
+</div>
+</div>
+</div>
+
+<div class="wrap">
+<section class="hero">
+<div class="pill">성인·실무 학습용</div>
+<h1>SAP FI G/L Accounts 번호범위 정리</h1>
+<p><strong>기준:</strong> 사용자가 정의한 1번대~7번대 구조를 바탕으로, 회계 이해와 SAP FI 학습에 도움이 되도록 한글로 체계적으로 정리한 자료입니다.</p>
+<p class="muted">본 자료의 번호 체계는 교육용 분류 예시입니다. 실제 SAP에서는 회사별 Chart of Accounts 설계에 따라 계정번호 구조가 달라질 수 있으며, 시스템 동작은 계정의 성격과 설정에 의해 결정됩니다.</p>
+</section>
+<section>
+<h2>전체 개요</h2>
+<div class="two-col">
+<div class="summary-box">
+<h3>큰 틀에서 보는 구조</h3>
+<p><strong>B/S 계정</strong>은 회사가 현재 보유한 자산, 갚아야 할 부채, 그리고 자본을 보여줍니다.</p>
+<p><strong>P/L 계정</strong>은 일정 기간 동안 얼마를 벌었고, 무엇에 비용이 들었는지를 보여줍니다.</p>
+<ul>
+<li><strong>1~3번대</strong>: 재무상태표(B/S) 계정</li>
+<li><strong>4~7번대</strong>: 손익계산서(P/L) 계정</li>
+</ul>
+</div>
+<div class="note-box">
+<h3>실무에서 꼭 알아둘 점</h3>
+<p>계정번호는 보통 조회와 분류를 쉽게 하기 위해 체계적으로 설계합니다. 다만 SAP 표준이 "1번대는 반드시 자산"처럼 강제하는 것은 아닙니다.</p>
+<p>따라서 이 문서는 <strong>실무에서 이해하기 좋은 구조적 예시</strong>로 보시면 가장 적절합니다.</p>
+</div>
+</div>
+</section>
+<section>
+<h2>번호대별 상세 설명</h2>
+<div class="grid">
+<div class="card">
+<div class="pill">1번대 · B/S</div>
+<h3>Bank, Petty Cash and Fixed Asset Accounts</h3>
+<p>회사가 직접 보유하고 있는 자산을 기록하는 영역입니다. 현금성 자산과 장기적으로 사용하는 설비성 자산이 포함됩니다.</p>
+<ul>
+<li>은행예금, 당좌예금, 보통예금</li>
+<li>소액현금(Petty Cash)</li>
+<li>기계장치, 차량, 비품, 공장 설비</li>
+<li>자전거 조립 설비, 금형, 테스트 장비</li>
+</ul>
+<p><strong>자전거 회사 예시</strong><br/>본사 운영 계좌, 공장 소액현금, 프레임 도장 설비, 자동 조립 장비</p>
+<p><strong>핵심 의미</strong><br/>"회사가 현재 가지고 있는 것"을 나타내는 번호대입니다.</p>
+</div>
+<div class="card">
+<div class="pill">2번대 · B/S</div>
+<h3>Trade Payables, Tax and Accrued Net Payroll Accounts</h3>
+<p>회사가 앞으로 지급해야 할 의무를 기록하는 영역입니다. 외상매입금, 세금, 미지급 급여 같은 부채성 계정이 들어갑니다.</p>
+<ul>
+<li>매입채무(부품 공급업체에 줄 돈)</li>
+<li>부가세예수금, 원천세, 각종 세금</li>
+<li>미지급급여, 미지급상여, 사회보험 관련 미지급금</li>
+</ul>
+<p><strong>자전거 회사 예시</strong><br/>타이어 업체 외상대금, 알루미늄 프레임 납품 대금, 당월 미지급 급여, 납부 예정 부가세</p>
+<p><strong>핵심 의미</strong><br/>"회사가 앞으로 갚아야 할 것"을 나타내는 번호대입니다.</p>
+</div>
+<div class="card">
+<div class="pill">3번대 · B/S</div>
+<h3>Share Capital Accounts</h3>
+<p>회사의 소유주 지분과 자본 구조를 나타내는 영역입니다. 투자자가 출자한 자본금, 자본잉여금, 이익잉여금 등이 연결될 수 있습니다.</p>
+<ul>
+<li>자본금</li>
+<li>주식발행초과금</li>
+<li>이익잉여금</li>
+</ul>
+<p><strong>자전거 회사 예시</strong><br/>창업자가 출자한 초기 자본금, 추가 투자 유치 금액, 누적 이익 적립금</p>
+<p><strong>핵심 의미</strong><br/>"회사의 자기 자본"을 나타내는 번호대입니다.</p>
+</div>
+<div class="card">
+<div class="pill">4번대 · P/L</div>
+<h3>Revenue, Discount and Deduction Accounts</h3>
+<p>회사가 물건이나 서비스를 판매하여 벌어들인 수익을 기록하는 영역입니다. 매출 에누리나 할인도 함께 관리할 수 있습니다.</p>
+<ul>
+<li>제품 매출</li>
+<li>도매 매출, 온라인몰 매출, 해외 수출 매출</li>
+<li>매출할인, 매출차감, 판매장려금</li>
+</ul>
+<p><strong>자전거 회사 예시</strong><br/>로드바이크 판매매출, 아동용 자전거 판매매출, 대리점 할인, 프로모션 차감액</p>
+<p><strong>핵심 의미</strong><br/>"회사가 얼마를 벌었는가"를 보여주는 번호대입니다.</p>
+</div>
+<div class="card">
+<div class="pill">5번대 · P/L</div>
+<h3>Material Consumptions and Inventory Change Accounts</h3>
+<p>제품 생산과 직접적으로 연결되는 재료 소비와 재고 변동을 기록하는 영역입니다. 제조업에서 매우 중요한 원가 흐름이 이 영역에 반영됩니다.</p>
+<ul>
+<li>원재료 사용액</li>
+<li>부품 소모액</li>
+<li>기말재고 증감, 재공품 증감</li>
+</ul>
+<p><strong>자전거 회사 예시</strong><br/>프레임 원재료 사용액, 체인·기어셋·브레이크 부품 사용액, 완제품 재고 증가·감소</p>
+<p><strong>핵심 의미</strong><br/>"제품을 만들기 위해 직접 들어간 재료비"를 보여주는 번호대입니다.</p>
+</div>
+<div class="card">
+<div class="pill">6번대 · P/L</div>
+<h3>Travel Cost, Payroll and Further Operating Expense Accounts</h3>
+<p>일반 운영 과정에서 발생하는 각종 비용을 기록하는 영역입니다. 인건비, 출장비, 마케팅비, 임차료 등이 포함될 수 있습니다.</p>
+<ul>
+<li>급여, 복리후생비</li>
+<li>출장비, 교통비, 교육훈련비</li>
+<li>사무실 임차료, 수도광열비, 광고선전비</li>
+</ul>
+<p><strong>자전거 회사 예시</strong><br/>영업사원 출장비, 생산직 급여, 자전거 박람회 참가비, 사무실 임대료, 온라인 광고비</p>
+<p><strong>핵심 의미</strong><br/>"회사를 운영하는 데 드는 일반 비용"을 보여주는 번호대입니다.</p>
+</div>
+<div class="card">
+<div class="pill">7번대 · P/L</div>
+<h3>Interests, Loss and Gain from Valuation and Tax Accounts</h3>
+<p>영업 외 금융손익, 평가손익, 법인세 등의 항목을 기록하는 영역입니다. 회사의 최종 순이익에 영향을 주는 마무리 성격의 손익 계정입니다.</p>
+<ul>
+<li>이자수익, 이자비용</li>
+<li>환차손익, 평가손익</li>
+<li>법인세비용</li>
+</ul>
+<p><strong>자전거 회사 예시</strong><br/>대출 이자비용, 외화 결제에 따른 환차손, 기말 평가손익, 법인세 비용</p>
+<p><strong>핵심 의미</strong><br/>"영업 외 손익과 세금"을 보여주는 번호대입니다.</p>
+</div>
+</div>
+</section>
+<section>
+<h2>알기 쉬운 요약</h2>
+<table>
+<thead>
+<tr>
+<th>번호대</th>
+<th>구분</th>
+<th>한 줄 요약</th>
+<th>자전거 회사에서의 대표 예시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1번대</td>
+<td>B/S 자산</td>
+<td>회사가 가진 돈과 장비</td>
+<td>은행예금, 소액현금, 조립설비</td>
+</tr>
+<tr>
+<td>2번대</td>
+<td>B/S 부채</td>
+<td>앞으로 지급해야 할 돈</td>
+<td>부품업체 외상대금, 세금, 미지급급여</td>
+</tr>
+<tr>
+<td>3번대</td>
+<td>B/S 자본</td>
+<td>회사의 자기 자본</td>
+<td>자본금, 누적 이익</td>
+</tr>
+<tr>
+<td>4번대</td>
+<td>P/L 수익</td>
+<td>자전거를 팔아서 번 돈</td>
+<td>제품매출, 할인차감</td>
+</tr>
+<tr>
+<td>5번대</td>
+<td>P/L 재료원가</td>
+<td>제품 생산에 직접 들어간 재료비</td>
+<td>프레임·체인·브레이크 사용액</td>
+</tr>
+<tr>
+<td>6번대</td>
+<td>P/L 운영비</td>
+<td>회사를 운영하면서 드는 비용</td>
+<td>급여, 출장비, 광고비, 임대료</td>
+</tr>
+<tr>
+<td>7번대</td>
+<td>P/L 금융·세금</td>
+<td>이자, 평가손익, 세금</td>
+<td>대출이자, 환차손익, 법인세</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section>
+<h2>학습 포인트</h2>
+<div class="summary-box">
+<ul>
+<li>1~3번대는 회사의 현재 상태를 보여주는 <strong>B/S 계정</strong>입니다.</li>
+<li>4~7번대는 일정 기간의 성과를 보여주는 <strong>P/L 계정</strong>입니다.</li>
+<li>제조업인 자전거 회사에서는 특히 <strong>5번대 재료비</strong>와 <strong>6번대 운영비</strong>를 구분해서 보는 것이 중요합니다.</li>
+<li>실무에서는 계정번호 자체보다도, 계정의 성격과 보고 목적에 맞는 설계가 더 중요합니다.</li>
+</ul>
+</div>
+</section>
+<div class="footer">
+      교육용 정리 자료 · SAP FI G/L Accounts Number Range Guide<br>
+      강사 정훈영
+    </br></div>
+</div>
+
+<div class="lib-enhance-footer">
+  SAP FI G/L Accounts 번호범위 정리 - 성인용 · v2 보완본 · 원본 보존: <code>sap-fi-gl-number-range-adult-v1.html</code>
+</div>
+</body>
+</html>

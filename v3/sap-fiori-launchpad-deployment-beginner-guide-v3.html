@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Fiori Launchpad 배포와 Semantic Object 입문 · 혼합 문체 · SAP Developer Learning Library v3</title>
+<link href="../assets/common.css" rel="stylesheet"/>
+<script defer="" src="../assets/common.js"></script>
+<!-- data-prose required: concept | structure | practice | checklist | warning | teacher | reference | summary --></head>
+<body data-active-category="ui5" data-active-doc="flp" data-prose-root="true">
+<header class="library-topbar prose-summary" data-prose="summary">
+<div class="library-topbar__inner">
+<a class="library-home" href="../index.html">← SAP 학습자료 홈</a>
+<div class="library-meta">
+<span class="badge blue">v3</span>
+<span class="badge green">02. UI5 / Fiori 개발</span>
+<span class="badge amber">배포자: 정훈영</span>
+<span class="badge purple">혼합 문체</span></div>
+</div>
+</header>
+<div class="library-shell">
+<section class="hero prose-summary" data-prose="summary">
+<div class="breadcrumb" data-prose="summary">
+<a href="../index.html">Home</a>
+<span>›</span>
+<a href="../pages/ui5-fiori.html">UI5 / Fiori 개발</a>
+<span>›</span>
+<span>현재 문서</span>
+</div>
+
+<div class="eyebrow">SAP Developer Learning Library</div>
+<h1>Fiori Launchpad 배포와 Semantic Object 입문</h1>
+<p class="lead">Tile, Target Mapping, Semantic Object, Action, Catalog/Space/Page, 권한 연결의 기본 흐름을 이해한다.</p>
+<div class="hero-actions"><span class="badge amber">P1</span><span class="badge green">FLP</span><span class="badge purple">본문 평서형</span><span class="badge amber">실습 지시형</span></div>
+</section>
+<main><section class="section-card prose-structure" data-prose="structure" id="role">
+<div class="section-label">01 · 역할</div>
+<h2>Fiori Launchpad는 사용자가 앱을 실행하는 출발점입니다</h2>
+<p>UI5 앱을 만들었다고 사용자가 바로 볼 수 있는 것은 아닙니다. Launchpad에 타일, Target Mapping, 권한을 연결해야 한다.</p>
+</section>
+<section class="section-card prose-structure" data-prose="structure" id="semantic">
+<div class="section-label">02 · Semantic Object</div>
+<h2>Semantic Object와 Action은 의도를 표현한다</h2>
+<table><thead><tr><th>요소</th><th>예시</th><th>의미</th></tr></thead><tbody><tr><td>Semantic Object</td><td>SalesOrder</td><td>무엇에 대한 앱인가</td></tr><tr><td>Action</td><td>display, manage</td><td>어떤 동작인가</td></tr><tr><td>Intent</td><td>#SalesOrder-manage</td><td>Launchpad가 해석하는 실행 의도</td></tr></tbody></table>
+</section>
+<section class="section-card prose-structure" data-prose="structure" id="deploy">
+<div class="section-label">03 · 흐름</div>
+<h2>배포 후 확인 순서</h2>
+<div class="flow"><div class="flow-step prose-practice" data-prose="practice"><span class="num">1</span><div><div class="flow-title">앱 배포</div><p>UI5 앱을 ABAP Repository 또는 BTP에 배포한다.</p></div></div><div class="flow-step prose-practice" data-prose="practice"><span class="num">2</span><div><div class="flow-title">타일/Target Mapping</div><p>Launchpad에서 실행 의도를 연결한다.</p></div></div><div class="flow-step prose-practice" data-prose="practice"><span class="num">3</span><div><div class="flow-title">Catalog/Space/Page</div><p>사용자에게 보일 메뉴 구조에 배치한다.</p></div></div><div class="flow-step prose-practice" data-prose="practice"><span class="num">4</span><div><div class="flow-title">권한</div><p>역할을 통해 사용자가 접근할 수 있게 한다.</p></div></div></div>
+</section></main>
+<aside class="toc prose-reference" data-prose="reference">
+<div class="library-tree" data-nav-tree="main" data-prose="reference"></div>
+<hr class="tree-separator"/>
+<div class="local-page-tools" data-prose="reference">
+<h2>이 문서 안에서</h2>
+</div>
+<h2>학습 목차</h2><a href="#role">01. 역할</a><a href="#semantic">02. Semantic Object</a><a href="#deploy">03. 배포 흐름</a></aside>
+</div>
+<footer class="library-footer prose-summary" data-prose="summary">Fiori Launchpad 배포와 Semantic Object 입문 · v3 · 2026-05-27 · 배포자: 정훈영 · 혼합 문체 기준 · Final</footer>
+</body>
+</html>
