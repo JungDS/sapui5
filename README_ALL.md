@@ -13,8 +13,8 @@
 - 저장소: https://github.com/JungDS/sapui5
 - GitHub Pages: https://jungds.github.io/sapui5/
 - 운영 방식: Branch → Pull Request → Review/Merge
-- 현재 진행: Stage 7 · 나머지 Landing 전환 완료
-- 현재 PR: 준비 중
+- 현재 진행: Stage 7 · 우측 Document Navigation 완성
+- 현재 PR: #24 `Stage 7 우측 Document Navigation 완성`
 
 ---
 
@@ -285,7 +285,7 @@ Stage 7 Shell은 `body[data-page-type]`이 있는 페이지에서만 동작한�
 | 7-5a | README / README_ALL 분리 | `README.md`, `README_ALL.md` | 진행 중 (#22) |
 | 7-5b | Navigation/Data 기준 정비 | `data/site-map.json`, `data/document-catalog.json`, `assets/stage7-shell.*`, `assets/common.js` | 완료 |
 | 7-5c | 나머지 Landing 전환 | `pages/roadmap.html`, `pages/ui5-fiori.html`, `pages/module-basics.html`, `pages/integrated-practice.html`, `pages/reference.html` | 완료 |
-| 7-6 | 우측 Document Navigation 완성 | `assets/stage7-shell.css`, `assets/stage7-shell.js` | 진행 예정 |
+| 7-6 | 우측 Document Navigation 완성 | `assets/stage7-shell.css`, `assets/stage7-shell.js` | 완료 |
 | 7-7 | v3 운영 문서 docs로 이관 | `v3/**/*.html` → `docs/**` | 진행 예정 |
 | 7-8 | archive/v3 보존 또는 redirect 결정 | `v3/`, `archive/v3/` | 진행 예정 |
 | 7-9 | 교재형 본문 보강 | `docs/**/*.html` | 진행 예정 |
@@ -371,7 +371,7 @@ Stage 7 Shell은 `body[data-page-type]`이 있는 페이지에서만 동작한�
 - ABAP Landing Page는 Stage 7 Shell 기준으로 전환 완료했다.
 - ABAP Landing의 Gateway 항목은 신규 `docs/abap/gateway-odata-v2-crud.html`로 연결한다.
 - 기존 v3 ABAP 문서 링크는 아직 유지한다.
-- 다음 단계는 우측 Document Navigation 완성이다.
+- 다음 단계는 v3 운영 문서 docs 이관이다.
 - archive 파일명은 현재 운영본의 `data-doc-updated-at` 값을 사용한다.
 - archive 파일명 표준은 `<YYYYMMDD>_<hhmmss>_v<version>.html`이다.
 - 문서별 archive 경로는 `archive/docs/<category>/<doc-id>/`를 사용한다.

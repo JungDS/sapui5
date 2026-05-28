@@ -10,8 +10,8 @@ SAP 개발자를 위한 HTML 학습자료 저장소입니다.
 
 ## 현재 진행 상황
 
-- 현재 단계: Stage 7 · 나머지 Landing 전환 완료
-- 현재 PR: 준비 중
+- 현재 단계: Stage 7 · 우측 Document Navigation 완성
+- 현재 PR: #24 `Stage 7 우측 Document Navigation 완성`
 - 최종 수정: 2026-05-28 18:51 KST
 
 ---
@@ -42,7 +42,7 @@ SAP 개발자를 위한 HTML 학습자료 저장소입니다.
 | 7-5a | README / README_ALL 분리 | 진행 중 |
 | 7-5b | Navigation/Data 기준 정비 | 완료 |
 | 7-5c | 나머지 Landing 전환 | 완료 |
-| 7-6 | 우측 Document Navigation 완성 | 예정 |
+| 7-6 | 우측 Document Navigation 완성 | 완료 |
 | 7-7 | v3 운영 문서 docs 이관 | 예정 |
 | 7-8 | archive/v3 보존 또는 redirect 결정 | 예정 |
 | 7-9 | 교재형 본문 보강 | 예정 |
