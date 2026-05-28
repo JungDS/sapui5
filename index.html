@@ -6,6 +6,31 @@
 <title>SAP Developer Learning Library v3 · Stage 5 Navigation</title>
 <link rel="stylesheet" href="./assets/common.css" />
 <script src="./assets/common.js" defer></script>
+<style>
+  /* Home-only layout tuning: keep document pages unchanged. */
+  .index-wrap > .hero {
+    margin-bottom: 36px;
+    padding: 40px 44px;
+  }
+  .index-wrap > .hero h1 {
+    font-size: clamp(2.05rem, 4vw, 3.2rem);
+    line-height: 1.14;
+    max-width: 780px;
+    letter-spacing: -.052em;
+  }
+  .index-wrap > .hero + .section-card {
+    margin-top: 0;
+  }
+  @media (max-width: 760px) {
+    .index-wrap > .hero {
+      margin-bottom: 28px;
+      padding: 30px 24px;
+    }
+    .index-wrap > .hero h1 {
+      font-size: clamp(1.9rem, 9vw, 2.55rem);
+    }
+  }
+</style>
 </head>
 <body data-prose-root="true" data-active-page="home">
 <div class="index-wrap">
