@@ -12,27 +12,72 @@
     scroll-padding-top: 96px;
   }
 
-  .gateway-shell {
-    align-items: start;
+  body.gateway-nav-collapsed .gateway-side-nav {
+    transform: translateX(calc(100% + 18px));
   }
 
-  .gateway-hybrid-nav {
-    position: sticky;
-    top: 88px;
-    max-height: calc(100vh - 108px);
-    overflow: auto;
-    scrollbar-width: thin;
+  body.gateway-nav-collapsed .gateway-nav-toggle {
+    right: 0;
   }
 
-  .gateway-hybrid-nav .nav-panel {
-    background: #ffffff;
+  body.gateway-nav-collapsed .gateway-nav-toggle .open-label {
+    display: inline;
+  }
+
+  body.gateway-nav-collapsed .gateway-nav-toggle .close-label {
+    display: none;
+  }
+
+  .gateway-content-shell {
+    width: min(1160px, calc(100% - 48px));
+    margin: 0 auto;
+    padding-bottom: 16px;
+  }
+
+  .gateway-content-shell main {
+    width: 100%;
+  }
+
+  .gateway-content-shell .section-card {
+    scroll-margin-top: 96px;
+  }
+
+  .gateway-side-nav {
+    position: fixed;
+    top: 84px;
+    right: 18px;
+    z-index: 30;
+    width: 360px;
+    max-width: calc(100vw - 44px);
+    height: calc(100vh - 104px);
     border: 1px solid #e2e8f0;
-    border-radius: 22px;
-    padding: 15px;
-    box-shadow: 0 18px 42px rgba(15, 23, 42, .08);
+    border-radius: 24px;
+    background: #ffffff;
+    box-shadow: 0 24px 58px rgba(15, 23, 42, .16);
+    overflow: hidden;
+    transition: transform .22s ease;
   }
 
-  .gateway-hybrid-nav .nav-title {
+  .gateway-side-nav__scroll {
+    height: 100%;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    padding: 14px;
+  }
+
+  .gateway-side-nav__top {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    margin: -14px -14px 14px;
+    padding: 14px;
+    border-bottom: 1px solid #e2e8f0;
+    border-radius: 24px 24px 18px 18px;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    box-shadow: 0 12px 24px rgba(15, 23, 42, .06);
+  }
+
+  .gateway-side-nav .nav-title {
     margin: 2px 0 12px;
     color: #64748b;
     font-size: .76rem;
@@ -41,13 +86,12 @@
     text-transform: uppercase;
   }
 
-  .gateway-hybrid-nav .area-home {
+  .gateway-side-nav .area-home {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 10px;
-    margin-bottom: 14px;
-    padding: 9px 11px;
+    padding: 10px 12px;
     border: 1px solid #bfdbfe;
     border-radius: 15px;
     background: #eff6ff;
@@ -57,12 +101,42 @@
     text-decoration: none;
   }
 
-  .gateway-hybrid-nav .area-home small {
+  .gateway-side-nav .area-home small {
     color: #64748b;
     font-weight: 800;
   }
 
-  .gateway-hybrid-nav .progress-card {
+  .gateway-nav-toggle {
+    position: fixed;
+    top: 50%;
+    right: 378px;
+    z-index: 40;
+    transform: translateY(-50%);
+    min-width: 34px;
+    min-height: 112px;
+    border: 1px solid #bfdbfe;
+    border-radius: 16px 0 0 16px;
+    background: #2563eb;
+    color: #ffffff;
+    box-shadow: 0 14px 32px rgba(37, 99, 235, .25);
+    cursor: pointer;
+    transition: right .22s ease, background .15s ease;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: .78rem;
+    font-weight: 900;
+    letter-spacing: .03em;
+  }
+
+  .gateway-nav-toggle:hover {
+    background: #1d4ed8;
+  }
+
+  .gateway-nav-toggle .open-label {
+    display: none;
+  }
+
+  .gateway-side-nav .progress-card {
     margin-bottom: 14px;
     padding: 12px;
     border: 1px solid #e2e8f0;
@@ -70,7 +144,7 @@
     background: #f8fafc;
   }
 
-  .gateway-hybrid-nav .progress-head {
+  .gateway-side-nav .progress-head {
     display: flex;
     justify-content: space-between;
     margin-bottom: 8px;
@@ -79,14 +153,14 @@
     font-weight: 900;
   }
 
-  .gateway-hybrid-nav .progress-bar {
+  .gateway-side-nav .progress-bar {
     height: 8px;
     overflow: hidden;
     border-radius: 999px;
     background: #e2e8f0;
   }
 
-  .gateway-hybrid-nav .progress-bar span {
+  .gateway-side-nav .progress-bar span {
     display: block;
     width: 67%;
     height: 100%;
@@ -94,7 +168,7 @@
     background: linear-gradient(90deg, #2563eb, #7c3aed);
   }
 
-  .gateway-hybrid-nav .focus-card {
+  .gateway-side-nav .focus-card {
     margin-bottom: 12px;
     padding: 13px;
     border: 1px solid #bfdbfe;
@@ -102,32 +176,32 @@
     background: linear-gradient(135deg, #eff6ff, #ffffff);
   }
 
-  .gateway-hybrid-nav .focus-card .label {
+  .gateway-side-nav .focus-card .label {
     margin-bottom: 5px;
     color: #1d4ed8;
     font-size: .74rem;
     font-weight: 900;
   }
 
-  .gateway-hybrid-nav .focus-card strong {
+  .gateway-side-nav .focus-card strong {
     display: block;
     color: #0f172a;
     font-size: .96rem;
     line-height: 1.25;
   }
 
-  .gateway-hybrid-nav .focus-card small {
+  .gateway-side-nav .focus-card small {
     color: #64748b;
   }
 
-  .gateway-hybrid-nav .prev-next {
+  .gateway-side-nav .prev-next {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
     margin-bottom: 14px;
   }
 
-  .gateway-hybrid-nav .prev-next a {
+  .gateway-side-nav .prev-next a {
     padding: 9px;
     border: 1px solid #e2e8f0;
     border-radius: 14px;
@@ -136,25 +210,25 @@
     text-decoration: none;
   }
 
-  .gateway-hybrid-nav .prev-next span {
+  .gateway-side-nav .prev-next span {
     display: block;
     color: #64748b;
     font-size: .66rem;
     font-weight: 900;
   }
 
-  .gateway-hybrid-nav .prev-next strong {
+  .gateway-side-nav .prev-next strong {
     display: block;
     margin-top: 3px;
     font-size: .76rem;
     line-height: 1.25;
   }
 
-  .gateway-hybrid-nav .group {
+  .gateway-side-nav .group {
     margin-bottom: 14px;
   }
 
-  .gateway-hybrid-nav .group-title {
+  .gateway-side-nav .group-title {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -165,24 +239,24 @@
     font-weight: 900;
   }
 
-  .gateway-hybrid-nav .group-title span:first-child {
+  .gateway-side-nav .group-title span:first-child {
     display: inline-flex;
     align-items: center;
     gap: 6px;
   }
 
-  .gateway-hybrid-nav .group-dot {
+  .gateway-side-nav .group-dot {
     width: 8px;
     height: 8px;
     border-radius: 999px;
     background: #94a3b8;
   }
 
-  .gateway-hybrid-nav .group-dot.green { background: #059669; }
-  .gateway-hybrid-nav .group-dot.blue { background: #2563eb; }
-  .gateway-hybrid-nav .group-dot.purple { background: #7c3aed; }
+  .gateway-side-nav .group-dot.green { background: #059669; }
+  .gateway-side-nav .group-dot.blue { background: #2563eb; }
+  .gateway-side-nav .group-dot.purple { background: #7c3aed; }
 
-  .gateway-hybrid-nav .step-card {
+  .gateway-side-nav .step-card {
     position: relative;
     display: grid;
     grid-template-columns: 34px 1fr auto;
@@ -197,7 +271,7 @@
     text-decoration: none;
   }
 
-  .gateway-hybrid-nav .step-card::before {
+  .gateway-side-nav .step-card::before {
     content: "";
     position: absolute;
     left: 26px;
@@ -207,9 +281,9 @@
     background: #e2e8f0;
   }
 
-  .gateway-hybrid-nav .step-card.last::before { display: none; }
+  .gateway-side-nav .step-card.last::before { display: none; }
 
-  .gateway-hybrid-nav .step-no {
+  .gateway-side-nav .step-no {
     z-index: 1;
     display: grid;
     width: 34px;
@@ -222,42 +296,42 @@
     font-weight: 900;
   }
 
-  .gateway-hybrid-nav .step-card.done .step-no {
+  .gateway-side-nav .step-card.done .step-no {
     background: #d1fae5;
     color: #047857;
   }
 
-  .gateway-hybrid-nav .step-card.active {
+  .gateway-side-nav .step-card.active {
     border-color: #bfdbfe;
     background: linear-gradient(135deg, #eff6ff, #ffffff);
     box-shadow: 0 12px 28px rgba(37, 99, 235, .10);
   }
 
-  .gateway-hybrid-nav .step-card.active .step-no {
+  .gateway-side-nav .step-card.active .step-no {
     background: #2563eb;
     color: #ffffff;
     box-shadow: 0 0 0 5px #dbeafe;
   }
 
-  .gateway-hybrid-nav .step-card.next .step-no {
+  .gateway-side-nav .step-card.next .step-no {
     background: #fef3c7;
     color: #b45309;
   }
 
-  .gateway-hybrid-nav .step-text strong {
+  .gateway-side-nav .step-text strong {
     display: block;
     font-size: .86rem;
     line-height: 1.25;
   }
 
-  .gateway-hybrid-nav .step-text small {
+  .gateway-side-nav .step-text small {
     display: block;
     margin-top: 2px;
     color: #64748b;
     font-size: .72rem;
   }
 
-  .gateway-hybrid-nav .status {
+  .gateway-side-nav .status {
     border-radius: 999px;
     padding: 3px 7px;
     font-size: .62rem;
@@ -265,28 +339,17 @@
     white-space: nowrap;
   }
 
-  .gateway-hybrid-nav .status.done {
-    color: #047857;
-    background: #d1fae5;
-  }
+  .gateway-side-nav .status.done { color: #047857; background: #d1fae5; }
+  .gateway-side-nav .status.now { color: #1d4ed8; background: #dbeafe; }
+  .gateway-side-nav .status.next { color: #b45309; background: #fef3c7; }
 
-  .gateway-hybrid-nav .status.now {
-    color: #1d4ed8;
-    background: #dbeafe;
-  }
-
-  .gateway-hybrid-nav .status.next {
-    color: #b45309;
-    background: #fef3c7;
-  }
-
-  .gateway-hybrid-nav .local-toc {
+  .gateway-side-nav .local-toc {
     margin-top: 14px;
     padding-top: 12px;
     border-top: 1px solid #e2e8f0;
   }
 
-  .gateway-hybrid-nav .local-toc a {
+  .gateway-side-nav .local-toc a {
     display: block;
     padding: 6px 8px;
     border-radius: 10px;
@@ -296,8 +359,8 @@
     transition: background .15s ease, color .15s ease, font-weight .15s ease;
   }
 
-  .gateway-hybrid-nav .local-toc a:hover,
-  .gateway-hybrid-nav .local-toc a.active {
+  .gateway-side-nav .local-toc a:hover,
+  .gateway-side-nav .local-toc a.active {
     background: #eff6ff;
     color: #1d4ed8;
     font-weight: 900;
@@ -309,10 +372,39 @@
     gap: 14px;
   }
 
-  @media (max-width: 1100px) {
-    .gateway-hybrid-nav {
-      position: static;
-      max-height: none;
+  @media (max-width: 1280px) {
+    .gateway-content-shell {
+      width: min(1000px, calc(100% - 40px));
+    }
+
+    .gateway-side-nav {
+      right: 12px;
+      width: 340px;
+    }
+
+    .gateway-nav-toggle {
+      right: 352px;
+    }
+  }
+
+  @media (max-width: 980px) {
+    .gateway-content-shell {
+      width: min(100%, calc(100% - 28px));
+    }
+
+    .gateway-side-nav {
+      top: 74px;
+      right: 10px;
+      width: min(360px, calc(100vw - 42px));
+      height: calc(100vh - 92px);
+    }
+
+    .gateway-nav-toggle {
+      right: min(370px, calc(100vw - 32px));
+    }
+
+    body.gateway-nav-collapsed .gateway-nav-toggle {
+      right: 0;
     }
 
     .gateway-note-grid {
@@ -335,7 +427,7 @@
   </div>
 </header>
 
-<div class="library-shell gateway-shell">
+<div class="gateway-content-shell">
   <section class="hero prose-summary" data-prose="summary">
     <div class="breadcrumb" data-prose="summary">
       <a href="../../index.html">Home</a>
@@ -349,8 +441,7 @@
     <p class="lead">
       SEGW 기반 OData V2 서비스에서 EntitySet, MPC/DPC, CRUD 메서드,
       Gateway Client 테스트와 오류 처리 흐름을 초급자 기준으로 정리한다.
-      이번 임시 버전은 우측 Navigation에 학습 경로, 현재 문서, 이전/다음 문서,
-      문서 내 목차를 함께 배치해 실제 사용성을 검토한다.
+      이번 임시 버전은 본문 폭을 유지하면서 Navigation을 화면 우측 독립 패널로 분리해 사용성을 검토한다.
     </p>
     <div class="hero-actions">
       <span class="badge blue">P0</span>
@@ -414,7 +505,7 @@
           <tr><td>삭제</td><td>DELETE</td><td><code>DELETE_ENTITY</code></td><td>Key 기준으로 데이터를 삭제한다.</td></tr>
         </tbody>
       </table>
-      <div class="warning prose-warning" data-prose="warning"><strong>주의</strong> OData V2에서 수정은 시스템과 클라이언트 설정에 따라 PUT 또는 MERGE로 테스트할 수 있다.</div>
+      <div class="warning prose-warning" data-prose="warning"><strong>주의</strong> OData V2에서 수정은 시스템과 클라이언트 설정에 따라 PUT 또는 MERGE로 테스트할 수 있다. Gateway Client에서 실제 허용 Method와 응답 메시지를 확인한다.</div>
     </section>
 
     <section class="section-card prose-practice" data-prose="practice" id="get-entityset">
@@ -443,7 +534,7 @@ ENDMETHOD.</code></pre>
     <section class="section-card prose-practice" data-prose="practice" id="get-entity">
       <div class="section-label">05 · GET_ENTITY</div>
       <h2>단건 조회는 Key 값을 정확히 읽는 것이 핵심이다</h2>
-      <p>GET_ENTITY는 URL에 포함된 Key를 기준으로 한 건을 조회한다. 초급자가 자주 놓치는 부분은 Key 이름과 Entity Property 이름이 일치하는지, 타입 변환이 필요한지 확인하는 것이다.</p>
+      <p>GET_ENTITY는 URL에 포함된 Key를 기준으로 한 건을 조회한다. Key 이름과 Entity Property 이름이 일치하는지, 타입 변환이 필요한지 확인한다.</p>
       <pre><code>METHOD flightset_get_entity.
 
   DATA lv_carrid TYPE sflight-carrid.
@@ -558,57 +649,62 @@ ENDMETHOD.</code></pre>
       </div>
     </section>
   </main>
-
-  <aside class="toc prose-reference gateway-hybrid-nav" data-prose="reference" aria-label="Gateway 학습 경로 Navigation">
-    <div class="nav-panel">
-      <div class="nav-title">ABAP 개발 학습 경로</div>
-      <a class="area-home" href="../../pages/abap.html">ABAP 개발 홈 <small>전체 목록</small></a>
-
-      <div class="progress-card"><div class="progress-head"><span>현재 4 / 6</span><span>67%</span></div><div class="progress-bar"><span></span></div></div>
-
-      <div class="focus-card"><div class="label">현재 문서 · 4단계</div><strong>Gateway / OData V2 CRUD 입문</strong><small>SEGW · DPC_EXT · CRUD · Gateway Client</small></div>
-
-      <div class="prev-next">
-        <a href="sap-cds-to-odata-beginner-guide-v3.html"><span>이전</span><strong>CDS View에서 OData 노출까지</strong></a>
-        <a href="sap-rap-end-to-end-beginner-guide-v3.html"><span>다음</span><strong>RAP End-to-End 입문</strong></a>
-      </div>
-
-      <div class="group">
-        <div class="group-title"><span><i class="group-dot green"></i>Classic ABAP</span><span>완료</span></div>
-        <a class="step-card done" href="abap-classic-report-itab-alv-beginner-v3.html"><span class="step-no">1</span><span class="step-text"><strong>Classic ABAP 기본기</strong><small>Report · ITAB · ALV</small></span><span class="status done">완료</span></a>
-        <a class="step-card done" href="abap-new-syntax-beginner-guide-v3.html"><span class="step-no">2</span><span class="step-text"><strong>ABAP New Syntax 입문</strong><small>현대 ABAP 문법</small></span><span class="status done">완료</span></a>
-      </div>
-
-      <div class="group">
-        <div class="group-title"><span><i class="group-dot blue"></i>CDS / Gateway</span><span>진행 중</span></div>
-        <a class="step-card done" href="sap-cds-to-odata-beginner-guide-v3.html"><span class="step-no">3</span><span class="step-text"><strong>CDS View에서 OData 노출까지</strong><small>ZI_* · ZC_* · Binding</small></span><span class="status done">완료</span></a>
-        <a class="step-card active" href="#overview"><span class="step-no">4</span><span class="step-text"><strong>Gateway / OData V2 CRUD 입문</strong><small>SEGW · DPC_EXT · CRUD</small></span><span class="status now">현재</span></a>
-      </div>
-
-      <div class="group">
-        <div class="group-title"><span><i class="group-dot purple"></i>RAP / UI5 연계</span><span>다음</span></div>
-        <a class="step-card next" href="sap-rap-end-to-end-beginner-guide-v3.html"><span class="step-no">5</span><span class="step-text"><strong>RAP End-to-End 입문</strong><small>Behavior · Service</small></span><span class="status next">다음</span></a>
-        <a class="step-card next last" href="../02-ui5-fiori/sapui5-odata-model-crud-beginner-guide-v3.html"><span class="step-no">6</span><span class="step-text"><strong>UI5 ODataModel CRUD</strong><small>화면 연동</small></span><span class="status next">다음</span></a>
-      </div>
-
-      <div class="local-toc" data-scrollspy="gateway">
-        <div class="nav-title">이 문서 안에서</div>
-        <a class="active" href="#overview">01. 큰 그림</a>
-        <a href="#terms">02. 핵심 용어</a>
-        <a href="#crud-map">03. CRUD 메서드</a>
-        <a href="#get-entityset">04. GET_ENTITYSET</a>
-        <a href="#get-entity">05. GET_ENTITY</a>
-        <a href="#create-update-delete">06. CUD 구현</a>
-        <a href="#gateway-client">07. Gateway Client</a>
-        <a href="#errors">08. 오류 처리</a>
-        <a href="#checklist">09. 완료 체크</a>
-        <a href="#next">10. 다음 문서</a>
-      </div>
-    </div>
-  </aside>
 </div>
 
-<footer class="library-footer prose-summary" data-prose="summary">Gateway / OData V2 CRUD 입문 · Hybrid Navigation Trial · 2026-05-28 · 배포자: 정훈영</footer>
+<button class="gateway-nav-toggle" type="button" aria-controls="gatewaySideNav" aria-expanded="true">
+  <span class="close-label">Navigation 접기</span>
+  <span class="open-label">Navigation 열기</span>
+</button>
+
+<aside class="gateway-side-nav" id="gatewaySideNav" aria-label="Gateway 학습 경로 Navigation">
+  <div class="gateway-side-nav__scroll">
+    <div class="gateway-side-nav__top">
+      <div class="nav-title">ABAP 개발 학습 경로</div>
+      <a class="area-home" href="../../pages/abap.html">ABAP 개발 홈 <small>전체 목록</small></a>
+    </div>
+
+    <div class="progress-card"><div class="progress-head"><span>현재 4 / 6</span><span>67%</span></div><div class="progress-bar"><span></span></div></div>
+    <div class="focus-card"><div class="label">현재 문서 · 4단계</div><strong>Gateway / OData V2 CRUD 입문</strong><small>SEGW · DPC_EXT · CRUD · Gateway Client</small></div>
+    <div class="prev-next">
+      <a href="sap-cds-to-odata-beginner-guide-v3.html"><span>이전</span><strong>CDS View에서 OData 노출까지</strong></a>
+      <a href="sap-rap-end-to-end-beginner-guide-v3.html"><span>다음</span><strong>RAP End-to-End 입문</strong></a>
+    </div>
+
+    <div class="group">
+      <div class="group-title"><span><i class="group-dot green"></i>Classic ABAP</span><span>완료</span></div>
+      <a class="step-card done" href="abap-classic-report-itab-alv-beginner-v3.html"><span class="step-no">1</span><span class="step-text"><strong>Classic ABAP 기본기</strong><small>Report · ITAB · ALV</small></span><span class="status done">완료</span></a>
+      <a class="step-card done" href="abap-new-syntax-beginner-guide-v3.html"><span class="step-no">2</span><span class="step-text"><strong>ABAP New Syntax 입문</strong><small>현대 ABAP 문법</small></span><span class="status done">완료</span></a>
+    </div>
+
+    <div class="group">
+      <div class="group-title"><span><i class="group-dot blue"></i>CDS / Gateway</span><span>진행 중</span></div>
+      <a class="step-card done" href="sap-cds-to-odata-beginner-guide-v3.html"><span class="step-no">3</span><span class="step-text"><strong>CDS View에서 OData 노출까지</strong><small>ZI_* · ZC_* · Binding</small></span><span class="status done">완료</span></a>
+      <a class="step-card active" href="#overview"><span class="step-no">4</span><span class="step-text"><strong>Gateway / OData V2 CRUD 입문</strong><small>SEGW · DPC_EXT · CRUD</small></span><span class="status now">현재</span></a>
+    </div>
+
+    <div class="group">
+      <div class="group-title"><span><i class="group-dot purple"></i>RAP / UI5 연계</span><span>다음</span></div>
+      <a class="step-card next" href="sap-rap-end-to-end-beginner-guide-v3.html"><span class="step-no">5</span><span class="step-text"><strong>RAP End-to-End 입문</strong><small>Behavior · Service</small></span><span class="status next">다음</span></a>
+      <a class="step-card next last" href="../02-ui5-fiori/sapui5-odata-model-crud-beginner-guide-v3.html"><span class="step-no">6</span><span class="step-text"><strong>UI5 ODataModel CRUD</strong><small>화면 연동</small></span><span class="status next">다음</span></a>
+    </div>
+
+    <div class="local-toc" data-scrollspy="gateway">
+      <div class="nav-title">이 문서 안에서</div>
+      <a class="active" href="#overview">01. 큰 그림</a>
+      <a href="#terms">02. 핵심 용어</a>
+      <a href="#crud-map">03. CRUD 메서드</a>
+      <a href="#get-entityset">04. GET_ENTITYSET</a>
+      <a href="#get-entity">05. GET_ENTITY</a>
+      <a href="#create-update-delete">06. CUD 구현</a>
+      <a href="#gateway-client">07. Gateway Client</a>
+      <a href="#errors">08. 오류 처리</a>
+      <a href="#checklist">09. 완료 체크</a>
+      <a href="#next">10. 다음 문서</a>
+    </div>
+  </div>
+</aside>
+
+<footer class="library-footer prose-summary" data-prose="summary">Gateway / OData V2 CRUD 입문 · Detached Hybrid Navigation Trial · 2026-05-28 · 배포자: 정훈영</footer>
 
 <script>
 (function () {
@@ -619,13 +715,11 @@ ENDMETHOD.</code></pre>
     if (!nav) return;
 
     const links = Array.from(nav.querySelectorAll("a[href^='#']"));
-    const entries = links
-      .map(function (link) {
-        const id = decodeURIComponent(link.getAttribute("href").slice(1));
-        const section = document.getElementById(id);
-        return section ? { id: id, link: link, section: section } : null;
-      })
-      .filter(Boolean);
+    const entries = links.map(function (link) {
+      const id = decodeURIComponent(link.getAttribute("href").slice(1));
+      const section = document.getElementById(id);
+      return section ? { id: id, link: link, section: section } : null;
+    }).filter(Boolean);
 
     if (!entries.length) return;
 
@@ -638,19 +732,12 @@ ENDMETHOD.</code></pre>
     function findCurrent() {
       const marker = Math.max(120, window.innerHeight * 0.28);
       let current = entries[0];
-
       entries.forEach(function (entry) {
         const rect = entry.section.getBoundingClientRect();
-        if (rect.top <= marker) {
-          current = entry;
-        }
+        if (rect.top <= marker) current = entry;
       });
-
       const last = entries[entries.length - 1];
-      if (last.section.getBoundingClientRect().top <= window.innerHeight * 0.55) {
-        current = last;
-      }
-
+      if (last.section.getBoundingClientRect().top <= window.innerHeight * 0.55) current = last;
       setActive(current.id);
     }
 
@@ -678,10 +765,27 @@ ENDMETHOD.</code></pre>
     findCurrent();
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initGatewayScrollSpy);
-  } else {
+  function initGatewayNavToggle() {
+    const button = document.querySelector(".gateway-nav-toggle");
+    const nav = document.getElementById("gatewaySideNav");
+    if (!button || !nav) return;
+
+    button.addEventListener("click", function () {
+      const collapsed = document.body.classList.toggle("gateway-nav-collapsed");
+      button.setAttribute("aria-expanded", String(!collapsed));
+      nav.setAttribute("aria-hidden", String(collapsed));
+    });
+  }
+
+  function init() {
     initGatewayScrollSpy();
+    initGatewayNavToggle();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
   }
 }());
 </script>
