@@ -2,13 +2,13 @@
 
 ## 운영 대시보드
 
-- 최종 수정: 2026-05-28 16:45 KST
+- 최종 수정: 2026-05-28 17:05 KST
 - 배포자: 정훈영
 - 저장소: https://github.com/JungDS/sapui5
 - GitHub Pages: https://jungds.github.io/sapui5/
 - 운영 방식: Branch → Pull Request → Review/Merge
-- 현재 진행: Stage 7 · index.html Home Shell 적용
-- 현재 PR: #18 `Stage 7 index Home Shell 적용`
+- 현재 진행: Stage 7 · 공통 CSS/JS Shell 초안
+- 현재 PR: #19 `Stage 7 공통 CSS/JS Shell 초안 추가`
 
 ---
 
@@ -52,6 +52,8 @@ docs/
 assets/
   common.css
   common.js
+  stage7-shell.css
+  stage7-shell.js
 data/
   site-map.json
   document-catalog.json
@@ -73,6 +75,7 @@ archive/
 - `index.html`은 전체 학습자료 첫 화면이다.
 - `pages/*.html`은 영역별 Landing Page다.
 - `docs/**.html`은 최신 운영 문서다.
+- `assets/stage7-shell.css`, `assets/stage7-shell.js`는 Stage 7 전환 페이지가 명시적으로 연결하는 opt-in 공통 Shell 초안이다.
 - `archive/docs/`는 운영 문서의 수정 전 이력 보관 위치다.
 - `archive/before/legacy-pr-comparison/`은 기존 PR 비교용 보관 파일을 정리할 위치다.
 - `archive/v3/`는 기존 v3 문서 보존 위치다.
@@ -230,14 +233,36 @@ archive/docs/abap/gateway-odata-v2-crud/20260610_093000_v4.1.html
 
 ---
 
+## Stage 7 Shell 적용 기준
+
+Stage 7 Shell은 기존 `common.css`, `common.js`에 바로 섞지 않고 다음 파일로 분리한다.
+
+```text
+assets/stage7-shell.css
+assets/stage7-shell.js
+```
+
+적용 대상 HTML은 명시적으로 아래 파일을 연결한다.
+
+```html
+<link rel="stylesheet" href="./assets/stage7-shell.css" />
+<script src="./assets/stage7-shell.js" defer></script>
+```
+
+하위 폴더 문서는 상대 경로에 맞게 `../` 또는 `../../`를 사용한다.
+
+Stage 7 Shell은 `body[data-page-type]`이 있는 페이지에서만 동작한다. 기존 v3 문서는 명시적으로 연결하지 않는 한 영향을 받지 않는다.
+
+---
+
 ## Stage 7 작업 단계
 
 | 단계 | 작업 | 대상 | 산출물 | 상태 |
 |---|---|---|---|---|
 | 7-0 | README 운영 기준 정리 | `README.md` | Global Shell 기준, archive 기준 | 완료 (#17) |
 | 7-1 | 최종 로컬 샘플 확정 | local sample | Header/Nav 최종 디자인 | 완료 |
-| 7-2 | index.html 메타데이터 적용 | `index.html` | Home Shell 기준 적용 | 진행 중 (#18) |
-| 7-3 | 공통 CSS/JS Shell 초안 | `assets/common.css`, `assets/common.js` | Header/Nav 자동 생성 기반 | 진행 예정 |
+| 7-2 | index.html 메타데이터 적용 | `index.html` | Home Shell 기준 적용 | 완료 (#18) |
+| 7-3 | 공통 CSS/JS Shell 초안 | `assets/stage7-shell.css`, `assets/stage7-shell.js` | Header/Nav 자동 생성 기반 | 진행 중 (#19) |
 | 7-4 | Gateway 문서 1개 시범 전환 | `docs/abap/gateway-odata-v2-crud.html` | docs 구조 검증 | 진행 예정 |
 | 7-5 | pages Landing 전환 | `pages/*.html` | landing 메타데이터/레이아웃 | 진행 예정 |
 | 7-6 | v3 운영 문서 docs로 이관 | `v3/**/*.html` → `docs/**` | 최신 운영 문서 경로 정리 | 진행 예정 |
@@ -280,7 +305,8 @@ archive/docs/abap/gateway-odata-v2-crud/20260610_093000_v4.1.html
 
 | 구분 | 문서 | 수정 후 웹페이지 | 수정 전 웹페이지 | PR |
 |---|---|---|---|---|
-| 진행 중 | index.html Stage 7 Home Shell | https://jungds.github.io/sapui5/ | https://jungds.github.io/sapui5/archive/docs/home/index/20260528_164134_v3.0.html | https://github.com/JungDS/sapui5/pull/18 |
+| 진행 중 | Stage 7 공통 CSS/JS Shell 초안 | https://jungds.github.io/sapui5/assets/stage7-shell.css | - | https://github.com/JungDS/sapui5/pull/19 |
+| 완료 | index.html Stage 7 Home Shell | https://jungds.github.io/sapui5/ | https://jungds.github.io/sapui5/archive/docs/home/index/20260528_164134_v3.0.html | https://github.com/JungDS/sapui5/pull/18 |
 | 완료 | Gateway Navigation 우측 독립 패널 | https://jungds.github.io/sapui5/v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html | https://jungds.github.io/sapui5/archive/before/stage6-6-gateway-hybrid-navigation-before.html | https://github.com/JungDS/sapui5/pull/16 |
 | 완료 | Gateway Scroll Spy | https://jungds.github.io/sapui5/v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html | https://jungds.github.io/sapui5/archive/before/stage6-6-gateway-hybrid-navigation-before.html | https://github.com/JungDS/sapui5/pull/15 |
 | 완료 | Gateway Hybrid Navigation | https://jungds.github.io/sapui5/v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html | https://jungds.github.io/sapui5/archive/before/stage6-6-gateway-hybrid-navigation-before.html | https://github.com/JungDS/sapui5/pull/14 |
@@ -342,10 +368,9 @@ archive/docs/abap/gateway-odata-v2-crud/20260610_093000_v4.1.html
 
 ## 현재 메모
 
-- Stage 7의 첫 실제 적용 대상인 `index.html` 전환을 진행 중이다.
-- `index.html`에 Home Shell 메타데이터를 추가했다.
-- 기존 index에는 Stage 7 메타데이터가 없었으므로 최초 archive는 전환 시점 기준 `20260528_164134_v3.0.html`로 보관했다.
-- v3를 계속 최신 운영 경로로 유지하지 않고, `docs/`를 최신 운영 문서 경로로 전환하는 방향을 우선 검토한다.
+- Stage 7 공통 Shell 초안은 기존 `common.css/common.js`에 직접 섞지 않고 `stage7-shell.css/stage7-shell.js`로 분리했다.
+- Stage 7 Shell은 `body[data-page-type]`이 있는 페이지에서만 동작한다.
+- 다음 단계는 Gateway 문서 1개를 `docs/abap/gateway-odata-v2-crud.html`로 시범 전환하는 것이다.
 - archive 파일명은 현재 운영본의 `data-doc-updated-at` 값을 사용한다.
 - archive 파일명 표준은 `<YYYYMMDD>_<hhmmss>_v<version>.html`이다.
 - 문서별 archive 경로는 `archive/docs/<category>/<doc-id>/`를 사용한다.
