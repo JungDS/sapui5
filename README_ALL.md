@@ -8,13 +8,13 @@
 
 ## 1. 운영 대시보드
 
-- 최종 수정: 2026-05-28 23:20 KST
+- 최종 수정: 2026-05-29 02:04 KST
 - 배포자: 정훈영
 - 저장소: https://github.com/JungDS/sapui5
 - GitHub Pages: https://jungds.github.io/sapui5/
 - 운영 방식: Branch → Pull Request → Review/Merge
 - 현재 진행: Stage 7 · v3 문서 docs 운영화 및 운영 데이터 정비
-- 현재 PR: #32 README / README_ALL 진행 이력 보강
+- 현재 작업: SAP 모듈 기초 v3 문서 13개 docs 운영화 및 v3 원본 정리
 
 ---
 
@@ -71,6 +71,7 @@ docs/
     gateway-odata-v2-crud.html
     rap-end-to-end.html
   ui5/
+    sapui5-routing-layout.html
   module/
   practice/
   reference/
@@ -296,6 +297,12 @@ Stage 7 Shell은 `body[data-page-type]`이 있는 페이지에서만 동작한�
 | 7-7f | ABAP docs Navigation 연결 | `stage7-shell.js`, `pages/abap.html` | 완료 (#30) |
 | 7-7g | 운영 문서 매핑 데이터 추가 | `data/stage7-operating-docs-map.json` | 완료 (#31) |
 | 7-7h | README / README_ALL 진행 이력 보강 | `README.md`, `README_ALL.md` | 진행 중 (#32) |
+| 7-7i | Stage 7 Shell 문서목차 인식 보정 | `assets/stage7-shell.js` | 완료 |
+| 7-7j | RAP End-to-End 운영 링크 연결 | `stage7-shell.js`, `pages/abap.html`, `data/*.json` | 완료 |
+| 7-7k | UI5/Fiori 문서 7개 docs 운영화 | `docs/ui5/*.html`, `pages/ui5-fiori.html`, `data/*.json` | 완료 |
+| 7-7l | ABAP 잔여 문서 2개 docs 운영화 | `docs/abap/rap-action.html`, `docs/abap/abap-cloud.html`, `data/*.json` | 완료 |
+| 7-7m | 통합 실습 문서 2개 docs 운영화 | `docs/practice/*.html`, `pages/integrated-practice.html`, `data/*.json` | 완료 |
+| 7-7n | SAP 모듈 기초 문서 13개 docs 운영화 | `docs/module/*.html`, `pages/module-basics.html`, `data/*.json` | 완료 |
 | 7-8 | archive/v3 보존 또는 redirect 결정 | `v3/`, `archive/v3/` | 진행 중 |
 | 7-9 | 교재형 본문 보강 | `docs/**/*.html` | 진행 중 |
 | 7-10 | 전체 링크/UX 검수 | 전체 HTML | 진행 예정 |
@@ -307,7 +314,13 @@ Stage 7 Shell은 `body[data-page-type]`이 있는 페이지에서만 동작한�
 
 | 구분 | 문서 | PR |
 |---|---|---|
-| 진행 중 | README / README_ALL 진행 이력 보강 | #32 예정 |
+| 완료 | Stage 7 Shell 문서목차 인식 보정 | 로컬 작업 |
+| 완료 | RAP End-to-End 운영 링크 연결 | 로컬 작업 |
+| 완료 | SAP 모듈 기초 문서 13개 docs 운영화 | 로컬 작업 |
+| 완료 | 통합 실습 문서 2개 docs 운영화 | 로컬 작업 |
+| 완료 | ABAP 잔여 문서 2개 docs 운영화 | 로컬 작업 |
+| 완료 | UI5/Fiori 문서 7개 docs 운영화 | 로컬 작업 |
+| 완료 | README / README_ALL 진행 이력 보강 | 로컬 작업 |
 | 완료 | Stage 7 운영 문서 매핑 데이터 추가 | #31 |
 | 완료 | Stage 7 ABAP docs navigation links 정리 | #30 |
 | 완료 | Stage 7 ABAP 핵심 문서 docs 운영화 1차 | #29 |
@@ -386,6 +399,50 @@ docs/abap/cds-to-odata.html
 
 ---
 
+## 10.1 2026-05-29 로컬 진행 이력
+
+### Stage 7 Shell 문서목차 인식 보정
+
+- `assets/stage7-shell.js`의 문서목차 생성 기준을 `h2[id]`, `h3[id]`뿐 아니라 `section[id]` 구조도 인식하도록 보정했다.
+- 현재 docs 운영본은 대부분 `section id="..."`와 내부 `h2` 구조를 사용하므로, HTML 본문을 대량 수정하지 않고 우측 Navigation 목차가 생성되도록 했다.
+- Scroll Spy는 기존처럼 목차 링크의 `href="#..."` 대상 섹션을 관찰한다.
+
+### RAP End-to-End 운영 링크 연결
+
+- `docs/abap/rap-end-to-end.html` 운영본을 기준 경로로 사용하도록 `assets/stage7-shell.js`, `pages/abap.html`, `pages/integrated-practice.html`을 갱신했다.
+- `data/site-map.json`, `data/document-catalog.json`, `data/stage7-operating-docs-map.json`에 운영 경로와 legacy/archive 경로를 함께 기록했다.
+- 수정 전 Landing Page 원본은 `archive/docs/landing/abap/20260528_214000_v4.0.html`, `archive/docs/landing/practice/20260528_191356_v4.0.html`에 보관했다.
+
+### UI5/Fiori 문서 7개 docs 운영화
+
+- `v3/02-ui5-fiori/`의 원본 7개 문서를 `archive/v3/02-ui5-fiori/`에 보존했다.
+- 신규 운영본 7개를 `docs/ui5/` 아래 Stage 7 Shell 기준으로 작성했다.
+- `index.html`, `pages/ui5-fiori.html`, `pages/integrated-practice.html`, `pages/abap.html`, `pages/module-basics.html`, `pages/roadmap.html`, `assets/stage7-shell.js`, `data/site-map.json`, `data/document-catalog.json`, `data/stage7-operating-docs-map.json`의 UI5/Fiori 경로를 docs 기준으로 연결했다.
+- 수정 전 Home/Landing Page 원본은 `archive/docs/home/index/20260528_194500_v4.0.html`, `archive/docs/landing/ui5/20260528_191356_v4.0.html`, `archive/docs/landing/module/20260528_191356_v4.0.html`, `archive/docs/landing/roadmap/20260528_194500_v4.0.html`에 보관했다.
+
+### ABAP 잔여 문서 2개 docs 운영화
+
+- `v3/01-abap/rap-action-invocation-grouping-v3.html`, `v3/01-abap/abap-cloud-app-development-summary-v3.html` 원본을 `archive/v3/01-abap/`에 보존했다.
+- 신규 운영본 `docs/abap/rap-action.html`, `docs/abap/abap-cloud.html`을 Stage 7 Shell 기준으로 작성했다.
+- `pages/abap.html`, `pages/integrated-practice.html`, `assets/stage7-shell.js`, `data/site-map.json`, `data/document-catalog.json`, `data/stage7-operating-docs-map.json`의 RAP Action / ABAP Cloud 경로를 docs 기준으로 연결했다.
+- 수정 전 Landing Page 원본은 `archive/docs/landing/abap/20260529_012621_v4.0.html`, `archive/docs/landing/practice/20260529_012621_v4.0.html`에 보관했다.
+
+### 통합 실습 문서 2개 docs 운영화
+
+- `v3/04-integrated-practice/sap-flight-model-table-guide-v3.html`, `v3/04-integrated-practice/sap-flight-integrated-practice-classrun-gateway-ui5-v3.html` 원본을 `archive/v3/04-integrated-practice/`에 보존했다.
+- 신규 운영본 `docs/practice/flight-model-table-guide.html`, `docs/practice/flight-integrated-practice.html`을 Stage 7 Shell 기준으로 작성했다.
+- `index.html`, `pages/abap.html`, `pages/integrated-practice.html`, `pages/ui5-fiori.html`, `assets/stage7-shell.js`, `data/site-map.json`, `data/document-catalog.json`, `data/stage7-operating-docs-map.json`의 Flight 실습 경로를 docs 기준으로 연결했다.
+- 운영화와 archive 백업이 끝난 `v3/04-integrated-practice` 원본 2개는 v3 폴더에서 제거했다.
+
+### SAP 모듈 기초 문서 13개 docs 운영화
+
+- `v3/03-module-basics/`의 원본 13개 문서를 `archive/v3/03-module-basics/`에 보존했다.
+- 신규 운영본 13개를 `docs/module/` 아래 Stage 7 Shell 기준으로 작성했다.
+- `index.html`, `pages/module-basics.html`, `pages/roadmap.html`, `assets/stage7-shell.js`, `data/site-map.json`, `data/document-catalog.json`, `data/stage7-operating-docs-map.json`의 모듈 기초 경로를 docs 기준으로 연결했다.
+- 운영화와 archive 백업이 끝난 `v3/03-module-basics` 원본 13개는 v3 폴더에서 제거했다.
+
+---
+
 ## 11. 현재 운영 링크
 
 - 전체 학습자료 홈: https://jungds.github.io/sapui5/
@@ -399,6 +456,13 @@ docs/abap/cds-to-odata.html
 - Classic ABAP docs 전환본: https://jungds.github.io/sapui5/docs/abap/abap-classic-report-itab-alv.html
 - ABAP New Syntax docs 전환본: https://jungds.github.io/sapui5/docs/abap/abap-new-syntax.html
 - CDS to OData docs 전환본: https://jungds.github.io/sapui5/docs/abap/cds-to-odata.html
+- RAP End-to-End docs 전환본: https://jungds.github.io/sapui5/docs/abap/rap-end-to-end.html
+- RAP Action docs 전환본: https://jungds.github.io/sapui5/docs/abap/rap-action.html
+- ABAP Cloud docs 전환본: https://jungds.github.io/sapui5/docs/abap/abap-cloud.html
+- SAP 모듈 기초 docs 전환본: https://jungds.github.io/sapui5/docs/module/module-basics-for-developers.html
+- Flight Model docs 전환본: https://jungds.github.io/sapui5/docs/practice/flight-model-table-guide.html
+- Flight 통합 실습 docs 전환본: https://jungds.github.io/sapui5/docs/practice/flight-integrated-practice.html
+- UI5/Fiori docs 전환본: https://jungds.github.io/sapui5/docs/ui5/sapui5-controller-function-intro.html
 - 로드맵 docs 전환본: https://jungds.github.io/sapui5/docs/roadmap/developer-learning-roadmap.html
 
 ---

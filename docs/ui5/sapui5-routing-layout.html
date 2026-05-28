@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SAPUI5 Routing과 Layout 입문 · SAP Developer Learning Library</title>
+<link rel="stylesheet" href="../../assets/common.css" />
+<link rel="stylesheet" href="../../assets/stage7-shell.css" />
+<script src="../../assets/common.js" defer></script>
+<script src="../../assets/stage7-shell.js" defer></script>
+</head>
+<body
+  data-page-type="doc"
+  data-active-category="ui5"
+  data-doc-id="ui5-routing"
+  data-doc-title="SAPUI5 Routing과 Layout 입문"
+  data-doc-version="4.0"
+  data-doc-created-at="2026-05-29T01:14:42+09:00"
+  data-doc-updated-at="2026-05-29T01:14:42+09:00"
+  data-distributor="정훈영"
+  data-prose-root="true">
+
+<div class="stage7-doc-layout">
+  <section class="stage7-hero prose-summary" data-prose="summary">
+    <div class="breadcrumb" data-prose="summary">
+      <a href="../../index.html">Home</a>
+      <span>›</span>
+      <a href="../../pages/ui5-fiori.html">UI5 / Fiori 개발</a>
+      <span>›</span>
+      <span>SAPUI5 Routing과 Layout 입문</span>
+    </div>
+    <div class="stage7-hero__eyebrow">SAP Developer Learning Library</div>
+    <h1>SAPUI5 Routing과 Layout 입문</h1>
+    <p class="lead">
+      SAPUI5 Routing은 URL, 화면 이름, View 배치 위치를 연결하는 약속이다.
+      이 문서는 초급자가 List, Detail, FlexibleColumnLayout 구조를 읽고 구현할 수 있도록
+      manifest 설정과 Controller 이동 흐름을 함께 정리한다.
+    </p>
+    <div class="home-badges">
+      <span class="stage7-badge blue">Stage 7 Docs</span>
+      <span class="stage7-badge green">UI5 / Fiori</span>
+      <span class="stage7-badge purple">Routing</span>
+      <span class="stage7-badge amber">배포자: 정훈영</span>
+    </div>
+  </section>
+
+  <main>
+    <section class="stage7-section prose-concept" data-prose="concept" id="why-routing">
+      <div class="stage7-section__label">01 · 역할</div>
+      <h2>Routing은 화면 이동을 코드가 아니라 URL 규칙으로 관리합니다</h2>
+      <p>
+        SAPUI5 앱에서 화면 이동은 단순히 View를 숨기고 보여주는 작업이 아니다.
+        사용자가 목록에서 항목을 선택하면 URL이 바뀌고, Router는 그 URL 패턴에 맞는 Route를 찾은 뒤
+        지정된 Target View를 화면의 특정 위치에 배치한다.
+      </p>
+      <p>
+        초급자는 Routing을 "버튼을 누르면 다른 화면으로 간다" 정도로 이해하기 쉽다.
+        그러나 실무에서는 URL이 북마크, 브라우저 뒤로가기, 새로고침, Object Page 직접 진입과 연결된다.
+        그래서 화면 이동 규칙은 Controller 안에 흩어두지 않고 <code>manifest.json</code>에 선언한다.
+      </p>
+      <div class="note" data-prose="concept">
+        <strong>학습 기준</strong>
+        Routing을 배울 때는 Route, Pattern, Target, View, ControlId를 한 묶음으로 읽는다.
+        이 다섯 가지가 맞아야 화면 이동이 안정적으로 동작한다.
+      </div>
+    </section>
+
+    <section class="stage7-section prose-structure" data-prose="structure" id="routing-parts">
+      <div class="stage7-section__label">02 · 구성요소</div>
+      <h2>routes는 URL 규칙이고 targets는 실제로 보여줄 View입니다</h2>
+      <table>
+        <thead>
+          <tr><th>구성</th><th>역할</th><th>초급자가 확인할 것</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>routes</code></td>
+            <td>URL 패턴과 Target 이름을 연결한다.</td>
+            <td><code>pattern</code>, <code>name</code>, <code>target</code>를 확인한다.</td>
+          </tr>
+          <tr>
+            <td><code>targets</code></td>
+            <td>실제로 표시할 View와 배치 위치를 정의한다.</td>
+            <td><code>viewName</code>, <code>controlId</code>, <code>controlAggregation</code>을 확인한다.</td>
+          </tr>
+          <tr>
+            <td><code>Router</code></td>
+            <td>현재 Hash URL을 읽고 알맞은 Route를 실행한다.</td>
+            <td>Controller에서 <code>navTo</code>와 <code>attachPatternMatched</code>를 사용한다.</td>
+          </tr>
+          <tr>
+            <td><code>Layout</code></td>
+            <td>View가 놓일 화면 구조를 제공한다.</td>
+            <td><code>sap.m.App</code>, <code>SplitApp</code>, <code>FlexibleColumnLayout</code> 중 앱 목적에 맞게 고른다.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="stage7-section prose-practice" data-prose="practice" id="manifest-example">
+      <div class="stage7-section__label">03 · manifest 설정</div>
+      <h2>manifest.json에서 라우팅의 기본 약속을 선언합니다</h2>
+      <p>
+        가장 단순한 Master, Detail 앱은 빈 패턴에서 목록을 보여주고,
+        특정 Key를 포함한 패턴에서 상세 화면을 보여준다.
+        예제에서는 <code>App</code> 컨트롤의 <code>pages</code> aggregation에 View를 배치한다.
+      </p>
+      <pre><code>"routing": {
+  "config": {
+    "routerClass": "sap.m.routing.Router",
+    "viewType": "XML",
+    "viewPath": "my.app.view",
+    "controlId": "app",
+    "controlAggregation": "pages",
+    "async": true
+  },
+  "routes": [
+    {
+      "name": "RouteList",
+      "pattern": "",
+      "target": "TargetList"
+    },
+    {
+      "name": "RouteDetail",
+      "pattern": "detail/{SalesOrder}",
+      "target": "TargetDetail"
+    }
+  ],
+  "targets": {
+    "TargetList": {
+      "viewName": "List"
+    },
+    "TargetDetail": {
+      "viewName": "Detail"
+    }
+  }
+}</code></pre>
+      <p>
+        여기서 <code>controlId</code>는 Root View 안에 실제로 존재하는 컨트롤 ID와 일치해야 한다.
+        ID가 다르면 Route는 실행되더라도 View를 넣을 위치를 찾지 못한다.
+      </p>
+    </section>
+
+    <section class="stage7-section prose-practice" data-prose="practice" id="controller-flow">
+      <div class="stage7-section__label">04 · Controller 흐름</div>
+      <h2>목록에서는 navTo를 호출하고 상세에서는 patternMatched로 Key를 받습니다</h2>
+      <p>
+        목록 화면에서는 사용자가 선택한 행의 Key를 읽어 상세 Route로 이동한다.
+        상세 화면에서는 Route Pattern에 포함된 값을 받아서 해당 Entity를 바인딩한다.
+      </p>
+      <pre><code>// List.controller.js
+onItemPress: function (oEvent) {
+  const oContext = oEvent.getSource().getBindingContext();
+  const sSalesOrder = oContext.getProperty("SalesOrder");
+
+  this.getOwnerComponent().getRouter().navTo("RouteDetail", {
+    SalesOrder: sSalesOrder
+  });
+}
+
+// Detail.controller.js
+onInit: function () {
+  this.getOwnerComponent()
+    .getRouter()
+    .getRoute("RouteDetail")
+    .attachPatternMatched(this._onObjectMatched, this);
+},
+
+_onObjectMatched: function (oEvent) {
+  const sSalesOrder = oEvent.getParameter("arguments").SalesOrder;
+  this.getView().bindElement({
+    path: "/SalesOrderSet('" + encodeURIComponent(sSalesOrder) + "')"
+  });
+}</code></pre>
+      <div class="warning" data-prose="warning">
+        <strong>주의</strong>
+        OData Key를 URL에 넣을 때는 문자 escaping과 Key Predicate 형식을 정확히 맞춰야 한다.
+        복합 Key를 사용하는 Entity라면 단일 값처럼 처리하지 말고 필요한 Key 필드를 모두 전달한다.
+      </div>
+    </section>
+
+    <section class="stage7-section prose-structure" data-prose="structure" id="layout-choice">
+      <div class="stage7-section__label">05 · Layout 선택</div>
+      <h2>앱 규모에 따라 App, SplitApp, FlexibleColumnLayout을 구분합니다</h2>
+      <div class="stage7-card-grid three">
+        <article class="stage7-card" data-prose="concept">
+          <h3>sap.m.App</h3>
+          <p>한 번에 하나의 Page를 보여주는 기본 구조다. 작은 실습 앱과 단순 조회 앱에 적합하다.</p>
+        </article>
+        <article class="stage7-card" data-prose="concept">
+          <h3>sap.m.SplitApp</h3>
+          <p>Master, Detail을 나누어 보여주는 구조다. 오래된 템플릿이나 태블릿 중심 앱에서 볼 수 있다.</p>
+        </article>
+        <article class="stage7-card" data-prose="concept">
+          <h3>FlexibleColumnLayout</h3>
+          <p>List, Detail, DetailDetail처럼 여러 컬럼을 확장하는 앱에 적합하다. Fiori 디자인 흐름과 잘 맞는다.</p>
+        </article>
+      </div>
+      <p>
+        초급 학습에서는 처음부터 모든 Layout을 외우지 않는다.
+        먼저 <code>sap.m.App</code>으로 Route와 Target의 관계를 이해하고,
+        이후 List, Object Page, Sub Object Page가 필요한 시나리오에서 FlexibleColumnLayout로 확장한다.
+      </p>
+    </section>
+
+    <section class="stage7-section prose-practice" data-prose="practice" id="fcl-flow">
+      <div class="stage7-section__label">06 · FlexibleColumnLayout</div>
+      <h2>FlexibleColumnLayout은 Route마다 표시할 컬럼 상태를 함께 관리합니다</h2>
+      <p>
+        FlexibleColumnLayout을 사용하는 앱에서는 단순히 View만 바꾸는 것이 아니라
+        현재 몇 개의 컬럼을 열어둘지도 관리해야 한다.
+        예를 들어 목록만 볼 때는 <code>OneColumn</code>, 목록과 상세를 함께 볼 때는
+        <code>TwoColumnsMidExpanded</code> 상태를 사용할 수 있다.
+      </p>
+      <pre><code>&lt;f:FlexibleColumnLayout
+  id="fcl"
+  layout="{layout>/layout}"
+  backgroundDesign="Solid"
+  xmlns:f="sap.f" /&gt;</code></pre>
+      <p>
+        실제 프로젝트에서는 Route가 바뀔 때 layout 모델 값을 변경하거나,
+        <code>sap.f.FlexibleColumnLayoutSemanticHelper</code>를 사용해 다음 Layout을 계산한다.
+        초급 단계에서는 "Route가 View를 고르고, Layout 값이 컬럼 상태를 고른다"는 관계를 먼저 이해한다.
+      </p>
+    </section>
+
+    <section class="stage7-section prose-warning" data-prose="warning" id="pitfalls">
+      <div class="stage7-section__label">07 · 흔한 오류</div>
+      <h2>Routing 오류는 대부분 이름 불일치와 Binding 경로 오류에서 시작됩니다</h2>
+      <ul>
+        <li><code>manifest.json</code>의 <code>controlId</code>와 Root View의 실제 ID가 같은지 확인한다.</li>
+        <li><code>routes.target</code> 값과 <code>targets</code> 객체의 Key가 같은지 확인한다.</li>
+        <li><code>navTo</code>에서 넘기는 파라미터 이름과 <code>pattern</code>의 중괄호 이름이 같은지 확인한다.</li>
+        <li>상세 화면에서 직접 새로고침했을 때도 필요한 데이터 바인딩이 수행되는지 확인한다.</li>
+        <li>뒤로가기 동작이 필요한 앱에서는 Browser History와 Shell Navigation 정책을 함께 확인한다.</li>
+      </ul>
+    </section>
+
+    <section class="stage7-section prose-checklist" data-prose="checklist" id="checklist">
+      <div class="stage7-section__label">08 · 완료 체크</div>
+      <h2>다음 단계로 넘어가기 전 확인합니다</h2>
+      <ol>
+        <li><code>routes</code>와 <code>targets</code>의 역할 차이를 설명할 수 있다.</li>
+        <li><code>pattern</code>의 파라미터가 Controller에서 어떻게 전달되는지 설명할 수 있다.</li>
+        <li><code>controlId</code>와 <code>controlAggregation</code>이 왜 필요한지 설명할 수 있다.</li>
+        <li>List에서 Detail로 이동하는 <code>navTo</code> 흐름을 작성할 수 있다.</li>
+        <li>FlexibleColumnLayout을 언제 선택해야 하는지 설명할 수 있다.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="stage7-footer prose-summary" data-prose="summary">
+    SAPUI5 Routing과 Layout 입문 · Stage 7 Docs · 2026-05-29 · 배포자: 정훈영
+  </footer>
+</div>
+</body>
+</html>

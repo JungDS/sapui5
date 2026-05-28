@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>UI5 Controller 함수 문법 입문 · SAP Developer Learning Library</title>
+<link rel="stylesheet" href="../../assets/common.css" />
+<link rel="stylesheet" href="../../assets/stage7-shell.css" />
+<script src="../../assets/common.js" defer></script>
+<script src="../../assets/stage7-shell.js" defer></script>
+</head>
+<body
+  data-page-type="doc"
+  data-active-category="ui5"
+  data-doc-id="ui5-controller"
+  data-doc-title="UI5 Controller 함수 문법 입문"
+  data-doc-version="4.0"
+  data-doc-created-at="2026-05-29T01:26:21+09:00"
+  data-doc-updated-at="2026-05-29T01:26:21+09:00"
+  data-distributor="정훈영"
+  data-prose-root="true">
+
+<div class="stage7-doc-layout">
+  <section class="stage7-hero prose-summary" data-prose="summary">
+    <div class="breadcrumb" data-prose="summary">
+      <a href="../../index.html">Home</a>
+      <span>›</span>
+      <a href="../../pages/ui5-fiori.html">UI5 / Fiori 개발</a>
+      <span>›</span>
+      <span>UI5 Controller 함수 문법 입문</span>
+    </div>
+    <div class="stage7-hero__eyebrow">SAP Developer Learning Library</div>
+    <h1>UI5 Controller 함수 문법 입문</h1>
+    <p class="lead">
+      Controller는 XML View에서 발생한 사용자 행동을 받아 모델을 읽고, 화면 상태를 바꾸고,
+      라우팅이나 저장 같은 앱 동작을 실행하는 위치다.
+    </p>
+    <div class="home-badges">
+      <span class="stage7-badge blue">Stage 7 Docs</span>
+      <span class="stage7-badge green">Freestyle SAPUI5</span>
+      <span class="stage7-badge purple">Controller</span>
+      <span class="stage7-badge amber">배포자: 정훈영</span>
+    </div>
+  </section>
+
+  <main>
+    <section class="stage7-section prose-concept" data-prose="concept" id="role">
+      <div class="stage7-section__label">01 · 역할</div>
+      <h2>Controller는 화면의 행동을 담당합니다</h2>
+      <p>
+        SAPUI5에서 View는 화면 구조를 선언하고, Controller는 사용자가 클릭하거나 값을 바꾸었을 때
+        어떤 처리를 할지 정의한다. 초급자는 Controller를 "버튼 함수 모음"으로만 이해하기 쉽지만,
+        실무에서는 View, Model, Router, MessageManager를 연결하는 중심 지점이다.
+      </p>
+      <p>
+        Controller에 모든 업무 로직을 넣는 것은 좋지 않다. Controller는 화면 이벤트를 받아
+        필요한 서비스나 모델 호출로 넘기는 조정자 역할에 가깝다.
+      </p>
+    </section>
+
+    <section class="stage7-section prose-structure" data-prose="structure" id="shape">
+      <div class="stage7-section__label">02 · 기본 모양</div>
+      <h2>UI5 Controller 파일은 define과 extend 구조로 작성합니다</h2>
+      <pre><code>sap.ui.define([
+  "sap/ui/core/mvc/Controller",
+  "sap/m/MessageToast"
+], function (Controller, MessageToast) {
+  "use strict";
+
+  return Controller.extend("my.app.controller.List", {
+    onInit: function () {
+      // 초기화 로직
+    },
+
+    onPressSave: function () {
+      MessageToast.show("저장합니다.");
+    }
+  });
+});</code></pre>
+      <p>
+        <code>sap.ui.define</code>의 배열에는 필요한 모듈을 적고, 함수 인자에는 같은 순서로 받을 이름을 적는다.
+        순서가 틀리면 Controller는 로드되더라도 런타임에서 예상하지 못한 오류가 발생할 수 있다.
+      </p>
+    </section>
+
+    <section class="stage7-section prose-practice" data-prose="practice" id="event">
+      <div class="stage7-section__label">03 · 이벤트 연결</div>
+      <h2>XML View의 이벤트 이름과 Controller 함수 이름이 연결됩니다</h2>
+      <pre><code>&lt;Button
+  text="저장"
+  type="Emphasized"
+  press=".onPressSave" /&gt;</code></pre>
+      <p>
+        XML View에서 <code>press=".onPressSave"</code>라고 쓰면, 현재 View에 연결된 Controller의
+        <code>onPressSave</code> 함수가 실행된다. 점 표기는 현재 Controller 안의 함수를 찾겠다는 의미로 이해하면 된다.
+      </p>
+    </section>
+
+    <section class="stage7-section prose-concept" data-prose="concept" id="this-context">
+      <div class="stage7-section__label">04 · this</div>
+      <h2>Controller 안의 this는 현재 Controller 인스턴스를 가리킵니다</h2>
+      <p>
+        UI5 Controller 메서드 안에서 <code>this</code>는 보통 현재 Controller다.
+        그래서 <code>this.getView()</code>, <code>this.byId()</code>,
+        <code>this.getOwnerComponent()</code> 같은 API를 사용할 수 있다.
+      </p>
+      <pre><code>onPressShowName: function () {
+  const oInput = this.byId("nameInput");
+  const sName = oInput.getValue();
+  MessageToast.show("입력값: " + sName);
+}</code></pre>
+      <div class="warning" data-prose="warning">
+        <strong>주의</strong>
+        콜백 함수 안에서는 <code>this</code>가 바뀔 수 있다.
+        필요하면 <code>.bind(this)</code>를 사용하거나, 화살표 함수 사용 가능 여부를 프로젝트 기준에 맞춰 확인한다.
+      </div>
+    </section>
+
+    <section class="stage7-section prose-structure" data-prose="structure" id="common-apis">
+      <div class="stage7-section__label">05 · 자주 쓰는 API</div>
+      <h2>View, Model, Router 접근 패턴을 먼저 익힙니다</h2>
+      <table>
+        <thead><tr><th>패턴</th><th>의미</th></tr></thead>
+        <tbody>
+          <tr><td><code>this.byId("id")</code></td><td>현재 View 안의 컨트롤을 찾는다.</td></tr>
+          <tr><td><code>this.getView().getModel()</code></td><td>현재 View에 연결된 기본 모델을 가져온다.</td></tr>
+          <tr><td><code>this.getView().getModel("view")</code></td><td>이름 있는 모델을 가져온다.</td></tr>
+          <tr><td><code>this.getOwnerComponent().getRouter()</code></td><td>앱 라우터를 가져온다.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="stage7-section prose-checklist" data-prose="checklist" id="checklist">
+      <div class="stage7-section__label">06 · 완료 체크</div>
+      <h2>Controller 기본기를 다음 항목으로 확인합니다</h2>
+      <ol>
+        <li>XML View의 이벤트와 Controller 함수가 어떻게 연결되는지 설명한다.</li>
+        <li><code>sap.ui.define</code>의 배열과 함수 인자 순서가 중요하다는 점을 설명한다.</li>
+        <li><code>this.byId</code>, <code>getView</code>, <code>getOwnerComponent</code>의 용도를 구분한다.</li>
+        <li>Controller에 모든 업무 로직을 몰아넣지 않아야 하는 이유를 설명한다.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="stage7-footer prose-summary" data-prose="summary">
+    UI5 Controller 함수 문법 입문 · Stage 7 Docs · 2026-05-29 · 배포자: 정훈영
+  </footer>
+</div>
+</body>
+</html>

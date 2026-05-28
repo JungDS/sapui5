@@ -11,8 +11,8 @@ SAP 개발자를 위한 HTML 학습자료 저장소입니다.
 ## 현재 진행 상황
 
 - 현재 단계: Stage 7 · v3 문서 docs 운영화 및 운영 데이터 정비
-- 현재 PR: #32 README / README_ALL 진행 이력 보강
-- 최종 수정: 2026-05-28 23:20 KST
+- 현재 작업: SAP 모듈 기초 v3 문서 13개 docs 운영화 및 v3 원본 정리
+- 최종 수정: 2026-05-29 02:04 KST
 
 ---
 
@@ -29,6 +29,13 @@ SAP 개발자를 위한 HTML 학습자료 저장소입니다.
 - Classic ABAP docs 전환본: https://jungds.github.io/sapui5/docs/abap/abap-classic-report-itab-alv.html
 - ABAP New Syntax docs 전환본: https://jungds.github.io/sapui5/docs/abap/abap-new-syntax.html
 - CDS to OData docs 전환본: https://jungds.github.io/sapui5/docs/abap/cds-to-odata.html
+- RAP End-to-End docs 전환본: https://jungds.github.io/sapui5/docs/abap/rap-end-to-end.html
+- RAP Action docs 전환본: https://jungds.github.io/sapui5/docs/abap/rap-action.html
+- ABAP Cloud docs 전환본: https://jungds.github.io/sapui5/docs/abap/abap-cloud.html
+- SAP 모듈 기초 docs 전환본: https://jungds.github.io/sapui5/docs/module/module-basics-for-developers.html
+- Flight Model docs 전환본: https://jungds.github.io/sapui5/docs/practice/flight-model-table-guide.html
+- Flight 통합 실습 docs 전환본: https://jungds.github.io/sapui5/docs/practice/flight-integrated-practice.html
+- UI5/Fiori docs 전환본: https://jungds.github.io/sapui5/docs/ui5/sapui5-controller-function-intro.html
 - 로드맵 docs 전환본: https://jungds.github.io/sapui5/docs/roadmap/developer-learning-roadmap.html
 
 ---
@@ -53,6 +60,12 @@ SAP 개발자를 위한 HTML 학습자료 저장소입니다.
 | 7-7c | ABAP 핵심 3개 문서 docs 운영화 | 완료 |
 | 7-7d | ABAP docs Navigation 연결 | 완료 |
 | 7-7e | 운영 문서 매핑 데이터 추가 | 완료 |
+| 7-7f | Stage 7 Shell 문서목차 인식 보정 | 완료 |
+| 7-7g | RAP End-to-End 운영 링크 연결 | 완료 |
+| 7-7h | UI5/Fiori 문서 7개 docs 운영화 | 완료 |
+| 7-7i | ABAP 잔여 문서 2개 docs 운영화 | 완료 |
+| 7-7j | 통합 실습 문서 2개 docs 운영화 | 완료 |
+| 7-7k | SAP 모듈 기초 문서 13개 docs 운영화 | 완료 |
 | 7-8 | archive/v3 보존 또는 redirect 결정 | 진행 중 |
 | 7-9 | 교재형 본문 보강 | 진행 중 |
 | 7-10 | 전체 링크/UX 검수 | 예정 |
@@ -64,7 +77,13 @@ SAP 개발자를 위한 HTML 학습자료 저장소입니다.
 
 | 구분 | 문서 | 링크 |
 |---|---|---|
-| 진행 중 | README / README_ALL 진행 이력 보강 | #32 예정 |
+| 완료 | Stage 7 Shell 문서목차 인식 보정 | 로컬 작업 |
+| 완료 | RAP End-to-End 운영 링크 연결 | 로컬 작업 |
+| 완료 | SAP 모듈 기초 문서 13개 docs 운영화 | 로컬 작업 |
+| 완료 | 통합 실습 문서 2개 docs 운영화 | 로컬 작업 |
+| 완료 | ABAP 잔여 문서 2개 docs 운영화 | 로컬 작업 |
+| 완료 | UI5/Fiori 문서 7개 docs 운영화 | 로컬 작업 |
+| 완료 | README / README_ALL 진행 이력 보강 | 로컬 작업 |
 | 완료 | Stage 7 운영 문서 매핑 데이터 추가 | https://github.com/JungDS/sapui5/pull/31 |
 | 완료 | Stage 7 ABAP docs navigation links 정리 | https://github.com/JungDS/sapui5/pull/30 |
 | 완료 | Stage 7 ABAP 핵심 문서 docs 운영화 1차 | https://github.com/JungDS/sapui5/pull/29 |

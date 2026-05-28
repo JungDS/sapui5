@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SAPUI5 OData Model과 CRUD 입문 · SAP Developer Learning Library</title>
+<link rel="stylesheet" href="../../assets/common.css" />
+<link rel="stylesheet" href="../../assets/stage7-shell.css" />
+<script src="../../assets/common.js" defer></script>
+<script src="../../assets/stage7-shell.js" defer></script>
+</head>
+<body
+  data-page-type="doc"
+  data-active-category="ui5"
+  data-doc-id="ui5-odata-crud"
+  data-doc-title="SAPUI5 OData Model과 CRUD 입문"
+  data-doc-version="4.0"
+  data-doc-created-at="2026-05-29T01:26:21+09:00"
+  data-doc-updated-at="2026-05-29T01:26:21+09:00"
+  data-distributor="정훈영"
+  data-prose-root="true">
+
+<div class="stage7-doc-layout">
+  <section class="stage7-hero prose-summary" data-prose="summary">
+    <div class="breadcrumb" data-prose="summary">
+      <a href="../../index.html">Home</a>
+      <span>›</span>
+      <a href="../../pages/ui5-fiori.html">UI5 / Fiori 개발</a>
+      <span>›</span>
+      <span>SAPUI5 OData Model과 CRUD 입문</span>
+    </div>
+    <div class="stage7-hero__eyebrow">SAP Developer Learning Library</div>
+    <h1>SAPUI5 OData Model과 CRUD 입문</h1>
+    <p class="lead">
+      SAPUI5에서 ODataModel은 화면과 SAP Gateway 또는 RAP 서비스를 연결하는 핵심 모델이다.
+      이 문서는 JSONModel과 ODataModel의 차이, 바인딩 방식, CRUD 호출 흐름을 초급자 관점으로 정리한다.
+    </p>
+    <div class="home-badges">
+      <span class="stage7-badge blue">Stage 7 Docs</span>
+      <span class="stage7-badge green">ODataModel</span>
+      <span class="stage7-badge purple">CRUD</span>
+      <span class="stage7-badge amber">배포자: 정훈영</span>
+    </div>
+  </section>
+
+  <main>
+    <section class="stage7-section prose-concept" data-prose="concept" id="models">
+      <div class="stage7-section__label">01 · 모델 구분</div>
+      <h2>JSONModel과 ODataModel은 목적이 다릅니다</h2>
+      <p>
+        JSONModel은 브라우저 안에 있는 임시 JSON 데이터를 화면에 바인딩할 때 적합하다.
+        반면 ODataModel은 서버의 EntitySet, Entity, Function, Action을 UI5 화면과 연결한다.
+        실무 앱에서는 화면 상태는 JSONModel에 두고, 업무 데이터는 ODataModel로 읽고 저장하는 경우가 많다.
+      </p>
+      <table>
+        <thead><tr><th>모델</th><th>주요 용도</th><th>주의점</th></tr></thead>
+        <tbody>
+          <tr><td>JSONModel</td><td>화면 상태, 임시 입력값, 필터 조건</td><td>서버와 자동 동기화되지 않는다.</td></tr>
+          <tr><td>ODataModel</td><td>SAP 서비스 데이터 조회와 변경</td><td>서비스 메타데이터와 Key 구조를 정확히 이해해야 한다.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="stage7-section prose-structure" data-prose="structure" id="binding">
+      <div class="stage7-section__label">02 · 바인딩</div>
+      <h2>목록과 상세는 바인딩 방식이 다릅니다</h2>
+      <p>
+        목록은 여러 건을 보여주기 때문에 Aggregation Binding을 사용하고,
+        상세 화면은 하나의 Entity를 보여주기 때문에 Element Binding을 사용한다.
+      </p>
+      <pre><code>&lt;Table items="{/SalesOrderSet}"&gt;
+  &lt;columns&gt;
+    &lt;Column&gt;&lt;Text text="Sales Order" /&gt;&lt;/Column&gt;
+  &lt;/columns&gt;
+  &lt;items&gt;
+    &lt;ColumnListItem press=".onItemPress" type="Navigation"&gt;
+      &lt;cells&gt;
+        &lt;Text text="{SalesOrder}" /&gt;
+      &lt;/cells&gt;
+    &lt;/ColumnListItem&gt;
+  &lt;/items&gt;
+&lt;/Table&gt;</code></pre>
+      <p>
+        상세 화면에서는 Route에서 받은 Key로 경로를 만들고 <code>bindElement</code>를 호출한다.
+        이때 Key Predicate 형식이 서비스 메타데이터와 맞아야 한다.
+      </p>
+    </section>
+
+    <section class="stage7-section prose-practice" data-prose="practice" id="read">
+      <div class="stage7-section__label">03 · 조회</div>
+      <h2>조회는 바인딩을 우선 사용하고 필요한 경우 read를 사용합니다</h2>
+      <p>
+        SAPUI5에서는 화면에 보여줄 데이터는 가능한 바인딩으로 처리한다.
+        Controller에서 직접 <code>read</code>를 호출하는 방식은 특수한 계산이나 별도 후처리가 필요할 때 사용한다.
+      </p>
+      <pre><code>const oModel = this.getView().getModel();
+oModel.read("/SalesOrderSet", {
+  success: function (oData) {
+    // oData.results에 조회 결과가 들어온다.
+  },
+  error: function (oError) {
+    // MessageManager 또는 MessageBox로 사용자 메시지를 처리한다.
+  }
+});</code></pre>
+    </section>
+
+    <section class="stage7-section prose-practice" data-prose="practice" id="crud">
+      <div class="stage7-section__label">04 · 변경</div>
+      <h2>CRUD는 사용자 행동과 서버 변경을 연결합니다</h2>
+      <p>
+        생성, 수정, 삭제는 사용자가 화면에서 수행한 행동을 서버의 변경 요청으로 바꾸는 작업이다.
+        실무에서는 변경 전 입력값 검증, Busy 처리, 성공 메시지, 오류 메시지 처리가 함께 필요하다.
+      </p>
+      <pre><code>const oModel = this.getView().getModel();
+
+oModel.create("/SalesOrderSet", {
+  Customer: "100000",
+  Currency: "KRW"
+}, {
+  success: function () {
+    sap.m.MessageToast.show("생성되었습니다.");
+  },
+  error: function () {
+    sap.m.MessageBox.error("생성 중 오류가 발생했습니다.");
+  }
+});</code></pre>
+      <div class="warning" data-prose="warning">
+        <strong>주의</strong>
+        OData V2에서는 변경 요청이 Batch로 묶일 수 있다.
+        즉시 서버에 보내야 하는지, 사용자가 저장 버튼을 눌렀을 때 한 번에 보낼지 프로젝트 정책을 확인한다.
+      </div>
+    </section>
+
+    <section class="stage7-section prose-structure" data-prose="structure" id="message-flow">
+      <div class="stage7-section__label">05 · 메시지</div>
+      <h2>서버 오류는 사용자가 이해할 수 있는 메시지로 연결해야 합니다</h2>
+      <p>
+        CRUD 실패는 단순 기술 오류가 아니라 사용자가 수정해야 할 입력 오류일 수 있다.
+        Gateway 또는 RAP에서 반환한 메시지를 UI5 MessageManager와 연결하면 필드 오류, MessagePopover,
+        저장 실패 안내를 일관되게 처리할 수 있다.
+      </p>
+    </section>
+
+    <section class="stage7-section prose-checklist" data-prose="checklist" id="checklist">
+      <div class="stage7-section__label">06 · 완료 체크</div>
+      <h2>ODataModel 기본기를 다음 항목으로 확인합니다</h2>
+      <ol>
+        <li>JSONModel과 ODataModel의 목적 차이를 설명한다.</li>
+        <li>목록 바인딩과 상세 바인딩의 차이를 설명한다.</li>
+        <li>OData Entity Key로 상세 경로를 만드는 방식을 설명한다.</li>
+        <li>Create, Update, Delete 요청에서 성공/오류 처리가 필요한 이유를 설명한다.</li>
+        <li>서버 메시지를 UI 메시지로 연결해야 하는 이유를 설명한다.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="stage7-footer prose-summary" data-prose="summary">
+    SAPUI5 OData Model과 CRUD 입문 · Stage 7 Docs · 2026-05-29 · 배포자: 정훈영
+  </footer>
+</div>
+</body>
+</html>

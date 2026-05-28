@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Flight 통합 실습 최신본 · SAP Developer Learning Library</title>
+<link rel="stylesheet" href="../../assets/common.css" />
+<link rel="stylesheet" href="../../assets/stage7-shell.css" />
+<script src="../../assets/common.js" defer></script>
+<script src="../../assets/stage7-shell.js" defer></script>
+</head>
+<body
+  data-page-type="doc"
+  data-active-category="practice"
+  data-doc-id="flight-integrated"
+  data-doc-title="Flight 통합 실습 최신본"
+  data-doc-version="4.0"
+  data-doc-created-at="2026-05-29T01:55:02+09:00"
+  data-doc-updated-at="2026-05-29T01:55:02+09:00"
+  data-distributor="정훈영"
+  data-prose-root="true">
+
+<div class="stage7-doc-layout">
+  <section class="stage7-hero prose-summary" data-prose="summary">
+    <div class="breadcrumb" data-prose="summary">
+      <a href="../../index.html">Home</a>
+      <span>›</span>
+      <a href="../../pages/integrated-practice.html">통합 실습</a>
+      <span>›</span>
+      <span>Flight 통합 실습 최신본</span>
+    </div>
+    <div class="stage7-hero__eyebrow">SAP Developer Learning Library</div>
+    <h1>Flight 통합 실습 최신본</h1>
+    <p class="lead">
+      이 실습은 하나의 Flight 시나리오를 ClassRun, Gateway CRUD, UI5 ODataModel, Messaging, RAP BO로 확장해 본다.
+      개별 문서를 읽은 뒤 실제 개발 흐름을 연결하는 종합 연습으로 사용한다.
+    </p>
+    <div class="home-badges">
+      <span class="stage7-badge blue">Stage 7</span>
+      <span class="stage7-badge green">통합 실습</span>
+      <span class="stage7-badge purple">End-to-End</span>
+      <span class="stage7-badge amber">배포자: 정훈영</span>
+    </div>
+  </section>
+
+  <main>
+    <section class="stage7-section prose-concept" data-prose="concept" id="goal">
+      <div class="stage7-section__label">01 · 목표</div>
+      <h2>하나의 업무 데이터를 여러 개발 계층으로 연결합니다</h2>
+      <p>
+        초급 학습에서는 ABAP, OData, UI5, RAP가 서로 다른 주제로 보일 수 있다. 하지만 실무에서는
+        하나의 업무 데이터를 조회하고, 검증하고, 저장하고, 사용자에게 메시지로 알려주는 흐름이 반복된다.
+        Flight 통합 실습은 이 흐름을 작은 범위에서 끝까지 경험하게 만드는 연습이다.
+      </p>
+      <p>
+        최종 목표는 완벽한 앱 하나를 만드는 것이 아니라, 개발자가 요구사항을 받았을 때
+        데이터 모델, 서비스, 화면, 메시지, 확장 모델을 어떤 순서로 생각해야 하는지 익히는 것이다.
+      </p>
+    </section>
+
+    <section class="stage7-section prose-structure" data-prose="structure" id="scenario">
+      <div class="stage7-section__label">02 · 시나리오</div>
+      <h2>항공편 좌석과 예약 상태를 조회하고 관리하는 흐름으로 잡습니다</h2>
+      <p>
+        실습 시나리오는 단순하게 시작한다. 항공사와 노선을 선택하고, 날짜별 운항의 좌석 현황을 확인한 뒤,
+        예약 또는 알림 데이터를 관리하는 화면을 만든다. 이후 같은 모델을 RAP 관점으로 다시 구성해 본다.
+      </p>
+      <div class="stage7-card-grid two">
+        <article class="stage7-card" data-prose="structure">
+          <h3>조회 중심</h3>
+          <p>SCARR, SPFLI, SFLIGHT를 읽어 항공사/노선/운항 현황을 보여준다.</p>
+        </article>
+        <article class="stage7-card" data-prose="structure">
+          <h3>저장 중심</h3>
+          <p>예약 또는 알림성 데이터를 생성, 수정, 삭제하면서 Gateway CRUD와 UI5 저장 흐름을 익힌다.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="stage7-section prose-practice" data-prose="practice" id="steps">
+      <div class="stage7-section__label">03 · 단계</div>
+      <h2>ClassRun에서 시작해 UI5와 RAP까지 확장합니다</h2>
+      <ol>
+        <li>Flight 테이블 관계를 확인하고 조회 기준 필드를 정한다.</li>
+        <li>ABAP ClassRun으로 항공사, 노선, 운항 KPI를 출력한다.</li>
+        <li>Gateway OData V2 서비스로 목록 조회와 CRUD 메서드를 구성한다.</li>
+        <li>UI5 List/Detail 화면을 만들고 ODataModel로 데이터를 바인딩한다.</li>
+        <li>Input Validation과 MessageManager로 사용자 오류를 보여준다.</li>
+        <li>동일 업무를 RAP BO 관점으로 재해석하고 Service Binding까지 연결한다.</li>
+      </ol>
+    </section>
+
+    <section class="stage7-section prose-practice" data-prose="practice" id="deliverables">
+      <div class="stage7-section__label">04 · 산출물</div>
+      <h2>완료 기준은 실행 가능한 작은 결과물입니다</h2>
+      <ul>
+        <li>Flight 데이터를 읽어 KPI를 출력하는 ABAP ClassRun</li>
+        <li>목록 조회와 생성, 수정, 삭제를 테스트할 수 있는 Gateway 서비스</li>
+        <li>목록, 상세, 저장 버튼을 가진 UI5 화면</li>
+        <li>필수값 누락과 백엔드 오류를 구분해서 보여주는 메시지 처리</li>
+        <li>RAP로 확장할 때 필요한 Entity, Behavior, Service 구성 초안</li>
+      </ul>
+      <div class="note" data-prose="concept">
+        <strong>학습 기준</strong>
+        모든 기능을 한 번에 완성하려고 하지 않는다. 각 단계마다 "입력, 처리, 출력"이 무엇인지 확인하고 다음 단계로 넘어간다.
+      </div>
+    </section>
+
+    <section class="stage7-section prose-checklist" data-prose="checklist" id="review">
+      <div class="stage7-section__label">05 · 리뷰</div>
+      <h2>실습 후에는 기술보다 연결 흐름을 복기합니다</h2>
+      <ul>
+        <li>ABAP에서 읽은 데이터 구조가 OData Entity 구조와 어떻게 연결되는지 설명한다.</li>
+        <li>UI5 화면의 List, Detail, Save 동작이 어떤 OData 요청으로 이어지는지 확인한다.</li>
+        <li>입력 오류와 서버 오류가 사용자에게 다른 메시지로 보이는지 점검한다.</li>
+        <li>Gateway 방식과 RAP 방식에서 개발자가 직접 구현하는 부분이 어떻게 다른지 비교한다.</li>
+        <li>다음 실습에서 재사용할 수 있는 코드와 다시 설계해야 할 코드를 구분한다.</li>
+      </ul>
+      <div class="warning" data-prose="warning">
+        <strong>주의</strong>
+        통합 실습은 범위가 넓다. 막히는 지점이 생기면 전체를 멈추기보다 해당 계층의 최소 동작을 먼저 확인한다.
+        예를 들어 UI5 저장이 실패하면 네트워크 요청, OData 응답, MessageManager 표시를 분리해서 본다.
+      </div>
+    </section>
+  </main>
+
+  <footer class="stage7-footer prose-summary" data-prose="summary">
+    Flight 통합 실습 최신본 · Stage 7 Docs · 2026-05-29 · 배포자: 정훈영
+  </footer>
+</div>
+</body>
+</html>
