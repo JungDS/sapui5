@@ -8,13 +8,13 @@
 
 ## 1. 운영 대시보드
 
-- 최종 수정: 2026-05-28 19:45 KST
+- 최종 수정: 2026-05-28 23:20 KST
 - 배포자: 정훈영
 - 저장소: https://github.com/JungDS/sapui5
 - GitHub Pages: https://jungds.github.io/sapui5/
 - 운영 방식: Branch → Pull Request → Review/Merge
-- 현재 진행: Stage 7 · 로드맵 문서 docs 이관
-- 현재 PR: 준비 중
+- 현재 진행: Stage 7 · v3 문서 docs 운영화 및 운영 데이터 정비
+- 현재 PR: #32 README / README_ALL 진행 이력 보강
 
 ---
 
@@ -42,6 +42,7 @@ Stage 7은 개별 HTML을 계속 직접 수정하는 방식에서 벗어나, 최
 5. Header, Navigation, 문서 메타데이터 표시, 이전/다음 이동은 공통 CSS/JS Shell에서 처리한다.
 6. 각 HTML 문서는 본문과 최소 메타데이터 중심으로 관리한다.
 7. 수정 전 운영본은 `archive/docs/` 아래에 문서별로 보관한다.
+8. legacy `v1/`, `v2/`는 운영 루트에서 제거하고 `archive/v1/`, `archive/v2/`로 보존한다.
 
 ---
 
@@ -64,8 +65,10 @@ docs/
     development-tools-overview.html
     debugging-troubleshooting-guide.html
   abap/
-    gateway-odata-v2-crud.html
+    abap-classic-report-itab-alv.html
+    abap-new-syntax.html
     cds-to-odata.html
+    gateway-odata-v2-crud.html
     rap-end-to-end.html
   ui5/
   module/
@@ -79,9 +82,12 @@ assets/
 data/
   site-map.json
   document-catalog.json
+  stage7-operating-docs-map.json
 archive/
   docs/
   before/
+  v1/
+  v2/
   v3/
 ```
 
@@ -94,8 +100,9 @@ archive/
 - `docs/**.html`은 최신 운영 문서다.
 - `assets/stage7-shell.css`, `assets/stage7-shell.js`는 Stage 7 전환 페이지가 명시적으로 연결하는 opt-in 공통 Shell이다.
 - `archive/docs/`는 운영 문서의 수정 전 이력 보관 위치다.
-- `archive/v3/`는 기존 v3 문서 보존 또는 redirect 정책 결정 후 사용할 보관 위치다.
-- 기존 `v3/` 링크를 유지해야 하면 redirect 또는 보존본 유지 방식을 별도 결정한다.
+- `archive/v1/`, `archive/v2/`는 legacy v1/v2 문서 보존 위치다.
+- `archive/v3/`는 기존 v3 문서 원본 보존 위치다.
+- 기존 `v3/` 링크를 유지해야 하면 redirect 또는 최신 docs 안내 페이지로 전환한다.
 
 ---
 
@@ -135,12 +142,12 @@ archive/
 ```html
 <body
   data-page-type="doc"
-  data-active-category="roadmap"
-  data-doc-id="developer-learning-roadmap"
-  data-doc-title="SAP 개발자 학습 로드맵"
+  data-active-category="abap"
+  data-doc-id="abap-classic"
+  data-doc-title="Classic ABAP 기본기"
   data-doc-version="4.0"
-  data-doc-created-at="2026-05-28T19:45:00+09:00"
-  data-doc-updated-at="2026-05-28T19:45:00+09:00"
+  data-doc-created-at="2026-05-28T21:15:00+09:00"
+  data-doc-updated-at="2026-05-28T21:15:00+09:00"
   data-distributor="정훈영">
 ```
 
@@ -176,6 +183,7 @@ archive/docs/home/index/20260528_164134_v3.0.html
 archive/docs/landing/abap/20260528_173000_v3.0.html
 archive/docs/abap/gateway-odata-v2-crud/20260528_171530_v3.0.html
 archive/docs/roadmap/developer-learning-roadmap/20260528_194500_v4.0.html
+archive/v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html
 ```
 
 ### 5.2 Archive 파일명 기준
@@ -185,7 +193,8 @@ archive/docs/roadmap/developer-learning-roadmap/20260528_194500_v4.0.html
 - 파일명 형식은 `<YYYYMMDD>_<hhmmss>_v<version>.html`을 사용한다.
 - 동일 파일명이 이미 존재하면 현재 문서의 `data-doc-updated-at` 또는 archive 생성 로직을 재확인한다.
 - 기존 문서에 메타데이터가 없는 최초 전환 작업에서는 전환 시점의 기준 timestamp를 사용하고, README 또는 PR 본문에 예외로 기록한다.
-- 기존 v3 문서를 직접 수정하지 않고 docs 경로를 신규 생성하는 작업에서는 v3 원본을 삭제하지 않고 legacy 경로로 보존할 수 있다.
+- 기존 v3 문서를 직접 수정하지 않고 docs 경로를 신규 생성하는 작업에서는 v3 원본을 삭제하지 않고 archive 경로에 보존할 수 있다.
+- legacy v1/v2 문서는 내용 수정 없이 `archive/v1/`, `archive/v2/`로 이동한다.
 
 ### 5.3 버전 증가 기준
 
@@ -279,10 +288,18 @@ Stage 7 Shell은 `body[data-page-type]`이 있는 페이지에서만 동작한�
 | 7-5c | 나머지 Landing 전환 | `pages/roadmap.html`, `pages/ui5-fiori.html`, `pages/module-basics.html`, `pages/integrated-practice.html`, `pages/reference.html` | 완료 (#23) |
 | 7-6 | 우측 Document Navigation 완성 | `assets/stage7-shell.css`, `assets/stage7-shell.js` | 완료 (#24) |
 | 7-7 | v3 운영 문서 docs로 이관 | `v3/**/*.html` → `docs/**` | 진행 중 |
-| 7-8 | archive/v3 보존 또는 redirect 결정 | `v3/`, `archive/v3/` | 진행 예정 |
-| 7-9 | 교재형 본문 보강 | `docs/**/*.html` | 진행 예정 |
+| 7-7a | 로드맵 문서 3개 docs 이관 | `docs/roadmap/*` | 완료 (#25) |
+| 7-7b | Home inline CSS 분리 | `assets/stage7-home.css` | 완료 (#26) |
+| 7-7c | 로드맵 v3 원본 archive 보존 | `archive/v3/00-roadmap/*` | 완료 (#27) |
+| 7-7d | legacy v1/v2 archive 이동 | `archive/v1`, `archive/v2` | 완료 (#28) |
+| 7-7e | ABAP 핵심 3개 문서 docs 운영화 | `docs/abap/*` | 완료 (#29) |
+| 7-7f | ABAP docs Navigation 연결 | `stage7-shell.js`, `pages/abap.html` | 완료 (#30) |
+| 7-7g | 운영 문서 매핑 데이터 추가 | `data/stage7-operating-docs-map.json` | 완료 (#31) |
+| 7-7h | README / README_ALL 진행 이력 보강 | `README.md`, `README_ALL.md` | 진행 중 (#32) |
+| 7-8 | archive/v3 보존 또는 redirect 결정 | `v3/`, `archive/v3/` | 진행 중 |
+| 7-9 | 교재형 본문 보강 | `docs/**/*.html` | 진행 중 |
 | 7-10 | 전체 링크/UX 검수 | 전체 HTML | 진행 예정 |
-| 7-11 | README 최종 갱신 | `README.md`, `README_ALL.md` | 진행 예정 |
+| 7-11 | README 최종 갱신 | `README.md`, `README_ALL.md` | 진행 중 |
 
 ---
 
@@ -290,7 +307,14 @@ Stage 7 Shell은 `body[data-page-type]`이 있는 페이지에서만 동작한�
 
 | 구분 | 문서 | PR |
 |---|---|---|
-| 진행 중 | Stage 7 로드맵 문서 docs 이관 | 신규 PR 예정 |
+| 진행 중 | README / README_ALL 진행 이력 보강 | #32 예정 |
+| 완료 | Stage 7 운영 문서 매핑 데이터 추가 | #31 |
+| 완료 | Stage 7 ABAP docs navigation links 정리 | #30 |
+| 완료 | Stage 7 ABAP 핵심 문서 docs 운영화 1차 | #29 |
+| 완료 | Archive legacy v1 and v2 folders | #28 |
+| 완료 | Stage 7 로드맵 v3 원본 archive 보존 | #27 |
+| 완료 | Stage 7 Home inline CSS 분리 | #26 |
+| 완료 | Stage 7 로드맵 문서 docs 이관 | #25 |
 | 완료 | Stage 7 우측 Document Navigation 완성 | #24 |
 | 완료 | Stage 7 Navigation/Data 기준 정비 및 Landing 전환 | #23 |
 | 완료 | README / README_ALL 운영 문서 분리 | #22 |
@@ -306,7 +330,63 @@ Stage 7 Shell은 `body[data-page-type]`이 있는 페이지에서만 동작한�
 
 ---
 
-## 10. 현재 운영 링크
+## 10. PR #25~#31 상세 진행 이력
+
+### PR #25 · Stage 7 로드맵 문서 docs 이관
+
+- 로드맵 영역 문서 3개를 `docs/roadmap/` 운영 경로로 이관했다.
+- `developer-learning-roadmap.html`, `development-tools-overview.html`, `debugging-troubleshooting-guide.html`을 신규 운영본으로 정리했다.
+- `README.md`, `README_ALL.md`, `pages/roadmap.html`의 운영 링크를 docs 기준으로 반영했다.
+
+### PR #26 · Stage 7 Home inline CSS 분리
+
+- `index.html` 내부 inline CSS를 `assets/stage7-home.css`로 분리했다.
+- Home Shell은 외부 CSS/JS 기준으로 유지되도록 정리했다.
+- 일부 Home 링크를 docs 운영 경로 기준으로 보정했다.
+
+### PR #27 · Stage 7 로드맵 v3 원본 archive 보존
+
+- 로드맵 v3 원본 3개를 `archive/v3/00-roadmap/`에 보존했다.
+- 기존 v3 URL은 최신 docs 운영본 안내 페이지로 전환했다.
+- 기존 archive 파일, v1, v2 파일은 수정하지 않았다.
+
+### PR #28 · Archive legacy v1 and v2 folders
+
+- 루트 `v1/` 16개 파일을 `archive/v1/`로 이동했다.
+- 루트 `v2/` 16개 파일을 `archive/v2/`로 이동했다.
+- 총 32개 파일이 rename 처리되었고, additions/deletions는 0으로 파일 내용 변경 없이 경로만 변경했다.
+
+### PR #29 · Stage 7 ABAP 핵심 문서 docs 운영화 1차
+
+- ABAP 핵심 문서 3개를 `docs/abap/` 운영본으로 생성했다.
+- 신규 운영본은 `common.css`, `stage7-shell.css`, `common.js`, `stage7-shell.js`를 사용한다.
+- 각 문서에는 `data-page-type`, `data-active-category`, `data-doc-id`, `data-distributor`를 적용했다.
+- 문서 내용은 단순 복사가 아니라 개념, 구조, 실무 패턴, 주의점, 체크리스트 구조로 상세화했다.
+- 기존 v3 원본은 `archive/v3/01-abap/`에 보존했다.
+
+대상 운영본:
+
+```text
+docs/abap/abap-classic-report-itab-alv.html
+docs/abap/abap-new-syntax.html
+docs/abap/cds-to-odata.html
+```
+
+### PR #30 · Stage 7 ABAP docs navigation links 정리
+
+- `assets/stage7-shell.js`의 ABAP 핵심 3개 문서 경로를 docs 기준으로 변경했다.
+- `pages/abap.html`의 추천 경로와 문서 카드 링크를 docs 기준으로 변경했다.
+- 기존 v3 경로는 `legacyHref`로 보존했다.
+
+### PR #31 · Stage 7 운영 문서 매핑 데이터 추가
+
+- `data/stage7-operating-docs-map.json`을 추가했다.
+- `abap-classic`, `abap-new-syntax`, `cds-odata`, `gateway-odata-v2-crud`의 운영 경로, pages 기준 href, legacy 경로, archive 경로, 관련 PR 정보를 기록했다.
+- 후속 `data/site-map.json`, `data/document-catalog.json` 갱신의 기준점으로 사용한다.
+
+---
+
+## 11. 현재 운영 링크
 
 - 전체 학습자료 홈: https://jungds.github.io/sapui5/
 - 로드맵: https://jungds.github.io/sapui5/pages/roadmap.html
@@ -316,11 +396,14 @@ Stage 7 Shell은 `body[data-page-type]`이 있는 페이지에서만 동작한�
 - 통합 실습: https://jungds.github.io/sapui5/pages/integrated-practice.html
 - Reference/운영: https://jungds.github.io/sapui5/pages/reference.html
 - Gateway docs 전환본: https://jungds.github.io/sapui5/docs/abap/gateway-odata-v2-crud.html
+- Classic ABAP docs 전환본: https://jungds.github.io/sapui5/docs/abap/abap-classic-report-itab-alv.html
+- ABAP New Syntax docs 전환본: https://jungds.github.io/sapui5/docs/abap/abap-new-syntax.html
+- CDS to OData docs 전환본: https://jungds.github.io/sapui5/docs/abap/cds-to-odata.html
 - 로드맵 docs 전환본: https://jungds.github.io/sapui5/docs/roadmap/developer-learning-roadmap.html
 
 ---
 
-## 11. 문체 기준
+## 12. 문체 기준
 
 | 영역 | 문체 | 기준 |
 |---|---|---|
@@ -336,18 +419,19 @@ Stage 7 Shell은 `body[data-page-type]`이 있는 페이지에서만 동작한�
 
 ---
 
-## 12. Pull Request 기준
+## 13. Pull Request 기준
 
 - PR 제목과 본문은 한국어로 작성한다.
 - 의미 있는 변경은 main 직접 수정 대신 PR로 처리한다.
 - PR 본문에는 작업 개요, 변경 내용, 확인 포인트를 작성한다.
 - 구조 변경 PR은 문서 상세화 PR과 분리한다.
 - 대량 이동, 구조 변경, clean rebuild는 별도 PR로 분리한다.
+- README.md에는 간략 요약을 기록하고, README_ALL.md에는 상세 진행 이력을 기록한다.
 - GitHub 도구 timeout이나 확인 버튼 누락이 발생하면 수동 반영 가능한 ZIP 또는 패치로 우회한다.
 
 ---
 
-## 13. 채팅방이 없어졌을 때의 재개 기준
+## 14. 채팅방이 없어졌을 때의 재개 기준
 
 이 README_ALL을 먼저 읽고 다음 순서로 재개한다.
 
@@ -355,4 +439,5 @@ Stage 7 Shell은 `body[data-page-type]`이 있는 페이지에서만 동작한�
 2. 열린 PR이 있는지 확인한다.
 3. `README.md`의 현재 진행과 현재 PR을 확인한다.
 4. 진행 중 PR이 있으면 해당 PR의 변경 파일과 검증 결과를 확인한다.
-5. 열린 PR이 없으면 `7-7 v3 운영 문서 docs 이관`을 이어서 진행한다.
+5. 열린 PR이 없으면 `data/site-map.json`, `data/document-catalog.json`의 ABAP 핵심 문서 경로 갱신을 이어서 진행한다.
+6. 이후 다음 v3 문서 묶음을 docs로 운영화한다.
