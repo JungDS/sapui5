@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gateway Navigation Efficient Header Local Sample v2</title>
+<style>
+:root {
+  --bg: #f6f8fb;
+  --panel: #ffffff;
+  --line: #e2e8f0;
+  --text: #0f172a;
+  --muted: #64748b;
+  --blue: #2563eb;
+  --blue-soft: #dbeafe;
+  --green: #059669;
+  --green-soft: #d1fae5;
+  --amber: #d97706;
+  --amber-soft: #fef3c7;
+  --purple: #7c3aed;
+  --purple-soft: #ede9fe;
+  --shadow: 0 22px 58px rgba(15, 23, 42, .13);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top left, rgba(37, 99, 235, .13), transparent 34rem),
+    radial-gradient(circle at top right, rgba(124, 58, 237, .10), transparent 30rem),
+    var(--bg);
+  color: var(--text);
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR",
+    "Apple SD Gothic Neo", Arial, sans-serif;
+  line-height: 1.65;
+}
+
+a {
+  color: inherit;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(255, 255, 255, .90);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+
+.topbar-inner {
+  width: min(1280px, calc(100% - 48px));
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: center;
+  min-height: 66px;
+}
+
+.home-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-weight: 900;
+  color: #1d4ed8;
+  white-space: nowrap;
+}
+
+.home-link__icon {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #bfdbfe;
+  border-radius: 12px;
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.home-link:hover .home-link__icon {
+  background: #dbeafe;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.header-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #ffffff;
+  color: #475569;
+  padding: 6px 10px;
+  font-size: .76rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.header-info strong {
+  color: #0f172a;
+  font-weight: 900;
+}
+
+.header-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #bfdbfe;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  padding: 7px 11px;
+  font-size: .78rem;
+  font-weight: 900;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.header-btn:hover {
+  background: #dbeafe;
+}
+
+.header-arrow-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.header-arrow {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 34px;
+  border: 1px solid #bfdbfe;
+  border-radius: 13px;
+  background: #ffffff;
+  color: #1d4ed8;
+  text-decoration: none;
+  box-shadow: 0 8px 18px rgba(37, 99, 235, .08);
+}
+
+.header-arrow:hover {
+  background: #eff6ff;
+  transform: translateY(-1px);
+}
+
+.header-arrow svg {
+  display: block;
+}
+
+.content-shell {
+  width: min(1160px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 30px 0 42px;
+}
+
+.hero {
+  background: linear-gradient(135deg, #ffffff 0%, #eef6ff 100%);
+  border: 1px solid rgba(148, 163, 184, .28);
+  border-radius: 30px;
+  box-shadow: 0 18px 42px rgba(15, 23, 42, .08);
+  padding: 38px 42px;
+  margin-bottom: 28px;
+}
+
+.breadcrumb {
+  color: #64748b;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: .88rem;
+  margin-bottom: 16px;
+}
+
+.eyebrow {
+  color: var(--blue);
+  font-weight: 900;
+  font-size: .84rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 8px 0 12px;
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  line-height: 1.12;
+  letter-spacing: -.045em;
+}
+
+.lead {
+  margin: 0;
+  max-width: 900px;
+  color: #334155;
+  font-size: 1.08rem;
+}
+
+.hero-actions {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.badge {
+  border-radius: 999px;
+  padding: 5px 9px;
+  font-size: .74rem;
+  font-weight: 900;
+}
+
+.badge.blue {
+  color: #1d4ed8;
+  background: var(--blue-soft);
+}
+
+.badge.green {
+  color: #047857;
+  background: var(--green-soft);
+}
+
+.badge.amber {
+  color: #b45309;
+  background: var(--amber-soft);
+}
+
+.badge.purple {
+  color: #6d28d9;
+  background: var(--purple-soft);
+}
+
+.section-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  box-shadow: 0 16px 36px rgba(15, 23, 42, .06);
+  padding: 28px;
+  margin: 22px 0;
+  scroll-margin-top: 96px;
+}
+
+.section-label {
+  color: var(--blue);
+  font-size: .82rem;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.section-card h2 {
+  margin: 8px 0 12px;
+  font-size: 1.65rem;
+  line-height: 1.25;
+  letter-spacing: -.03em;
+}
+
+.section-card p {
+  color: #475569;
+}
+
+.mock-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.mini-card {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 14px;
+}
+
+.mini-card strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.mini-card span {
+  color: var(--muted);
+  font-size: .92rem;
+}
+
+.footer {
+  width: min(1160px, calc(100% - 48px));
+  margin: 0 auto 40px;
+  color: #64748b;
+  font-size: .9rem;
+  text-align: center;
+}
+
+body.nav-collapsed .side-nav {
+  transform: translateX(calc(100% + 18px));
+}
+
+body.nav-collapsed .nav-toggle {
+  right: 0;
+}
+
+body.nav-collapsed .nav-toggle .open-label {
+  display: inline;
+}
+
+body.nav-collapsed .nav-toggle .close-label {
+  display: none;
+}
+
+.side-nav {
+  position: fixed;
+  top: 84px;
+  right: 18px;
+  z-index: 30;
+  width: 360px;
+  max-width: calc(100vw - 44px);
+  height: calc(100vh - 104px);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: transform .22s ease;
+}
+
+.side-nav-scroll {
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  padding: 14px;
+}
+
+.side-nav-top {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  margin: -14px -14px 14px;
+  padding: 14px;
+  border-bottom: 1px solid var(--line);
+  border-radius: 24px 24px 18px 18px;
+  background: linear-gradient(180deg, #fff 0%, #f8fafc 100%);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, .06);
+}
+
+.nav-toggle {
+  position: fixed;
+  top: 50%;
+  right: 378px;
+  z-index: 40;
+  transform: translateY(-50%);
+  min-width: 34px;
+  min-height: 112px;
+  border: 1px solid #bfdbfe;
+  border-radius: 16px 0 0 16px;
+  background: #2563eb;
+  color: #fff;
+  box-shadow: 0 14px 32px rgba(37, 99, 235, .25);
+  cursor: pointer;
+  transition: right .22s ease, background .15s ease;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: .78rem;
+  font-weight: 900;
+  letter-spacing: .03em;
+}
+
+.nav-toggle:hover {
+  background: #1d4ed8;
+}
+
+.nav-toggle .open-label {
+  display: none;
+}
+
+.focus-card {
+  padding: 13px;
+  border: 1px solid #bfdbfe;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #eff6ff, #ffffff);
+}
+
+.focus-card .label {
+  margin-bottom: 5px;
+  color: #1d4ed8;
+  font-size: .74rem;
+  font-weight: 900;
+}
+
+.focus-card strong {
+  display: block;
+  color: #0f172a;
+  font-size: .96rem;
+  line-height: 1.25;
+}
+
+.focus-card small {
+  color: #64748b;
+}
+
+.nav-title {
+  margin: 2px 0 12px;
+  color: #64748b;
+  font-size: .76rem;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.tab-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  margin: 0 0 14px;
+}
+
+.tab-buttons button {
+  border: 1px solid var(--line);
+  background: #f8fafc;
+  color: #475569;
+  border-radius: 12px;
+  padding: 9px 6px;
+  font-size: .76rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.tab-buttons button.active {
+  background: var(--blue-soft);
+  color: #1d4ed8;
+  border-color: #bfdbfe;
+}
+
+.related-block {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.related-block h3 {
+  margin: 0 0 8px;
+  color: #64748b;
+  font-size: .76rem;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.related-card {
+  display: block;
+  text-decoration: none;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 12px;
+  margin-bottom: 8px;
+  background: #fff;
+}
+
+.related-card strong {
+  display: block;
+  font-size: .86rem;
+  line-height: 1.25;
+}
+
+.related-card small {
+  display: block;
+  margin-top: 3px;
+  color: #64748b;
+  font-size: .72rem;
+}
+
+.local-toc {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.local-toc a {
+  display: block;
+  padding: 6px 8px;
+  border-radius: 10px;
+  color: #475569;
+  font-size: .82rem;
+  text-decoration: none;
+  transition: background .15s ease, color .15s ease, font-weight .15s ease;
+}
+
+.local-toc a:hover,
+.local-toc a.active {
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-weight: 900;
+}
+
+.progress-card {
+  margin-bottom: 14px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #f8fafc;
+}
+
+.progress-head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  color: #334155;
+  font-size: .8rem;
+  font-weight: 900;
+}
+
+.progress-bar {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e2e8f0;
+}
+
+.progress-bar span {
+  display: block;
+  width: 67%;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #2563eb, #7c3aed);
+}
+
+.group {
+  margin-bottom: 14px;
+}
+
+.group-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 10px 0 8px;
+  color: #475569;
+  font-size: .78rem;
+  font-weight: 900;
+}
+
+.group-title span:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.group-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #94a3b8;
+}
+
+.group-dot.green { background: var(--green); }
+.group-dot.blue { background: var(--blue); }
+.group-dot.purple { background: var(--purple); }
+
+.step-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  gap: 9px;
+  align-items: center;
+  margin-bottom: 7px;
+  padding: 10px;
+  border: 1px solid #eef2f7;
+  border-radius: 16px;
+  background: #fff;
+  color: #334155;
+  text-decoration: none;
+}
+
+.step-no {
+  z-index: 1;
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 12px;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: .76rem;
+  font-weight: 900;
+}
+
+.step-card.done .step-no {
+  background: #d1fae5;
+  color: #047857;
+}
+
+.step-card.active {
+  border-color: #bfdbfe;
+  background: linear-gradient(135deg, #eff6ff, #fff);
+  box-shadow: 0 12px 28px rgba(37, 99, 235, .10);
+}
+
+.step-card.active .step-no {
+  background: #2563eb;
+  color: #fff;
+  box-shadow: 0 0 0 5px #dbeafe;
+}
+
+.step-card.next .step-no {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.step-text strong {
+  display: block;
+  font-size: .86rem;
+  line-height: 1.25;
+}
+
+.step-text small {
+  display: block;
+  margin-top: 2px;
+  color: #64748b;
+  font-size: .72rem;
+}
+
+.status {
+  border-radius: 999px;
+  padding: 3px 7px;
+  font-size: .62rem;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.status.done {
+  color: #047857;
+  background: #d1fae5;
+}
+
+.status.now {
+  color: #1d4ed8;
+  background: #dbeafe;
+}
+
+.status.next {
+  color: #b45309;
+  background: #fef3c7;
+}
+
+@media (max-width: 1280px) {
+  .content-shell {
+    width: min(1000px, calc(100% - 40px));
+  }
+
+  .side-nav {
+    right: 12px;
+    width: 340px;
+  }
+
+  .nav-toggle {
+    right: 352px;
+  }
+}
+
+@media (max-width: 980px) {
+  .topbar-inner {
+    width: min(100%, calc(100% - 24px));
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 10px 0;
+  }
+
+  .header-actions {
+    justify-content: flex-start;
+  }
+
+  .content-shell {
+    width: min(100%, calc(100% - 28px));
+  }
+
+  .mock-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .side-nav {
+    top: 110px;
+    right: 10px;
+    width: min(360px, calc(100vw - 42px));
+    height: calc(100vh - 128px);
+  }
+
+  .nav-toggle {
+    right: min(370px, calc(100vw - 32px));
+  }
+
+  body.nav-collapsed .nav-toggle {
+    right: 0;
+  }
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="home-link" href="#">
+      <span class="home-link__icon"><svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none">
+  <path d="M3.75 10.6 12 3.75l8.25 6.85" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M5.75 9.5v9.25h4.5V14h3.5v4.75h4.5V9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg></span>
+      <span>SAP 학습자료 홈</span>
+    </a>
+    <div class="header-actions" aria-label="문서 빠른 이동">
+      <span class="header-info">수정일자 <strong>2026-05-28</strong></span>
+      <span class="header-info">배포자 <strong>정훈영</strong></span>
+      <a class="header-btn" href="#">ABAP 개발 홈</a>
+      <div class="header-arrow-group" aria-label="이전 다음 문서 이동">
+        <a class="header-arrow" href="#" title="이전 문서: CDS View에서 OData 노출까지" aria-label="이전 문서로 이동"><svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none">
+  <path d="M15 5 8 12l7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg></a>
+        <a class="header-arrow" href="#" title="다음 문서: RAP End-to-End 입문" aria-label="다음 문서로 이동"><svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none">
+  <path d="m9 5 7 7-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg></a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="content-shell">
+  <section class="hero">
+    <div class="breadcrumb">
+      <a href="#">Home</a><span>›</span><a href="#">ABAP 개발</a><span>›</span><span>Gateway / OData V2 CRUD 입문</span>
+    </div>
+    <div class="eyebrow">SAP Developer Learning Library</div>
+    <h1>Gateway / OData V2 CRUD 입문</h1>
+    <p class="lead">
+      홈 이동은 집 모양 아이콘으로, 이전/다음 이동은 SVG 아이콘 버튼으로 표현한 샘플입니다.
+      관련 문서는 문서목차 탭 안에서만 표시됩니다.
+    </p>
+    <div class="hero-actions">
+      <span class="badge blue">P0</span>
+      <span class="badge green">Gateway</span>
+      <span class="badge purple">OData V2</span>
+      <span class="badge amber">예상 60분</span>
+    </div>
+  </section>
+
+  <main>
+    <section class="section-card">
+      <div class="section-label">Sample Concept</div>
+      <h2>홈 아이콘 + SVG 이전/다음 + 관련 문서 위치 정리</h2>
+      <p>
+        좌측 상단 홈 링크는 뒤로가기처럼 보이지 않도록 집 모양 아이콘을 사용했습니다.
+        우측 상단 이전/다음은 문자 화살표 대신 SVG 아이콘 버튼으로 표현했습니다.
+        관련 문서는 학습경로 탭에서는 제거하고 문서목차 탭 안에만 배치했습니다.
+      </p>
+    </section>
+    
+<section class="section-card" id="overview">
+  <div class="section-label">01. 큰 그림</div>
+  <h2>Gateway는 SAP 데이터를 HTTP API로 노출하는 관문이다</h2>
+  <p>Gateway OData V2 개발은 SAP 내부의 데이터와 로직을 외부 소비자가 호출할 수 있는 HTTP API로 만드는 작업입니다.</p>
+  <div class="mock-grid">
+    <div class="mini-card">
+      <strong>학습 포인트</strong>
+      <span>초급자가 먼저 이해해야 할 기준을 정리합니다.</span>
+    </div>
+    <div class="mini-card">
+      <strong>실무 관점</strong>
+      <span>화면보다 API 단독 검증을 우선합니다.</span>
+    </div>
+  </div>
+</section>
+
+
+<section class="section-card" id="terms">
+  <div class="section-label">02. 핵심 용어</div>
+  <h2>Entity Type과 Entity Set을 구분해야 한다</h2>
+  <p>Entity Type은 한 건의 구조이고 Entity Set은 그 구조를 가진 데이터 집합입니다.</p>
+  <div class="mock-grid">
+    <div class="mini-card">
+      <strong>학습 포인트</strong>
+      <span>초급자가 먼저 이해해야 할 기준을 정리합니다.</span>
+    </div>
+    <div class="mini-card">
+      <strong>실무 관점</strong>
+      <span>화면보다 API 단독 검증을 우선합니다.</span>
+    </div>
+  </div>
+</section>
+
+
+<section class="section-card" id="crud-map">
+  <div class="section-label">03. CRUD 메서드</div>
+  <h2>HTTP Method와 DPC_EXT 메서드를 연결해서 이해한다</h2>
+  <p>GET_ENTITYSET, GET_ENTITY, CREATE_ENTITY, UPDATE_ENTITY, DELETE_ENTITY를 HTTP Method와 함께 연결해 이해합니다.</p>
+  <div class="mock-grid">
+    <div class="mini-card">
+      <strong>학습 포인트</strong>
+      <span>초급자가 먼저 이해해야 할 기준을 정리합니다.</span>
+    </div>
+    <div class="mini-card">
+      <strong>실무 관점</strong>
+      <span>화면보다 API 단독 검증을 우선합니다.</span>
+    </div>
+  </div>
+</section>
+
+
+<section class="section-card" id="get-entityset">
+  <div class="section-label">04. GET_ENTITYSET</div>
+  <h2>목록 조회는 필터와 반환 테이블을 중심으로 구현한다</h2>
+  <p>처음에는 단순 SELECT로 응답 구조를 확인하고, 이후 $filter, $top, $skip, 정렬, 페이징을 단계적으로 추가합니다.</p>
+  <div class="mock-grid">
+    <div class="mini-card">
+      <strong>학습 포인트</strong>
+      <span>초급자가 먼저 이해해야 할 기준을 정리합니다.</span>
+    </div>
+    <div class="mini-card">
+      <strong>실무 관점</strong>
+      <span>화면보다 API 단독 검증을 우선합니다.</span>
+    </div>
+  </div>
+</section>
+
+
+<section class="section-card" id="get-entity">
+  <div class="section-label">05. GET_ENTITY</div>
+  <h2>단건 조회는 Key 값을 정확히 읽는 것이 핵심이다</h2>
+  <p>GET_ENTITY는 URL에 포함된 Key를 기준으로 한 건을 조회합니다.</p>
+  <div class="mock-grid">
+    <div class="mini-card">
+      <strong>학습 포인트</strong>
+      <span>초급자가 먼저 이해해야 할 기준을 정리합니다.</span>
+    </div>
+    <div class="mini-card">
+      <strong>실무 관점</strong>
+      <span>화면보다 API 단독 검증을 우선합니다.</span>
+    </div>
+  </div>
+</section>
+
+
+<section class="section-card" id="create-update-delete">
+  <div class="section-label">06. CUD 구현 관점</div>
+  <h2>생성, 수정, 삭제는 요청 Body와 Key 처리 기준이 다르다</h2>
+  <p>CREATE_ENTITY는 Body를 읽고, UPDATE_ENTITY와 DELETE_ENTITY는 URL Key 기준으로 대상 데이터를 찾습니다.</p>
+  <div class="mock-grid">
+    <div class="mini-card">
+      <strong>학습 포인트</strong>
+      <span>초급자가 먼저 이해해야 할 기준을 정리합니다.</span>
+    </div>
+    <div class="mini-card">
+      <strong>실무 관점</strong>
+      <span>화면보다 API 단독 검증을 우선합니다.</span>
+    </div>
+  </div>
+</section>
+
+
+<section class="section-card" id="gateway-client">
+  <div class="section-label">07. Gateway Client</div>
+  <h2>테스트는 $metadata → EntitySet → CRUD 순서로 진행한다</h2>
+  <p>UI5 화면을 연결하기 전에 Gateway Client에서 서비스 등록, $metadata, 목록 조회, 단건 조회, CUD 요청을 먼저 확인합니다.</p>
+  <div class="mock-grid">
+    <div class="mini-card">
+      <strong>학습 포인트</strong>
+      <span>초급자가 먼저 이해해야 할 기준을 정리합니다.</span>
+    </div>
+    <div class="mini-card">
+      <strong>실무 관점</strong>
+      <span>화면보다 API 단독 검증을 우선합니다.</span>
+    </div>
+  </div>
+</section>
+
+
+<section class="section-card" id="errors">
+  <div class="section-label">08. 오류 처리</div>
+  <h2>Gateway 오류는 HTTP 상태와 SAP 메시지를 함께 봐야 한다</h2>
+  <p>HTTP 404, 405, 500은 각각 서비스/URL 오류, Method 오류, ABAP Runtime 오류 가능성을 가집니다.</p>
+  <div class="mock-grid">
+    <div class="mini-card">
+      <strong>학습 포인트</strong>
+      <span>초급자가 먼저 이해해야 할 기준을 정리합니다.</span>
+    </div>
+    <div class="mini-card">
+      <strong>실무 관점</strong>
+      <span>화면보다 API 단독 검증을 우선합니다.</span>
+    </div>
+  </div>
+</section>
+
+
+<section class="section-card" id="checklist">
+  <div class="section-label">09. 완료 체크</div>
+  <h2>다음 단계로 넘어가기 전에 확인한다</h2>
+  <p>Entity Type과 Entity Set, MPC_EXT와 DPC_EXT, GET_ENTITYSET과 GET_ENTITY의 차이를 설명할 수 있어야 합니다.</p>
+  <div class="mock-grid">
+    <div class="mini-card">
+      <strong>학습 포인트</strong>
+      <span>초급자가 먼저 이해해야 할 기준을 정리합니다.</span>
+    </div>
+    <div class="mini-card">
+      <strong>실무 관점</strong>
+      <span>화면보다 API 단독 검증을 우선합니다.</span>
+    </div>
+  </div>
+</section>
+
+
+<section class="section-card" id="next">
+  <div class="section-label">10. 다음 문서</div>
+  <h2>Gateway 이후에는 UI5 연동과 RAP으로 확장한다</h2>
+  <p>다음 단계에서는 RAP End-to-End와 SAPUI5 ODataModel CRUD로 확장합니다.</p>
+  <div class="mock-grid">
+    <div class="mini-card">
+      <strong>학습 포인트</strong>
+      <span>초급자가 먼저 이해해야 할 기준을 정리합니다.</span>
+    </div>
+    <div class="mini-card">
+      <strong>실무 관점</strong>
+      <span>화면보다 API 단독 검증을 우선합니다.</span>
+    </div>
+  </div>
+</section>
+
+  </main>
+</div>
+
+<button class="nav-toggle" type="button" aria-expanded="true">
+  <span class="close-label">Navigation 접기</span>
+  <span class="open-label">Navigation 열기</span>
+</button>
+
+<aside class="side-nav" aria-label="Gateway Navigation">
+  <div class="side-nav-scroll">
+    <div class="side-nav-top">
+      <div class="focus-card">
+        <div class="label">현재 문서 · 4단계</div>
+        <strong>Gateway / OData V2 CRUD 입문</strong>
+        <small>SEGW · DPC_EXT · CRUD · Gateway Client</small>
+      </div>
+    </div>
+
+    <div class="tab-buttons" role="tablist" aria-label="Gateway Navigation Tabs">
+      <button class="active" type="button" data-tab-target="toc">문서목차</button>
+      <button type="button" data-tab-target="path">학습경로</button>
+    </div>
+
+    <div data-tab-panel="toc">
+      <div class="local-toc" data-scrollspy="gateway">
+        <div class="nav-title">이 문서 안에서</div>
+        <a href="#overview" class="active">01. 큰 그림</a>
+<a href="#terms" class="">02. 핵심 용어</a>
+<a href="#crud-map" class="">03. CRUD 메서드</a>
+<a href="#get-entityset" class="">04. GET_ENTITYSET</a>
+<a href="#get-entity" class="">05. GET_ENTITY</a>
+<a href="#create-update-delete" class="">06. CUD 구현 관점</a>
+<a href="#gateway-client" class="">07. Gateway Client</a>
+<a href="#errors" class="">08. 오류 처리</a>
+<a href="#checklist" class="">09. 완료 체크</a>
+<a href="#next" class="">10. 다음 문서</a>
+      </div>
+
+      <div class="related-block">
+        <h3>관련 문서</h3>
+        <a class="related-card" href="#">
+          <strong>UI5 ODataModel CRUD</strong>
+          <small>Gateway 서비스를 UI5 화면과 연결하는 다음 학습</small>
+        </a>
+        <a class="related-card" href="#">
+          <strong>SAP 디버깅 / 트러블슈팅</strong>
+          <small>Gateway 오류 원인을 계층별로 좁히는 학습</small>
+        </a>
+      </div>
+    </div>
+
+    <div data-tab-panel="path" hidden>
+      <div class="progress-card">
+        <div class="progress-head"><span>현재 4 / 6</span><span>67%</span></div>
+        <div class="progress-bar"><span></span></div>
+      </div>
+
+      <div class="group">
+        <div class="group-title"><span><i class="group-dot green"></i>Classic ABAP</span><span>완료</span></div>
+        <a class="step-card done" href="#"><span class="step-no">1</span><span class="step-text"><strong>Classic ABAP 기본기</strong><small>Report · ITAB · ALV</small></span><span class="status done">완료</span></a>
+        <a class="step-card done" href="#"><span class="step-no">2</span><span class="step-text"><strong>ABAP New Syntax 입문</strong><small>현대 ABAP 문법</small></span><span class="status done">완료</span></a>
+      </div>
+
+      <div class="group">
+        <div class="group-title"><span><i class="group-dot blue"></i>CDS / Gateway</span><span>진행 중</span></div>
+        <a class="step-card done" href="#"><span class="step-no">3</span><span class="step-text"><strong>CDS View에서 OData 노출까지</strong><small>ZI_* · ZC_* · Binding</small></span><span class="status done">완료</span></a>
+        <a class="step-card active" href="#overview"><span class="step-no">4</span><span class="step-text"><strong>Gateway / OData V2 CRUD 입문</strong><small>SEGW · DPC_EXT · CRUD</small></span><span class="status now">현재</span></a>
+      </div>
+
+      <div class="group">
+        <div class="group-title"><span><i class="group-dot purple"></i>RAP / UI5 연계</span><span>다음</span></div>
+        <a class="step-card next" href="#"><span class="step-no">5</span><span class="step-text"><strong>RAP End-to-End 입문</strong><small>Behavior · Service</small></span><span class="status next">다음</span></a>
+        <a class="step-card next" href="#"><span class="step-no">6</span><span class="step-text"><strong>UI5 ODataModel CRUD</strong><small>화면 연동</small></span><span class="status next">다음</span></a>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<footer class="footer">Gateway Navigation Efficient Header Local Sample v2 · 배포자: 정훈영</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  function initScrollSpy() {
+    const nav = document.querySelector("[data-scrollspy='gateway']");
+    if (!nav) return;
+
+    const links = Array.from(nav.querySelectorAll("a[href^='#']"));
+    const entries = links.map(function (link) {
+      const id = decodeURIComponent(link.getAttribute("href").slice(1));
+      const section = document.getElementById(id);
+      return section ? { id: id, link: link, section: section } : null;
+    }).filter(Boolean);
+
+    if (!entries.length) return;
+
+    function setActive(id) {
+      links.forEach(function (link) {
+        link.classList.toggle("active", link.getAttribute("href") === "#" + id);
+      });
+    }
+
+    function findCurrent() {
+      const marker = Math.max(120, window.innerHeight * 0.28);
+      let current = entries[0];
+
+      entries.forEach(function (entry) {
+        const rect = entry.section.getBoundingClientRect();
+        if (rect.top <= marker) current = entry;
+      });
+
+      const last = entries[entries.length - 1];
+      if (last.section.getBoundingClientRect().top <= window.innerHeight * 0.55) {
+        current = last;
+      }
+
+      setActive(current.id);
+    }
+
+    let ticking = false;
+    function requestUpdate() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(function () {
+        findCurrent();
+        ticking = false;
+      });
+    }
+
+    links.forEach(function (link) {
+      link.addEventListener("click", function () {
+        const id = decodeURIComponent(link.getAttribute("href").slice(1));
+        setActive(id);
+        window.setTimeout(findCurrent, 120);
+        window.setTimeout(findCurrent, 420);
+      });
+    });
+
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+    findCurrent();
+  }
+
+  function initNavToggle() {
+    const button = document.querySelector(".nav-toggle");
+    const nav = document.querySelector(".side-nav");
+    if (!button || !nav) return;
+
+    button.addEventListener("click", function () {
+      const collapsed = document.body.classList.toggle("nav-collapsed");
+      button.setAttribute("aria-expanded", String(!collapsed));
+      nav.setAttribute("aria-hidden", String(collapsed));
+    });
+  }
+
+  function initTabs() {
+    document.querySelectorAll("[data-tab-target]").forEach(function (button) {
+      button.addEventListener("click", function () {
+        const target = button.getAttribute("data-tab-target");
+
+        document.querySelectorAll("[data-tab-target]").forEach(function (b) {
+          b.classList.toggle("active", b === button);
+        });
+
+        document.querySelectorAll("[data-tab-panel]").forEach(function (panel) {
+          panel.hidden = panel.getAttribute("data-tab-panel") !== target;
+        });
+      });
+    });
+  }
+
+  function init() {
+    initScrollSpy();
+    initNavToggle();
+    initTabs();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+}());
+</script>
+</body>
+</html>
