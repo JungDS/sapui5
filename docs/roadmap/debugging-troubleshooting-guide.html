@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SAP 디버깅 / 트러블슈팅 통합 가이드 · SAP Developer Learning Library</title>
+<link rel="stylesheet" href="../../assets/common.css" />
+<link rel="stylesheet" href="../../assets/stage7-shell.css" />
+<script src="../../assets/common.js" defer></script>
+<script src="../../assets/stage7-shell.js" defer></script>
+</head>
+<body
+  data-page-type="doc"
+  data-active-category="roadmap"
+  data-doc-id="debug"
+  data-doc-title="SAP 개발 디버깅 / 트러블슈팅 통합 가이드"
+  data-doc-version="4.0"
+  data-doc-created-at="2026-05-28T19:45:00+09:00"
+  data-doc-updated-at="2026-05-28T19:45:00+09:00"
+  data-distributor="정훈영"
+  data-prose-root="true">
+
+<div class="stage7-doc-layout">
+  <section class="stage7-hero prose-summary" data-prose="summary">
+    <div class="breadcrumb" data-prose="summary">
+      <a href="../../index.html">Home</a>
+      <span>›</span>
+      <a href="../../pages/roadmap.html">로드맵 / 학습전략</a>
+      <span>›</span>
+      <span>SAP 디버깅 / 트러블슈팅 통합 가이드</span>
+    </div>
+    <div class="stage7-hero__eyebrow">SAP Developer Learning Library</div>
+    <h1>SAP 디버깅 / 트러블슈팅 통합 가이드</h1>
+    <p class="lead">
+      ABAP, OData, SAPUI5 화면에서 문제가 발생했을 때 원인을 좁혀가는 순서를 정리한다.
+    </p>
+    <div class="home-badges">
+      <span class="stage7-badge blue">Stage 7 Docs</span>
+      <span class="stage7-badge green">로드맵</span>
+      <span class="stage7-badge purple">트러블슈팅</span>
+      <span class="stage7-badge amber">배포자: 정훈영</span>
+    </div>
+  </section>
+
+  <main>
+    <section class="stage7-section prose-structure" data-prose="structure" id="principle">
+      <div class="stage7-section__label">01 · 기본 원칙</div>
+      <h2>디버깅은 추측이 아니라 범위 축소 과정이다</h2>
+      <p>
+        오류가 발생하면 화면, OData 서비스, ABAP 로직, 데이터, 권한, 설정 중
+        어느 위치에서 문제가 시작되었는지 먼저 구분한다.
+      </p>
+      <div class="stage7-card-grid three">
+        <article class="stage7-card" data-prose="concept"><h3>현상 확인</h3><p>오류 메시지, 발생 화면, 입력값, 재현 절차를 고정한다.</p></article>
+        <article class="stage7-card" data-prose="concept"><h3>계층 분리</h3><p>UI, OData, ABAP, DB, 설정 중 오류 계층을 나눈다.</p></article>
+        <article class="stage7-card" data-prose="concept"><h3>증거 기반 수정</h3><p>Network 응답, Debugger 값, 로그를 근거로 수정 대상을 결정한다.</p></article>
+      </div>
+    </section>
+
+    <section class="stage7-section prose-structure" data-prose="structure" id="layers">
+      <div class="stage7-section__label">02 · 오류 계층</div>
+      <h2>오류 위치를 계층별로 나누어 판단한다</h2>
+      <table>
+        <thead><tr><th>계층</th><th>대표 증상</th><th>확인 도구</th><th>첫 판단 기준</th></tr></thead>
+        <tbody>
+          <tr><td>UI5 화면</td><td>버튼 미동작, 값 비어 있음</td><td>Browser DevTools, VS Code/BAS</td><td>이벤트 함수명, Binding Path, Model 데이터</td></tr>
+          <tr><td>OData 서비스</td><td>404, 500, Metadata 오류</td><td>Gateway Client, Network</td><td>URL, HTTP 상태, payload</td></tr>
+          <tr><td>ABAP 로직</td><td>계산 오류, Dump</td><td>ADT Debugger, ST22</td><td>입력값, Internal Table, 예외 지점</td></tr>
+          <tr><td>데이터 / 권한</td><td>특정 사용자만 오류</td><td>SAP GUI, SU53, ST05</td><td>권한 객체, 필터, 데이터 존재 여부</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="stage7-section prose-practice" data-prose="practice" id="flow">
+      <div class="stage7-section__label">03 · 표준 점검 순서</div>
+      <h2>화면 오류는 바깥에서 안쪽으로 추적한다</h2>
+      <div class="flow">
+        <div class="flow-step"><span class="num">1</span><div><div class="flow-title">재현 조건 고정</div><p>사용자, 화면, 입력값, 발생 시각을 기록한다.</p></div></div>
+        <div class="flow-step"><span class="num">2</span><div><div class="flow-title">Browser Console 확인</div><p>JavaScript 오류와 UI5 모듈 로딩 오류를 확인한다.</p></div></div>
+        <div class="flow-step"><span class="num">3</span><div><div class="flow-title">Browser Network 확인</div><p>OData 요청 URL, HTTP 상태 코드, 응답 payload를 확인한다.</p></div></div>
+        <div class="flow-step"><span class="num">4</span><div><div class="flow-title">Gateway Client 단독 테스트</div><p>UI를 제외하고 서비스 자체가 정상 응답하는지 확인한다.</p></div></div>
+        <div class="flow-step"><span class="num">5</span><div><div class="flow-title">ABAP Debugger 진입</div><p>서비스 로직, CDS 조건, RAP Behavior의 실제 값을 확인한다.</p></div></div>
+      </div>
+    </section>
+
+    <section class="stage7-section prose-checklist" data-prose="checklist" id="checklist">
+      <div class="stage7-section__label">04 · 학습 완료 체크</div>
+      <h2>다음 문서로 넘어가기 전에 확인한다</h2>
+      <ol>
+        <li>UI5, OData, ABAP, 데이터/권한, 설정 계층을 구분한다.</li>
+        <li>화면 오류 발생 시 Console과 Network를 먼저 확인한다.</li>
+        <li>OData 오류 발생 시 Gateway Client로 서비스를 단독 테스트한다.</li>
+        <li>ABAP Debugger에서 입력값, Internal Table, 메시지 생성 지점을 확인한다.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="stage7-footer prose-summary" data-prose="summary">
+    SAP 디버깅 / 트러블슈팅 통합 가이드 · Stage 7 Docs · 2026-05-28 · 배포자: 정훈영
+  </footer>
+</div>
+</body>
+</html>
