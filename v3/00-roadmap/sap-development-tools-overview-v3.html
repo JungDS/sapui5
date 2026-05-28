@@ -3,57 +3,17 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>SAP 개발 환경과 도구 입문 · SAP Developer Learning Library v3</title>
+<title>SAP 개발 환경과 도구 입문 · 운영본 이동 안내</title>
 <link rel="stylesheet" href="../../assets/common.css" />
-<script src="../../assets/common.js" defer></script>
-<!-- data-prose required: concept | structure | practice | checklist | warning | teacher | reference | summary -->
 </head>
-<body data-active-category="roadmap" data-active-doc="tools" data-prose-root="true">
-<header class="library-topbar prose-summary" data-prose="summary">
-  <div class="library-topbar__inner">
-    <a class="library-home" href="../../index.html">← SAP 학습자료 홈</a>
-    <div class="library-meta">
-      <span class="badge blue">v3</span>
-      <span class="badge green">00. 로드맵 / 학습전략</span>
-      <span class="badge amber">배포자: 정훈영</span>
-      <span class="badge purple">Stage 6 Detail</span>
-    </div>
-  </div>
-</header>
-<div class="library-shell">
+<body>
+<main class="library-shell">
   <section class="hero prose-summary" data-prose="summary">
-    <div class="breadcrumb" data-prose="summary">
-      <a href="../../index.html">Home</a>
-      <span>›</span>
-      <a href="../../pages/roadmap.html">로드맵 / 학습전략</a>
-      <span>›</span>
-      <span>현재 문서</span>
-    </div>
     <div class="eyebrow">SAP Developer Learning Library</div>
     <h1>SAP 개발 환경과 도구 입문</h1>
-    <p class="lead">SAP GUI, ADT, VS Code/BAS, Gateway Client, Browser DevTools가 SAP 개발 흐름에서 각각 어떤 역할을 맡는지 초급자 기준으로 정리한다.</p>
-    <div class="hero-actions"><span class="badge blue">P0</span><span class="badge green">핵심 문서</span><span class="badge purple">초급자 기준</span><span class="badge amber">Stage 6</span></div>
+    <p class="lead">이 v3 문서는 보존 대상이며, 최신 운영본은 docs 경로에서 관리합니다.</p>
+    <p><a class="button" href="../../docs/roadmap/development-tools-overview.html">최신 운영본 열기</a></p>
   </section>
-  <main>
-    <section class="section-card prose-structure" data-prose="structure" id="map"><div class="section-label">01 · 도구 지도</div><h2>도구를 먼저 구분하면 실습 흐름이 단순해진다</h2><p class="lead-text">SAP 개발 도구는 하나의 IDE로 끝나지 않는다. 서버 개발, 서비스 테스트, 프론트엔드 구현, 브라우저 디버깅, 운영 확인이 서로 다른 도구에서 이루어진다.</p><table><thead><tr><th>도구</th><th>주 용도</th><th>처음 배울 때의 관점</th></tr></thead><tbody><tr><td>SAP GUI</td><td>T-Code 실행, 표준 화면 확인, 테이블/로그 확인</td><td>표준 SAP 동작과 시스템 상태 확인</td></tr><tr><td>ADT / Eclipse</td><td>ABAP, CDS, RAP 개발</td><td>서버 로직과 데이터 모델 작성</td></tr><tr><td>VS Code / BAS</td><td>SAPUI5, Fiori 앱 개발</td><td>XML View, Controller, Model, npm, UI5 Tooling</td></tr><tr><td>Gateway Client</td><td>OData V2 요청/응답 테스트</td><td>서비스가 정상 응답하는지 독립 확인</td></tr><tr><td>Browser DevTools</td><td>UI5 화면, Network, Console 디버깅</td><td>브라우저 실제 요청과 화면 오류 확인</td></tr></tbody></table></section>
-
-    <section class="section-card prose-structure" data-prose="structure" id="layers"><div class="section-label">02 · 계층별 이해</div><h2>문제가 발생한 위치에 따라 사용하는 도구가 달라진다</h2><div class="grid-2"><div class="mini-card"><h3>서버 로직 문제</h3><p>ABAP Class, CDS, RAP Behavior는 ADT와 Debugger로 확인한다.</p></div><div class="mini-card"><h3>서비스 응답 문제</h3><p>OData Metadata, EntitySet, HTTP 상태는 Gateway Client와 Network에서 확인한다.</p></div><div class="mini-card"><h3>화면 바인딩 문제</h3><p>View, Controller, Model, Binding Path는 VS Code/BAS와 Browser DevTools에서 확인한다.</p></div><div class="mini-card"><h3>운영 상태 문제</h3><p>서비스 등록, 시스템 설정, 표준 로그는 SAP GUI에서 확인한다.</p></div></div></section>
-
-    <section class="section-card prose-structure" data-prose="structure" id="choose"><div class="section-label">03 · 상황별 도구 선택</div><h2>증상만 보고도 첫 확인 위치를 정할 수 있어야 한다</h2><table><thead><tr><th>증상</th><th>먼저 확인할 도구</th><th>판단 기준</th></tr></thead><tbody><tr><td>화면 데이터가 비어 있음</td><td>Browser DevTools → Gateway Client</td><td>Network 응답과 Binding 경로를 분리한다.</td></tr><tr><td>OData 404/500 오류</td><td>Gateway Client → SAP GUI 로그</td><td>서비스 등록, 서버 예외, 메시지를 확인한다.</td></tr><tr><td>계산 결과 오류</td><td>ADT Debugger</td><td>ABAP 로직과 CDS 조건을 확인한다.</td></tr><tr><td>UI 이벤트 미실행</td><td>Console → VS Code/BAS</td><td>Controller 함수명과 이벤트 바인딩을 확인한다.</td></tr></tbody></table></section>
-
-    <section class="section-card prose-checklist" data-prose="checklist" id="checklist"><div class="section-label">04 · 학습 완료 체크</div><h2>다음 문서로 넘어가기 전에 확인한다</h2><ol><li>SAP GUI, ADT, VS Code/BAS, Gateway Client, Browser DevTools의 역할을 구분한다.</li><li>화면 데이터 오류 시 Network와 Gateway Client를 순서대로 확인한다.</li><li>서버 로직 문제와 화면 바인딩 문제를 증상 기준으로 구분한다.</li></ol></section>
-  </main>
-  <aside class="toc prose-reference" data-prose="reference">
-    <div class="library-tree" data-nav-tree="main" data-prose="reference"></div>
-    <hr class="tree-separator" />
-    <div class="local-page-tools" data-prose="reference"><h2>이 문서 안에서</h2></div>
-    <h2>학습 목차</h2>
-    <a href="#map">01. 도구 지도</a>
-    <a href="#layers">02. 계층별 이해</a>
-    <a href="#choose">03. 상황별 도구 선택</a>
-    <a href="#checklist">04. 완료 체크</a>
-  </aside>
-</div>
-<footer class="library-footer prose-summary" data-prose="summary">SAP 개발 환경과 도구 입문 · Stage 6 Detail · 2026-05-28 · 배포자: 정훈영</footer>
+</main>
 </body>
 </html>
