@@ -1,42 +1,34 @@
-# SAP Developer Learning Library v3
+# SAP Developer Learning Library
 
 ## 운영 대시보드
 
-- 최종 수정: 2026-05-28 11:07 KST
+- 최종 수정: 2026-05-28 13:58 KST
 - 배포자: 정훈영
 - 저장소: https://github.com/JungDS/sapui5
 - GitHub Pages: https://jungds.github.io/sapui5/
 - 운영 방식: Branch → Pull Request → Review/Merge
-- 현재 진행: Stage 6 상세화
-- 현재 PR: #12 `Stage 6: Gateway OData V2 CRUD 입문 상세화 및 README 운영 대시보드 재작성`
+- 현재 진행: Stage 7 · Global Shell Refactor 준비
+- 현재 PR: #16 `Gateway Navigation을 우측 독립 패널로 분리`
 
 ---
 
-## 최근 수정 페이지
+## Stage 7 목표
 
-| 구분 | 문서 | 수정 후 웹페이지 | 수정 전 웹페이지 | PR |
-|---|---|---|---|---|
-| 진행 중 | Gateway / OData V2 CRUD 입문 | https://jungds.github.io/sapui5/v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html | https://jungds.github.io/sapui5/archive/before/stage6-6-gateway-odata-v2-crud-before.html | https://github.com/JungDS/sapui5/pull/12 |
-| 완료 | CDS View에서 OData 노출까지 | https://jungds.github.io/sapui5/v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html | https://jungds.github.io/sapui5/archive/before/stage6-5-cds-to-odata-before.html | https://github.com/JungDS/sapui5/pull/10 |
-| 완료 | 홈 화면 | https://jungds.github.io/sapui5/ | https://jungds.github.io/sapui5/archive/before/stage7-1-index-home-layout-before.html | https://github.com/JungDS/sapui5/pull/7 |
+Stage 7은 개별 HTML을 계속 직접 수정하는 방식에서 벗어나, 최신 운영 문서를 안정적인 경로와 공통 Shell 기준으로 재구성하는 단계다.
 
-> 수정 전 페이지는 소스 보기 링크가 아니라 GitHub Pages에서 직접 열리는 비교용 HTML로 보관한다. 비교용 HTML은 `archive/before/` 아래에 두며, 일반 `index.html` Navigation에서는 노출하지 않는다.
+핵심 목표는 다음과 같다.
 
----
-
-## 웹페이지 입구
-
-- 전체 학습자료 홈: https://jungds.github.io/sapui5/
-- 로드맵: https://jungds.github.io/sapui5/pages/roadmap.html
-- ABAP 개발: https://jungds.github.io/sapui5/pages/abap.html
-- UI5/Fiori 개발: https://jungds.github.io/sapui5/pages/ui5-fiori.html
-- SAP 모듈 기초: https://jungds.github.io/sapui5/pages/module-basics.html
-- 통합 실습: https://jungds.github.io/sapui5/pages/integrated-practice.html
-- Reference/운영: https://jungds.github.io/sapui5/pages/reference.html
+1. `v3/`를 최신 운영 문서 경로로 계속 사용하지 않는다.
+2. 최신 운영 문서는 `docs/` 아래에 둔다.
+3. `pages/`는 영역별 Landing Page 전용으로 유지한다.
+4. `v3/`는 보존본 또는 redirect 기준으로 정리한다.
+5. Header, Navigation, 문서 메타데이터 표시, 이전/다음 이동은 공통 CSS/JS Shell에서 처리한다.
+6. 각 HTML 문서는 본문과 최소 메타데이터 중심으로 관리한다.
+7. 수정 전 운영본은 `archive/docs/` 아래에 문서별로 보관한다.
 
 ---
 
-## 저장소 구조
+## 목표 저장소 구조
 
 ```text
 index.html
@@ -47,38 +39,260 @@ pages/
   module-basics.html
   integrated-practice.html
   reference.html
+docs/
+  roadmap/
+  abap/
+    gateway-odata-v2-crud.html
+    cds-to-odata.html
+    rap-end-to-end.html
+  ui5/
+  module/
+  practice/
+  reference/
 assets/
   common.css
   common.js
 data/
-  document-catalog.json
   site-map.json
-  *audit*.json
+  document-catalog.json
 archive/
+  docs/
+    abap/
+      gateway-odata-v2-crud/
+        20260528_161042_v4.0.html
   before/
-    stage*-before.html
-v3/
-  00-roadmap/
-  01-abap/
-  02-ui5-fiori/
-  03-module-basics/
-  04-integrated-practice/
-  99-reference/
-v2/
-v1/
+    legacy-pr-comparison/
+  v3/
 ```
 
 ### 구조 기준
 
 - `index.html`은 전체 학습자료 첫 화면이다.
 - `pages/*.html`은 영역별 Landing Page다.
-- `v3/` 하위 폴더는 현재 운영 기준 문서다.
-- `archive/before/`는 수정 전 화면 비교용 HTML 보관 위치다.
-- `archive/before/`의 문서는 README에서만 링크하고, 일반 Navigation에서는 노출하지 않는다.
-- `v1/`, `v2/`는 이전 버전 보관용이다.
-- 문서가 하위 폴더로 이동하면 CSS/JS 상대 경로를 함께 수정한다.
-- 현재 `data/site-map.json`은 실제 Navigation 기준 데이터다.
-- `data/document-catalog.json`은 후속 정비에서 `href/path` 필드 기준으로 보강한다.
+- `docs/**.html`은 최신 운영 문서다.
+- `archive/docs/`는 운영 문서의 수정 전 이력 보관 위치다.
+- `archive/before/legacy-pr-comparison/`은 기존 PR 비교용 보관 파일을 정리할 위치다.
+- `archive/v3/`는 기존 v3 문서 보존 위치다.
+- 기존 `v3/` 링크를 유지해야 하면 redirect 또는 보존본 유지 방식을 별도 결정한다.
+
+---
+
+## 공통 메타데이터 기준
+
+모든 운영 HTML은 문서 유형에 따라 `body`에 메타데이터를 둔다.
+
+### index.html
+
+```html
+<body
+  data-page-type="home"
+  data-doc-id="index"
+  data-doc-title="SAP Developer Learning Library"
+  data-doc-version="4.0"
+  data-doc-created-at="2026-05-28T00:00:00+09:00"
+  data-doc-updated-at="2026-05-28T13:58:00+09:00"
+  data-distributor="정훈영">
+```
+
+### pages/*.html
+
+```html
+<body
+  data-page-type="landing"
+  data-active-category="abap"
+  data-doc-id="abap"
+  data-doc-title="ABAP 개발"
+  data-doc-version="4.0"
+  data-doc-created-at="2026-05-28T00:00:00+09:00"
+  data-doc-updated-at="2026-05-28T13:58:00+09:00"
+  data-distributor="정훈영">
+```
+
+### docs/**/*.html
+
+```html
+<body
+  data-page-type="doc"
+  data-active-category="abap"
+  data-doc-id="gateway-odata-v2-crud"
+  data-doc-title="Gateway / OData V2 CRUD 입문"
+  data-doc-version="4.0"
+  data-doc-created-at="2026-05-28T14:23:15+09:00"
+  data-doc-updated-at="2026-05-28T16:10:42+09:00"
+  data-distributor="정훈영">
+```
+
+### 메타데이터 의미
+
+| 항목 | 의미 | 기준 |
+|---|---|---|
+| `data-page-type` | 페이지 유형 | `home`, `landing`, `doc` |
+| `data-active-category` | 현재 카테고리 | `abap`, `ui5`, `module`, `practice`, `reference` 등 |
+| `data-doc-id` | 안정적인 문서 ID | archive 폴더명과 Navigation 키로 사용 |
+| `data-doc-title` | 화면 표시 문서명 | Header, 현재 문서 카드에 사용 |
+| `data-doc-version` | 문서 버전 | 내용/구조 변경 기준 |
+| `data-doc-created-at` | 문서 최초 생성 시각 | KST ISO 8601 |
+| `data-doc-updated-at` | 현재 운영본 마지막 수정 시각 | archive 파일명 생성 기준 |
+| `data-distributor` | 배포자 | 기본값 `정훈영` |
+
+---
+
+## Archive 규칙
+
+운영 문서를 수정하기 전, 현재 운영본을 먼저 archive에 보관한다.
+
+### Archive 경로
+
+```text
+archive/docs/<category>/<doc-id>/<YYYYMMDD>_<hhmmss>_v<version>.html
+```
+
+예시:
+
+```text
+archive/docs/abap/gateway-odata-v2-crud/20260528_161042_v4.0.html
+archive/docs/abap/gateway-odata-v2-crud/20260528_171530_v4.0.html
+archive/docs/abap/gateway-odata-v2-crud/20260610_093000_v4.1.html
+```
+
+### Archive 파일명 기준
+
+- 날짜와 시간은 archive 수행 시각이 아니라, 현재 운영 HTML의 `data-doc-updated-at` 값을 기준으로 한다.
+- 시간대는 KST, `Asia/Seoul` 기준이다.
+- 파일명 형식은 `<YYYYMMDD>_<hhmmss>_v<version>.html`을 사용한다.
+- 동일 파일명이 이미 존재하면 현재 문서의 `data-doc-updated-at` 또는 archive 생성 로직을 재확인한다.
+- 충돌이 불가피한 경우에만 새 timestamp로 재생성한다.
+
+### 버전 증가 기준
+
+| 변경 유형 | 버전 처리 |
+|---|---|
+| 오탈자, 링크, CSS, Navigation Shell 수정 | 버전 유지, `data-doc-updated-at`만 갱신 |
+| 문서 내용 보강, 예제 추가, 학습 흐름 일부 변경 | minor 증가: `4.0 → 4.1` |
+| 교육 구조 대폭 변경, 문서 체계 재구축 | major 증가: `4.x → 5.0` |
+
+---
+
+## Global Shell 기준
+
+### Header
+
+공통 Header는 페이지 유형별로 다르게 구성한다.
+
+#### Home
+
+- 왼쪽: 홈/라이브러리 식별
+- 오른쪽: 수정일자, 배포자, 주요 영역 바로가기
+
+#### Landing Page
+
+- 왼쪽: `SAP 학습자료 홈` 아이콘 링크
+- 오른쪽: 수정일자, 배포자, 상위/관련 영역 이동
+
+#### Document Page
+
+- 왼쪽: `SAP 학습자료 홈` 아이콘 링크
+- 오른쪽: 수정일자, 배포자, 영역 홈, 이전 문서, 다음 문서
+- 이전/다음은 문자 화살표가 아니라 SVG 아이콘 버튼을 사용한다.
+
+### Document Navigation
+
+문서 페이지의 Navigation은 본문 그리드 안에 넣지 않고 화면 우측 독립 패널로 둔다.
+
+구성 기준:
+
+1. 현재 문서 카드
+2. 탭 버튼
+   - 문서목차
+   - 학습경로
+3. 문서목차 탭
+   - 이 문서 안에서
+   - 관련 문서
+4. 학습경로 탭
+   - 진행률
+   - 학습 단계
+   - 완료 / 현재 / 다음 상태
+5. 접기/열기 토글 버튼
+6. Scroll Spy active 표시
+
+### 디자인 기준
+
+- 본문은 가능한 넓게 유지한다.
+- Navigation은 우측 독립 패널로 분리한다.
+- Header와 본문 사이에는 적절한 여백을 둔다.
+- 제목 폰트는 과도하게 크게 하지 않는다.
+- 수정일자/배포자 표시는 단순 흰색 배지보다 정보 카드형 또는 톤이 있는 badge 형태를 우선 검토한다.
+
+---
+
+## Stage 7 작업 단계
+
+| 단계 | 작업 | 대상 | 산출물 | 상태 |
+|---|---|---|---|---|
+| 7-0 | README 운영 기준 정리 | `README.md` | Global Shell 기준, archive 기준 | 진행 중 |
+| 7-1 | 최종 로컬 샘플 확정 | local sample | Header/Nav 최종 디자인 | 진행 예정 |
+| 7-2 | index.html 메타데이터 적용 | `index.html` | Home Shell 기준 적용 | 진행 예정 |
+| 7-3 | 공통 CSS/JS Shell 초안 | `assets/common.css`, `assets/common.js` | Header/Nav 자동 생성 기반 | 진행 예정 |
+| 7-4 | Gateway 문서 1개 시범 전환 | `docs/abap/gateway-odata-v2-crud.html` | docs 구조 검증 | 진행 예정 |
+| 7-5 | pages Landing 전환 | `pages/*.html` | landing 메타데이터/레이아웃 | 진행 예정 |
+| 7-6 | v3 운영 문서 docs로 이관 | `v3/**/*.html` → `docs/**` | 최신 운영 문서 경로 정리 | 진행 예정 |
+| 7-7 | archive/v3 보존 또는 redirect 결정 | `v3/`, `archive/v3/` | 기존 링크 정책 확정 | 진행 예정 |
+| 7-8 | data 정비 | `data/site-map.json`, `data/document-catalog.json` | path/href/doc-id 기준 보강 | 진행 예정 |
+| 7-9 | 전체 링크 검수 | 전체 HTML | 깨진 링크/상대경로 점검 | 진행 예정 |
+| 7-10 | README 최종 갱신 | `README.md` | Stage 7 완료 기록 | 진행 예정 |
+
+---
+
+## index.html 재구축 기준
+
+`index.html`은 Stage 7의 첫 실제 적용 대상이다.
+
+### index.html에 필요한 메타데이터
+
+```html
+<body
+  data-page-type="home"
+  data-doc-id="index"
+  data-doc-title="SAP Developer Learning Library"
+  data-doc-version="4.0"
+  data-doc-created-at="2026-05-28T00:00:00+09:00"
+  data-doc-updated-at="2026-05-28T13:58:00+09:00"
+  data-distributor="정훈영">
+```
+
+### index.html 적용 항목
+
+1. Header 구조를 새 기준으로 정리한다.
+2. 오른쪽 정보 영역에 수정일자와 배포자를 표시한다.
+3. 기존 카드 목록은 유지하되, 최신 운영 경로는 `docs/` 기준으로 전환할 준비를 한다.
+4. `v3/` 링크는 Stage 7 중간 단계에서는 임시 유지할 수 있다.
+5. Footer의 `배포자: 정훈영` 표기를 유지한다.
+6. `data/site-map.json`, `data/document-catalog.json`와의 연결 기준을 재검토한다.
+
+---
+
+## 최근 수정 페이지
+
+| 구분 | 문서 | 수정 후 웹페이지 | 수정 전 웹페이지 | PR |
+|---|---|---|---|---|
+| 진행 중 | Gateway Navigation 우측 독립 패널 | https://jungds.github.io/sapui5/v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html | https://jungds.github.io/sapui5/archive/before/stage6-6-gateway-hybrid-navigation-before.html | https://github.com/JungDS/sapui5/pull/16 |
+| 완료 | Gateway Scroll Spy | https://jungds.github.io/sapui5/v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html | https://jungds.github.io/sapui5/archive/before/stage6-6-gateway-hybrid-navigation-before.html | https://github.com/JungDS/sapui5/pull/15 |
+| 완료 | Gateway Hybrid Navigation | https://jungds.github.io/sapui5/v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html | https://jungds.github.io/sapui5/archive/before/stage6-6-gateway-hybrid-navigation-before.html | https://github.com/JungDS/sapui5/pull/14 |
+| 완료 | Gateway / OData V2 CRUD 입문 상세화 | https://jungds.github.io/sapui5/v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html | https://jungds.github.io/sapui5/archive/before/stage6-6-gateway-odata-v2-crud-before.html | https://github.com/JungDS/sapui5/pull/12 |
+| 완료 | CDS View에서 OData 노출까지 | https://jungds.github.io/sapui5/v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html | https://jungds.github.io/sapui5/archive/before/stage6-5-cds-to-odata-before.html | https://github.com/JungDS/sapui5/pull/10 |
+| 완료 | 홈 화면 | https://jungds.github.io/sapui5/ | https://jungds.github.io/sapui5/archive/before/stage7-1-index-home-layout-before.html | https://github.com/JungDS/sapui5/pull/7 |
+
+---
+
+## 현재 운영 링크
+
+- 전체 학습자료 홈: https://jungds.github.io/sapui5/
+- 로드맵: https://jungds.github.io/sapui5/pages/roadmap.html
+- ABAP 개발: https://jungds.github.io/sapui5/pages/abap.html
+- UI5/Fiori 개발: https://jungds.github.io/sapui5/pages/ui5-fiori.html
+- SAP 모듈 기초: https://jungds.github.io/sapui5/pages/module-basics.html
+- 통합 실습: https://jungds.github.io/sapui5/pages/integrated-practice.html
+- Reference/운영: https://jungds.github.io/sapui5/pages/reference.html
 
 ---
 
@@ -97,98 +311,35 @@ v1/
 
 ---
 
-## Stage 6 진행 현황
-
-| 단계 | 문서 | 상태 | PR | 현재 경로 |
-|---|---|---|---|---|
-| 6-1 | SAP 개발자 학습 로드맵 | 완료 | #2 | `v3/00-roadmap/sap-developer-learning-roadmap-v3.html` |
-| 6-2 | SAP 개발 환경과 도구 입문 | 완료 | #3 | `v3/00-roadmap/sap-development-tools-overview-v3.html` |
-| 6-3 | SAP 디버깅 / 트러블슈팅 통합 가이드 | 완료 | #4 | `v3/00-roadmap/sap-debugging-troubleshooting-guide-v3.html` |
-| 6-4 | Classic ABAP 기본기 | 완료 | Clean Rebuild | `v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html` |
-| 6-5 | CDS View에서 OData 노출까지 | 완료 | #10 | `v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html` |
-| 6-6 | Gateway / OData V2 CRUD 입문 | PR 진행 중 | #12 | `v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html` |
-
-### 다음 상세화 후보
-
-| 우선순위 | 문서 | 경로 |
-|---|---|---|
-| 6-7 | RAP End-to-End 입문 | `v3/01-abap/sap-rap-end-to-end-beginner-guide-v3.html` |
-| 6-8 | SAPUI5 Controller 함수 문법 입문 | `v3/02-ui5-fiori/sapui5-controller-function-intro-v3.html` |
-| 6-9 | Fiori Elements Annotation Practice | `v3/02-ui5-fiori/fiori-elements-annotation-practice-v3.html` |
-| 6-10 | SAPUI5 OData Model과 CRUD 입문 | `v3/02-ui5-fiori/sapui5-odata-model-crud-beginner-guide-v3.html` |
-
----
-
-## 변경 기록 작성 규칙
-
-새 PR을 만들 때 README의 아래 항목을 반드시 갱신한다.
-
-1. `최종 수정` 날짜와 시간은 KST 기준으로 작성한다.
-2. `현재 진행`과 `현재 PR`을 최신 상태로 바꾼다.
-3. 변경 대상 문서의 수정 전 HTML을 `archive/before/` 아래에 보관한다.
-4. 수정 전 HTML 파일명은 `stage<단계>-<문서키>-before.html` 형식을 사용한다.
-5. `최근 수정 페이지` 표에는 수정 후 웹페이지와 수정 전 웹페이지를 모두 `https://jungds.github.io/sapui5/...` 링크로 기록한다.
-6. 수정 전 웹페이지는 일반 Navigation에 넣지 않는다.
-7. `Stage 6 진행 현황`의 상태와 PR 번호를 최신화한다.
-8. 새 문서가 추가되거나 이동되면 `저장소 구조`와 `현재 경로`를 갱신한다.
-9. 문서 footer의 `배포자: 정훈영` 표기를 확인한다.
-
----
-
-## 운영 원칙
-
-```text
-작업 브랜치 생성
-→ 수정 전 HTML을 archive/before에 보관
-→ 문서/코드 수정
-→ README 변경사항 반영
-→ fallback ZIP 생성
-→ Pull Request 생성
-→ 리뷰 후 main 병합
-→ README의 진행 현황 최신화
-```
-
-### Pull Request 기준
+## Pull Request 기준
 
 - PR 제목과 본문은 한국어로 작성한다.
 - 의미 있는 변경은 main 직접 수정 대신 PR로 처리한다.
 - PR 본문에는 작업 개요, 변경 내용, 확인 포인트를 작성한다.
-- 문서 상세화 PR은 가능하면 한 문서 단위로 작게 유지한다.
+- 구조 변경 PR은 문서 상세화 PR과 분리한다.
 - 대량 이동, 구조 변경, clean rebuild는 별도 PR로 분리한다.
+- GitHub 도구 timeout이나 확인 버튼 누락이 발생하면 수동 반영 가능한 ZIP을 생성한다.
 
-### 링크 기준
+---
 
-- 배포 링크는 GitHub Pages URL을 사용한다.
-- 수정 전 비교 페이지도 GitHub Pages URL을 사용한다.
-- 수정 전 HTML은 `archive/before/` 아래에 보관한다.
-- GitHub blob URL은 내부 검수용으로만 사용하고, README의 비교 링크로 사용하지 않는다.
-- 하위 폴더 문서에서는 `../../assets/common.css`, `../../assets/common.js`를 사용한다.
-- 같은 폴더 내 문서 링크는 파일명만 사용한다.
-- 다른 영역 문서 링크는 상대 경로를 명확히 작성한다.
-
-### 오류 / timeout 대응
-
-- GitHub 도구 timeout이나 확인 버튼 누락이 발생하면 같은 변경분을 수동 반영 가능한 ZIP으로 남긴다.
-- ZIP에는 변경 파일, 삭제 파일 목록, 수동 적용 안내 문서를 포함한다.
-- 불확실한 상태에서는 main에 추가 변경을 진행하지 말고, 먼저 GitHub 상태를 검수한다.
-
-### 채팅방이 없어졌을 때의 재개 기준
+## 채팅방이 없어졌을 때의 재개 기준
 
 이 README를 먼저 읽고 다음 순서로 재개한다.
 
 1. 최신 main commit을 확인한다.
 2. 열린 PR이 있는지 확인한다.
-3. `현재 진행`과 `Stage 6 진행 현황`을 확인한다.
-4. 최근 수정 페이지의 수정 후 웹페이지와 수정 전 웹페이지를 비교한다.
-5. 다음 상세화 후보 중 가장 앞선 문서를 대상으로 새 브랜치를 만든다.
-6. 작업 후 README를 먼저 갱신한 뒤 PR을 만든다.
+3. `운영 대시보드`의 현재 진행과 현재 PR을 확인한다.
+4. Stage 7 작업 단계표에서 가장 앞선 미완료 단계를 확인한다.
+5. archive 규칙에 따라 수정 전 운영본을 먼저 보관한다.
+6. 작업 후 README를 갱신하고 PR을 만든다.
 
 ---
 
 ## 현재 메모
 
-- `v3` 루트 HTML 중복 파일은 제거된 상태다.
-- `v3/` 문서는 영역별 하위 폴더 기준으로 관리한다.
-- `archive/before/`는 README 비교용 이전 화면 보관 위치다.
-- `data/site-map.json`은 새 하위 폴더 경로를 사용한다.
-- `data/document-catalog.json`은 후속 데이터 정비 PR에서 경로 필드 보강이 필요하다.
+- Stage 7의 실제 첫 적용 대상은 `index.html`이다.
+- `index.html`에도 문서 메타데이터를 둔다.
+- v3를 계속 최신 운영 경로로 유지하지 않고, `docs/`를 최신 운영 문서 경로로 전환하는 방향을 우선 검토한다.
+- archive 파일명은 현재 운영본의 `data-doc-updated-at` 값을 사용한다.
+- archive 파일명 표준은 `<YYYYMMDD>_<hhmmss>_v<version>.html`이다.
+- 문서별 archive 경로는 `archive/docs/<category>/<doc-id>/`를 사용한다.
