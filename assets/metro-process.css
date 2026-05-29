@@ -370,3 +370,33 @@
   .metro-layout .section-title p { margin-top: .5rem; }
   .metro-layout .toc .wrap { padding-inline: .5rem; }
 }
+
+/* 본문 인트로 영역(이미지 + 빠른 이동 링크 + 학습 요약) 여백 정리 */
+/* 헤더 통일 후 이미지·링크·요약이 본문 상단에 모이면서 간격이 비어 보이는 문제 보강 */
+.metro-layout #intro { margin: 0 0 1rem; }
+.metro-layout #intro .image-panel { margin-bottom: 1.25rem; }
+.metro-layout #intro .hero-actions { margin-top: 0; margin-bottom: 1.4rem; }
+.metro-layout #intro .summary-list { margin-top: 0; }
+
+/* 빠른 이동 링크: .btn-link 전역 정의가 없어 텍스트가 붙어 보이던 문제를 pill 버튼으로 보강 */
+.metro-layout .hero-actions { display: flex; flex-wrap: wrap; gap: .6rem; }
+.metro-layout .btn-link {
+  display: inline-flex;
+  align-items: center;
+  padding: .58rem 1rem;
+  border-radius: 999px;
+  background: var(--brand);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: .92rem;
+  border: 1px solid var(--brand);
+  transition: background .15s ease, border-color .15s ease;
+}
+.metro-layout .btn-link:hover { background: var(--brand-dark); border-color: var(--brand-dark); }
+.metro-layout .btn-link.secondary { background: #fff; color: var(--brand-dark); border-color: #cfe0f6; }
+.metro-layout .btn-link.secondary:hover { border-color: #9fc6ff; background: var(--soft-blue); }
+
+/* 테이블/목록 패널이 앞 요소와 붙지 않도록 최소 상단 여백 확보 */
+.metro-layout .table-panel { margin-top: .25rem; }
+.metro-layout main#main { padding-bottom: 2rem; }
