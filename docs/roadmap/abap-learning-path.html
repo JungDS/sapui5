@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ABAP 개발자 단계별 학습 가이드 · SAP Developer Learning Library</title>
+<link rel="stylesheet" href="../../assets/common.css" />
+<link rel="stylesheet" href="../../assets/stage7-shell.css" />
+<script src="../../assets/common.js" defer></script>
+<script src="../../assets/stage7-shell.js" defer></script>
+</head>
+<body
+  data-page-type="doc"
+  data-active-category="roadmap"
+  data-doc-id="abap-learning-path"
+  data-doc-title="ABAP 개발자 단계별 학습 가이드"
+  data-doc-version="4.0"
+  data-doc-created-at="2026-05-29T11:00:00+09:00"
+  data-doc-updated-at="2026-05-29T11:00:00+09:00"
+  data-prose-root="true">
+
+<div class="stage7-doc-layout">
+  <section class="stage7-hero prose-summary" data-prose="summary">
+    <div class="breadcrumb" data-prose="summary">
+      <a href="../../index.html">Home</a>
+      <span>›</span>
+      <a href="../../pages/roadmap.html">로드맵 / 학습전략</a>
+      <span>›</span>
+      <span>ABAP 개발자 단계별 학습 가이드</span>
+    </div>
+    <div class="stage7-hero__eyebrow">SAP Developer Learning Library</div>
+    <h1>ABAP 개발자 단계별 학습 가이드</h1>
+    <p class="lead">
+      <button class="term" data-term="Classic ABAP" type="button">Classic ABAP</button>의 기본 문법에서 시작하여 Object-Oriented ABAP, <button class="term" data-term="CDS" type="button">CDS</button> View, <button class="term" data-term="Gateway" type="button">Gateway</button> <button class="term" data-term="OData" type="button">OData</button>,
+      그리고 현대적 클라우드 개발 모델인 <button class="term" data-term="RAP" type="button">RAP</button>까지의 학습 단계와 성공 전략을 제시한다.
+    </p>
+    <div class="home-badges">
+      <span class="stage7-badge blue">Stage 7 Docs</span>
+      <span class="stage7-badge amber">준비 중</span>
+      <span class="stage7-badge purple">ABAP 로드맵</span>
+    </div>
+    
+    <div class="stage7-alert amber" style="margin-top: 15px; border-radius: 12px; padding: 15px; border-left: 4px solid var(--stage7-amber); background: var(--stage7-amber-soft); color: var(--stage7-amber); font-size: 0.9rem; line-height: 1.5;">
+      <strong>[제작 예정 문서]</strong> 이 가이드는 현재 준비 중인 문서(스켈레톤)입니다. 학습자 추천 경로에 따른 핵심 아웃라인과 다루게 될 핵심 주제를 아래에서 미리 확인하실 수 있으며, 추후 상세 실무 튜토리얼이 추가될 예정입니다.
+    </div>
+  </section>
+
+  <main>
+    <section class="stage7-section prose-structure" data-prose="structure" id="phases">
+      <div class="stage7-section__label">01 · 로드맵 아웃라인</div>
+      <h2>ABAP 개발자가 거쳐 가야 할 주요 이정표</h2>
+      <p>
+        서버 사이드 <button class="term" data-term="ABAP" type="button">ABAP</button> 개발을 정복하기 위해서는 단계별 학습이 절대적으로 필요합니다.
+        문법의 단순 암기가 아닌, 각 단계의 아키텍처와 목적을 파악해야 합니다.
+      </p>
+      <table>
+        <thead><tr><th>학습 단계</th><th>주요 다루는 내용</th><th>학습 목표 및 지향점</th></tr></thead>
+        <tbody>
+          <tr><td>1단계. <button class="term" data-term="Classic ABAP" type="button">Classic ABAP</button></td><td>기본 문법, ITAB 제어, Open SQL, Classic Report, ALV</td><td>DB 데이터를 조회하여 화면에 출력하는 기초 완성</td></tr>
+          <tr><td>2단계. OO ABAP</td><td>Class, Interface, Exception Handling, Event Linkage</td><td>유지보수성이 뛰어난 구조적 ABAP 코딩 역량 확보</td></tr>
+          <tr><td>3단계. <button class="term" data-term="CDS" type="button">CDS</button> & <button class="term" data-term="OData" type="button">OData</button></td><td>Core Data Services View, Gateway Service Builder(SEGW)</td><td>데이터 가공 모델 설계 및 API 서비스 외부 노출 방법론</td></tr>
+          <tr><td>4단계. <button class="term" data-term="RAP" type="button">RAP</button> & Cloud</td><td>Behavior Definition, RAP Action, ABAP Cloud Standard</td><td>최신 S/4HANA 표준 프레임워크 기반 트랜잭션 구현</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="stage7-section prose-structure" data-prose="structure" id="learning-tips">
+      <div class="stage7-section__label">02 · 학습 팁</div>
+      <h2>이 단계들을 공부할 때 주의해야 할 세 가지 포인트</h2>
+      <div class="stage7-card-grid two">
+        <article class="stage7-card" data-prose="concept">
+          <h3>문법보다는 흐름과 디버깅</h3>
+          <p>단순 구문 암기보다는 DB 연결 패턴과 internal table 가공 시 메모리 효율을 생각하고, ADT 디버거 사용법을 마스터하는 것이 빠릅니다.</p>
+        </article>
+        <article class="stage7-card" data-prose="concept">
+          <h3>표준 Dictionary(DDIC) 설계</h3>
+          <p>모든 데이터 가공은 테이블 설계에서 시작합니다. Key 필드의 조합, 인덱스, 외래키 관계를 올바르게 구성해야 견고한 프로그램이 만들어집니다.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="stage7-section prose-checklist" data-prose="checklist" id="checklist">
+      <div class="stage7-section__label">03 · 핵심 학습 체크리스트</div>
+      <h2>이 문서의 다음 단계로 넘어가기 위한 체크 사항</h2>
+      <ol>
+        <li><button class="term" data-term="Classic ABAP" type="button">Classic ABAP</button>과 Modern ABAP의 코딩 스타일 차이를 이해한다.</li>
+        <li>ADT(Eclipse) 환경에서 ABAP Unit Test를 구성할 수 있다.</li>
+        <li><button class="term" data-term="OData" type="button">OData</button> 서비스를 독립적으로 테스트하고 브라우저 오류 로그와 연계하여 분석할 수 있다.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="stage7-footer prose-summary" data-prose="summary">
+    ABAP 개발자 단계별 학습 가이드 · Stage 7 Docs · 2026-05-29
+  </footer>
+</div>
+</body>
+</html>

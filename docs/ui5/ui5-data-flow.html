@@ -31,7 +31,7 @@
     <div class="stage7-hero__eyebrow">SAP Developer Learning Library</div>
     <h1>SAPUI5 데이터 흐름과 Messaging 아키텍처</h1>
     <p class="lead">
-      UI5 앱의 데이터 흐름은 화면, 모델, 서버, 메시지 계층을 함께 봐야 안정적으로 이해된다.
+      <button class="term" data-term="UI5" type="button">UI5</button> 앱의 데이터 흐름은 화면, 모델, 서버, 메시지 계층을 함께 봐야 안정적으로 이해된다.
       이 문서는 입력값과 서버 응답이 화면 메시지로 이어지는 구조를 참고자료 형식으로 정리한다.
     </p>
     <div class="home-badges">
@@ -53,8 +53,8 @@
       </p>
       <div class="flow">
         <div class="flow-step"><span class="num">1</span><div><div class="flow-title">View</div><p>Input, Table, Form 같은 컨트롤이 값을 표시하고 입력을 받는다.</p></div></div>
-        <div class="flow-step"><span class="num">2</span><div><div class="flow-title">Model</div><p>JSONModel 또는 ODataModel이 View와 데이터 구조를 연결한다.</p></div></div>
-        <div class="flow-step"><span class="num">3</span><div><div class="flow-title">Service</div><p>Gateway 또는 RAP 서비스가 조회, 저장, 검증 결과를 반환한다.</p></div></div>
+        <div class="flow-step"><span class="num">2</span><div><div class="flow-title">Model</div><p><button class="term" data-term="JSON Model" type="button">JSON Model</button> 또는 <button class="term" data-term="OData Model" type="button">OData Model</button>이 View와 데이터 구조를 연결한다.</p></div></div>
+        <div class="flow-step"><span class="num">3</span><div><div class="flow-title">Service</div><p><button class="term" data-term="Gateway" type="button">Gateway</button> 또는 RAP 서비스가 조회, 저장, 검증 결과를 반환한다.</p></div></div>
         <div class="flow-step"><span class="num">4</span><div><div class="flow-title">Message</div><p>오류와 안내가 MessageModel, MessagePopover, 필드 상태로 표현된다.</p></div></div>
       </div>
     </section>
@@ -63,13 +63,13 @@
       <div class="stage7-section__label">02 · 이벤트</div>
       <h2>바인딩과 이벤트는 서로 다른 책임을 가집니다</h2>
       <p>
-        바인딩은 데이터와 화면을 연결하는 선언이고, 이벤트는 사용자의 행동에 반응하는 함수다.
+        <button class="term" data-term="Binding" type="button">Binding</button>은 데이터와 화면을 연결하는 선언이고, 이벤트는 사용자의 행동에 반응하는 함수다.
         초급자는 이벤트 함수 안에서 모든 값을 직접 읽고 쓰려 하기 쉽지만, 화면 표시 자체는 바인딩에 맡기는 편이 안정적이다.
       </p>
       <table>
         <thead><tr><th>구분</th><th>책임</th><th>예시</th></tr></thead>
         <tbody>
-          <tr><td>Binding</td><td>데이터를 화면에 표시하고 변경을 반영한다.</td><td><code>items="{/SalesOrderSet}"</code></td></tr>
+          <tr><td><button class="term" data-term="Binding" type="button">Binding</button></td><td>데이터를 화면에 표시하고 변경을 반영한다.</td><td><code>items="{/SalesOrderSet}"</code></td></tr>
           <tr><td>Event</td><td>사용자 행동에 반응해 라우팅, 저장, 필터를 실행한다.</td><td><code>press=".onSave"</code></td></tr>
           <tr><td>Message</td><td>검증 결과와 서버 응답을 사용자에게 전달한다.</td><td><code>MessagePopover</code></td></tr>
         </tbody>

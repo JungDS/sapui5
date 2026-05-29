@@ -33,7 +33,7 @@
     <p class="lead">
       SAPUI5 Routing은 URL, 화면 이름, View 배치 위치를 연결하는 약속이다.
       이 문서는 초급자가 List, Detail, FlexibleColumnLayout 구조를 읽고 구현할 수 있도록
-      manifest 설정과 Controller 이동 흐름을 함께 정리한다.
+      manifest 설정과 <button class="term" data-term="Controller" type="button">Controller</button> 이동 흐름을 함께 정리한다.
     </p>
     <div class="home-badges">
       <span class="stage7-badge blue">Stage 7 Docs</span>
@@ -48,17 +48,17 @@
       <div class="stage7-section__label">01 · 역할</div>
       <h2>Routing은 화면 이동을 코드가 아니라 URL 규칙으로 관리합니다</h2>
       <p>
-        SAPUI5 앱에서 화면 이동은 단순히 View를 숨기고 보여주는 작업이 아니다.
+        <button class="term" data-term="UI5" type="button">UI5</button> 앱에서 화면 이동은 단순히 View를 숨기고 보여주는 작업이 아니다.
         사용자가 목록에서 항목을 선택하면 URL이 바뀌고, Router는 그 URL 패턴에 맞는 Route를 찾은 뒤
         지정된 Target View를 화면의 특정 위치에 배치한다.
       </p>
       <p>
         초급자는 Routing을 "버튼을 누르면 다른 화면으로 간다" 정도로 이해하기 쉽다.
         그러나 실무에서는 URL이 북마크, 브라우저 뒤로가기, 새로고침, Object Page 직접 진입과 연결된다.
-        그래서 화면 이동 규칙은 Controller 안에 흩어두지 않고 <code>manifest.json</code>에 선언한다.
+        그래서 화면 이동 규칙은 <button class="term" data-term="Controller" type="button">Controller</button> 안에 흩어두지 않고 <code>manifest.json</code>에 선언한다.
       </p>
-      <div class="note" data-prose="concept">
-        <strong>학습 기준</strong>
+      <div class="tip" data-prose="concept">
+        <strong>💡 학습 기준</strong>
         Routing을 배울 때는 Route, Pattern, Target, View, ControlId를 한 묶음으로 읽는다.
         이 다섯 가지가 맞아야 화면 이동이 안정적으로 동작한다.
       </div>
@@ -85,7 +85,7 @@
           <tr>
             <td><code>Router</code></td>
             <td>현재 Hash URL을 읽고 알맞은 Route를 실행한다.</td>
-            <td>Controller에서 <code>navTo</code>와 <code>attachPatternMatched</code>를 사용한다.</td>
+            <td><button class="term" data-term="Controller" type="button">Controller</button>에서 <code>navTo</code>와 <code>attachPatternMatched</code>를 사용한다.</td>
           </tr>
           <tr>
             <td><code>Layout</code></td>
@@ -173,7 +173,7 @@ _onObjectMatched: function (oEvent) {
 }</code></pre>
       <div class="warning" data-prose="warning">
         <strong>주의</strong>
-        OData Key를 URL에 넣을 때는 문자 escaping과 Key Predicate 형식을 정확히 맞춰야 한다.
+        <button class="term" data-term="OData" type="button">OData</button> Key를 URL에 넣을 때는 문자 escaping과 Key Predicate 형식을 정확히 맞춰야 한다.
         복합 Key를 사용하는 Entity라면 단일 값처럼 처리하지 말고 필요한 Key 필드를 모두 전달한다.
       </div>
     </section>
@@ -230,7 +230,7 @@ _onObjectMatched: function (oEvent) {
         <li><code>manifest.json</code>의 <code>controlId</code>와 Root View의 실제 ID가 같은지 확인한다.</li>
         <li><code>routes.target</code> 값과 <code>targets</code> 객체의 Key가 같은지 확인한다.</li>
         <li><code>navTo</code>에서 넘기는 파라미터 이름과 <code>pattern</code>의 중괄호 이름이 같은지 확인한다.</li>
-        <li>상세 화면에서 직접 새로고침했을 때도 필요한 데이터 바인딩이 수행되는지 확인한다.</li>
+        <li>상세 화면에서 직접 새로고침했을 때도 필요한 데이터 <button class="term" data-term="Binding" type="button">Binding</button>이 수행되는지 확인한다.</li>
         <li>뒤로가기 동작이 필요한 앱에서는 Browser History와 Shell Navigation 정책을 함께 확인한다.</li>
       </ul>
     </section>

@@ -3,7 +3,11 @@
 SAP 개발자를 위한 HTML 학습자료 저장소입니다.
 
 - GitHub Pages: https://jungds.github.io/sapui5/
-- 전체 운영 문서: [README_ALL.md](./README_ALL.md)
+- 운영 관리 문서:
+  - [아키텍처 및 저장소 구조](.project-docs/06_STAGE7_ARCHITECTURE.md)
+  - [메타데이터 및 Archive 규칙](.project-docs/07_METADATA_AND_ARCHIVE.md)
+  - [작업 이력 및 PR 규칙](.project-docs/08_HISTORY_AND_PR.md)
+  - [운영 대시보드 및 지침](.project-docs/09_OPERATIONS_DASHBOARD.md)
 - 배포자: 정훈영
 
 ---
@@ -77,6 +81,8 @@ SAP 개발자를 위한 HTML 학습자료 저장소입니다.
 
 | 구분 | 문서 | 링크 |
 |---|---|---|
+| 완료 | Phase 1~4 IT 용어 Dual-Tab 팝업 구현 및 문서 태깅 | 로컬 작업 |
+| 완료 | `reference/` 초안 문서 분석 후 archive 이동 프로세스 수립 | 로컬 작업 |
 | 완료 | SAP DLL v5.0 개정 및 메타데이터 전역 클렌징 | 로컬 작업 (PR 예정) |
 | 완료 | Stage 7 Shell 문서목차 인식 보정 | 로컬 작업 |
 | 완료 | RAP End-to-End 운영 링크 연결 | 로컬 작업 |
@@ -105,7 +111,7 @@ SAP 개발자를 위한 HTML 학습자료 저장소입니다.
 ## 운영 원칙 요약
 
 - `README.md`는 짧은 운영 대시보드로 유지한다.
-- 상세 기준과 전체 이력은 `README_ALL.md`에 기록한다.
+- 상세 기준과 전체 이력은 `.project-docs/` 내의 관련 문서들에 분할하여 기록한다.
 - 최신 운영 문서는 점진적으로 `docs/` 경로로 전환한다.
 - 수정 전 운영본은 `archive/docs/` 또는 `archive/v3/` 아래에 보관한다.
 - legacy `v1/`, `v2/`는 `archive/v1/`, `archive/v2/`로 이동한다.

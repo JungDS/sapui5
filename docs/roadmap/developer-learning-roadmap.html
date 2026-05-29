@@ -31,7 +31,7 @@
     <div class="stage7-hero__eyebrow">SAP Developer Learning Library</div>
     <h1>SAP 개발자 학습 로드맵</h1>
     <p class="lead">
-      SAP 개발을 처음 배우는 학습자가 ABAP, UI5/Fiori, OData/RAP,
+      SAP 개발을 처음 배우는 학습자가 <button class="term" data-term="ABAP" type="button">ABAP</button>, <button class="term" data-term="UI5" type="button">UI5</button>/Fiori, <button class="term" data-term="OData" type="button">OData</button>/<button class="term" data-term="RAP" type="button">RAP</button>,
       모듈 기초를 어떤 순서로 연결해야 하는지 단계별로 정리한다.
     </p>
     <div class="home-badges">
@@ -47,18 +47,17 @@
       <div class="stage7-section__label">01 · 큰 그림</div>
       <h2>SAP 개발자는 기술과 업무를 함께 봐야 한다</h2>
       <p>
-        SAP 개발 학습은 ABAP 문법만 익히는 것으로 끝나지 않는다.
-        화면은 SAPUI5나 Fiori Elements로 만들고, 데이터는 OData나 RAP으로 노출하며,
-        요구사항은 MM, SD, FI 같은 업무 프로세스에서 출발한다.
+        SAP 개발 학습은 <button class="term" data-term="ABAP" type="button">ABAP</button> 문법만 익히는 것으로 끝나지 않는다.
+        요구사항은 MM, SD, FI 같은 업무 프로세스에서 출발하며, 이 데이터를 어떻게 가공하고 보여줄지에 따라 <button class="term" data-term="Classic ABAP" type="button">Classic ABAP</button>의 ALV 리포트를 선택할 수도 있고, <button class="term" data-term="UI5" type="button">UI5</button>나 <button class="term" data-term="Fiori Elements" type="button">Fiori Elements</button>를 선택할 수도 있다. 중요한 것은 업무 요건에 맞는 최적의 방식을 결정하는 데이터의 흐름이다.
       </p>
       <div class="stage7-card-grid three">
         <article class="stage7-card" data-prose="concept">
           <h3>서버 개발</h3>
-          <p>Classic ABAP, CDS, Gateway, RAP을 단계적으로 학습한다.</p>
+          <p><button class="term" data-term="Classic ABAP" type="button">Classic ABAP</button>, <button class="term" data-term="CDS" type="button">CDS</button>, <button class="term" data-term="Gateway" type="button">Gateway</button>, <button class="term" data-term="RAP" type="button">RAP</button>을 단계적으로 학습한다.</p>
         </article>
         <article class="stage7-card" data-prose="concept">
-          <h3>화면 개발</h3>
-          <p>Freestyle SAPUI5와 Fiori Elements를 구분해 학습한다.</p>
+          <h3>화면 구현</h3>
+          <p><button class="term" data-term="Classic ABAP" type="button">Classic ABAP</button> (ALV), <button class="term" data-term="UI5" type="button">UI5</button>, <button class="term" data-term="Fiori Elements" type="button">Fiori Elements</button> 등 요건에 맞는 최적의 화면 방식을 선택하고 학습한다.</p>
         </article>
         <article class="stage7-card" data-prose="concept">
           <h3>업무 이해</h3>
@@ -70,28 +69,28 @@
     <section class="stage7-section prose-structure" data-prose="structure" id="mindset">
       <div class="stage7-section__label">02 · 학습 관점</div>
       <h2>기술 이름보다 데이터 흐름을 먼저 잡는다</h2>
-      <p>
-        초급자는 처음부터 약어를 외우기보다 업무 요청이 데이터 모델,
-        서비스, 화면으로 어떻게 바뀌는지 이해해야 한다.
-      </p>
-      <div class="flow">
-        <div class="flow-step"><span class="num">1</span><div><div class="flow-title">업무 요구사항</div><p>구매오더, 판매오더, 전표 같은 업무 문서를 기준으로 요구사항이 나온다.</p></div></div>
-        <div class="flow-step"><span class="num">2</span><div><div class="flow-title">데이터 모델</div><p>Header/Item 구조, Key, 상태, 금액/수량 단위를 확인한다.</p></div></div>
-        <div class="flow-step"><span class="num">3</span><div><div class="flow-title">서비스 노출</div><p>CDS, Gateway, RAP 중 어떤 방식으로 데이터를 제공할지 결정한다.</p></div></div>
-        <div class="flow-step"><span class="num">4</span><div><div class="flow-title">화면 구현</div><p>UI5 또는 Fiori Elements에서 조회, 입력, 저장, 메시지를 구현한다.</p></div></div>
+      <div class="tip">
+        <strong>💡 핵심 마인드셋</strong>
+        초급자는 처음부터 약어를 외우기보다 업무 요청이 데이터 모델, 서비스, 화면으로 어떻게 바뀌는지 전체 파이프라인을 꿰뚫어 보는 것이 중요합니다.
       </div>
+      <ol class="flow">
+        <li class="flow-step"><span class="num">1</span><div><div class="flow-title">업무 요구사항</div><p>구매오더, 판매오더, 전표 같은 업무 문서를 기준으로 요구사항이 나온다.</p></div></li>
+        <li class="flow-step"><span class="num">2</span><div><div class="flow-title">데이터 모델</div><p>Header/Item 구조, Key, 상태, 금액/수량 단위를 확인한다.</p></div></li>
+        <li class="flow-step"><span class="num">3</span><div><div class="flow-title">데이터 가공 및 노출</div><p>화면의 요구사항에 맞추어 Internal Table로 가공하거나, <button class="term" data-term="CDS" type="button">CDS</button>, <button class="term" data-term="Gateway" type="button">Gateway</button>, <button class="term" data-term="RAP" type="button">RAP</button>을 통해 데이터를 외부로 노출한다.</p></div></li>
+        <li class="flow-step"><span class="num">4</span><div><div class="flow-title">화면 구현</div><p>ALV, <button class="term" data-term="UI5" type="button">UI5</button>, <button class="term" data-term="Fiori Elements" type="button">Fiori Elements</button> 중 가장 적합한 도구를 선택하여 데이터를 조회하고 조작하는 화면을 완성한다.</p></div></li>
+      </ol>
     </section>
 
     <section class="stage7-section prose-structure" data-prose="structure" id="path">
       <div class="stage7-section__label">03 · 권장 순서</div>
       <h2>초심자에게 추천하는 학습 순서</h2>
-      <div class="flow">
-        <div class="flow-step"><span class="num">1</span><div><div class="flow-title">개발 환경과 도구</div><p>SAP GUI, ADT, VS Code/BAS, Gateway Client, Browser DevTools의 역할을 구분한다.</p></div></div>
-        <div class="flow-step"><span class="num">2</span><div><div class="flow-title">Classic ABAP 기본기</div><p>Report, Selection Screen, Internal Table, Open SQL, ALV로 서버 개발 기본기를 만든다.</p></div></div>
-        <div class="flow-step"><span class="num">3</span><div><div class="flow-title">CDS와 OData</div><p>DB 데이터를 모델링하고 UI나 외부 시스템에 노출하는 흐름을 익힌다.</p></div></div>
-        <div class="flow-step"><span class="num">4</span><div><div class="flow-title">SAPUI5 기본기</div><p>View, Controller, Model, Binding, Messaging을 연결한다.</p></div></div>
-        <div class="flow-step"><span class="num">5</span><div><div class="flow-title">RAP / Fiori Elements</div><p>S/4HANA 앱 개발 방식으로 확장한다.</p></div></div>
-      </div>
+      <ol class="flow">
+        <li class="flow-step"><span class="num">1</span><div><div class="flow-title">개발 환경과 도구</div><p>SAP GUI, ADT, VS Code/BAS, Gateway Client, Browser DevTools의 역할을 구분한다.</p></div></li>
+        <li class="flow-step"><span class="num">2</span><div><div class="flow-title">Classic ABAP 기본기</div><p>실무에서 여전히 압도적으로 쓰이는 <button class="term" data-term="Classic ABAP" type="button">Classic ABAP</button> 기반의 Report, Internal Table, Open SQL, ALV를 통해 서버와 화면 개발의 기본기를 확립한다.</p></div></li>
+        <li class="flow-step"><span class="num">3</span><div><div class="flow-title">CDS와 OData</div><p>데이터베이스의 데이터를 모델링하고, 웹 화면 등 외부에 <button class="term" data-term="OData" type="button">OData</button>로 노출하는 현대적 파이프라인을 익힌다.</p></div></li>
+        <li class="flow-step"><span class="num">4</span><div><div class="flow-title">UI5 / Fiori Elements</div><p><button class="term" data-term="UI5" type="button">UI5</button>의 View, Controller, Model과 <button class="term" data-term="Fiori Elements" type="button">Fiori Elements</button>의 Annotation을 학습하여 엔터프라이즈 웹 화면을 완성한다.</p></div></li>
+        <li class="flow-step"><span class="num">5</span><div><div class="flow-title">RAP</div><p>가장 최신의 백엔드 프로그래밍 모델인 <button class="term" data-term="RAP" type="button">RAP</button>을 통해 S/4HANA 표준 개발 방식을 습득한다.</p></div></li>
+      </ol>
     </section>
 
     <section class="stage7-section prose-summary" data-prose="summary" id="tracks">

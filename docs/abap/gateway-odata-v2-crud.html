@@ -48,11 +48,11 @@
       <h2>Gateway는 SAP 데이터를 HTTP API로 열어주는 관문입니다</h2>
       <p>
         <button class="term" data-term="Gateway" type="button">Gateway</button> 개발에서는
-        SAP 내부의 테이블, BAPI, 클래스, CDS 결과 등을 외부에서 호출 가능한 OData V2 서비스로 노출한다.
-        초급자는 먼저 Entity, EntitySet, Service Document, Metadata, DPC_EXT의 역할을 구분해야 한다.
+        SAP 내부의 테이블, <button class="term" data-term="BAPI" type="button">BAPI</button>, 클래스, <button class="term" data-term="CDS" type="button">CDS</button> 결과 등을 외부에서 호출 가능한 <button class="term" data-term="OData" type="button">OData</button> V2 서비스로 노출한다.
+        초급자는 먼저 Entity, <button class="term" data-term="EntitySet" type="button">EntitySet</button>, Service Document, Metadata, DPC_EXT의 역할을 구분해야 한다.
       </p>
-      <div class="note" data-prose="concept">
-        <strong>핵심 관점</strong>
+      <div class="tip" data-prose="concept">
+        <strong>💡 핵심 관점</strong>
         Gateway는 단순한 URL 생성기가 아니다. URI로 들어온 요청을 ABAP 로직으로 연결하고,
         그 결과를 OData 응답 구조로 변환하는 런타임 계층이다.
       </div>
@@ -159,7 +159,7 @@
           <span class="path-num">2</span>
           <div>
             <strong>Entity Type / EntitySet 정의</strong>
-            <p>노출할 데이터 구조와 Key 필드를 정의한다. EntitySet 이름은 UI5에서 호출할 목록 리소스 이름이 된다.</p>
+            <p>노출할 데이터 구조와 Key 필드를 정의한다. <button class="term" data-term="EntitySet" type="button">EntitySet</button> 이름은 <button class="term" data-term="UI5" type="button">UI5</button>에서 호출할 목록 리소스 이름이 된다.</p>
           </div>
         </li>
         <li class="path-step" data-prose="practice">
@@ -219,10 +219,10 @@ ENDMETHOD.</code></pre>
       <div class="tip" data-prose="checklist">
         <strong>체크리스트</strong>
         <ul>
-          <li>EntitySet 이름과 UI5 호출 경로가 일치하는가?</li>
+          <li><button class="term" data-term="EntitySet" type="button">EntitySet</button> 이름과 <button class="term" data-term="UI5" type="button">UI5</button> 호출 경로가 일치하는가?</li>
           <li>Key 필드가 Metadata에 정확히 정의되어 있는가?</li>
-          <li>DPC_EXT 메서드가 올바른 EntitySet에 매핑되어 있는가?</li>
-          <li>오류 발생 시 Gateway Client에서 메시지를 확인했는가?</li>
+          <li>DPC_EXT 메서드가 올바른 <button class="term" data-term="EntitySet" type="button">EntitySet</button>에 매핑되어 있는가?</li>
+          <li>오류 발생 시 <button class="term" data-term="Gateway" type="button">Gateway</button> Client에서 메시지를 확인했는가?</li>
           <li>서비스 등록 후 metadata cache를 갱신했는가?</li>
         </ul>
       </div>

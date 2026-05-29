@@ -20,9 +20,12 @@
     // Area A: Roadmap (로드맵)
     "roadmap": { title: "SAP 개발자 학습 로드맵", category: "roadmap", href: "docs/roadmap/developer-learning-roadmap.html", group: "학습 가이드" },
     "tools": { title: "SAP 개발 환경과 도구 입문", category: "roadmap", href: "docs/roadmap/development-tools-overview.html", group: "학습 가이드" },
+    "abap-learning-path": { title: "ABAP 개발자 단계별 학습 가이드", category: "roadmap", href: "docs/roadmap/abap-learning-path.html", preparing: true, skeleton: true, group: "학습 가이드" },
+    "ui5-learning-path": { title: "UI5/Fiori 개발자 단계별 학습 가이드", category: "roadmap", href: "docs/roadmap/ui5-learning-path.html", preparing: true, skeleton: true, group: "학습 가이드" },
+    "sap-module-orientation": { title: "SAP 모듈 이해와 개발자 관점 오리엔테이션", category: "roadmap", href: "docs/roadmap/sap-module-orientation.html", preparing: true, skeleton: true, group: "학습 가이드" },
+    "requirements-analysis": { title: "SAP 개발 요구사항 분석법", category: "roadmap", href: "docs/roadmap/requirements-analysis-guide.html", preparing: true, skeleton: true, group: "학습 가이드" },
+    "cts-transport": { title: "Transport Request / CTS 입문", category: "roadmap", href: "docs/roadmap/cts-transport-intro.html", preparing: true, skeleton: true, group: "학습 가이드" },
     "debug": { title: "SAP 개발 디버깅 / 트러블슈팅 통합 가이드", category: "roadmap", href: "docs/roadmap/dev-debugging.html", aliases: ["debugging"], group: "학습 가이드" },
-    "requirements-analysis": { title: "SAP 개발 요구사항 분석법", category: "roadmap", href: "docs/roadmap/requirements-analysis-guide.html", preparing: true, group: "학습 가이드" },
-    "cts-transport": { title: "Transport Request / CTS 입문", category: "roadmap", href: "docs/roadmap/cts-transport-intro.html", preparing: true, group: "학습 가이드" },
 
     // Area B: ABAP 개발 (ABAP)
     "abap-as-abap-overview": { title: "SAP AS ABAP 개요 & 아키텍처 기초", category: "abap", href: "docs/abap/abap-as-abap-overview.html", preparing: true, group: "1단계. 아키텍처 기초" },
@@ -76,6 +79,7 @@
 
     // Area D: SAP 모듈 기초 (module)
     "module-overview": { title: "SAP 모듈 기초와 개발자 관점", category: "module", href: "docs/module/module-basics-for-developers.html", legacyHref: "v3/03-module-basics/sap-module-basics-for-developers-v3.html", group: "공통 지식" },
+    "erp-metro": { title: "ERP Business Process Metro", category: "module", href: "docs/module/erp-business-process-metro.html", group: "공통 지식" },
     "table-map": { title: "SAP Standard Table Map 입문", category: "module", href: "docs/module/standard-table-map.html", legacyHref: "v3/03-module-basics/sap-standard-table-map-for-developers-v3.html", group: "공통 지식" },
     "mm": { title: "MM 프로세스와 주요 테이블 입문", category: "module", href: "docs/module/mm-process-tables.html", legacyHref: "v3/03-module-basics/sap-mm-process-and-tables-beginner-v3.html", group: "구매 (MM)" },
     "pp": { title: "PP 프로세스와 주요 테이블 입문", category: "module", href: "docs/module/pp-process-tables.html", legacyHref: "v3/03-module-basics/sap-pp-process-and-tables-beginner-v3.html", group: "생산 (PP)" },
@@ -111,7 +115,7 @@
   const LEARNING_PATHS = {
     roadmap: {
       title: "로드맵 / 학습전략",
-      items: ["roadmap", "tools", "debug", "requirements-analysis", "cts-transport"]
+      items: ["roadmap", "tools", "abap-learning-path", "ui5-learning-path", "sap-module-orientation", "requirements-analysis", "cts-transport", "debug"]
     },
     abap: {
       title: "ABAP 개발자 경로",
@@ -138,7 +142,7 @@
     module: {
       title: "모듈/테이블 이해 경로",
       items: [
-        "module-overview", "table-map", "mm", "pp",
+        "module-overview", "erp-metro", "table-map", "mm", "pp",
         "atp", "mrp", "safety-stock", "sd",
         "fi", "fi-gl-adult", "fi-gl-elementary", "fi-gl-visual",
         "co", "auth-intro", "wm-ewm-basics", "hr-hcm-basics"
@@ -302,20 +306,20 @@
       const path = LEARNING_PATHS[keys[i]];
       const index = path.items.indexOf(canonical);
       if (index >= 0) {
-        // Find previous non-preparing document
+        // Find previous non-preparing document (allow skeleton)
         let prev = "";
         for (let j = index - 1; j >= 0; j -= 1) {
           const doc = DOCS[path.items[j]];
-          if (doc && !doc.preparing) {
+          if (doc && (!doc.preparing || doc.skeleton)) {
             prev = path.items[j];
             break;
           }
         }
-        // Find next non-preparing document
+        // Find next non-preparing document (allow skeleton)
         let next = "";
         for (let j = index + 1; j < path.items.length; j += 1) {
           const doc = DOCS[path.items[j]];
-          if (doc && !doc.preparing) {
+          if (doc && (!doc.preparing || doc.skeleton)) {
             next = path.items[j];
             break;
           }
@@ -435,9 +439,10 @@
         icon = '<svg class="stage7-stepper-card-icon next" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg>';
       }
 
-      const cardHref = doc.preparing ? "javascript:void(0)" : docHref(id, prefix);
+      const isSkeleton = doc.preparing && doc.skeleton;
+      const cardHref = (doc.preparing && !isSkeleton) ? "javascript:void(0)" : docHref(id, prefix);
       const badgeHtml = doc.preparing ? '<span class="stage7-stepper-badge">준비 중</span>' : '';
-      const disabledAttr = doc.preparing ? ' style="pointer-events: none; cursor: default; color: #94a3b8;"' : '';
+      const disabledAttr = (doc.preparing && !isSkeleton) ? ' style="pointer-events: none; cursor: default; color: #94a3b8;"' : '';
 
       html += '<div class="stage7-stepper-card ' + state + (isCurrent ? ' current' : '') + '">' +
         '<div class="stage7-stepper-card-left">' + icon + '</div>' +
@@ -569,6 +574,183 @@
     map.forEach(function (_, target) { observer.observe(target); });
   }
 
+  function ensureLandingSideNav(meta) {
+    if (meta.pageType !== "landing") return;
+    if (document.querySelector(".stage7-landing-side-nav")) return;
+
+    const targets = [];
+    const recommended = document.getElementById("recommended");
+    if (recommended) {
+      const heading = recommended.querySelector("h2");
+      targets.push({
+        id: "recommended",
+        title: heading ? heading.textContent : "추천 학습 트리"
+      });
+    }
+
+    const container = document.querySelector("main") || document.body;
+    const elements = container.querySelectorAll("details[id], section[id]");
+    elements.forEach(function (el) {
+      if (el.id === "recommended" || el.id === "coming-soon") return;
+      
+      let title = "";
+      if (el.tagName.toLowerCase() === "details") {
+        const summary = el.querySelector("summary");
+        title = summary ? summary.textContent : el.id;
+      } else {
+        const heading = el.querySelector("h2, h3");
+        title = heading ? heading.textContent : el.id;
+      }
+      title = title.trim();
+      if (title) {
+        targets.push({ id: el.id, title: title });
+      }
+    });
+
+    if (targets.length === 0) return;
+
+    const sideNav = document.createElement("aside");
+    sideNav.className = "stage7-landing-side-nav prose-summary";
+    sideNav.setAttribute("data-prose", "summary");
+    sideNav.setAttribute("aria-label", "학습 경로 이동");
+
+    const linksHtml = targets.map(function (target) {
+      return '<a href="#' + target.id + '" class="landing-nav-item" data-target-id="' + target.id + '">' +
+               '<span class="nav-dot"></span>' +
+               '<span class="nav-label">' + target.title + '</span>' +
+             '</a>';
+    }).join("");
+
+    sideNav.innerHTML = '<div class="landing-side-nav__inner">' + linksHtml + '</div>';
+    document.body.appendChild(sideNav);
+
+    const topButton = document.createElement("button");
+    topButton.type = "button";
+    topButton.className = "stage7-back-to-top";
+    topButton.setAttribute("aria-label", "맨 위로 이동");
+    topButton.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+    document.body.appendChild(topButton);
+
+    topButton.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      const topTarget = document.querySelector("h1") || document.body;
+      topTarget.setAttribute("tabindex", "-1");
+      topTarget.focus({ preventScroll: true });
+    });
+
+    window.addEventListener("scroll", function () {
+      if (window.scrollY > 200) {
+        topButton.classList.add("visible");
+      } else {
+        topButton.classList.remove("visible");
+      }
+    });
+
+    sideNav.addEventListener("click", function (e) {
+      const link = e.target.closest(".landing-nav-item");
+      if (!link) return;
+      e.preventDefault();
+
+      const targetId = link.getAttribute("data-target-id");
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        if (targetEl.tagName.toLowerCase() === "details") {
+          targetEl.open = true;
+        } else {
+          const parentDetails = targetEl.closest("details");
+          if (parentDetails) parentDetails.open = true;
+        }
+
+        const topOffset = targetEl.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top: topOffset, behavior: "smooth" });
+        targetEl.setAttribute("tabindex", "-1");
+        targetEl.focus({ preventScroll: true });
+      }
+    });
+
+    if ("IntersectionObserver" in window) {
+      const activeLinks = sideNav.querySelectorAll(".landing-nav-item");
+      const visibleTargets = new Set();
+      
+      const updateActiveNav = function() {
+        if (visibleTargets.size === 0) return;
+        let bestId = null;
+        let minTop = Infinity;
+        
+        visibleTargets.forEach(function(el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top > -window.innerHeight / 2 && rect.top < minTop) {
+            minTop = rect.top;
+            bestId = el.id;
+          }
+        });
+        
+        if (bestId) {
+          activeLinks.forEach(function(link) {
+            const isMatch = link.getAttribute("data-target-id") === bestId;
+            link.classList.toggle("active", isMatch);
+          });
+        }
+      };
+
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            visibleTargets.add(entry.target);
+          } else {
+            visibleTargets.delete(entry.target);
+          }
+        });
+        updateActiveNav();
+      }, {
+        rootMargin: "-10% 0px -70% 0px",
+        threshold: 0
+      });
+
+      targets.forEach(function (t) {
+        const el = document.getElementById(t.id);
+        if (el) observer.observe(el);
+      });
+    }
+  }
+
+  function initLandingSearch(meta) {
+    if (meta.pageType !== "landing") return;
+    const searchInput = document.querySelector("[data-landing-search]");
+    if (!searchInput) return;
+
+    searchInput.addEventListener("input", function (e) {
+      const query = e.target.value.toLowerCase().trim();
+      const allCards = document.querySelectorAll("[data-doc-card]");
+      const allAccordions = document.querySelectorAll("details[id]");
+
+      if (!query) {
+        allCards.forEach(function(c) { c.classList.remove("stage7-hidden-by-search"); });
+        allAccordions.forEach(function(a) { a.open = true; a.classList.remove("stage7-hidden-by-search"); });
+        return;
+      }
+
+      allCards.forEach(function(card) {
+        const textContent = card.textContent.toLowerCase();
+        if (textContent.includes(query)) {
+          card.classList.remove("stage7-hidden-by-search");
+        } else {
+          card.classList.add("stage7-hidden-by-search");
+        }
+      });
+
+      allAccordions.forEach(function(acc) {
+        const visibleCards = acc.querySelectorAll("[data-doc-card]:not(.stage7-hidden-by-search)");
+        if (visibleCards.length === 0) {
+          acc.classList.add("stage7-hidden-by-search");
+        } else {
+          acc.classList.remove("stage7-hidden-by-search");
+          acc.open = true;
+        }
+      });
+    });
+  }
+
   function initStage7Shell() {
     const meta = metadata();
     if (!meta.pageType) return;
@@ -579,6 +761,8 @@
     initTabs();
     initDocumentNavToggle(meta);
     initLocalTocSpy();
+    ensureLandingSideNav(meta);
+    initLandingSearch(meta);
   }
 
   document.addEventListener("DOMContentLoaded", initStage7Shell);

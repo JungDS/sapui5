@@ -6,99 +6,6 @@
 <title>UI5 / Fiori 개발 · SAP Developer Learning Library</title>
 <link rel="stylesheet" href="../assets/common.css" />
 <link rel="stylesheet" href="../assets/stage7-shell.css" />
-<style>
-  /* UI5 Landing Accordion Styling */
-  .ui5-track-container {
-    margin: 32px 0 20px;
-  }
-  .ui5-track-title {
-    font-size: 1.35rem;
-    font-weight: 950;
-    color: #1e293b;
-    margin: 28px 0 16px;
-    padding-left: 12px;
-    border-left: 4px solid var(--stage7-blue);
-    letter-spacing: -0.02em;
-  }
-  .ui5-accordion {
-    margin-bottom: 16px;
-    border: 1px solid var(--stage7-line);
-    border-radius: 20px;
-    background: #ffffff;
-    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.02);
-    overflow: hidden;
-    transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .ui5-accordion[open] {
-    border-color: #bfdbfe;
-    box-shadow: 0 12px 32px rgba(37, 99, 235, 0.07);
-  }
-  .ui5-accordion__summary {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 24px;
-    font-size: 1.12rem;
-    font-weight: 950;
-    color: var(--stage7-text);
-    cursor: pointer;
-    user-select: none;
-    list-style: none;
-    background: #ffffff;
-    transition: all 0.15s ease;
-  }
-  .ui5-accordion__summary::-webkit-details-marker {
-    display: none;
-  }
-  .ui5-accordion__summary:hover {
-    background: #f8fafc;
-    color: #1d4ed8;
-  }
-  .ui5-accordion[open] .ui5-accordion__summary {
-    background: #eff6ff;
-    color: #1d4ed8;
-    border-bottom: 1px solid #dbeafe;
-  }
-  .ui5-accordion__summary::after {
-    content: '';
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    border-right: 2px solid currentColor;
-    border-bottom: 2px solid currentColor;
-    transform: rotate(45deg) translateY(-2px);
-    transition: transform 0.2s ease;
-    margin-right: 4px;
-  }
-  .ui5-accordion[open] .ui5-accordion__summary::after {
-    transform: rotate(-135deg) translateY(2px);
-  }
-  .ui5-accordion__content {
-    padding: 24px;
-    background: #ffffff;
-  }
-  /* 준비 중인 카드를 위한 비활성화 스타일 */
-  .stage7-card.preparing {
-    background: #f8fafc;
-    border-style: dashed;
-    border-color: #cbd5e1;
-    box-shadow: none;
-  }
-  .stage7-card.preparing:hover {
-    border-color: #94a3b8;
-    transform: none;
-    box-shadow: none;
-  }
-  .stage7-card.preparing h3 {
-    color: #64748b;
-  }
-  .stage7-card.preparing p {
-    color: #94a3b8;
-  }
-  .stage7-card.preparing .library-meta {
-    opacity: 0.7;
-  }
-</style>
 <script src="../assets/common.js" defer></script>
 <script src="../assets/stage7-shell.js" defer></script>
 </head>
@@ -383,27 +290,6 @@
   </footer>
 </div>
 
-<script>
-  // 검색어 입력 시 관련 아코디언을 자동으로 열어주는 편의 스크립트
-  document.querySelector('[data-landing-search]').addEventListener('keyup', function(e) {
-    var query = e.target.value.toLowerCase().trim();
-    if (query === '') return;
-    
-    var accordions = document.querySelectorAll('.ui5-accordion');
-    accordions.forEach(function(acc) {
-      var cards = acc.querySelectorAll('[data-doc-card]');
-      var hasMatch = false;
-      cards.forEach(function(card) {
-        if (card.textContent.toLowerCase().includes(query)) {
-          hasMatch = true;
-        }
-      });
-      if (hasMatch) {
-        acc.open = true;
-      }
-    });
-  });
-</script>
 </body>
 </html>
 

@@ -1,902 +1,916 @@
 {
-    "version":  "stage7-navigation-data-v1",
-    "created":  "2026-05-27",
-    "distributor":  "정훈영",
-    "categories":  {
-                       "roadmap":  {
-                                       "title":  "로드맵 / 학습전략",
-                                       "icon":  "🧭",
-                                       "page":  "roadmap.html",
-                                       "description":  "처음 시작하는 학습자가 전체 학습 순서와 도구 사용법을 파악하는 영역이다.",
-                                       "home_desc":  "어디서 시작해야 하는지, 어떤 도구를 써야 하는지 먼저 확인한다."
-                                   },
-                       "abap":  {
-                                    "title":  "ABAP 개발",
-                                    "icon":  "⚙️",
-                                    "page":  "abap.html",
-                                    "description":  "Classic ABAP, CDS, Gateway, RAP, ABAP Cloud를 단계적으로 학습한다.",
-                                    "home_desc":  "서버 로직, 데이터 모델, OData/RAP 서비스를 구현하는 개발 흐름을 학습한다."
-                                },
-                       "ui5":  {
-                                   "title":  "UI5 / Fiori 개발",
-                                   "icon":  "🧩",
-                                   "page":  "ui5-fiori.html",
-                                   "description":  "Freestyle SAPUI5와 Fiori Elements를 구분해 화면 개발 흐름을 학습한다.",
-                                   "home_desc":  "XML View, Controller, ODataModel, Messaging, Fiori Elements를 학습한다."
-                               },
-                       "module":  {
-                                      "title":  "SAP 모듈 기초",
-                                      "icon":  "🏢",
-                                      "page":  "module-basics.html",
-                                      "description":  "MM, PP, SD, FI, CO의 기초 프로세스와 Standard Table 구조를 개발자 관점으로 학습한다.",
-                                      "home_desc":  "개발 요구사항을 이해하기 위한 모듈 프로세스와 테이블 구조를 익힌다."
-                                  },
-                       "practice":  {
-                                        "title":  "통합 실습",
-                                        "icon":  "✈️",
-                                        "page":  "integrated-practice.html",
-                                        "description":  "Flight 모델 기반으로 ABAP, Gateway, UI5, RAP을 연결하는 실습을 진행한다.",
-                                        "home_desc":  "배운 내용을 하나의 Flight 시나리오로 연결해 실습한다."
-                                    },
-                       "reference":  {
-                                         "title":  "Reference / 운영",
-                                         "icon":  "📚",
-                                         "page":  "reference.html",
-                                         "description":  "용어사전, 문체 기준, 자동 검수 리포트 같은 운영·참고 자료를 모은다.",
-                                         "home_desc":  "용어, 문체 기준, 검수 리포트 등 운영 참고자료를 확인한다."
-                                     }
-                   },
-    "documents":  {
-                      "roadmap":  {
-                                      "title":  "SAP 개발자 학습 로드맵",
-                                      "href":  "../v3/00-roadmap/sap-developer-learning-roadmap-v3.html",
-                                      "file":  "sap-developer-learning-roadmap-v3.html",
-                                      "category":  "roadmap",
-                                      "group":  "학습 시작",
-                                      "level":  "입문",
-                                      "status":  "핵심",
-                                      "time":  "20~30분",
-                                      "summary":  "ABAP, UI5, Fiori Elements, 모듈 기초까지 전체 학습 순서를 안내한다."
-                                  },
-                      "tools":  {
-                                    "title":  "SAP 개발 환경과 도구 입문",
-                                    "href":  "../v3/00-roadmap/sap-development-tools-overview-v3.html",
-                                    "file":  "sap-development-tools-overview-v3.html",
-                                    "category":  "roadmap",
-                                    "group":  "학습 시작",
-                                    "level":  "입문",
-                                    "status":  "핵심",
-                                    "time":  "20분",
-                                    "summary":  "SAP GUI, ADT, VS Code/BAS, Gateway Client, Browser DevTools의 사용 목적을 정리한다."
-                                },
-                      "debug":  {
-                                    "title":  "SAP 개발 디버깅 / 트러블슈팅 통합 가이드",
-                                    "href":  "../v3/00-roadmap/sap-debugging-troubleshooting-guide-v3.html",
-                                    "file":  "sap-debugging-troubleshooting-guide-v3.html",
-                                    "category":  "roadmap",
-                                    "group":  "실무 운영",
-                                    "level":  "실무 입문",
-                                    "status":  "참고",
-                                    "time":  "30~40분",
-                                    "summary":  "ABAP, Gateway, UI5 오류를 어디서부터 확인할지 루틴으로 정리한다.",
-                                    "aliases":  [
-                                                    "debugging"
-                                                ]
-                                },
-                      "abap-classic":  {
-                                           "title":  "Classic ABAP 기본기",
-                                           "href":  "../docs/abap/abap-classic-report-itab-alv.html",
-                                           "file":  "abap-classic-report-itab-alv.html",
-                                           "category":  "abap",
-                                           "group":  "Classic ABAP",
-                                           "level":  "입문",
-                                           "status":  "핵심",
-                                           "time":  "40분",
-                                           "summary":  "Report, Selection Screen, Internal Table, Open SQL, ALV의 기본 흐름을 익힌다.",
-                                           "legacy_id":  "abap-classic",
-                                           "canonical_id":  "abap-classic",
-                                           "legacy_href":  "../v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html",
-                                           "legacy_path":  "v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html",
-                                           "operating_path":  "docs/abap/abap-classic-report-itab-alv.html"
-                                       },
-                      "abap-new-syntax":  {
-                                              "title":  "ABAP New Syntax 입문",
-                                              "href":  "../docs/abap/abap-new-syntax.html",
-                                              "file":  "abap-new-syntax.html",
-                                              "category":  "abap",
-                                              "group":  "Classic ABAP",
-                                              "level":  "입문",
-                                              "status":  "확장",
-                                              "time":  "30분",
-                                              "summary":  "DATA(...), VALUE, CORRESPONDING, FOR 등 실무 코드를 읽기 위한 신문법을 정리한다.",
-                                              "legacy_id":  "abap-new-syntax",
-                                              "canonical_id":  "abap-new-syntax",
-                                              "legacy_href":  "../v3/01-abap/abap-new-syntax-beginner-guide-v3.html",
-                                              "legacy_path":  "v3/01-abap/abap-new-syntax-beginner-guide-v3.html",
-                                              "operating_path":  "docs/abap/abap-new-syntax.html"
-                                          },
-                      "abap-cloud":  {
-                                         "title":  "ABAP Cloud App Development 정리",
-                                         "href":  "../docs/abap/abap-cloud.html",
-                                         "file":  "abap-cloud.html",
-                                         "category":  "abap",
-                                         "group":  "ABAP Cloud",
-                                         "level":  "정리",
-                                         "status":  "참고",
-                                         "time":  "25분",
-                                         "summary":  "ABAP Cloud, CDS, RAP, Code Pushdown의 현대 ABAP 개발 방향을 정리한다.",
-                                         "legacy_href":  "../v3/01-abap/abap-cloud-app-development-summary-v3.html",
-                                         "legacy_path":  "v3/01-abap/abap-cloud-app-development-summary-v3.html",
-                                         "operating_path":  "docs/abap/abap-cloud.html",
-                                         "archive_path":  "archive/v3/01-abap/abap-cloud-app-development-summary-v3.html",
-                                         "version":  "4.0",
-                                         "updated":  "2026-05-29"
-                                     },
-                      "cds-odata":  {
-                                        "title":  "CDS View에서 OData 노출까지",
-                                        "href":  "../docs/abap/cds-to-odata.html",
-                                        "file":  "cds-to-odata.html",
-                                        "category":  "abap",
-                                        "group":  "CDS / OData",
-                                        "level":  "입문",
-                                        "status":  "핵심",
-                                        "time":  "45분",
-                                        "summary":  "ZI_* Interface View, ZC_* Projection View, Association, Service Binding 흐름을 학습한다.",
-                                        "legacy_id":  "cds-odata",
-                                        "canonical_id":  "cds-odata",
-                                        "legacy_href":  "../v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html",
-                                        "legacy_path":  "v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html",
-                                        "operating_path":  "docs/abap/cds-to-odata.html"
-                                    },
-                      "gateway":  {
-                                      "title":  "Gateway / OData V2 CRUD 입문",
-                                      "href":  "../docs/abap/gateway-odata-v2-crud.html",
-                                      "file":  "sap-gateway-odata-v2-crud-beginner-guide-v3.html",
-                                      "category":  "abap",
-                                      "group":  "Gateway",
-                                      "level":  "실무 입문",
-                                      "status":  "핵심",
-                                      "time":  "45분",
-                                      "summary":  "SEGW, EntitySet, MPC/DPC, CRUD 메서드와 테스트 흐름을 이해한다.",
-                                      "legacy_id":  "gateway",
-                                      "canonical_id":  "gateway-odata-v2-crud",
-                                      "legacy_href":  "../v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html",
-                                      "operating_path":  "docs/abap/gateway-odata-v2-crud.html",
-                                      "legacy_path":  "v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html"
-                                  },
-                      "rap-e2e":  {
-                                      "title":  "RAP End-to-End 입문",
-                                      "href":  "../docs/abap/rap-end-to-end.html",
-                                      "file":  "rap-end-to-end.html",
-                                      "category":  "abap",
-                                      "group":  "RAP",
-                                      "level":  "실무 입문",
-                                      "status":  "핵심",
-                                      "time":  "50분",
-                                      "summary":  "RAP BO, Behavior Definition, Validation, Determination, Action, Service Binding을 연결한다.",
-                                      "legacy_id":  "rap-e2e",
-                                      "canonical_id":  "rap-e2e",
-                                      "legacy_href":  "../v3/01-abap/sap-rap-end-to-end-beginner-guide-v3.html",
-                                      "legacy_path":  "v3/01-abap/sap-rap-end-to-end-beginner-guide-v3.html",
-                                      "operating_path":  "docs/abap/rap-end-to-end.html"
-                                  },
-                      "rap-action":  {
-                                         "title":  "RAP Action 다건 선택 처리",
-                                         "href":  "../docs/abap/rap-action.html",
-                                         "file":  "rap-action.html",
-                                         "category":  "abap",
-                                         "group":  "RAP",
-                                         "level":  "심화",
-                                         "status":  "심화",
-                                         "time":  "25분",
-                                         "summary":  "RAP Action 다건 선택 시 호출 단위와 Keys 일괄 전달 구조를 이해한다.",
-                                         "legacy_href":  "../v3/01-abap/rap-action-invocation-grouping-v3.html",
-                                         "legacy_path":  "v3/01-abap/rap-action-invocation-grouping-v3.html",
-                                         "operating_path":  "docs/abap/rap-action.html",
-                                         "archive_path":  "archive/v3/01-abap/rap-action-invocation-grouping-v3.html",
-                                         "version":  "4.0",
-                                         "updated":  "2026-05-29"
-                                     },
-                      "odata-export":  {
-                                           "title":  "SAP 데이터를 외부로 내보내는 방법 정리",
-                                           "href":  "../docs/abap/abap-odata-export.html",
-                                           "file":  "abap-odata-export.html",
-                                           "category":  "abap",
-                                           "group":  "CDS / OData",
-                                           "level":  "개념",
-                                           "status":  "참고",
-                                           "time":  "25분",
-                                           "summary":  "OData, API, 파일, RFC 등 외부 연계 방식을 선택하는 기준을 정리한다."
-                                       },
-                      "ui5-controller":  {
-                                             "title":  "UI5 Controller 함수 문법 입문",
-                                             "href":  "../docs/ui5/ui5-controller-basics.html",
-                                             "file":  "ui5-controller-basics.html",
-                                             "category":  "ui5",
-                                             "group":  "Freestyle SAPUI5",
-                                             "level":  "입문",
-                                             "status":  "핵심",
-                                             "time":  "30분",
-                                             "summary":  "View와 Controller, 이벤트 핸들러, this/byId 기본 패턴을 익힌다.",
-                                             "legacy_id":  "ui5-controller",
-                                             "canonical_id":  "ui5-controller",
-                                             "legacy_href":  "../v3/02-ui5-fiori/sapui5-controller-function-intro-v3.html",
-                                             "legacy_path":  "v3/02-ui5-fiori/sapui5-controller-function-intro-v3.html",
-                                             "operating_path":  "docs/ui5/ui5-controller-basics.html"
-                                         },
-                      "ui5-odata-crud":  {
-                                             "title":  "SAPUI5 OData Model과 CRUD 입문",
-                                             "href":  "../docs/ui5/ui5-odata-crud.html",
-                                             "file":  "ui5-odata-crud.html",
-                                             "category":  "ui5",
-                                             "group":  "Freestyle SAPUI5",
-                                             "level":  "실무 입문",
-                                             "status":  "핵심",
-                                             "time":  "45분",
-                                             "summary":  "JSONModel과 ODataModel, bindElement/bindItems, create/update/delete 흐름을 학습한다.",
-                                             "legacy_id":  "ui5-odata-crud",
-                                             "canonical_id":  "ui5-odata-crud",
-                                             "legacy_href":  "../v3/02-ui5-fiori/sapui5-odata-model-crud-beginner-guide-v3.html",
-                                             "legacy_path":  "v3/02-ui5-fiori/sapui5-odata-model-crud-beginner-guide-v3.html",
-                                             "operating_path":  "docs/ui5/ui5-odata-crud.html"
-                                         },
-                      "ui5-messaging":  {
-                                            "title":  "Messaging과 Input Validation 실무 입문",
-                                            "href":  "../docs/ui5/ui5-validation-messaging.html",
-                                            "file":  "ui5-validation-messaging.html",
-                                            "category":  "ui5",
-                                            "group":  "Freestyle SAPUI5",
-                                            "level":  "실무 입문",
-                                            "status":  "실습 포함",
-                                            "time":  "45분",
-                                            "summary":  "Input 화면 값과 Model 값의 차이, Messaging, 저장 Guard를 실습으로 이해한다.",
-                                            "legacy_id":  "ui5-messaging",
-                                            "canonical_id":  "ui5-messaging",
-                                            "legacy_href":  "../v3/02-ui5-fiori/sapui5-messaging-input-validation-v3.html",
-                                            "legacy_path":  "v3/02-ui5-fiori/sapui5-messaging-input-validation-v3.html",
-                                            "operating_path":  "docs/ui5/ui5-validation-messaging.html"
-                                        },
-                      "ui5-routing":  {
-                                          "title":  "SAPUI5 Routing과 Layout 입문",
-                                          "href":  "../docs/ui5/ui5-routing-layout.html",
-                                          "file":  "ui5-routing-layout.html",
-                                          "category":  "ui5",
-                                          "group":  "Freestyle SAPUI5",
-                                          "level":  "입문",
-                                          "status":  "확장",
-                                          "time":  "35분",
-                                          "summary":  "manifest routing, targets, List/Detail 이동, FlexibleColumnLayout의 기본 구조를 익힌다.",
-                                          "legacy_id":  "ui5-routing",
-                                          "canonical_id":  "ui5-routing",
-                                          "legacy_href":  "../v3/02-ui5-fiori/sapui5-routing-layout-beginner-guide-v3.html",
-                                          "legacy_path":  "v3/02-ui5-fiori/sapui5-routing-layout-beginner-guide-v3.html",
-                                          "operating_path":  "docs/ui5/ui5-routing-layout.html"
-                                      },
-                      "ui5-data-flow":  {
-                                            "title":  "SAPUI5 데이터 흐름과 Messaging 아키텍처",
-                                            "href":  "../docs/ui5/ui5-data-flow.html",
-                                            "file":  "ui5-data-flow.html",
-                                            "category":  "ui5",
-                                            "group":  "Freestyle SAPUI5",
-                                            "level":  "참고",
-                                            "status":  "참고",
-                                            "time":  "25분",
-                                            "summary":  "SAPUI5 데이터 흐름과 Messaging을 개념형 참고자료로 정리한다.",
-                                            "legacy_id":  "ui5-data-flow",
-                                            "canonical_id":  "ui5-data-flow",
-                                            "legacy_href":  "../v3/02-ui5-fiori/sapui5-messaging-data-flow-v3.html",
-                                            "legacy_path":  "v3/02-ui5-fiori/sapui5-messaging-data-flow-v3.html",
-                                            "operating_path":  "docs/ui5/ui5-data-flow.html"
-                                        },
-                      "fiori-elements":  {
-                                             "title":  "Fiori Elements 입문",
-                                             "href":  "../docs/ui5/fiori-elements.html",
-                                             "file":  "fiori-elements.html",
-                                             "category":  "ui5",
-                                             "group":  "Fiori Elements",
-                                             "level":  "실무 입문",
-                                             "status":  "핵심",
-                                             "time":  "45분",
-                                             "summary":  "Annotation과 OData 메타데이터 기반의 List Report/Object Page 생성 방식을 이해한다.",
-                                             "legacy_id":  "fiori-elements",
-                                             "canonical_id":  "fiori-elements",
-                                             "legacy_href":  "../v3/02-ui5-fiori/sap-fiori-elements-beginner-guide-v3.html",
-                                             "legacy_path":  "v3/02-ui5-fiori/sap-fiori-elements-beginner-guide-v3.html",
-                                             "operating_path":  "docs/ui5/fiori-elements.html"
-                                         },
-                      "flp":  {
-                                  "title":  "Fiori Launchpad 배포와 Semantic Object 입문",
-                                  "href":  "../docs/ui5/fiori-launchpad.html",
-                                  "file":  "fiori-launchpad.html",
-                                  "category":  "ui5",
-                                  "group":  "Fiori Launchpad",
-                                  "level":  "실무 입문",
-                                  "status":  "확장",
-                                  "time":  "30분",
-                                  "summary":  "Tile, Target Mapping, Semantic Object, Action, Catalog/Space/Page를 이해한다.",
-                                  "legacy_id":  "flp",
-                                  "canonical_id":  "flp",
-                                  "legacy_href":  "../v3/02-ui5-fiori/sap-fiori-launchpad-deployment-beginner-guide-v3.html",
-                                  "legacy_path":  "v3/02-ui5-fiori/sap-fiori-launchpad-deployment-beginner-guide-v3.html",
-                                  "operating_path":  "docs/ui5/fiori-launchpad.html"
-                              },
-                      "module-overview":  {
-                                              "title":  "SAP 모듈 기초와 개발자 관점",
-                                              "href":  "../docs/module/module-basics-for-developers.html",
-                                              "file":  "module-basics-for-developers.html",
-                                              "category":  "module",
-                                              "group":  "모듈 전체",
-                                              "level":  "입문",
-                                              "status":  "핵심",
-                                              "time":  "25분",
-                                              "summary":  "MM, PP, SD, FI, CO가 어떤 업무를 다루고 개발자가 왜 알아야 하는지 설명한다.",
-                                              "legacy_href":  "../v3/03-module-basics/sap-module-basics-for-developers-v3.html",
-                                              "legacy_path":  "v3/03-module-basics/sap-module-basics-for-developers-v3.html",
-                                              "operating_path":  "docs/module/module-basics-for-developers.html",
-                                              "archive_path":  "archive/v3/03-module-basics/sap-module-basics-for-developers-v3.html",
-                                              "version":  "4.0",
-                                              "updated":  "2026-05-29"
-                                          },
-                      "table-map":  {
-                                        "title":  "SAP Standard Table Map 입문",
-                                        "href":  "../docs/module/standard-table-map.html",
-                                        "file":  "standard-table-map.html",
-                                        "category":  "module",
-                                        "group":  "모듈 전체",
-                                        "level":  "입문",
-                                        "status":  "핵심",
-                                        "time":  "35분",
-                                        "summary":  "Header/Item 구조, Document Flow, 주요 모듈 테이블을 지도처럼 정리한다.",
-                                        "legacy_href":  "../v3/03-module-basics/sap-standard-table-map-for-developers-v3.html",
-                                        "legacy_path":  "v3/03-module-basics/sap-standard-table-map-for-developers-v3.html",
-                                        "operating_path":  "docs/module/standard-table-map.html",
-                                        "archive_path":  "archive/v3/03-module-basics/sap-standard-table-map-for-developers-v3.html",
-                                        "version":  "4.0",
-                                        "updated":  "2026-05-29"
-                                    },
-                      "mm":  {
-                                 "title":  "MM 프로세스와 주요 테이블 입문",
-                                 "href":  "../docs/module/mm-process-tables.html",
-                                 "file":  "mm-process-tables.html",
-                                 "category":  "module",
-                                 "group":  "MM",
-                                 "level":  "입문",
-                                 "status":  "모듈",
-                                 "time":  "35분",
-                                 "summary":  "구매요청, 구매오더, 입고, 송장 검증과 주요 테이블을 이해한다.",
-                                 "legacy_href":  "../v3/03-module-basics/sap-mm-process-and-tables-beginner-v3.html",
-                                 "legacy_path":  "v3/03-module-basics/sap-mm-process-and-tables-beginner-v3.html",
-                                 "operating_path":  "docs/module/mm-process-tables.html",
-                                 "archive_path":  "archive/v3/03-module-basics/sap-mm-process-and-tables-beginner-v3.html",
-                                 "version":  "4.0",
-                                 "updated":  "2026-05-29"
-                             },
-                      "pp":  {
-                                 "title":  "PP 프로세스와 주요 테이블 입문",
-                                 "href":  "../docs/module/pp-process-tables.html",
-                                 "file":  "pp-process-tables.html",
-                                 "category":  "module",
-                                 "group":  "PP",
-                                 "level":  "입문",
-                                 "status":  "모듈",
-                                 "time":  "35분",
-                                 "summary":  "BOM, Routing, MRP, 생산오더, ATP/안전재고를 생산계획 흐름으로 연결한다.",
-                                 "legacy_href":  "../v3/03-module-basics/sap-pp-process-and-tables-beginner-v3.html",
-                                 "legacy_path":  "v3/03-module-basics/sap-pp-process-and-tables-beginner-v3.html",
-                                 "operating_path":  "docs/module/pp-process-tables.html",
-                                 "archive_path":  "archive/v3/03-module-basics/sap-pp-process-and-tables-beginner-v3.html",
-                                 "version":  "4.0",
-                                 "updated":  "2026-05-29"
-                             },
-                      "sd":  {
-                                 "title":  "SD 프로세스와 주요 테이블 입문",
-                                 "href":  "../docs/module/sd-process-tables.html",
-                                 "file":  "sd-process-tables.html",
-                                 "category":  "module",
-                                 "group":  "SD",
-                                 "level":  "입문",
-                                 "status":  "모듈",
-                                 "time":  "35분",
-                                 "summary":  "판매오더, 납품, 출고, 청구와 문서 흐름을 개발자 관점에서 이해한다.",
-                                 "legacy_href":  "../v3/03-module-basics/sap-sd-process-and-tables-beginner-v3.html",
-                                 "legacy_path":  "v3/03-module-basics/sap-sd-process-and-tables-beginner-v3.html",
-                                 "operating_path":  "docs/module/sd-process-tables.html",
-                                 "archive_path":  "archive/v3/03-module-basics/sap-sd-process-and-tables-beginner-v3.html",
-                                 "version":  "4.0",
-                                 "updated":  "2026-05-29"
-                             },
-                      "fi":  {
-                                 "title":  "FI 프로세스와 주요 테이블 입문",
-                                 "href":  "../docs/module/fi-process-tables.html",
-                                 "file":  "fi-process-tables.html",
-                                 "category":  "module",
-                                 "group":  "FI",
-                                 "level":  "입문",
-                                 "status":  "모듈",
-                                 "time":  "35분",
-                                 "summary":  "G/L 계정, 회계 전표, 번호범위, ACDOCA 중심의 FI 기본 구조를 이해한다.",
-                                 "legacy_href":  "../v3/03-module-basics/sap-fi-process-and-tables-beginner-v3.html",
-                                 "legacy_path":  "v3/03-module-basics/sap-fi-process-and-tables-beginner-v3.html",
-                                 "operating_path":  "docs/module/fi-process-tables.html",
-                                 "archive_path":  "archive/v3/03-module-basics/sap-fi-process-and-tables-beginner-v3.html",
-                                 "version":  "4.0",
-                                 "updated":  "2026-05-29"
-                             },
-                      "co":  {
-                                 "title":  "CO 프로세스와 주요 테이블 입문",
-                                 "href":  "../docs/module/co-process-tables.html",
-                                 "file":  "co-process-tables.html",
-                                 "category":  "module",
-                                 "group":  "CO",
-                                 "level":  "입문",
-                                 "status":  "모듈",
-                                 "time":  "35분",
-                                 "summary":  "원가센터, 내부오더, 손익센터와 비용 흐름을 개발자 관점으로 이해한다.",
-                                 "legacy_href":  "../v3/03-module-basics/sap-co-process-and-tables-beginner-v3.html",
-                                 "legacy_path":  "v3/03-module-basics/sap-co-process-and-tables-beginner-v3.html",
-                                 "operating_path":  "docs/module/co-process-tables.html",
-                                 "archive_path":  "archive/v3/03-module-basics/sap-co-process-and-tables-beginner-v3.html",
-                                 "version":  "4.0",
-                                 "updated":  "2026-05-29"
-                             },
-                      "atp":  {
-                                  "title":  "SAP ATP 학생 학습 패키지",
-                                  "href":  "../docs/module/pp-atp.html",
-                                  "file":  "pp-atp.html",
-                                  "category":  "module",
-                                  "group":  "PP",
-                                  "level":  "입문",
-                                  "status":  "실습 포함",
-                                  "time":  "30분",
-                                  "summary":  "재고와 가용수량의 차이, 판매오더에서 납기 약속이 판단되는 방식을 학습한다.",
-                                  "legacy_href":  "../v3/03-module-basics/sap-pp-atp-learning-package-v3.html",
-                                  "legacy_path":  "v3/03-module-basics/sap-pp-atp-learning-package-v3.html",
-                                  "operating_path":  "docs/module/pp-atp.html",
-                                  "archive_path":  "archive/v3/03-module-basics/sap-pp-atp-learning-package-v3.html",
-                                  "version":  "4.0",
-                                  "updated":  "2026-05-29"
-                              },
-                      "mrp":  {
-                                  "title":  "MRP 학생 배포용 학습 패키지",
-                                  "href":  "../docs/module/pp-mrp.html",
-                                  "file":  "pp-mrp.html",
-                                  "category":  "module",
-                                  "group":  "PP",
-                                  "level":  "입문",
-                                  "status":  "모듈",
-                                  "time":  "30분",
-                                  "summary":  "수요, 재고, 조달 제안을 연결해 MRP의 기본 목적과 결과 해석을 학습한다.",
-                                  "legacy_href":  "../v3/03-module-basics/sap-pp-mrp-learning-package-v3.html",
-                                  "legacy_path":  "v3/03-module-basics/sap-pp-mrp-learning-package-v3.html",
-                                  "operating_path":  "docs/module/pp-mrp.html",
-                                  "archive_path":  "archive/v3/03-module-basics/sap-pp-mrp-learning-package-v3.html",
-                                  "version":  "4.0",
-                                  "updated":  "2026-05-29"
-                              },
-                      "safety-stock":  {
-                                           "title":  "SAP 안전재고 관리 학생 학습 패키지",
-                                           "href":  "../docs/module/pp-safety-stock.html",
-                                           "file":  "pp-safety-stock.html",
-                                           "category":  "module",
-                                           "group":  "PP",
-                                           "level":  "입문",
-                                           "status":  "모듈",
-                                           "time":  "25분",
-                                           "summary":  "안전재고를 왜 두는지, 너무 낮거나 높으면 어떤 문제가 생기는지 학습한다.",
-                                           "legacy_href":  "../v3/03-module-basics/sap-pp-safety-stock-learning-package-v3.html",
-                                           "legacy_path":  "v3/03-module-basics/sap-pp-safety-stock-learning-package-v3.html",
-                                           "operating_path":  "docs/module/pp-safety-stock.html",
-                                           "archive_path":  "archive/v3/03-module-basics/sap-pp-safety-stock-learning-package-v3.html",
-                                           "version":  "4.0",
-                                           "updated":  "2026-05-29"
-                                       },
-                      "fi-gl-adult":  {
-                                          "title":  "SAP FI G/L Accounts 번호범위 정리",
-                                          "href":  "../docs/module/fi-gl-number-range.html",
-                                          "file":  "fi-gl-number-range.html",
-                                          "category":  "module",
-                                          "group":  "FI",
-                                          "level":  "정리",
-                                          "status":  "참고",
-                                          "time":  "20분",
-                                          "summary":  "G/L 계정과 번호범위, 계정군의 관계를 정리한다.",
-                                          "legacy_href":  "../v3/03-module-basics/sap-fi-gl-number-range-adult-v3.html",
-                                          "legacy_path":  "v3/03-module-basics/sap-fi-gl-number-range-adult-v3.html",
-                                          "operating_path":  "docs/module/fi-gl-number-range.html",
-                                          "archive_path":  "archive/v3/03-module-basics/sap-fi-gl-number-range-adult-v3.html",
-                                          "version":  "4.0",
-                                          "updated":  "2026-05-29"
-                                      },
-                      "fi-gl-elementary":  {
-                                               "title":  "SAP FI G/L Accounts 번호범위 초급 비유형",
-                                               "href":  "../docs/module/fi-gl-number-range-elementary.html",
-                                               "file":  "fi-gl-number-range-elementary.html",
-                                               "category":  "module",
-                                               "group":  "FI",
-                                               "level":  "초급",
-                                               "status":  "참고",
-                                               "time":  "15분",
-                                               "summary":  "번호범위를 쉬운 비유로 이해하고 실제 FI 용어와 연결한다.",
-                                               "legacy_href":  "../v3/03-module-basics/sap-fi-gl-number-range-elementary-v3.html",
-                                               "legacy_path":  "v3/03-module-basics/sap-fi-gl-number-range-elementary-v3.html",
-                                               "operating_path":  "docs/module/fi-gl-number-range-elementary.html",
-                                               "archive_path":  "archive/v3/03-module-basics/sap-fi-gl-number-range-elementary-v3.html",
-                                               "version":  "4.0",
-                                               "updated":  "2026-05-29"
-                                           },
-                      "fi-gl-visual":  {
-                                           "title":  "SAP FI G/L Accounts 번호범위 Visual Guide",
-                                           "href":  "../docs/module/fi-gl-number-range-visual-guide.html",
-                                           "file":  "fi-gl-number-range-visual-guide.html",
-                                           "category":  "module",
-                                           "group":  "FI",
-                                           "level":  "시각 자료",
-                                           "status":  "참고",
-                                           "time":  "10분",
-                                           "summary":  "G/L 계정 번호범위를 발표용으로 빠르게 설명할 수 있는 시각형 요약 자료이다.",
-                                           "legacy_href":  "../v3/03-module-basics/sap-fi-gl-number-range-visual-deck-v3.html",
-                                           "legacy_path":  "v3/03-module-basics/sap-fi-gl-number-range-visual-deck-v3.html",
-                                           "operating_path":  "docs/module/fi-gl-number-range-visual-guide.html",
-                                           "archive_path":  "archive/v3/03-module-basics/sap-fi-gl-number-range-visual-deck-v3.html",
-                                           "version":  "4.0",
-                                           "updated":  "2026-05-29"
-                                       },
-                      "flight-model":  {
-                                           "title":  "SAP Flight Model 데이터 구조 해설",
-                                           "href":  "../docs/practice/flight-model-guide.html",
-                                           "file":  "flight-model-guide.html",
-                                           "category":  "practice",
-                                           "group":  "학습 시작",
-                                           "level":  "입문",
-                                           "status":  "선행",
-                                           "time":  "25분",
-                                           "summary":  "SCARR, SPFLI, SFLIGHT, SBOOK 등 Flight 모델 테이블 관계를 정리한다.",
-                                           "legacy_href":  "../v3/04-integrated-practice/sap-flight-model-table-guide-v3.html",
-                                           "legacy_path":  "v3/04-integrated-practice/sap-flight-model-table-guide-v3.html",
-                                           "operating_path":  "docs/practice/flight-model-guide.html",
-                                           "archive_path":  "archive/v3/04-integrated-practice/sap-flight-model-table-guide-v3.html",
-                                           "version":  "4.0",
-                                           "updated":  "2026-05-29"
-                                       },
-                      "flight-integrated":  {
-                                                "title":  "Flight 통합 실습 최신본",
-                                                "href":  "../docs/practice/flight-practice.html",
-                                                "file":  "flight-practice.html",
-                                                "category":  "practice",
-                                                "group":  "학습 시작",
-                                                "level":  "종합 실습",
-                                                "status":  "핵심",
-                                                "time":  "90분+",
-                                                "summary":  "ClassRun, Gateway CRUD, UI5 연동, RAP BO까지 이어지는 종합 실습이다.",
-                                                "legacy_href":  "../v3/04-integrated-practice/sap-flight-integrated-practice-classrun-gateway-ui5-v3.html",
-                                                "legacy_path":  "v3/04-integrated-practice/sap-flight-integrated-practice-classrun-gateway-ui5-v3.html",
-                                                "operating_path":  "docs/practice/flight-practice.html",
-                                                "archive_path":  "archive/v3/04-integrated-practice/sap-flight-integrated-practice-classrun-gateway-ui5-v3.html",
-                                                "version":  "4.0",
-                                                "updated":  "2026-05-29"
-                                            },
-                      "glossary":  {
-                                       "title":  "SAP 개발자 용어사전",
-                                       "href":  "../docs/reference/sap-developer-glossary.html",
-                                       "file":  "sap-developer-glossary.html",
-                                       "category":  "reference",
-                                       "group":  "Reference",
-                                       "level":  "참고",
-                                       "status":  "Reference",
-                                       "time":  "수시",
-                                       "summary":  "ABAP, UI5, OData, RAP, 모듈 용어를 초심자 기준으로 정리한다."
-                                   },
-                      "style-guide":  {
-                                          "title":  "SAP Developer Learning Library 문체 기준",
-                                          "href":  "../docs/reference/sap-developer-writing-style-guide.html",
-                                          "file":  "sap-developer-writing-style-guide.html",
-                                          "category":  "reference",
-                                          "group":  "Reference",
-                                          "level":  "운영 기준",
-                                          "status":  "Reference",
-                                          "time":  "10분",
-                                          "summary":  "본문 평서형, 실습 지시형, 강사용 메모 존칭형 기준을 설명한다."
-                                      },
-                      "prose-audit":  {
-                                          "title":  "문체 구조화 자동 검수 리포트",
-                                          "href":  "../archive/v3/99-reference/prose-audit-report-v3-5.html",
-                                          "file":  "prose-audit-report-v3-5.html",
-                                          "category":  "reference",
-                                          "group":  "Reference",
-                                          "level":  "검수",
-                                          "status":  "Audit",
-                                          "time":  "수시",
-                                          "summary":  "data-prose 기준으로 문체 구조를 검수한 리포트이다."
-                                      },
-                      "final-audit":  {
-                                          "title":  "SAP Developer Learning Library v3 최종 검수 리포트",
-                                          "href":  "../archive/v3/99-reference/final-audit-report-v3.html",
-                                          "file":  "final-audit-report-v3.html",
-                                          "category":  "reference",
-                                          "group":  "Reference",
-                                          "level":  "검수",
-                                          "status":  "Audit",
-                                          "time":  "수시",
-                                          "summary":  "링크, CSS/JS, data-prose, 푸터/배포자 표기를 최종 검수한 결과이다."
-                                      }
-                  },
-    "recommended_paths":  {
-                              "beginner":  {
-                                               "title":  "초급자 추천 경로",
-                                               "description":  "SAP 개발을 처음 배우는 학습자를 위한 순서이다.",
-                                               "items":  [
-                                                             "roadmap",
-                                                             "tools",
-                                                             "module-overview",
-                                                             "abap-classic",
-                                                             "ui5-controller",
-                                                             "cds-odata",
-                                                             "gateway"
-                                                         ]
-                                           },
-                              "abap":  {
-                                           "title":  "ABAP 개발자 경로",
-                                           "description":  "서버 개발과 OData/RAP 서비스를 구현하려는 학습자를 위한 순서이다.",
-                                           "items":  [
-                                                         "abap-classic",
-                                                         "abap-new-syntax",
-                                                         "cds-odata",
-                                                         "gateway",
-                                                         "rap-e2e",
-                                                         "rap-action"
-                                                     ]
-                                       },
-                              "ui5":  {
-                                          "title":  "UI5/Fiori 개발자 경로",
-                                          "description":  "화면 개발과 Fiori 앱 구현을 목표로 하는 학습자를 위한 순서이다.",
-                                          "items":  [
-                                                        "ui5-controller",
-                                                        "ui5-odata-crud",
-                                                        "ui5-messaging",
-                                                        "ui5-routing",
-                                                        "fiori-elements",
-                                                        "flp"
-                                                    ]
-                                      },
-                              "module":  {
-                                             "title":  "모듈/테이블 이해 경로",
-                                             "description":  "개발 요구사항을 업무 프로세스와 테이블 구조로 이해하려는 학습자를 위한 순서이다.",
-                                             "items":  [
-                                                           "module-overview",
-                                                           "table-map",
-                                                           "mm",
-                                                           "pp",
-                                                           "sd",
-                                                           "fi",
-                                                           "co"
-                                                       ]
-                                         },
-                              "practice":  {
-                                               "title":  "실무형 빠른 경로",
-                                               "description":  "핵심 개념을 빠르게 보고 통합 실습으로 넘어가는 경로이다.",
-                                               "items":  [
-                                                             "cds-odata",
-                                                             "gateway",
-                                                             "ui5-odata-crud",
-                                                             "ui5-messaging",
-                                                             "flight-model",
-                                                             "flight-integrated"
-                                                         ]
-                                           }
-                          },
-    "coming_soon":  [
-                        {
-                            "title":  "Authorization / 권한 개념 입문",
-                            "category":  "ABAP / Security",
-                            "desc":  "권한 객체, Role, Authorization Check 기본 개념"
-                        },
-                        {
-                            "title":  "Transport Request / CTS 입문",
-                            "category":  "운영",
-                            "desc":  "개발 오브젝트 이관과 요청 관리"
-                        },
-                        {
-                            "title":  "ABAP Unit Test 입문",
-                            "category":  "ABAP",
-                            "desc":  "ABAP 테스트 코드 작성과 테스트 가능한 구조"
-                        },
-                        {
-                            "title":  "UI5 프로젝트 구조와 배포 가이드",
-                            "category":  "UI5",
-                            "desc":  "UI5 Tooling, npm, 배포 구조"
-                        },
-                        {
-                            "title":  "Fiori Elements Annotation 실습",
-                            "category":  "Fiori Elements",
-                            "desc":  "List Report/Object Page Annotation 실습"
-                        },
-                        {
-                            "title":  "SAP 개발 요구사항 분석법",
-                            "category":  "실무",
-                            "desc":  "요구사항을 테이블, API, 화면 흐름으로 분해하는 방법"
-                        }
-                    ],
-    "navigation":  [
-                       {
-                           "id":  "roadmap",
-                           "title":  "로드맵 / 학습전략",
-                           "href":  "pages/roadmap.html",
-                           "docs":  [
-                                        "roadmap",
-                                        "tools",
-                                        "debug"
-                                    ]
-                       },
-                       {
-                           "id":  "abap",
-                           "title":  "ABAP 개발",
-                           "href":  "pages/abap.html",
-                           "groups":  [
-                                          {
-                                              "title":  "Classic ABAP",
-                                              "docs":  [
-                                                           "abap-classic",
-                                                           "abap-new-syntax"
-                                                       ]
-                                          },
-                                          {
-                                              "title":  "CDS / OData",
-                                              "docs":  [
-                                                           "cds-odata",
-                                                           "odata-export"
-                                                       ]
-                                          },
-                                          {
-                                              "title":  "Gateway",
-                                              "docs":  [
-                                                           "gateway"
-                                                       ]
-                                          },
-                                          {
-                                              "title":  "RAP",
-                                              "docs":  [
-                                                           "rap-e2e",
-                                                           "rap-action"
-                                                       ]
-                                          },
-                                          {
-                                              "title":  "ABAP Cloud",
-                                              "docs":  [
-                                                           "abap-cloud"
-                                                       ]
-                                          }
-                                      ]
-                       },
-                       {
-                           "id":  "ui5",
-                           "title":  "UI5 / Fiori 개발",
-                           "href":  "pages/ui5-fiori.html",
-                           "groups":  [
-                                          {
-                                              "title":  "Freestyle SAPUI5",
-                                              "docs":  [
-                                                           "ui5-controller",
-                                                           "ui5-odata-crud",
-                                                           "ui5-messaging",
-                                                           "ui5-routing",
-                                                           "ui5-data-flow"
-                                                       ]
-                                          },
-                                          {
-                                              "title":  "Fiori Elements",
-                                              "docs":  [
-                                                           "fiori-elements"
-                                                       ]
-                                          },
-                                          {
-                                              "title":  "Fiori Launchpad",
-                                              "docs":  [
-                                                           "flp"
-                                                       ]
-                                          }
-                                      ]
-                       },
-                       {
-                           "id":  "module",
-                           "title":  "SAP 모듈 기초",
-                           "href":  "pages/module-basics.html",
-                           "groups":  [
-                                          {
-                                              "title":  "모듈 전체",
-                                              "docs":  [
-                                                           "module-overview",
-                                                           "table-map"
-                                                       ]
-                                          },
-                                          {
-                                              "title":  "MM",
-                                              "docs":  [
-                                                           "mm"
-                                                       ]
-                                          },
-                                          {
-                                              "title":  "PP",
-                                              "docs":  [
-                                                           "pp",
-                                                           "atp",
-                                                           "mrp",
-                                                           "safety-stock"
-                                                       ]
-                                          },
-                                          {
-                                              "title":  "SD",
-                                              "docs":  [
-                                                           "sd"
-                                                       ]
-                                          },
-                                          {
-                                              "title":  "FI",
-                                              "docs":  [
-                                                           "fi",
-                                                           "fi-gl-adult",
-                                                           "fi-gl-elementary",
-                                                           "fi-gl-visual"
-                                                       ]
-                                          },
-                                          {
-                                              "title":  "CO",
-                                              "docs":  [
-                                                           "co"
-                                                       ]
-                                          }
-                                      ]
-                       },
-                       {
-                           "id":  "practice",
-                           "title":  "통합 실습",
-                           "href":  "pages/integrated-practice.html",
-                           "docs":  [
-                                        "flight-model",
-                                        "flight-integrated"
-                                    ]
-                       },
-                       {
-                           "id":  "reference",
-                           "title":  "Reference / 운영",
-                           "href":  "pages/reference.html",
-                           "docs":  [
-                                        "glossary",
-                                        "style-guide",
-                                        "prose-audit",
-                                        "final-audit"
-                                    ]
-                       }
-                   ],
-    "updated":  "2026-05-29",
-    "stage7":  {
-                   "operating_root":  "docs",
-                   "legacy_root":  "v3",
-                   "current_focus":  "navigation-data-criteria",
-                   "canonical_aliases":  {
-                                             "gateway":  "gateway-odata-v2-crud",
-                                             "debugging":  "debug"
-                                         },
-                   "shell_contract":  {
-                                          "page_types":  [
-                                                             "home",
-                                                             "landing",
-                                                             "doc"
-                                                         ],
-                                          "required_body_fields":  [
-                                                                       "data-page-type",
-                                                                       "data-doc-id",
-                                                                       "data-doc-title",
-                                                                       "data-doc-version",
-                                                                       "data-doc-updated-at",
-                                                                       "data-distributor"
-                                                                   ],
-                                          "doc_body_fields":  [
-                                                                  "data-active-category"
-                                                              ],
-                                          "navigation_panels":  [
-                                                                    "toc",
-                                                                    "path"
-                                                                ]
-                                      }
-               }
+    "version": "stage7-navigation-data-v1",
+    "created": "2026-05-27",
+    "distributor": "정훈영",
+    "categories": {
+        "roadmap": {
+            "title": "로드맵 / 학습전략",
+            "icon": "🧭",
+            "page": "roadmap.html",
+            "description": "처음 시작하는 학습자가 전체 학습 순서와 도구 사용법을 파악하는 영역이다.",
+            "home_desc": "어디서 시작해야 하는지, 어떤 도구를 써야 하는지 먼저 확인한다."
+        },
+        "abap": {
+            "title": "ABAP 개발",
+            "icon": "⚙️",
+            "page": "abap.html",
+            "description": "Classic ABAP, CDS, Gateway, RAP, ABAP Cloud를 단계적으로 학습한다.",
+            "home_desc": "서버 로직, 데이터 모델, OData/RAP 서비스를 구현하는 개발 흐름을 학습한다."
+        },
+        "ui5": {
+            "title": "UI5 / Fiori 개발",
+            "icon": "🧩",
+            "page": "ui5-fiori.html",
+            "description": "Freestyle SAPUI5와 Fiori Elements를 구분해 화면 개발 흐름을 학습한다.",
+            "home_desc": "XML View, Controller, ODataModel, Messaging, Fiori Elements를 학습한다."
+        },
+        "module": {
+            "title": "SAP 모듈 기초",
+            "icon": "🏢",
+            "page": "module-basics.html",
+            "description": "MM, PP, SD, FI, CO의 기초 프로세스와 Standard Table 구조를 개발자 관점으로 학습한다.",
+            "home_desc": "개발 요구사항을 이해하기 위한 모듈 프로세스와 테이블 구조를 익힌다."
+        },
+        "practice": {
+            "title": "통합 실습",
+            "icon": "✈️",
+            "page": "integrated-practice.html",
+            "description": "Flight 모델 기반으로 ABAP, Gateway, UI5, RAP을 연결하는 실습을 진행한다.",
+            "home_desc": "배운 내용을 하나의 Flight 시나리오로 연결해 실습한다."
+        },
+        "reference": {
+            "title": "Reference / 운영",
+            "icon": "📚",
+            "page": "reference.html",
+            "description": "용어사전, 문체 기준, 자동 검수 리포트 같은 운영·참고 자료를 모은다.",
+            "home_desc": "용어, 문체 기준, 검수 리포트 등 운영 참고자료를 확인한다."
+        }
+    },
+    "documents": {
+        "roadmap": {
+            "title": "SAP 개발자 학습 로드맵",
+            "href": "../v3/00-roadmap/sap-developer-learning-roadmap-v3.html",
+            "file": "sap-developer-learning-roadmap-v3.html",
+            "category": "roadmap",
+            "group": "학습 시작",
+            "level": "입문",
+            "status": "핵심",
+            "time": "20~30분",
+            "summary": "ABAP, UI5, Fiori Elements, 모듈 기초까지 전체 학습 순서를 안내한다."
+        },
+        "tools": {
+            "title": "SAP 개발 환경과 도구 입문",
+            "href": "../v3/00-roadmap/sap-development-tools-overview-v3.html",
+            "file": "sap-development-tools-overview-v3.html",
+            "category": "roadmap",
+            "group": "학습 시작",
+            "level": "입문",
+            "status": "핵심",
+            "time": "20분",
+            "summary": "SAP GUI, ADT, VS Code/BAS, Gateway Client, Browser DevTools의 사용 목적을 정리한다."
+        },
+        "debug": {
+            "title": "SAP 개발 디버깅 / 트러블슈팅 통합 가이드",
+            "href": "../v3/00-roadmap/sap-debugging-troubleshooting-guide-v3.html",
+            "file": "sap-debugging-troubleshooting-guide-v3.html",
+            "category": "roadmap",
+            "group": "실무 운영",
+            "level": "실무 입문",
+            "status": "참고",
+            "time": "30~40분",
+            "summary": "ABAP, Gateway, UI5 오류를 어디서부터 확인할지 루틴으로 정리한다.",
+            "aliases": [
+                "debugging"
+            ]
+        },
+        "abap-classic": {
+            "title": "Classic ABAP 기본기",
+            "href": "../docs/abap/abap-classic-report-itab-alv.html",
+            "file": "abap-classic-report-itab-alv.html",
+            "category": "abap",
+            "group": "Classic ABAP",
+            "level": "입문",
+            "status": "핵심",
+            "time": "40분",
+            "summary": "Report, Selection Screen, Internal Table, Open SQL, ALV의 기본 흐름을 익힌다.",
+            "legacy_id": "abap-classic",
+            "canonical_id": "abap-classic",
+            "legacy_href": "../v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html",
+            "legacy_path": "v3/01-abap/abap-classic-report-itab-alv-beginner-v3.html",
+            "operating_path": "docs/abap/abap-classic-report-itab-alv.html"
+        },
+        "abap-new-syntax": {
+            "title": "ABAP New Syntax 입문",
+            "href": "../docs/abap/abap-new-syntax.html",
+            "file": "abap-new-syntax.html",
+            "category": "abap",
+            "group": "Classic ABAP",
+            "level": "입문",
+            "status": "확장",
+            "time": "30분",
+            "summary": "DATA(...), VALUE, CORRESPONDING, FOR 등 실무 코드를 읽기 위한 신문법을 정리한다.",
+            "legacy_id": "abap-new-syntax",
+            "canonical_id": "abap-new-syntax",
+            "legacy_href": "../v3/01-abap/abap-new-syntax-beginner-guide-v3.html",
+            "legacy_path": "v3/01-abap/abap-new-syntax-beginner-guide-v3.html",
+            "operating_path": "docs/abap/abap-new-syntax.html"
+        },
+        "abap-cloud": {
+            "title": "ABAP Cloud App Development 정리",
+            "href": "../docs/abap/abap-cloud.html",
+            "file": "abap-cloud.html",
+            "category": "abap",
+            "group": "ABAP Cloud",
+            "level": "정리",
+            "status": "참고",
+            "time": "25분",
+            "summary": "ABAP Cloud, CDS, RAP, Code Pushdown의 현대 ABAP 개발 방향을 정리한다.",
+            "legacy_href": "../v3/01-abap/abap-cloud-app-development-summary-v3.html",
+            "legacy_path": "v3/01-abap/abap-cloud-app-development-summary-v3.html",
+            "operating_path": "docs/abap/abap-cloud.html",
+            "archive_path": "archive/v3/01-abap/abap-cloud-app-development-summary-v3.html",
+            "version": "4.0",
+            "updated": "2026-05-29"
+        },
+        "cds-odata": {
+            "title": "CDS View에서 OData 노출까지",
+            "href": "../docs/abap/cds-to-odata.html",
+            "file": "cds-to-odata.html",
+            "category": "abap",
+            "group": "CDS / OData",
+            "level": "입문",
+            "status": "핵심",
+            "time": "45분",
+            "summary": "ZI_* Interface View, ZC_* Projection View, Association, Service Binding 흐름을 학습한다.",
+            "legacy_id": "cds-odata",
+            "canonical_id": "cds-odata",
+            "legacy_href": "../v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html",
+            "legacy_path": "v3/01-abap/sap-cds-to-odata-beginner-guide-v3.html",
+            "operating_path": "docs/abap/cds-to-odata.html"
+        },
+        "gateway": {
+            "title": "Gateway / OData V2 CRUD 입문",
+            "href": "../docs/abap/gateway-odata-v2-crud.html",
+            "file": "sap-gateway-odata-v2-crud-beginner-guide-v3.html",
+            "category": "abap",
+            "group": "Gateway",
+            "level": "실무 입문",
+            "status": "핵심",
+            "time": "45분",
+            "summary": "SEGW, EntitySet, MPC/DPC, CRUD 메서드와 테스트 흐름을 이해한다.",
+            "legacy_id": "gateway",
+            "canonical_id": "gateway-odata-v2-crud",
+            "legacy_href": "../v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html",
+            "operating_path": "docs/abap/gateway-odata-v2-crud.html",
+            "legacy_path": "v3/01-abap/sap-gateway-odata-v2-crud-beginner-guide-v3.html"
+        },
+        "rap-e2e": {
+            "title": "RAP End-to-End 입문",
+            "href": "../docs/abap/rap-end-to-end.html",
+            "file": "rap-end-to-end.html",
+            "category": "abap",
+            "group": "RAP",
+            "level": "실무 입문",
+            "status": "핵심",
+            "time": "50분",
+            "summary": "RAP BO, Behavior Definition, Validation, Determination, Action, Service Binding을 연결한다.",
+            "legacy_id": "rap-e2e",
+            "canonical_id": "rap-e2e",
+            "legacy_href": "../v3/01-abap/sap-rap-end-to-end-beginner-guide-v3.html",
+            "legacy_path": "v3/01-abap/sap-rap-end-to-end-beginner-guide-v3.html",
+            "operating_path": "docs/abap/rap-end-to-end.html"
+        },
+        "rap-action": {
+            "title": "RAP Action 다건 선택 처리",
+            "href": "../docs/abap/rap-action.html",
+            "file": "rap-action.html",
+            "category": "abap",
+            "group": "RAP",
+            "level": "심화",
+            "status": "심화",
+            "time": "25분",
+            "summary": "RAP Action 다건 선택 시 호출 단위와 Keys 일괄 전달 구조를 이해한다.",
+            "legacy_href": "../v3/01-abap/rap-action-invocation-grouping-v3.html",
+            "legacy_path": "v3/01-abap/rap-action-invocation-grouping-v3.html",
+            "operating_path": "docs/abap/rap-action.html",
+            "archive_path": "archive/v3/01-abap/rap-action-invocation-grouping-v3.html",
+            "version": "4.0",
+            "updated": "2026-05-29"
+        },
+        "odata-export": {
+            "title": "SAP 데이터를 외부로 내보내는 방법 정리",
+            "href": "../docs/abap/abap-odata-export.html",
+            "file": "abap-odata-export.html",
+            "category": "abap",
+            "group": "CDS / OData",
+            "level": "개념",
+            "status": "참고",
+            "time": "25분",
+            "summary": "OData, API, 파일, RFC 등 외부 연계 방식을 선택하는 기준을 정리한다."
+        },
+        "ui5-controller": {
+            "title": "UI5 Controller 함수 문법 입문",
+            "href": "../docs/ui5/ui5-controller-basics.html",
+            "file": "ui5-controller-basics.html",
+            "category": "ui5",
+            "group": "Freestyle SAPUI5",
+            "level": "입문",
+            "status": "핵심",
+            "time": "30분",
+            "summary": "View와 Controller, 이벤트 핸들러, this/byId 기본 패턴을 익힌다.",
+            "legacy_id": "ui5-controller",
+            "canonical_id": "ui5-controller",
+            "legacy_href": "../v3/02-ui5-fiori/sapui5-controller-function-intro-v3.html",
+            "legacy_path": "v3/02-ui5-fiori/sapui5-controller-function-intro-v3.html",
+            "operating_path": "docs/ui5/ui5-controller-basics.html"
+        },
+        "ui5-odata-crud": {
+            "title": "SAPUI5 OData Model과 CRUD 입문",
+            "href": "../docs/ui5/ui5-odata-crud.html",
+            "file": "ui5-odata-crud.html",
+            "category": "ui5",
+            "group": "Freestyle SAPUI5",
+            "level": "실무 입문",
+            "status": "핵심",
+            "time": "45분",
+            "summary": "JSONModel과 ODataModel, bindElement/bindItems, create/update/delete 흐름을 학습한다.",
+            "legacy_id": "ui5-odata-crud",
+            "canonical_id": "ui5-odata-crud",
+            "legacy_href": "../v3/02-ui5-fiori/sapui5-odata-model-crud-beginner-guide-v3.html",
+            "legacy_path": "v3/02-ui5-fiori/sapui5-odata-model-crud-beginner-guide-v3.html",
+            "operating_path": "docs/ui5/ui5-odata-crud.html"
+        },
+        "ui5-messaging": {
+            "title": "Messaging과 Input Validation 실무 입문",
+            "href": "../docs/ui5/ui5-validation-messaging.html",
+            "file": "ui5-validation-messaging.html",
+            "category": "ui5",
+            "group": "Freestyle SAPUI5",
+            "level": "실무 입문",
+            "status": "실습 포함",
+            "time": "45분",
+            "summary": "Input 화면 값과 Model 값의 차이, Messaging, 저장 Guard를 실습으로 이해한다.",
+            "legacy_id": "ui5-messaging",
+            "canonical_id": "ui5-messaging",
+            "legacy_href": "../v3/02-ui5-fiori/sapui5-messaging-input-validation-v3.html",
+            "legacy_path": "v3/02-ui5-fiori/sapui5-messaging-input-validation-v3.html",
+            "operating_path": "docs/ui5/ui5-validation-messaging.html"
+        },
+        "ui5-routing": {
+            "title": "SAPUI5 Routing과 Layout 입문",
+            "href": "../docs/ui5/ui5-routing-layout.html",
+            "file": "ui5-routing-layout.html",
+            "category": "ui5",
+            "group": "Freestyle SAPUI5",
+            "level": "입문",
+            "status": "확장",
+            "time": "35분",
+            "summary": "manifest routing, targets, List/Detail 이동, FlexibleColumnLayout의 기본 구조를 익힌다.",
+            "legacy_id": "ui5-routing",
+            "canonical_id": "ui5-routing",
+            "legacy_href": "../v3/02-ui5-fiori/sapui5-routing-layout-beginner-guide-v3.html",
+            "legacy_path": "v3/02-ui5-fiori/sapui5-routing-layout-beginner-guide-v3.html",
+            "operating_path": "docs/ui5/ui5-routing-layout.html"
+        },
+        "ui5-data-flow": {
+            "title": "SAPUI5 데이터 흐름과 Messaging 아키텍처",
+            "href": "../docs/ui5/ui5-data-flow.html",
+            "file": "ui5-data-flow.html",
+            "category": "ui5",
+            "group": "Freestyle SAPUI5",
+            "level": "참고",
+            "status": "참고",
+            "time": "25분",
+            "summary": "SAPUI5 데이터 흐름과 Messaging을 개념형 참고자료로 정리한다.",
+            "legacy_id": "ui5-data-flow",
+            "canonical_id": "ui5-data-flow",
+            "legacy_href": "../v3/02-ui5-fiori/sapui5-messaging-data-flow-v3.html",
+            "legacy_path": "v3/02-ui5-fiori/sapui5-messaging-data-flow-v3.html",
+            "operating_path": "docs/ui5/ui5-data-flow.html"
+        },
+        "fiori-elements": {
+            "title": "Fiori Elements 입문",
+            "href": "../docs/ui5/fiori-elements.html",
+            "file": "fiori-elements.html",
+            "category": "ui5",
+            "group": "Fiori Elements",
+            "level": "실무 입문",
+            "status": "핵심",
+            "time": "45분",
+            "summary": "Annotation과 OData 메타데이터 기반의 List Report/Object Page 생성 방식을 이해한다.",
+            "legacy_id": "fiori-elements",
+            "canonical_id": "fiori-elements",
+            "legacy_href": "../v3/02-ui5-fiori/sap-fiori-elements-beginner-guide-v3.html",
+            "legacy_path": "v3/02-ui5-fiori/sap-fiori-elements-beginner-guide-v3.html",
+            "operating_path": "docs/ui5/fiori-elements.html"
+        },
+        "flp": {
+            "title": "Fiori Launchpad 배포와 Semantic Object 입문",
+            "href": "../docs/ui5/fiori-launchpad.html",
+            "file": "fiori-launchpad.html",
+            "category": "ui5",
+            "group": "Fiori Launchpad",
+            "level": "실무 입문",
+            "status": "확장",
+            "time": "30분",
+            "summary": "Tile, Target Mapping, Semantic Object, Action, Catalog/Space/Page를 이해한다.",
+            "legacy_id": "flp",
+            "canonical_id": "flp",
+            "legacy_href": "../v3/02-ui5-fiori/sap-fiori-launchpad-deployment-beginner-guide-v3.html",
+            "legacy_path": "v3/02-ui5-fiori/sap-fiori-launchpad-deployment-beginner-guide-v3.html",
+            "operating_path": "docs/ui5/fiori-launchpad.html"
+        },
+        "module-overview": {
+            "title": "SAP 모듈 기초와 개발자 관점",
+            "href": "../docs/module/module-basics-for-developers.html",
+            "file": "module-basics-for-developers.html",
+            "category": "module",
+            "group": "모듈 전체",
+            "level": "입문",
+            "status": "핵심",
+            "time": "25분",
+            "summary": "MM, PP, SD, FI, CO가 어떤 업무를 다루고 개발자가 왜 알아야 하는지 설명한다.",
+            "legacy_href": "../v3/03-module-basics/sap-module-basics-for-developers-v3.html",
+            "legacy_path": "v3/03-module-basics/sap-module-basics-for-developers-v3.html",
+            "operating_path": "docs/module/module-basics-for-developers.html",
+            "archive_path": "archive/v3/03-module-basics/sap-module-basics-for-developers-v3.html",
+            "version": "4.0",
+            "updated": "2026-05-29"
+        },
+        "erp-metro": {
+            "title": "ERP Business Process Metro",
+            "href": "../docs/module/erp-business-process-metro.html",
+            "file": "erp-business-process-metro.html",
+            "category": "module",
+            "group": "공통 지식",
+            "level": "입문",
+            "status": "핵심",
+            "time": "20분",
+            "summary": "ERP 업무가 부서별로 끊기지 않고 데이터와 문서로 연결되는 전체 흐름을 노선도 형태로 이해한다.",
+            "operating_path": "docs/module/erp-business-process-metro.html",
+            "version": "1.0",
+            "updated": "2026-05-29"
+        },
+        "table-map": {
+            "title": "SAP Standard Table Map 입문",
+            "href": "../docs/module/standard-table-map.html",
+            "file": "standard-table-map.html",
+            "category": "module",
+            "group": "모듈 전체",
+            "level": "입문",
+            "status": "핵심",
+            "time": "35분",
+            "summary": "Header/Item 구조, Document Flow, 주요 모듈 테이블을 지도처럼 정리한다.",
+            "legacy_href": "../v3/03-module-basics/sap-standard-table-map-for-developers-v3.html",
+            "legacy_path": "v3/03-module-basics/sap-standard-table-map-for-developers-v3.html",
+            "operating_path": "docs/module/standard-table-map.html",
+            "archive_path": "archive/v3/03-module-basics/sap-standard-table-map-for-developers-v3.html",
+            "version": "4.0",
+            "updated": "2026-05-29"
+        },
+        "mm": {
+            "title": "MM 프로세스와 주요 테이블 입문",
+            "href": "../docs/module/mm-process-tables.html",
+            "file": "mm-process-tables.html",
+            "category": "module",
+            "group": "MM",
+            "level": "입문",
+            "status": "모듈",
+            "time": "35분",
+            "summary": "구매요청, 구매오더, 입고, 송장 검증과 주요 테이블을 이해한다.",
+            "legacy_href": "../v3/03-module-basics/sap-mm-process-and-tables-beginner-v3.html",
+            "legacy_path": "v3/03-module-basics/sap-mm-process-and-tables-beginner-v3.html",
+            "operating_path": "docs/module/mm-process-tables.html",
+            "archive_path": "archive/v3/03-module-basics/sap-mm-process-and-tables-beginner-v3.html",
+            "version": "4.0",
+            "updated": "2026-05-29"
+        },
+        "pp": {
+            "title": "PP 프로세스와 주요 테이블 입문",
+            "href": "../docs/module/pp-process-tables.html",
+            "file": "pp-process-tables.html",
+            "category": "module",
+            "group": "PP",
+            "level": "입문",
+            "status": "모듈",
+            "time": "35분",
+            "summary": "BOM, Routing, MRP, 생산오더, ATP/안전재고를 생산계획 흐름으로 연결한다.",
+            "legacy_href": "../v3/03-module-basics/sap-pp-process-and-tables-beginner-v3.html",
+            "legacy_path": "v3/03-module-basics/sap-pp-process-and-tables-beginner-v3.html",
+            "operating_path": "docs/module/pp-process-tables.html",
+            "archive_path": "archive/v3/03-module-basics/sap-pp-process-and-tables-beginner-v3.html",
+            "version": "4.0",
+            "updated": "2026-05-29"
+        },
+        "sd": {
+            "title": "SD 프로세스와 주요 테이블 입문",
+            "href": "../docs/module/sd-process-tables.html",
+            "file": "sd-process-tables.html",
+            "category": "module",
+            "group": "SD",
+            "level": "입문",
+            "status": "모듈",
+            "time": "35분",
+            "summary": "판매오더, 납품, 출고, 청구와 문서 흐름을 개발자 관점에서 이해한다.",
+            "legacy_href": "../v3/03-module-basics/sap-sd-process-and-tables-beginner-v3.html",
+            "legacy_path": "v3/03-module-basics/sap-sd-process-and-tables-beginner-v3.html",
+            "operating_path": "docs/module/sd-process-tables.html",
+            "archive_path": "archive/v3/03-module-basics/sap-sd-process-and-tables-beginner-v3.html",
+            "version": "4.0",
+            "updated": "2026-05-29"
+        },
+        "fi": {
+            "title": "FI 프로세스와 주요 테이블 입문",
+            "href": "../docs/module/fi-process-tables.html",
+            "file": "fi-process-tables.html",
+            "category": "module",
+            "group": "FI",
+            "level": "입문",
+            "status": "모듈",
+            "time": "35분",
+            "summary": "G/L 계정, 회계 전표, 번호범위, ACDOCA 중심의 FI 기본 구조를 이해한다.",
+            "legacy_href": "../v3/03-module-basics/sap-fi-process-and-tables-beginner-v3.html",
+            "legacy_path": "v3/03-module-basics/sap-fi-process-and-tables-beginner-v3.html",
+            "operating_path": "docs/module/fi-process-tables.html",
+            "archive_path": "archive/v3/03-module-basics/sap-fi-process-and-tables-beginner-v3.html",
+            "version": "4.0",
+            "updated": "2026-05-29"
+        },
+        "co": {
+            "title": "CO 프로세스와 주요 테이블 입문",
+            "href": "../docs/module/co-process-tables.html",
+            "file": "co-process-tables.html",
+            "category": "module",
+            "group": "CO",
+            "level": "입문",
+            "status": "모듈",
+            "time": "35분",
+            "summary": "원가센터, 내부오더, 손익센터와 비용 흐름을 개발자 관점으로 이해한다.",
+            "legacy_href": "../v3/03-module-basics/sap-co-process-and-tables-beginner-v3.html",
+            "legacy_path": "v3/03-module-basics/sap-co-process-and-tables-beginner-v3.html",
+            "operating_path": "docs/module/co-process-tables.html",
+            "archive_path": "archive/v3/03-module-basics/sap-co-process-and-tables-beginner-v3.html",
+            "version": "4.0",
+            "updated": "2026-05-29"
+        },
+        "atp": {
+            "title": "SAP ATP 학생 학습 패키지",
+            "href": "../docs/module/pp-atp.html",
+            "file": "pp-atp.html",
+            "category": "module",
+            "group": "PP",
+            "level": "입문",
+            "status": "실습 포함",
+            "time": "30분",
+            "summary": "재고와 가용수량의 차이, 판매오더에서 납기 약속이 판단되는 방식을 학습한다.",
+            "legacy_href": "../v3/03-module-basics/sap-pp-atp-learning-package-v3.html",
+            "legacy_path": "v3/03-module-basics/sap-pp-atp-learning-package-v3.html",
+            "operating_path": "docs/module/pp-atp.html",
+            "archive_path": "archive/v3/03-module-basics/sap-pp-atp-learning-package-v3.html",
+            "version": "4.0",
+            "updated": "2026-05-29"
+        },
+        "mrp": {
+            "title": "MRP 학생 배포용 학습 패키지",
+            "href": "../docs/module/pp-mrp.html",
+            "file": "pp-mrp.html",
+            "category": "module",
+            "group": "PP",
+            "level": "입문",
+            "status": "모듈",
+            "time": "30분",
+            "summary": "수요, 재고, 조달 제안을 연결해 MRP의 기본 목적과 결과 해석을 학습한다.",
+            "legacy_href": "../v3/03-module-basics/sap-pp-mrp-learning-package-v3.html",
+            "legacy_path": "v3/03-module-basics/sap-pp-mrp-learning-package-v3.html",
+            "operating_path": "docs/module/pp-mrp.html",
+            "archive_path": "archive/v3/03-module-basics/sap-pp-mrp-learning-package-v3.html",
+            "version": "4.0",
+            "updated": "2026-05-29"
+        },
+        "safety-stock": {
+            "title": "SAP 안전재고 관리 학생 학습 패키지",
+            "href": "../docs/module/pp-safety-stock.html",
+            "file": "pp-safety-stock.html",
+            "category": "module",
+            "group": "PP",
+            "level": "입문",
+            "status": "모듈",
+            "time": "25분",
+            "summary": "안전재고를 왜 두는지, 너무 낮거나 높으면 어떤 문제가 생기는지 학습한다.",
+            "legacy_href": "../v3/03-module-basics/sap-pp-safety-stock-learning-package-v3.html",
+            "legacy_path": "v3/03-module-basics/sap-pp-safety-stock-learning-package-v3.html",
+            "operating_path": "docs/module/pp-safety-stock.html",
+            "archive_path": "archive/v3/03-module-basics/sap-pp-safety-stock-learning-package-v3.html",
+            "version": "4.0",
+            "updated": "2026-05-29"
+        },
+        "fi-gl-adult": {
+            "title": "SAP FI G/L Accounts 번호범위 정리",
+            "href": "../docs/module/fi-gl-number-range.html",
+            "file": "fi-gl-number-range.html",
+            "category": "module",
+            "group": "FI",
+            "level": "정리",
+            "status": "참고",
+            "time": "20분",
+            "summary": "G/L 계정과 번호범위, 계정군의 관계를 정리한다.",
+            "legacy_href": "../v3/03-module-basics/sap-fi-gl-number-range-adult-v3.html",
+            "legacy_path": "v3/03-module-basics/sap-fi-gl-number-range-adult-v3.html",
+            "operating_path": "docs/module/fi-gl-number-range.html",
+            "archive_path": "archive/v3/03-module-basics/sap-fi-gl-number-range-adult-v3.html",
+            "version": "4.0",
+            "updated": "2026-05-29"
+        },
+        "fi-gl-elementary": {
+            "title": "SAP FI G/L Accounts 번호범위 초급 비유형",
+            "href": "../docs/module/fi-gl-number-range-elementary.html",
+            "file": "fi-gl-number-range-elementary.html",
+            "category": "module",
+            "group": "FI",
+            "level": "초급",
+            "status": "참고",
+            "time": "15분",
+            "summary": "번호범위를 쉬운 비유로 이해하고 실제 FI 용어와 연결한다.",
+            "legacy_href": "../v3/03-module-basics/sap-fi-gl-number-range-elementary-v3.html",
+            "legacy_path": "v3/03-module-basics/sap-fi-gl-number-range-elementary-v3.html",
+            "operating_path": "docs/module/fi-gl-number-range-elementary.html",
+            "archive_path": "archive/v3/03-module-basics/sap-fi-gl-number-range-elementary-v3.html",
+            "version": "4.0",
+            "updated": "2026-05-29"
+        },
+        "fi-gl-visual": {
+            "title": "SAP FI G/L Accounts 번호범위 Visual Guide",
+            "href": "../docs/module/fi-gl-number-range-visual-guide.html",
+            "file": "fi-gl-number-range-visual-guide.html",
+            "category": "module",
+            "group": "FI",
+            "level": "시각 자료",
+            "status": "참고",
+            "time": "10분",
+            "summary": "G/L 계정 번호범위를 발표용으로 빠르게 설명할 수 있는 시각형 요약 자료이다.",
+            "legacy_href": "../v3/03-module-basics/sap-fi-gl-number-range-visual-deck-v3.html",
+            "legacy_path": "v3/03-module-basics/sap-fi-gl-number-range-visual-deck-v3.html",
+            "operating_path": "docs/module/fi-gl-number-range-visual-guide.html",
+            "archive_path": "archive/v3/03-module-basics/sap-fi-gl-number-range-visual-deck-v3.html",
+            "version": "4.0",
+            "updated": "2026-05-29"
+        },
+        "flight-model": {
+            "title": "SAP Flight Model 데이터 구조 해설",
+            "href": "../docs/practice/flight-model-guide.html",
+            "file": "flight-model-guide.html",
+            "category": "practice",
+            "group": "학습 시작",
+            "level": "입문",
+            "status": "선행",
+            "time": "25분",
+            "summary": "SCARR, SPFLI, SFLIGHT, SBOOK 등 Flight 모델 테이블 관계를 정리한다.",
+            "legacy_href": "../v3/04-integrated-practice/sap-flight-model-table-guide-v3.html",
+            "legacy_path": "v3/04-integrated-practice/sap-flight-model-table-guide-v3.html",
+            "operating_path": "docs/practice/flight-model-guide.html",
+            "archive_path": "archive/v3/04-integrated-practice/sap-flight-model-table-guide-v3.html",
+            "version": "4.0",
+            "updated": "2026-05-29"
+        },
+        "flight-integrated": {
+            "title": "Flight 통합 실습 최신본",
+            "href": "../docs/practice/flight-practice.html",
+            "file": "flight-practice.html",
+            "category": "practice",
+            "group": "학습 시작",
+            "level": "종합 실습",
+            "status": "핵심",
+            "time": "90분+",
+            "summary": "ClassRun, Gateway CRUD, UI5 연동, RAP BO까지 이어지는 종합 실습이다.",
+            "legacy_href": "../v3/04-integrated-practice/sap-flight-integrated-practice-classrun-gateway-ui5-v3.html",
+            "legacy_path": "v3/04-integrated-practice/sap-flight-integrated-practice-classrun-gateway-ui5-v3.html",
+            "operating_path": "docs/practice/flight-practice.html",
+            "archive_path": "archive/v3/04-integrated-practice/sap-flight-integrated-practice-classrun-gateway-ui5-v3.html",
+            "version": "4.0",
+            "updated": "2026-05-29"
+        },
+        "glossary": {
+            "title": "SAP 개발자 용어사전",
+            "href": "../docs/reference/sap-developer-glossary.html",
+            "file": "sap-developer-glossary.html",
+            "category": "reference",
+            "group": "Reference",
+            "level": "참고",
+            "status": "Reference",
+            "time": "수시",
+            "summary": "ABAP, UI5, OData, RAP, 모듈 용어를 초심자 기준으로 정리한다."
+        },
+        "style-guide": {
+            "title": "SAP Developer Learning Library 문체 기준",
+            "href": "../docs/reference/sap-developer-writing-style-guide.html",
+            "file": "sap-developer-writing-style-guide.html",
+            "category": "reference",
+            "group": "Reference",
+            "level": "운영 기준",
+            "status": "Reference",
+            "time": "10분",
+            "summary": "본문 평서형, 실습 지시형, 강사용 메모 존칭형 기준을 설명한다."
+        },
+        "prose-audit": {
+            "title": "문체 구조화 자동 검수 리포트",
+            "href": "../archive/v3/99-reference/prose-audit-report-v3-5.html",
+            "file": "prose-audit-report-v3-5.html",
+            "category": "reference",
+            "group": "Reference",
+            "level": "검수",
+            "status": "Audit",
+            "time": "수시",
+            "summary": "data-prose 기준으로 문체 구조를 검수한 리포트이다."
+        },
+        "final-audit": {
+            "title": "SAP Developer Learning Library v3 최종 검수 리포트",
+            "href": "../archive/v3/99-reference/final-audit-report-v3.html",
+            "file": "final-audit-report-v3.html",
+            "category": "reference",
+            "group": "Reference",
+            "level": "검수",
+            "status": "Audit",
+            "time": "수시",
+            "summary": "링크, CSS/JS, data-prose, 푸터/배포자 표기를 최종 검수한 결과이다."
+        }
+    },
+    "recommended_paths": {
+        "beginner": {
+            "title": "초급자 추천 경로",
+            "description": "SAP 개발을 처음 배우는 학습자를 위한 순서이다.",
+            "items": [
+                "roadmap",
+                "tools",
+                "module-overview",
+                "abap-classic",
+                "ui5-controller",
+                "cds-odata",
+                "gateway"
+            ]
+        },
+        "abap": {
+            "title": "ABAP 개발자 경로",
+            "description": "서버 개발과 OData/RAP 서비스를 구현하려는 학습자를 위한 순서이다.",
+            "items": [
+                "abap-classic",
+                "abap-new-syntax",
+                "cds-odata",
+                "gateway",
+                "rap-e2e",
+                "rap-action"
+            ]
+        },
+        "ui5": {
+            "title": "UI5/Fiori 개발자 경로",
+            "description": "화면 개발과 Fiori 앱 구현을 목표로 하는 학습자를 위한 순서이다.",
+            "items": [
+                "ui5-controller",
+                "ui5-odata-crud",
+                "ui5-messaging",
+                "ui5-routing",
+                "fiori-elements",
+                "flp"
+            ]
+        },
+        "module": {
+            "title": "모듈/테이블 이해 경로",
+            "description": "개발 요구사항을 업무 프로세스와 테이블 구조로 이해하려는 학습자를 위한 순서이다.",
+            "items": [
+                "module-overview",
+                "table-map",
+                "mm",
+                "pp",
+                "sd",
+                "fi",
+                "co"
+            ]
+        },
+        "practice": {
+            "title": "실무형 빠른 경로",
+            "description": "핵심 개념을 빠르게 보고 통합 실습으로 넘어가는 경로이다.",
+            "items": [
+                "cds-odata",
+                "gateway",
+                "ui5-odata-crud",
+                "ui5-messaging",
+                "flight-model",
+                "flight-integrated"
+            ]
+        }
+    },
+    "coming_soon": [
+        {
+            "title": "Authorization / 권한 개념 입문",
+            "category": "ABAP / Security",
+            "desc": "권한 객체, Role, Authorization Check 기본 개념"
+        },
+        {
+            "title": "Transport Request / CTS 입문",
+            "category": "운영",
+            "desc": "개발 오브젝트 이관과 요청 관리"
+        },
+        {
+            "title": "ABAP Unit Test 입문",
+            "category": "ABAP",
+            "desc": "ABAP 테스트 코드 작성과 테스트 가능한 구조"
+        },
+        {
+            "title": "UI5 프로젝트 구조와 배포 가이드",
+            "category": "UI5",
+            "desc": "UI5 Tooling, npm, 배포 구조"
+        },
+        {
+            "title": "Fiori Elements Annotation 실습",
+            "category": "Fiori Elements",
+            "desc": "List Report/Object Page Annotation 실습"
+        },
+        {
+            "title": "SAP 개발 요구사항 분석법",
+            "category": "실무",
+            "desc": "요구사항을 테이블, API, 화면 흐름으로 분해하는 방법"
+        }
+    ],
+    "navigation": [
+        {
+            "id": "roadmap",
+            "title": "로드맵 / 학습전략",
+            "href": "pages/roadmap.html",
+            "docs": [
+                "roadmap",
+                "tools",
+                "debug"
+            ]
+        },
+        {
+            "id": "abap",
+            "title": "ABAP 개발",
+            "href": "pages/abap.html",
+            "groups": [
+                {
+                    "title": "Classic ABAP",
+                    "docs": [
+                        "abap-classic",
+                        "abap-new-syntax"
+                    ]
+                },
+                {
+                    "title": "CDS / OData",
+                    "docs": [
+                        "cds-odata",
+                        "odata-export"
+                    ]
+                },
+                {
+                    "title": "Gateway",
+                    "docs": [
+                        "gateway"
+                    ]
+                },
+                {
+                    "title": "RAP",
+                    "docs": [
+                        "rap-e2e",
+                        "rap-action"
+                    ]
+                },
+                {
+                    "title": "ABAP Cloud",
+                    "docs": [
+                        "abap-cloud"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ui5",
+            "title": "UI5 / Fiori 개발",
+            "href": "pages/ui5-fiori.html",
+            "groups": [
+                {
+                    "title": "Freestyle SAPUI5",
+                    "docs": [
+                        "ui5-controller",
+                        "ui5-odata-crud",
+                        "ui5-messaging",
+                        "ui5-routing",
+                        "ui5-data-flow"
+                    ]
+                },
+                {
+                    "title": "Fiori Elements",
+                    "docs": [
+                        "fiori-elements"
+                    ]
+                },
+                {
+                    "title": "Fiori Launchpad",
+                    "docs": [
+                        "flp"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "module",
+            "title": "SAP 모듈 기초",
+            "href": "pages/module-basics.html",
+            "groups": [
+                {
+                    "title": "모듈 전체",
+                    "docs": [
+                        "module-overview",
+                        "table-map"
+                    ]
+                },
+                {
+                    "title": "MM",
+                    "docs": [
+                        "mm"
+                    ]
+                },
+                {
+                    "title": "PP",
+                    "docs": [
+                        "pp",
+                        "atp",
+                        "mrp",
+                        "safety-stock"
+                    ]
+                },
+                {
+                    "title": "SD",
+                    "docs": [
+                        "sd"
+                    ]
+                },
+                {
+                    "title": "FI",
+                    "docs": [
+                        "fi",
+                        "fi-gl-adult",
+                        "fi-gl-elementary",
+                        "fi-gl-visual"
+                    ]
+                },
+                {
+                    "title": "CO",
+                    "docs": [
+                        "co"
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "practice",
+            "title": "통합 실습",
+            "href": "pages/integrated-practice.html",
+            "docs": [
+                "flight-model",
+                "flight-integrated"
+            ]
+        },
+        {
+            "id": "reference",
+            "title": "Reference / 운영",
+            "href": "pages/reference.html",
+            "docs": [
+                "glossary",
+                "style-guide",
+                "prose-audit",
+                "final-audit"
+            ]
+        }
+    ],
+    "updated": "2026-05-29",
+    "stage7": {
+        "operating_root": "docs",
+        "legacy_root": "v3",
+        "current_focus": "navigation-data-criteria",
+        "canonical_aliases": {
+            "gateway": "gateway-odata-v2-crud",
+            "debugging": "debug"
+        },
+        "shell_contract": {
+            "page_types": [
+                "home",
+                "landing",
+                "doc"
+            ],
+            "required_body_fields": [
+                "data-page-type",
+                "data-doc-id",
+                "data-doc-title",
+                "data-doc-version",
+                "data-doc-updated-at",
+                "data-distributor"
+            ],
+            "doc_body_fields": [
+                "data-active-category"
+            ],
+            "navigation_panels": [
+                "toc",
+                "path"
+            ]
+        }
+    }
 }

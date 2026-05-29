@@ -46,17 +46,17 @@
     <section class="stage7-section prose-structure" data-prose="structure" id="map">
       <div class="stage7-section__label">01 · 도구 지도</div>
       <h2>도구를 먼저 구분하면 실습 흐름이 단순해진다</h2>
-      <p>
-        SAP 개발 도구는 하나의 IDE로 끝나지 않는다. 서버 개발, 서비스 테스트,
-        프론트엔드 구현, 브라우저 디버깅, 운영 확인이 서로 다른 도구에서 이루어진다.
-      </p>
+      <div class="tip">
+        <strong>💡 핵심 마인드셋</strong>
+        SAP 개발 도구는 하나의 IDE로 끝나지 않습니다. 프론트엔드와 백엔드가 분리되어 있으므로, <strong>'내가 지금 서버 로직을 고치는 중인가, 화면 바인딩을 고치는 중인가'</strong>에 따라 도구를 명확히 전환해야 합니다.
+      </div>
       <table>
         <thead><tr><th>도구</th><th>주 용도</th><th>처음 배울 때의 관점</th></tr></thead>
         <tbody>
           <tr><td>SAP GUI</td><td>T-Code 실행, 표준 화면 확인, 테이블/로그 확인</td><td>표준 SAP 동작과 시스템 상태 확인</td></tr>
-          <tr><td>ADT / Eclipse</td><td>ABAP, CDS, RAP 개발</td><td>서버 로직과 데이터 모델 작성</td></tr>
-          <tr><td>VS Code / BAS</td><td>SAPUI5, Fiori 앱 개발</td><td>XML View, Controller, Model, npm, UI5 Tooling</td></tr>
-          <tr><td>Gateway Client</td><td>OData V2 요청/응답 테스트</td><td>서비스가 정상 응답하는지 독립 확인</td></tr>
+          <tr><td>ADT / Eclipse</td><td><button class="term" data-term="ABAP" type="button">ABAP</button>, <button class="term" data-term="CDS" type="button">CDS</button>, <button class="term" data-term="RAP" type="button">RAP</button> 개발</td><td>서버 로직과 데이터 모델 작성</td></tr>
+          <tr><td>VS Code / BAS</td><td><button class="term" data-term="UI5" type="button">UI5</button>, Fiori 앱 개발</td><td>XML View, Controller, Model, npm, UI5 Tooling</td></tr>
+          <tr><td>Gateway Client</td><td><button class="term" data-term="OData" type="button">OData</button> V2 요청/응답 테스트</td><td>서비스가 정상 응답하는지 독립 확인</td></tr>
           <tr><td>Browser DevTools</td><td>UI5 화면, Network, Console 디버깅</td><td>브라우저 실제 요청과 화면 오류 확인</td></tr>
         </tbody>
       </table>
@@ -66,8 +66,8 @@
       <div class="stage7-section__label">02 · 계층별 이해</div>
       <h2>문제가 발생한 위치에 따라 사용하는 도구가 달라진다</h2>
       <div class="stage7-card-grid two">
-        <article class="stage7-card" data-prose="concept"><h3>서버 로직 문제</h3><p>ABAP Class, CDS, RAP Behavior는 ADT와 Debugger로 확인한다.</p></article>
-        <article class="stage7-card" data-prose="concept"><h3>서비스 응답 문제</h3><p>OData Metadata, EntitySet, HTTP 상태는 Gateway Client와 Network에서 확인한다.</p></article>
+        <article class="stage7-card" data-prose="concept"><h3>서버 로직 문제</h3><p><button class="term" data-term="ABAP" type="button">ABAP</button> Class, <button class="term" data-term="CDS" type="button">CDS</button>, <button class="term" data-term="RAP" type="button">RAP</button> Behavior는 ADT와 Debugger로 확인한다.</p></article>
+        <article class="stage7-card" data-prose="concept"><h3>서비스 응답 문제</h3><p><button class="term" data-term="OData" type="button">OData</button> Metadata, EntitySet, HTTP 상태는 Gateway Client와 Network에서 확인한다.</p></article>
         <article class="stage7-card" data-prose="concept"><h3>화면 바인딩 문제</h3><p>View, Controller, Model, Binding Path는 VS Code/BAS와 Browser DevTools에서 확인한다.</p></article>
         <article class="stage7-card" data-prose="concept"><h3>운영 상태 문제</h3><p>서비스 등록, 시스템 설정, 표준 로그는 SAP GUI에서 확인한다.</p></article>
       </div>
@@ -76,6 +76,10 @@
     <section class="stage7-section prose-structure" data-prose="structure" id="choose">
       <div class="stage7-section__label">03 · 상황별 도구 선택</div>
       <h2>증상만 보고도 첫 확인 위치를 정할 수 있어야 한다</h2>
+      <div class="note">
+        <strong>🔍 문제 해결의 첫걸음</strong>
+        오류가 발생했을 때 가장 먼저 해야 할 일은 <strong>오류의 진원지가 프론트엔드인지 백엔드인지 격리</strong>하는 것입니다.
+      </div>
       <table>
         <thead><tr><th>증상</th><th>먼저 확인할 도구</th><th>판단 기준</th></tr></thead>
         <tbody>
