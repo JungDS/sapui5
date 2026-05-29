@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ERP Business Process Metro · SAP Developer Learning Library</title>
+<link rel="stylesheet" href="../../assets/common.css" />
+<link rel="stylesheet" href="../../assets/stage7-shell.css" />
+<link rel="stylesheet" href="../../assets/metro-process.css" />
+<script src="../../assets/common.js" defer></script>
+<script src="../../assets/stage7-shell.js" defer></script>
+</head>
+<body
+  data-page-type="doc"
+  data-active-category="module"
+  data-doc-id="erp-metro"
+  data-doc-title="ERP Business Process Metro"
+  data-doc-version="1.0"
+  data-doc-created-at="2026-05-29T07:15:00+09:00"
+  data-doc-updated-at="2026-05-29T07:15:00+09:00"
+  data-prose-root="true">
+
+<div class="stage7-doc-layout metro-layout">
+
+  
+
+  <header class="hero">
+    <div class="wrap hero-grid">
+      
+    <div class="breadcrumb" data-prose="summary" style="padding-top: 1.5rem; padding-left: 2rem;">
+      <a href="../../index.html">Home</a>
+      <span>›</span>
+      <a href="../../pages/module-basics.html">SAP 모듈 기초</a>
+      <span>›</span>
+      <span>ERP Business Process Metro</span>
+    </div>
+
+      <div class="hero-copy">
+        <span class="eyebrow">SAP S/4HANA 관점 · End-to-End Process Learning</span>
+        <h1>ERP Business Process Metro</h1>
+        <p class="lead">
+          이 문서는 ERP Business Process Metro 이미지를 단순한 그림 설명이 아니라, <strong>업무 흐름·문서 흐름·전표 흐름·확장 아키텍처</strong>까지 연결하는 교육용 웹페이지로 구성한 자료입니다. 초급자는 “노선과 환승” 비유로 전체 구조를 잡고, 중급자는 실제 문서와 회계 영향까지 따라가며, 고급 기술자는 S/4HANA 데이터 모델과 Clean Core 확장 관점으로 확장해 학습할 수 있습니다.
+        </p>
+        <div class="hero-actions">
+          <a class="btn-link" href="#reading">이미지 읽는 방법</a>
+          <a class="btn-link secondary" href="#routes">노선별 상세 설명</a>
+          <a class="btn-link secondary" href="#glossary">용어 팝업</a>
+        </div>
+        <div class="summary-list" aria-label="학습 요약">
+          <div><b>노선</b><span>재무, HR, 구매, 영업, 생산이라는 업무 영역</span></div>
+          <div><b>역</b><span>업무 단계, 대표 문서, 주요 이벤트</span></div>
+          <div><b>환승</b><span>부서와 모듈이 만나는 통합 지점</span></div>
+          <div><b>종착</b><span>정산, 수금·지급, 리포트, 성과 관리</span></div>
+        </div>
+      </div>
+      <div class="image-panel">
+        <figure>
+          <img src="../../assets/images/erp-metro.png" alt="ERP Business Process Metro 이미지" />
+          <figcaption>첨부 이미지 기반으로 재구성한 SAP 통합 업무 프로세스 학습자료입니다.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="페이지 목차">
+    <div class="wrap">
+      <a href="#reading">1. 읽는 법</a>
+      <a href="#legend">2. 범례</a>
+      <a href="#routes">3. 노선별 상세</a>
+      <a href="#integration">4. 환승 지점</a>
+      <a href="#levels">5. 수준별 학습</a>
+      <a href="#technical">6. 기술 관점</a>
+      <a href="#glossary">7. 용어 사전</a>
+      <a href="#practice">8. 실습 문제</a>
+      <a href="#sources">9. 참고 링크</a>
+    </div>
+  </nav>
+
+  <main id="main" class="wrap">
+    <section id="reading" aria-labelledby="reading-title">
+      <div class="section-title">
+        <h2 id="reading-title">1. 이미지를 읽는 방법</h2>
+        <p>Metro 이미지는 ERP를 “부서별 메뉴 목록”이 아니라 “업무가 이어지는 운행 지도”로 이해하게 만드는 구조입니다.</p>
+      </div>
+      <div class="panel reading-grid">
+        <div>
+          <div class="reading-rule"><b>노선 = 업무 영역</b><span>색상이 다른 노선은 재무, HR, 구매, 영업, 생산처럼 서로 다른 업무 영역을 의미합니다. 실제 SAP에서는 FI/CO, MM, SD, PP, HCM/SuccessFactors 같은 모듈·제품 영역으로 대응해 설명할 수 있습니다.</span></div>
+          <div class="reading-rule" style="margin-top:.8rem"><b>역 = 업무 단계 또는 대표 문서</b><span>판매 주문, 납품, 인보이스, 지급처럼 업무가 진행되며 생성되는 문서나 이벤트를 역으로 표현합니다. “역을 지난다”는 말은 업무 상태가 한 단계 전진한다는 뜻입니다.</span></div>
+          <div class="reading-rule" style="margin-top:.8rem"><b>환승역 = 통합 지점</b><span>납품, 인보이스, 재무 전기, 급여, 타임시트처럼 여러 노선이 만나는 위치는 ERP 통합의 핵심입니다. 한 부서의 처리 결과가 다른 부서의 데이터와 회계에 영향을 주는 지점입니다.</span></div>
+        </div>
+        <div>
+          <div class="callout good">
+            <h3>교육 진행 시 핵심 질문</h3>
+            <p>학습자에게 “이 업무 단계에서 어떤 문서가 생기는가?”, “그 문서는 어느 부서가 다시 사용하는가?”, “재고·채권·채무·원가는 언제 바뀌는가?”를 계속 묻는 방식이 효과적입니다.</p>
+          </div>
+          <p>
+            예를 들어 <button class="term-btn" data-term="sales-order">Sales Order</button>는 영업 노선의 문서이지만, 이후 <button class="term-btn" data-term="delivery">Delivery</button>와 출고를 통해 재고와 원가에 영향을 주고, <button class="term-btn" data-term="invoice">Invoice</button>를 통해 매출과 고객채권으로 이어집니다. 이처럼 ERP에서는 하나의 문서가 단일 부서에 머무르지 않고 후속 문서와 전표를 통해 전체 조직으로 확산됩니다.
+          </p>
+          <p>
+            따라서 이 이미지는 “SAP 메뉴를 외우는 자료”가 아니라, <strong>업무가 문서와 데이터로 연결되는 방식을 설명하는 지도</strong>로 사용하는 것이 적절합니다. 초급자는 전체 길을 먼저 익히고, 중급자는 문서 흐름을 따라가며, 고급자는 데이터 모델과 확장 포인트를 확인하는 방식으로 난이도를 조정할 수 있습니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="legend" aria-labelledby="legend-title">
+      <div class="section-title">
+        <h2 id="legend-title">2. 범례와 아키텍처적 의미</h2>
+        <p>이미지의 도형 범례는 “표준 업무 위에 어떤 형태의 앱과 확장이 붙는가”를 설명하는 좋은 진입점입니다.</p>
+      </div>
+      <div class="grid-3">
+        <article class="card">
+          <span class="tag">□ Industry Cloud Apps</span>
+          <h3>산업 특화 앱</h3>
+          <p>특정 산업의 요구사항을 반영한 앱입니다. 표준 ERP 프로세스를 바꾸기보다, 산업별 시나리오를 보완하거나 별도 업무 화면·분석·연계를 제공하는 방식으로 이해하면 됩니다.</p>
+          <p><strong>교육 포인트:</strong> 같은 구매·판매 프로세스라도 제조, 유통, 공공, 금융 산업에서 필요한 세부 기능은 달라질 수 있습니다.</p>
+        </article>
+        <article class="card">
+          <span class="tag">△ BTP Extensions</span>
+          <h3>BTP 기반 확장</h3>
+          <p><button class="term-btn" data-term="btp">SAP BTP</button>를 활용해 표준 ERP 핵심을 직접 수정하지 않고 API, 이벤트, 외부 앱, 워크플로우, 자동화를 붙이는 확장 방식입니다.</p>
+          <p><strong>교육 포인트:</strong> 핵심 프로세스는 안정적으로 유지하고, 차별화 기능은 확장 계층으로 분리하는 Clean Core 관점과 연결됩니다.</p>
+        </article>
+        <article class="card">
+          <span class="tag">○ SAP LOB Apps</span>
+          <h3>Line of Business 앱</h3>
+          <p>Finance, Sales, Procurement, Manufacturing 같은 업무 영역별 SAP 표준 앱을 의미합니다. 사용자는 업무 역할에 따라 Fiori 앱이나 SAP GUI 트랜잭션을 통해 업무를 처리합니다.</p>
+          <p><strong>교육 포인트:</strong> 앱 이름보다 중요한 것은 해당 앱이 어떤 문서와 전표를 생성·조회·변경하는지입니다.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="routes" aria-labelledby="routes-title">
+      <div class="section-title">
+        <h2 id="routes-title">3. 노선별 상세 설명</h2>
+        <p>각 노선은 독립된 부서가 아니라, 다른 노선과 연결되면서 기업 전체의 운영 데이터를 구성합니다.</p>
+      </div>
+
+      <div class="grid-5">
+        <article class="route-card route-finance">
+          <div class="route-head"><h3>1호선 · 재무</h3><p>Record-to-Report / FI·CO</p></div>
+          <div class="route-body">
+            <h4>역할</h4>
+            <p>모든 업무 결과를 회계·관리회계 관점으로 집계하고, 채권·채무·현금·원가·손익을 관리합니다.</p>
+            <h4>핵심 단계</h4>
+            <ul><li>마스터 데이터</li><li>G/L 계정과 Cost Center</li><li>재무 전기</li><li>매입·매출 관리</li><li>자금관리와 재무 리포트</li></ul>
+          </div>
+        </article>
+        <article class="route-card route-hr">
+          <div class="route-head"><h3>2호선 · HR</h3><p>Hire-to-Retire</p></div>
+          <div class="route-body">
+            <h4>역할</h4>
+            <p>사람의 생애주기, 근무시간, 급여, 학습, 성과를 관리하고 인건비를 비용·원가로 연결합니다.</p>
+            <h4>핵심 단계</h4>
+            <ul><li>채용과 온보딩</li><li>직원 정보</li><li>타임시트</li><li>급여</li><li>학습과 성과</li></ul>
+          </div>
+        </article>
+        <article class="route-card route-proc">
+          <div class="route-head"><h3>3호선 · 구매</h3><p>Source-to-Pay / MM</p></div>
+          <div class="route-body">
+            <h4>역할</h4>
+            <p>공급업체 선정부터 구매오더, 입고, 송장검증, 지급까지 외부 조달 흐름을 관리합니다.</p>
+            <h4>핵심 단계</h4>
+            <ul><li>소싱</li><li>구매오더</li><li>납품·입고</li><li>인보이스</li><li>지불</li></ul>
+          </div>
+        </article>
+        <article class="route-card route-sales">
+          <div class="route-head"><h3>4호선 · 영업</h3><p>Lead-to-Cash / SD</p></div>
+          <div class="route-body">
+            <h4>역할</h4>
+            <p>잠재 고객 확보부터 판매 주문, 납품, 청구, 수금까지 고객에게 판매하고 현금을 회수하는 흐름입니다.</p>
+            <h4>핵심 단계</h4>
+            <ul><li>잠재 고객·영업기회</li><li>가격 책정</li><li>판매 주문</li><li>납품</li><li>청구와 수금</li></ul>
+          </div>
+        </article>
+        <article class="route-card route-prod">
+          <div class="route-head"><h3>5호선 · 생산</h3><p>Plan-to-Produce / PP</p></div>
+          <div class="route-body">
+            <h4>역할</h4>
+            <p>수요와 계획을 바탕으로 생산오더를 만들고, 자재소비·입고·원가집계·정산까지 연결합니다.</p>
+            <h4>핵심 단계</h4>
+            <ul><li>경영계획·수요예측</li><li>생산</li><li>원가계산</li><li>재고</li><li>생산 리포트</li></ul>
+          </div>
+        </article>
+      </div>
+
+      <details class="deep-card" open>
+        <summary>재무 노선 상세: “결과 집계”가 아니라 “기업 운영의 기준 장부”</summary>
+        <p>
+          재무 노선은 단순히 마지막에 리포트를 뽑는 영역이 아닙니다. 구매에서 발생한 공급업체 채무, 영업에서 발생한 고객채권과 매출, 생산에서 발생한 재고와 원가, HR에서 발생한 인건비가 모두 재무 영역으로 흘러 들어옵니다. 그래서 재무는 <button class="term-btn" data-term="posting">Posting</button>과 <button class="term-btn" data-term="gl-account">G/L Account</button>, <button class="term-btn" data-term="cost-center">Cost Center</button>의 의미를 함께 설명해야 합니다.
+        </p>
+        <div class="process-flow">
+          <div class="step"><b>Master Data</b><span>회사코드, 계정, BP, Cost Center</span></div>
+          <div class="step"><b>Journal Entry</b><span>업무 결과를 회계전표로 반영</span></div>
+          <div class="step"><b>AR/AP</b><span>고객채권과 공급업체 채무 관리</span></div>
+          <div class="step"><b>Cash</b><span>입금·지급·청산 처리</span></div>
+          <div class="step"><b>Report</b><span>손익, 재무상태, 원가 분석</span></div>
+        </div>
+        <p>
+          실무 교육에서는 “판매오더 자체는 회계전표가 아니다”, “출고와 청구, 수금 단계에서 회계 영향이 발생한다”, “구매오더 자체는 약정 문서이고 입고·송장·지급에서 회계 영향이 구체화된다”처럼 문서와 전표의 발생 시점을 구분해 주는 것이 중요합니다. 이 구분이 잡히면 학습자는 SAP에서 왜 문서번호가 여러 개 생기고, 왜 FI 문서와 물류 문서가 함께 조회되는지 이해할 수 있습니다.
+        </p>
+      </details>
+
+      <details class="deep-card">
+        <summary>HR 노선 상세: 직원 데이터가 급여와 원가로 연결되는 구조</summary>
+        <p>
+          HR 노선은 채용·온보딩·직원정보·타임시트·급여·학습·성과로 구성됩니다. 초급자에게는 사람을 관리하는 흐름으로 설명하되, 중급 이상에서는 “근무시간과 급여가 비용으로 어떻게 연결되는가”를 반드시 다루는 것이 좋습니다. <button class="term-btn" data-term="timesheet">Time Sheet</button>는 근무시간을 기록하는 입력점이고, 급여 계산 결과는 직원의 소속 조직이나 원가 배부 규칙에 따라 Cost Center 또는 Cost Object로 넘어갑니다.
+        </p>
+        <p>
+          실제 프로젝트에서는 SuccessFactors와 SAP S/4HANA, 혹은 SAP ERP HCM과 FI/CO 사이의 통합 구조가 환경마다 다를 수 있습니다. 따라서 교육자료에서는 “대표 흐름”을 제시하고, 회사별로 Payroll, Time Management, Cost Allocation의 구현 방식이 다를 수 있음을 설명하는 편이 안전합니다.
+        </p>
+        <div class="process-flow">
+          <div class="step"><b>Recruiting</b><span>인력 확보와 후보자 관리</span></div>
+          <div class="step"><b>Onboarding</b><span>입사 절차와 기본정보 생성</span></div>
+          <div class="step"><b>Time Sheet</b><span>근무시간·작업시간 기록</span></div>
+          <div class="step"><b>Payroll</b><span>급여 계산과 결과 생성</span></div>
+          <div class="step"><b>Costing</b><span>인건비를 원가·비용으로 반영</span></div>
+        </div>
+      </details>
+
+      <details class="deep-card">
+        <summary>구매 노선 상세: GR/IR로 입고와 송장을 분리해서 이해하기</summary>
+        <p>
+          구매 노선은 <button class="term-btn" data-term="purchase-order">Purchase Order</button>가 중심 문서입니다. 구매오더에는 공급업체, 자재 또는 서비스, 수량, 가격, 납기, 플랜트, 계정지정 정보가 들어갑니다. 하지만 구매오더를 만들었다고 바로 재고나 채무가 확정되는 것은 아닙니다. 실제 입고가 발생해야 재고 또는 비용이 반영되고, 공급업체 송장이 들어와야 채무가 확정됩니다.
+        </p>
+        <p>
+          이때 핵심 개념이 <button class="term-btn" data-term="grir">GR/IR</button>입니다. 입고와 송장은 실무상 서로 다른 시점에 발생할 수 있기 때문에, ERP는 입고 단계와 송장검증 단계를 분리해서 관리합니다. 교육에서는 “물건은 받았지만 송장은 아직 받지 못한 상태”, “송장은 받았지만 입고와 수량·가격이 맞는지 확인해야 하는 상태”를 사례로 보여주면 이해가 빠릅니다.
+        </p>
+        <div class="process-flow">
+          <div class="step"><b>Sourcing</b><span>공급업체와 조건 선택</span></div>
+          <div class="step"><b>PO</b><span>구매 조건 확정</span></div>
+          <div class="step"><b>Goods Receipt</b><span>입고와 PO 이력 갱신</span></div>
+          <div class="step"><b>Supplier Invoice</b><span>송장검증과 채무 반영</span></div>
+          <div class="step"><b>Payment</b><span>공급업체 지급과 청산</span></div>
+        </div>
+      </details>
+
+      <details class="deep-card">
+        <summary>영업 노선 상세: 고객 여정과 회계 영향이 만나는 Lead-to-Cash</summary>
+        <p>
+          영업 노선은 고객과의 접점에서 시작해 현금 회수로 끝납니다. 잠재 고객과 영업기회는 CRM 성격이 강하고, 가격 책정과 판매 주문은 상업 조건을 확정하는 단계입니다. 이후 납품은 물류 실행이고, 인보이스는 고객에게 대금을 청구하는 문서이며, 수금은 고객채권을 정리하는 단계입니다.
+        </p>
+        <p>
+          교육에서 특히 중요한 포인트는 <button class="term-btn" data-term="document-flow">Document Flow</button>입니다. 판매오더 하나가 납품문서, 출고문서, 청구문서, 회계전표, 입금전표로 이어질 수 있기 때문입니다. 학습자가 이 흐름을 이해하면 VA01, VL01N, VF01, F-28 같은 대표 트랜잭션을 단순 암기가 아니라 문서 흐름의 위치로 기억할 수 있습니다.
+        </p>
+        <div class="process-flow">
+          <div class="step"><b>Lead</b><span>잠재 고객과 영업기회</span></div>
+          <div class="step"><b>Sales Order</b><span>수량·가격·납기 확정</span></div>
+          <div class="step"><b>Delivery/PGI</b><span>출고와 재고·원가 영향</span></div>
+          <div class="step"><b>Billing</b><span>매출·채권 반영</span></div>
+          <div class="step"><b>Payment</b><span>입금과 채권 청산</span></div>
+        </div>
+      </details>
+
+      <details class="deep-card">
+        <summary>생산 노선 상세: 수량 흐름과 가치 흐름을 동시에 보기</summary>
+        <p>
+          생산 노선은 계획과 실행을 반드시 분리해서 설명해야 합니다. 계획 영역은 수요예측, MRP, 생산계획처럼 “무엇을 얼마나 언제 만들 것인가”를 결정하는 단계입니다. 실행 영역은 생산오더 생성, 자재출고, 작업확정, 완제품 입고, 원가정산처럼 실제 수량과 가치가 움직이는 단계입니다.
+        </p>
+        <p>
+          생산오더는 단순한 작업지시가 아니라 원가를 모으는 객체입니다. 원재료가 출고되면 생산오더에 비용이 모이고, 작업시간이나 활동비용도 오더에 반영될 수 있습니다. 완제품이 입고되면 재고 가치가 증가하고, 정산 시 실제원가·차이·WIP 등이 재무와 관리회계로 연결됩니다. 이 구조를 설명하면 생산과 재무가 왜 강하게 연결되는지 이해할 수 있습니다.
+        </p>
+        <div class="process-flow">
+          <div class="step"><b>Planning</b><span>수요·MRP·생산계획</span></div>
+          <div class="step"><b>Production Order</b><span>작업지시와 원가 객체</span></div>
+          <div class="step"><b>GI/Confirmation</b><span>자재소비와 작업확정</span></div>
+          <div class="step"><b>Goods Receipt</b><span>완제품 입고</span></div>
+          <div class="step"><b>Settlement</b><span>차이·WIP·손익 반영</span></div>
+        </div>
+      </details>
+    </section>
+
+    <section id="integration" aria-labelledby="integration-title">
+      <div class="section-title">
+        <h2 id="integration-title">4. 핵심 환승 지점과 문서·전표 흐름</h2>
+        <p>ERP의 실무 난이도는 개별 화면보다 “환승 지점”에서 올라갑니다. 이 구간이 데이터 품질, 권한, 커스터마이징, 회계 영향의 접점입니다.</p>
+      </div>
+      <div class="table-panel">
+        <table>
+          <thead>
+            <tr>
+              <th>통합 시나리오</th>
+              <th>대표 흐름</th>
+              <th>생성·참조 데이터</th>
+              <th>회계/원가 영향</th>
+              <th>강의 포인트</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Lead-to-Cash</strong></td>
+              <td>Sales Order → Delivery → PGI → Billing → Incoming Payment</td>
+              <td>고객/BP, 자재, 가격조건, 납품문서, 청구문서, 입금문서</td>
+              <td>출고 시 재고·매출원가 영향, 청구 시 매출·고객채권, 수금 시 현금·채권청산</td>
+              <td>판매오더 자체와 회계전표 발생 시점을 구분한다.</td>
+            </tr>
+            <tr>
+              <td><strong>Procure-to-Pay</strong></td>
+              <td>Purchase Order → Goods Receipt → Supplier Invoice → Outgoing Payment</td>
+              <td>공급업체/BP, 구매오더, 입고문서, GR/IR, 공급업체 송장, 지급문서</td>
+              <td>입고 시 재고 또는 비용과 GR/IR, 송장 시 GR/IR 상계와 공급업체 채무, 지급 시 현금 감소</td>
+              <td>입고와 송장이 왜 분리되는지, GR/IR이 왜 필요한지 사례로 설명한다.</td>
+            </tr>
+            <tr>
+              <td><strong>Plan-to-Produce</strong></td>
+              <td>MRP/Planning → Production Order → Confirmation/GI → GR → Settlement</td>
+              <td>BOM, Routing, 생산오더, 자재문서, 확정수량, 정산규칙</td>
+              <td>자재소비와 활동비가 오더에 집계되고, 완제품 입고와 정산을 통해 재고·차이·손익으로 연결</td>
+              <td>수량 흐름과 가치 흐름을 분리해서 그린 뒤 다시 연결한다.</td>
+            </tr>
+            <tr>
+              <td><strong>Time-to-Cost</strong></td>
+              <td>Time Sheet → Payroll/Valuation → Cost Allocation</td>
+              <td>직원, 근무시간, Wage Type, Cost Center, Activity Type, Payroll Result</td>
+              <td>인건비가 비용 또는 원가 객체로 배부되고, 활동배부가 발생할 수 있음</td>
+              <td>HR 데이터가 HR에서 끝나지 않고 CO/FI에 영향을 준다는 점을 강조한다.</td>
+            </tr>
+            <tr>
+              <td><strong>Record-to-Report</strong></td>
+              <td>Operational Posting → Journal Entry → Closing → Reporting</td>
+              <td>G/L, Cost Center, Profit Center, Journal Entry, Universal Journal</td>
+              <td>기간별 결산, 손익·재무상태, 원가 분석과 관리 리포팅</td>
+              <td>다른 노선의 결과가 재무 노선으로 모인다는 구조를 보여준다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn">
+        <h3>실무 기준 주의점</h3>
+        <p>위 전표 설명은 교육용 기본 모델입니다. 실제 차변·대변 계정, 전표유형, 자동계정결정, 세금, 통화, 평가 방식은 회사 코드, Chart of Accounts, Valuation Area, Account Determination, Pricing, Tax 설정에 따라 달라질 수 있습니다.</p>
+      </div>
+    </section>
+
+    <section id="levels" aria-labelledby="levels-title">
+      <div class="section-title">
+        <h2 id="levels-title">5. 학습 수준별 활용 방법</h2>
+        <p>동일한 이미지를 학습자 수준에 따라 다르게 읽게 만들면 초급자와 고급자 모두에게 유용합니다.</p>
+      </div>
+      <div class="tab-shell">
+        <div class="tab-list" role="tablist" aria-label="학습 수준 선택">
+          <button class="tab-btn" role="tab" id="tab-beginner" aria-selected="true" aria-controls="panel-beginner">Beginner</button>
+          <button class="tab-btn" role="tab" id="tab-intermediate" aria-selected="false" aria-controls="panel-intermediate">Intermediate</button>
+          <button class="tab-btn" role="tab" id="tab-advanced" aria-selected="false" aria-controls="panel-advanced">Advanced</button>
+        </div>
+        <div id="panel-beginner" class="tab-panel active" role="tabpanel" aria-labelledby="tab-beginner">
+          <div class="grid-3">
+            <article class="card"><h3>목표</h3><p>ERP가 부서별 프로그램 모음이 아니라, 하나의 업무가 여러 부서를 지나며 데이터로 이어지는 시스템이라는 점을 이해합니다.</p></article>
+            <article class="card"><h3>설명 방식</h3><p>지하철 노선, 역, 환승역 비유를 사용합니다. 트랜잭션 코드는 최소화하고, 판매→납품→청구→수금 같은 현실 업무 흐름을 먼저 잡습니다.</p></article>
+            <article class="card"><h3>확인 질문</h3><p>“판매 주문이 들어오면 재고와 회계는 언제 움직일까?”, “구매오더와 입고는 왜 다른 단계일까?” 같은 질문을 사용합니다.</p></article>
+          </div>
+        </div>
+        <div id="panel-intermediate" class="tab-panel" role="tabpanel" aria-labelledby="tab-intermediate">
+          <div class="grid-2">
+            <div class="mock">
+              <div class="mock-title">Mockup · Sales Document Flow</div>
+              <div class="mock-row"><span>Sales Order</span><strong>SO-500001</strong></div>
+              <div class="mock-row"><span>Outbound Delivery</span><strong>DEL-800001</strong></div>
+              <div class="mock-row"><span>Billing Document</span><strong>INV-900001</strong></div>
+              <div class="mock-row"><span>Incoming Payment</span><strong>CLR-140001</strong></div>
+            </div>
+            <div class="mock">
+              <div class="mock-title">Mockup · Purchase Document Flow</div>
+              <div class="mock-row"><span>Purchase Order</span><strong>PO-450001</strong></div>
+              <div class="mock-row"><span>Goods Receipt</span><strong>MAT-500001</strong></div>
+              <div class="mock-row"><span>Supplier Invoice</span><strong>INV-510001</strong></div>
+              <div class="mock-row"><span>Outgoing Payment</span><strong>PAY-200001</strong></div>
+            </div>
+          </div>
+          <div class="callout">
+            <h3>중급 학습자의 목표</h3>
+            <p>각 단계의 대표 문서, 생성 타이밍, 후속 문서, 재고·채권·채무·원가 영향까지 연결해 설명할 수 있어야 합니다. 이 수준부터는 SAP GUI 트랜잭션과 Fiori 앱을 “어떤 문서를 처리하는 화면인가”라는 기준으로 배치하는 것이 좋습니다.</p>
+          </div>
+        </div>
+        <div id="panel-advanced" class="tab-panel" role="tabpanel" aria-labelledby="tab-advanced">
+          <div class="grid-3">
+            <article class="card"><h3>아키텍처</h3><p>표준 프로세스와 확장 프로세스를 분리합니다. 핵심 트랜잭션은 표준 유지, 차별화 기능은 API·이벤트·BTP 확장으로 분리하는 방향을 검토합니다.</p></article>
+            <article class="card"><h3>데이터 모델</h3><p>문서 흐름, 자재문서, 회계전표, 구매오더, 생산오더의 저장 구조를 추적합니다. 보고서 성능과 데이터 볼륨도 함께 고려합니다.</p></article>
+            <article class="card"><h3>권한</h3><p>업무 역할별 Fiori Catalog/Business Role, OData 또는 InA 서비스 권한, 백엔드 권한 객체까지 연결해 봅니다.</p></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="technical" aria-labelledby="technical-title">
+      <div class="section-title">
+        <h2 id="technical-title">6. 고급 기술자를 위한 SAP 기술 관점</h2>
+        <p>프로세스 교육을 개발자 교육으로 확장하려면 “눈에 보이는 업무 흐름” 뒤의 데이터 객체를 함께 보여주어야 합니다.</p>
+      </div>
+      <div class="table-panel">
+        <table>
+          <thead><tr><th>영역</th><th>대표 객체</th><th>기술 설명</th><th>강의 활용</th></tr></thead>
+          <tbody>
+            <tr><td>영업</td><td>Sales Document, Document Flow, VBFA</td><td>선행·후속 문서 관계를 통해 판매오더에서 납품, 청구까지 이어지는 흐름을 추적합니다.</td><td>“왜 문서번호가 여러 개인가?”를 설명할 때 사용합니다.</td></tr>
+            <tr><td>구매</td><td>Purchase Order, EKKO/EKPO, PO History</td><td>구매오더 헤더·아이템과 입고·송장 이력을 통해 P2P 진행상태를 확인합니다.</td><td>GR/IR 분석, 입고 미송장, 송장 미입고 설명에 유용합니다.</td></tr>
+            <tr><td>재고</td><td>Material Document, MATDOC</td><td>S/4HANA에서는 자재문서와 재고 관련 데이터 모델이 단순화되어 대량 데이터 분석 관점이 중요합니다.</td><td>출고·입고가 회계와 연결되는 순간을 설명합니다.</td></tr>
+            <tr><td>재무</td><td>Journal Entry, ACDOCA</td><td>Universal Journal은 FI/CO 관점의 원장성 데이터를 통합적으로 다루는 핵심 축입니다.</td><td>재무 리포트와 관리회계 분석의 공통 기반으로 설명합니다.</td></tr>
+            <tr><td>생산</td><td>Production Order, Confirmation, Settlement</td><td>생산오더는 수량 실행과 원가 집계를 함께 담당하며, 정산을 통해 재무·관리회계로 이어집니다.</td><td>생산이 단순 제조가 아니라 원가 객체라는 점을 설명합니다.</td></tr>
+            <tr><td>확장</td><td>API, Event, BTP Extension</td><td>표준 코어 변경을 줄이고 외부 확장 계층에서 부가 기능을 구성합니다.</td><td>Clean Core와 Side-by-Side 확장을 설명합니다.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="grid-2" style="margin-top:1rem">
+        <div class="callout good">
+          <h3>Clean Core 관점</h3>
+          <p>표준 객체를 직접 수정하는 방식은 업그레이드와 유지보수 비용을 증가시킬 수 있습니다. 교육에서는 “표준 프로세스는 그대로 두고, 확장 요구사항은 공개 API, 이벤트, Key User Extensibility, BTP 애플리케이션으로 분리한다”는 방향성을 제시하면 좋습니다.</p>
+        </div>
+        <div class="callout">
+          <h3>개발자 관점 질문</h3>
+          <p>“이 요구사항은 표준 앱 설정으로 가능한가?”, “데이터는 어느 문서에서 출발하는가?”, “동기 API가 필요한가, 이벤트 기반 비동기가 적합한가?”, “권한은 프론트엔드와 백엔드에서 모두 준비되었는가?”를 체크합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="glossary" aria-labelledby="glossary-title">
+      <div class="section-title">
+        <h2 id="glossary-title">7. 클릭형 용어 사전</h2>
+        <p>주요 용어를 클릭하면 팝업 형태로 설명이 출력됩니다.</p>
+      </div>
+      <div class="source-box">
+        <div class="term-cloud" aria-label="클릭형 용어 목록">
+          <button class="term-chip" data-term="erp">ERP</button>
+          <button class="term-chip" data-term="s4hana">SAP S/4HANA</button>
+          <button class="term-chip" data-term="master-data">Master Data</button>
+          <button class="term-chip" data-term="transaction-data">Transaction Data</button>
+          <button class="term-chip" data-term="sales-order">Sales Order</button>
+          <button class="term-chip" data-term="delivery">Delivery</button>
+          <button class="term-chip" data-term="invoice">Invoice</button>
+          <button class="term-chip" data-term="purchase-order">Purchase Order</button>
+          <button class="term-chip" data-term="goods-receipt">Goods Receipt</button>
+          <button class="term-chip" data-term="grir">GR/IR</button>
+          <button class="term-chip" data-term="posting">Posting</button>
+          <button class="term-chip" data-term="gl-account">G/L Account</button>
+          <button class="term-chip" data-term="cost-center">Cost Center</button>
+          <button class="term-chip" data-term="document-flow">Document Flow</button>
+          <button class="term-chip" data-term="timesheet">Time Sheet</button>
+          <button class="term-chip" data-term="btp">SAP BTP</button>
+          <button class="term-chip" data-term="clean-core">Clean Core</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="practice" aria-labelledby="practice-title">
+      <div class="section-title">
+        <h2 id="practice-title">8. 실습 및 토론 문제</h2>
+        <p>단순 암기보다 문서 흐름과 회계 영향을 설명하도록 유도하는 문제로 구성했습니다.</p>
+      </div>
+      <details class="quiz-item" open>
+        <summary>초급: 판매오더가 생성되면 바로 매출이 발생한다고 볼 수 있을까?</summary>
+        <p>예시 답안: 일반적으로 판매오더는 고객과의 판매 조건을 확정하는 상업 문서입니다. 매출과 고객채권은 보통 청구문서가 회계로 전기될 때 반영됩니다. 다만 실제 시점은 회사의 청구 방식과 설정에 따라 달라질 수 있습니다.</p>
+      </details>
+      <details class="quiz-item">
+        <summary>중급: 구매오더, 입고, 공급업체 송장, 지급 중 GR/IR과 직접 연결되는 단계는?</summary>
+        <p>예시 답안: 입고와 공급업체 송장입니다. 입고는 물품 수령과 재고·비용 반영을 처리하고, 송장은 공급업체 채무를 확정하면서 GR/IR을 상계합니다. 지급은 확정된 채무를 현금으로 정리하는 단계입니다.</p>
+      </details>
+      <details class="quiz-item">
+        <summary>중급: 생산오더는 왜 작업지시서 이상의 의미를 가질까?</summary>
+        <p>예시 답안: 생산오더는 자재소비, 작업확정, 활동비용, 완제품 입고, 차이와 정산의 기준 객체입니다. 따라서 생산 실행뿐 아니라 원가 집계와 재무 연결에도 중요합니다.</p>
+      </details>
+      <details class="quiz-item">
+        <summary>고급: 외부 파트너 포털에 납품 상태 알림 기능을 붙인다면 어디에 구현하는 것이 바람직할까?</summary>
+        <p>예시 답안: 표준 납품 프로세스 자체를 수정하기보다, 공개 API 또는 이벤트를 활용해 BTP 기반 side-by-side 확장으로 구성하는 방안을 우선 검토합니다. 이렇게 하면 핵심 프로세스 안정성과 업그레이드 대응성을 유지하기 쉽습니다.</p>
+      </details>
+    </section>
+
+    <section id="sources" aria-labelledby="sources-title">
+      <div class="section-title">
+        <h2 id="sources-title">9. 공식 참고 링크</h2>
+        <p>수업 중 추가 설명이 필요할 때 연결할 수 있는 공식 자료 중심의 링크입니다.</p>
+      </div>
+      <div class="source-box">
+        <ul>
+          <li><a href="https://learning.sap.com/courses/exploring-end-to-end-business-processes-in-sap-business-suite-ko/describing-cloud-erp-business-processes-line-of-business-functionality" target="_blank" rel="noopener">SAP Learning · End-to-End Business Processes and LoB Functionality</a></li>
+          <li><a href="https://learning.sap.com/courses/executing-basic-erp-processes-with-sap-s-4hana" target="_blank" rel="noopener">SAP Learning · Executing Basic ERP Processes with SAP S/4HANA</a></li>
+          <li><a href="https://learning.sap.com/courses/sap-customer-experience-lead-to-cash/describing-the-sap-lead-to-cash-business-process-and-its-stages" target="_blank" rel="noopener">SAP Learning · Lead-to-Cash Business Process</a></li>
+          <li><a href="https://help.sap.com/docs/btp/sap-business-technology-platform/sap-business-technology-platform" target="_blank" rel="noopener">SAP Help · SAP Business Technology Platform</a></li>
+          <li><a href="https://help.sap.com/docs/btp/btp-developers-guide/extending-existing-sap-solutions-using-sap-btp" target="_blank" rel="noopener">SAP Help · Extending Existing SAP Solutions Using SAP BTP</a></li>
+          <li><a href="https://help.sap.com/glossary" target="_blank" rel="noopener">SAP Help · SAP Glossary</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>ERP Business Process Metro 상세 교육용 가이드</strong></p>
+    <p>배포자: 정훈영</p>
+  </footer>
+
+  <dialog id="glossaryDialog" aria-labelledby="dialogTitle">
+    <div class="dialog-head">
+      <h2 id="dialogTitle">용어</h2>
+      <button class="dialog-close" type="button" id="dialogClose" aria-label="용어 설명 닫기">×</button>
+    </div>
+    <div class="dialog-body">
+      <p id="dialogDefinition"></p>
+      <ul id="dialogExamples"></ul>
+    </div>
+  </dialog>
+
+  
+
+</div>
+
+<script>
+
+    const glossary = {
+      "erp": { title: "ERP", definition: "Enterprise Resource Planning의 약자입니다. 재무, 구매, 영업, 생산, 인사 등 기업 운영 업무를 공통 데이터와 표준 프로세스로 연결하는 통합 시스템입니다.", examples: ["핵심은 부서별 데이터 중복을 줄이고, 업무 결과를 하나의 흐름으로 연결하는 것입니다."] },
+      "s4hana": { title: "SAP S/4HANA", definition: "SAP의 차세대 ERP 제품군입니다. HANA 데이터베이스 기반의 단순화된 데이터 모델, Fiori 사용자 경험, 실시간 분석, 통합 프로세스를 특징으로 설명할 수 있습니다.", examples: ["교육에서는 FI/CO, MM, SD, PP 같은 전통 모듈 개념과 함께 LoB 앱 관점도 함께 설명하는 것이 좋습니다."] },
+      "master-data": { title: "Master Data", definition: "고객, 공급업체, 자재, G/L 계정, Cost Center처럼 여러 거래에서 반복적으로 참조되는 기준정보입니다.", examples: ["마스터 데이터 품질이 낮으면 판매, 구매, 생산, 회계 전 과정의 오류로 이어질 수 있습니다."] },
+      "transaction-data": { title: "Transaction Data", definition: "판매오더, 구매오더, 입고문서, 청구문서, 회계전표처럼 실제 업무 이벤트가 발생하면서 생성되는 거래 데이터입니다.", examples: ["마스터 데이터는 기준이고, 트랜잭션 데이터는 실제 발생 기록입니다."] },
+      "sales-order": { title: "Sales Order", definition: "고객에게 판매할 품목, 수량, 가격, 납기, 납품 조건 등을 확정하는 판매 문서입니다.", examples: ["후속 문서로 Delivery와 Billing Document가 이어질 수 있습니다."] },
+      "delivery": { title: "Delivery", definition: "판매오더 등을 바탕으로 실제 물류 실행을 관리하는 납품 문서입니다. 출고 처리와 연결되며 재고와 원가에 영향을 줄 수 있습니다.", examples: ["Outbound Delivery, Post Goods Issue를 함께 설명하면 이해가 쉽습니다."] },
+      "invoice": { title: "Invoice", definition: "대금 청구 또는 송장 문서입니다. 영업에서는 고객 청구문서, 구매에서는 공급업체 송장으로 구분해 설명하는 것이 좋습니다.", examples: ["청구문서가 회계로 전기되면 매출·채권 또는 채무 영향이 발생합니다."] },
+      "purchase-order": { title: "Purchase Order", definition: "공급업체에 자재나 서비스를 어떤 조건으로 구매할지 확정하는 구매 문서입니다.", examples: ["구매오더 자체보다 입고와 송장검증 단계에서 회계 영향이 구체화됩니다."] },
+      "goods-receipt": { title: "Goods Receipt", definition: "자재나 서비스가 실제로 입고 또는 수령되었음을 기록하는 물류 이벤트입니다.", examples: ["구매오더 이력 갱신, 재고 증가, GR/IR 반영과 연결됩니다."] },
+      "grir": { title: "GR/IR", definition: "Goods Receipt / Invoice Receipt의 약자입니다. 입고와 송장이 다른 시점에 발생할 때 두 단계를 연결해 주는 정리 계정 개념입니다.", examples: ["입고는 되었지만 송장이 아직 없는 상태, 송장은 왔지만 입고와 비교해야 하는 상태를 설명할 때 유용합니다."] },
+      "posting": { title: "Posting", definition: "업무 이벤트를 회계전표, 자재문서 등 시스템 장부에 확정 반영하는 처리입니다.", examples: ["전기 후에는 보고서와 원장, 재고 수량·가치에 영향을 줄 수 있습니다."] },
+      "gl-account": { title: "G/L Account", definition: "총계정원장 계정입니다. 거래가 어떤 회계 계정으로 기록될지 결정하는 기준입니다.", examples: ["매출, 재고, 매출원가, 고객채권, 공급업체채무 같은 계정으로 설명할 수 있습니다."] },
+      "cost-center": { title: "Cost Center", definition: "비용이 발생하는 조직 또는 책임 단위입니다. 부서 비용 집계, 예산 관리, 배부의 기준이 됩니다.", examples: ["급여, 활동비, 일반비용을 어느 조직 비용으로 볼 것인지 결정할 때 사용합니다."] },
+      "document-flow": { title: "Document Flow", definition: "선행 문서와 후속 문서의 관계를 보여주는 흐름입니다. SAP에서는 판매오더에서 납품, 청구, 회계문서로 이어지는 진행 상태를 이해하는 데 중요합니다.", examples: ["문서 하나만 보는 것이 아니라 전체 체인을 보는 훈련이 필요합니다."] },
+      "timesheet": { title: "Time Sheet", definition: "직원 또는 작업자의 근무시간·작업시간을 기록하는 도구입니다. 급여, 프로젝트, 원가 배부와 연결될 수 있습니다.", examples: ["HR 데이터가 원가회계로 넘어가는 대표적인 환승 지점입니다."] },
+      "btp": { title: "SAP BTP", definition: "SAP Business Technology Platform입니다. 애플리케이션 개발, 통합, 자동화, 데이터·분석, 확장 기능을 제공하는 SAP의 기술 플랫폼입니다.", examples: ["표준 ERP 코어를 직접 수정하지 않고 외부 확장 앱이나 이벤트 기반 연계를 구성할 때 활용됩니다."] },
+      "clean-core": { title: "Clean Core", definition: "표준 핵심 시스템을 가능한 깨끗하게 유지하고, 차별화 요구사항은 공개 확장 방식이나 외부 확장 계층으로 분리하려는 아키텍처 원칙입니다.", examples: ["업그레이드 안정성, 유지보수성, 표준 기능 활용성을 높이는 방향으로 설명할 수 있습니다."] }
+    };
+
+    const dialog = document.getElementById("glossaryDialog");
+    const dialogTitle = document.getElementById("dialogTitle");
+    const dialogDefinition = document.getElementById("dialogDefinition");
+    const dialogExamples = document.getElementById("dialogExamples");
+    const dialogClose = document.getElementById("dialogClose");
+
+    function openTerm(key) {
+      const item = glossary[key];
+      if (!item) return;
+      dialogTitle.textContent = item.title;
+      dialogDefinition.textContent = item.definition;
+      dialogExamples.innerHTML = "";
+      item.examples.forEach((example) => {
+        const li = document.createElement("li");
+        li.textContent = example;
+        dialogExamples.appendChild(li);
+      });
+      dialog.showModal();
+    }
+
+    document.querySelectorAll("[data-term]").forEach((button) => {
+      button.addEventListener("click", () => openTerm(button.dataset.term));
+    });
+
+    dialogClose.addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", (event) => {
+      const rect = dialog.getBoundingClientRect();
+      const isInside = event.clientX >= rect.left && event.clientX <= rect.right && event.clientY >= rect.top && event.clientY <= rect.bottom;
+      if (!isInside) dialog.close();
+    });
+
+    const tabButtons = Array.from(document.querySelectorAll(".tab-btn"));
+    const tabPanels = Array.from(document.querySelectorAll(".tab-panel"));
+
+    function activateTab(activeButton) {
+      tabButtons.forEach((button) => {
+        const isSelected = button === activeButton;
+        button.setAttribute("aria-selected", String(isSelected));
+        button.tabIndex = isSelected ? 0 : -1;
+      });
+      tabPanels.forEach((panel) => {
+        panel.classList.toggle("active", panel.id === activeButton.getAttribute("aria-controls"));
+      });
+    }
+
+    tabButtons.forEach((button, index) => {
+      button.addEventListener("click", () => activateTab(button));
+      button.addEventListener("keydown", (event) => {
+        const prev = (index - 1 + tabButtons.length) % tabButtons.length;
+        const next = (index + 1) % tabButtons.length;
+        if (event.key === "ArrowLeft") { tabButtons[prev].focus(); }
+        if (event.key === "ArrowRight") { tabButtons[next].focus(); }
+        if (event.key === "Home") { tabButtons[0].focus(); }
+        if (event.key === "End") { tabButtons[tabButtons.length - 1].focus(); }
+        if (event.key === "Enter" || event.key === " ") { event.preventDefault(); activateTab(button); }
+      });
+    });
+  
+</script>
+</body>
+</html>

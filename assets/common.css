@@ -828,3 +828,29 @@ tr:last-child td { border-bottom: none; }
     grid-template-columns: 1fr;
   }
 }
+
+/* Dual-Tab Term Modal CSS */
+.term-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  border-bottom: 2px solid var(--line);
+}
+.term-tab-btn {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 8px 12px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--muted);
+  cursor: pointer;
+  margin-bottom: -2px; /* overlap border */
+}
+.term-tab-btn:hover {
+  color: var(--sap-blue);
+}
+.term-tab-btn.active {
+  color: var(--sap-blue-dark);
+  border-bottom-color: var(--sap-blue);
+}

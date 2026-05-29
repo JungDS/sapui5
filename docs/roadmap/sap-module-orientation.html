@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SAP 모듈 이해와 개발자 관점 오리엔테이션 · SAP Developer Learning Library</title>
+<link rel="stylesheet" href="../../assets/common.css" />
+<link rel="stylesheet" href="../../assets/stage7-shell.css" />
+<script src="../../assets/common.js" defer></script>
+<script src="../../assets/stage7-shell.js" defer></script>
+</head>
+<body
+  data-page-type="doc"
+  data-active-category="roadmap"
+  data-doc-id="sap-module-orientation"
+  data-doc-title="SAP 모듈 이해와 개발자 관점 오리엔테이션"
+  data-doc-version="4.0"
+  data-doc-created-at="2026-05-29T11:00:00+09:00"
+  data-doc-updated-at="2026-05-29T11:00:00+09:00"
+  data-prose-root="true">
+
+<div class="stage7-doc-layout">
+  <section class="stage7-hero prose-summary" data-prose="summary">
+    <div class="breadcrumb" data-prose="summary">
+      <a href="../../index.html">Home</a>
+      <span>›</span>
+      <a href="../../pages/roadmap.html">로드맵 / 학습전략</a>
+      <span>›</span>
+      <span>SAP 모듈 이해와 개발자 관점 오리엔테이션</span>
+    </div>
+    <div class="stage7-hero__eyebrow">SAP Developer Learning Library</div>
+    <h1>SAP 모듈 이해와 개발자 관점 오리엔테이션</h1>
+    <p class="lead">
+      현업 모듈(<button class="term" data-term="MM" type="button">MM</button>, <button class="term" data-term="SD" type="button">SD</button>, <button class="term" data-term="FI" type="button">FI</button>, <button class="term" data-term="CO" type="button">CO</button> 등)의 주요 업무 프로세스 흐름과,
+      개발자가 비즈니스 프로세스 및 표준 테이블 구조를 분석해야 하는 이유와 학습 방향을 안내한다.
+    </p>
+    <div class="home-badges">
+      <span class="stage7-badge blue">Stage 7 Docs</span>
+      <span class="stage7-badge amber">준비 중</span>
+      <span class="stage7-badge purple">모듈 로드맵</span>
+    </div>
+    
+    <div class="stage7-alert amber" style="margin-top: 15px; border-radius: 12px; padding: 15px; border-left: 4px solid var(--stage7-amber); background: var(--stage7-amber-soft); color: var(--stage7-amber); font-size: 0.9rem; line-height: 1.5;">
+      <strong>[제작 예정 문서]</strong> 이 가이드는 현재 준비 중인 문서(스켈레톤)입니다. 학습자 추천 경로에 따른 핵심 아웃라인과 다루게 될 핵심 주제를 아래에서 미리 확인하실 수 있으며, 추후 상세 실무 튜토리얼이 추가될 예정입니다.
+    </div>
+  </section>
+
+  <main>
+    <section class="stage7-section prose-structure" data-prose="structure" id="orientation">
+      <div class="stage7-section__label">01 · 오리엔테이션</div>
+      <h2>개발자에게 모듈 프로세스 지식이 왜 중요한가?</h2>
+      <p>
+        SAP 시스템은 기술적 프레임워크와 비즈니스 기능(모듈)이 강력하게 결합되어 있습니다.
+        업무 프로세스를 모르고 설계하는 개발자는 단순 화면 복사 수준에 머무르게 되며, 
+        비즈니스를 이해할 때 비로소 Standard 기능을 효율적으로 확장하는 진정한 SAP 컨설턴트/개발자가 될 수 있습니다.
+      </p>
+      <div class="stage7-card-grid two">
+        <article class="stage7-card" data-prose="concept">
+          <h3>ERP 업무 프로세스는 유기적이다</h3>
+          <p>예를 들어, <button class="term" data-term="SD" type="button">SD</button>(영업)에서 <button class="term" data-term="판매오더" type="button">판매오더</button>가 발생하면, <button class="term" data-term="PP" type="button">PP</button>(생산)에서 생산 계획과 자재 수급을 조율하고, <button class="term" data-term="MM" type="button">MM</button>(자재)에서 원자재를 구매하여 입고한 뒤, <button class="term" data-term="FI" type="button">FI</button>(재무)에서 최종 분개 전표가 끊기고 원가가 <button class="term" data-term="CO" type="button">CO</button>로 분석됩니다. 이 흐름을 이해해야 각 테이블의 관계가 이해됩니다.</p>
+        </article>
+        <article class="stage7-card" data-prose="concept">
+          <h3>개발 생산성 향상</h3>
+          <p>모듈의 표준 데이터 흐름(<button class="term" data-term="Header" type="button">Header</button>-<button class="term" data-term="Item" type="button">Item</button> 관계, Document Flow)과 상태 값들의 구조를 알면, 데이터 가공에 필요한 DB 조회 쿼리(Open SQL / <button class="term" data-term="CDS" type="button">CDS</button>) 작성이 훨씬 직관적이고 쉬워집니다.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="stage7-section prose-structure" data-prose="structure" id="modules">
+      <div class="stage7-section__label">02 · 주요 핵심 모듈 개요</div>
+      <h2>가장 먼저 학습해야 할 4대 핵심 모듈</h2>
+      <table>
+        <thead><tr><th>모듈명</th><th>대표 업무</th><th>핵심 Standard 테이블 예시</th></tr></thead>
+        <tbody>
+          <tr><td><button class="term" data-term="MM" type="button">MM</button> (자재관리)</td><td>자재 마스터 관리, 구매요청, 구매오더, 입고, 송장 검증</td><td>MARA (자재마스터), EKKO/EKPO (구매오더), MSEG (자재문서)</td></tr>
+          <tr><td><button class="term" data-term="SD" type="button">SD</button> (영업관리)</td><td>고객 정보, 판매계약, <button class="term" data-term="판매오더" type="button">판매오더</button>, 출하/출고, 대금 청구</td><td>VBAK/VBAP (<button class="term" data-term="판매오더" type="button">판매오더</button>), LIKP/LIPS (납품문서), VBRK/VBRP (청구문서)</td></tr>
+          <tr><td><button class="term" data-term="FI" type="button">FI</button> (재무회계)</td><td>G/L 계정 관리, 일반 분개 전표, 채권/채무, 결산</td><td>BKPF/BSEG (회계전표), ACDOCA (Universal Journal 통합테이블)</td></tr>
+          <tr><td><button class="term" data-term="CO" type="button">CO</button> (관리회계)</td><td>원가 센터, 내부 오더, 손익 센터, 제조원가 계산</td><td>CSKS (원가센터), COSP/COSS (원가거래값 테이블)</td></tr>
+        </tbody>
+      </table>
+      <p class="muted" style="margin-top: 10px; font-size: 0.9rem;">
+        * 구체적인 테이블 간 연계 관계와 모듈 프로세스 상세 가이드는 <a href="../../pages/module-basics.html">SAP 모듈 기초 홈</a> 영역을 참조하십시오.
+      </p>
+    </section>
+
+    <section class="stage7-section prose-checklist" data-prose="checklist" id="checklist">
+      <div class="stage7-section__label">03 · 모듈 학습 접근 방법</div>
+      <h2>학습을 효율적으로 진행하기 위한 방법론</h2>
+      <ol>
+        <li>마스터 데이터(Master Data)와 트랜잭션 데이터(Transaction Data)를 확실히 구분하고 표준 화면을 직접 봅니다.</li>
+        <li>모든 모듈의 공통 규칙인 '전표 흐름(Document Flow, 예: VBFA 테이블)' 개념을 완전히 파악합니다.</li>
+        <li>데이터 구조를 이해하기 위해 <a href="../module/standard-table-map.html">Standard Table Map 입문</a>을 먼저 숙독합니다.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="stage7-footer prose-summary" data-prose="summary">
+    SAP 모듈 이해와 개발자 관점 오리엔테이션 · Stage 7 Docs · 2026-05-29
+  </footer>
+</div>
+</body>
+</html>

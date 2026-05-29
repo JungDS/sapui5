@@ -1,57 +1,71 @@
 <!DOCTYPE html>
-
 <html lang="ko">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>SAP 데이터를 외부로 내보내는 방법 정리 · 혼합 문체 · SAP Developer Learning Library v3</title>
-<link href="../../assets/common.css" rel="stylesheet"/>
-<script defer="" src="../../assets/common.js"></script>
-<!-- data-prose required: concept | structure | practice | checklist | warning | teacher | reference | summary --></head>
-<body data-active-category="abap" data-active-doc="odata-export" data-prose-root="true">
-<header class="library-topbar prose-summary" data-prose="summary">
-<div class="library-topbar__inner">
-<a class="library-home" href="../../index.html">← SAP 학습자료 홈</a>
-<div class="library-meta">
-<span class="badge blue">v3</span>
-<span class="badge green">01. ABAP 개발</span>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SAP 데이터를 외부로 내보내는 방법 정리 · SAP Developer Learning Library</title>
+<link rel="stylesheet" href="../../assets/common.css" />
+<link rel="stylesheet" href="../../assets/stage7-shell.css" />
+<script src="../../assets/common.js" defer></script>
+<script src="../../assets/stage7-shell.js" defer></script>
+</head>
+<body
+  data-page-type="doc"
+  data-active-category="abap"
+  data-doc-id="odata-export"
+  data-doc-title="SAP 데이터를 외부로 내보내는 방법 정리"
+  data-doc-version="4.0"
+  data-doc-created-at="2026-05-29T15:00:00+09:00"
+  data-doc-updated-at="2026-05-29T15:00:00+09:00"
+  data-prose-root="true">
 
-<span class="badge purple">혼합 문체</span></div>
-</div>
-</header>
-<div class="library-shell">
-<section class="hero prose-summary" data-prose="summary">
-<div class="breadcrumb" data-prose="summary">
-<a href="../../index.html">Home</a>
-<span>›</span>
-<a href="../../pages/abap.html">ABAP 개발</a>
-<span>›</span>
-<span>현재 문서</span>
-</div>
+<div class="stage7-doc-layout">
+  <section class="stage7-hero prose-summary" data-prose="summary">
+    <div class="breadcrumb" data-prose="summary">
+      <a href="../../index.html">Home</a>
+      <span>›</span>
+      <a href="../../pages/abap.html">ABAP 개발</a>
+      <span>›</span>
+      <span>SAP 데이터를 외부로 내보내는 방법 정리</span>
+    </div>
+    <div class="stage7-hero__eyebrow">SAP Developer Learning Library</div>
+    <h1>SAP 데이터를 외부로 내보내는 방법 정리</h1>
+    <p class="lead">SAP 데이터를 외부 시스템으로 노출할 때 <button class="term" data-term="OData" type="button">OData</button>, API, 파일, <button class="term" data-term="RFC" type="button">RFC</button> 등을 어떤 기준으로 선택할지 설명한다.</p>
+    <div class="home-badges">
+      <span class="stage7-badge blue">Stage 7</span>
+      <span class="stage7-badge green">ABAP 개발</span>
+      <span class="stage7-badge purple">외부 연계</span>
+    </div>
+  </section>
 
-<div class="eyebrow">SAP Developer Learning Library</div>
-<h1>SAP 데이터를 외부로 내보내는 방법 정리</h1>
-<p class="lead">SAP 데이터를 외부 시스템으로 노출할 때 OData, API, 파일, RFC 등을 어떤 기준으로 선택할지 설명한다.</p>
-<div class="hero-actions"><span class="badge green">OData</span><span class="badge blue">외부 연계</span><span class="badge purple">본문 평서형</span><span class="badge amber">실습 지시형</span></div>
-</section>
-<main><section class="section-card prose-warning" data-prose="warning" id="ways">
-<div class="section-label">01 · 방식</div>
-<h2>외부 연계 방식은 목적에 따라 선택한다</h2>
-<table><thead><tr><th>방식</th><th>적합한 상황</th><th>주의점</th></tr></thead><tbody><tr><td>OData/API</td><td>웹/앱에서 실시간 조회·저장</td><td>인증, 권한, 메시지 처리</td></tr><tr><td>파일</td><td>대량 배치 전송</td><td>재처리, 오류 파일 관리</td></tr><tr><td>RFC/BAPI</td><td>SAP 간 또는 레거시 연계</td><td>호출 권한과 트랜잭션</td></tr><tr><td>Event</td><td>상태 변화 알림</td><td>중복 수신과 순서 보장</td></tr></tbody></table>
-</section>
-<section class="section-card prose-warning" data-prose="warning" id="security">
-<div class="section-label">02 · 보안</div>
-<h2>외부 노출은 항상 권한과 보안을 먼저 본다</h2>
-<div class="danger prose-warning" data-prose="warning"><strong>주의</strong>인터넷으로 SAP 데이터를 내보내는 경우 인증, 권한, 개인정보, 감사로그, Rate Limit를 반드시 검토해야 한다.</div>
-</section></main>
-<aside class="toc prose-reference" data-prose="reference">
-<div class="library-tree" data-nav-tree="main" data-prose="reference"></div>
-<hr class="tree-separator"/>
-<div class="local-page-tools" data-prose="reference">
-<h2>이 문서 안에서</h2>
+  <main>
+    <section class="stage7-section prose-warning" data-prose="warning" id="ways">
+      <div class="stage7-section__label">01 · 방식</div>
+      <h2>외부 연계 방식은 목적에 따라 선택한다</h2>
+      <table>
+        <thead><tr><th>방식</th><th>적합한 상황</th><th>주의점</th></tr></thead>
+        <tbody>
+          <tr><td><button class="term" data-term="OData" type="button">OData</button>/API</td><td>웹/앱에서 실시간 조회·저장</td><td>인증, 권한, 메시지 처리</td></tr>
+          <tr><td>파일</td><td>대량 배치 전송</td><td>재처리, 오류 파일 관리</td></tr>
+          <tr><td><button class="term" data-term="RFC" type="button">RFC</button>/<button class="term" data-term="BAPI" type="button">BAPI</button></td><td>SAP 간 또는 레거시 연계</td><td>호출 권한과 트랜잭션</td></tr>
+          <tr><td>Event</td><td>상태 변화 알림</td><td>중복 수신과 순서 보장</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="stage7-section prose-warning" data-prose="warning" id="security">
+      <div class="stage7-section__label">02 · 보안</div>
+      <h2>외부 노출은 항상 권한과 보안을 먼저 본다</h2>
+      <div class="warning" data-prose="warning">
+        <strong>주의</strong>
+        인터넷으로 SAP 데이터를 내보내는 경우 인증, 권한, 개인정보, 감사로그, Rate Limit를 반드시 검토해야 한다.
+      </div>
+    </section>
+  </main>
+
+  <footer class="stage7-footer prose-summary" data-prose="summary">
+    SAP 데이터를 외부로 내보내는 방법 정리 · Stage 7 Docs · 2026-05-29
+  </footer>
 </div>
-<h2>학습 목차</h2><a href="#ways">01. 방식</a><a href="#security">02. 보안</a></aside>
-</div>
-<footer class="library-footer prose-summary" data-prose="summary">SAP 데이터를 외부로 내보내는 방법 정리 · v3 · 2026-05-27 · 혼합 문체 기준 · Final</footer>
 </body>
 </html>

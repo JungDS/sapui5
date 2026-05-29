@@ -31,7 +31,7 @@
     <div class="stage7-hero__eyebrow">SAP Developer Learning Library</div>
     <h1>UI5 Controller 함수 문법 입문</h1>
     <p class="lead">
-      Controller는 XML View에서 발생한 사용자 행동을 받아 모델을 읽고, 화면 상태를 바꾸고,
+      <button class="term" data-term="Controller" type="button">Controller</button>는 XML View에서 발생한 사용자 행동을 받아 모델을 읽고, 화면 상태를 바꾸고,
       라우팅이나 저장 같은 앱 동작을 실행하는 위치다.
     </p>
     <div class="home-badges">
@@ -45,21 +45,21 @@
   <main>
     <section class="stage7-section prose-concept" data-prose="concept" id="role">
       <div class="stage7-section__label">01 · 역할</div>
-      <h2>Controller는 화면의 행동을 담당합니다</h2>
+      <h2><button class="term" data-term="Controller" type="button">Controller</button>는 화면의 행동을 담당합니다</h2>
       <p>
-        SAPUI5에서 View는 화면 구조를 선언하고, Controller는 사용자가 클릭하거나 값을 바꾸었을 때
-        어떤 처리를 할지 정의한다. 초급자는 Controller를 "버튼 함수 모음"으로만 이해하기 쉽지만,
+        <button class="term" data-term="UI5" type="button">UI5</button>에서 View는 화면 구조를 선언하고, <button class="term" data-term="Controller" type="button">Controller</button>는 사용자가 클릭하거나 값을 바꾸었을 때
+        어떤 처리를 할지 정의한다. 초급자는 <button class="term" data-term="Controller" type="button">Controller</button>를 "버튼 함수 모음"으로만 이해하기 쉽지만,
         실무에서는 View, Model, Router, MessageManager를 연결하는 중심 지점이다.
       </p>
       <p>
-        Controller에 모든 업무 로직을 넣는 것은 좋지 않다. Controller는 화면 이벤트를 받아
+        <button class="term" data-term="Controller" type="button">Controller</button>에 모든 업무 로직을 넣는 것은 좋지 않다. <button class="term" data-term="Controller" type="button">Controller</button>는 화면 이벤트를 받아
         필요한 서비스나 모델 호출로 넘기는 조정자 역할에 가깝다.
       </p>
     </section>
 
     <section class="stage7-section prose-structure" data-prose="structure" id="shape">
       <div class="stage7-section__label">02 · 기본 모양</div>
-      <h2>UI5 Controller 파일은 define과 extend 구조로 작성합니다</h2>
+      <h2><button class="term" data-term="UI5" type="button">UI5</button> <button class="term" data-term="Controller" type="button">Controller</button> 파일은 define과 extend 구조로 작성합니다</h2>
       <pre><code>sap.ui.define([
   "sap/ui/core/mvc/Controller",
   "sap/m/MessageToast"

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SAP 개발 요구사항 분석법 · SAP Developer Learning Library</title>
+<link rel="stylesheet" href="../../assets/common.css" />
+<link rel="stylesheet" href="../../assets/stage7-shell.css" />
+<script src="../../assets/common.js" defer></script>
+<script src="../../assets/stage7-shell.js" defer></script>
+</head>
+<body
+  data-page-type="doc"
+  data-active-category="roadmap"
+  data-doc-id="requirements-analysis"
+  data-doc-title="SAP 개발 요구사항 분석법"
+  data-doc-version="4.0"
+  data-doc-created-at="2026-05-29T11:00:00+09:00"
+  data-doc-updated-at="2026-05-29T11:00:00+09:00"
+  data-prose-root="true">
+
+<div class="stage7-doc-layout">
+  <section class="stage7-hero prose-summary" data-prose="summary">
+    <div class="breadcrumb" data-prose="summary">
+      <a href="../../index.html">Home</a>
+      <span>›</span>
+      <a href="../../pages/roadmap.html">로드맵 / 학습전략</a>
+      <span>›</span>
+      <span>SAP 개발 요구사항 분석법</span>
+    </div>
+    <div class="stage7-hero__eyebrow">SAP Developer Learning Library</div>
+    <h1>SAP 개발 요구사항 분석법</h1>
+    <p class="lead">
+      실무 현업의 요구사항 정의서로부터 데이터를 어떻게 설계하고, Standard 테이블과 Custom 테이블을
+      어떤 규칙 하에 구성할 것인가에 대한 개발 설계 분석 방법론을 설명한다.
+    </p>
+    <div class="home-badges">
+      <span class="stage7-badge blue">Stage 7 Docs</span>
+      <span class="stage7-badge amber">준비 중</span>
+      <span class="stage7-badge purple">요구사항 분석</span>
+    </div>
+    
+    <div class="stage7-alert amber" style="margin-top: 15px; border-radius: 12px; padding: 15px; border-left: 4px solid var(--stage7-amber); background: var(--stage7-amber-soft); color: var(--stage7-amber); font-size: 0.9rem; line-height: 1.5;">
+      <strong>[제작 예정 문서]</strong> 이 가이드는 현재 준비 중인 문서(스켈레톤)입니다. 학습자 추천 경로에 따른 핵심 아웃라인과 다루게 될 핵심 주제를 아래에서 미리 확인하실 수 있으며, 추후 상세 실무 튜토리얼이 추가될 예정입니다.
+    </div>
+  </section>
+
+  <main>
+    <section class="stage7-section prose-structure" data-prose="structure" id="workflow">
+      <div class="stage7-section__label">01 · 요구사항 분석 흐름</div>
+      <h2>정의서 수신부터 프로그램 설계서 작성까지의 4단계</h2>
+      <p>
+        현업의 요건은 대개 비정형적이고 기술적으로 정의되어 있지 않습니다.
+        개발자는 다음 프로세스를 거쳐 비즈니스 언어를 기술 언어로 변환해야 합니다.
+      </p>
+      <table>
+        <thead><tr><th>단계</th><th>활동 내용</th><th>산출물 및 검증 조건</th></tr></thead>
+        <tbody>
+          <tr><td>1. 현업 요구사항 식별</td><td>현업 인터뷰, 프로세스 매핑, 기존 T-Code 동작 수집</td><td>요구사항 식별 정의서</td></tr>
+          <tr><td>2. 데이터 매핑 및 DB 설계</td><td>필요한 정보가 어떤 Standard 테이블에 있는지 매핑, 부족한 필드 C-Table 설계</td><td>ERD 및 테이블 명세서</td></tr>
+          <tr><td>3. 프로그램 기능 명세</td><td>C-Table CRUD, ABAP Logic 설계, OData API Spec 정의</td><td>개발 사양서 (프로그램 상세설계서)</td></tr>
+          <tr><td>4. 화면 Mockup 및 매핑</td><td>UI 화면 컨트롤과 데이터 바인딩 속성 정의</td><td>UI 레이아웃 및 바인딩 명세</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="stage7-section prose-structure" data-prose="structure" id="db-mapping">
+      <div class="stage7-section__label">02 · 핵심 분석 요령</div>
+      <h2>데이터 매핑 시 실패하지 않는 원칙</h2>
+      <div class="stage7-card-grid two">
+        <article class="stage7-card" data-prose="concept">
+          <h3>Standard vs Custom의 조화</h3>
+          <p>모든 데이터를 독자적인 테이블(Z-Table)에 넣으려 하지 마십시오. 가능한 Standard 데이터를 읽어오거나 표준 테이블의 뷰(CDS View)를 사용해 가공하고, 순수 비즈니스 정보만 Custom 테이블로 관리하는 것이 유지보수에 뛰어납니다.</p>
+        </article>
+        <article class="stage7-card" data-prose="concept">
+          <h3>도메인 지식 연계</h3>
+          <p>예를 들어 "매출 실적" 요구사항이라면 FI의 ACDOCA 테이블이나 SD의 VBRK/VBRP 테이블 중 어느 관점이 타당한지 현업 업무 프로세스 측면에서 타당성을 먼저 검토하십시오.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="stage7-section prose-checklist" data-prose="checklist" id="checklist">
+      <div class="stage7-section__label">03 · 분석 완료 체크리스트</div>
+      <h2>다음 단계로 넘어가기 위한 설계 검증</h2>
+      <ol>
+        <li>요구사항 요건 중 '어떤 정보'가 Master 정보고, '어떤 정보'가 Transaction 정보인지 분류한다.</li>
+        <li>Custom 테이블(Z-Table) 설계 시 Key 컬럼과 인덱스 구성이 효율적인지 중복 저장은 없는지 확인한다.</li>
+        <li>UI5 화면에 필요한 API의 Response 구조와 Parameter를 ABAP OData Entity 구조와 1:1 매핑하여 사양서를 작성한다.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="stage7-footer prose-summary" data-prose="summary">
+    SAP 개발 요구사항 분석법 · Stage 7 Docs · 2026-05-29
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>UI5/Fiori 개발자 단계별 학습 가이드 · SAP Developer Learning Library</title>
+<link rel="stylesheet" href="../../assets/common.css" />
+<link rel="stylesheet" href="../../assets/stage7-shell.css" />
+<script src="../../assets/common.js" defer></script>
+<script src="../../assets/stage7-shell.js" defer></script>
+</head>
+<body
+  data-page-type="doc"
+  data-active-category="roadmap"
+  data-doc-id="ui5-learning-path"
+  data-doc-title="UI5/Fiori 개발자 단계별 학습 가이드"
+  data-doc-version="4.0"
+  data-doc-created-at="2026-05-29T11:00:00+09:00"
+  data-doc-updated-at="2026-05-29T11:00:00+09:00"
+  data-prose-root="true">
+
+<div class="stage7-doc-layout">
+  <section class="stage7-hero prose-summary" data-prose="summary">
+    <div class="breadcrumb" data-prose="summary">
+      <a href="../../index.html">Home</a>
+      <span>›</span>
+      <a href="../../pages/roadmap.html">로드맵 / 학습전략</a>
+      <span>›</span>
+      <span>UI5/Fiori 개발자 단계별 학습 가이드</span>
+    </div>
+    <div class="stage7-hero__eyebrow">SAP Developer Learning Library</div>
+    <h1>UI5/Fiori 개발자 단계별 학습 가이드</h1>
+    <p class="lead">
+      Modern Javascript 핵심 문법부터 시작하여 UI5 MVC 패턴, OData 연동, 데이터 흐름,
+      그리고 Fiori Elements 및 런치패드 배포에 이르는 화면 개발 영역의 학습 단계와 성공 전략을 제시한다.
+    </p>
+    <div class="home-badges">
+      <span class="stage7-badge blue">Stage 7 Docs</span>
+      <span class="stage7-badge amber">준비 중</span>
+      <span class="stage7-badge purple">UI5/Fiori 로드맵</span>
+    </div>
+    
+    <div class="stage7-alert amber" style="margin-top: 15px; border-radius: 12px; padding: 15px; border-left: 4px solid var(--stage7-amber); background: var(--stage7-amber-soft); color: var(--stage7-amber); font-size: 0.9rem; line-height: 1.5;">
+      <strong>[제작 예정 문서]</strong> 이 가이드는 현재 준비 중인 문서(스켈레톤)입니다. 학습자 추천 경로에 따른 핵심 아웃라인과 다루게 될 핵심 주제를 아래에서 미리 확인하실 수 있으며, 추후 상세 실무 튜토리얼이 추가될 예정입니다.
+    </div>
+  </section>
+
+  <main>
+    <section class="stage7-section prose-structure" data-prose="structure" id="phases">
+      <div class="stage7-section__label">01 · 로드맵 아웃라인</div>
+      <h2>UI5/Fiori 개발을 체계적으로 정복하기 위한 이정표</h2>
+      <p>
+        SAPUI5는 단순한 화면 마크업 프레임워크가 아닌 완전한 Enterprise MVC 웹 애플리케이션 프레임워크입니다.
+        아래의 학습 단계를 따라 순차적으로 진행할 것을 추천합니다.
+      </p>
+      <table>
+        <thead><tr><th>학습 단계</th><th>주요 다루는 내용</th><th>핵습 목표 및 지향점</th></tr></thead>
+        <tbody>
+          <tr><td>1단계. JS 기초</td><td>ES6+ 스펙, Scope, Promise/Async-Await 비동기 처리</td><td>UI5 프레임워크 베이스가 되는 최신 자바스크립트 역량 확보</td></tr>
+          <tr><td>2단계. UI5 MVC 기본</td><td>XML View, Controller 함수, 이벤트 바인딩, i18n 리소스</td><td>화면 구성과 사용자의 동작을 연결하는 기본기 형성</td></tr>
+          <tr><td>3단계. OData 연동</td><td>OData V2 Model, CRUD API 연동, Metadata 활용, JSON Model</td><td>서버와 화면 데이터를 주고받고 바인딩하는 방법 습득</td></tr>
+          <tr><td>4단계. 네비게이션 & 레이아웃</td><td>Routing, Flexible Column Layout, Fragment/Dialog</td><td>웹앱 내 다중 화면 이동 및 레이아웃 제어</td></tr>
+          <tr><td>5단계. Fiori Elements</td><td>CDS Annotation, List Report, Object Page, Draft Handling</td><td>템플릿 기반으로 코딩을 최소화한 신속한 표준 앱 개발</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="stage7-section prose-structure" data-prose="structure" id="learning-tips">
+      <div class="stage7-section__label">02 · 학습 팁</div>
+      <h2>UI5 개발을 배울 때 항상 명심해야 할 포인트</h2>
+      <div class="stage7-card-grid two">
+        <article class="stage7-card" data-prose="concept">
+          <h3>바인딩 경로(Binding Path)에 대한 이해</h3>
+          <p>UI5는 철저한 데이터 바인딩 기반입니다. `/{EntitySet}`(절대 경로)와 `{Property}`(상대 경로)의 차이를 이해하고 컨텍스트 흐름을 파악해야 데이터를 정상적으로 가져올 수 있습니다.</p>
+        </article>
+        <article class="stage7-card" data-prose="concept">
+          <h3>Browser DevTools와 UI5 Inspector</h3>
+          <p>오류 메시지는 브라우저의 Console 탭과 Network 탭에 항상 출력됩니다. 크롬 확장의 UI5 Inspector를 사용해 컨트롤의 상태와 모델 데이터를 조회하는 습관을 들여야 합니다.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="stage7-section prose-checklist" data-prose="checklist" id="checklist">
+      <div class="stage7-section__label">03 · 핵심 학습 체크리스트</div>
+      <h2>다음 단계로 나아가기 위해 검증할 사항</h2>
+      <ol>
+        <li>Controller 내에서 `this.getView().getModel()`을 통해 모델 인스턴스를 가져오고 쓸 수 있다.</li>
+        <li>Manifest.json 파일 내의 Routing 타겟과 Pattern 설정을 직접 수정하여 화면 전환을 구현할 수 있다.</li>
+        <li>OData 모델의 `read`, `create`, `update`, `remove` 메서드를 호출하고 Callback(Success/Error)을 활용할 수 있다.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="stage7-footer prose-summary" data-prose="summary">
+    UI5/Fiori 개발자 단계별 학습 가이드 · Stage 7 Docs · 2026-05-29
+  </footer>
+</div>
+</body>
+</html>
