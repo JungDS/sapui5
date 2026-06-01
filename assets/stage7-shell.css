@@ -441,6 +441,62 @@ body.stage7-doc-nav-collapsed .stage7-doc-nav-toggle__close {
   border-color: #bfdbfe;
 }
 
+.stage7-track-tabs {
+  margin-top: 18px;
+}
+
+.stage7-tabs.stage7-tabs--large {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  padding: 6px;
+  border: 1px solid var(--stage7-line);
+  border-radius: 18px;
+  background: #f8fafc;
+}
+
+.stage7-tabs.stage7-tabs--large button {
+  min-height: 74px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #ffffff;
+  text-align: left;
+  font-size: .92rem;
+  line-height: 1.3;
+}
+
+.stage7-tabs.stage7-tabs--large button span {
+  display: block;
+  margin-top: 4px;
+  color: #64748b;
+  font-size: .78rem;
+  font-weight: 850;
+}
+
+.stage7-tabs.stage7-tabs--large button.active {
+  background: linear-gradient(135deg, #dbeafe, #ffffff);
+  box-shadow: 0 12px 28px rgba(37, 99, 235, .10);
+}
+
+.stage7-tab-panel {
+  margin-top: 16px;
+  padding: 20px;
+  border: 1px solid #dbeafe;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+}
+
+.stage7-tab-panel[hidden] {
+  display: none;
+}
+
+.stage7-panel-title {
+  margin: 8px 0 12px;
+  color: var(--stage7-text);
+  font-size: clamp(1.25rem, 2.4vw, 1.72rem);
+  line-height: 1.25;
+  letter-spacing: -.03em;
+}
+
 .stage7-local-toc a {
   display: block;
   padding: 6px 8px;
@@ -805,6 +861,14 @@ body.stage7-doc-nav-collapsed .stage7-doc-nav-toggle__close {
   .stage7-card-grid,
   .stage7-card-grid.two {
     grid-template-columns: 1fr;
+  }
+
+  .stage7-tabs.stage7-tabs--large {
+    grid-template-columns: 1fr;
+  }
+
+  .stage7-tab-panel {
+    padding: 16px;
   }
 }
 

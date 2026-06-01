@@ -202,6 +202,15 @@ assets/common.js (NAV_DOCS, NAV_PATHS 상수) ← Nav Tree 데이터 (하드코�
 - `sample/README.txt`에 활용 기준이 있어야 하지만, 1개 파일만 있고 관계가 불명확.
 - `sample/gateway-navigation-efficient-header-sample-v2.html`이 현재 운영 문서에 어떤 영향을 주는지 명시 필요.
 
+### [이슈 9] `common.js`의 전역 용어 모달(`initTerms`)이 손상되어 있음 (2026-05-29 발견)
+
+- `assets/common.js`의 `termDefinitions` 한글 텍스트와 `term-modal` 마크업 문자열이 인코딩 깨짐(모지바케, `�슜�뼱` 등) 상태다.
+- `openTerm()`이 `body.textContent = termDefinitions[term]`(객체)을 그대로 대입하여, 알려진 용어는 `[object Object]`, 모르는 용어는 깨진 fallback 문자열이 출력된다.
+- 표준 `<button class="term" data-term="...">`를 쓰는 모든 docs에 영향. README의 "Dual-Tab 팝업"이 회귀된 것으로 보이며 **별도 복구 작업 필요**.
+- 임시 대응: ERP Metro 문서는 페이지 자체 팝업(`assets/metro-process.js`)을 사용하고, 용어 클릭 시 `stopPropagation()`으로 전역 핸들러 발동을 차단해 중복/깨짐 팝업을 회피했다.
+
+> 참고: ERP Metro 문서(`docs/module/erp-business-process-metro.html`)는 규칙 2.1(인라인 스크립트 금지)에 맞춰 인라인 JS를 `assets/metro-process.js`로 분리했다. `metro-process.css`와 짝을 이루는 페이지 전용 자산이다. 이 스크립트는 학습자용 용어 사전(약 80개)을 보유하며, 본문 텍스트를 스캔해 용어 첫 등장 위치를 클릭 가능한 버튼으로 자동 변환하고(`autoLinkTerms`), 하단 용어 칩 목록도 데이터로부터 자동 생성한다(`renderTermCloud`).
+
 ---
 
 ## 5. 긍정적으로 잘 구성된 부분

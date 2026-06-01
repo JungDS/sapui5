@@ -542,16 +542,32 @@
     document.addEventListener("click", function (event) {
       const button = event.target.closest("[data-stage7-tab]");
       if (!button) return;
-      const side = button.closest(".stage7-doc-side-nav");
-      if (!side) return;
+      const tabset = button.closest("[data-stage7-tabset], .stage7-doc-side-nav");
+      if (!tabset) return;
       const tab = button.getAttribute("data-stage7-tab");
-      side.querySelectorAll("[data-stage7-tab]").forEach(function (el) {
+      tabset.querySelectorAll("[data-stage7-tab]").forEach(function (el) {
         el.classList.toggle("active", el === button);
         el.setAttribute("aria-selected", String(el === button));
       });
-      side.querySelectorAll("[data-stage7-panel]").forEach(function (panel) {
+      tabset.querySelectorAll("[data-stage7-panel]").forEach(function (panel) {
         panel.hidden = panel.getAttribute("data-stage7-panel") !== tab;
       });
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+      const button = event.target.closest("[data-stage7-tab]");
+      if (!button) return;
+      const tabset = button.closest("[data-stage7-tabset], .stage7-doc-side-nav");
+      if (!tabset) return;
+      const buttons = Array.from(tabset.querySelectorAll("[data-stage7-tab]"));
+      const index = buttons.indexOf(button);
+      if (index < 0) return;
+      event.preventDefault();
+      const offset = event.key === "ArrowRight" ? 1 : -1;
+      const next = buttons[(index + offset + buttons.length) % buttons.length];
+      next.focus();
+      next.click();
     });
   }
 

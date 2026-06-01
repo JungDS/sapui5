@@ -21,6 +21,7 @@
 | `07_METADATA_AND_ARCHIVE.md` | 문서 메타데이터 및 Archive 규칙 |
 | `08_HISTORY_AND_PR.md` | 프로젝트 작업 이력 및 PR 규칙 |
 | `09_OPERATIONS_DASHBOARD.md` | 프로젝트 운영 대시보드 및 지침 |
+| `10_ABAP_ROADMAP_ANALYSIS.md` | 신규 ABAP 커리큘럼 분석 및 로드맵 개편안 |
 
 ---
 

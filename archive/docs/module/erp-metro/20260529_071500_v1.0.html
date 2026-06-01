@@ -9,31 +9,58 @@
 <link rel="stylesheet" href="../../assets/metro-process.css" />
 <script src="../../assets/common.js" defer></script>
 <script src="../../assets/stage7-shell.js" defer></script>
-<script src="../../assets/metro-process.js" defer></script>
 </head>
 <body
   data-page-type="doc"
   data-active-category="module"
   data-doc-id="erp-metro"
   data-doc-title="ERP Business Process Metro"
-  data-doc-version="1.1"
+  data-doc-version="1.0"
   data-doc-created-at="2026-05-29T07:15:00+09:00"
-  data-doc-updated-at="2026-05-29T10:40:00+09:00"
+  data-doc-updated-at="2026-05-29T07:15:00+09:00"
   data-prose-root="true">
 
 <div class="stage7-doc-layout metro-layout">
 
   
 
-  <section class="stage7-hero prose-summary" data-prose="summary">
-    <div class="breadcrumb" data-prose="summary"><a href="../../index.html">Home</a><span>›</span><a href="../../pages/module-basics.html">SAP 모듈 기초</a><span>›</span><span>ERP Business Process Metro</span></div>
-    <div class="stage7-hero__eyebrow">SAP Developer Learning Library</div>
-    <h1>ERP Business Process Metro</h1>
-    <p class="lead">
-      이 문서는 ERP Business Process Metro 이미지를 단순한 그림 설명이 아니라, <strong>업무 흐름·문서 흐름·전표 흐름·확장 아키텍처</strong>까지 연결하는 교육용 웹페이지로 구성한 자료입니다. 초급자는 “노선과 환승” 비유로 전체 구조를 잡고, 중급자는 실제 문서와 회계 영향까지 따라가며, 고급 기술자는 S/4HANA 데이터 모델과 Clean Core 확장 관점으로 확장해 학습할 수 있습니다.
-    </p>
-    <div class="home-badges"><span class="stage7-badge blue">Stage 7</span><span class="stage7-badge green">SAP 모듈 기초</span><span class="stage7-badge purple">ERP</span></div>
-  </section>
+  <header class="hero">
+    <div class="wrap hero-grid">
+      
+    <div class="breadcrumb" data-prose="summary" style="padding-top: 1.5rem; padding-left: 2rem;">
+      <a href="../../index.html">Home</a>
+      <span>›</span>
+      <a href="../../pages/module-basics.html">SAP 모듈 기초</a>
+      <span>›</span>
+      <span>ERP Business Process Metro</span>
+    </div>
+
+      <div class="hero-copy">
+        <span class="eyebrow">SAP S/4HANA 관점 · End-to-End Process Learning</span>
+        <h1>ERP Business Process Metro</h1>
+        <p class="lead">
+          이 문서는 ERP Business Process Metro 이미지를 단순한 그림 설명이 아니라, <strong>업무 흐름·문서 흐름·전표 흐름·확장 아키텍처</strong>까지 연결하는 교육용 웹페이지로 구성한 자료입니다. 초급자는 “노선과 환승” 비유로 전체 구조를 잡고, 중급자는 실제 문서와 회계 영향까지 따라가며, 고급 기술자는 S/4HANA 데이터 모델과 Clean Core 확장 관점으로 확장해 학습할 수 있습니다.
+        </p>
+        <div class="hero-actions">
+          <a class="btn-link" href="#reading">이미지 읽는 방법</a>
+          <a class="btn-link secondary" href="#routes">노선별 상세 설명</a>
+          <a class="btn-link secondary" href="#glossary">용어 팝업</a>
+        </div>
+        <div class="summary-list" aria-label="학습 요약">
+          <div><b>노선</b><span>재무, HR, 구매, 영업, 생산이라는 업무 영역</span></div>
+          <div><b>역</b><span>업무 단계, 대표 문서, 주요 이벤트</span></div>
+          <div><b>환승</b><span>부서와 모듈이 만나는 통합 지점</span></div>
+          <div><b>종착</b><span>정산, 수금·지급, 리포트, 성과 관리</span></div>
+        </div>
+      </div>
+      <div class="image-panel">
+        <figure>
+          <img src="../../assets/images/erp-metro.png" alt="ERP Business Process Metro 이미지" />
+          <figcaption>첨부 이미지 기반으로 재구성한 SAP 통합 업무 프로세스 학습자료입니다.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </header>
 
   <nav class="toc" aria-label="페이지 목차">
     <div class="wrap">
@@ -50,26 +77,6 @@
   </nav>
 
   <main id="main" class="wrap">
-    <section id="intro" aria-label="개요 이미지">
-      <div class="image-panel">
-        <figure>
-          <img src="../../assets/images/erp-metro.png" alt="ERP Business Process Metro 이미지" />
-          <figcaption>첨부 이미지 기반으로 재구성한 SAP 통합 업무 프로세스 학습자료입니다.</figcaption>
-        </figure>
-      </div>
-      <div class="hero-actions">
-        <a class="btn-link" href="#reading">이미지 읽는 방법</a>
-        <a class="btn-link secondary" href="#routes">노선별 상세 설명</a>
-        <a class="btn-link secondary" href="#glossary">용어 팝업</a>
-      </div>
-      <div class="summary-list" aria-label="학습 요약">
-        <div><b>노선</b><span>재무, HR, 구매, 영업, 생산이라는 업무 영역</span></div>
-        <div><b>역</b><span>업무 단계, 대표 문서, 주요 이벤트</span></div>
-        <div><b>환승</b><span>부서와 모듈이 만나는 통합 지점</span></div>
-        <div><b>종착</b><span>정산, 수금·지급, 리포트, 성과 관리</span></div>
-      </div>
-    </section>
-
     <section id="reading" aria-labelledby="reading-title">
       <div class="section-title">
         <h2 id="reading-title">1. 이미지를 읽는 방법</h2>
@@ -407,10 +414,28 @@
     <section id="glossary" aria-labelledby="glossary-title">
       <div class="section-title">
         <h2 id="glossary-title">7. 클릭형 용어 사전</h2>
-        <p>아래 용어 칩을 클릭하면 팝업으로 설명이 나옵니다. 본문 곳곳의 <strong>밑줄 표시된 용어</strong>도 클릭하면 같은 팝업이 열립니다.</p>
+        <p>주요 용어를 클릭하면 팝업 형태로 설명이 출력됩니다.</p>
       </div>
       <div class="source-box">
-        <div class="term-cloud" aria-label="클릭형 용어 목록"></div>
+        <div class="term-cloud" aria-label="클릭형 용어 목록">
+          <button class="term-chip" data-term="erp">ERP</button>
+          <button class="term-chip" data-term="s4hana">SAP S/4HANA</button>
+          <button class="term-chip" data-term="master-data">Master Data</button>
+          <button class="term-chip" data-term="transaction-data">Transaction Data</button>
+          <button class="term-chip" data-term="sales-order">Sales Order</button>
+          <button class="term-chip" data-term="delivery">Delivery</button>
+          <button class="term-chip" data-term="invoice">Invoice</button>
+          <button class="term-chip" data-term="purchase-order">Purchase Order</button>
+          <button class="term-chip" data-term="goods-receipt">Goods Receipt</button>
+          <button class="term-chip" data-term="grir">GR/IR</button>
+          <button class="term-chip" data-term="posting">Posting</button>
+          <button class="term-chip" data-term="gl-account">G/L Account</button>
+          <button class="term-chip" data-term="cost-center">Cost Center</button>
+          <button class="term-chip" data-term="document-flow">Document Flow</button>
+          <button class="term-chip" data-term="timesheet">Time Sheet</button>
+          <button class="term-chip" data-term="btp">SAP BTP</button>
+          <button class="term-chip" data-term="clean-core">Clean Core</button>
+        </div>
       </div>
     </section>
 
@@ -475,5 +500,86 @@
 
 </div>
 
+<script>
+
+    const glossary = {
+      "erp": { title: "ERP", definition: "Enterprise Resource Planning의 약자입니다. 재무, 구매, 영업, 생산, 인사 등 기업 운영 업무를 공통 데이터와 표준 프로세스로 연결하는 통합 시스템입니다.", examples: ["핵심은 부서별 데이터 중복을 줄이고, 업무 결과를 하나의 흐름으로 연결하는 것입니다."] },
+      "s4hana": { title: "SAP S/4HANA", definition: "SAP의 차세대 ERP 제품군입니다. HANA 데이터베이스 기반의 단순화된 데이터 모델, Fiori 사용자 경험, 실시간 분석, 통합 프로세스를 특징으로 설명할 수 있습니다.", examples: ["교육에서는 FI/CO, MM, SD, PP 같은 전통 모듈 개념과 함께 LoB 앱 관점도 함께 설명하는 것이 좋습니다."] },
+      "master-data": { title: "Master Data", definition: "고객, 공급업체, 자재, G/L 계정, Cost Center처럼 여러 거래에서 반복적으로 참조되는 기준정보입니다.", examples: ["마스터 데이터 품질이 낮으면 판매, 구매, 생산, 회계 전 과정의 오류로 이어질 수 있습니다."] },
+      "transaction-data": { title: "Transaction Data", definition: "판매오더, 구매오더, 입고문서, 청구문서, 회계전표처럼 실제 업무 이벤트가 발생하면서 생성되는 거래 데이터입니다.", examples: ["마스터 데이터는 기준이고, 트랜잭션 데이터는 실제 발생 기록입니다."] },
+      "sales-order": { title: "Sales Order", definition: "고객에게 판매할 품목, 수량, 가격, 납기, 납품 조건 등을 확정하는 판매 문서입니다.", examples: ["후속 문서로 Delivery와 Billing Document가 이어질 수 있습니다."] },
+      "delivery": { title: "Delivery", definition: "판매오더 등을 바탕으로 실제 물류 실행을 관리하는 납품 문서입니다. 출고 처리와 연결되며 재고와 원가에 영향을 줄 수 있습니다.", examples: ["Outbound Delivery, Post Goods Issue를 함께 설명하면 이해가 쉽습니다."] },
+      "invoice": { title: "Invoice", definition: "대금 청구 또는 송장 문서입니다. 영업에서는 고객 청구문서, 구매에서는 공급업체 송장으로 구분해 설명하는 것이 좋습니다.", examples: ["청구문서가 회계로 전기되면 매출·채권 또는 채무 영향이 발생합니다."] },
+      "purchase-order": { title: "Purchase Order", definition: "공급업체에 자재나 서비스를 어떤 조건으로 구매할지 확정하는 구매 문서입니다.", examples: ["구매오더 자체보다 입고와 송장검증 단계에서 회계 영향이 구체화됩니다."] },
+      "goods-receipt": { title: "Goods Receipt", definition: "자재나 서비스가 실제로 입고 또는 수령되었음을 기록하는 물류 이벤트입니다.", examples: ["구매오더 이력 갱신, 재고 증가, GR/IR 반영과 연결됩니다."] },
+      "grir": { title: "GR/IR", definition: "Goods Receipt / Invoice Receipt의 약자입니다. 입고와 송장이 다른 시점에 발생할 때 두 단계를 연결해 주는 정리 계정 개념입니다.", examples: ["입고는 되었지만 송장이 아직 없는 상태, 송장은 왔지만 입고와 비교해야 하는 상태를 설명할 때 유용합니다."] },
+      "posting": { title: "Posting", definition: "업무 이벤트를 회계전표, 자재문서 등 시스템 장부에 확정 반영하는 처리입니다.", examples: ["전기 후에는 보고서와 원장, 재고 수량·가치에 영향을 줄 수 있습니다."] },
+      "gl-account": { title: "G/L Account", definition: "총계정원장 계정입니다. 거래가 어떤 회계 계정으로 기록될지 결정하는 기준입니다.", examples: ["매출, 재고, 매출원가, 고객채권, 공급업체채무 같은 계정으로 설명할 수 있습니다."] },
+      "cost-center": { title: "Cost Center", definition: "비용이 발생하는 조직 또는 책임 단위입니다. 부서 비용 집계, 예산 관리, 배부의 기준이 됩니다.", examples: ["급여, 활동비, 일반비용을 어느 조직 비용으로 볼 것인지 결정할 때 사용합니다."] },
+      "document-flow": { title: "Document Flow", definition: "선행 문서와 후속 문서의 관계를 보여주는 흐름입니다. SAP에서는 판매오더에서 납품, 청구, 회계문서로 이어지는 진행 상태를 이해하는 데 중요합니다.", examples: ["문서 하나만 보는 것이 아니라 전체 체인을 보는 훈련이 필요합니다."] },
+      "timesheet": { title: "Time Sheet", definition: "직원 또는 작업자의 근무시간·작업시간을 기록하는 도구입니다. 급여, 프로젝트, 원가 배부와 연결될 수 있습니다.", examples: ["HR 데이터가 원가회계로 넘어가는 대표적인 환승 지점입니다."] },
+      "btp": { title: "SAP BTP", definition: "SAP Business Technology Platform입니다. 애플리케이션 개발, 통합, 자동화, 데이터·분석, 확장 기능을 제공하는 SAP의 기술 플랫폼입니다.", examples: ["표준 ERP 코어를 직접 수정하지 않고 외부 확장 앱이나 이벤트 기반 연계를 구성할 때 활용됩니다."] },
+      "clean-core": { title: "Clean Core", definition: "표준 핵심 시스템을 가능한 깨끗하게 유지하고, 차별화 요구사항은 공개 확장 방식이나 외부 확장 계층으로 분리하려는 아키텍처 원칙입니다.", examples: ["업그레이드 안정성, 유지보수성, 표준 기능 활용성을 높이는 방향으로 설명할 수 있습니다."] }
+    };
+
+    const dialog = document.getElementById("glossaryDialog");
+    const dialogTitle = document.getElementById("dialogTitle");
+    const dialogDefinition = document.getElementById("dialogDefinition");
+    const dialogExamples = document.getElementById("dialogExamples");
+    const dialogClose = document.getElementById("dialogClose");
+
+    function openTerm(key) {
+      const item = glossary[key];
+      if (!item) return;
+      dialogTitle.textContent = item.title;
+      dialogDefinition.textContent = item.definition;
+      dialogExamples.innerHTML = "";
+      item.examples.forEach((example) => {
+        const li = document.createElement("li");
+        li.textContent = example;
+        dialogExamples.appendChild(li);
+      });
+      dialog.showModal();
+    }
+
+    document.querySelectorAll("[data-term]").forEach((button) => {
+      button.addEventListener("click", () => openTerm(button.dataset.term));
+    });
+
+    dialogClose.addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", (event) => {
+      const rect = dialog.getBoundingClientRect();
+      const isInside = event.clientX >= rect.left && event.clientX <= rect.right && event.clientY >= rect.top && event.clientY <= rect.bottom;
+      if (!isInside) dialog.close();
+    });
+
+    const tabButtons = Array.from(document.querySelectorAll(".tab-btn"));
+    const tabPanels = Array.from(document.querySelectorAll(".tab-panel"));
+
+    function activateTab(activeButton) {
+      tabButtons.forEach((button) => {
+        const isSelected = button === activeButton;
+        button.setAttribute("aria-selected", String(isSelected));
+        button.tabIndex = isSelected ? 0 : -1;
+      });
+      tabPanels.forEach((panel) => {
+        panel.classList.toggle("active", panel.id === activeButton.getAttribute("aria-controls"));
+      });
+    }
+
+    tabButtons.forEach((button, index) => {
+      button.addEventListener("click", () => activateTab(button));
+      button.addEventListener("keydown", (event) => {
+        const prev = (index - 1 + tabButtons.length) % tabButtons.length;
+        const next = (index + 1) % tabButtons.length;
+        if (event.key === "ArrowLeft") { tabButtons[prev].focus(); }
+        if (event.key === "ArrowRight") { tabButtons[next].focus(); }
+        if (event.key === "Home") { tabButtons[0].focus(); }
+        if (event.key === "End") { tabButtons[tabButtons.length - 1].focus(); }
+        if (event.key === "Enter" || event.key === " ") { event.preventDefault(); activateTab(button); }
+      });
+    });
+  
+</script>
 </body>
 </html>
