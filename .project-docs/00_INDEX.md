@@ -25,6 +25,14 @@
 
 ---
 
+## 최근 인수인계 포인트
+
+- 2026-06-02 기준 신규 ABAP 커리큘럼 화면 샘플은 `docs/roadmap/abap-curriculum-codex-v7_sampleA-20260602-165628.html`을 중심으로 검토 중이다.
+- 선호 구조는 상단 Track 탭, 좌측 THEORY 목록, 선택 THEORY 단일 본문, Navigation 패널 내 학습 목차, Scroll Spy, 용어 팝업, JSON 데이터 분리 방식이다.
+- 세부 설계 판단과 샘플별 비교 내용은 `10_ABAP_ROADMAP_ANALYSIS.md`를 먼저 확인한다.
+
+---
+
 ## 읽는 순서 (새 세션 시작 시)
 
 1. `05_QUICK_START.md` → 현황 파악 (5분)

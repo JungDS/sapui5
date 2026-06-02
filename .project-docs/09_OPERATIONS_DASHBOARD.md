@@ -2,13 +2,13 @@
 
 ## 1. 운영 대시보드
 
-- 최종 수정: 2026-05-29 05:05 KST
+- 최종 수정: 2026-06-02 17:45 KST
 - 배포자: 정훈영
 - 저장소: https://github.com/JungDS/sapui5
 - GitHub Pages: https://jungds.github.io/sapui5/
 - 운영 방식: Branch → Pull Request → Review/Merge
-- 현재 진행: Stage 7 · 완료 (v5.0 전체 개정 및 메타데이터 정비 완료)
-- 현재 작업: 전체 78개 문서 목차 개정 체계 반영, 스태퍼 UI 및 준비 중 UX 적용, 배포자 메타데이터 전역 클렌징
+- 현재 진행: Stage 7 · 완료 이후 ABAP 커리큘럼 UI 샘플 검토
+- 현재 작업: 신규 ABAP 커리큘럼 2-Track 화면 샘플 제작, 좌측 THEORY 선택형 본문, Navigation 학습 목차, Scroll Spy, 용어 팝업, JSON 데이터 분리 구조 검토
 
 ---
 
@@ -20,6 +20,19 @@
 - RAP 예제나 과제에는 Interface View `ZI_*`와 Projection View `ZC_*`를 함께 제시한다.
 - `SSCR`은 Selection Screen 의미로 사용한다.
 - HTML 학습자료는 밝고 깔끔한 교재형 디자인을 유지하며, v5.0 기준 문서 내 배포자 정보는 제거한다.
+- ABAP 커리큘럼 샘플은 `abap-curriculum-codex-v#_sample#-yyyymmdd-hhmmss.html` 형식을 기본으로 관리한다.
+- 동일 버전에서 여러 방향을 비교할 때 sample 번호 또는 알파벳을 사용하되, 후속 요청으로 새 묶음을 만들 때는 v 번호를 1씩 증가시킨다.
+- 현재 선호안은 `docs/roadmap/abap-curriculum-codex-v7_sampleA-20260602-165628.html`이며, 운영 반영 전까지는 샘플 문서로 취급한다.
+
+---
+
+## 1.2 ABAP 커리큘럼 샘플 현황
+
+- 목적: 기존 ABAP 요약 로드맵을 2-Track 기반 커리큘럼 화면으로 전환할 수 있는지 검토한다.
+- 핵심 구조: 상단 Track 탭, 좌측 THEORY 목록, 우측 또는 Navigation 패널의 학습 목차, 중앙 상세 본문.
+- 최종 선호 방향: v7 sampleA의 깔끔한 교재형 디자인을 기반으로 하되, Claude 샘플의 상세 설명/용어 팝업/Navigation 목차와 Codex 샘플의 검색/JSON 데이터 분리 장점을 결합한다.
+- 현재 보정 사항: 좌측 THEORY 클릭 시 본문에는 해당 THEORY만 출력한다. Track 탭은 스크롤 중 유지하되 본문을 가리지 않도록 sticky 범위를 Track 영역으로 축소한다. 좌측 패널 스크롤은 본문 스크롤로 전파되지 않게 처리한다.
+- 운영 전환 전 확인할 점: 최종 샘플 1개 확정, `docs/roadmap/abap-curriculum-data.js` 또는 별도 JSON 데이터 구조 확정, GitHub Pages 정적 로딩 방식 확인, 기존 로드맵/ABAP 랜딩과 연결 범위 결정.
 
 ---
 

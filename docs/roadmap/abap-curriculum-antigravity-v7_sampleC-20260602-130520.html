@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ABAP 커리큘럼 Harmony C (오프캔버스) - Full Data</title>
+<link rel="stylesheet" href="../../assets/common.css" />
+<link rel="stylesheet" href="../../assets/stage7-shell.css" />
+<script src="../../assets/common.js" defer></script>
+<script src="../../assets/stage7-shell.js" defer></script>
+<style>
+  /* Custom overrides for the Offcanvas layout */
+  body[data-page-type="document"] { margin: 0; padding: 0; background-color: #f8fafc; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; height: 100vh; overflow: hidden; width: 100%; max-width: 100%; }
+  
+  /* Stage 7 Hero Header */
+  .stage7-hero { 
+    background: #1e293b; color: #fff; padding: 0 32px; height: 64px; 
+    display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; 
+  }
+  .hero-brand .home-link { color: #fff; text-decoration: none; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  .hero-meta { display: flex; gap: 16px; align-items: center; font-size: 0.85rem; color: #cbd5e1; }
+  .parent-link { color: #38bdf8; text-decoration: none; font-weight: 700; }
+  
+  /* Main Container */
+  .stage7-content { flex: 1; overflow-y: auto; position: relative; padding-top: 0; }
+  
+  /* Filter Bar */
+  .filter-bar {
+    background: #fff; padding: 24px 40px; display: flex; gap: 16px; align-items: center;
+    border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 10;
+  }
+  .track-select { padding: 12px 20px; border-radius: 99px; border: 1px solid #cbd5e1; font-size: 0.95rem; font-weight: 700; background: #f8fafc; }
+  .search-input { width: 300px; padding: 12px 20px; border: 1px solid #cbd5e1; border-radius: 99px; background: #f8fafc; }
+  
+  /* Grid Layout */
+  .grid-container { padding: 40px; max-width: 1400px; margin: 0 auto; }
+  .track-title { font-size: 1.5rem; font-weight: 900; margin-bottom: 24px; color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; }
+  .grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; margin-bottom: 64px; }
+  
+  .card {
+    background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px;
+    cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px -8px rgba(0,0,0,0.1); border-color: #cbd5e1; }
+  .card-id { font-size: 0.8rem; font-weight: 900; color: #6366f1; margin-bottom: 8px; }
+  .card-title { font-size: 1.1rem; font-weight: 800; color: #0f172a; margin-bottom: 12px; line-height: 1.4; }
+  .card-desc { font-size: 0.95rem; color: #475569; margin-bottom: 16px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .card-meta { display: flex; gap: 8px; font-size: 0.8rem; font-weight: 700; color: #94a3b8; }
+  
+  /* Off-canvas Drawer */
+  .drawer-overlay {
+    position: fixed; inset: 0; background: rgba(15,23,42,0.4); backdrop-filter: blur(4px);
+    z-index: 40; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+  }
+  .drawer-overlay.open { opacity: 1; pointer-events: auto; }
+  
+  .drawer {
+    position: fixed; right: 0; top: 0; bottom: 0; width: 680px; max-width: 90vw;
+    background: #fff; z-index: 50; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex; flex-direction: column; box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+  }
+  .drawer.open { transform: translateX(0); }
+  
+  .drawer-header {
+    padding: 24px 32px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; background: #f8fafc;
+  }
+  .drawer-header h2 { margin: 0; font-size: 1.2rem; font-weight: 900; color: #0f172a; }
+  .close-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #64748b; }
+  
+  .drawer-body { flex: 1; overflow-y: auto; padding: 40px 32px; }
+  .drawer-body::-webkit-scrollbar { width: 8px; }
+  .drawer-body::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+  
+  .d-id { display: inline-block; padding: 6px 12px; background: #e0e7ff; color: #4338ca; border-radius: 6px; font-size: 0.8rem; font-weight: 800; margin-bottom: 16px; }
+  .d-title { font-size: 1.8rem; font-weight: 900; margin: 0 0 16px; line-height: 1.3; }
+  .d-desc { font-size: 1.1rem; color: #475569; line-height: 1.6; margin-bottom: 40px; }
+  
+  /* Units inside drawer */
+  .sub1-box { margin-bottom: 40px; }
+  .sub1-title { font-size: 1.3rem; font-weight: 800; color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 20px; }
+  .sub2-box { border-left: 3px solid #6366f1; padding-left: 20px; margin-bottom: 32px; }
+  .sub2-box h4 { margin: 0 0 12px; font-size: 1.1rem; color: #0f172a; }
+  .sub2-box p { margin: 0 0 12px; color: #475569; line-height: 1.6; font-size: 0.95rem; }
+  .sub2-box ul { margin: 0 0 12px; padding-left: 20px; color: #475569; font-size: 0.95rem; }
+  .caution { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; padding: 12px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; margin-top: 12px; }
+
+  /* Terminology Popup */
+  .term-popup {
+    background: #eef2ff; color: #4338ca; border-bottom: 1px dashed #6366f1;
+    cursor: help; font-weight: 700; position: relative; padding: 0 2px;
+  }
+  .term-popup:hover::after {
+    content: attr(data-term-desc);
+    position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%);
+    background: #1e293b; color: #fff; padding: 8px 12px; border-radius: 8px;
+    font-size: 0.85rem; white-space: pre-wrap; width: max-content; max-width: 300px;
+    z-index: 100; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); font-weight: 400;
+  }
+
+</style>
+</head>
+<body data-page-type="document">
+
+
+
+<main class="stage7-content">
+  <div class="filter-bar">
+    <select id="trackSelect" class="track-select">
+      <option value="ALL">전체 트랙 보기</option>
+    </select>
+    <input type="text" class="search-input" id="searchInput" placeholder="섹션 검색..." />
+  </div>
+
+  <div class="grid-container" id="gridContainer">
+    <!-- Grid will be rendered here -->
+  </div>
+</main>
+
+<!-- Drawer -->
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-header">
+    <h2>섹션 상세</h2>
+    <button class="close-btn" id="closeBtn">✕</button>
+  </div>
+  <div class="drawer-body" id="drawerBody">
+    <!-- Detail will be rendered here -->
+  </div>
+</div>
+
+<script src="abap-curriculum-data.js"></script>
+<script>
+const gridContainer = document.getElementById('gridContainer');
+const trackSelect = document.getElementById('trackSelect');
+const searchInput = document.getElementById('searchInput');
+const drawerOverlay = document.getElementById('drawerOverlay');
+const drawer = document.getElementById('drawer');
+const closeBtn = document.getElementById('closeBtn');
+const drawerBody = document.getElementById('drawerBody');
+
+// Terminology Dictionary for tooltips
+const dict = {
+  "DDIC": "Data Dictionary: SAP 데이터베이스 구조를 관리하는 핵심 도구",
+  "SE11": "ABAP Dictionary 트랜잭션 코드",
+  "ADT": "ABAP Development Tools (Eclipse 기반)",
+  "ALV": "ABAP List Viewer: 데이터를 격자 형태로 출력해주는 표준 컴포넌트",
+  "RAP": "RESTful ABAP Programming Model: 최신 클라우드 기반 OData 서비스 개발 표준",
+  "Open SQL": "ABAP 코드 내에서 SAP DB를 조작하기 위한 데이터베이스 독립적 언어"
+};
+
+if (typeof curData !== 'undefined' && curData.tracks) {
+  initUI();
+} else {
+  gridContainer.innerHTML = '<div style="text-align:center; padding: 64px;">데이터 로드 실패 (abap-curriculum-data.js 확인 필요)</div>';
+}
+
+function initUI() {
+  curData.tracks.forEach((track, idx) => {
+    const opt = document.createElement('option');
+    opt.value = idx;
+    opt.textContent = track.track_id + " : " + track.track_name;
+    trackSelect.appendChild(opt);
+  });
+  
+  renderGrid();
+  
+  trackSelect.addEventListener('change', () => renderGrid(searchInput.value));
+  searchInput.addEventListener('input', (e) => renderGrid(e.target.value));
+}
+
+function renderGrid(filter = '') {
+  gridContainer.innerHTML = '';
+  const selectedIdx = trackSelect.value;
+  
+  const tracksToRender = selectedIdx === 'ALL' ? curData.tracks : [curData.tracks[selectedIdx]];
+  
+  tracksToRender.forEach(track => {
+    // Filter sections
+    const filteredSections = track.sections.filter(sec => 
+      !filter || sec.section_name.toLowerCase().includes(filter.toLowerCase()) || sec.section_id.toLowerCase().includes(filter.toLowerCase())
+    );
+    
+    if (filteredSections.length === 0) return;
+    
+    const trackBlock = document.createElement('div');
+    trackBlock.innerHTML = `<h2 class="track-title">${track.track_name}</h2>`;
+    
+    const grid = document.createElement('div');
+    grid.className = 'grid-layout';
+    
+    filteredSections.forEach(sec => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="card-id">${sec.section_id}</div>
+        <div class="card-title">${sec.section_name}</div>
+        <div class="card-desc">${sec.section_goal?.ko || '설명 없음'}</div>
+        <div class="card-meta"><span>⏱ ${sec.recommended_hours || 0}시간</span><span>📚 ${sec.topic_count || 0} 토픽</span></div>
+      `;
+      card.onclick = () => openDrawer(sec);
+      grid.appendChild(card);
+    });
+    
+    trackBlock.appendChild(grid);
+    gridContainer.appendChild(trackBlock);
+  });
+}
+
+
+
+function processTerms(text) {
+  if(!text) return '';
+  if(Array.isArray(text)) text = text.join('<br/>');
+  let res = text;
+  Object.keys(dict).forEach(term => {
+    const regex = new RegExp(`\\b${term}\\b`, 'g');
+    res = res.replace(regex, `<span class="term-popup" data-term-desc="${dict[term]}">${term}</span>`);
+  });
+  return res;
+}
+
+function openDrawer(sec) {
+  let html = `
+    <div class="d-id">${sec.section_id}</div>
+    <h3 class="d-title">${sec.section_name}</h3>
+    <p class="d-desc">${processTerms(sec.section_goal?.ko || '')}</p>
+  `;
+  
+  if (sec.sub_levels_1 && sec.sub_levels_1.length > 0) {
+    sec.sub_levels_1.forEach(sub1 => {
+      html += `
+        <div class="sub1-box">
+          <h4 class="sub1-title">${sub1.sub_1_name}</h4>
+      `;
+      
+      if(sub1.sub_levels_2 && sub1.sub_levels_2.length > 0) {
+        sub1.sub_levels_2.forEach(sub2 => {
+          html += `
+            <div class="sub2-box">
+              <h4>${sub2.sub_2_name}</h4>
+              ${sub2.learning_objectives?.ko ? `<p><strong>목표:</strong> ${processTerms(sub2.learning_objectives.ko)}</p>` : ''}
+              
+              ${sub2.learning_content_design?.ko ? `
+                <ul>
+                  ${sub2.learning_content_design.ko.map(line => `<li>${processTerms(line)}</li>`).join('')}
+                </ul>
+              ` : ''}
+              
+              ${sub2.caution_points?.ko && sub2.caution_points.ko.length > 0 ? `
+                <div class="caution">
+                  <strong>⚠️ 주의:</strong>
+                  <ul style="margin:4px 0 0; padding-left:16px;">
+                    ${sub2.caution_points.ko.map(c => `<li>${processTerms(c)}</li>`).join('')}
+                  </ul>
+                </div>
+              ` : ''}
+            </div>
+          `;
+        });
+      }
+      
+      html += `</div>`;
+    });
+  } else {
+    html += `<p style="color:#94a3b8;">하위 단위가 구성되지 않았습니다.</p>`;
+  }
+  
+  drawerBody.innerHTML = html;
+  
+  drawerOverlay.classList.add('open');
+  drawer.classList.add('open');
+  drawerBody.scrollTop = 0;
+}
+
+function closeDrawer() {
+  drawerOverlay.classList.remove('open');
+  drawer.classList.remove('open');
+}
+
+closeBtn.onclick = closeDrawer;
+drawerOverlay.onclick = closeDrawer;
+
+</script>
+</body>
+</html>

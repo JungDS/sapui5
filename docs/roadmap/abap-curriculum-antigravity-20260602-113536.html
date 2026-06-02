@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ABAP 엔터프라이즈 마스터 커리큘럼 · SAP Developer Learning Library</title>
+<link rel="stylesheet" href="../../assets/common.css" />
+<link rel="stylesheet" href="../../assets/stage7-shell.css" />
+<script src="../../assets/common.js" defer></script>
+<script src="../../assets/stage7-shell.js" defer></script>
+<style>
+  /* Master-Detail Layout Styling */
+  body {
+    margin: 0;
+    background-color: #f8fafc;
+    overflow: hidden; /* We will handle scroll inside the panes */
+  }
+
+  .md-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  /* Top Header / Tabs */
+  .md-header {
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+    display: flex;
+    align-items: center;
+    padding: 0 32px;
+    height: 72px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.01);
+    z-index: 10;
+  }
+
+  .md-header h1 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+    margin-right: 48px;
+    letter-spacing: -0.02em;
+  }
+
+  .md-tabs {
+    display: flex;
+    gap: 16px;
+    height: 100%;
+  }
+
+  .md-tab {
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 0 24px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .md-tab:hover {
+    color: #0f172a;
+    border-bottom-color: #cbd5e1;
+  }
+
+  .md-tab.active {
+    color: var(--stage7-blue, #2563eb);
+    border-bottom-color: var(--stage7-blue, #2563eb);
+  }
+
+  /* Main Body */
+  .md-body {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* Left Sidebar (Master) */
+  .md-sidebar {
+    width: 400px;
+    background: #ffffff;
+    border-right: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+  }
+
+  .md-sidebar-header {
+    padding: 24px 24px 12px 24px;
+    background: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #475569;
+    letter-spacing: 0.05em;
+  }
+
+  .md-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 16px 24px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* Scrollbar for left sidebar */
+  .md-list::-webkit-scrollbar { width: 6px; }
+  .md-list::-webkit-scrollbar-track { background: transparent; }
+  .md-list::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+
+  .md-list-item {
+    padding: 20px;
+    border-radius: 16px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    background: #ffffff;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .md-list-item:hover {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+  }
+
+  .md-list-item.active {
+    background: #eff6ff;
+    border-color: #bfdbfe;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+  }
+
+  .md-item-id {
+    font-size: 0.75rem;
+    font-weight: 900;
+    color: var(--stage7-blue, #2563eb);
+    margin-bottom: 6px;
+    letter-spacing: 0.05em;
+  }
+  
+  .md-list-item.active .md-item-id {
+    color: #1d4ed8;
+  }
+
+  .md-item-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1e293b;
+    line-height: 1.4;
+    margin-bottom: 10px;
+  }
+
+  .md-item-meta {
+    display: flex;
+    gap: 12px;
+    font-size: 0.8rem;
+    color: #64748b;
+    font-weight: 600;
+    align-items: center;
+  }
+
+  /* Right Content (Detail) */
+  .md-content {
+    flex: 1;
+    background: #f8fafc;
+    overflow-y: auto;
+    padding: 64px;
+    position: relative;
+  }
+
+  .md-content::-webkit-scrollbar { width: 8px; }
+  .md-content::-webkit-scrollbar-track { background: transparent; }
+  .md-content::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+
+  .md-detail-container {
+    max-width: 900px;
+    margin: 0 auto;
+    animation: fadeIn 0.3s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .detail-eyebrow {
+    display: inline-block;
+    padding: 6px 16px;
+    background: #e0e7ff;
+    border-radius: 99px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--stage7-blue, #2563eb);
+    margin-bottom: 20px;
+    letter-spacing: 0.05em;
+  }
+
+  .detail-title {
+    font-size: 2.6rem;
+    font-weight: 900;
+    color: #0f172a;
+    line-height: 1.25;
+    letter-spacing: -0.03em;
+    margin: 0 0 24px 0;
+  }
+
+  .detail-desc {
+    font-size: 1.2rem;
+    color: #475569;
+    line-height: 1.7;
+    margin-bottom: 40px;
+  }
+
+  .detail-badges {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+  }
+
+  .d-badge {
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .d-badge.time { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
+  .d-badge.topics { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
+  .d-badge.diff { background: #ffffff; color: #475569; border: 1px solid #cbd5e1; box-shadow: 0 1px 2px rgba(0,0,0,0.02);}
+
+  .detail-keywords {
+    margin-bottom: 64px;
+  }
+
+  .detail-keywords h4 {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #94a3b8;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    letter-spacing: 0.05em;
+  }
+
+  .kw-list {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .kw-tag {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #334155;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    transition: all 0.2s ease;
+  }
+  
+  .kw-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+    border-color: #cbd5e1;
+  }
+
+  /* Placeholder for future detailed units */
+  .detail-units-placeholder {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05), 0 4px 6px -2px rgba(0,0,0,0.025);
+  }
+
+  .placeholder-header {
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+  }
+
+  .placeholder-header h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #0f172a;
+  }
+
+  .placeholder-header p {
+    margin: 8px 0 0 0;
+    font-size: 1rem;
+    color: #64748b;
+  }
+
+  .unit-mock-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .unit-mock-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    border: 1px solid #f1f5f9;
+    border-radius: 16px;
+    background: #fafafa;
+    transition: background 0.2s;
+  }
+
+  .unit-mock-item:hover {
+    background: #f1f5f9;
+  }
+
+  .unit-mock-num {
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: #cbd5e1;
+    width: 32px;
+  }
+
+  .unit-mock-text {
+    flex: 1;
+    height: 18px;
+    background: #e2e8f0;
+    border-radius: 6px;
+    opacity: 0.6;
+  }
+  .unit-mock-text.short { width: 40%; }
+  .unit-mock-text.medium { width: 70%; }
+  .unit-mock-text.long { width: 90%; }
+
+  .unit-mock-btn {
+    width: 80px;
+    height: 32px;
+    background: #e2e8f0;
+    border-radius: 8px;
+    opacity: 0.7;
+  }
+
+  /* Empty State */
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #94a3b8;
+  }
+  .empty-state svg {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 24px;
+    opacity: 0.5;
+  }
+  .empty-state p {
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+
+<div class="md-layout">
+  <!-- Top Header -->
+  <header class="md-header">
+    <h1>ABAP 엔터프라이즈 커리큘럼</h1>
+    <div class="md-tabs" id="trackTabs">
+      <button class="md-tab active" data-track="track1">트랙 1 (기본기 완성)</button>
+      <button class="md-tab" data-track="track2">트랙 2 (실무 확장)</button>
+    </div>
+  </header>
+
+  <!-- Main Body -->
+  <div class="md-body">
+    <!-- Left Sidebar -->
+    <aside class="md-sidebar">
+      <div class="md-sidebar-header" id="sidebarHeader">
+        21개 섹션
+      </div>
+      <div class="md-list" id="moduleList">
+        <!-- List items will be rendered here via JS -->
+      </div>
+    </aside>
+
+    <!-- Right Content -->
+    <main class="md-content" id="detailContent">
+      <!-- Detail view will be rendered here via JS -->
+      <div class="empty-state">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <p>좌측에서 섹션을 선택해주세요.</p>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+// Curriculum Data extracted from previous versions
+const curriculumData = {
+  track1: [
+    { id: 'THEORY-01', title: 'DDIC 1차: 기본 데이터 구조 생성', desc: '초급자가 SAP 데이터 객체의 최소 구성 단위를 만들고 Transparent Table까지 생성한다.', time: '6.0시간', topics: 6, difficulty: '난이도 하', keywords: ['DDIC', 'SE11/ADT', 'Domain', 'Data Element', 'Transparent Table'] },
+    { id: 'THEORY-02', title: 'ABAP 기본 문법과 WRITE 출력', desc: '변수와 기본 제어 흐름을 이용해 실행 가능한 가장 작은 ABAP 프로그램을 작성한다.', time: '6.0시간', topics: 6, difficulty: '난이도 하', keywords: ['REPORT', 'DATA', 'CONSTANTS', 'Activation', 'Execution'] },
+    { id: 'THEORY-03', title: 'PARAMETERS 기반 Selection Screen 맛보기', desc: '복잡한 Selection Screen 이벤트 없이 단일 입력값을 받아 출력하는 흐름을 경험한다.', time: '3.2시간', topics: 4, difficulty: '난이도 하', keywords: ['PARAMETERS', 'Screen Input', 'DEFAULT', 'OBLIGATORY', 'Initial Value'] },
+    { id: 'THEORY-04', title: 'DDIC 2차: 관계와 입력 도움말', desc: 'PARAMETERS를 통해 입력 필드의 의미를 경험한 뒤 DDIC 관계와 F4 Help를 이해한다.', time: '6.0시간', topics: 6, difficulty: '난이도 중하', keywords: ['Foreign Key', 'Check Table', 'Cardinality', 'Value Table', 'Search Help'] },
+    { id: 'THEORY-05', title: 'ABAP 모듈화 기초', desc: 'Internal Table 응용 전에 코드를 나누고 호출하는 최소 구조를 익힌다.', time: '6.0시간', topics: 6, difficulty: '난이도 중하', keywords: ['FORM', 'PERFORM', 'Subroutine', 'USING', 'CHANGING'] },
+    { id: 'THEORY-06', title: 'Internal Table 기초', desc: 'Internal Table의 존재 이유, 선언, 입력, 반복, 단건 조회 순서를 안정적으로 익힌다.', time: '6.0시간', topics: 6, difficulty: '난이도 중하', keywords: ['Internal Table', 'Line Type', 'Work Area', 'STANDARD TABLE', 'Runtime Memory'] },
+    { id: 'THEORY-07', title: 'Internal Table 응용과 Deep Structure 개념 소개', desc: '검색 이후 수정·삭제·정렬·성능 기초로 확장하고 Deep Structure는 개념 수준에서만 소개한다.', time: '9.0시간', topics: 9, difficulty: '난이도 중', keywords: ['MODIFY', 'DELETE', 'WHERE', 'SORT', 'TRANSPORTING'] },
+    { id: 'THEORY-08', title: 'Simple ALV / SALV 1차', desc: 'Internal Table 결과를 가장 단순한 SALV로 즉시 출력하여 데이터 처리의 결과를 시각화한다.', time: '4.0시간', topics: 5, difficulty: '난이도 중하', keywords: ['CL_SALV_TABLE', 'FACTORY', 'DISPLAY', 'List Output'] },
+    { id: 'THEORY-09', title: 'Open SQL 1차: 기본 조회', desc: 'JOIN 전 단계로 단일 테이블 조회와 조건 조회를 익히고 결과를 Internal Table에 담는다.', time: '6.0시간', topics: 6, difficulty: '난이도 중', keywords: ['SELECT FROM', 'FIELDS', 'WHERE', 'ABAP SQL', 'Host Variable @'] },
+    { id: 'THEORY-10', title: 'SELECT-OPTIONS와 Range Table', desc: 'Internal Table과 Open SQL 기본 조회 이후 Range 구조와 복수 입력 조건을 이해한다.', time: '6.0시간', topics: 6, difficulty: '난이도 중', keywords: ['SELECT-OPTIONS', 'SIGN', 'OPTION', 'LOW', 'HIGH'] },
+    { id: 'THEORY-11', title: 'Open SQL 2차: JOIN과 집계 조회', desc: 'JOIN 개념을 중심으로 DB View와 CDS로 이어질 데이터 모델 사고를 만든다.', time: '7.7시간', topics: 7, difficulty: '난이도 중', keywords: ['INNER JOIN', 'LEFT OUTER JOIN', 'ON Condition', 'Alias'] },
+    { id: 'THEORY-12', title: 'Classic DDIC View와 유지보수 객체', desc: 'Open SQL JOIN 직후 Classic View와 유지보수 객체를 학습해 CDS 전 비교 기준을 만든다.', time: '6.0시간', topics: 6, difficulty: '난이도 중', keywords: ['Database View', 'DDIC View', 'Projection View', 'Help View'] },
+    { id: 'THEORY-13', title: 'ABAP Report Event와 Selection Screen 심화', desc: 'DB 조회와 View까지 배운 뒤 리포트 실행 이벤트와 입력 검증 흐름을 정리한다.', time: '7.0시간', topics: 7, difficulty: '난이도 중', keywords: ['INITIALIZATION', 'START-OF-SELECTION', 'AT SELECTION-SCREEN', 'LOOP AT SCREEN'] },
+    { id: 'THEORY-14', title: 'Screen Programming / Dynpro 기초', desc: 'Grid ALV 선행지식으로 Screen Painter, PBO/PAI, Custom Control의 기본 흐름을 익힌다.', time: '7.0시간', topics: 7, difficulty: '난이도 중상', keywords: ['Module Pool', 'Screen Painter', 'Screen Number', 'Layout'] },
+    { id: 'THEORY-15', title: 'Grid ALV 기초', desc: 'Screen 기반 컨테이너 위에 Grid ALV를 띄우고 Field Catalog, Layout, Variant까지 기본 구조를 완성한다.', time: '9.0시간', topics: 9, difficulty: '난이도 중상', keywords: ['CL_GUI_ALV_GRID', 'CL_GUI_CUSTOM_CONTAINER', 'LVC Grid', 'Field Catalog'] },
+    { id: 'THEORY-16', title: 'Modern ABAP Syntax', desc: '기존 절차형 코드를 현대식 ABAP 표현으로 간결하고 안전하게 개선한다.', time: '6.0시간', topics: 6, difficulty: '난이도 중상', keywords: ['DATA(...)', 'FIELD-SYMBOL(...)', 'Inline Declaration', 'VALUE'] },
+    { id: 'THEORY-17', title: 'New Open SQL / Modern ABAP SQL', desc: 'Modern ABAP Syntax 이후 Host Variable, Inline Target, SQL Expression을 본격적으로 다룬다.', time: '7.0시간', topics: 7, difficulty: '난이도 중상', keywords: ['Modern ABAP SQL', 'Host Variable', 'Host Expression', 'FIELDS'] },
+    { id: 'THEORY-18', title: 'OO ABAP 기본 설계', desc: 'RAP, ALV 심화, Gateway 구현의 전제인 Class 기반 기본 설계를 익힌다.', time: '7.0시간', topics: 7, difficulty: '난이도 중상', keywords: ['Global Class', 'SE24', 'Method', 'Attribute', 'Public/Protected/Private'] },
+    { id: 'THEORY-19', title: 'SALV / Grid ALV 표시 제어 심화', desc: 'OO ABAP 이후 SALV/Grid의 표시 제어와 Deep Structure 기반 Cell Color/Style을 구현한다.', time: '7.0시간', topics: 7, difficulty: '난이도 상', keywords: ['SALV Sort', 'SALV Filter', 'SALV Layout', 'Variant'] },
+    { id: 'THEORY-20', title: 'CDS View Entity 기초', desc: 'Classic View와 Modern ABAP SQL 학습 이후 CDS View Entity의 의미 기반 모델링을 시작한다.', time: '6.6시간', topics: 6, difficulty: '난이도 상', keywords: ['define view entity', 'as select from', 'ZI_*', 'ZC_*', 'Interface View'] },
+    { id: 'THEORY-21', title: 'RAP / ABAP Cloud 입문', desc: 'CDS와 OO ABAP 기반 위에서 RAP Business Object와 ABAP Cloud 기본 원칙을 이해한다.', time: '8.8시간', topics: 8, difficulty: '난이도 상', keywords: ['RAP', 'Business Object', 'Managed Scenario', 'Root View', 'Composition'] }
+  ],
+  track2: [
+    { id: 'PRACTICAL-01', title: '실무 데이터 변경과 트랜잭션 제어', desc: '데이터 변경 로직을 LUW, 오류 처리, 재처리 관점에서 안전하게 설계한다.', time: '5.0시간', topics: 5, difficulty: '난이도 상', keywords: ['INSERT', 'UPDATE', 'DELETE', 'COMMIT WORK', 'ROLLBACK WORK'] },
+    { id: 'PRACTICAL-02', title: 'Lock Object와 동시성 제어', desc: 'Lock Object를 데이터 정합성과 다중 사용자 충돌 방지 관점에서 적용한다.', time: '5.0시간', topics: 5, difficulty: '난이도 상', keywords: ['Lock Object', 'ENQUEUE', 'DEQUEUE', 'Lock Argument'] },
+    { id: 'PRACTICAL-03', title: 'OO ABAP 고급 설계와 패턴', desc: 'Track 1의 OO 기본을 바탕으로 실무 재사용 컴포넌트와 패턴을 설계한다.', time: '5.0시간', topics: 5, difficulty: '난이도 상', keywords: ['Factory', 'Singleton', 'Strategy', 'Shared Instance'] },
+    { id: 'PRACTICAL-04', title: 'ALV 고급 Event 응용', desc: 'Grid ALV의 사용자 이벤트를 업무 동작과 연결한다.', time: '5.0시간', topics: 5, difficulty: '난이도 상', keywords: ['DOUBLE_CLICK', 'HOTSPOT_CLICK', 'Event Handler', 'TOOLBAR'] },
+    { id: 'PRACTICAL-05', title: 'Editable Grid ALV와 입력 검증', desc: 'Editable Grid를 통해 사용자 입력, Cell Style, 변경 검증, 데이터 반영 흐름을 구현한다.', time: '6.0시간', topics: 6, difficulty: '난이도 상', keywords: ['Editable Grid', 'EDIT', 'DATA_CHANGED', 'DATA_CHANGED_FINISHED'] },
+    { id: 'PRACTICAL-06', title: 'Enhancement / BAdI / User Exit', desc: '표준 수정 없이 SAP 표준 프로세스를 안전하게 확장한다.', time: '5.0시간', topics: 5, difficulty: '난이도 상', keywords: ['BAdI', 'User Exit', 'Customer Exit', 'Enhancement Point', 'CMOD'] },
+    { id: 'PRACTICAL-07', title: '인터페이스 실무: BAPI / RFC / BDC / File / Excel', desc: 'SAP 내부·외부 연계를 오류 처리와 재처리 가능성까지 포함해 설계한다.', time: '5.0시간', topics: 5, difficulty: '난이도 상', keywords: ['BAPI', 'BAPIRET2', 'RFC', 'Destination'] },
+    { id: 'PRACTICAL-08', title: 'IDoc / ALE / Gateway V2', desc: '비동기 메시지와 OData V2 서비스를 실무 인터페이스 관점에서 다룬다.', time: '5.0시간', topics: 5, difficulty: '난이도 상', keywords: ['IDoc', 'ALE', 'Control Record', 'Distribution Model'] },
+    { id: 'PRACTICAL-09', title: '성능 분석과 튜닝', desc: '측정 도구를 통해 병목을 확인하고 SQL/ITAB/로직을 개선한다.', time: '5.0시간', topics: 5, difficulty: '난이도 상', keywords: ['ST05', 'SQL Trace', 'SAT', 'SQL Monitor', 'SQLM'] },
+    { id: 'PRACTICAL-10', title: 'AMDP / ADBC / Pushdown', desc: 'Open SQL/CDS로 부족한 고급 DB 처리의 판단 기준과 구현 방법을 다룬다.', time: '5.0시간', topics: 5, difficulty: '난이도 상', keywords: ['AMDP', 'SQLScript', 'Pushdown', 'Database Procedure'] },
+    { id: 'PRACTICAL-11', title: 'Forms / Output / PDF', desc: '업무 장표 출력과 PDF 생성, 양식 변경 대응 흐름을 익힌다.', time: '5.0시간', topics: 5, difficulty: '난이도 상', keywords: ['Smart Forms', 'Adobe Forms', 'Form Interface', 'Output Control'] },
+    { id: 'PRACTICAL-12', title: '운영 품질과 배포 관리', desc: '개발 산출물을 운영 가능한 품질로 유지하기 위한 점검과 배포 기준을 세운다.', time: '5.0시간', topics: 5, difficulty: '난이도 상', keywords: ['ATC', 'Code Inspector', 'ABAP Unit', 'Transport Request'] },
+    { id: 'PRACTICAL-13', title: 'RAP + Fiori 실무 Capstone', desc: 'CDS/RAP/Fiori Elements를 결합해 실무형 End-to-End 앱을 완성한다.', time: '7.7시간', topics: 7, difficulty: '난이도 상', keywords: ['Scenario', 'Entity Model', 'Association', 'Composition', 'ZI_*'] }
+  ]
+};
+
+const moduleListEl = document.getElementById('moduleList');
+const detailContentEl = document.getElementById('detailContent');
+const sidebarHeaderEl = document.getElementById('sidebarHeader');
+const tabs = document.querySelectorAll('.md-tab');
+
+let currentTrack = 'track1';
+let activeModuleId = null;
+
+function renderList(trackKey) {
+  const data = curriculumData[trackKey];
+  sidebarHeaderEl.textContent = `${data.length}개 섹션`;
+  
+  moduleListEl.innerHTML = '';
+  data.forEach((item) => {
+    const div = document.createElement('div');
+    div.className = `md-list-item ${item.id === activeModuleId ? 'active' : ''}`;
+    div.dataset.id = item.id;
+    
+    div.innerHTML = `
+      <div class="md-item-id">${item.id}</div>
+      <div class="md-item-title">${item.title}</div>
+      <div class="md-item-meta">
+        <span>⏱ ${item.time}</span>
+        <span>·</span>
+        <span>📚 ${item.topics} 단위</span>
+      </div>
+    `;
+    
+    div.addEventListener('click', () => {
+      activeModuleId = item.id;
+      document.querySelectorAll('.md-list-item').forEach(el => el.classList.remove('active'));
+      div.classList.add('active');
+      renderDetail(item);
+    });
+    
+    moduleListEl.appendChild(div);
+  });
+}
+
+function renderDetail(item) {
+  if (!item) return;
+  
+  const keywordsHtml = item.keywords.map(kw => `<span class="kw-tag">${kw}</span>`).join('');
+  
+  // Re-trigger animation by cloning and replacing node
+  const containerHtml = `
+    <div class="md-detail-container" id="detailContainer">
+      <div class="detail-eyebrow">${item.id}</div>
+      <h2 class="detail-title">${item.title}</h2>
+      <p class="detail-desc">${item.desc}</p>
+      
+      <div class="detail-badges">
+        <span class="d-badge time">⏱ 권장 ${item.time}</span>
+        <span class="d-badge topics">📚 ${item.topics}개 학습 단위</span>
+        <span class="d-badge diff">📈 ${item.difficulty}</span>
+      </div>
+
+      <div class="detail-keywords">
+        <h4>핵심 키워드</h4>
+        <div class="kw-list">
+          ${keywordsHtml}
+        </div>
+      </div>
+
+      <!-- Placeholder for detail units -->
+      <div class="detail-units-placeholder">
+        <div class="placeholder-header">
+          <h3>세부 학습 단위 목차</h3>
+          <p>향후 추가될 ${item.topics}개의 세부 학습 흐름 영역입니다.</p>
+        </div>
+        <div class="unit-mock-list">
+          <div class="unit-mock-item">
+            <span class="unit-mock-num">01</span>
+            <div class="unit-mock-text long"></div>
+            <div class="unit-mock-btn"></div>
+          </div>
+          <div class="unit-mock-item">
+            <span class="unit-mock-num">02</span>
+            <div class="unit-mock-text medium"></div>
+            <div class="unit-mock-btn"></div>
+          </div>
+          <div class="unit-mock-item">
+            <span class="unit-mock-num">03</span>
+            <div class="unit-mock-text short"></div>
+            <div class="unit-mock-btn"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  
+  detailContentEl.innerHTML = containerHtml;
+}
+
+// Tab Switching
+tabs.forEach(tab => {
+  tab.addEventListener('click', (e) => {
+    tabs.forEach(t => t.classList.remove('active'));
+    e.target.classList.add('active');
+    
+    currentTrack = e.target.dataset.track;
+    const data = curriculumData[currentTrack];
+    activeModuleId = data[0].id; // Default to first item
+    
+    renderList(currentTrack);
+    renderDetail(data[0]);
+    
+    // Scroll list to top
+    moduleListEl.scrollTop = 0;
+  });
+});
+
+// Init
+activeModuleId = curriculumData['track1'][0].id;
+renderList('track1');
+renderDetail(curriculumData['track1'][0]);
+
+</script>
+</body>
+</html>
