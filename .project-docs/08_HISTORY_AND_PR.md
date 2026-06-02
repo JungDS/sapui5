@@ -42,6 +42,8 @@
 
 | 구분 | 문서 | PR |
 |---|---|---|
+| 진행 중 | ABAP 커리큘럼 2-Track v8 통일 아키텍처(Unification) 기반 전환. 파편화된 JS/CSS를 하나로 통합하고 HTML에서 모드만 전환하도록 리팩토링 기획 중 | 이번 PR |
+| 완료 | ABAP 커리큘럼 Sample D (완전체 하이브리드) 제작 및 TDZ 버그 수정, 100% 와이드 화면 최적화 완료 | 이번 PR |
 | 진행 중 | ABAP 커리큘럼 2-Track 샘플 페이지 제작 및 비교 검토. 최종 선호안은 `abap-curriculum-codex-v7_sampleA-20260602-165628.html`이며, Track 탭, 좌측 THEORY 목록, 선택 THEORY 단일 본문, Navigation 학습 목차, Scroll Spy, 용어 팝업, JSON 데이터 분리 구조를 조합해 검토 중 | 이번 PR |
 | 완료 | Phase 1~4 IT 용어 Dual-Tab 팝업 구현 및 문서 태깅 | 로컬 작업 |
 | 완료 | `reference/` 초안 문서 분석 후 archive 이동 프로세스 수립 | 로컬 작업 |
@@ -151,6 +153,12 @@ docs/abap/cds-to-odata.html
   - 본문 폭을 넓혀 학습 콘텐츠 가독성을 높인다.
   - Track 탭은 스크롤 중 보이게 유지하되, 검색/필터 영역까지 과도하게 고정하지 않는다.
   - 하위 학습 단위 목차는 Scroll Spy와 연동해 현재 읽는 항목을 표시한다.
+
+### 2026-06-02 · Sample D 제작 및 v8 통합 아키텍처 기획
+
+- Sample A의 와이드 레이아웃과 Sample C의 유려한 본문 디자인을 결합하고 스크롤 스파이 기능을 더한 **Sample D**(`abap-curriculum-antigravity-v8_sampleD...html`)를 제작 완료했다.
+- 이 과정에서 발견된 용어 팝업의 Temporal Dead Zone (TDZ) 에러를 전역 호이스팅으로 완벽히 수정하고, 좌우 밀착 100% 레이아웃 최적화를 달성했다.
+- 두 샘플(Codex, Antigravity)의 유지보수 파편화를 막기 위해, 엔진(`abap-curriculum-v8.js/css`)을 하나로 통합하고 HTML 파일만 나누어 토글하는 **단일 엔진 다중 뷰(Unification)** 형태의 v8 전환 계획을 수립했다.
 
 ### 샘플 파일 관리 기준
 
