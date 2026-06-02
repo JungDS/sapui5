@@ -43,7 +43,7 @@
 
 | 구분 | 문서 | PR |
 |---|---|---|
-| 완료 | ABAP 커리큘럼 claude 계열 샘플 세트 — 단일 공유 엔진(`assets/abap-curriculum-explorer.js/css`) 위에 Studio/Library/Focus/Dashboard/Focus Library 5개 레이아웃 스킨. 인라인 JSON+fetch 폴백(file:// 직접 열람), 검색·난이도 필터·용어 팝업·해시 딥링크. 생성기 `tools/build-curriculum-samples.mjs`, `tools/build-abap-curriculum.mjs`. 용어 모달 `[object Object]` 표시 버그(`assets/common.js`) 1줄 수정 | 이번 PR |
+| 완료 | ABAP 커리큘럼 claude 계열 샘플 세트 — 단일 공유 엔진(`assets/abap-curriculum-explorer.js/css`) 위에 Studio/Library/Focus/Dashboard/Focus Library 5개 레이아웃 스킨. 인라인 JSON+fetch 폴백(file:// 직접 열람), 검색·난이도 필터·용어 팝업·해시 딥링크. 생성기 `tools/build-curriculum-samples.mjs`, `tools/build-abap-curriculum.mjs`. 용어 모달 `[object Object]` 표시 버그(`assets/common.js`) 1줄 수정 | #43 |
 | 진행 중 | ABAP 커리큘럼 2-Track v8 통일 아키텍처(Unification) 기반 전환. 파편화된 JS/CSS를 하나로 통합하고 HTML에서 모드만 전환하도록 리팩토링 기획 중 | 이번 PR |
 | 완료 | ABAP 커리큘럼 Sample D (완전체 하이브리드) 제작 및 TDZ 버그 수정, 100% 와이드 화면 최적화 완료 | 이번 PR |
 | 진행 중 | ABAP 커리큘럼 2-Track 샘플 페이지 제작 및 비교 검토. 최종 선호안은 `abap-curriculum-codex-v7_sampleA-20260602-165628.html`이며, Track 탭, 좌측 THEORY 목록, 선택 THEORY 단일 본문, Navigation 학습 목차, Scroll Spy, 용어 팝업, JSON 데이터 분리 구조를 조합해 검토 중 | 이번 PR |
