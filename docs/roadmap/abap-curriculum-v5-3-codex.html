@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ABAP 엔터프라이즈 커리큘럼 v5.3 · SAP Developer Learning Library</title>
+<link rel="stylesheet" href="../../assets/common.css" />
+<link rel="stylesheet" href="../../assets/stage7-shell.css" />
+<script src="../../assets/common.js" defer></script>
+<script src="../../assets/stage7-shell.js" defer></script>
+</head>
+<body
+  data-page-type="doc"
+  data-active-category="roadmap"
+  data-doc-id="abap-enterprise-curriculum-v5-3-codex"
+  data-doc-title="ABAP 엔터프라이즈 커리큘럼 v5.3"
+  data-doc-version="4.0"
+  data-doc-created-at="2026-06-02T01:36:34+09:00"
+  data-doc-updated-at="2026-06-02T02:04:17+09:00"
+  data-distributor="정훈영"
+  data-prose-root="true">
+
+<div class="stage7-doc-layout">
+  <section class="stage7-hero prose-summary" data-prose="summary">
+    <div class="breadcrumb" data-prose="summary">
+      <a href="../../index.html">홈</a>
+      <span>›</span>
+      <a href="../../pages/roadmap.html">로드맵 / 학습전략</a>
+      <span>›</span>
+      <span>ABAP 엔터프라이즈 커리큘럼 v5.3</span>
+    </div>
+    <div class="stage7-hero__eyebrow">SAP Developer Learning Library</div>
+    <h1>ABAP 엔터프라이즈 커리큘럼 v5.3</h1>
+    <p class="lead">
+      처음 ABAP을 배우는 학습자가 기초 문법에서 RAP와 Fiori 실무까지 순서대로 확인할 수 있는 커리큘럼 목차입니다.
+      각 섹션은 이후 상세 수업 페이지로 연결될 예정이며, 이 페이지에서는 전체 학습 여정과 선후수 흐름을 먼저 잡습니다.
+    </p>
+    <div class="home-badges">
+      <span class="stage7-badge blue">Stage 7 문서</span>
+      <span class="stage7-badge green">온라인 과정 목차</span>
+      <span class="stage7-badge purple">34개 섹션</span>
+      <span class="stage7-badge amber">205개 학습 단위</span>
+    </div>
+  </section>
+
+  <main>
+    <section class="stage7-section prose-summary" data-prose="summary" id="overview">
+      <div class="stage7-section__label">01 · 과정 개요</div>
+      <h2>ABAP 개발자로 성장하는 전체 여정을 먼저 펼쳐봅니다</h2>
+      <p>
+        이 커리큘럼은 초급자가 “무엇을 먼저 배우고, 다음에 무엇으로 이어지는지”를 놓치지 않도록 구성한 학습 지도입니다.
+        온라인 강의의 커리큘럼 화면처럼 큰 트랙, 섹션, 세부 수업 단위를 한눈에 보고 현재 위치를 확인할 수 있게 정리했습니다.
+      </p>
+      <div class="stage7-card-grid three">
+        <article class="stage7-card" data-prose="summary"><h3>학습 트랙</h3><p>2개</p><p class="muted">기본기를 다지는 흐름과 실무로 확장하는 흐름으로 나뉩니다.</p></article>
+        <article class="stage7-card" data-prose="summary"><h3>커리큘럼 섹션</h3><p>34개</p><p class="muted">각 섹션은 하나의 수업 묶음으로, 이후 상세 페이지의 입구가 됩니다.</p></article>
+        <article class="stage7-card" data-prose="summary"><h3>세부 학습 단위</h3><p>205개</p><p class="muted">개념 설명, 실습, 점검 항목으로 나누어 단계별로 학습합니다.</p></article>
+      </div>
+      <div class="note" data-prose="concept">
+        <strong>이 페이지를 읽는 방법</strong>
+        먼저 아래 학습 경로에서 큰 흐름을 확인한 뒤, 트랙별 섹션 카드에서 지금 필요한 학습 묶음을 선택합니다.
+        상세 수업 페이지가 추가되면 각 섹션 카드가 해당 페이지로 연결됩니다.
+      </div>
+    </section>
+
+    <section class="stage7-section prose-concept" data-prose="concept" id="learning-path">
+      <div class="stage7-section__label">02 · 학습 경로</div>
+      <h2>기초 객체에서 실무 앱까지 한 단계씩 올라갑니다</h2>
+      <ol class="flow">
+        <li class="flow-step"><span class="num">1</span><div><div class="flow-title">DDIC와 기본 문법</div><p>데이터 구조를 만들고 ABAP 프로그램의 가장 작은 실행 단위를 익힙니다.</p></div></li>
+        <li class="flow-step"><span class="num">2</span><div><div class="flow-title">입력 화면과 메모리 데이터</div><p>PARAMETERS, SELECT-OPTIONS, Internal Table을 연결해 사용자의 입력과 처리 결과를 다룹니다.</p></div></li>
+        <li class="flow-step"><span class="num">3</span><div><div class="flow-title">Open SQL과 리포트</div><p>DB 조회, JOIN, 집계, Report Event를 통해 업무 데이터를 읽는 흐름을 완성합니다.</p></div></li>
+        <li class="flow-step"><span class="num">4</span><div><div class="flow-title">ALV와 화면 처리</div><p>SALV, Screen Programming, Grid ALV로 조회 결과를 사용자가 다룰 수 있는 화면으로 만듭니다.</p></div></li>
+        <li class="flow-step"><span class="num">5</span><div><div class="flow-title">Modern ABAP, OO, CDS, RAP</div><p>최신 ABAP 표현, 객체지향 설계, 의미 기반 모델링, RAP 개발 흐름으로 확장합니다.</p></div></li>
+        <li class="flow-step"><span class="num">6</span><div><div class="flow-title">실무 확장과 종합 실습</div><p>Lock, Enhancement, Interface, 성능, 배포 품질, Fiori 실무 앱으로 마무리합니다.</p></div></li>
+      </ol>
+    </section>
+
+    <section class="stage7-section prose-structure" data-prose="structure" id="curriculum-tracks">
+      <div class="stage7-section__label">03 · 트랙별 목차</div>
+      <h2>트랙을 선택해 필요한 커리큘럼을 확인합니다</h2>
+      <p>
+        기본기를 처음부터 다지고 싶다면 트랙 1을, ABAP 기본기를 바탕으로 실무 주제를 확장하고 싶다면 트랙 2를 선택합니다.
+        이후 각 섹션 상세 페이지가 추가되면 이 목차 카드가 수업 페이지의 입구가 됩니다.
+      </p>
+      <div class="stage7-track-tabs" data-stage7-tabset>
+        <div class="stage7-tabs stage7-tabs--large" role="tablist" aria-label="커리큘럼 트랙 선택">
+          <button type="button" class="active" id="tab-track-foundation" data-stage7-tab="track-foundation" aria-selected="true" aria-controls="track-foundation">트랙 1 · 기본기 완성<span>21개 섹션 · DDIC부터 RAP 입문까지</span></button>
+          <button type="button" id="tab-track-practical" data-stage7-tab="track-practical" aria-selected="false" aria-controls="track-practical">트랙 2 · 실무 확장<span>13개 섹션 · 데이터 변경부터 Fiori 종합 실습까지</span></button>
+        </div>
+
+        <div class="stage7-tab-panel" id="track-foundation" role="tabpanel" aria-labelledby="tab-track-foundation" data-stage7-panel="track-foundation">
+          <div class="stage7-section__label">트랙 1</div>
+          <h3 class="stage7-panel-title">ABAP 기본 이론 및 구현 흐름</h3>
+          <p>초급자가 DDIC, 문법, 입력, 데이터 처리, 조회, Report Event, SALV, Screen, Grid ALV, Modern ABAP, OO, CDS, RAP까지 선후수에 맞게 학습하는 트랙이다.</p>
+          <div class="note" data-prose="concept">
+            <strong>기본기 목차</strong>
+            처음 시작한다면 THEORY-01부터 순서대로 진행하는 것을 권장합니다. 이미 경험이 있다면 각 카드의 핵심 키워드로 비어 있는 부분을 먼저 확인하세요.
+          </div>
+          <div class="stage7-card-grid two">
+        <article class="stage7-card" data-prose="structure" id="theory-01">
+          <div class="library-meta"><span class="stage7-badge blue">THEORY-01</span><span class="stage7-badge amber">6.0시간</span><span class="stage7-badge green">6개 단위</span></div>
+          <h3>DDIC 1차: 기본 데이터 구조 생성</h3>
+          <p>초급자가 SAP 데이터 객체의 최소 구성 단위를 만들고 Transparent Table까지 생성한다.</p>
+          <p class="muted">핵심 키워드: DDIC, SE11/ADT, Repository Object, Domain, Data Type</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="theory-02">
+          <div class="library-meta"><span class="stage7-badge blue">THEORY-02</span><span class="stage7-badge amber">6.0시간</span><span class="stage7-badge green">6개 단위</span></div>
+          <h3>ABAP 기본 문법과 WRITE 출력</h3>
+          <p>변수와 기본 제어 흐름을 이용해 실행 가능한 가장 작은 ABAP 프로그램을 작성한다.</p>
+          <p class="muted">핵심 키워드: REPORT, Comment, Activation, Execution, DATA</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="theory-03">
+          <div class="library-meta"><span class="stage7-badge blue">THEORY-03</span><span class="stage7-badge amber">3.2시간</span><span class="stage7-badge green">4개 단위</span></div>
+          <h3>PARAMETERS 기반 Selection Screen 맛보기</h3>
+          <p>복잡한 Selection Screen 이벤트 없이 단일 입력값을 받아 출력하는 흐름을 경험한다.</p>
+          <p class="muted">핵심 키워드: PARAMETERS, Screen Input, Elementary Input, DEFAULT, OBLIGATORY</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="theory-04">
+          <div class="library-meta"><span class="stage7-badge blue">THEORY-04</span><span class="stage7-badge amber">6.0시간</span><span class="stage7-badge green">6개 단위</span></div>
+          <h3>DDIC 2차: 관계와 입력 도움말</h3>
+          <p>PARAMETERS를 통해 입력 필드의 의미를 경험한 뒤 DDIC 관계와 F4 Help를 이해한다.</p>
+          <p class="muted">핵심 키워드: Foreign Key, Check Table, Cardinality, Value Table, Domain</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="theory-05">
+          <div class="library-meta"><span class="stage7-badge blue">THEORY-05</span><span class="stage7-badge amber">6.0시간</span><span class="stage7-badge green">6개 단위</span></div>
+          <h3>ABAP 모듈화 기초</h3>
+          <p>Internal Table 응용 전에 코드를 나누고 호출하는 최소 구조를 익힌다.</p>
+          <p class="muted">핵심 키워드: FORM, PERFORM, Subroutine, USING, CHANGING</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="theory-06">
+          <div class="library-meta"><span class="stage7-badge blue">THEORY-06</span><span class="stage7-badge amber">6.0시간</span><span class="stage7-badge green">6개 단위</span></div>
+          <h3>Internal Table 기초</h3>
+          <p>Internal Table의 존재 이유, 선언, 입력, 반복, 단건 조회 순서를 안정적으로 익힌다.</p>
+          <p class="muted">핵심 키워드: Internal Table, Runtime Memory, Application Server, Line Type, Work Area</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="theory-07">
+          <div class="library-meta"><span class="stage7-badge blue">THEORY-07</span><span class="stage7-badge amber">9.0시간</span><span class="stage7-badge green">9개 단위</span></div>
+          <h3>Internal Table 응용과 Deep Structure 개념 소개</h3>
+          <p>검색 이후 수정&#183;삭제&#183;정렬&#183;성능 기초로 확장하고 Deep Structure는 개념 수준에서만 소개한다.</p>
+          <p class="muted">핵심 키워드: MODIFY, INDEX, TRANSPORTING, DELETE, WHERE</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="theory-08">
+          <div class="library-meta"><span class="stage7-badge blue">THEORY-08</span><span class="stage7-badge amber">4.0시간</span><span class="stage7-badge green">5개 단위</span></div>
+          <h3>Simple ALV / SALV 1차</h3>
+          <p>Internal Table 결과를 가장 단순한 SALV로 즉시 출력하여 데이터 처리의 결과를 시각화한다.</p>
+          <p class="muted">핵심 키워드: CL_SALV_TABLE, SALV, List Output, FACTORY, Changing Table</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="theory-09">
+          <div class="library-meta"><span class="stage7-badge blue">THEORY-09</span><span class="stage7-badge amber">6.0시간</span><span class="stage7-badge green">6개 단위</span></div>
+          <h3>Open SQL 1차: 기본 조회</h3>
+          <p>JOIN 전 단계로 단일 테이블 조회와 조건 조회를 익히고 결과를 Internal Table에 담는다.</p>
+          <p class="muted">핵심 키워드: SELECT FROM, FIELDS, ABAP SQL, WHERE, Host Variable @</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="theory-10">
+          <div class="library-meta"><span class="stage7-badge blue">THEORY-10</span><span class="stage7-badge amber">6.0시간</span><span class="stage7-badge green">6개 단위</span></div>
+          <h3>SELECT-OPTIONS와 Range Table</h3>
+          <p>Internal Table과 Open SQL 기본 조회 이후 Range 구조와 복수 입력 조건을 이해한다.</p>
+          <p class="muted">핵심 키워드: SIGN, OPTION, LOW, HIGH, SELECT-OPTIONS</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="theory-11">
+          <div class="library-meta"><span class="stage7-badge blue">THEORY-11</span><span class="stage7-badge amber">7.7시간</span><span class="stage7-badge green">7개 단위</span></div>
+          <h3>Open SQL 2차: JOIN과 집계 조회</h3>
+          <p>JOIN 개념을 중심으로 DB View와 CDS로 이어질 데이터 모델 사고를 만든다.</p>
+          <p class="muted">핵심 키워드: INNER JOIN, ON Condition, Alias, LEFT OUTER JOIN, Initial Value</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="theory-12">
+          <div class="library-meta"><span class="stage7-badge blue">THEORY-12</span><span class="stage7-badge amber">6.0시간</span><span class="stage7-badge green">6개 단위</span></div>
+          <h3>Classic DDIC View와 유지보수 객체</h3>
+          <p>Open SQL JOIN 직후 Classic View와 유지보수 객체를 학습해 CDS 전 비교 기준을 만든다.</p>
+          <p class="muted">핵심 키워드: Database View, Inner Join, DDIC View, Projection View, Field Restriction</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="theory-13">
+          <div class="library-meta"><span class="stage7-badge blue">THEORY-13</span><span class="stage7-badge amber">7.0시간</span><span class="stage7-badge green">7개 단위</span></div>
+          <h3>ABAP Report Event와 Selection Screen 심화</h3>
+          <p>DB 조회와 View까지 배운 뒤 리포트 실행 이벤트와 입력 검증 흐름을 정리한다.</p>
+          <p class="muted">핵심 키워드: LOAD-OF-PROGRAM, INITIALIZATION, START-OF-SELECTION, Default Value, AT SELECTION-SCREEN OUTPUT</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="theory-14">
+          <div class="library-meta"><span class="stage7-badge blue">THEORY-14</span><span class="stage7-badge amber">7.0시간</span><span class="stage7-badge green">7개 단위</span></div>
+          <h3>Screen Programming / Dynpro 기초</h3>
+          <p>Grid ALV 선행지식으로 Screen Painter, PBO/PAI, Custom Control의 기본 흐름을 익힌다.</p>
+          <p class="muted">핵심 키워드: Module Pool, Program Type M, Includes, Screen Number, Screen Painter</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="theory-15">
+          <div class="library-meta"><span class="stage7-badge blue">THEORY-15</span><span class="stage7-badge amber">9.0시간</span><span class="stage7-badge green">9개 단위</span></div>
+          <h3>Grid ALV 기초</h3>
+          <p>Screen 기반 컨테이너 위에 Grid ALV를 띄우고 Field Catalog, Layout, Variant까지 기본 구조를 완성한다.</p>
+          <p class="muted">핵심 키워드: CL_GUI_CUSTOM_CONTAINER, Container Name, CL_GUI_ALV_GRID, Parent Container, Output Internal Table</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="theory-16">
+          <div class="library-meta"><span class="stage7-badge blue">THEORY-16</span><span class="stage7-badge amber">6.0시간</span><span class="stage7-badge green">6개 단위</span></div>
+          <h3>Modern ABAP Syntax</h3>
+          <p>기존 절차형 코드를 현대식 ABAP 표현으로 간결하고 안전하게 개선한다.</p>
+          <p class="muted">핵심 키워드: DATA(...), FIELD-SYMBOL(...), Inline Declaration, VALUE, Constructor Expression</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="theory-17">
+          <div class="library-meta"><span class="stage7-badge blue">THEORY-17</span><span class="stage7-badge amber">7.0시간</span><span class="stage7-badge green">7개 단위</span></div>
+          <h3>New Open SQL / Modern ABAP SQL</h3>
+          <p>Modern ABAP Syntax 이후 Host Variable, Inline Target, SQL Expression을 본격적으로 다룬다.</p>
+          <p class="muted">핵심 키워드: Classic Open SQL, Modern ABAP SQL, FIELDS, @, Host Variable</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="theory-18">
+          <div class="library-meta"><span class="stage7-badge blue">THEORY-18</span><span class="stage7-badge amber">7.0시간</span><span class="stage7-badge green">7개 단위</span></div>
+          <h3>OO ABAP 기본 설계</h3>
+          <p>RAP, ALV 심화, Gateway 구현의 전제인 Class 기반 기본 설계를 익힌다.</p>
+          <p class="muted">핵심 키워드: Global Class, SE24, ADT Class, Attribute, Method</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="theory-19">
+          <div class="library-meta"><span class="stage7-badge blue">THEORY-19</span><span class="stage7-badge amber">7.0시간</span><span class="stage7-badge green">7개 단위</span></div>
+          <h3>SALV / Grid ALV 표시 제어 심화</h3>
+          <p>OO ABAP 이후 SALV/Grid의 표시 제어와 Deep Structure 기반 Cell Color/Style을 구현한다.</p>
+          <p class="muted">핵심 키워드: SALV Sort, SALV Filter, get_functions, SALV Layout, Variant</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="theory-20">
+          <div class="library-meta"><span class="stage7-badge blue">THEORY-20</span><span class="stage7-badge amber">6.6시간</span><span class="stage7-badge green">6개 단위</span></div>
+          <h3>CDS View Entity 기초</h3>
+          <p>Classic View와 Modern ABAP SQL 학습 이후 CDS View Entity의 의미 기반 모델링을 시작한다.</p>
+          <p class="muted">핵심 키워드: define view entity, as select from, CDS, ZI_*, ZC_*</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="theory-21">
+          <div class="library-meta"><span class="stage7-badge blue">THEORY-21</span><span class="stage7-badge amber">8.8시간</span><span class="stage7-badge green">8개 단위</span></div>
+          <h3>RAP / ABAP Cloud 입문</h3>
+          <p>CDS와 OO ABAP 기반 위에서 RAP Business Object와 ABAP Cloud 기본 원칙을 이해한다.</p>
+          <p class="muted">핵심 키워드: RAP, Business Object, Managed Scenario, ZI_*, Root View</p>
+        </article>
+          </div>
+        </div>
+
+        <div class="stage7-tab-panel" id="track-practical" role="tabpanel" aria-labelledby="tab-track-practical" data-stage7-panel="track-practical" hidden>
+          <div class="stage7-section__label">트랙 2</div>
+          <h3 class="stage7-panel-title">ABAP 실무 응용 및 고급 개발 흐름</h3>
+          <p>트랙 1 기반 위에서 데이터 변경, Lock, OO 고급, ALV Event, Enhancement, Interface, 성능, Forms, 운영 품질, RAP/Fiori 실무를 다루는 트랙이다.</p>
+          <div class="note" data-prose="concept">
+            <strong>실무 확장 목차</strong>
+            트랙 2는 ABAP 기본기 이후의 실무 적용 구간입니다. 데이터 변경, 사용자 이벤트, 표준 확장, 인터페이스, 품질 관리처럼 프로젝트에서 반복해서 만나는 주제를 묶었습니다.
+          </div>
+          <div class="stage7-card-grid two">
+        <article class="stage7-card" data-prose="structure" id="practical-01">
+          <div class="library-meta"><span class="stage7-badge blue">PRACTICAL-01</span><span class="stage7-badge amber">5.0시간</span><span class="stage7-badge green">5개 단위</span></div>
+          <h3>실무 데이터 변경과 트랜잭션 제어</h3>
+          <p>데이터 변경 로직을 LUW, 오류 처리, 재처리 관점에서 안전하게 설계한다.</p>
+          <p class="muted">핵심 키워드: INSERT, UPDATE, MODIFY, DELETE, COMMIT WORK</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="practical-02">
+          <div class="library-meta"><span class="stage7-badge blue">PRACTICAL-02</span><span class="stage7-badge amber">5.0시간</span><span class="stage7-badge green">5개 단위</span></div>
+          <h3>Lock Object와 동시성 제어</h3>
+          <p>Lock Object를 데이터 정합성과 다중 사용자 충돌 방지 관점에서 적용한다.</p>
+          <p class="muted">핵심 키워드: Lock Object, SE11, Lock Argument, ENQUEUE, DEQUEUE</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="practical-03">
+          <div class="library-meta"><span class="stage7-badge blue">PRACTICAL-03</span><span class="stage7-badge amber">5.0시간</span><span class="stage7-badge green">5개 단위</span></div>
+          <h3>OO ABAP 고급 설계와 패턴</h3>
+          <p>트랙 1의 OO 기본을 바탕으로 실무 재사용 컴포넌트와 패턴을 설계한다.</p>
+          <p class="muted">핵심 키워드: Factory, Creation Logic, Singleton, Shared Instance, Strategy</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="practical-04">
+          <div class="library-meta"><span class="stage7-badge blue">PRACTICAL-04</span><span class="stage7-badge amber">5.0시간</span><span class="stage7-badge green">5개 단위</span></div>
+          <h3>ALV 고급 Event 응용</h3>
+          <p>Grid ALV의 사용자 이벤트를 업무 동작과 연결한다.</p>
+          <p class="muted">핵심 키워드: DOUBLE_CLICK, Event Handler, HOTSPOT_CLICK, Hotspot, TOOLBAR</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="practical-05">
+          <div class="library-meta"><span class="stage7-badge blue">PRACTICAL-05</span><span class="stage7-badge amber">6.0시간</span><span class="stage7-badge green">6개 단위</span></div>
+          <h3>Editable Grid ALV와 입력 검증</h3>
+          <p>Editable Grid를 통해 사용자 입력, Cell Style, 변경 검증, 데이터 반영 흐름을 구현한다.</p>
+          <p class="muted">핵심 키워드: EDIT, Field Catalog, Editable Grid, DATA_CHANGED, Modified Cell</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="practical-06">
+          <div class="library-meta"><span class="stage7-badge blue">PRACTICAL-06</span><span class="stage7-badge amber">5.0시간</span><span class="stage7-badge green">5개 단위</span></div>
+          <h3>Enhancement / BAdI / User Exit</h3>
+          <p>표준 수정 없이 SAP 표준 프로세스를 안전하게 확장한다.</p>
+          <p class="muted">핵심 키워드: Customer Exit, User Exit, CMOD, Enhancement Point, Enhancement Section</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="practical-07">
+          <div class="library-meta"><span class="stage7-badge blue">PRACTICAL-07</span><span class="stage7-badge amber">5.0시간</span><span class="stage7-badge green">5개 단위</span></div>
+          <h3>인터페이스 실무: BAPI / RFC / BDC / File / Excel</h3>
+          <p>SAP 내부외부 연계를 오류 처리와 재처리 가능성까지 포함해 설계한다.</p>
+          <p class="muted">핵심 키워드: BAPI, BAPIRET2, Return, RFC, Remote Enabled</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="practical-08">
+          <div class="library-meta"><span class="stage7-badge blue">PRACTICAL-08</span><span class="stage7-badge amber">5.0시간</span><span class="stage7-badge green">5개 단위</span></div>
+          <h3>IDoc / ALE / Gateway V2</h3>
+          <p>비동기 메시지와 OData V2 서비스를 실무 인터페이스 관점에서 다룬다.</p>
+          <p class="muted">핵심 키워드: IDoc, Control Record, Data Record, Status Record, ALE</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="practical-09">
+          <div class="library-meta"><span class="stage7-badge blue">PRACTICAL-09</span><span class="stage7-badge amber">5.0시간</span><span class="stage7-badge green">5개 단위</span></div>
+          <h3>성능 분석과 튜닝</h3>
+          <p>측정 도구를 통해 병목을 확인하고 SQL/ITAB/로직을 개선한다.</p>
+          <p class="muted">핵심 키워드: ST05, SQL Trace, SAT, Runtime Analysis, SQL Monitor</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="practical-10">
+          <div class="library-meta"><span class="stage7-badge blue">PRACTICAL-10</span><span class="stage7-badge amber">5.0시간</span><span class="stage7-badge green">5개 단위</span></div>
+          <h3>AMDP / ADBC / Pushdown</h3>
+          <p>Open SQL/CDS로 부족한 고급 DB 처리의 판단 기준과 구현 방법을 다룬다.</p>
+          <p class="muted">핵심 키워드: Pushdown, Application Server, Database, AMDP, SQLScript</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="practical-11">
+          <div class="library-meta"><span class="stage7-badge blue">PRACTICAL-11</span><span class="stage7-badge amber">5.0시간</span><span class="stage7-badge green">5개 단위</span></div>
+          <h3>Forms / Output / PDF</h3>
+          <p>업무 장표 출력과 PDF 생성, 양식 변경 대응 흐름을 익힌다.</p>
+          <p class="muted">핵심 키워드: Smart Forms, Form Interface, Adobe Forms, Interface, Context</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="practical-12">
+          <div class="library-meta"><span class="stage7-badge blue">PRACTICAL-12</span><span class="stage7-badge amber">5.0시간</span><span class="stage7-badge green">5개 단위</span></div>
+          <h3>운영 품질과 배포 관리</h3>
+          <p>개발 산출물을 운영 가능한 품질로 유지하기 위한 점검과 배포 기준을 세운다.</p>
+          <p class="muted">핵심 키워드: ATC, Code Inspector, Finding, ABAP Unit, Regression Test</p>
+        </article>
+        <article class="stage7-card" data-prose="structure" id="practical-13">
+          <div class="library-meta"><span class="stage7-badge blue">PRACTICAL-13</span><span class="stage7-badge amber">7.7시간</span><span class="stage7-badge green">7개 단위</span></div>
+          <h3>RAP + Fiori 실무 종합 실습</h3>
+          <p>CDS/RAP/Fiori Elements를 결합해 요구사항부터 화면까지 이어지는 실무형 앱을 완성한다.</p>
+          <p class="muted">핵심 키워드: Scenario, Requirement, Entity Model, ZI_*, Association</p>
+        </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stage7-section prose-concept" data-prose="concept" id="detail-pages">
+      <div class="stage7-section__label">05 · 상세 수업 안내</div>
+      <h2>각 섹션은 별도 수업 페이지로 이어질 예정입니다</h2>
+      <p>
+        지금은 전체 커리큘럼의 목차와 학습 순서를 확인하는 페이지입니다.
+        이후 섹션별 상세 페이지가 추가되면 각 카드에서 개념 설명, 실습 흐름, 체크리스트, 다음 학습 연결을 더 깊게 다룹니다.
+      </p>
+      <div class="stage7-card-grid three">
+        <article class="stage7-card" data-prose="concept"><h3>섹션 카드</h3><p>수업 묶음의 제목, 예상 시간, 핵심 키워드를 빠르게 확인합니다.</p></article>
+        <article class="stage7-card" data-prose="concept"><h3>상세 수업</h3><p>각 섹션은 개념 이해, 작은 예제, 실습 과제, 오류 점검으로 확장됩니다.</p></article>
+        <article class="stage7-card" data-prose="concept"><h3>다음 연결</h3><p>수업을 마치면 바로 다음 섹션으로 넘어갈 수 있도록 학습 흐름을 유지합니다.</p></article>
+      </div>
+    </section>
+
+    <section class="stage7-section prose-checklist" data-prose="checklist" id="study-check">
+      <div class="stage7-section__label">06 · 학습 체크</div>
+      <h2>목차를 볼 때는 현재 위치와 다음 단계를 함께 확인합니다</h2>
+      <ul>
+        <li>처음 시작한다면 트랙 1의 THEORY-01부터 순서대로 진행합니다.</li>
+        <li>이미 ABAP 경험이 있다면 각 카드의 핵심 키워드로 부족한 구간을 먼저 찾습니다.</li>
+        <li>트랙 2는 DDIC, Open SQL, ALV, OO ABAP 기초를 학습한 뒤 진행하는 것을 권장합니다.</li>
+        <li>각 섹션에서는 개념 이해, 작은 실습, 오류 확인, 다음 섹션 연결을 함께 점검합니다.</li>
+        <li>종합 실습에서는 CDS, RAP, Fiori Elements를 연결해 하나의 실무형 앱으로 마무리합니다.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="stage7-footer prose-summary" data-prose="summary">
+    ABAP 엔터프라이즈 커리큘럼 v5.3 · Stage 7 문서 · 2026-06-02 · 배포자: 정훈영
+  </footer>
+</div>
+</body>
+</html>

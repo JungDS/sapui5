@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ABAP 커리큘럼 Explorer · SAP Developer Learning Library</title>
+<link rel="stylesheet" href="../../assets/common.css" />
+<link rel="stylesheet" href="../../assets/stage7-shell.css" />
+<link rel="stylesheet" href="../../assets/abap-curriculum-v5-3.css" />
+<script src="../../assets/common.js" defer></script>
+<script src="../../assets/stage7-shell.js" defer></script>
+<script src="../../assets/abap-curriculum-v5-3.js" defer></script>
+</head>
+<body
+  data-page-type="doc"
+  data-active-category="roadmap"
+  data-doc-id="abap-curriculum-codex-20260602-113746"
+  data-doc-title="ABAP 커리큘럼 Explorer"
+  data-doc-version="5.3"
+  data-doc-created-at="2026-06-02T11:37:46+09:00"
+  data-doc-updated-at="2026-06-02T11:37:46+09:00"
+  data-distributor="정훈영"
+  data-prose-root="true">
+
+<div class="stage7-doc-layout abap-curriculum-page" data-abap-curriculum-root>
+  <section class="stage7-hero abap-curriculum-hero prose-summary" data-prose="summary">
+    <div class="breadcrumb" data-prose="summary">
+      <a href="../../index.html">홈</a>
+      <span>›</span>
+      <a href="../../pages/roadmap.html">로드맵 / 학습전략</a>
+      <span>›</span>
+      <span>ABAP 커리큘럼 Explorer</span>
+    </div>
+    <div class="stage7-hero__eyebrow">SAP Developer Learning Library</div>
+    <h1>ABAP 커리큘럼 Explorer</h1>
+    <p class="lead">
+      ABAP 기초 이론부터 실무 확장 주제까지 트랙, 섹션, 세부 학습 단위를 한 화면에서 탐색하는 운영형 커리큘럼 브라우저입니다.
+      상단에서 트랙을 고르고, 좌측에서 섹션을 선택한 뒤, 우측에서 상세 학습 단위를 확인합니다.
+    </p>
+    <div class="abap-curriculum-stats" aria-label="커리큘럼 요약">
+      <div class="abap-stat"><strong data-stat="tracks">2</strong><span>Tracks</span></div>
+      <div class="abap-stat"><strong data-stat="sections">34</strong><span>Sections</span></div>
+      <div class="abap-stat"><strong data-stat="units">205</strong><span>Learning Units</span></div>
+      <div class="abap-stat"><strong data-stat="hours">-</strong><span>Recommended Hours</span></div>
+    </div>
+  </section>
+
+  <main class="abap-explorer" aria-live="polite">
+    <section class="abap-toolbar stage7-section prose-structure" data-prose="structure" aria-label="커리큘럼 탐색 도구">
+      <div>
+        <div class="stage7-section__label">01 · Track Explorer</div>
+        <h2>트랙 기준으로 나누고, 섹션 기준으로 빠르게 탐색합니다</h2>
+      </div>
+      <div class="abap-tools">
+        <label class="abap-search">
+          <span>검색</span>
+          <input type="search" data-curriculum-search placeholder="예: ALV, CDS, RAP, DDIC" autocomplete="off" />
+        </label>
+        <label class="abap-filter">
+          <span>난이도</span>
+          <select data-curriculum-difficulty>
+            <option value="all">전체</option>
+            <option value="low">하</option>
+            <option value="mid">중</option>
+            <option value="high">상</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <section class="abap-track-tabs" data-track-tabs aria-label="ABAP 커리큘럼 트랙"></section>
+
+    <section class="abap-explorer-grid" aria-label="ABAP 커리큘럼 섹션 탐색">
+      <aside class="abap-section-panel" aria-label="섹션 목록">
+        <div class="abap-panel-head">
+          <div>
+            <div class="abap-kicker">Section List</div>
+            <h2 data-current-track-title>Track</h2>
+          </div>
+          <span class="abap-count" data-visible-count>0</span>
+        </div>
+        <div class="abap-section-list" data-section-list></div>
+      </aside>
+
+      <section class="abap-detail-panel" aria-label="선택 섹션 상세">
+        <div class="abap-empty" data-loading-state>
+          <strong>커리큘럼 데이터를 불러오는 중입니다.</strong>
+          <span>잠시 후 트랙과 섹션 목록이 표시됩니다.</span>
+        </div>
+        <div data-section-detail hidden></div>
+      </section>
+    </section>
+  </main>
+</div>
+
+</body>
+</html>

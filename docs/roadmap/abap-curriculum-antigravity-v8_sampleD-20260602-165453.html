@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ABAP 커리큘럼 Harmony D (완전체 하이브리드) - Full Data</title>
+<link rel="stylesheet" href="../../assets/common.css" />
+<link rel="stylesheet" href="../../assets/stage7-shell.css" />
+<script src="../../assets/common.js" defer></script>
+<script src="../../assets/stage7-shell.js" defer></script>
+<style>
+  /* Custom overrides for the Dashboard layout */
+  body[data-page-type="document"] { margin: 0; padding: 0; background-color: #f8fafc; font-family: 'Inter', sans-serif; height: 100vh; display: flex; flex-direction: column; overflow: hidden; width: 100%; max-width: 100%; }
+  
+  /* Layout Wrapper */
+  .stage7-doc-layout { display: flex; flex: 1; overflow: hidden; width: 100%; margin: 0; padding: 0; }
+  
+  /* Left Sidebar (Master) */
+  .md-sidebar {
+    width: 320px; background: #ffffff; border-right: 1px solid #e2e8f0;
+    display: flex; flex-direction: column; flex-shrink: 0; z-index: 10;
+  }
+  .md-sidebar-header { padding: 20px; background: #fff; border-bottom: 1px solid #f1f5f9; }
+  .track-select { width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid #cbd5e1; font-weight: 700; background: #f8fafc; }
+  .md-sidebar-list { flex: 1; overflow-y: auto; padding: 12px; }
+  
+  .list-item {
+    padding: 12px 16px; border-radius: 8px; margin-bottom: 4px; cursor: pointer;
+    transition: all 0.2s; border: 1px solid transparent;
+  }
+  .list-item:hover { background: #f1f5f9; }
+  .list-item.active { background: #eff6ff; border-color: #bfdbfe; color: #1d4ed8; }
+  .list-item-id { font-size: 0.75rem; font-weight: 800; color: #64748b; margin-bottom: 4px; }
+  .list-item.active .list-item-id { color: #3b82f6; }
+  .list-item-title { font-size: 0.95rem; font-weight: 700; line-height: 1.3; }
+
+  /* Center Content (Detail) */
+  .stage7-content { flex: 1; overflow-y: auto; padding: 48px; position: relative; scroll-behavior: smooth; }
+  .stage7-content-inner { max-width: 800px; margin: 0 auto; }
+  
+  .detail-header { margin-bottom: 40px; border-bottom: 2px solid #e2e8f0; padding-bottom: 24px; }
+  .detail-id { display: inline-block; padding: 6px 12px; background: #e0e7ff; color: #4338ca; border-radius: 6px; font-size: 0.8rem; font-weight: 800; margin-bottom: 16px; }
+  .detail-title { font-size: 2rem; font-weight: 900; color: #0f172a; margin: 0 0 16px; letter-spacing: -0.02em; }
+  .detail-desc { font-size: 1.15rem; color: #475569; line-height: 1.6; }
+  
+  /* Inner Content styling (Sample C style) */
+  .sub1-group { margin-bottom: 48px; }
+  .sub1-title { font-size: 1.4rem; font-weight: 800; color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 24px; }
+  
+  .sub2-box { border-left: 4px solid #6366f1; padding-left: 20px; margin-bottom: 36px; background: #fff; padding-top: 4px; padding-bottom: 4px; }
+  .sub2-box h4 { margin: 0 0 12px; font-size: 1.15rem; color: #0f172a; font-weight: 800; }
+  .sub2-box p { margin: 0 0 12px; color: #475569; line-height: 1.6; font-size: 0.95rem; }
+  .sub2-box ul { margin: 0 0 12px; padding-left: 20px; color: #475569; font-size: 0.95rem; }
+  .sub2-box li { margin-bottom: 6px; }
+  .caution { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; padding: 16px; border-radius: 8px; font-size: 0.95rem; margin-top: 16px; }
+  
+  /* Right Nav (Stage 7 Doc Nav) */
+  .stage7-doc-nav {
+    width: 260px; background: #ffffff; border-left: 1px solid #e2e8f0;
+    padding: 32px 24px; overflow-y: auto; flex-shrink: 0;
+  }
+  .stage7-doc-nav h3 { font-size: 0.9rem; font-weight: 800; color: #94a3b8; text-transform: uppercase; margin: 0 0 16px; }
+  
+  /* TOC & Scroll Spy Styling */
+  .toc-list { list-style: none; padding: 0; margin: 0; position: sticky; top: 0; }
+  .toc-item { margin-bottom: 8px; }
+  .toc-link { 
+    display: block; font-size: 0.9rem; color: #475569; text-decoration: none; 
+    line-height: 1.4; transition: all 0.2s; padding: 6px 12px; border-radius: 6px; border-left: 3px solid transparent;
+  }
+  .toc-link:hover { color: #0f172a; background: #f8fafc; }
+  .toc-link.active { color: #4338ca; font-weight: 800; background: #eef2ff; border-left-color: #6366f1; }
+  
+  /* Terminology Popup */
+  .term-popup {
+    background: #eef2ff; color: #4338ca; border-bottom: 1px dashed #6366f1;
+    cursor: help; font-weight: 700; position: relative; padding: 0 2px;
+  }
+  .term-popup:hover::after {
+    content: attr(data-term-desc);
+    position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%);
+    background: #1e293b; color: #fff; padding: 8px 12px; border-radius: 8px;
+    font-size: 0.85rem; white-space: pre-wrap; width: max-content; max-width: 300px;
+    z-index: 100; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); font-weight: 400;
+  }
+
+  /* Empty State */
+  .empty-state {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    height: 100%; color: #94a3b8; text-align: center;
+  }
+  .empty-state svg { width: 64px; height: 64px; margin-bottom: 16px; color: #cbd5e1; }
+  .empty-state h3 { font-size: 1.25rem; font-weight: 700; color: #64748b; margin-bottom: 8px; }
+
+</style>
+</head>
+<body data-page-type="document" data-doc-title="ABAP 커리큘럼 Harmony D" data-doc-updated-at="2026-06-02" data-distributor="정훈영" data-active-category="abap">
+
+  <script>
+    // Terminology Dictionary for tooltips (Moved to global scope to avoid TDZ)
+    const dict = {
+      "DDIC": "Data Dictionary: SAP 데이터베이스 구조를 관리하는 핵심 도구",
+      "SE11": "ABAP Dictionary 트랜잭션 코드",
+      "ADT": "ABAP Development Tools (Eclipse 기반)",
+      "ALV": "ABAP List Viewer: 데이터를 격자 형태로 출력해주는 표준 컴포넌트",
+      "RAP": "RESTful ABAP Programming Model: 최신 클라우드 기반 OData 서비스 개발 표준",
+      "Open SQL": "ABAP 코드 내에서 SAP DB를 조작하기 위한 데이터베이스 독립적 언어"
+    };
+  </script>
+
+  <!-- Stage 7 Layout Wrapper -->
+  <div class="stage7-doc-layout">
+    
+    <!-- Left Master List -->
+    <aside class="md-sidebar">
+      <div class="md-sidebar-header">
+        <select id="trackSelect" class="track-select">
+          <!-- Options injected by JS -->
+        </select>
+      </div>
+      <div class="md-sidebar-list" id="sidebarList">
+        <!-- Section list injected by JS -->
+      </div>
+    </aside>
+    
+    <!-- Center Detail Content -->
+    <main class="stage7-content" id="detailContentWrapper">
+      <div class="stage7-content-inner" id="detailContent">
+        <div class="empty-state">
+          <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /></svg>
+          <h3>왼쪽에서 섹션을 선택해주세요</h3>
+          <p>섹션을 선택하면 상세 커리큘럼 내용이 렌더링됩니다.</p>
+        </div>
+      </div>
+    </main>
+    
+    <!-- Right TOC -->
+    <aside class="stage7-doc-nav">
+      <h3>In this section</h3>
+      <ul class="toc-list" id="tocList">
+        <li><a href="#" class="toc-link" style="color:#cbd5e1;">목차가 없습니다</a></li>
+      </ul>
+    </aside>
+    
+  </div>
+
+<script src="abap-curriculum-data.js"></script>
+<script>
+const trackSelect = document.getElementById('trackSelect');
+const sidebarList = document.getElementById('sidebarList');
+const detailContent = document.getElementById('detailContent');
+const tocList = document.getElementById('tocList');
+let observer = null;
+
+if (typeof curData !== 'undefined' && curData.tracks) {
+  initTracks();
+} else {
+  sidebarList.innerHTML = '<div style="padding: 20px; color: red;">데이터 로드 실패</div>';
+}
+
+function processTerms(text) {
+  if(!text) return '';
+  if(Array.isArray(text)) text = text.join('<br/>');
+  let res = text;
+  Object.keys(dict).forEach(term => {
+    const regex = new RegExp(`\\b${term}\\b`, 'g');
+    res = res.replace(regex, `<span class="term-popup" data-term-desc="${dict[term]}">${term}</span>`);
+  });
+  return res;
+}
+
+function initTracks() {
+  curData.tracks.forEach((track, idx) => {
+    const opt = document.createElement('option');
+    opt.value = idx;
+    opt.textContent = track.track_id + " : " + track.track_name;
+    trackSelect.appendChild(opt);
+  });
+  
+  renderSidebar(0);
+  trackSelect.addEventListener('change', (e) => renderSidebar(e.target.value));
+}
+
+function renderSidebar(trackIdx) {
+  sidebarList.innerHTML = '';
+  const track = curData.tracks[trackIdx];
+  
+  track.sections.forEach((sec, idx) => {
+    const item = document.createElement('div');
+    item.className = 'list-item';
+    item.innerHTML = `
+      <div class="list-item-id">${sec.section_id}</div>
+      <div class="list-item-title">${sec.section_name}</div>
+    `;
+    item.onclick = () => {
+      document.querySelectorAll('.list-item').forEach(el => el.classList.remove('active'));
+      item.classList.add('active');
+      renderDetail(sec);
+    };
+    sidebarList.appendChild(item);
+  });
+  
+  // Select first section by default
+  if(sidebarList.firstChild) sidebarList.firstChild.click();
+}
+
+function renderDetail(sec) {
+  // Disconnect previous observer
+  if (observer) {
+    observer.disconnect();
+    observer = null;
+  }
+
+  // 1. Render Main Content (Sample C Style)
+  let html = `
+    <div class="detail-header">
+      <div class="detail-id">${sec.section_id}</div>
+      <h2 class="detail-title">${sec.section_name}</h2>
+      <p class="detail-desc">${processTerms(sec.section_goal?.ko || '')}</p>
+    </div>
+  `;
+  
+  let tocHtml = '';
+  
+  if (sec.sub_levels_1 && sec.sub_levels_1.length > 0) {
+    sec.sub_levels_1.forEach((sub1, idx) => {
+      const anchorId = 'sub1-' + idx;
+      
+      html += `
+        <div class="sub1-group" id="${anchorId}" data-spy>
+          <h3 class="sub1-title">${sub1.sub_1_name}</h3>
+      `;
+      
+      tocHtml += `
+        <li class="toc-item">
+          <a href="#${anchorId}" class="toc-link" data-target="${anchorId}">${sub1.sub_1_name}</a>
+        </li>
+      `;
+      
+      if(sub1.sub_levels_2 && sub1.sub_levels_2.length > 0) {
+        sub1.sub_levels_2.forEach(sub2 => {
+          html += `
+            <div class="sub2-box">
+              <h4>${sub2.sub_2_name}</h4>
+              ${sub2.learning_objectives?.ko ? `<p><strong>🎯 목표:</strong> ${processTerms(sub2.learning_objectives.ko)}</p>` : ''}
+              
+              ${sub2.learning_content_design?.ko ? `
+                <p><strong>📖 내용:</strong></p>
+                <ul>
+                  ${sub2.learning_content_design.ko.map(line => `<li>${processTerms(line)}</li>`).join('')}
+                </ul>
+              ` : ''}
+              
+              ${sub2.caution_points?.ko && sub2.caution_points.ko.length > 0 ? `
+                <div class="caution">
+                  <strong>⚠️ 실무 주의사항:</strong>
+                  <ul style="margin:4px 0 0; padding-left:16px;">
+                    ${sub2.caution_points.ko.map(c => `<li>${processTerms(c)}</li>`).join('')}
+                  </ul>
+                </div>
+              ` : ''}
+            </div>
+          `;
+        });
+      } else {
+        html += `<p style="color:#94a3b8; font-size:0.95rem;">하위 단위가 구성되지 않았습니다.</p>`;
+      }
+      
+      html += `</div>`;
+    });
+  } else {
+    html += `<p style="color:#94a3b8; text-align:center; padding: 40px 0;">구성된 학습 내용이 없습니다.</p>`;
+    tocHtml = `<li><a href="#" class="toc-link" style="color:#cbd5e1;">목차가 없습니다</a></li>`;
+  }
+  
+  detailContent.innerHTML = html;
+  tocList.innerHTML = tocHtml;
+  
+  // Reset Scroll
+  document.getElementById('detailContentWrapper').scrollTop = 0;
+
+  // 2. Setup Scroll Spy functionality using IntersectionObserver
+  const spyElements = detailContent.querySelectorAll('[data-spy]');
+  const tocLinks = tocList.querySelectorAll('.toc-link');
+
+  // Add click behavior for smooth scrolling
+  tocLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('data-target');
+      if(targetId) {
+        const targetEl = document.getElementById(targetId);
+        if(targetEl) {
+          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
+  });
+
+  if (spyElements.length > 0 && "IntersectionObserver" in window) {
+    const observerOptions = {
+      root: document.getElementById('detailContentWrapper'),
+      rootMargin: '-10% 0px -70% 0px', // Trigger when element is near top
+      threshold: 0
+    };
+
+    observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Highlight corresponding TOC link
+          const id = entry.target.getAttribute('id');
+          tocLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('data-target') === id) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    }, observerOptions);
+
+    spyElements.forEach(el => observer.observe(el));
+    
+    // Highlight first item by default
+    if(tocLinks.length > 0) {
+      tocLinks[0].classList.add('active');
+    }
+  }
+}
+</script>
+</body>
+</html>

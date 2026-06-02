@@ -33,6 +33,7 @@
 | 7-9 | 교재형 본문 보강 | `docs/**/*.html` | 완료 |
 | 7-10 | 전체 링크/UX 검수 | 전체 HTML | 완료 |
 | 7-11 | README 최종 갱신 | `README.md`, `README_ALL.md` | 완료 |
+| 7-12 | ABAP 커리큘럼 2-Track 샘플 UI 설계 및 검토 | `docs/roadmap/abap-curriculum-*`, `assets/abap-curriculum-*` | 진행 중 |
 
 ---
 
@@ -41,6 +42,7 @@
 
 | 구분 | 문서 | PR |
 |---|---|---|
+| 진행 중 | ABAP 커리큘럼 2-Track 샘플 페이지 제작 및 비교 검토. 최종 선호안은 `abap-curriculum-codex-v7_sampleA-20260602-165628.html`이며, Track 탭, 좌측 THEORY 목록, 선택 THEORY 단일 본문, Navigation 학습 목차, Scroll Spy, 용어 팝업, JSON 데이터 분리 구조를 조합해 검토 중 | 이번 PR |
 | 완료 | Phase 1~4 IT 용어 Dual-Tab 팝업 구현 및 문서 태깅 | 로컬 작업 |
 | 완료 | `reference/` 초안 문서 분석 후 archive 이동 프로세스 수립 | 로컬 작업 |
 | 완료 | SAP DLL v5.0 개정 및 메타데이터 전역 클렌징 | 로컬 작업 (PR 예정) |
@@ -128,6 +130,35 @@ docs/abap/cds-to-odata.html
 - `data/stage7-operating-docs-map.json`을 추가했다.
 - `abap-classic`, `abap-new-syntax`, `cds-odata`, `gateway-odata-v2-crud`의 운영 경로, pages 기준 href, legacy 경로, archive 경로, 관련 PR 정보를 기록했다.
 - 후속 `data/site-map.json`, `data/document-catalog.json` 갱신의 기준점으로 사용한다.
+
+---
+
+
+## 11. ABAP 커리큘럼 샘플 진행 이력
+
+### 2026-06-02 · 샘플 비교 및 v7 sampleA 방향 확정
+
+- 초기 비교 대상은 Codex, Claude, Antigravity가 생성한 ABAP 커리큘럼 HTML 화면이다.
+- 사용자는 색상 자체보다 구조를 중시했으며, 희망 구조는 상단 Track 탭, 좌측 THEORY 리스트, 우측 상세 하위 목록이었다.
+- Antigravity 계열 샘플은 전체적인 디자인 완성도와 깔끔한 본문 레이아웃이 강점으로 평가되었다.
+- Claude 계열 샘플은 스크롤 시 현재 THEORY 유지, 용어 팝업, 우측 Navigation, 상세 설명, 공통 디자인이 강점으로 평가되었다.
+- Codex 계열 샘플은 검색 기능, JSON 데이터 기반 관리, 상세 설명, 공통 디자인이 강점으로 평가되었다.
+- v7 sampleA는 최종 선호안으로 남겼으며, 다음 방향을 반영했다.
+  - 본문은 모든 THEORY를 한 번에 나열하지 않고 좌측에서 선택한 THEORY만 출력한다.
+  - 좌측 THEORY 목록은 자체 스크롤을 사용하며, 끝까지 이동해도 본문 스크롤에 영향을 주지 않는다.
+  - 좌측 THEORY 클릭 시 학습 목차는 해당 THEORY의 첫 항목 또는 섹션 개요를 기준으로 초기화한다.
+  - 우측 독립 학습 목차는 제거하고 Stage 7 Navigation 패널 안에 학습 목차를 출력한다.
+  - 본문 폭을 넓혀 학습 콘텐츠 가독성을 높인다.
+  - Track 탭은 스크롤 중 보이게 유지하되, 검색/필터 영역까지 과도하게 고정하지 않는다.
+  - 하위 학습 단위 목차는 Scroll Spy와 연동해 현재 읽는 항목을 표시한다.
+
+### 샘플 파일 관리 기준
+
+- Codex 샘플 파일명은 `abap-curriculum-codex-v#_sample#-yyyymmdd-hhmmss.html` 형식을 따른다.
+- 새 요청 묶음이 생기면 v 번호를 1씩 증가시킨다.
+- 같은 요청에서 여러 샘플을 만들 때는 `sample1`, `sample2`, `sampleA`, `sampleB`처럼 구분한다.
+- 현재 운영 반영 후보는 `docs/roadmap/abap-curriculum-codex-v7_sampleA-20260602-165628.html`이다.
+- 운영 페이지로 전환하기 전까지는 모든 샘플을 검토용 HTML로 취급한다.
 
 ---
 
