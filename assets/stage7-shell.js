@@ -26,6 +26,7 @@
     "requirements-analysis": { title: "SAP 개발 요구사항 분석법", category: "roadmap", href: "docs/roadmap/requirements-analysis-guide.html", preparing: true, skeleton: true, group: "학습 가이드" },
     "cts-transport": { title: "Transport Request / CTS 입문", category: "roadmap", href: "docs/roadmap/cts-transport-intro.html", preparing: true, skeleton: true, group: "학습 가이드" },
     "debug": { title: "SAP 개발 디버깅 / 트러블슈팅 통합 가이드", category: "roadmap", href: "docs/roadmap/dev-debugging.html", aliases: ["debugging"], group: "학습 가이드" },
+    "abap-curriculum-claude": { title: "ABAP 엔터프라이즈 커리큘럼 탐색기", category: "roadmap", href: "docs/roadmap/abap-curriculum-claude-20260602-114249.html", group: "학습 가이드" },
 
     // Area B: ABAP 개발 (ABAP)
     "abap-as-abap-overview": { title: "SAP AS ABAP 개요 & 아키텍처 기초", category: "abap", href: "docs/abap/abap-as-abap-overview.html", preparing: true, group: "1단계. 아키텍처 기초" },
