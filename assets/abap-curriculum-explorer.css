@@ -1,0 +1,287 @@
+/*
+ * ABAP Curriculum Explorer — shared skin for the 4 harmonized samples.
+ * Base components + per-[data-layout] variants: studio | library | focus | dashboard.
+ * Reuses stage7 design tokens (with fallbacks) so it blends with the common design.
+ */
+
+.abx-root {
+  --abx-panel: #ffffff;
+  --abx-soft: #f8fafc;
+  --abx-ink: var(--stage7-text, #0f172a);
+  --abx-muted: var(--stage7-muted, #64748b);
+  --abx-line: var(--stage7-line, #e2e8f0);
+  --abx-accent: var(--stage7-blue, #2563eb);
+  --abx-accent-soft: var(--stage7-blue-soft, #dbeafe);
+  color: var(--abx-ink);
+  box-sizing: border-box;
+}
+.abx-root *,
+.abx-root *::before,
+.abx-root *::after { box-sizing: border-box; }
+.abx-root [hidden] { display: none !important; }
+
+/* ---------- chips (shared, self-contained) ---------- */
+.abap-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--abx-line);
+  background: var(--abx-soft);
+  color: #475569;
+  font-size: .74rem;
+  font-weight: 800;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.abap-chip.green { background: #f0fdf4; color: #15803d; border-color: #bbf7d0; }
+.abap-chip.blue { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
+.abap-chip.amber { background: #fffbeb; color: #b45309; border-color: #fde68a; }
+.abap-chip.purple { background: #f5f3ff; color: #6d28d9; border-color: #ddd6fe; }
+.abap-keyword-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 0; }
+
+/* ---------- track tabs ---------- */
+.abx-tabs { display: flex; gap: 10px; flex-wrap: wrap; }
+.abx-tab {
+  text-align: left;
+  border: 1px solid var(--abx-line);
+  background: var(--abx-panel);
+  border-radius: 14px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: border-color .15s, box-shadow .15s, background .15s;
+}
+.abx-tab strong { display: block; font-size: .95rem; font-weight: 850; color: var(--abx-ink); }
+.abx-tab span { display: block; margin-top: 3px; font-size: .76rem; font-weight: 700; color: var(--abx-muted); }
+.abx-tab:hover { border-color: #bfdbfe; }
+.abx-tab.is-active { background: linear-gradient(135deg, var(--abx-accent-soft), #fff); border-color: var(--abx-accent); }
+.abx-tab.is-active strong { color: #1d4ed8; }
+
+/* compact tabs inside fixed app bars (studio / focus): keep on one row, ellipsis long names */
+.abx-appbar .abx-tabs { flex-wrap: nowrap; overflow-x: auto; min-width: 0; gap: 8px; }
+.abx-appbar .abx-tab { padding: 7px 14px; flex: 0 0 auto; }
+.abx-appbar .abx-tab strong { max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.abx-appbar .abx-tab span { white-space: nowrap; }
+
+/* ---------- toolbar (search + difficulty) ---------- */
+.abx-toolbar { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 14px; }
+.abx-field { display: flex; flex-direction: column; gap: 5px; }
+.abx-field > span { font-size: .76rem; font-weight: 850; color: var(--abx-muted); }
+.abx-field input[type="search"],
+.abx-field select {
+  border: 1px solid var(--abx-line);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: .92rem;
+  background: #fff;
+  color: var(--abx-ink);
+  min-height: 42px;
+}
+.abx-field input[type="search"] { min-width: 280px; }
+.abx-field input[type="search"]:focus,
+.abx-field select:focus { outline: 2px solid var(--abx-accent-soft); border-color: var(--abx-accent); }
+
+/* ---------- section list (rail) ---------- */
+.abx-rail__head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; padding: 4px 4px 10px; }
+.abx-rail__head h2,
+.abx-rail__head [data-current-track-title] { margin: 0; font-size: .92rem; font-weight: 850; color: var(--abx-muted); }
+.abx-count { font-size: .78rem; font-weight: 900; color: var(--abx-accent); background: var(--abx-accent-soft); border-radius: 999px; padding: 2px 10px; }
+
+.abx-list { display: flex; flex-direction: column; gap: 8px; }
+.abx-section {
+  position: relative;
+  text-align: left;
+  border: 1px solid var(--abx-line);
+  background: var(--abx-panel);
+  border-radius: 14px;
+  padding: 14px 16px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: border-color .15s, box-shadow .15s, transform .15s;
+}
+.abx-section:hover { border-color: #bfdbfe; transform: translateY(-1px); box-shadow: 0 4px 10px rgba(0,0,0,.04); }
+.abx-section__id { font-size: .72rem; font-weight: 900; letter-spacing: .04em; color: var(--abx-accent); }
+.abx-section__title { font-size: .98rem; font-weight: 800; line-height: 1.35; color: var(--abx-ink); }
+.abx-section__meta { display: flex; flex-wrap: wrap; gap: 6px; }
+.abx-section.is-active { background: linear-gradient(135deg, var(--abx-accent-soft), #fff); border-color: var(--abx-accent); box-shadow: 0 6px 16px rgba(37,99,235,.14); }
+
+/* ---------- detail ---------- */
+.abx-detail { animation: abxFade .28s ease-out; }
+@keyframes abxFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.abx-detail__header { border-bottom: 1px solid #eef2f7; padding-bottom: 18px; margin-bottom: 20px; }
+.abx-kicker { display: inline-block; padding: 5px 14px; background: var(--abx-accent-soft); border-radius: 999px; font-size: .8rem; font-weight: 850; color: #1d4ed8; margin-bottom: 12px; letter-spacing: .04em; }
+.abx-detail__header h2 { margin: 0 0 12px; font-size: 1.9rem; font-weight: 900; line-height: 1.25; letter-spacing: -.02em; color: #0f172a; }
+.abx-detail__goal { font-size: 1.02rem; color: #475569; line-height: 1.7; margin: 0 0 14px; }
+.abx-detail__meta { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.abx-subsection > h3 { font-size: 1.05rem; font-weight: 900; color: #0f172a; margin: 0 0 12px; }
+.abx-unit-list { display: flex; flex-direction: column; gap: 10px; }
+
+.abx-unit { border: 1px solid var(--abx-line); border-radius: 14px; background: #fff; overflow: hidden; }
+.abx-unit > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 12px; padding: 14px 16px; }
+.abx-unit > summary::-webkit-details-marker { display: none; }
+.abx-unit > summary::after { content: "+"; margin-left: auto; font-weight: 900; color: var(--abx-muted); font-size: 1.1rem; }
+.abx-unit[open] > summary::after { content: "−"; }
+.abx-unit[open] > summary { border-bottom: 1px dashed #e5e7eb; }
+.abx-unit__id { font-size: .72rem; font-weight: 900; color: var(--abx-accent); flex: 0 0 auto; }
+.abx-unit__title { font-size: .98rem; font-weight: 800; color: var(--abx-ink); }
+.abx-unit__content { padding: 14px 16px 18px; }
+.abx-unit__content p { margin: 0 0 10px; color: #374151; line-height: 1.7; font-size: .92rem; }
+.abx-unit__content p strong { color: #1d4ed8; }
+.abx-block { margin-top: 14px; }
+.abx-block > strong { display: block; margin-bottom: 6px; color: #1d4ed8; font-size: .86rem; font-weight: 900; }
+.abx-steps, .abx-cautions { margin: 0; padding-left: 1.2rem; color: #374151; line-height: 1.7; font-size: .92rem; }
+.abx-steps li, .abx-cautions li { margin-bottom: 4px; }
+
+/* ---------- in-detail unit nav (TOC) ---------- */
+.abx-unitnav__head { font-size: .76rem; font-weight: 850; color: var(--abx-muted); padding: 4px 4px 10px; }
+.abx-unitnav__item { width: 100%; text-align: left; border: 1px solid transparent; background: transparent; border-radius: 10px; padding: 9px 10px; cursor: pointer; display: flex; flex-direction: column; gap: 2px; }
+.abx-unitnav__item:hover { background: var(--abx-soft); }
+.abx-unitnav__item.is-active { background: var(--abx-accent-soft); }
+.abx-unitnav__id { font-size: .68rem; font-weight: 900; color: var(--abx-accent); }
+.abx-unitnav__title { font-size: .84rem; font-weight: 700; color: var(--abx-ink); line-height: 1.35; }
+
+/* ---------- focus reader ---------- */
+.abx-reader__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+.abx-reader__pos { font-size: .85rem; font-weight: 900; color: var(--abx-muted); }
+.abx-nav-btn { border: 1px solid var(--abx-line); background: #fff; color: #1d4ed8; border-radius: 10px; padding: 9px 16px; font-weight: 850; cursor: pointer; }
+.abx-nav-btn:hover:not([disabled]) { background: var(--abx-accent-soft); }
+.abx-nav-btn[disabled] { opacity: .4; cursor: not-allowed; }
+.abx-reader__unit { background: #fff; border: 1px solid var(--abx-line); border-radius: 18px; padding: 28px; box-shadow: 0 10px 24px rgba(15,23,42,.04); }
+.abx-reader__unit h3 { margin: 6px 0 14px; font-size: 1.5rem; font-weight: 900; line-height: 1.3; color: #0f172a; }
+
+/* ---------- mobile back button ---------- */
+.abx-back { display: none; margin-bottom: 12px; }
+
+/* ---------- empty / loading ---------- */
+.abx-empty, .abx-loading { display: flex; flex-direction: column; gap: 6px; padding: 28px; border: 1px dashed var(--abx-line); border-radius: 16px; background: var(--abx-soft); color: var(--abx-muted); text-align: center; }
+.abx-empty strong, .abx-loading strong { color: var(--abx-ink); font-size: 1rem; }
+.abx-loading.abx-error { border-color: #fecaca; background: #fef2f2; color: #b91c1c; }
+
+/* ---------- stats (hero) ---------- */
+.abx-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 22px; }
+.abx-stat { padding: 14px 16px; border: 1px solid var(--abx-line); border-radius: 12px; background: rgba(255,255,255,.8); }
+.abx-stat strong { display: block; font-size: 1.5rem; font-weight: 950; line-height: 1.1; color: var(--abx-ink); }
+.abx-stat span { display: block; margin-top: 4px; font-size: .8rem; font-weight: 850; color: var(--abx-muted); }
+
+/* =======================================================================
+   LAYOUT: STUDIO  (antigravity-inspired full-viewport app)
+   ======================================================================= */
+.abx-studio {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--abx-soft);
+}
+.abx-studio .abx-appbar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  height: 72px;
+  padding: 0 28px;
+  background: rgba(255,255,255,.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--abx-line);
+  box-shadow: 0 2px 8px rgba(0,0,0,.03);
+  z-index: 5;
+}
+.abx-studio .abx-appbar__brand { font-size: 1.15rem; font-weight: 900; letter-spacing: -.02em; color: #0f172a; white-space: nowrap; }
+.abx-studio .abx-appbar .abx-tabs { flex: 1; }
+.abx-studio .abx-appbar__tools { display: flex; gap: 10px; align-items: center; }
+.abx-studio .abx-appbar__tools input[type="search"] { min-width: 200px; min-height: 40px; border: 1px solid var(--abx-line); border-radius: 12px; padding: 8px 14px; }
+.abx-studio .abx-appbar__tools select { min-height: 40px; border: 1px solid var(--abx-line); border-radius: 12px; padding: 8px 12px; }
+.abx-studio .abx-app-body { flex: 1; display: flex; overflow: hidden; }
+.abx-studio .abx-rail { width: 400px; flex-shrink: 0; background: #fff; border-right: 1px solid var(--abx-line); display: flex; flex-direction: column; }
+.abx-studio .abx-rail__head { padding: 20px 20px 12px; }
+.abx-studio .abx-list { flex: 1; overflow-y: auto; padding: 0 16px 24px; }
+.abx-studio .abx-main { flex: 1; overflow-y: auto; padding: 48px 64px; }
+.abx-studio .abx-detail { max-width: 900px; margin: 0 auto; }
+.abx-studio .abx-detail__header h2 { font-size: 2.4rem; }
+
+/* =======================================================================
+   LAYOUT: LIBRARY  (integrated in the stage7 doc shell)
+   ======================================================================= */
+.abx-library .abx-tabs { margin-bottom: 16px; }
+.abx-library .abx-grid { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 20px; align-items: start; }
+.abx-library .abx-rail { position: sticky; top: 84px; max-height: calc(100vh - 104px); overflow-y: auto; }
+.abx-library .abx-main { min-width: 0; }
+.abx-library .abx-detail { background: #fff; border: 1px solid var(--abx-line); border-radius: 18px; padding: 28px; }
+
+/* =======================================================================
+   LAYOUT: FOCUS  (three-pane reading mode)
+   ======================================================================= */
+.abx-focus { position: fixed; inset: 0; display: flex; flex-direction: column; background: var(--abx-soft); }
+.abx-focus .abx-appbar { flex-shrink: 0; display: flex; align-items: center; gap: 20px; height: 70px; padding: 0 24px; background: rgba(255,255,255,.9); backdrop-filter: blur(8px); border-bottom: 1px solid var(--abx-line); z-index: 5; }
+.abx-focus .abx-appbar__brand { font-size: 1.1rem; font-weight: 900; color: #0f172a; white-space: nowrap; }
+.abx-focus .abx-appbar .abx-tabs { flex: 1; }
+.abx-focus .abx-appbar input[type="search"] { min-height: 38px; border: 1px solid var(--abx-line); border-radius: 10px; padding: 7px 12px; min-width: 180px; }
+.abx-focus .abx-focus-body { flex: 1; display: grid; grid-template-columns: 300px 280px minmax(0, 1fr); overflow: hidden; }
+.abx-focus .abx-rail { background: #fff; border-right: 1px solid var(--abx-line); overflow-y: auto; padding: 16px; }
+.abx-focus .abx-unitrail { background: #fcfcfd; border-right: 1px solid var(--abx-line); overflow-y: auto; padding: 16px; position: sticky; top: 0; }
+.abx-focus .abx-main { overflow-y: auto; padding: 36px 48px; }
+.abx-focus .abx-detail { max-width: 820px; margin: 0 auto; }
+
+/* =======================================================================
+   LAYOUT: FOCUS-DOC  (Library/stage7 header  +  Focus 3-pane below, in-flow)
+   ======================================================================= */
+.abx-focus-doc .abx-tabs { margin-bottom: 14px; }
+.abx-focus-doc .abx-focus-body {
+  display: grid;
+  grid-template-columns: 280px 260px minmax(0, 1fr);
+  height: 72vh;
+  min-height: 520px;
+  border: 1px solid var(--abx-line);
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fff;
+}
+.abx-focus-doc .abx-rail { border-right: 1px solid var(--abx-line); overflow-y: auto; padding: 16px; }
+.abx-focus-doc .abx-unitrail { background: #fcfcfd; border-right: 1px solid var(--abx-line); overflow-y: auto; padding: 16px; }
+.abx-focus-doc .abx-main { overflow-y: auto; padding: 28px 32px; }
+.abx-focus-doc .abx-detail { max-width: 760px; }
+
+/* =======================================================================
+   LAYOUT: DASHBOARD  (search-first, card grid)
+   ======================================================================= */
+.abx-dashboard .abx-toolbar--hero { background: #fff; border: 1px solid var(--abx-line); border-radius: 18px; padding: 18px 20px; align-items: center; box-shadow: 0 6px 18px rgba(15,23,42,.04); }
+.abx-dashboard .abx-toolbar--hero .abx-field input[type="search"] { min-width: 340px; font-size: 1rem; }
+.abx-dashboard .abx-tabs { margin: 16px 0; }
+.abx-dashboard .abx-dash-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin: 6px 0 12px; }
+.abx-dashboard .abx-dash-head h2 { margin: 0; font-size: 1.05rem; font-weight: 850; color: var(--abx-muted); }
+/* the section list becomes a responsive card grid */
+.abx-dashboard [data-section-list] { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.abx-dashboard .abx-section { gap: 8px; padding: 18px; border-radius: 16px; }
+.abx-dashboard .abx-section.is-active { outline: 2px solid var(--abx-accent); }
+.abx-dashboard .abx-dash-detail { margin-top: 22px; }
+.abx-dashboard .abx-detail { background: #fff; border: 1px solid var(--abx-line); border-radius: 18px; padding: 28px; }
+
+/* =======================================================================
+   RESPONSIVE  (mobile: list -> detail push for app layouts)
+   ======================================================================= */
+@media (max-width: 900px) {
+  .abx-studio, .abx-focus { position: static; height: auto; }
+  .abx-studio .abx-appbar, .abx-focus .abx-appbar { height: auto; flex-wrap: wrap; gap: 12px; padding: 14px 18px; }
+  .abx-studio .abx-app-body { flex-direction: column; overflow: visible; }
+  .abx-studio .abx-rail, .abx-focus .abx-rail { width: auto; border-right: none; border-bottom: 1px solid var(--abx-line); }
+  .abx-studio .abx-list { max-height: 320px; }
+  .abx-studio .abx-main, .abx-focus .abx-main { padding: 24px; }
+  .abx-focus .abx-focus-body { grid-template-columns: 1fr; overflow: visible; }
+  .abx-focus .abx-unitrail { position: static; border-right: none; border-bottom: 1px solid var(--abx-line); max-height: 260px; }
+
+  .abx-library .abx-grid { grid-template-columns: 1fr; }
+  .abx-library .abx-rail { position: static; max-height: none; }
+
+  .abx-focus-doc .abx-focus-body { grid-template-columns: 1fr; height: auto; min-height: 0; }
+  .abx-focus-doc .abx-rail, .abx-focus-doc .abx-unitrail { border-right: none; border-bottom: 1px solid var(--abx-line); max-height: 300px; }
+
+  /* push-to-detail on small screens */
+  .abx-root.abx-show-detail .abx-rail { display: none; }
+  .abx-root.abx-show-detail .abx-back { display: inline-block; }
+  .abx-dashboard [data-section-list] { grid-template-columns: 1fr; }
+}
