@@ -162,6 +162,15 @@ docs/abap/cds-to-odata.html
 - 이 과정에서 발견된 용어 팝업의 Temporal Dead Zone (TDZ) 에러를 전역 호이스팅으로 완벽히 수정하고, 좌우 밀착 100% 레이아웃 최적화를 달성했다.
 - 두 샘플(Codex, Antigravity)의 유지보수 파편화를 막기 위해, 엔진(`abap-curriculum-v8.js/css`)을 하나로 통합하고 HTML 파일만 나누어 토글하는 **단일 엔진 다중 뷰(Unification)** 형태의 v8 전환 계획을 수립했다.
 
+### 2026-06-04 · v8 sampleA 탐색기 개선 + Chapter 상세 페이지 시범
+
+- **전체화면 토글을 Stage 7 공통 셸로 이관**(`assets/stage7-shell.js`의 topbar 액션). v8 전용 floating 버튼을 제거해 우측 summary와 겹침을 해소했고, `data-page-type`을 가진 모든 문서 페이지에서 일관 제공된다. 전체화면 진입 시 우측 Navigation을 자동으로 접고 종료 시 복원해 풀블리드를 보장한다.
+- **Navigation 패널 리디자인**: 현재 선택 항목 제목 동기화, 깨진 버전 배지(`vv8 sampleA`) 제거, TOC 트리/선택 상태(좌측 accent bar) 개선. '학습 목차' 탭=본문 스크롤, '학습 경로' 탭=현재 Track의 항목 목록을 각 상세 페이지로 연결.
+- **탐색기 본문 정리**: unit 카드를 핵심 내용 중심으로 축소(나머지 필드는 JSON 원본 유지, 상세 페이지로 이관). unit별 상세 앵커 링크와 우하단 'Chapter 상세 보기' FAB 추가.
+- **Chapter 상세 페이지 시범**(`docs/roadmap/abap-curriculum-section-detail.html` + `assets/abap-curriculum-section-detail.{js,css}`): 단일 템플릿이 `?section=` 파라미터로 모든 항목을 전체 필드(수업 설계·시퀀스 노트·평가 설계 등 포함)로 렌더. 전체화면 풀블리드 + 2단 정보 블록.
+- **표기 통일**: 화면 라벨을 `THEORY-05`/`M02` → **Chapter 5 / Lesson 2**로 변경. `THEORY`/`PRACTICAL`은 트랙 접두어라 단계명으로 부적절하다는 판단에 따라 트랙별 1부터 번호를 매긴다. JSON id는 앵커·`?section=`·해시 키로 그대로 유지하므로 데이터/검색 영향 없음.
+- 전체 적용(단일 템플릿 유지 vs 정적 생성)·운영 노출·표기 형태(영문 Chapter/Lesson vs `5장·2차시`)는 시범 검토 후 결정 예정.
+
 ### 샘플 파일 관리 기준
 
 - Codex 샘플 파일명은 `abap-curriculum-codex-v#_sample#-yyyymmdd-hhmmss.html` 형식을 따른다.
