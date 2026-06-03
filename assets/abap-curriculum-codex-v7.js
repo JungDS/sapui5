@@ -46,6 +46,15 @@
     .trim();
   const safeSelectorId = (id) => window.CSS && CSS.escape ? CSS.escape(id) : String(id).replace(/"/g, "\\\"");
 
+  // Friendly display labels. The JSON ids (THEORY-05, THEORY-05-M02) stay as the
+  // stable keys for anchors / ?section= / hashes; only the visible text changes.
+  // THEORY/PRACTICAL is a track prefix, so a generic "Chapter N · Lesson N" reads
+  // the same on both tracks. Numbers come from the id, so they reset per track.
+  const sectionNumber = (id) => { const m = String(id || "").match(/-(\d+)\s*$/); return m ? parseInt(m[1], 10) : null; };
+  const unitNumbers = (id) => { const m = String(id || "").match(/-(\d+)-M(\d+)/i); return m ? { chapter: parseInt(m[1], 10), lesson: parseInt(m[2], 10) } : null; };
+  const chapterLabel = (sectionId) => { const n = sectionNumber(sectionId); return n != null ? `Chapter ${n}` : String(sectionId || ""); };
+  const lessonLabel = (unitId) => { const u = unitNumbers(unitId); return u ? `Lesson ${u.lesson}` : String(unitId || ""); };
+
   function scrollTrackControlsIntoView(root) {
     const align = () => {
       const target = root.querySelector(".curv2-premium-grid") || root.querySelector(".curv2-premium-top") || root;
@@ -254,13 +263,27 @@
     }
   };
 
-  function renderStageNavigationToc(section) {
+  const SECTION_DETAIL_HREF = "abap-curriculum-section-detail.html";
+
+  function renderStageNavigationToc(section, data) {
     const side = document.querySelector(".stage7-doc-side-nav");
     const panel = document.getElementById("stage7TocPanel");
     if (!side || !panel) return;
     const tocButton = side.querySelector("[data-stage7-tab='toc']");
     if (tocButton) tocButton.textContent = "학습 목차";
+    const pathButton = side.querySelector("[data-stage7-tab='path']");
+    if (pathButton) pathButton.textContent = "학습 경로";
+
+    // Reflect the selected THEORY as the "현재 THEORY" header.
+    const titleEl = side.querySelector('[data-shell-field="current-title"]');
+    if (titleEl) titleEl.textContent = section.section_name || section.section_id;
+    const labelEl = side.querySelector('[data-shell-field="current-label"]');
+    if (labelEl) labelEl.textContent = "현재 Chapter";
+
     panel.innerHTML = renderTocMarkup(section, "stage7");
+    renderStageNavigationPath(section, data);
+    updateDetailFab(section);
+
     side.querySelectorAll("[data-stage7-tab]").forEach((button) => {
       const isToc = button.getAttribute("data-stage7-tab") === "toc";
       button.classList.toggle("active", isToc);
@@ -269,6 +292,71 @@
     side.querySelectorAll("[data-stage7-panel]").forEach((item) => {
       item.hidden = item.getAttribute("data-stage7-panel") !== "toc";
     });
+  }
+
+  // A floating shortcut that always points at the currently selected THEORY's
+  // detail page, so readers can jump there without scrolling to the Navigation.
+  function updateDetailFab(section) {
+    let fab = document.querySelector(".curv2-detail-fab");
+    if (!fab) {
+      fab = document.createElement("a");
+      fab.className = "curv2-detail-fab";
+      fab.innerHTML = '<span class="curv2-detail-fab__icon" aria-hidden="true">' +
+        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3h7v7"/><path d="M21 3l-9 9"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></svg>' +
+        '</span><span class="curv2-detail-fab__label">Chapter 상세 보기</span>';
+      document.body.appendChild(fab);
+    }
+    if (!section) { fab.hidden = true; return; }
+    fab.hidden = false;
+    fab.href = SECTION_DETAIL_HREF + "?section=" + encodeURIComponent(section.section_id);
+    fab.setAttribute("title", chapterLabel(section.section_id) + " 상세 페이지로 이동");
+    fab.setAttribute("aria-label", chapterLabel(section.section_id) + " · " + (section.section_name || "") + " 상세 페이지로 이동");
+  }
+
+  function renderStageNavigationPath(section, data) {
+    const panel = document.getElementById("stage7PathPanel");
+    if (!panel) return;
+    if (!data) { panel.innerHTML = ""; return; }
+    const track = data.tracks.find((item) => (item.sections || []).some((sec) => sec.section_id === section.section_id)) || data.tracks[0];
+    const sections = track.sections || [];
+    const currentIndex = sections.findIndex((sec) => sec.section_id === section.section_id);
+    const total = sections.length;
+    const completed = currentIndex >= 0 ? currentIndex + 1 : 0;
+    const progress = total ? Math.round((completed / total) * 100) : 0;
+
+    const iconFor = (kind) => {
+      if (kind === "done") return '<svg class="stage7-stepper-card-icon done" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+      if (kind === "active") return '<svg class="stage7-stepper-card-icon active" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg>';
+      return '<svg class="stage7-stepper-card-icon next" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg>';
+    };
+
+    const cards = sections.map((sec, index) => {
+      const kind = index < currentIndex ? "done" : index === currentIndex ? "active" : "next";
+      const isCurrent = sec.section_id === section.section_id;
+      const href = `${SECTION_DETAIL_HREF}?section=${encodeURIComponent(sec.section_id)}`;
+      return `
+        <div class="stage7-stepper-card ${kind}${isCurrent ? " current" : ""}">
+          <div class="stage7-stepper-card-left">${iconFor(kind)}</div>
+          <div class="stage7-stepper-card-right">
+            <a href="${href}" class="stage7-stepper-card-title">${escapeHtml(chapterLabel(sec.section_id))} · ${escapeHtml(sec.section_name)}</a>
+          </div>
+        </div>`;
+    }).join("");
+
+    panel.innerHTML = `
+      <div class="stage7-path-panel">
+        <div class="stage7-progress-card">
+          <div><span>${escapeHtml(conciseTrackName(track))}</span><strong>${completed} / ${total}</strong></div>
+          <div class="stage7-progress-bar"><span style="width:${progress}%"></span></div>
+        </div>
+        <div class="stage7-side-heading">THEORY 상세 보기</div>
+        <p class="stage7-path-hint">각 THEORY의 상세 페이지로 이동합니다.</p>
+        <div class="stage7-stepper-container">
+          <div class="stage7-stepper-group">
+            <div class="stage7-stepper-group-items">${cards}</div>
+          </div>
+        </div>
+      </div>`;
   }
 
   collapseGlobalDocNav();
@@ -482,7 +570,7 @@
       if (options.flavor === "left-scrollspy") {
         renderDetail(els.detail, section, termIndex, options.mode, "reader-polish");
         if (els.toc) renderToc(els.toc, section);
-        renderStageNavigationToc(section);
+        renderStageNavigationToc(section, data);
       } else {
         renderDetail(els.detail, section, termIndex, options.mode, options.flavor || "");
         if (els.toc) renderToc(els.toc, section);
@@ -612,12 +700,12 @@
       const diff = difficultyOf(section);
       return `
         <button class="curv2-list-item" type="button" data-section-id="${escapeHtml(section.section_id)}" aria-current="${section.section_id === state.sectionId ? "true" : "false"}">
-          <span class="curv2-id">${escapeHtml(section.section_id)}</span>
+          <span class="curv2-id">${escapeHtml(chapterLabel(section.section_id))}</span>
           <span class="curv2-list-title">${escapeHtml(section.section_name)}</span>
           <span class="curv2-chiprow">
             <span class="curv2-chip ${difficultyClass(diff)}">${escapeHtml(difficultyLabel(diff))}</span>
             <span class="curv2-chip curv2-chip--blue">${escapeHtml(formatHours(section.recommended_hours))}</span>
-            <span class="curv2-chip">${unitsOf(section).length} units</span>
+            <span class="curv2-chip">${unitsOf(section).length} Lessons</span>
           </span>
         </button>
       `;
@@ -646,13 +734,13 @@
     const keywordLimit = mode === "dashboard" ? 8 : 14;
     return `
       <section class="curv2-section-detail" id="${escapeHtml(section.section_id)}" tabindex="-1">
-        <div class="curv2-eyebrow">${escapeHtml(section.section_id)}</div>
+        <div class="curv2-eyebrow">${escapeHtml(chapterLabel(section.section_id))}</div>
         <h2>${escapeHtml(section.section_name)}</h2>
         <p class="curv2-desc">${escapeHtml(ko(section.section_goal))}</p>
         <div class="curv2-chiprow" style="margin-bottom:12px">
           <span class="curv2-chip ${difficultyClass(diff)}">${escapeHtml(difficultyLabel(diff))}</span>
           <span class="curv2-chip curv2-chip--blue">권장 ${escapeHtml(formatHours(section.recommended_hours))}</span>
-          <span class="curv2-chip">${units.length} learning units</span>
+          <span class="curv2-chip">${units.length} Lessons</span>
         </div>
         <div class="curv2-chiprow" style="margin-bottom:28px">
           ${sectionKeywords(section, keywordLimit).map(termButton).join("")}
@@ -699,10 +787,16 @@
     `;
   }
 
+  // Explorer body shows only the unit headline (핵심 내용); the deeper fields
+  // (학습 목표 · 수업 설계 · 실습 · 주의사항 · 평가 설계 …) live on the THEORY
+  // detail page. The JSON still holds every field, so this only changes what is
+  // drawn here — search still scans the full record.
   function renderPolishedUnit(unit, metadata, steps, cautions, showDeep) {
+    const sectionId = String(unit.sub_2_id).replace(/-M\d+$/i, "");
+    const detailHref = `${SECTION_DETAIL_HREF}?section=${encodeURIComponent(sectionId)}#${encodeURIComponent(unit.sub_2_id)}`;
     return `
-      <section class="curv2-unit-card curv2-unit-card--blocks" id="${escapeHtml(unit.sub_2_id)}">
-        <div class="curv2-id">${escapeHtml(unit.sub_2_id)}</div>
+      <section class="curv2-unit-card curv2-unit-card--blocks curv2-unit-card--compact" id="${escapeHtml(unit.sub_2_id)}">
+        <div class="curv2-id">${escapeHtml(lessonLabel(unit.sub_2_id))}</div>
         <h3>${escapeHtml(unit.sub_2_name)}</h3>
         <div class="curv2-chiprow" style="margin-bottom:14px">
           ${(unit.technical_keywords || []).slice(0, 6).map(termButton).join("")}
@@ -714,11 +808,11 @@
             <h4>핵심 내용</h4>
             <p>${escapeHtml(ko(unit.handled_contents))}</p>
           </section>
-          ${showDeep ? `<section class="curv2-info-block"><h4>학습 목표</h4><p>${escapeHtml(ko(unit.learning_objectives))}</p></section>` : ""}
-          ${showDeep && Array.isArray(steps) ? `<section class="curv2-info-block"><h4>수업 설계</h4><ol>${steps.slice(0, 5).map((step) => `<li>${escapeHtml(step)}</li>`).join("")}</ol></section>` : ""}
-          ${showDeep && ko(unit.hands_on_lab) ? `<section class="curv2-info-block"><h4>Hands-on Lab</h4><p>${escapeHtml(ko(unit.hands_on_lab))}</p></section>` : ""}
-          ${Array.isArray(cautions) && cautions.length ? `<section class="curv2-info-block curv2-info-block--warn"><h4>주의 사항</h4><ul>${cautions.slice(0, 3).map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section>` : ""}
         </div>
+        <a class="curv2-unit-more" href="${detailHref}">
+          <span>학습 목표 · 수업 설계 · 실습 · 주의사항 자세히 보기</span>
+          <span aria-hidden="true">→</span>
+        </a>
       </section>
     `;
   }
@@ -733,13 +827,13 @@
 
   function renderTocMarkup(section, context = "") {
     const groups = section.sub_levels_1 || [];
-    const heading = context === "stage7" ? "학습 목차" : "학습 목차";
+    const showHeading = context !== "stage7";
     return `
-      <h2>학습 목차</h2>
+      ${showHeading ? "<h2>학습 목차</h2>" : ""}
       <div class="curv2-toc-tree">
         <a class="curv2-toc-root" href="#${encodeURIComponent(section.section_id)}" data-curv2-scroll-target="${escapeHtml(section.section_id)}" aria-current="location">
           <span class="curv2-tree-line"></span>
-          <span class="curv2-tree-label">${escapeHtml(section.section_id)} · 섹션 개요</span>
+          <span class="curv2-tree-label">${escapeHtml(chapterLabel(section.section_id))} · 개요</span>
         </a>
         ${groups.map((group, groupIndex) => {
           const groupUnits = group.sub_levels_2 || [];
@@ -753,7 +847,7 @@
                 ${groupUnits.map((unit) => `
                   <a href="#${encodeURIComponent(unit.sub_2_id)}" data-curv2-scroll-target="${escapeHtml(unit.sub_2_id)}">
                     <span class="curv2-tree-line"></span>
-                    <span class="curv2-tree-id">${escapeHtml(unit.sub_2_id)}</span>
+                    <span class="curv2-tree-id">${escapeHtml(lessonLabel(unit.sub_2_id))}</span>
                     <span class="curv2-tree-label">${escapeHtml(unit.sub_2_name)}</span>
                   </a>
                 `).join("")}

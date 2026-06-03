@@ -1,0 +1,263 @@
+/*
+ * ABAP Curriculum — THEORY(Section) detail page (prototype).
+ * Reuses the Stage 7 design tokens (--stage7-*) defined in stage7-shell.css.
+ */
+
+.secdetail {
+  width: 100%;
+  padding: 26px 0 64px;
+}
+
+.secdetail-loading,
+.secdetail-error {
+  width: min(900px, calc(100% - 48px));
+  margin: 60px auto;
+  padding: 28px;
+  border: 1px solid var(--stage7-line, #e2e8f0);
+  border-radius: 20px;
+  background: #fff;
+  color: #475569;
+  text-align: center;
+  box-shadow: 0 16px 38px rgba(15, 23, 42, .06);
+}
+
+.secdetail-error strong { color: #b91c1c; }
+
+.secdetail-wrap {
+  width: min(900px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+/* The Stage 7 Navigation panel is fixed to the right while the viewport is wider
+   than 1020px (below that it flows inline). Reserve that gutter so the reading
+   column never sits under it; the reservation drops when the nav is collapsed. */
+@media (min-width: 1021px) {
+  body:not(.stage7-doc-nav-collapsed) .secdetail {
+    padding-right: 396px;
+  }
+}
+
+/* ---------- breadcrumb ---------- */
+.secdetail-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 16px;
+  color: #94a3b8;
+  font-size: .82rem;
+  font-weight: 700;
+}
+.secdetail-breadcrumb a { color: #2563eb; text-decoration: none; }
+.secdetail-breadcrumb a:hover { text-decoration: underline; }
+.secdetail-breadcrumb span:last-child { color: #475569; }
+
+/* ---------- hero ---------- */
+.secdetail-hero {
+  padding: 30px 32px;
+  border: 1px solid rgba(148, 163, 184, .26);
+  border-radius: 26px;
+  background: linear-gradient(135deg, #ffffff 0%, #eef6ff 100%);
+  box-shadow: 0 18px 44px rgba(15, 23, 42, .08);
+}
+.secdetail-eyebrow {
+  color: #1d4ed8;
+  font-size: .8rem;
+  font-weight: 950;
+  letter-spacing: .06em;
+}
+.secdetail-hero h1 {
+  margin: 8px 0 12px;
+  color: var(--stage7-text, #0f172a);
+  font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+  line-height: 1.18;
+  letter-spacing: -.03em;
+}
+.secdetail-goal {
+  max-width: 760px;
+  margin: 0 0 16px;
+  color: #334155;
+  font-size: 1.04rem;
+  line-height: 1.6;
+}
+.secdetail-back {
+  display: inline-block;
+  margin-top: 16px;
+  color: #1d4ed8;
+  font-size: .86rem;
+  font-weight: 900;
+  text-decoration: none;
+}
+.secdetail-back:hover { text-decoration: underline; }
+
+/* ---------- chips ---------- */
+.secdetail-chiprow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 0;
+}
+.secdetail-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: .76rem;
+  font-weight: 900;
+}
+.secdetail-chip--blue { background: var(--stage7-blue-soft, #dbeafe); color: #1d4ed8; }
+.secdetail-chip--green { background: var(--stage7-green-soft, #d1fae5); color: #047857; }
+.secdetail-chip--amber { background: var(--stage7-amber-soft, #fef3c7); color: #b45309; }
+.secdetail-chip--purple { background: var(--stage7-purple-soft, #ede9fe); color: #6d28d9; }
+.secdetail-keyword {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border: 1px solid #c7d2fe;
+  border-radius: 999px;
+  background: #eef2ff;
+  color: #4338ca;
+  font-size: .74rem;
+  font-weight: 800;
+}
+
+/* ---------- group ---------- */
+.secdetail-group {
+  margin-top: 30px;
+}
+.secdetail-group-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 12px;
+  margin-bottom: 18px;
+  border-bottom: 2px solid #e2e8f0;
+}
+.secdetail-group-head h2 {
+  margin: 0;
+  margin-right: auto;
+  color: var(--stage7-text, #0f172a);
+  font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+  letter-spacing: -.02em;
+}
+
+/* ---------- unit card ---------- */
+.secdetail-unit {
+  margin-bottom: 18px;
+  padding: 24px 26px;
+  border: 1px solid var(--stage7-line, #e2e8f0);
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, .05);
+  scroll-margin-top: 96px;
+}
+.secdetail-unit-head {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.secdetail-unit-id {
+  color: #1d4ed8;
+  font-size: .78rem;
+  font-weight: 950;
+  letter-spacing: .04em;
+}
+.secdetail-unit-head h3 {
+  margin: 0;
+  color: var(--stage7-text, #0f172a);
+  font-size: 1.2rem;
+  line-height: 1.32;
+  letter-spacing: -.01em;
+}
+
+.secdetail-blocks {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+}
+.secdetail-block {
+  padding: 16px 18px;
+  border: 1px solid #eef2f7;
+  border-radius: 16px;
+  background: #f8fafc;
+}
+.secdetail-block h4 {
+  margin: 0 0 8px;
+  color: #1e293b;
+  font-size: .82rem;
+  font-weight: 950;
+  letter-spacing: .01em;
+}
+.secdetail-block p {
+  margin: 0;
+  color: #334155;
+  font-size: .95rem;
+  line-height: 1.62;
+}
+.secdetail-block ul {
+  margin: 0;
+  padding-left: 18px;
+  color: #334155;
+  font-size: .94rem;
+  line-height: 1.6;
+}
+.secdetail-block ul li { margin: 4px 0; }
+
+.secdetail-block--lab { background: #eff8ff; border-color: #d6ebff; }
+.secdetail-block--warn { background: #fff7ed; border-color: #fed7aa; }
+.secdetail-block--warn h4 { color: #b45309; }
+.secdetail-block--assess { background: #f5f3ff; border-color: #e2d9ff; }
+.secdetail-block--assess h4 { color: #6d28d9; }
+
+/* definition-list style meta / assessment */
+.secdetail-meta {
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+.secdetail-meta > div {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: 10px;
+}
+.secdetail-meta dt {
+  margin: 0;
+  color: #64748b;
+  font-size: .82rem;
+  font-weight: 900;
+}
+.secdetail-meta dd {
+  margin: 0;
+  color: #1e293b;
+  font-size: .9rem;
+  line-height: 1.5;
+}
+
+/* in-page TOC injected into the Stage 7 side-nav */
+.secdetail-toc a { display: flex; gap: 8px; align-items: baseline; line-height: 1.35; }
+.secdetail-toc-id { color: #2563eb; font-size: .72rem; font-weight: 950; flex-shrink: 0; }
+
+/* ---------- fullscreen: use the full browser width efficiently ---------- */
+/* The shared shell toggles `.curv2-fs` on <html>/<body>. Mirror the explorer:
+   drop the reading cap and the nav gutter, hide the breadcrumb, and lay the
+   per-unit info blocks out in two columns to use the extra width. */
+.curv2-fs .secdetail { padding: 14px 20px 36px; }
+/* outrank the (0,0,2,1) nav-gutter reservation so fullscreen fills the viewport
+   (matching the v8 explorer; an open nav simply overlays, as it does there) */
+body.curv2-fs:not(.stage7-doc-nav-collapsed) .secdetail { padding-right: 20px; }
+.curv2-fs .secdetail-wrap { width: 100%; max-width: none; margin: 0; }
+.curv2-fs .secdetail-breadcrumb { display: none; }
+@media (min-width: 1100px) {
+  .curv2-fs .secdetail-blocks { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .curv2-fs .secdetail-block--assess,
+  .curv2-fs .secdetail-block--lab { grid-column: 1 / -1; }
+}
+
+@media (max-width: 640px) {
+  .secdetail-hero { padding: 24px 20px; }
+  .secdetail-unit { padding: 20px 18px; }
+  .secdetail-meta > div { grid-template-columns: 1fr; gap: 2px; }
+}

@@ -6,6 +6,8 @@
   const ICON_HOME = '<svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3 2.5 11.2l1.3 1.5L5 11.6V20h5.5v-5h3v5H19v-8.4l1.2 1.1 1.3-1.5L12 3Zm0 2.6 5 4.3V18h-1.5v-5h-7v5H7v-8.1l5-4.3Z"/></svg>';
   const ICON_PREV = '<svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14.7 6.3 9 12l5.7 5.7-1.4 1.4L6.2 12l7.1-7.1 1.4 1.4Z"/></svg>';
   const ICON_NEXT = '<svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m9.3 17.7 5.7-5.7-5.7-5.7 1.4-1.4 7.1 7.1-7.1 7.1-1.4-1.4Z"/></svg>';
+  const ICON_EXPAND = '<svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 9V4h5v2H6v3H4Zm14 0V6h-3V4h5v5h-2ZM4 20v-5h2v3h3v2H4Zm11 0v-2h3v-3h2v5h-5Z"/></svg>';
+  const ICON_COLLAPSE = '<svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 16h3v3h2v-5H5v2Zm3-8H5v2h5V5H8v3Zm6 11h2v-3h3v-2h-5v5Zm2-11V5h-2v5h5V8h-3Z"/></svg>';
 
   const CATEGORY_HOME = {
     roadmap: { title: "로드맵", href: "pages/roadmap.html" },
@@ -237,6 +239,7 @@
           '<span class="stage7-info-pill">수정일자 <strong data-shell-field="updated-date">' + toDateLabel(meta.updatedAt) + '</strong></span>' +
           '<span class="stage7-info-pill">배포자 <strong data-shell-field="distributor">' + meta.distributor + '</strong></span>' +
           links.join("") +
+          '<button type="button" class="stage7-icon-button stage7-fs-toggle" data-stage7-fullscreen aria-label="전체화면 전환" aria-pressed="false" title="전체화면">' + ICON_EXPAND + '</button>' +
         '</div>' +
       '</div>';
 
@@ -470,9 +473,8 @@
     side.innerHTML = '' +
       '<div class="stage7-doc-side-nav__scroll">' +
         '<div class="stage7-doc-current">' +
-          '<div class="label">현재 문서</div>' +
-          '<strong>' + meta.title + '</strong>' +
-          (meta.version ? '<span class="stage7-badge blue">v' + meta.version + '</span>' : '') +
+          '<div class="label" data-shell-field="current-label">현재 문서</div>' +
+          '<strong data-shell-field="current-title">' + meta.title + '</strong>' +
         '</div>' +
         '<div class="stage7-tabs" role="tablist">' +
           '<button type="button" class="active" data-stage7-tab="toc" aria-selected="true" aria-controls="stage7TocPanel">문서목차</button>' +
@@ -768,6 +770,78 @@
     });
   }
 
+  // ---- Fullscreen toggle (shared shell control, lives in the topbar) ----
+  function inFullscreen() {
+    return document.fullscreenElement || document.webkitFullscreenElement || null;
+  }
+
+  function setFullscreenMode(on) {
+    document.documentElement.classList.toggle("curv2-fs", on);
+    document.body.classList.toggle("curv2-fs", on);
+    const btn = document.querySelector("[data-stage7-fullscreen]");
+    if (btn) {
+      btn.innerHTML = on ? ICON_COLLAPSE : ICON_EXPAND;
+      btn.setAttribute("aria-pressed", String(on));
+      btn.setAttribute("title", on ? "전체화면 종료" : "전체화면");
+    }
+    syncFullscreenNav(on);
+  }
+
+  // Fullscreen is a "give me more room" action, so tuck the fixed side-nav away
+  // while it is active and restore it on exit (without touching the persisted
+  // collapse preference). This lets the content go truly edge-to-edge.
+  function syncFullscreenNav(on) {
+    const side = document.querySelector(".stage7-doc-side-nav");
+    if (!side) return;
+    if (on) {
+      if (!document.body.classList.contains("stage7-doc-nav-collapsed")) {
+        setFullscreenMode._navWasOpen = true;
+        document.body.classList.add("stage7-doc-nav-collapsed");
+        side.setAttribute("aria-hidden", "true");
+      }
+    } else if (setFullscreenMode._navWasOpen) {
+      setFullscreenMode._navWasOpen = false;
+      document.body.classList.remove("stage7-doc-nav-collapsed");
+      side.setAttribute("aria-hidden", "false");
+    }
+  }
+
+  function requestFullscreenOn(el) {
+    const fn = el.requestFullscreen || el.webkitRequestFullscreen;
+    return fn ? fn.call(el) : null;
+  }
+
+  function exitFullscreenNow() {
+    const fn = document.exitFullscreen || document.webkitExitFullscreen;
+    return fn ? fn.call(document) : null;
+  }
+
+  function toggleFullscreen() {
+    if (inFullscreen()) {
+      const ex = exitFullscreenNow();
+      if (!ex) setFullscreenMode(false); // no API -> pseudo fullscreen fallback
+      return;
+    }
+    const promise = requestFullscreenOn(document.documentElement);
+    if (promise && typeof promise.then === "function") {
+      promise.then(function () { setFullscreenMode(true); }).catch(function () {
+        setFullscreenMode(!document.documentElement.classList.contains("curv2-fs"));
+      });
+    } else if (promise === null) {
+      // Fullscreen API unavailable (blocked) -> pseudo fullscreen via class only.
+      setFullscreenMode(!document.documentElement.classList.contains("curv2-fs"));
+    }
+  }
+
+  function initFullscreenToggle() {
+    document.addEventListener("click", function (event) {
+      if (event.target.closest("[data-stage7-fullscreen]")) toggleFullscreen();
+    });
+    // Keep class in sync with the real fullscreen state (Esc / browser UI exit).
+    document.addEventListener("fullscreenchange", function () { setFullscreenMode(!!inFullscreen()); });
+    document.addEventListener("webkitfullscreenchange", function () { setFullscreenMode(!!inFullscreen()); });
+  }
+
   function initStage7Shell() {
     const meta = metadata();
     if (!meta.pageType) return;
@@ -780,6 +854,7 @@
     initLocalTocSpy();
     ensureLandingSideNav(meta);
     initLandingSearch(meta);
+    initFullscreenToggle();
   }
 
   document.addEventListener("DOMContentLoaded", initStage7Shell);
