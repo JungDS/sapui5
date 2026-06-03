@@ -151,6 +151,20 @@
   text-decoration: none;
 }
 
+.stage7-fs-toggle {
+  cursor: pointer;
+}
+
+.stage7-fs-toggle[aria-pressed="true"] {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}
+
+.stage7-fs-toggle[aria-pressed="true"]:hover {
+  background: #1d4ed8;
+}
+
 .stage7-hero {
   margin: 28px 0 28px;
   padding: 44px;
@@ -518,6 +532,13 @@ body.stage7-doc-nav-collapsed .stage7-doc-nav-toggle__close {
   color: #334155;
   font-size: .78rem;
   font-weight: 950;
+}
+
+.stage7-path-hint {
+  margin: 0 0 12px;
+  color: #64748b;
+  font-size: .76rem;
+  line-height: 1.4;
 }
 
 .stage7-related-docs {

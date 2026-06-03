@@ -17,7 +17,8 @@ SAP 개발자를 위한 HTML 학습자료 저장소입니다.
 - 현재 단계: Stage 7 · 완료 이후 ABAP 커리큘럼 UI 샘플 검토
 - 현재 작업: 신규 ABAP 커리큘럼 2-Track 화면 샘플 제작, 좌측 THEORY 선택형 본문, Navigation 학습 목차, Scroll Spy, 용어 팝업, JSON 데이터 분리 구조 검토
 - 추가 작업(claude 계열): 단일 공유 엔진(`assets/abap-curriculum-explorer.js/css`) 위에 Studio / Library / Focus / Dashboard / Focus Library 5개 레이아웃 스킨을 얹은 샘플 세트. 인라인 JSON + fetch 폴백으로 file:// 직접 열람 지원, 검색·난이도 필터·용어 팝업·해시 딥링크 통합
-- 최종 수정: 2026-06-02 18:55 KST
+- 최근 작업(v8 sampleA): 전체화면 토글 공통 셸 이관, Navigation 리디자인, 본문 핵심 내용 정리 + Chapter 상세 페이지 시범(`abap-curriculum-section-detail.html`), 화면 표기 Chapter/Lesson 통일
+- 최종 수정: 2026-06-04 KST
 
 ---
 
@@ -84,6 +85,7 @@ SAP 개발자를 위한 HTML 학습자료 저장소입니다.
 
 | 구분 | 문서 | 링크 |
 |---|---|---|
+| 진행 중 | ABAP 커리큘럼 v8 sampleA 개선 — 전체화면 토글 공통 셸(`assets/stage7-shell.js`) 이관·진입 시 Nav 자동 접힘, Navigation 리디자인(현재 항목 제목 동기화·TOC 트리·학습 경로 탭→상세 페이지), 본문 핵심 내용 정리 + unit별 앵커 링크 + 'Chapter 상세 보기' FAB, Chapter 상세 페이지 시범(`docs/roadmap/abap-curriculum-section-detail.html`, 단일 템플릿 `?section=` 전체 필드), 화면 표기 `THEORY/M##`→`Chapter/Lesson` 통일(JSON id는 키로 유지) | 로컬 작업 |
 | 완료 | ABAP 커리큘럼 claude 계열 샘플 — 단일 공유 엔진(`assets/abap-curriculum-explorer.js/css`) + Studio/Library/Focus/Dashboard/Focus Library 5개 레이아웃. 인라인 JSON+fetch 폴백(file:// 지원), 검색·난이도 필터·용어 팝업·해시 딥링크. 용어 모달 `[object Object]` 표시 버그(`assets/common.js`) 수정 | https://github.com/JungDS/sapui5/pull/43 |
 | 진행 중 | ABAP 커리큘럼 2-Track v8 통일 아키텍처(Unification) 기반 전환. 파편화된 JS/CSS를 하나로 통합하고 HTML에서 모드만 전환하도록 리팩토링 기획 중 | 로컬 작업 |
 | 완료 | ABAP 커리큘럼 Sample D (완전체 하이브리드) 제작 및 TDZ 버그 수정, 100% 와이드 화면 최적화 완료 | 로컬 작업 |
