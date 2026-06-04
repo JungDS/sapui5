@@ -1,0 +1,33 @@
+{
+  "section_id": "THEORY-04",
+  "section_name": "DDIC 2차: 관계와 입력 도움말",
+  "created_at_kst": "2026-06-04T16:50:21.620068+09:00",
+  "included_files": [
+    {
+      "filename": "GPT_ABAP_TRACK-01_THEORY-04-M01_20260604_161100.md",
+      "size_bytes": 32024
+    },
+    {
+      "filename": "GPT_ABAP_TRACK-01_THEORY-04-M02_20260604_163453.md",
+      "size_bytes": 32095
+    },
+    {
+      "filename": "GPT_ABAP_TRACK-01_THEORY-04-M03_20260604_163753.md",
+      "size_bytes": 34854
+    },
+    {
+      "filename": "GPT_ABAP_TRACK-01_THEORY-04-M04_20260604_164333.md",
+      "size_bytes": 38058
+    },
+    {
+      "filename": "GPT_ABAP_TRACK-01_THEORY-04-M05_20260604_164632.md",
+      "size_bytes": 33803
+    },
+    {
+      "filename": "GPT_ABAP_TRACK-01_THEORY-04-M06_20260604_164855.md",
+      "size_bytes": 32498
+    }
+  ],
+  "zip_filename": "GPT_ABAP_TRACK-01_THEORY-04_MD_FILES_20260604_165021.zip",
+  "zip_size_bytes": 60498
+}
