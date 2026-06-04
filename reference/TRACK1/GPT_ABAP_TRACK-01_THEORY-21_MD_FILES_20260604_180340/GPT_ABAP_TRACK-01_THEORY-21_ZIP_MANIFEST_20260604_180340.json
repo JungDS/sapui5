@@ -1,0 +1,48 @@
+{
+  "track_id": "TRACK-01",
+  "section_id": "THEORY-21",
+  "module_count": 8,
+  "created_at_kst": "2026-06-04T18:03:40.779557+09:00",
+  "files": [
+    {
+      "module_id": "THEORY-21-M01",
+      "filename": "GPT_ABAP_TRACK-01_THEORY-21-M01_20260604_173501.md",
+      "size_bytes": 30332
+    },
+    {
+      "module_id": "THEORY-21-M02",
+      "filename": "GPT_ABAP_TRACK-01_THEORY-21-M02_20260604_173900.md",
+      "size_bytes": 38884
+    },
+    {
+      "module_id": "THEORY-21-M03",
+      "filename": "GPT_ABAP_TRACK-01_THEORY-21-M03_20260604_174259.md",
+      "size_bytes": 38059
+    },
+    {
+      "module_id": "THEORY-21-M04",
+      "filename": "GPT_ABAP_TRACK-01_THEORY-21-M04_20260604_174720.md",
+      "size_bytes": 38465
+    },
+    {
+      "module_id": "THEORY-21-M05",
+      "filename": "GPT_ABAP_TRACK-01_THEORY-21-M05_20260604_175046.md",
+      "size_bytes": 31390
+    },
+    {
+      "module_id": "THEORY-21-M06",
+      "filename": "GPT_ABAP_TRACK-01_THEORY-21-M06_20260604_175419.md",
+      "size_bytes": 32425
+    },
+    {
+      "module_id": "THEORY-21-M07",
+      "filename": "GPT_ABAP_TRACK-01_THEORY-21-M07_20260604_175832.md",
+      "size_bytes": 46243
+    },
+    {
+      "module_id": "THEORY-21-M08",
+      "filename": "GPT_ABAP_TRACK-01_THEORY-21-M08_20260604_180236.md",
+      "size_bytes": 32905
+    }
+  ]
+}
