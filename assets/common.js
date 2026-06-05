@@ -157,10 +157,29 @@
     let lastFocus = null;
 
     function openTerm(term) {
-      const text = termDefinitions[term] || "�씠 �슜�뼱�뒗 �쁽�옱 臾몄꽌�쓽 留λ씫�뿉�꽌 �떎�떆 �솗�씤�씠 �븘�슂�븳 �빆紐⑹엯�땲�떎.";
+      const def = termDefinitions[term];
       lastFocus = document.activeElement;
       title.textContent = term;
-      body.textContent = (text && typeof text === "object") ? (text.detail || text.basic || "") : text;
+      if (def && typeof def === "object") {
+        body.innerHTML = "";
+        if (def.basic) {
+          const basicEl = document.createElement("span");
+          basicEl.className = "term-modal__basic";
+          basicEl.textContent = def.basic;
+          body.appendChild(basicEl);
+        }
+        if (def.detail) {
+          const detailEl = document.createElement("span");
+          detailEl.className = "term-modal__detail";
+          detailEl.textContent = def.detail;
+          body.appendChild(detailEl);
+        }
+        if (!def.basic && !def.detail) {
+          body.textContent = "이 용어는 현재 문서의 맥락에서 다시 확인이 필요한 항목입니다.";
+        }
+      } else {
+        body.textContent = def || "이 용어는 현재 문서의 맥락에서 다시 확인이 필요한 항목입니다.";
+      }
       modal.classList.add("is-open");
       modal.setAttribute("aria-hidden", "false");
       const close = modal.querySelector(".term-modal__close");

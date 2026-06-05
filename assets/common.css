@@ -396,6 +396,8 @@ tr:last-child td { border-bottom: none; }
   letter-spacing: -.03em;
 }
 .term-modal__body { color: var(--muted); margin: 0; }
+.term-modal__basic { display: block; color: var(--ink); }
+.term-modal__detail { display: block; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 0.92em; }
 .term-modal__close {
   position: absolute;
   right: 16px;
