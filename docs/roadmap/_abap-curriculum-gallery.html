@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ABAP 커리큘럼 샘플 갤러리 (임시)</title>
+<!--
+  임시 디자인 비교용 갤러리. docs/roadmap 의 abap-curriculum*.html 을
+  디렉터리 listing(fetch './')으로 동적으로 읽어 타일로 표시한다.
+  파일이 늘거나 줄면 새로고침만으로 타일 수가 자동으로 반영된다.
+  - 각 타일에서 [쓴다/보류/안쓴다]를 선택하면 브라우저 localStorage에 저장(JSON 내보내기 지원).
+  - 패밀리/결정 필터는 다중 선택(토글). 예: 결정에서 '안쓴다'만 꺼서 제외.
+  ※ 디렉터리 listing을 제공하는 정적 서버(예: python -m http.server 8000)에서 열어야 동작.
+  최종수정 2026-06-05 KST | v1.2
+-->
+<style>
+  :root{
+    --bg:#0f172a; --panel:#1e293b; --panel2:#334155; --line:#475569;
+    --text:#e2e8f0; --muted:#94a3b8; --accent:#38bdf8; --chip:#1e293b; --chip-on:#0ea5e9;
+    --use:#34d399; --hold:#f59e0b; --skip:#f87171;
+    --fam-antigravity:#f59e0b; --fam-claude:#a78bfa; --fam-codex:#34d399; --fam-v5-3:#f472b6; --fam-etc:#94a3b8;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,"Malgun Gothic",sans-serif;background:var(--bg);color:var(--text)}
+  header.gx{position:sticky;top:0;z-index:5;background:linear-gradient(180deg,#0f172af2,#0f172ad9);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:16px 24px 12px}
+  .gx h1{margin:0 0 4px;font-size:20px;letter-spacing:-.01em}
+  .gx p{margin:0;color:var(--muted);font-size:13px}
+  .gx .count{display:inline-block;margin-left:8px;background:var(--accent);color:#04293b;font-weight:700;border-radius:999px;padding:2px 11px;font-size:13px}
+  .toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+  .toolbar .lbl{font-size:12px;color:var(--muted);margin-right:2px}
+  .chip{cursor:pointer;border:1px solid var(--line);background:var(--chip);color:var(--text);border-radius:999px;padding:5px 13px;font-size:13px;line-height:1;transition:.15s;opacity:.55}
+  .chip:hover{border-color:var(--accent);opacity:.85}
+  .chip[aria-pressed="true"]{opacity:1}
+  .chip.on{background:var(--chip-on);border-color:var(--chip-on);color:#04293b;font-weight:700}
+  .chip.dc-use.on{background:var(--use);border-color:var(--use);color:#04141f}
+  .chip.dc-hold.on{background:var(--hold);border-color:var(--hold);color:#04141f}
+  .chip.dc-skip.on{background:var(--skip);border-color:var(--skip);color:#04141f}
+  .chip.all.on{background:var(--text);border-color:var(--text);color:#0f172a}
+  .chip .n{opacity:.7;margin-left:5px;font-size:12px}
+  .spacer{flex:1}
+  .btn{cursor:pointer;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:8px;padding:6px 12px;font-size:13px}
+  .btn:hover{border-color:var(--accent)}
+  main{padding:18px 24px 60px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+  .tile{position:relative;display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:.15s}
+  .tile:hover{transform:translateY(-2px);box-shadow:0 10px 26px #0006}
+  .tile[data-decision="use"]{border-color:var(--use)}
+  .tile[data-decision="hold"]{border-color:var(--hold)}
+  .tile[data-decision="skip"]{border-color:var(--skip);opacity:.7}
+  .tile[data-decision="use"]  .thumb::after,
+  .tile[data-decision="hold"] .thumb::after,
+  .tile[data-decision="skip"] .thumb::after{content:attr(data-dlabel);position:absolute;top:8px;left:8px;z-index:3;font-size:11px;font-weight:800;color:#04141f;border-radius:6px;padding:3px 8px}
+  .tile[data-decision="use"]  .thumb::after{background:var(--use)}
+  .tile[data-decision="hold"] .thumb::after{background:var(--hold)}
+  .tile[data-decision="skip"] .thumb::after{background:var(--skip)}
+  .thumb{position:relative;height:210px;background:#fff;overflow:hidden;border-bottom:1px solid var(--line)}
+  .thumb iframe{position:absolute;top:0;left:0;width:1280px;height:840px;border:0;transform:scale(.2734);transform-origin:0 0;pointer-events:none;background:#fff}
+  .thumb .open{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:flex-end;padding:10px;opacity:0;transition:.15s;background:linear-gradient(180deg,#0000 55%,#0009)}
+  .tile:hover .thumb .open{opacity:1}
+  .thumb .open span{background:var(--accent);color:#04293b;font-weight:700;border-radius:7px;padding:6px 11px;font-size:12px}
+  .meta{padding:11px 13px 13px;display:flex;flex-direction:column;gap:9px}
+  .fname{font-size:12.5px;word-break:break-all;color:var(--text);line-height:1.4}
+  .badges{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+  .b{font-size:11px;border-radius:6px;padding:2px 8px;font-weight:700;color:#04141f}
+  .b.fam{text-transform:capitalize}
+  .b.ver{background:var(--panel2);color:var(--text);font-weight:600}
+  .b.ts{background:transparent;color:var(--muted);font-weight:500;padding-left:0}
+  .seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .seg button{flex:1;cursor:pointer;border:0;border-right:1px solid var(--line);background:transparent;color:var(--muted);padding:7px 4px;font-size:12px;font-weight:700;transition:.12s}
+  .seg button:last-child{border-right:0}
+  .seg button:hover{background:#0f172a;color:var(--text)}
+  .seg button.use[aria-pressed="true"]{background:var(--use);color:#04141f}
+  .seg button.hold[aria-pressed="true"]{background:var(--hold);color:#04141f}
+  .seg button.skip[aria-pressed="true"]{background:var(--skip);color:#04141f}
+  .note{margin:0 0 16px;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:#1e293b;color:var(--muted);font-size:13px;line-height:1.6}
+  .note code{background:#0f172a;border:1px solid var(--line);border-radius:5px;padding:1px 6px;color:var(--accent)}
+  .state{padding:50px 20px;text-align:center;color:var(--muted)}
+  .state h2{color:var(--text);margin:0 0 8px}
+  a{color:inherit;text-decoration:none}
+</style>
+</head>
+<body>
+<header class="gx">
+  <h1>ABAP 커리큘럼 샘플 갤러리 <span class="count" id="count">…</span></h1>
+  <p>디자인 결정을 위한 <b>임시</b> 페이지 · 각 타일에서 <b>쓴다/보류/안쓴다</b> 선택(저장됨). 필터 칩은 <b>다중 선택</b>이라 끄고 싶은 항목(예: 안쓴다)만 토글하면 됩니다.</p>
+  <div class="toolbar" id="famFilters"></div>
+  <div class="toolbar" id="decFilters"></div>
+</header>
+<main>
+  <div class="note" id="srvNote" hidden>
+    디렉터리 목록을 읽지 못했습니다. 이 페이지는 <b>디렉터리 listing을 제공하는 정적 서버</b>에서 열어야 동작합니다.
+    예) 프로젝트 루트에서 <code>python -m http.server 8000</code> 실행 후
+    <code>http://localhost:8000/docs/roadmap/_abap-curriculum-gallery.html</code> 로 접속하세요.
+    (<code>file://</code> 직접 열기나 GitHub Pages에서는 목록을 못 가져옵니다.)
+  </div>
+  <div id="grid" class="grid"></div>
+  <div id="empty" class="state" hidden></div>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var STORE_KEY  = "abap-curriculum-gallery-decisions-v1";
+  var FILTER_KEY = "abap-curriculum-gallery-filters-v1";
+  var DEC = { use:"쓴다", hold:"보류", skip:"안쓴다" };
+  var DEC_KEYS = ["use","hold","skip","none"];
+  var DEC_LABELS = { use:"쓴다", hold:"보류", skip:"안쓴다", none:"미정" };
+  var FAM_LABELS = { antigravity:"antigravity", claude:"claude", codex:"codex", "v5-3":"v5-3", etc:"기타" };
+  var SELF = location.pathname.split("/").pop();
+
+  var grid = document.getElementById("grid");
+  var countEl = document.getElementById("count");
+  var famEl = document.getElementById("famFilters");
+  var decEl = document.getElementById("decFilters");
+  var srvNote = document.getElementById("srvNote");
+  var emptyEl = document.getElementById("empty");
+
+  var items = [];                 // {name, meta, el}
+  var presentFams = [];           // 실제 존재하는 패밀리 목록
+  var decisions = loadJSON(STORE_KEY, {});
+  var savedFilters = loadJSON(FILTER_KEY, null);
+  var selFam = new Set();         // 선택된 패밀리(표시할 것)
+  var selDec = new Set();         // 선택된 결정 상태(표시할 것)
+
+  function loadJSON(k, dflt){ try { var v=JSON.parse(localStorage.getItem(k)); return v==null?dflt:v; } catch(e){ return dflt; } }
+  function saveJSON(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){ console.warn("저장 실패", e); } }
+  function saveDecisions(){ saveJSON(STORE_KEY, decisions); }
+  function saveFilters(){ saveJSON(FILTER_KEY, { fam:Array.from(selFam), dec:Array.from(selDec) }); }
+  function decOf(name){ return decisions[name] || ""; }
+  function decKey(name){ return decOf(name) || "none"; }
+
+  function famOf(name){
+    var m = name.match(/^abap-curriculum-(antigravity|claude|codex)\b/);
+    if (m) return m[1];
+    if (/^abap-curriculum-v5-3\b/.test(name)) return "v5-3";
+    return "etc";
+  }
+  function parseMeta(name){
+    var ver = (name.match(/-v(\d+(?:-\d+)?)/) || [])[1] || "";
+    var samp = (name.match(/sample([A-Za-z0-9]+)/) || [])[1] || "";
+    var dt = name.match(/(\d{4})(\d{2})(\d{2})-(\d{6})/), ts = "";
+    if (dt){ var t = dt[4]; ts = dt[1]+"-"+dt[2]+"-"+dt[3]+" "+t.slice(0,2)+":"+t.slice(2,4); }
+    return { fam: famOf(name), ver: ver, samp: samp, ts: ts };
+  }
+
+  function makeTile(it){
+    var m = it.meta, d = decOf(it.name);
+    var tile = document.createElement("div");
+    tile.className = "tile";
+    if (d) tile.setAttribute("data-decision", d);
+    var verTxt = (m.ver?("v"+m.ver):"") + (m.samp?(" "+(/^[A-Za-z]$/.test(m.samp)?"sample":"#")+m.samp):"");
+    tile.innerHTML =
+      '<a class="thumb" href="'+it.name+'" target="_blank" rel="noopener" data-dlabel="'+(d?DEC[d]:'')+'" title="새 탭에서 열기: '+it.name+'">'+
+        '<iframe loading="lazy" src="'+it.name+'" tabindex="-1" aria-hidden="true"></iframe>'+
+        '<span class="open"><span>열기 ↗</span></span>'+
+      '</a>'+
+      '<div class="meta">'+
+        '<div class="badges">'+
+          '<span class="b fam" style="background:var(--fam-'+m.fam+')">'+m.fam+'</span>'+
+          (verTxt?'<span class="b ver">'+verTxt.trim()+'</span>':'')+
+          (m.ts?'<span class="b ts">'+m.ts+'</span>':'')+
+        '</div>'+
+        '<div class="seg" role="group" aria-label="디자인 채택 결정">'+
+          '<button type="button" class="use"  data-v="use"  aria-pressed="'+(d==="use")+'">쓴다</button>'+
+          '<button type="button" class="hold" data-v="hold" aria-pressed="'+(d==="hold")+'">보류</button>'+
+          '<button type="button" class="skip" data-v="skip" aria-pressed="'+(d==="skip")+'">안쓴다</button>'+
+        '</div>'+
+        '<div class="fname">'+it.name+'</div>'+
+      '</div>';
+    tile.querySelectorAll(".seg button").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        var v = btn.getAttribute("data-v");
+        if (decisions[it.name] === v) delete decisions[it.name]; else decisions[it.name] = v;
+        saveDecisions();
+        var d2 = decOf(it.name);
+        if (d2) tile.setAttribute("data-decision", d2); else tile.removeAttribute("data-decision");
+        tile.querySelector(".thumb").setAttribute("data-dlabel", d2?DEC[d2]:"");
+        tile.querySelectorAll(".seg button").forEach(function(b){ b.setAttribute("aria-pressed", String(b.getAttribute("data-v")===d2)); });
+        buildFilters();   // 카운트 갱신
+        applyFilters();   // 결정 필터에 따라 표시/숨김(미리보기는 재로딩 안 함)
+      });
+    });
+    return tile;
+  }
+
+  function passes(it){
+    return selFam.has(it.meta.fam) && selDec.has(decKey(it.name));
+  }
+
+  function applyFilters(){
+    var shown = 0;
+    items.forEach(function(it){
+      var ok = passes(it);
+      it.el.style.display = ok ? "" : "none";
+      if (ok) shown++;
+    });
+    var filtered = (selFam.size !== presentFams.length) || (selDec.size !== DEC_KEYS.length);
+    countEl.textContent = items.length + "개" + (filtered ? (" · 표시 "+shown) : "");
+    emptyEl.hidden = !(items.length > 0 && shown === 0);
+    if (!emptyEl.hidden) emptyEl.innerHTML = "<h2>표시할 타일이 없습니다</h2><p>필터에서 항목을 다시 켜보세요.</p>";
+  }
+
+  function famCount(f){ return items.filter(function(it){ return it.meta.fam===f; }).length; }
+  function decCount(k){ return items.filter(function(it){ return decKey(it.name)===k; }).length; }
+
+  function chip(opts){
+    // opts: {label, n, on, cls, onClick}
+    var c=document.createElement("button");
+    c.type="button";
+    c.className="chip"+(opts.cls?(" "+opts.cls):"")+(opts.on?" on":"");
+    c.setAttribute("aria-pressed", String(!!opts.on));
+    c.innerHTML = opts.label + (opts.n!=null ? '<span class="n">'+opts.n+'</span>' : '');
+    c.onclick = opts.onClick;
+    return c;
+  }
+
+  function buildFilters(){
+    // ---- 패밀리(다중 선택) ----
+    var allFam = selFam.size === presentFams.length && presentFams.length>0;
+    famEl.innerHTML = '<span class="lbl">패밀리</span>';
+    famEl.appendChild(chip({ label:"전체", n:items.length, on:allFam, cls:"all", onClick:function(){
+      selFam = new Set(presentFams); saveFilters(); buildFilters(); applyFilters();
+    }}));
+    presentFams.forEach(function(f){
+      famEl.appendChild(chip({ label:FAM_LABELS[f]||f, n:famCount(f), on:selFam.has(f), onClick:function(){
+        if (selFam.has(f)) selFam.delete(f); else selFam.add(f);
+        saveFilters(); buildFilters(); applyFilters();
+      }}));
+    });
+    var sp=document.createElement("span"); sp.className="spacer"; famEl.appendChild(sp);
+    var rl=document.createElement("button"); rl.className="btn"; rl.type="button"; rl.textContent="새로고침";
+    rl.onclick=function(){ location.reload(); }; famEl.appendChild(rl);
+
+    // ---- 결정(다중 선택) ----
+    var allDec = selDec.size === DEC_KEYS.length;
+    decEl.innerHTML = '<span class="lbl">결정</span>';
+    decEl.appendChild(chip({ label:"전체", n:items.length, on:allDec, cls:"all", onClick:function(){
+      selDec = new Set(DEC_KEYS); saveFilters(); buildFilters(); applyFilters();
+    }}));
+    DEC_KEYS.forEach(function(k){
+      var cls = k==="use"?"dc-use":k==="hold"?"dc-hold":k==="skip"?"dc-skip":"";
+      decEl.appendChild(chip({ label:DEC_LABELS[k], n:decCount(k), on:selDec.has(k), cls:cls, onClick:function(){
+        if (selDec.has(k)) selDec.delete(k); else selDec.add(k);
+        saveFilters(); buildFilters(); applyFilters();
+      }}));
+    });
+    var sp2=document.createElement("span"); sp2.className="spacer"; decEl.appendChild(sp2);
+    var ex=document.createElement("button"); ex.className="btn"; ex.type="button"; ex.textContent="결정 JSON 내보내기";
+    ex.onclick=exportJson; decEl.appendChild(ex);
+    var rs=document.createElement("button"); rs.className="btn"; rs.type="button"; rs.textContent="결정 초기화";
+    rs.onclick=function(){ if(confirm("저장된 모든 결정을 지울까요?(필터는 유지)")){ decisions={}; saveDecisions();
+      items.forEach(function(it){ it.el.removeAttribute("data-decision"); it.el.querySelector(".thumb").setAttribute("data-dlabel","");
+        it.el.querySelectorAll(".seg button").forEach(function(b){ b.setAttribute("aria-pressed","false"); }); });
+      buildFilters(); applyFilters(); } };
+    decEl.appendChild(rs);
+  }
+
+  function exportJson(){
+    var out = { generatedAt:new Date().toISOString(), total:items.length,
+                summary:{ use:decCount("use"), hold:decCount("hold"), skip:decCount("skip"), none:decCount("none") },
+                byDecision:{ use:[], hold:[], skip:[] }, decisions:{} };
+    items.forEach(function(it){ var d=decOf(it.name); if(d){ out.byDecision[d].push(it.name); out.decisions[it.name]=d; } });
+    var blob=new Blob([JSON.stringify(out,null,2)],{type:"application/json"});
+    var a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);
+    a.download="curriculum-design-decisions-"+new Date().toISOString().slice(0,10)+".json";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); }, 1000);
+  }
+
+  function initSelections(){
+    presentFams = ["antigravity","claude","codex","v5-3","etc"].filter(famCount);
+    // 저장된 필터가 있으면 복원(현재 존재하는 값과 교집합), 없으면 전체 선택
+    if (savedFilters && Array.isArray(savedFilters.fam)) {
+      selFam = new Set(savedFilters.fam.filter(function(f){ return presentFams.indexOf(f)>=0; }));
+      if (selFam.size===0) selFam = new Set(presentFams);
+    } else selFam = new Set(presentFams);
+    if (savedFilters && Array.isArray(savedFilters.dec)) {
+      selDec = new Set(savedFilters.dec.filter(function(k){ return DEC_KEYS.indexOf(k)>=0; }));
+      if (selDec.size===0) selDec = new Set(DEC_KEYS);
+    } else selDec = new Set(DEC_KEYS);
+  }
+
+  fetch("./", { headers: { "Accept": "text/html" } })
+    .then(function(r){ if(!r.ok) throw new Error("listing "+r.status); return r.text(); })
+    .then(function(html){
+      var doc = new DOMParser().parseFromString(html, "text/html");
+      var names = [].slice.call(doc.querySelectorAll("a"))
+        .map(function(a){ return decodeURIComponent((a.getAttribute("href")||"").split("/").pop().split("?")[0]); })
+        .filter(function(n){ return /^abap-curriculum.*\.html$/i.test(n) && n !== SELF; });
+      names = Array.from(new Set(names)).sort();
+      items = names.map(function(n){ return { name:n, meta:parseMeta(n), el:null }; });
+      // 타일은 한 번만 생성(필터는 표시/숨김으로 처리 → iframe 재로딩 없음)
+      grid.innerHTML = "";
+      items.forEach(function(it){ it.el = makeTile(it); grid.appendChild(it.el); });
+      initSelections();
+      buildFilters();
+      applyFilters();
+      if (items.length===0){ emptyEl.hidden=false; emptyEl.innerHTML="<h2>표시할 샘플이 없습니다</h2><p>현재 폴더에서 <code>abap-curriculum*.html</code> 을 찾지 못했습니다.</p>"; }
+    })
+    .catch(function(err){
+      console.error("[gallery] 디렉터리 목록을 읽지 못함:", err);
+      srvNote.hidden = false;
+      countEl.textContent = "로드 실패";
+    });
+})();
+</script>
+</body>
+</html>
