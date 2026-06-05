@@ -19,11 +19,11 @@ SAP 개발자를 위한 HTML 학습자료 저장소입니다.
 
 ## 현재 진행 상황
 
-- 현재 단계: Stage 7 · 완료 이후 ABAP 커리큘럼 UI 샘플 검토
-- 현재 작업: 신규 ABAP 커리큘럼 2-Track 화면 샘플 제작, 좌측 THEORY 선택형 본문, Navigation 학습 목차, Scroll Spy, 용어 팝업, JSON 데이터 분리 구조 검토
+- 현재 단계: Stage 7 · 완료 이후 ABAP 커리큘럼 운영본 검토
+- 현재 작업: ABAP 커리큘럼 운영본(`docs/roadmap/abap-curriculum.html`) 제작 완료 후, `index.html` 홈 진입 링크·추천 경로·문서 수·최근 업데이트 반영 완료. 본문 Scroll Spy, 전체화면 Lesson 유지, 전체화면 패널 높이/내부 스크롤, reader 헤더/키워드 블록까지 안정화 검토 완료
 - 추가 작업(claude 계열): 단일 공유 엔진(`assets/abap-curriculum-explorer.js/css`) 위에 Studio / Library / Focus / Dashboard / Focus Library 5개 레이아웃 스킨을 얹은 샘플 세트. 인라인 JSON + fetch 폴백으로 file:// 직접 열람 지원, 검색·난이도 필터·용어 팝업·해시 딥링크 통합
 - 최근 작업(v8 sampleA): 전체화면 토글 공통 셸 이관, Navigation 리디자인, 본문 핵심 내용 정리 + Chapter 상세 페이지 시범(`abap-curriculum-section-detail.html`), 화면 표기 Chapter/Lesson 통일
-- 최종 수정: 2026-06-04 KST
+- 최종 수정: 2026-06-05 KST
 
 ---
 
@@ -48,6 +48,7 @@ SAP 개발자를 위한 HTML 학습자료 저장소입니다.
 - Flight 통합 실습 docs 전환본: https://jungds.github.io/sapui5/docs/practice/flight-integrated-practice.html
 - UI5/Fiori docs 전환본: https://jungds.github.io/sapui5/docs/ui5/sapui5-controller-function-intro.html
 - 로드맵 docs 전환본: https://jungds.github.io/sapui5/docs/roadmap/developer-learning-roadmap.html
+- ABAP 커리큘럼 운영본: https://jungds.github.io/sapui5/docs/roadmap/abap-curriculum.html
 
 ---
 
@@ -83,6 +84,11 @@ SAP 개발자를 위한 HTML 학습자료 저장소입니다.
 | 7-11 | README 최종 갱신 | 완료 |
 | 7-12 | ABAP 커리큘럼 2-Track 샘플 UI 설계 및 검토 | 진행 중 |
 | 7-13 | claude 계열 공유 엔진 + 5개 레이아웃 샘플 제작 | 진행 중 |
+| 7-14 | ABAP 커리큘럼 운영본 + 사용자별 학습친화 스타일 제공 | 완료 |
+| 7-15 | index.html 홈 대시보드 ABAP 커리큘럼 운영본 반영 | 완료 |
+| 7-16 | ABAP 커리큘럼 Scroll Spy / 전체화면 Lesson 유지 안정화 | 완료 |
+| 7-17 | ABAP 커리큘럼 전체화면 패널 높이 / Track 410px 안정화 | 완료 |
+| 7-18 | ABAP 커리큘럼 reader 헤더 / 핵심 키워드 블록 정리 | 완료 |
 
 ---
 
@@ -90,6 +96,11 @@ SAP 개발자를 위한 HTML 학습자료 저장소입니다.
 
 | 구분 | 문서 | 링크 |
 |---|---|---|
+| 완료 | ABAP 커리큘럼 reader 헤더 정리 — 전체화면 본문 상단을 `abc-panel-head` 기반으로 통일, 좌측 Chapter/Lesson/제목·우측 이전/다음/자세히 배치, `핵심 키워드`를 `abc-info-block` 디자인으로 변경, 운영 CSS/JS 캐시 버전(`v=20260605-readerhead1`) 적용 | 로컬 작업 |
+| 완료 | ABAP 커리큘럼 전체화면 레이아웃 안정화 — 일반/전체화면 Track 메뉴 폭 410px 통일, 전체화면 Track/Lesson/본문 높이를 viewport 안으로 제한, 본문 내부 스크롤 전환, 운영 CSS 캐시 버전(`v=20260605-layout6`) 적용 | 로컬 작업 |
+| 완료 | ABAP 커리큘럼 운영본 안정화 — 본문 스크롤 위치에 따라 학습 목차와 Lesson 선택 상태 자동 동기화, 전체화면 전환 시 현재 보고 있던 Lesson 유지, 운영 JS 캐시 버전(`v=20260605-scrollspy1`) 적용 | 로컬 작업 |
+| 완료 | index.html 홈 최신화 — ABAP 커리큘럼 운영본 진입 섹션, 상단 커리큘럼 링크, 최신 문서 수(39개), 로드맵/모듈 통계, 추천 경로, 최근 업데이트(2026-06-05) 반영. `assets/home.css` v1.1 갱신 | 로컬 작업 |
+| 완료 | ABAP 커리큘럼 운영본 제작 — `docs/roadmap/abap-curriculum.html` 신규 작성, 전용 자산(`assets/abap-curriculum.js/css`) 추가, v5.4 JSON(`reference/abap_curriculum_v5_4_20260605_000000.json`) 생성 + 모든 Lesson `learning_friendly.handled_contents.ko` 추가, 전문/쉬운 문장 토글, 전체화면 Chapter/Lesson/본문 3열 구조, `자세히` 버튼 우상단 배치, Shell/roadmap/data 카탈로그 동기화 | 로컬 작업 |
 | 진행 중 | ABAP 커리큘럼 v8 sampleA 개선 — 전체화면 토글 공통 셸(`assets/shell.js`) 이관·진입 시 Nav 자동 접힘, Navigation 리디자인(현재 항목 제목 동기화·TOC 트리·학습 경로 탭→상세 페이지), 본문 핵심 내용 정리 + unit별 앵커 링크 + 'Chapter 상세 보기' FAB, Chapter 상세 페이지 시범(`docs/roadmap/abap-curriculum-section-detail.html`, 단일 템플릿 `?section=` 전체 필드), 화면 표기 `THEORY/M##`→`Chapter/Lesson` 통일(JSON id는 키로 유지) | 로컬 작업 |
 | 완료 | ABAP 커리큘럼 claude 계열 샘플 — 단일 공유 엔진(`assets/abap-curriculum-explorer.js/css`) + Studio/Library/Focus/Dashboard/Focus Library 5개 레이아웃. 인라인 JSON+fetch 폴백(file:// 지원), 검색·난이도 필터·용어 팝업·해시 딥링크. 용어 모달 `[object Object]` 표시 버그(`assets/common.js`) 수정 | https://github.com/JungDS/sapui5/pull/43 |
 | 진행 중 | ABAP 커리큘럼 2-Track v8 통일 아키텍처(Unification) 기반 전환. 파편화된 JS/CSS를 하나로 통합하고 HTML에서 모드만 전환하도록 리팩토링 기획 중 | 로컬 작업 |

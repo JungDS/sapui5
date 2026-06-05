@@ -1,4 +1,4 @@
-// 공통 셸(헤더·우측 Navigation·ScrollSpy·이전/다음) + 문서 SSOT(DOCS/LEARNING_PATHS) | 최종수정 2026-06-05 11:17 KST | v1.0
+// 공통 셸(헤더·우측 Navigation·ScrollSpy·이전/다음) + 문서 SSOT(DOCS/LEARNING_PATHS) | 최종수정 2026-06-05 00:00 KST | v1.1
 // Opt-in helper. body[data-page-type]가 있을 때만 동작. 전역: window.SAPShell
 (function () {
   "use strict";
@@ -28,6 +28,7 @@
     "requirements-analysis": { title: "SAP 개발 요구사항 분석법", category: "roadmap", href: "docs/roadmap/requirements-analysis-guide.html", preparing: true, skeleton: true, group: "학습 가이드" },
     "cts-transport": { title: "Transport Request / CTS 입문", category: "roadmap", href: "docs/roadmap/cts-transport-intro.html", preparing: true, skeleton: true, group: "학습 가이드" },
     "debug": { title: "SAP 개발 디버깅 / 트러블슈팅 통합 가이드", category: "roadmap", href: "docs/roadmap/dev-debugging.html", aliases: ["debugging"], group: "학습 가이드" },
+    "abap-curriculum": { title: "ABAP 엔터프라이즈 커리큘럼", category: "roadmap", href: "docs/roadmap/abap-curriculum.html", group: "학습 가이드" },
     "abap-curriculum-claude": { title: "ABAP 엔터프라이즈 커리큘럼 탐색기", category: "roadmap", href: "docs/roadmap/abap-curriculum-claude-20260602-114249.html", group: "학습 가이드" },
 
     // Area B: ABAP 개발 (ABAP)
@@ -118,7 +119,7 @@
   const LEARNING_PATHS = {
     roadmap: {
       title: "로드맵 / 학습전략",
-      items: ["roadmap", "tools", "abap-learning-path", "ui5-learning-path", "sap-module-orientation", "requirements-analysis", "cts-transport", "debug"]
+      items: ["roadmap", "tools", "abap-curriculum", "abap-learning-path", "ui5-learning-path", "sap-module-orientation", "requirements-analysis", "cts-transport", "debug"]
     },
     abap: {
       title: "ABAP 개발자 경로",

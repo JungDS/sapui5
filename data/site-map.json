@@ -632,6 +632,18 @@
             "status": "Audit",
             "time": "수시",
             "summary": "링크, CSS/JS, data-prose, 푸터/배포자 표기를 최종 검수한 결과이다."
+        },
+        "abap-curriculum": {
+            "title": "ABAP 엔터프라이즈 커리큘럼",
+            "href": "../docs/roadmap/abap-curriculum.html",
+            "file": "abap-curriculum.html",
+            "category": "roadmap",
+            "group": "학습 가이드",
+            "level": "입문~실무",
+            "status": "운영본",
+            "time": "전체 200h+",
+            "summary": "ABAP 커리큘럼을 Chapter와 Lesson 단위로 탐색하고 전문/쉬운 문장 스타일을 전환한다.",
+            "data_source": "reference/abap_curriculum_v5_4_20260605_000000.json"
         }
     },
     "recommended_paths": {
@@ -641,6 +653,7 @@
             "items": [
                 "roadmap",
                 "tools",
+                "abap-curriculum",
                 "module-overview",
                 "abap-classic",
                 "ui5-controller",
@@ -652,6 +665,7 @@
             "title": "ABAP 개발자 경로",
             "description": "서버 개발과 OData/RAP 서비스를 구현하려는 학습자를 위한 순서이다.",
             "items": [
+                "abap-curriculum",
                 "abap-classic",
                 "abap-new-syntax",
                 "cds-odata",
@@ -738,6 +752,7 @@
             "docs": [
                 "roadmap",
                 "tools",
+                "abap-curriculum",
                 "debug"
             ]
         },
@@ -881,11 +896,11 @@
             ]
         }
     ],
-    "updated": "2026-05-29",
+    "updated": "2026-06-05",
     "stage7": {
         "operating_root": "docs",
         "legacy_root": "v3",
-        "current_focus": "navigation-data-criteria",
+        "current_focus": "abap-curriculum-operating-page",
         "canonical_aliases": {
             "gateway": "gateway-odata-v2-crud",
             "debugging": "debug"

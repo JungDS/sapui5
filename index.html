@@ -13,9 +13,9 @@
   data-page-type="home"
   data-doc-id="index"
   data-doc-title="SAP Developer Learning Library"
-  data-doc-version="4.0"
+  data-doc-version="4.1"
   data-doc-created-at="2026-05-28T16:41:34+09:00"
-  data-doc-updated-at="2026-05-29T03:33:44+09:00"
+  data-doc-updated-at="2026-06-05T00:00:00+09:00"
   data-prose-root="true">
 <header class="home-topbar prose-summary" data-prose="summary">
   <div class="home-topbar__inner">
@@ -25,6 +25,7 @@
     </a>
     <div class="home-header-actions" aria-label="홈 메뉴">
       <a class="home-quick-link" href="./pages/roadmap.html">로드맵</a>
+      <a class="home-quick-link" href="./docs/roadmap/abap-curriculum.html">커리큘럼</a>
       <a class="home-quick-link" href="./pages/abap.html">ABAP</a>
       <a class="home-quick-link" href="./pages/ui5-fiori.html">UI5/Fiori</a>
     </div>
@@ -39,9 +40,10 @@
       SAP 개발에 입문하는 초급자부터 실무 역량을 강화하려는 개발자까지, 단계별 학습 경로와 핵심 영역별 가이드를 체계적으로 제공합니다. 아래에서 필요한 학습 목적을 선택하거나 통합 검색을 사용해 보세요.
     </p>
     <div class="home-badges">
-      <span class="home-badge blue">v4.0</span>
-      <span class="home-badge green">총 37개 학습 문서</span>
-      <span class="home-badge amber">최근 업데이트: 2026-05-28</span>
+      <span class="home-badge blue">v4.1</span>
+      <span class="home-badge green">총 39개 학습 문서</span>
+      <span class="home-badge purple">ABAP 커리큘럼 운영본</span>
+      <span class="home-badge amber">최근 업데이트: 2026-06-05</span>
     </div>
   </section>
 
@@ -50,6 +52,7 @@
     <input type="text" id="home-search" class="home-search-bar" placeholder="배우고 싶은 기술이나 문서를 검색해 보세요 (예: RAP, OData, ALV, UI5, CDS)...">
     <div class="home-quick-tags">
       <span class="home-tag" onclick="filterSearch('#ABAP')">#ABAP_Classic</span>
+      <span class="home-tag" onclick="filterSearch('#커리큘럼')">#ABAP_Curriculum</span>
       <span class="home-tag" onclick="filterSearch('#RAP')">#RAP</span>
       <span class="home-tag" onclick="filterSearch('#OData')">#OData_V2</span>
       <span class="home-tag" onclick="filterSearch('#UI5')">#UI5_Basics</span>
@@ -60,7 +63,7 @@
 
   <div class="home-stats-board">
     <div class="home-stat-card">
-      <span class="home-stat-count">3</span>
+      <span class="home-stat-count">4</span>
       <span class="home-stat-name">로드맵</span>
     </div>
     <div class="home-stat-card">
@@ -72,7 +75,7 @@
       <span class="home-stat-name">UI5 / Fiori</span>
     </div>
     <div class="home-stat-card">
-      <span class="home-stat-count">13</span>
+      <span class="home-stat-count">14</span>
       <span class="home-stat-name">모듈 기초</span>
     </div>
     <div class="home-stat-card">
@@ -84,6 +87,23 @@
       <span class="home-stat-name">Reference</span>
     </div>
   </div>
+
+  <section class="home-section home-feature-section prose-summary" data-prose="summary" id="abap-curriculum">
+    <div class="home-section__label">신규 운영본</div>
+    <div class="home-feature">
+      <div>
+        <span class="home-badge purple">사용자별 학습친화 스타일 제공</span>
+        <h2>ABAP 엔터프라이즈 커리큘럼</h2>
+        <p>
+          2-Track 구조로 ABAP 학습 과정을 Chapter와 Lesson 단위로 탐색합니다. 각 Lesson은 전문적인 표현과 쉬운 문장 스타일을 전환할 수 있고, 전체화면에서는 Chapter / Lesson / Lesson 본문 구조로 집중해서 볼 수 있습니다.
+        </p>
+      </div>
+      <div class="home-feature__actions">
+        <a class="home-button" href="./docs/roadmap/abap-curriculum.html">커리큘럼 열기</a>
+        <a class="home-button secondary" href="./docs/roadmap/abap-curriculum-section-detail.html?section=THEORY-01">Chapter 상세 보기</a>
+      </div>
+    </div>
+  </section>
 
   <section class="home-section prose-summary" data-prose="summary">
     <div class="home-section__label">맞춤형 학습 목표</div>
@@ -98,8 +118,8 @@
       <article class="home-card prose-summary" data-prose="summary">
         <span class="home-badge blue">백엔드</span>
         <h3>ABAP 서버 개발이 목표인가요?</h3>
-        <p>Classic Report 기본기부터 데이터 모델 설계(CDS View), Gateway API 및 RAP 클라우드 기술로 확장합니다.</p>
-        <a class="home-button secondary" href="./pages/abap.html">ABAP 개발 영역 보기</a>
+        <p>ABAP 커리큘럼 운영본으로 전체 학습 순서를 잡고, Classic Report부터 CDS, Gateway, RAP까지 단계적으로 확장합니다.</p>
+        <a class="home-button secondary" href="./docs/roadmap/abap-curriculum.html">ABAP 커리큘럼 보기</a>
       </article>
       <article class="home-card prose-summary" data-prose="summary">
         <span class="home-badge purple">프론트엔드</span>
@@ -123,8 +143,8 @@
       <article class="home-card prose-summary" data-prose="summary">
         <div class="home-card__icon">🧭</div>
         <h3>로드맵 / 학습전략</h3>
-        <p>시작 지점 탐색, 필수 개발 환경 및 도구 설정 등 개발 시작을 위한 첫 단계를 가이드합니다.</p>
-        <div class="home-card__meta"><span class="home-badge green">3개 문서</span></div>
+        <p>시작 지점 탐색, 필수 개발 환경 및 도구 설정, ABAP 커리큘럼 운영본까지 개발 시작을 위한 첫 단계를 가이드합니다.</p>
+        <div class="home-card__meta"><span class="home-badge green">4개 문서</span></div>
         <a class="home-button" href="./pages/roadmap.html">로드맵 확인하기</a>
       </article>
       <article class="home-card prose-summary" data-prose="summary">
@@ -145,7 +165,7 @@
         <div class="home-card__icon">🏢</div>
         <h3>SAP 모듈 기초</h3>
         <p>개발 요구사항을 정확히 분석하고 구현하기 위한 모듈 프로세스(SD/MM/PP/FI/CO)와 핵심 테이블을 설명합니다.</p>
-        <div class="home-card__meta"><span class="home-badge green">13개 문서</span></div>
+        <div class="home-card__meta"><span class="home-badge green">14개 문서</span></div>
         <a class="home-button" href="./pages/module-basics.html">모듈 가이드 보기</a>
       </article>
       <article class="home-card prose-summary" data-prose="summary">
@@ -175,19 +195,19 @@
         <ol class="learning-list">
           <li class="learning-step"><span class="learning-step__num">1</span><div><a href="docs/roadmap/developer-learning-roadmap.html">SAP 개발자 학습 로드맵</a><p>전체 학습 순서를 먼저 확인한다.</p></div></li>
           <li class="learning-step"><span class="learning-step__num">2</span><div><a href="docs/roadmap/development-tools-overview.html">SAP 개발 환경과 도구 입문</a><p>SAP GUI, ADT, VS Code/BAS 등 도구 목적을 정리한다.</p></div></li>
-          <li class="learning-step"><span class="learning-step__num">3</span><div><a href="docs/module/module-basics-for-developers.html">SAP 모듈 기초와 개발자 관점</a><p>업무 흐름과 테이블을 개발 관점에서 이해한다.</p></div></li>
-          <li class="learning-step"><span class="learning-step__num">4</span><div><a href="docs/abap/abap-classic-report-itab-alv.html">Classic ABAP 기본기</a><p>Report, Selection Screen, Internal Table, ALV를 익힌다.</p></div></li>
-          <li class="learning-step"><span class="learning-step__num">5</span><div><a href="docs/abap/abap-new-syntax.html">ABAP New Syntax 입문</a><p>DATA(...), VALUE, CORRESPONDING 등 실무형 신규 문법을 익힌다.</p></div></li>
+          <li class="learning-step"><span class="learning-step__num">3</span><div><a href="docs/roadmap/abap-curriculum.html">ABAP 엔터프라이즈 커리큘럼</a><p>Chapter와 Lesson 단위로 ABAP 전체 과정을 훑는다.</p></div></li>
+          <li class="learning-step"><span class="learning-step__num">4</span><div><a href="docs/module/module-basics-for-developers.html">SAP 모듈 기초와 개발자 관점</a><p>업무 흐름과 테이블을 개발 관점에서 이해한다.</p></div></li>
+          <li class="learning-step"><span class="learning-step__num">5</span><div><a href="docs/abap/abap-classic-report-itab-alv.html">Classic ABAP 기본기</a><p>Report, Selection Screen, Internal Table, ALV를 익힌다.</p></div></li>
         </ol>
       </div>
       <div class="learning-panel" data-prose="structure">
         <h3>실무형 빠른 경로</h3>
         <p>핵심 개념을 빠르게 보고 통합 실습으로 넘어가는 경로이다.</p>
         <ol class="learning-list">
-          <li class="learning-step"><span class="learning-step__num">1</span><div><a href="docs/abap/cds-to-odata.html">CDS View에서 OData 노출까지</a><p>데이터 모델과 OData 노출 흐름을 확인한다.</p></div></li>
-          <li class="learning-step"><span class="learning-step__num">2</span><div><a href="docs/abap/gateway-odata-v2-crud.html">Gateway / OData V2 CRUD 입문</a><p>SEGW, EntitySet, DPC_EXT, CRUD 흐름을 이해한다.</p></div></li>
-          <li class="learning-step"><span class="learning-step__num">3</span><div><a href="docs/ui5/ui5-odata-crud.html">SAPUI5 OData Model과 CRUD 입문</a><p>ODataModel을 화면과 연결한다.</p></div></li>
-          <li class="learning-step"><span class="learning-step__num">4</span><div><a href="docs/ui5/ui5-validation-messaging.html">Messaging과 Input Validation 실무 입문</a><p>입력값, 모델값, 메시지 처리를 분리해서 이해한다.</p></div></li>
+          <li class="learning-step"><span class="learning-step__num">1</span><div><a href="docs/roadmap/abap-curriculum.html#THEORY-20">CDS/RAP 전 ABAP 커리큘럼 후반부</a><p>CDS와 RAP로 넘어가기 전 필요한 선행 Chapter를 확인한다.</p></div></li>
+          <li class="learning-step"><span class="learning-step__num">2</span><div><a href="docs/abap/cds-to-odata.html">CDS View에서 OData 노출까지</a><p>데이터 모델과 OData 노출 흐름을 확인한다.</p></div></li>
+          <li class="learning-step"><span class="learning-step__num">3</span><div><a href="docs/abap/gateway-odata-v2-crud.html">Gateway / OData V2 CRUD 입문</a><p>SEGW, EntitySet, DPC_EXT, CRUD 흐름을 이해한다.</p></div></li>
+          <li class="learning-step"><span class="learning-step__num">4</span><div><a href="docs/ui5/ui5-odata-crud.html">SAPUI5 OData Model과 CRUD 입문</a><p>ODataModel을 화면과 연결한다.</p></div></li>
           <li class="learning-step"><span class="learning-step__num">5</span><div><a href="docs/practice/flight-practice.html">Flight 통합 실습 최신본</a><p>ABAP, Gateway, UI5를 하나의 실습으로 연결한다.</p></div></li>
         </ol>
       </div>
@@ -198,6 +218,10 @@
     <div class="home-section__label">공지 및 업데이트 안내</div>
     <h2>최근 업데이트 소식</h2>
     <div class="update-list">
+      <div class="update-item">
+        <span class="update-date">2026-06-05</span>
+        <span class="update-desc">ABAP 커리큘럼 운영본 추가, 사용자별 학습친화 스타일 제공, 전체화면 Lesson 집중 모드 및 홈 진입 링크 반영</span>
+      </div>
       <div class="update-item">
         <span class="update-date">2026-05-28</span>
         <span class="update-desc">UI5/Fiori 및 ABAP 통합 실습 시나리오 최신 버전(Stage 7) 반영 및 라이브러리 홈페이지 리뉴얼 (검색 바 및 대시보드 추가)</span>
@@ -214,7 +238,7 @@
   </section>
 
   <footer class="home-footer prose-summary" data-prose="summary">
-    © 2026 SAP Developer Learning Library. 최근 업데이트: 2026-05-28
+    © 2026 SAP Developer Learning Library. 최근 업데이트: 2026-06-05
   </footer>
 </div>
 

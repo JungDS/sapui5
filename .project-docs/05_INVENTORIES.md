@@ -10,6 +10,7 @@
 | `common.css` / `common.js` | 다수(사이트 전역) | 모든 운영 페이지 공통 |
 | `shell.css` / `shell.js` | 다수(셸 페이지 전역) | page-type 셸 + 문서 SSOT |
 | `home.css` | 1 | `index.html` 전용 |
+| `abap-curriculum.css` / `.js` | 1 | `docs/roadmap/abap-curriculum.html` 운영본 전용 |
 | `metro-process.css` / `.js` | 2 | `docs/module/erp-business-process-metro.html`, `docs/roadmap/abap-curriculum-v5-3-antigravity.html` |
 | `abap-curriculum-section-detail.*` | 1 | `docs/roadmap/abap-curriculum-section-detail.html` |
 | `abap-curriculum-v5-3.*` | 1 | `docs/roadmap/abap-curriculum-codex-20260602-113746.html` |
@@ -52,7 +53,8 @@
 > 완료 3종은 `archive/tools/20260605/`로 이동 완료. 필요 시 git/archive에서 복원 가능.
 
 ## D. docs/roadmap ABAP 커리큘럼 샘플 계보 (인벤토리만, archive 보류)
-모든 샘플은 **index/pages에서 링크되지 않는 orphan**(직접 URL 또는 section-detail로만 도달).
+운영본 `docs/roadmap/abap-curriculum.html`은 `pages/roadmap.html`과 `assets/shell.js`에 등록했다.
+아래 샘플은 **index/pages에서 링크되지 않는 orphan**(직접 URL 또는 section-detail 구 이력으로만 도달).
 
 | 패밀리 | 항목 | 최신/후보 |
 |---|---|---|
@@ -63,3 +65,11 @@
 | 특수 | `abap-curriculum-section-detail.html`(Chapter 상세), `abap-curriculum-data.js`(로컬 데이터) | 유지 |
 
 > 정리 제안(패밀리별 최신만 유지)은 [07](07_DECISIONS_AND_ROADMAP.md)에 제안서로 기록. 본 라운드 미실행.
+
+## E. reference/ ABAP 커리큘럼 JSON
+
+| 파일 | 상태 | 비고 |
+|---|---|---|
+| `abap_curriculum_v5_4_20260605_000000.json` | **운영 유지** | 운영본 fetch 대상. `learning_friendly.handled_contents.ko` 추가 |
+| `abap_curriculum_v5_3_20260602_010000.json` | 유지 | 샘플/비교 원본, v5.4의 기반 |
+| `abap_curriculum_v5_3.md`, `TRACK1/` | 유지 | 커리큘럼 설계 참고자료 |

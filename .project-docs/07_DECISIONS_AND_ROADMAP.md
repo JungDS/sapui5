@@ -42,6 +42,18 @@
   **확정본만 운영으로 승격**, 나머지는 archive. `sample/`은 셸과 무관한 순수 프로토타입 전용으로 명확화.
 - 본 라운드에서는 실제 이동 없음(기록만).
 
+## 결정 5. ABAP 커리큘럼 운영본 승격
+**결정**: v8 sampleA를 기준으로 삼되 샘플 파일을 직접 수정하지 않고, 신규 운영본
+`docs/roadmap/abap-curriculum.html`과 전용 자산 `assets/abap-curriculum.css/js`를 만든다.
+
+| 항목 | 처리 | 상태 |
+|---|---|---|
+| 운영본 파일 | `docs/roadmap/abap-curriculum.html` 신규 작성 | ✅ 완료 |
+| 데이터 | v5.3 JSON 복사 후 `reference/abap_curriculum_v5_4_20260605_000000.json` 생성 | ✅ 완료 |
+| 사용자별 학습친화 스타일 | 모든 Lesson에 `learning_friendly.handled_contents.ko` 추가 | ✅ 완료 |
+| 운영 노출 | `assets/shell.js`, `pages/roadmap.html`, `data/*.json` 동기화 | ✅ 완료 |
+| 기존 샘플 | 비교용 보존, archive는 별도 라운드 | 유지 |
+
 ## 실행 이력
 ### 라운드 1 — 분석 + 저위험 정리 (2026-06-05)
 - `.project-docs` 8문서 신규 작성, 구 00~10 → `archive/project-docs/20260605/`
@@ -55,3 +67,34 @@
 - `window.SAPStage7Shell` → `window.SAPShell`
 - 코어 asset 5종에 주석 헤더 부여, `data/document-catalog.json`의 `assets[]` 갱신
 - 잔여: CSS 클래스 `.stage7-*` (결정 1 보류 사유 참조)
+
+### 라운드 3 — ABAP 커리큘럼 운영본 + 학습친화 스타일 (2026-06-05)
+- `docs/roadmap/abap-curriculum.html` 운영본 작성
+- `assets/abap-curriculum.css/js` 신규 작성
+- `reference/abap_curriculum_v5_4_20260605_000000.json` 생성 및 모든 Lesson 친화 문장 추가
+- Chapter 상세 페이지 데이터 출처와 돌아가기 링크를 운영본 기준으로 갱신
+- Shell SSOT, roadmap 랜딩, `data/site-map.json`, `data/document-catalog.json` 동기화
+
+### 라운드 4 — Home 대시보드 최신화 (2026-06-05)
+- `index.html` 홈 메타데이터 v4.1 / 2026-06-05로 갱신
+- ABAP 커리큘럼 운영본 진입 섹션과 상단 빠른 링크 추가
+- 문서 수와 영역별 통계(`document-catalog.json` 기준 총 39개, roadmap 4, module 14) 반영
+- 추천 경로와 최근 업데이트 목록에 ABAP 커리큘럼 운영본 반영
+- `assets/home.css` v1.1로 홈 feature 섹션 스타일 추가
+
+### 라운드 5 — ABAP 커리큘럼 Scroll Spy / 전체화면 안정화 (2026-06-05)
+- 기본 화면 Lesson 카드 스크롤 위치를 감지해 Shell 학습 목차와 내부 Lesson 선택 상태를 자동 동기화
+- 전체화면 전환 직전 Lesson을 보존해 reader가 현재 보고 있던 Lesson으로 열리도록 수정
+- `docs/roadmap/abap-curriculum.html`의 운영 JS URL에 캐시 버전(`v=20260605-scrollspy1`) 부여
+
+### 라운드 6 — ABAP 커리큘럼 전체화면 패널 높이 안정화 (2026-06-05)
+- 일반/전체화면 Track 메뉴 폭을 410px로 통일
+- 전체화면에서 Track / Lesson / 본문 패널 높이가 viewport를 넘지 않도록 커리큘럼 wrapper를 Shell 상단바 제외 높이로 제한
+- 본문은 페이지 스크롤 대신 `.abc-content` 내부 스크롤을 사용하고, 좁은 폭에서는 그리드 내부 스크롤로 처리
+- `docs/roadmap/abap-curriculum.html`의 운영 CSS URL에 캐시 버전(`v=20260605-layout6`) 부여
+
+### 라운드 7 — ABAP 커리큘럼 reader 헤더 / 키워드 블록 정리 (2026-06-05)
+- 전체화면 본문 상단을 `abc-panel-head` 기반 헤더로 변경해 Track/Lesson 패널 제목 높이와 톤을 맞춤
+- 헤더 좌측에는 Chapter / Lesson / Lesson 제목, 우측에는 `이전` / `다음` / `자세히` 액션 배치
+- 본문 키워드를 독립 칩 줄에서 `abc-info-block` 기반 `핵심 키워드` 블록으로 이동
+- `docs/roadmap/abap-curriculum.html`의 운영 CSS/JS URL에 캐시 버전(`v=20260605-readerhead1`) 부여

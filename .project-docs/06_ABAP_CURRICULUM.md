@@ -1,11 +1,37 @@
 # 06. ABAP 커리큘럼
 
-현재 가장 많은 변경이 발생하는 활성 영역. 다양한 디자인 샘플을 비교 중이며 최종 디자인 미확정.
+현재 가장 많은 변경이 발생하는 활성 영역. 다양한 디자인 샘플 비교 결과를 바탕으로 2026-06-05에
+운영본 `docs/roadmap/abap-curriculum.html`을 신규 작성했다. 구 샘플들은 비교/보존용으로 남겨 둔다.
 
 ## 원천 데이터
-- 핵심 참고자료: `reference/abap_curriculum_v5_3_20260602_010000.json` (런타임 fetch 대상),
+- 운영본 런타임 데이터: `reference/abap_curriculum_v5_4_20260605_000000.json`.
+- 원본/비교 참고자료: `reference/abap_curriculum_v5_3_20260602_010000.json`,
   `reference/abap_curriculum_v5_3.md`, `reference/TRACK1/`.
 - 생성 도구: `tools/build-abap-curriculum.mjs`, `tools/build-curriculum-samples.mjs`.
+
+## 운영본 (2026-06-05)
+- 파일: `docs/roadmap/abap-curriculum.html`
+- 전용 자산: `assets/abap-curriculum.js`, `assets/abap-curriculum.css`
+- 기본 화면: v8 sampleA 계열의 Track 탭 + 좌측 Chapter 목록 + 선택 Chapter 본문 + Shell Navigation.
+- 전체화면: Chapter 목록 / Lesson 목록 / 선택 Lesson 본문 3열 구조.
+- Section 헤더: antigravity 계열의 학습시간·Section·난이도·Lesson 수 배지와 핵심 키워드 칩을 반영.
+- Lesson 카드: `자세히` 링크를 Lesson 제목 우측으로 이동하고 짧은 라벨로 통일.
+- 안정화: 기본 화면 본문 스크롤 시 현재 보이는 Lesson을 학습 목차와 내부 선택 상태에 반영한다.
+  전체화면 진입 시에는 전환 직전의 Lesson을 보존해 reader가 같은 Lesson으로 열린다.
+  `abap-curriculum.html`은 `assets/abap-curriculum.js?v=20260605-scrollspy1`로 캐시를 갱신한다.
+- 레이아웃 안정화: 일반/전체화면 Track 메뉴 폭을 410px로 통일한다. 전체화면에서는 공통 Shell 상단바 높이를
+  고려해 커리큘럼 영역을 남은 화면 높이에 맞추고, Track/Lesson/본문 패널과 좁은 폭의 그리드가 영역 내부에서
+  스크롤되도록 한다. CSS 캐시는 `assets/abap-curriculum.css?v=20260605-layout6`로 갱신한다.
+- reader 헤더 정리: 전체화면 본문 상단을 `abc-panel-head` 기반으로 맞춰 좌측에 Chapter/Lesson/제목,
+  우측에 `이전`/`다음`/`자세히` 액션을 배치한다. 본문 키워드는 `핵심 내용`과 같은 `abc-info-block`
+  디자인의 `핵심 키워드` 블록으로 표시한다. 운영 CSS/JS 캐시는 `v=20260605-readerhead1`로 갱신한다.
+
+## 사용자별 학습친화 스타일 제공
+- 전문 스타일: 기존 `handled_contents.ko` 사용.
+- 쉬운 문장 스타일: 각 Lesson의 `learning_friendly.handled_contents.ko` 사용.
+- 작성 원칙: 해당 Lesson만 단독으로 쉽게 쓰지 않고, 같은 Chapter 안의 앞 Lesson/다음 Lesson 또는 다음 Chapter와
+  이어지는 흐름을 문장에 포함한다. ABAP 핵심 용어는 유지하되 문장 구조를 짧고 친근하게 만든다.
+- fallback: 친화 필드가 없는 경우 기존 `handled_contents.ko`를 표시한다.
 
 ## 2-Track 구조 (지향)
 - **Track 1 — 개발 이론**: 문법·아키텍처·DDIC·CDS/OData·RAP·Cloud
@@ -31,12 +57,10 @@
 - 용어 클릭 팝업, 해시 딥링크, 하단 "Chapter 상세 보기"(→ `?section=` 단일 템플릿)
 - 데이터는 HTML과 분리(JSON)
 
-## 다음 단계 (배포 전 결정 사항)
-1. 최종 샘플 1종 확정(v8 sampleA 유력)
-2. 데이터 출처 확정(`reference/*.json` fetch 방식 유지 여부)
-3. GitHub Pages 정적 로딩 검증(file:// 및 Pages)
-4. 노출 위치 결정: `pages/roadmap.html` vs `pages/abap.html` vs 신규 랜딩
-5. 확정 후: 나머지 샘플 archive, 선호본을 운영 파일명으로 승격
-6. v8 Unification(단일 엔진 + HTML 모드 토글)로 파편화된 codex-v* asset 통합 검토
+## 다음 단계
+1. GitHub Pages 정적 로딩 검증(file:// 및 Pages)
+2. 운영본 사용성 검토 후 `pages/abap.html`에도 노출할지 결정
+3. 나머지 샘플 archive 여부 결정
+4. v8 Unification 또는 샘플 asset 정리는 운영본 안정화 후 별도 라운드에서 검토
 
-> 위 4·5·6은 [07 결정·로드맵](07_DECISIONS_AND_ROADMAP.md)과 연동.
+> 샘플 archive와 asset 정리는 [07 결정·로드맵](07_DECISIONS_AND_ROADMAP.md)과 연동.
