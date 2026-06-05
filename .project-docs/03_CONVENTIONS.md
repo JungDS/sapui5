@@ -18,7 +18,18 @@
 - `data-doc-id` ≠ `DOCS` 키이면 이전/다음 내비가 깨진다.
 - **[신규]** `data-distributor`는 **필수**로 기입하여 배포자를 명확히 명시한다.
 - **[신규] 푸터(Footer) 의무화**: 모든 HTML 파일 하단(`</main>` 뒤)에는 반드시 배포자와 저작권을 명시하는 푸터를 추가한다.
-  예시: `<footer class="stage7-footer"><p>배포자: 정훈영<br>공식 매뉴얼은 아니지만 본 웹페이지에 대한 저작권은 배포자에 있습니다.</p></footer>`
+  예시:
+  ```html
+  <footer class="stage7-footer">
+    <div class="stage7-footer__inner">
+      <div class="stage7-footer__brand">SAP Developer Learning Library</div>
+      <div class="stage7-footer__text">
+        <div>배포자: 정훈영</div>
+        <div class="stage7-footer__copy">&copy; 2026 JungDS. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+  ```
 - 본문 블록은 가능한 `data-prose`(summary/concept/structure/practice/warning/checklist 등) 부여.
 
 ## 2) 파일/경로 네이밍
