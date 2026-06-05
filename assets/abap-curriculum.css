@@ -218,13 +218,15 @@
 
 .abc-list::-webkit-scrollbar,
 .abc-content::-webkit-scrollbar,
-.abc-lesson-panel::-webkit-scrollbar {
+.abc-lesson-panel::-webkit-scrollbar,
+.abc-reader-scroll::-webkit-scrollbar {
   width: 8px;
 }
 
 .abc-list::-webkit-scrollbar-thumb,
 .abc-content::-webkit-scrollbar-thumb,
-.abc-lesson-panel::-webkit-scrollbar-thumb {
+.abc-lesson-panel::-webkit-scrollbar-thumb,
+.abc-reader-scroll::-webkit-scrollbar-thumb {
   border-radius: 999px;
   background: #cbd5e1;
 }
@@ -460,20 +462,24 @@
 }
 
 .abc-reader {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .abc-reader-head {
-  position: sticky;
-  top: 0;
-  z-index: 4;
+  flex: 0 0 auto;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 14px;
-  margin: -24px -24px 18px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
+  background: #fff;
+}
+
+.abc-reader-scroll {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 24px;
 }
 
 .abc-reader-title {
@@ -587,8 +593,7 @@ body.curv2-fs {
 }
 
 .curv2-fs .abc-chapter-panel,
-.curv2-fs .abc-lesson-panel,
-.curv2-fs .abc-content {
+.curv2-fs .abc-lesson-panel {
   position: static;
   min-height: 0;
   max-height: 100%;
@@ -596,13 +601,55 @@ body.curv2-fs {
   overflow-y: auto;
 }
 
+.curv2-fs .abc-content {
+  position: static;
+  min-height: 0;
+  max-height: 100%;
+  height: 100%;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
 .curv2-fs .abc-lesson-panel {
   display: flex;
   flex-direction: column;
 }
 
-.curv2-fs .abc-content {
+/* 친화적 모드 스타일 */
+.abc-style-friendly .abc-unit-body {
+  font-size: 1.15rem;
+}
+
+.abc-style-friendly .abc-info-block p,
+.abc-style-friendly .abc-info-block li {
+  font-size: 1.1rem;
+  line-height: 1.9;
+  letter-spacing: 0.02em;
+  color: #1e293b;
+  word-break: keep-all;
+}
+
+.abc-style-friendly .abc-info-block {
   padding: 24px;
+  background: #f8fafc;
+  border-width: 2px;
+  border-color: #bfdbfe;
+  border-radius: 12px;
+}
+
+.abc-style-friendly .abc-info-block.lab {
+  border-color: #bbf7d0;
+}
+
+.abc-style-friendly .abc-info-block.warn {
+  border-color: #fde68a;
+}
+
+.abc-style-friendly .abc-info-block h4 {
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  color: #1e40af;
 }
 
 .curv2-fs .abc-section-overview {

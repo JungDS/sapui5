@@ -124,6 +124,15 @@
     return state.style === "friendly" ? friendlyContent(unit) : ko(unit.handled_contents);
   }
 
+  function formatFriendlyHtml(escapedHtml) {
+    if (state.style === "friendly") {
+      return escapedHtml
+        .replace(/([가-힣a-zA-Z0-9])\.\s+/g, "$1.<br><br>")
+        .replace(/([가-힣]),\s+/g, "$1,<br>");
+    }
+    return escapedHtml;
+  }
+
   function currentTrack() {
     return state.data.tracks[state.trackIndex] || state.data.tracks[0];
   }
@@ -218,7 +227,7 @@
         '<header class="abc-hero" data-prose="summary">' +
           '<div class="abc-eyebrow">ABAP Enterprise Curriculum</div>' +
           '<h1>ABAP 엔터프라이즈 커리큘럼</h1>' +
-          '<p>개발 이론과 실무 역량을 두 Track으로 나누어, Chapter와 Lesson 단위로 ABAP 학습 흐름을 탐색합니다. 같은 Lesson도 전문적인 표현과 쉬운 문장으로 바꾸어 읽을 수 있습니다.</p>' +
+          '<p>개발 이론과 실무 역량을 두 Track으로 나누어, Chapter와 Lesson 단위로 ABAP 학습 흐름을 탐색합니다. 같은 Lesson도 전문가 모드와 초심자 모드로 전환하여 읽을 수 있습니다.</p>' +
           '<div class="abc-stats">' +
             '<span class="abc-stat">Tracks <strong>' + stats.tracks + '</strong></span>' +
             '<span class="abc-stat">Chapters <strong>' + stats.sections + '</strong></span>' +
@@ -237,8 +246,8 @@
               '<option value="high">상</option>' +
             '</select>' +
             '<div class="abc-style-toggle" aria-label="사용자별 학습친화 스타일 제공">' +
-              '<button class="abc-style-btn" type="button" data-abc-style="professional">전문</button>' +
-              '<button class="abc-style-btn" type="button" data-abc-style="friendly">쉬운 문장</button>' +
+              '<button class="abc-style-btn" type="button" data-abc-style="professional">전문가 모드</button>' +
+              '<button class="abc-style-btn" type="button" data-abc-style="friendly">초심자 모드</button>' +
             '</div>' +
           '</div>' +
         '</section>' +
@@ -328,9 +337,8 @@
     var units = unitsOf(section);
     return '<div class="abc-meta-row">' +
       '<span class="abc-chip blue">학습시간 ' + escapeHtml(formatHours(section.recommended_hours)) + '</span>' +
-      '<span class="abc-chip">Section ' + escapeHtml(section.section_id) + '</span>' +
       '<span class="abc-chip ' + chipClass(diff) + '">난이도 ' + escapeHtml(difficultyLabel(diff)) + '</span>' +
-      '<span class="abc-chip green">' + units.length + ' Lessons</span>' +
+      '<span class="abc-chip">' + units.length + ' Lessons</span>' +
     '</div>';
   }
 
@@ -367,7 +375,7 @@
         (metadata.recommended_hours ? '<span class="abc-chip blue">' + escapeHtml(formatHours(metadata.recommended_hours)) + '</span>' : '') +
       '</div>' +
       '<div class="abc-unit-body">' +
-        '<section class="abc-info-block"><h4>핵심 내용</h4><p>' + escapeHtml(selectedContent(unit)) + '</p></section>' +
+        '<section class="abc-info-block"><h4>핵심 내용</h4><p>' + formatFriendlyHtml(escapeHtml(selectedContent(unit))) + '</p></section>' +
       '</div>' +
     '</article>';
   }
@@ -378,7 +386,7 @@
       '<header class="abc-section-head">' +
         '<div class="abc-section-label">' + escapeHtml(chapterLabel(section.section_id)) + '</div>' +
         '<h2>' + escapeHtml(section.section_name) + '</h2>' +
-        '<p class="abc-section-goal">' + escapeHtml(ko(section.section_goal)) + '</p>' +
+        '<p class="abc-section-goal">' + formatFriendlyHtml(escapeHtml(ko(section.section_goal))) + '</p>' +
         renderMeta(section) +
         renderKeywords(section, 14) +
       '</header>' +
@@ -388,7 +396,7 @@
 
   function listHtml(items, limit) {
     return items && items.length ? '<ol>' + items.slice(0, limit || items.length).map(function (item) {
-      return '<li>' + escapeHtml(item) + '</li>';
+      return '<li>' + formatFriendlyHtml(escapeHtml(item)) + '</li>';
     }).join("") + '</ol>' : "";
   }
 
@@ -414,19 +422,21 @@
           '<a class="abc-detail-link" href="' + detailHref(lesson) + '">자세히</a>' +
         '</div>' +
       '</div>' +
-      '<header class="abc-section-head abc-reader-summary">' +
-        '<p class="abc-section-goal">' + escapeHtml(ko(section.section_goal)) + '</p>' +
-        renderMeta(section) +
-      '</header>' +
-      '<div class="abc-unit-body">' +
-        (keywords.length ? '<section class="abc-info-block abc-keyword-block"><h4>핵심 키워드</h4><div class="abc-keywords">' +
-          keywords.map(function (kw) { return '<span class="abc-keyword">' + escapeHtml(kw) + '</span>'; }).join("") +
-        '</div></section>' : '') +
-        '<section class="abc-info-block"><h4>핵심 내용</h4><p>' + escapeHtml(selectedContent(lesson)) + '</p></section>' +
-        (ko(lesson.learning_objectives) ? '<section class="abc-info-block"><h4>학습 목표</h4><p>' + escapeHtml(ko(lesson.learning_objectives)) + '</p></section>' : '') +
-        (steps.length ? '<section class="abc-info-block"><h4>수업 설계</h4>' + listHtml(steps, 5) + '</section>' : '') +
-        (ko(lesson.hands_on_lab) ? '<section class="abc-info-block lab"><h4>실습</h4><p>' + escapeHtml(ko(lesson.hands_on_lab)) + '</p></section>' : '') +
-        (cautions.length ? '<section class="abc-info-block warn"><h4>주의사항</h4><ul>' + cautions.slice(0, 4).map(function (item) { return '<li>' + escapeHtml(item) + '</li>'; }).join("") + '</ul></section>' : '') +
+      '<div class="abc-reader-scroll">' +
+        '<header class="abc-section-head abc-reader-summary">' +
+          '<p class="abc-section-goal">' + formatFriendlyHtml(escapeHtml(ko(section.section_goal))) + '</p>' +
+          renderMeta(section) +
+        '</header>' +
+        '<div class="abc-unit-body">' +
+          (keywords.length ? '<section class="abc-info-block abc-keyword-block"><h4>핵심 키워드</h4><div class="abc-keywords">' +
+            keywords.map(function (kw) { return '<span class="abc-keyword">' + escapeHtml(kw) + '</span>'; }).join("") +
+          '</div></section>' : '') +
+          '<section class="abc-info-block"><h4>핵심 내용</h4><p>' + formatFriendlyHtml(escapeHtml(selectedContent(lesson))) + '</p></section>' +
+          (ko(lesson.learning_objectives) ? '<section class="abc-info-block"><h4>학습 목표</h4><p>' + formatFriendlyHtml(escapeHtml(ko(lesson.learning_objectives))) + '</p></section>' : '') +
+          (steps.length ? '<section class="abc-info-block"><h4>수업 설계</h4>' + listHtml(steps, 5) + '</section>' : '') +
+          (ko(lesson.hands_on_lab) ? '<section class="abc-info-block lab"><h4>실습</h4><p>' + formatFriendlyHtml(escapeHtml(ko(lesson.hands_on_lab))) + '</p></section>' : '') +
+          (cautions.length ? '<section class="abc-info-block warn"><h4>주의사항</h4><ul>' + cautions.slice(0, 4).map(function (item) { return '<li>' + formatFriendlyHtml(escapeHtml(item)) + '</li>'; }).join("") + '</ul></section>' : '') +
+        '</div>' +
       '</div>' +
     '</div>';
   }
@@ -440,6 +450,7 @@
     if (!units.some(function (unit) { return unit.sub_2_id === state.lessonId; })) {
       state.lessonId = units[0]?.sub_2_id || "";
     }
+    content.classList.toggle("abc-style-friendly", state.style === "friendly");
     renderLessonList(section);
     content.innerHTML = state.isFullscreen ? renderReader(section, currentLesson(section)) : renderChapter(section);
     populateSideNav(section);
