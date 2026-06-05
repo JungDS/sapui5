@@ -55,9 +55,9 @@ const head = (title, { stage7 = false } = {}) => `<head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>${title}</title>
-<link rel="stylesheet" href="../../assets/common.css" />${stage7 ? `\n<link rel="stylesheet" href="../../assets/stage7-shell.css" />` : ""}
+<link rel="stylesheet" href="../../assets/common.css" />${stage7 ? `\n<link rel="stylesheet" href="../../assets/shell.css" />` : ""}
 <link rel="stylesheet" href="../../assets/abap-curriculum-explorer.css" />
-<script src="../../assets/common.js" defer></script>${stage7 ? `\n<script src="../../assets/stage7-shell.js" defer></script>` : ""}
+<script src="../../assets/common.js" defer></script>${stage7 ? `\n<script src="../../assets/shell.js" defer></script>` : ""}
 <script src="../../assets/abap-curriculum-explorer.js" defer></script>
 </head>`;
 

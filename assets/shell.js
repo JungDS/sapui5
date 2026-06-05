@@ -1,5 +1,5 @@
-// SAP Developer Learning Library - Stage 7 Global Shell Draft
-// Opt-in helper. Existing pages are not affected unless data-page-type exists.
+// 공통 셸(헤더·우측 Navigation·ScrollSpy·이전/다음) + 문서 SSOT(DOCS/LEARNING_PATHS) | 최종수정 2026-06-05 11:17 KST | v1.0
+// Opt-in helper. body[data-page-type]가 있을 때만 동작. 전역: window.SAPShell
 (function () {
   "use strict";
 
@@ -858,5 +858,5 @@
   }
 
   document.addEventListener("DOMContentLoaded", initStage7Shell);
-  window.SAPStage7Shell = { metadata: metadata, init: initStage7Shell, docs: DOCS, learningPaths: LEARNING_PATHS };
+  window.SAPShell = { metadata: metadata, init: initStage7Shell, docs: DOCS, learningPaths: LEARNING_PATHS };
 }());
