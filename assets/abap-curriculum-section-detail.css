@@ -1,7 +1,5 @@
-/*
- * ABAP Curriculum — THEORY(Section) detail page (prototype).
- * Reuses the Stage 7 design tokens (--stage7-*) defined in shell.css.
- */
+/* ABAP Curriculum — THEORY(Section) detail page | 최종수정 2026-06-05 18:30 KST | v1.1 */
+/* Reuses the Stage 7 design tokens (--stage7-*) defined in shell.css. */
 
 .secdetail {
   width: 100%;
