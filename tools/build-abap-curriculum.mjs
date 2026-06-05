@@ -7,7 +7,7 @@
  * - Emit a self-contained static master-detail page under docs/roadmap/
  *   Layout: top tabs = track / left list = section / right = sub_2 compact rows
  *           (sub_1 as group subheaders) / inline expand = rich body + depth_3.
- * - Reuses the Stage 7 shell (common.css / stage7-shell.css / stage7-shell.js).
+ * - Reuses the Stage 7 shell (common.css / shell.css / shell.js).
  *   Track tabs ride on the existing [data-stage7-tabset] handler.
  *
  * Usage from repository root:
@@ -15,7 +15,7 @@
  *
  * Output filename: docs/roadmap/abap-curriculum-claude-<yyyymmdd>-<hhmmss>.html
  * The generated filename is printed to stdout so it can be registered in
- * assets/stage7-shell.js (DOCS).
+ * assets/shell.js (DOCS).
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -409,9 +409,9 @@ function buildPage(data, stats) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>ABAP 엔터프라이즈 커리큘럼 탐색기 · SAP Developer Learning Library</title>
 <link rel="stylesheet" href="../../assets/common.css" />
-<link rel="stylesheet" href="../../assets/stage7-shell.css" />
+<link rel="stylesheet" href="../../assets/shell.css" />
 <script src="../../assets/common.js" defer></script>
-<script src="../../assets/stage7-shell.js" defer></script>
+<script src="../../assets/shell.js" defer></script>
 <style>${PAGE_STYLE}</style>
 </head>
 <body

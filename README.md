@@ -3,11 +3,16 @@
 SAP 개발자를 위한 HTML 학습자료 저장소입니다.
 
 - GitHub Pages: https://jungds.github.io/sapui5/
-- 운영 관리 문서:
-  - [아키텍처 및 저장소 구조](.project-docs/06_STAGE7_ARCHITECTURE.md)
-  - [메타데이터 및 Archive 규칙](.project-docs/07_METADATA_AND_ARCHIVE.md)
-  - [작업 이력 및 PR 규칙](.project-docs/08_HISTORY_AND_PR.md)
-  - [운영 대시보드 및 지침](.project-docs/09_OPERATIONS_DASHBOARD.md)
+- 운영 관리 문서 (2026-06-05 재구성):
+  - [문서 인덱스](.project-docs/00_INDEX.md)
+  - [프로젝트 개요](.project-docs/01_OVERVIEW.md)
+  - [아키텍처 · 폴더 · 셸](.project-docs/02_ARCHITECTURE.md)
+  - [규칙과 컨벤션](.project-docs/03_CONVENTIONS.md)
+  - [함정과 주의점](.project-docs/04_PITFALLS.md)
+  - [인벤토리(asset/data/샘플)](.project-docs/05_INVENTORIES.md)
+  - [ABAP 커리큘럼](.project-docs/06_ABAP_CURRICULUM.md)
+  - [미결 결정 · 로드맵](.project-docs/07_DECISIONS_AND_ROADMAP.md)
+  - (구 00~10 문서는 `archive/project-docs/20260605/`에 보존)
 - 배포자: 정훈영
 
 ---
@@ -85,7 +90,7 @@ SAP 개발자를 위한 HTML 학습자료 저장소입니다.
 
 | 구분 | 문서 | 링크 |
 |---|---|---|
-| 진행 중 | ABAP 커리큘럼 v8 sampleA 개선 — 전체화면 토글 공통 셸(`assets/stage7-shell.js`) 이관·진입 시 Nav 자동 접힘, Navigation 리디자인(현재 항목 제목 동기화·TOC 트리·학습 경로 탭→상세 페이지), 본문 핵심 내용 정리 + unit별 앵커 링크 + 'Chapter 상세 보기' FAB, Chapter 상세 페이지 시범(`docs/roadmap/abap-curriculum-section-detail.html`, 단일 템플릿 `?section=` 전체 필드), 화면 표기 `THEORY/M##`→`Chapter/Lesson` 통일(JSON id는 키로 유지) | 로컬 작업 |
+| 진행 중 | ABAP 커리큘럼 v8 sampleA 개선 — 전체화면 토글 공통 셸(`assets/shell.js`) 이관·진입 시 Nav 자동 접힘, Navigation 리디자인(현재 항목 제목 동기화·TOC 트리·학습 경로 탭→상세 페이지), 본문 핵심 내용 정리 + unit별 앵커 링크 + 'Chapter 상세 보기' FAB, Chapter 상세 페이지 시범(`docs/roadmap/abap-curriculum-section-detail.html`, 단일 템플릿 `?section=` 전체 필드), 화면 표기 `THEORY/M##`→`Chapter/Lesson` 통일(JSON id는 키로 유지) | 로컬 작업 |
 | 완료 | ABAP 커리큘럼 claude 계열 샘플 — 단일 공유 엔진(`assets/abap-curriculum-explorer.js/css`) + Studio/Library/Focus/Dashboard/Focus Library 5개 레이아웃. 인라인 JSON+fetch 폴백(file:// 지원), 검색·난이도 필터·용어 팝업·해시 딥링크. 용어 모달 `[object Object]` 표시 버그(`assets/common.js`) 수정 | https://github.com/JungDS/sapui5/pull/43 |
 | 진행 중 | ABAP 커리큘럼 2-Track v8 통일 아키텍처(Unification) 기반 전환. 파편화된 JS/CSS를 하나로 통합하고 HTML에서 모드만 전환하도록 리팩토링 기획 중 | 로컬 작업 |
 | 완료 | ABAP 커리큘럼 Sample D (완전체 하이브리드) 제작 및 TDZ 버그 수정, 100% 와이드 화면 최적화 완료 | 로컬 작업 |

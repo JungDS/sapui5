@@ -1,4 +1,4 @@
-// SAP Developer Learning Library v3 - Common JS
+// 공통 유틸(용어 모달·코드 복사·실습 토글·검색 등) | 최종수정 2026-06-05 11:17 KST | v1.0
 (function () {
   "use strict";
 

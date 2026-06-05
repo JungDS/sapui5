@@ -1,5 +1,5 @@
-/* SAP Developer Learning Library - Stage 7 Global Shell Draft
-   Opt-in CSS. Existing v3 pages are not affected unless these classes are used. */
+/* 공통 셸 스타일(헤더·우측 Navigation·카드·섹션 공통) | 최종수정 2026-06-05 11:17 KST | v1.0
+   Opt-in CSS. 해당 클래스를 쓰는 페이지에만 적용된다. */
 
 :root {
   --stage7-bg: #f6f8fb;

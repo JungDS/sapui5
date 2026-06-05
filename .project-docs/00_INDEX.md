@@ -1,45 +1,25 @@
-# .project-docs 폴더 안내
+# .project-docs 인덱스
 
-이 폴더는 **SAP Developer Learning Library** 프로젝트의 운영 지식을 보관하는 전용 폴더입니다.  
-새로운 채팅 세션이나 새로운 환경에서 프로젝트를 이어받을 때 **이 폴더부터 읽으면** 불필요한 재분석 없이 바로 작업을 시작할 수 있습니다.
+SAP Developer Learning Library 운영 분석 문서. 2026-06-05 재분석 기준으로 **새 구조로 재작성**했다.
+(구 00~10 문서는 `archive/project-docs/20260605/`에 원본 보존)
 
+## 문서 지도
 
-
----
-
-## 파일 목록
-
-| 파일명 | 역할 |
+| 문서 | 역할 |
 |---|---|
-| `00_INDEX.md` | 이 파일. 폴더 전체 안내 |
-| `01_PROJECT_ANALYSIS.md` | 프로젝트 전체 구조 분석 (한 번만 읽으면 됨) |
-| `02_FOLDER_ROLES.md` | 각 폴더/파일의 역할 상세 설명 |
-| `03_RULES_AND_CONVENTIONS.md` | 작업 시 반드시 지켜야 할 규칙과 컨벤션 |
-| `04_CAUTIONS_AND_PITFALLS.md` | 자주 발생하는 실수 및 주의사항 |
-| `05_QUICK_START.md` | 새 세션에서 빠르게 컨텍스트를 파악하는 체크리스트 |
-| `06_STAGE7_ARCHITECTURE.md` | Stage 7 아키텍처 및 저장소 구조 규칙 |
-| `07_METADATA_AND_ARCHIVE.md` | 문서 메타데이터 및 Archive 규칙 |
-| `08_HISTORY_AND_PR.md` | 프로젝트 작업 이력 및 PR 규칙 |
-| `09_OPERATIONS_DASHBOARD.md` | 프로젝트 운영 대시보드 및 지침 |
-| `10_ABAP_ROADMAP_ANALYSIS.md` | 신규 ABAP 커리큘럼 분석 및 로드맵 개편안 |
+| [01_OVERVIEW.md](01_OVERVIEW.md) | 프로젝트 정체성·현재 단계·배포/스택·미결 과제 한눈 요약 |
+| [02_ARCHITECTURE.md](02_ARCHITECTURE.md) | 폴더 역할 + 파일 배치 규칙 + 셸(Shell) 동작 원리 |
+| [03_CONVENTIONS.md](03_CONVENTIONS.md) | 네이밍·메타데이터·archive·버전 규칙 + 신규 컨벤션(asset 주석 헤더, data md) |
+| [04_PITFALLS.md](04_PITFALLS.md) | 자주 깨지는 지점과 함정 |
+| [05_INVENTORIES.md](05_INVENTORIES.md) | 증거 기반 인벤토리: asset 의존 맵 / data JSON / 로드맵 샘플 계보 |
+| [06_ABAP_CURRICULUM.md](06_ABAP_CURRICULUM.md) | ABAP 커리큘럼 2-Track 구조·샘플 계보·선호 후보·다음 단계 |
+| [07_DECISIONS_AND_ROADMAP.md](07_DECISIONS_AND_ROADMAP.md) | 미결 결정·권고 집약(이원화, sample 폴더, stage7 de-naming, 리네임 제안) |
 
----
+## 권장 읽기 순서
+처음이면 **01 → 02 → 03 → 04**로 운영 기준을 잡고, 작업 영역에 따라 05(정리·인벤토리),
+06(커리큘럼), 07(구조 결정)을 참조한다.
 
-## 최근 인수인계 포인트
-
-- 2026-06-02 기준 신규 ABAP 커리큘럼 화면 샘플은 `docs/roadmap/abap-curriculum-codex-v7_sampleA-20260602-165628.html`을 중심으로 검토 중이다.
-- 선호 구조는 상단 Track 탭, 좌측 THEORY 목록, 선택 THEORY 단일 본문, Navigation 패널 내 학습 목차, Scroll Spy, 용어 팝업, JSON 데이터 분리 방식이다.
-- 세부 설계 판단과 샘플별 비교 내용은 `10_ABAP_ROADMAP_ANALYSIS.md`를 먼저 확인한다.
-
----
-
-## 읽는 순서 (새 세션 시작 시)
-
-1. `05_QUICK_START.md` → 현황 파악 (5분)
-2. `02_FOLDER_ROLES.md` → 구조 확인 (5분)
-3. `03_RULES_AND_CONVENTIONS.md` → 규칙 확인 (5분)
-4. `01_PROJECT_ANALYSIS.md` → 심층 분석 (필요 시)
-
----
-
-_최초 작성: 2026-05-29 · 분석자: Antigravity (AI)_
+## 설계 원칙 (이번 재작성)
+- 역할 1:1 분리, 중복 제거 (구 11개 → 8개)
+- 증거 기반 인벤토리(05)와 미결 결정(07)을 독립 문서로 분리
+- PR/이력 전용 문서는 두지 않음 — git 로그와 루트 `README.md`가 담당

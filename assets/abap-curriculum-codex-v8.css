@@ -6,7 +6,7 @@
  *  1) Use the empty right-hand space — v7 capped the center content too narrow.
  *  2) Fullscreen mode — full-bleed layout when the shared Stage 7 shell toggles
  *     the `.curv2-fs` class (the toggle button itself now lives in the top bar,
- *     see assets/stage7-shell.js).
+ *     see assets/shell.js).
  */
 
 /* ---------- 1) widen content: remove the inner caps that left right whitespace ---------- */

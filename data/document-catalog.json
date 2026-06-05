@@ -6,8 +6,8 @@
     "assets": [
         "assets/common.css",
         "assets/common.js",
-        "assets/stage7-shell.css",
-        "assets/stage7-shell.js"
+        "assets/shell.css",
+        "assets/shell.js"
     ],
     "stage7": {
         "operating_root": "docs",
@@ -1006,6 +1006,6 @@
         ],
         "rules_file": "docs/reference/sap-developer-writing-style-guide.html",
         "audit_report_html": "archive/v3/99-reference/prose-audit-report-v3-5.html",
-        "audit_report_json": "data/prose-audit-report.json"
+        "audit_report_json": "archive/data/20260605/prose-audit-report.json"
     }
 }
