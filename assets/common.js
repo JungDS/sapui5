@@ -1,8 +1,9 @@
+// 공통 유틸(용어 모달·코드 복사·실습 토글·검색 등) | 최종수정 2026-06-05 17:20 KST | v1.1
 // SAP Developer Learning Library v3 - Common JS
 (function () {
   "use strict";
 
-    const termDefinitions = {
+  const termDefinitions = {
 
     "Classic ABAP": {
 
@@ -68,7 +69,7 @@
 
     }
 
-,
+    ,
 
     "MM": {
 
@@ -252,7 +253,8 @@
 
       detail: "SAP Fiori 애플리케이션의 진입점(Shell)입니다. 사용자의 역할(Role)에 따라 타일 기반으로 앱을 할당하고 네비게이션을 관리합니다."
 
-    }  };
+    }
+  };
 
   function ensureTermModal() {
     if (document.getElementById("termModal")) return;
