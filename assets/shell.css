@@ -235,6 +235,7 @@
 .stage7-badge.green { color: #047857; background: var(--stage7-green-soft); }
 .stage7-badge.amber { color: #b45309; background: var(--stage7-amber-soft); }
 .stage7-badge.purple { color: #6d28d9; background: var(--stage7-purple-soft); }
+.stage7-badge.gray { color: #475569; background: #f1f5f9; }
 
 .stage7-card-grid {
   display: grid;

@@ -1,0 +1,122 @@
+/* assets/abap-glossary.css */
+
+.glossary-term {
+  position: relative;
+  display: inline-block;
+  border-bottom: 2px dashed #0056b3;
+  color: #0056b3;
+  cursor: help;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  padding: 0 0.15rem;
+  border-radius: 4px;
+}
+
+.glossary-term:hover {
+  background-color: rgba(0, 86, 179, 0.08);
+  border-bottom-style: solid;
+}
+
+/* Tooltip container injected into body */
+.glossary-tooltip-container {
+  position: absolute;
+  z-index: 9999;
+  width: 320px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  border: 1px solid #eaeaea;
+  padding: 1.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: none; /* Don't interfere with mouse unless hovered over */
+}
+
+/* Show state */
+.glossary-tooltip-container.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Pinned state */
+.glossary-tooltip-container.pinned {
+  pointer-events: auto; /* Allow interaction (copy text, click close) */
+}
+
+.glossary-tooltip-close {
+  display: none; /* Hidden by default */
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #888;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.glossary-tooltip-close:hover {
+  color: #111;
+}
+
+/* Show close button only when pinned */
+.glossary-tooltip-container.pinned .glossary-tooltip-close {
+  display: block;
+}
+
+.glossary-tooltip-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  color: #111;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+.glossary-tooltip-desc {
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.glossary-tooltip-analogy {
+  background: #f8fbff;
+  border-left: 4px solid #0056b3;
+  padding: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #333;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 0.75rem;
+}
+
+.glossary-tooltip-html {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed #eee;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Themes */
+.glossary-tooltip-container[data-theme="info"] .glossary-tooltip-title { color: #0056b3; border-color: #0056b3; }
+
+.glossary-tooltip-container[data-theme="warn"] .glossary-tooltip-title { color: #d32f2f; border-color: #d32f2f; }
+.glossary-tooltip-container[data-theme="warn"] .glossary-tooltip-analogy { background: #fff5f5; border-color: #d32f2f; }
+
+.glossary-tooltip-container[data-theme="code"] .glossary-tooltip-title { color: #2e7d32; border-color: #2e7d32; }
+.glossary-tooltip-container[data-theme="code"] .glossary-tooltip-analogy { background: #f1f8e9; border-color: #2e7d32; }
+
+@media (max-width: 400px) {
+  .glossary-tooltip-container {
+    width: 280px;
+  }
+}

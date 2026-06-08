@@ -133,10 +133,14 @@
   }
 
   function renderUnit(unit, index) {
+    var href = "../../docs/abap/lesson-viewer.html?lesson=" + encodeURIComponent(unit.sub_2_id);
+    var learnBtn = '<a href="' + href + '" class="stage7-btn primary" style="margin-left:auto; text-decoration:none;">학습하기</a>';
+
     return '<article class="secdetail-unit" id="' + escapeHtml(unit.sub_2_id) + '">' +
-      '<header class="secdetail-unit-head">' +
+      '<header class="secdetail-unit-head" style="display:flex; align-items:center; gap:1rem;">' +
         '<span class="secdetail-unit-id">' + escapeHtml(lessonLabel(unit.sub_2_id)) + "</span>" +
-        "<h3>" + escapeHtml(unit.sub_2_name) + "</h3>" +
+        '<h3 style="margin:0;">' + escapeHtml(unit.sub_2_name) + "</h3>" +
+        learnBtn +
       "</header>" +
       renderKeywordChips(unit.technical_keywords) +
       '<div class="secdetail-blocks">' +
