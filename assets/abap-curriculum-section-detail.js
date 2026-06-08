@@ -1,11 +1,9 @@
-/*
- * ABAP Curriculum Chapter 상세 페이지 | 최종수정 2026-06-05 00:00 KST | v1.1
- *
- * Reads `?section=THEORY-01` from the URL and renders ONE THEORY in full depth
- * from the shared curriculum JSON, including fields the explorer body omits
- * (learning_content_design, sequence_notes, assessment_design). Linked from the
- * "학습 경로" tab of the explorer's Navigation panel.
- */
+// ABAP Curriculum Chapter 상세 페이지 | 최종수정 2026-06-05 18:30 KST | v1.2
+//
+// Reads `?section=THEORY-01` from the URL and renders ONE THEORY in full depth
+// from the shared curriculum JSON, including fields the explorer body omits
+// (learning_content_design, sequence_notes, assessment_design). Linked from the
+// "학습 경로" tab of the explorer's Navigation panel.
 (function () {
   "use strict";
 

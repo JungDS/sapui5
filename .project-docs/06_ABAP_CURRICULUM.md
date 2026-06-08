@@ -22,13 +22,12 @@
 - 레이아웃 안정화: 일반/전체화면 Track 메뉴 폭을 410px로 통일한다. 전체화면에서는 공통 Shell 상단바 높이를
   고려해 커리큘럼 영역을 남은 화면 높이에 맞추고, Track/Lesson/본문 패널과 좁은 폭의 그리드가 영역 내부에서
   스크롤되도록 한다. CSS 캐시는 `assets/abap-curriculum.css?v=20260605-layout6`로 갱신한다.
-- reader 헤더 정리: 전체화면 본문 상단을 `abc-panel-head` 기반으로 맞춰 좌측에 Chapter/Lesson/제목,
-  우측에 `이전`/`다음`/`자세히` 액션을 배치한다. 본문 키워드는 `핵심 내용`과 같은 `abc-info-block`
-  디자인의 `핵심 키워드` 블록으로 표시한다. 운영 CSS/JS 캐시는 `v=20260605-readerhead1`로 갱신한다.
+- reader 헤더 정리: 전체화면 본문 상단을 `abc-reader-head` 기반으로 맞춰 좌측에 Chapter/Lesson/제목, 우측에 `이전`/`다음`/`자세히` 액션을 배치했다. 긴 본문을 스크롤해도 헤더가 안정적으로 유지되도록 스크롤 영역(`abc-reader-scroll`)과 flex 구조로 완전히 분리했다. 본문 키워드는 `abc-info-block` 디자인으로 표시하며, 불필요한 라벨은 정리했다.
 
 ## 사용자별 학습친화 스타일 제공
-- 전문 스타일: 기존 `handled_contents.ko` 사용.
-- 쉬운 문장 스타일: 각 Lesson의 `learning_friendly.handled_contents.ko` 사용.
+- 전문 스타일 (전문가 모드): 기존 `handled_contents.ko` 사용.
+- 쉬운 문장 스타일 (초심자 모드): 각 Lesson의 `learning_friendly.handled_contents.ko` 사용. 명확성을 위해 토글 버튼 명칭을 '전문가 모드'와 '초심자 모드'로 변경했다.
+- 초심자 모드 가독성 강화: 단순히 텍스트만 교체하는 것이 아니라, `abc-style-friendly` 클래스를 통해 폰트 크기 증대, 넓은 줄간격, 테두리 및 배경색 등 시각적 피로도를 낮췄다. 특히 JS의 `formatFriendlyHtml` 렌더러를 통해 긴 문장의 마침표와 쉼표 위치에 `<br>` 태그를 동적으로 주입하여, 원본 JSON 데이터를 건드리지 않고도 문장을 짧고 읽기 쉽게 쪼개어 보여준다.
 - 작성 원칙: 해당 Lesson만 단독으로 쉽게 쓰지 않고, 같은 Chapter 안의 앞 Lesson/다음 Lesson 또는 다음 Chapter와
   이어지는 흐름을 문장에 포함한다. ABAP 핵심 용어는 유지하되 문장 구조를 짧고 친근하게 만든다.
 - fallback: 친화 필드가 없는 경우 기존 `handled_contents.ko`를 표시한다.
