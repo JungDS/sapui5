@@ -1,0 +1,42 @@
+{
+  "SSOT": {
+    "title": "단일 진실 공급원 (SSOT)",
+    "desc": "모든 데이터 요소를 오직 한 곳에서만 정의하고 관리하여, 데이터의 중복이나 불일치를 방지하는 아키텍처 원칙입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 동아리 회비를 걷을 때, 여러 명이 각자 수첩에 적지 않고 오직 '총무 한 명의 엑셀 파일(한 곳)'에만 기록하는 것과 같아요. 그래야 나중에 금액이 달라져서 싸우는 일이 없겠죠?",
+    "used_in_lessons": ["THEORY-01-M01"],
+    "design_theme": "info",
+    "html_content": "<p>ABAP에서는 <strong>DDIC (SAP Dictionary)</strong>가 시스템 전체 데이터의 SSOT 역할을 완벽하게 수행합니다.</p>"
+  },
+  "DDIC": {
+    "title": "SAP Dictionary (DDIC)",
+    "desc": "SAP 시스템 내의 모든 데이터 정의(테이블, 데이터 타입 등)를 중앙 집중식으로 관리하고 보관하는 핵심 도구입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 자동차 공장의 '표준 부품 규격서'와 같아요. 모든 부서가 이 규격서 하나만 보고 부품을 만들기 때문에 나중에 조립이 안 되는 불상사가 없습니다.",
+    "used_in_lessons": ["THEORY-01-M01"],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "DDL": {
+    "title": "DDL (Data Definition Language)",
+    "desc": "데이터베이스에서 테이블과 같은 구조를 생성(CREATE), 수정(ALTER), 삭제(DROP)할 때 사용하는 SQL 명령어입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 엑셀에서 새 시트를 만들거나 열(Column) 제목을 새로 추가하는 행위와 같습니다. 안의 데이터(내용물)가 아니라 '틀'을 바꾸는 작업입니다.",
+    "used_in_lessons": ["THEORY-01-M01"],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "ADT": {
+    "title": "ADT (ABAP Development Tools)",
+    "desc": "최신 ABAP 개발을 위해 이클립스(Eclipse) 플랫폼 위에 설치하여 사용하는 통합 개발 환경(IDE)입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 예전에는 글을 쓸 때 타자기(SE11)를 썼다면, 이제는 자동완성과 맞춤법 검사가 완벽히 지원되는 최신 노트북(ADT)으로 글을 쓰는 것과 같습니다.",
+    "used_in_lessons": ["THEORY-01-M01"],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "SE11": {
+    "title": "트랜잭션 SE11",
+    "desc": "SAP GUI 화면에서 DDIC(SAP Dictionary) 객체를 생성하고 조회할 때 사용하는 전통적인 명령어(트랜잭션 코드)입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 윈도우에서 '제어판'을 띄우기 위해 실행창에 입력하는 단축어와 같습니다.",
+    "used_in_lessons": ["THEORY-01-M01"],
+    "design_theme": "warn",
+    "html_content": "<p>최신 SAP 환경(ABAP Cloud 등)에서는 SE11 대신 <strong>ADT</strong> 사용을 권장합니다.</p>"
+  }
+}
