@@ -1,0 +1,155 @@
+<!-- lesson-content/THEORY-10-M04.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>지난 Lesson에서 SELECT-OPTIONS를 Open SQL 조건에 연결했습니다. 이번에는 <span class="glossary-term" data-glossary="MultipleSelection">Multiple Selection</span> 화면에서 여러 조건을 넣고, <span class="glossary-term" data-glossary="IncludeSign">Include</span>와 <span class="glossary-term" data-glossary="ExcludeSign">Exclude</span>가 Range Table에서 어떻게 표현되는지 봅니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. Multiple Selection은 조건 편집 창이다 🧭</h2>
+  <p>
+    SELECT-OPTIONS 입력 필드 오른쪽에는 여러 값을 넣을 수 있는 Multiple Selection 버튼이 있습니다. 사용자는 이 화면에서 단일값 여러 개, 범위, 제외값을 입력할 수 있습니다.
+  </p>
+  <p>
+    겉으로는 팝업 화면이지만, 내부적으로는 Selection Table의 여러 행을 편집하는 것입니다. 즉 사용자가 여러 줄짜리 Range Table을 만들고 있는 셈입니다.
+  </p>
+  <blockquote>
+    Multiple Selection은 Range Table 조건표를 사용자 친화적으로 편집하는 화면입니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>2. Include는 포함 조건이다 ✅</h2>
+  <p>
+    <span class="glossary-term" data-glossary="IncludeSign">Include</span>는 Range Table의 <code>SIGN = 'I'</code>에 해당합니다. “이 값이나 범위를 조회 대상에 포함해줘”라는 의미입니다.
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th>SIGN</th>
+        <th>OPTION</th>
+        <th>LOW</th>
+        <th>HIGH</th>
+        <th>의미</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>I</code></td>
+        <td><code>EQ</code></td>
+        <td><code>KR</code></td>
+        <td></td>
+        <td>KR 포함</td>
+      </tr>
+      <tr>
+        <td><code>I</code></td>
+        <td><code>BT</code></td>
+        <td><code>A</code></td>
+        <td><code>C</code></td>
+        <td>A부터 C까지 포함</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="lesson-section">
+  <h2>3. Exclude는 빼기 조건이다 🚫</h2>
+  <p>
+    <span class="glossary-term" data-glossary="ExcludeSign">Exclude</span>는 Range Table의 <code>SIGN = 'E'</code>에 해당합니다. “이 값이나 범위는 조회 대상에서 빼줘”라는 의미입니다.
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th>SIGN</th>
+        <th>OPTION</th>
+        <th>LOW</th>
+        <th>HIGH</th>
+        <th>의미</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>E</code></td>
+        <td><code>EQ</code></td>
+        <td><code>KP</code></td>
+        <td></td>
+        <td>KP 제외</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    보통은 포함 조건으로 큰 범위를 만든 뒤, 제외 조건으로 특정 값을 빼는 흐름이 읽기 쉽습니다. 제외 조건만 단독으로 쓸 때는 실제 선택 범위를 더 신중히 확인해야 합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 입력 결과를 출력해보기 ✍️</h2>
+  <pre><code>REPORT zselect_options_multiple.
+
+DATA gv_land1 TYPE t005t-land1.
+
+SELECT-OPTIONS s_land1 FOR gv_land1.
+
+START-OF-SELECTION.
+
+  LOOP AT s_land1 INTO DATA(ls_range).
+    WRITE: / ls_range-sign,
+             ls_range-option,
+             ls_range-low,
+             ls_range-high.
+  ENDLOOP.</code></pre>
+  <p>
+    Multiple Selection에서 포함값과 제외값을 넣은 뒤 실행해보세요. 출력되는 <code>sign</code> 값이 <code>I</code>와 <code>E</code>로 달라지는 것을 확인할 수 있습니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
+  <ul>
+    <li>✅ <strong>정상 흐름:</strong> Multiple Selection 입력은 Selection Table의 여러 Range 행으로 저장됩니다.</li>
+    <li>✅ <strong>Include:</strong> <code>SIGN = 'I'</code>는 포함 조건입니다.</li>
+    <li>✅ <strong>Exclude:</strong> <code>SIGN = 'E'</code>는 제외 조건입니다.</li>
+    <li>❌ <strong>조건 충돌:</strong> 같은 값을 Include와 Exclude에 동시에 넣으면 최종 결과를 혼동할 수 있습니다.</li>
+    <li>❌ <strong>Exclude 오해:</strong> 제외 조건은 단독으로 읽지 말고 전체 Range Table과 함께 해석해야 합니다.</li>
+  </ul>
+  <p>
+    미니 실습으로 <code>KR</code>을 포함에도 넣고 제외에도 넣어보세요. 실제 조회 결과와 Range Table 행을 함께 보며 조건 충돌을 확인합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>사용자가 만든 조건은 생각보다 복잡할 수 있습니다</h4>
+      <p>SELECT-OPTIONS 화면은 편리하지만, Include/Exclude와 여러 범위가 섞이면 최종 조회 범위가 복잡해집니다. 문제 분석 시에는 사용자가 입력한 화면만 보지 말고 Selection Table 내부 행도 확인하세요.</p>
+    </div>
+  </div>
+  <p>
+    운영 Report에서 조회 결과가 이상하면 먼저 Selection Table의 SIGN/OPTION/LOW/HIGH를 디버거로 확인하는 습관이 도움이 됩니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>Multiple Selection 핵심</h4>
+      <ul>
+        <li><strong>Multiple Selection</strong>은 Selection Table 조건을 여러 줄로 편집하는 화면입니다.</li>
+        <li><strong>Include</strong>는 <code>SIGN = 'I'</code>, 포함 조건입니다.</li>
+        <li><strong>Exclude</strong>는 <code>SIGN = 'E'</code>, 제외 조건입니다.</li>
+        <li>포함과 제외가 섞이면 최종 조건을 Range Table 전체로 해석해야 합니다.</li>
+        <li>조회 결과가 이상하면 Selection Table 내부 행을 확인합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    다음 Lesson <strong>EQ / BT / CP 옵션 이해</strong>에서는 Range Table의 OPTION 값들이 어떤 비교를 뜻하는지 정리합니다.
+  </p>
+</section>

@@ -1,0 +1,127 @@
+<!-- lesson-content/THEORY-10-M02.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>지난 Lesson에서 Range Table의 네 칸 구조를 배웠습니다. 이번에는 <span class="glossary-term" data-glossary="SELECTOPTIONSStatement">SELECT-OPTIONS</span> 기본 문법을 사용해 Selection Screen에 범위 입력 필드를 만들고, 그 결과로 생성되는 <span class="glossary-term" data-glossary="SelectionTable">Selection Table</span>을 이해합니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. PARAMETERS와 SELECT-OPTIONS의 차이 🧭</h2>
+  <p>
+    PARAMETERS는 한 값을 입력받는 데 좋습니다. 예를 들어 국가 코드 하나만 받는다면 <code>PARAMETERS p_land1</code>로 충분합니다.
+  </p>
+  <p>
+    하지만 사용자가 여러 국가 코드, 범위, 제외 조건을 입력해야 한다면 SELECT-OPTIONS가 필요합니다. SELECT-OPTIONS는 화면에는 입력 필드처럼 보이지만, 내부적으로는 Range Table 형태의 Selection Table을 만들어줍니다.
+  </p>
+  <blockquote>
+    SELECT-OPTIONS는 사용자 입력을 Range Table 구조로 받아주는 Selection Screen 문법입니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>2. 기본 문법 보기 ✍️</h2>
+  <pre><code>REPORT zselect_options_basic.
+
+DATA gv_land1 TYPE t005t-land1.
+
+SELECT-OPTIONS s_land1 FOR gv_land1.</code></pre>
+  <p>
+    이 코드를 실행하면 Selection Screen에 <code>s_land1</code>이라는 범위 입력 필드가 생깁니다. 사용자는 단일값, 범위, Multiple Selection 팝업을 통해 여러 조건을 넣을 수 있습니다.
+  </p>
+  <ul>
+    <li><strong>gv_land1:</strong> SELECT-OPTIONS가 참조할 타입 기준입니다.</li>
+    <li><strong>s_land1:</strong> 화면 입력 필드이자 내부 Selection Table입니다.</li>
+    <li><strong>FOR gv_land1:</strong> 어떤 타입의 값을 받을지 정합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>3. s_land1은 사실 Range Table처럼 생겼다 📦</h2>
+  <p>
+    <span class="glossary-term" data-glossary="SelectionTable">Selection Table</span>은 SELECT-OPTIONS가 자동으로 만들어주는 Range Table입니다. 내부적으로는 SIGN, OPTION, LOW, HIGH 필드를 가진 여러 줄 조건표입니다.
+  </p>
+  <pre><code>LOOP AT s_land1 INTO DATA(ls_range).
+  WRITE: / ls_range-sign,
+           ls_range-option,
+           ls_range-low,
+           ls_range-high.
+ENDLOOP.</code></pre>
+  <p>
+    사용자가 화면에서 입력한 조건이 실제로 어떤 Range Table 줄로 들어왔는지 확인할 수 있습니다. 디버거에서 <code>s_land1</code>을 펼쳐보는 것도 좋은 연습입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 전체 예제로 입력값 확인하기 🔎</h2>
+  <pre><code>REPORT zselect_options_check.
+
+DATA gv_land1 TYPE t005t-land1.
+
+SELECT-OPTIONS s_land1 FOR gv_land1.
+
+START-OF-SELECTION.
+
+  IF s_land1 IS INITIAL.
+    WRITE: / '입력된 선택 조건이 없습니다.'.
+  ELSE.
+    LOOP AT s_land1 INTO DATA(ls_range).
+      WRITE: / ls_range-sign,
+               ls_range-option,
+               ls_range-low,
+               ls_range-high.
+    ENDLOOP.
+  ENDIF.</code></pre>
+  <p>
+    실행 후 단일값 <code>KR</code>을 넣어보고, Multiple Selection에서 여러 값을 넣어보세요. 출력되는 SIGN/OPTION/LOW/HIGH가 어떻게 달라지는지 보는 것이 핵심입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 ✅</h2>
+  <ul>
+    <li>✅ <strong>정상 흐름:</strong> 사용자가 입력한 선택 조건이 <code>s_land1</code> Selection Table에 Range 행으로 들어갑니다.</li>
+    <li>✅ <strong>빈 입력:</strong> 아무 값도 입력하지 않으면 <code>s_land1</code>이 비어 있을 수 있습니다.</li>
+    <li>❌ <strong>타입 기준 누락:</strong> <code>FOR</code> 뒤에 타입 기준이 되는 데이터 객체가 필요합니다.</li>
+    <li>❌ <strong>이름 착각:</strong> <code>s_land1</code>은 단일 변수 하나가 아니라 여러 줄 조건표입니다.</li>
+  </ul>
+  <p>
+    미니 실습으로 Selection Screen에서 단일값과 범위를 각각 입력한 뒤, 출력되는 <code>option</code>과 <code>high</code> 값을 비교해보세요.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>SELECT-OPTIONS는 사용자에게 강력한 조건 입력 권한을 줍니다</h4>
+      <p>사용자는 여러 값, 범위, 제외 조건을 넣을 수 있습니다. 편리한 만큼 조회 범위가 넓어질 수 있으므로, 필수 조건 여부와 권한, 성능 기준을 함께 설계해야 합니다.</p>
+    </div>
+  </div>
+  <p>
+    또한 고객사마다 SELECT-OPTIONS 이름 규칙이 있습니다. 보통 <code>s_</code> 접두어를 많이 쓰지만 프로젝트 기준을 따르는 것이 좋습니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>SELECT-OPTIONS 핵심</h4>
+      <ul>
+        <li><strong>SELECT-OPTIONS</strong>는 범위 입력이 가능한 Selection Screen 필드를 만듭니다.</li>
+        <li>생성된 변수는 단일값이 아니라 <strong>Selection Table</strong>입니다.</li>
+        <li>Selection Table은 SIGN, OPTION, LOW, HIGH 구조를 가집니다.</li>
+        <li>사용자가 입력한 조건은 여러 Range 행으로 저장될 수 있습니다.</li>
+        <li>편리한 만큼 조회 범위와 성능을 함께 생각해야 합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    다음 Lesson <strong>WHERE field IN @range 사용</strong>에서는 SELECT-OPTIONS로 받은 조건을 Open SQL WHERE에 연결합니다.
+  </p>
+</section>

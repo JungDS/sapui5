@@ -136,3 +136,17 @@
 - **초심자용 테이블 선택**: Open SQL 첫 예제는 업무 테이블보다 부담이 적은 `T005T` 국가 텍스트 테이블을 중심으로 구성했습니다. 단, 실습 시스템마다 제공 테이블이 다를 수 있음을 주의점으로 남겼습니다.
 - **문법과 운영 감각의 균형**: `SELECT FROM`, `FIELDS`, `WHERE`, `INTO TABLE` 문법을 알려주되, 조건 없는 대량 조회와 필요한 필드만 조회하는 습관을 반복해서 강조했습니다.
 - **안티패턴 조기 노출**: JOIN이나 FOR ALL ENTRIES를 아직 깊게 다루지 않더라도, SELECT in LOOP가 왜 위험한지 숫자 감각으로 먼저 익히도록 M06에서 별도 마무리 Lesson으로 구성했습니다.
+
+---
+
+## Codex THEORY-10 작업 상세 내용
+- `THEORY-10-M01` ~ `THEORY-10-M06` 6개 Lesson 본문 조각을 신규 작성했습니다.
+- Range Table의 `SIGN / OPTION / LOW / HIGH`, `SELECT-OPTIONS`, Selection Table, `WHERE field IN @range`, Multiple Selection, Include/Exclude, `EQ / BT / CP`, 직접 Range 조작을 JSON 지침 순서대로 구성했습니다.
+- 각 Lesson을 “지난 Lesson 연결 → 왜 필요한가 → 무엇인가 → 최소 예제 → 정상/오류 흐름 → 실무 주의 → 한눈에 정리” 구조로 작성했습니다.
+- `RangeTable`, `SIGNField`, `OPTIONField`, `LOWField`, `HIGHField`, `SELECTOPTIONSStatement`, `SelectionTable`, `WHEREINPredicate`, `MultipleSelection`, `IncludeSign`, `ExcludeSign`, `EQOption`, `BTOption`, `CPOption`, `AppendRange` 등 THEORY-10 용어 18종을 글로서리에 추가했습니다.
+- 기존 `ABAPSQL`의 `used_in_lessons`를 Range Table과 Open SQL 연결 Lesson 사용처에 맞게 보정했습니다.
+
+## Codex THEORY-10 고민했던 점 및 설계 이유
+- **Range Table을 조건 언어로 설명**: SIGN/OPTION/LOW/HIGH를 표 구조로만 설명하면 외우기 어려워, “포함/제외 + 비교 방식 + 시작/끝값”이라는 말로 읽는 연습을 반복했습니다.
+- **빈 조건과 넓은 조회 주의**: SELECT-OPTIONS는 편리하지만 대량 조회 위험을 만들 수 있어, 빈 Range와 넓은 범위는 반드시 요구사항과 성능 기준으로 확인해야 한다고 정리했습니다.
+- **UI와 내부 구조 연결**: Multiple Selection 팝업을 별도 화면 기능으로만 보지 않고, Selection Table 내부 행을 편집하는 UI라고 연결해 디버깅 관점을 강화했습니다.
