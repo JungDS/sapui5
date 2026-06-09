@@ -56,10 +56,26 @@
 - 용어 클릭 팝업, 해시 딥링크, 하단 "Chapter 상세 보기"(→ `?section=` 단일 템플릿)
 - 데이터는 HTML과 분리(JSON)
 
+## Lesson 단일 뷰어 (2026-06-08, Antigravity)
+운영본 안정화 이후, 개별 Lesson 학습 화면을 위한 **2계층 구조**가 도입되었다.
+
+- **목록·탐색 계층** — `docs/roadmap/abap-curriculum.html`(전체 Chapter/Lesson 탐색)과
+  `abap-curriculum-section-detail.html`(`?section=` Chapter 상세).
+- **개별 학습 계층** — `docs/abap/lesson-viewer.html`(단일 뷰어 템플릿). `?lesson=<ID>`로
+  `docs/abap/lesson-content/<ID>.html` 본문 조각을 로드하고, 브레드크럼·사이드바·이전/다음을 자체 엔진이 동적 조립.
+- **연결**: section-detail의 "학습하기" → `../../docs/abap/lesson-viewer.html?lesson=<sub_2_id>`(경로 검증 완료).
+- **설계 의도**: 100+ Lesson을 정적 HTML로 찍지 않고, 뼈대(뷰어)는 바닐라 JS로 런타임 조립, 본문만 조각 파일로 분리.
+  → 새 Lesson은 `lesson-content/<JSON_ID>.html`에 순수 콘텐츠만 추가하면 된다([04 P11](04_PITFALLS.md)).
+- **용어 툴팁**: `data-glossary` 속성 + `reference/abap_glossary.json`(~35개). 구 `data-term` 모달과 분리([04 P9](04_PITFALLS.md)).
+- **현황/미결**:
+  - 콘텐츠 조각은 `THEORY-01-M01` **1개만** 작성됨 — 전체 Lesson 양산이 최우선 과제.
+  - 뷰어는 `shell.js` `DOCS`에 미등록(템플릿). `pages/abap.html`·홈 노출 여부 미정.
+
 ## 다음 단계
-1. GitHub Pages 정적 로딩 검증(file:// 및 Pages)
-2. 운영본 사용성 검토 후 `pages/abap.html`에도 노출할지 결정
-3. 나머지 샘플 archive 여부 결정
-4. v8 Unification 또는 샘플 asset 정리는 운영본 안정화 후 별도 라운드에서 검토
+1. **Lesson 콘텐츠 양산** — `lesson-content/`에 나머지 Lesson 조각 작성(현재 `THEORY-01-M01` 1개)
+2. GitHub Pages 정적 로딩 검증(file:// 및 Pages)
+3. 운영본·뷰어 사용성 검토 후 `pages/abap.html`/홈에 노출할지 결정
+4. 나머지 샘플 archive 여부 결정
+5. v8 Unification 또는 샘플 asset 정리는 운영본 안정화 후 별도 라운드에서 검토
 
 > 샘플 archive와 asset 정리는 [07 결정·로드맵](07_DECISIONS_AND_ROADMAP.md)과 연동.

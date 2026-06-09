@@ -10,4 +10,5 @@
 ---
 
 ## 📅 일자별 기록 목록
+- [2026-06-09 (운영 분석 문서 동기화 — Lesson Viewer 아키텍처 반영, 코드 변경 없음)](changelogs/CHANGELOG_20260609.md)
 - [2026-06-08 (Lesson 뷰어 아키텍처 개편 및 용어 사전 UI 구축)](changelogs/CHANGELOG_20260608.md)

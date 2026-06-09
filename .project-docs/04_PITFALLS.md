@@ -25,7 +25,17 @@
   (현 시점 완전 미사용 asset은 0개 — 상세 → [05](05_INVENTORIES.md))
 
 ## ⚪ 기타
-- **[P9] 용어 모달 인코딩** — `assets/common.js`의 용어 정의 데이터에 한글 깨짐(mojibake) 흔적 존재.
-  과거 `[object Object]` 표시 버그 이력 있음. 용어 모달 수정 시 인코딩 확인.
+- **[P9] 용어 시스템 2종 병존** — 글로서리가 **두 갈래**다.
+  - 구: `assets/common.js`의 `data-term` → 무거운 모달. 정의 데이터에 한글 깨짐(mojibake) + 과거 `[object Object]` 버그 이력.
+  - 신(2026-06-08): `assets/abap-glossary.js`의 `data-glossary` → 가벼운 호버 툴팁(`reference/abap_glossary.json`, ~35개 용어).
+  - **신규 용어 태깅은 반드시 `data-glossary`를 쓴다.** 두 시스템은 충돌을 피하려 의도적으로 분리됨(근거: `changelogs/CHANGELOG_20260608.md`). 구 모달 수정 시에만 인코딩 확인.
 - **[P10] "stage7" 명칭** — 파일명·JS 전역은 정리 완료(`shell.*`, `SAPShell`). **CSS 클래스 `.stage7-*`만 잔존**
   (커리큘럼 샘플 asset과 얽혀 다음 라운드로 보류). project-docs·data 파일명·prose의 "Stage 7"은 역사 기록으로 유지(→07).
+  ⚠️ `03_CONVENTIONS` footer 의무화가 `.stage7-footer`를 **신규 도입**해 [07 결정 1]의 `.stage7-*` 제거 방향과 상충 — de-naming 라운드에서 footer 클래스도 함께 처리.
+
+- **[P11] Lesson 뷰어는 SSOT 미등록 템플릿** — `docs/abap/lesson-viewer.html`은 `shell.js` `DOCS`에 **없다**(`DOCS`에서 찾지 말 것).
+  라우팅은 `?lesson=<ID>` ↔ `docs/abap/lesson-content/<ID>.html` + 커리큘럼 JSON으로 자체 처리. 현재 콘텐츠 조각은 `THEORY-01-M01` **1개뿐**(나머지는 미작성).
+  새 Lesson 추가 시 HTML 뼈대 불필요 — `lesson-content/<JSON_ID>.html`에 순수 콘텐츠만 넣으면 뷰어가 조립.
+
+- **[P12] 신규 자산 헤더 규칙 미적용** — `abap-glossary.*`, `abap-lesson-viewer.*`는 `03 §6`의 주석 헤더(`| 최종수정 … | v…`)를 따르지 않는다.
+  asset 리네임/정리 라운드에서 헤더 부여 대상.
