@@ -13,14 +13,25 @@
 ---
 
 ## 현재 상태 및 목표 (Current Status & Goals)
-- **현재 목표**: ABAP 커리큘럼의 실제 "Lesson" 학습 페이지들을 구축하고, Section Detail 요약 페이지에서 진입할 수 있는 흐름 만들기.
-- **최근 진행**: 단일 뷰어 아키텍처(`docs/abap/lesson-viewer.html`) 도입 완료. Lesson 본문 콘텐츠는 `docs/abap/lesson-content/*.html` 로 완전히 분리하였으며, JSON 커리큘럼 데이터를 읽어 이전/다음 네비게이션을 동적으로 렌더링함. Inpa Dev 블로그 스타일을 벤치마킹하여 `THEORY-01-M01` 본문을 시각적으로 재설계함. (Antigravity가 진행)
+- **현재 목표**: Track 1(THEORY-*) 전체 Lesson 본문(`docs/abap/lesson-content/<ID>.html`)을 순서대로 작성. 총 137개 중 6개 작성됨(M01 + M02~M06), **131개 남음**.
+- **최근 진행(2026-06-09, Claude Opus)**: THEORY-01(DDIC 1차) M02~M06 5개 작성 + 글로서리 12개 추가. 브랜치 `feature/abap-lesson-content`(PR 생성). 작성 직후 **사용자 피드백으로 작성 방향 전면 조정 필요**(아래 미결 사항 참조).
+- **⚠️ 인계 핵심 문서**: 이어서 작업할 AI는 **[HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md)를 가장 먼저 정독**할 것. 작성 규칙·스타일 기준·복붙용 프롬프트가 모두 거기 있음.
 
 ---
 
 ## 미결 사항 (Pending Issues / Next Steps)
-- 전체 Lesson(Track 1, Track 2 등) 페이지 양산 (현재는 `THEORY-01-M01` 만 작성되어 있음).
-- 향후 Lesson 페이지 내에서의 퀴즈, 실습 코드 블록 등 학습자 상호작용 컴포넌트 고도화.
+- **[최우선] 사용자 피드백 반영해 작성 스타일 재정립** (THEORY-01-M02~M06 재작성 + THEORY-02~21 신규에 모두 적용):
+  1. **입문자(완전 초심자) 학습용**으로. 현재 M02~M06은 "아는 사람의 복습용" 느낌이 남 → 모르는 사람이 처음 배우는 흐름으로 더 친절하게.
+  2. **분량을 더 늘릴 것**. 단, 끝에 **꼭 필요한 내용만 추린 "요약/정리" 마무리 섹션**을 둘 것(AI가 판단해 핵심만).
+  3. **10·20대 젊은 층 톤**으로. 현재 문장/스타일도 나쁘지 않으니 유지하되 더 캐주얼·생동감 있게.
+- **Lesson 본문 양산**: THEORY-02 ~ THEORY-21 (131개). Track 2(PRACTICAL-*)는 그 다음.
+- **글로서리 완전 패리티**: Lesson에서 쓰는 주요 용어는 `reference/abap_glossary.json`에 반드시 함께 등록(일상 비유 포함). 미등록 용어는 툴팁이 안 뜸(깨진 링크).
+- (선택) Lesson 내 퀴즈·실습 코드 블록 등 상호작용 컴포넌트 고도화.
+
+### 🐞 용어 팝업이 안 뜬다는 사용자 보고 — 진단 완료(코드 결함 아님)
+- 원인: `lesson-content/<ID>.html`은 **조각(fragment) 파일**이라 단독으로 브라우저에서 열면 CSS/JS가 로드되지 않음.
+- 올바른 확인법: **로컬 서버**에서 `docs/abap/lesson-viewer.html?lesson=<ID>`로 열 것. (`file://` 직접 열기는 fetch가 CORS로 막힘)
+  - 예: 루트에서 `python -m http.server` → `http://localhost:8000/docs/abap/lesson-viewer.html?lesson=THEORY-01-M02`
 
 ---
 
@@ -50,3 +61,16 @@
   - JSON의 `learning_content_design` 에 명시된 N단계 흐름을 항상 본문 구성에 반영해 주세요.
   - 용어 사전에 추가하고 싶은 키워드는 `reference/abap_glossary.json`에 등록하면 자동으로 툴팁이 활성화됩니다. 용어 클릭 시 자동 고정(Pin) 기능이 내장되어 있습니다.
   - **[HOTFIX 2026-06-08]**: 기존 `common.js`의 `data-term` 기반 모달과 충돌을 방지하기 위해 새로운 용어 사전 시스템은 `data-glossary="용어"` 속성을 사용하도록 수정되었습니다. 향후 용어 태깅 시 반드시 `data-glossary`를 사용해야 합니다.
+
+### [2026-06-09] Claude (Opus 4.8)
+- **작업 내용**:
+  - THEORY-01(DDIC 1차) Lesson 5개 신규 작성: `THEORY-01-M02`(Domain), `M03`(Data Element), `M04`(Structure), `M05`(Transparent Table), `M06`(Technical Settings). M01 스타일(학습목표 콜아웃 → 5섹션 → 콜아웃/blockquote/glossary → 다음 단계) 준수, JSON `learning_content_design`·`technical_keywords`·`caution_points`에 근거.
+  - 글로서리 12개 추가(완전 패리티, 각 일상 비유 포함): Domain·DataType·FixedValue·DataElement·FieldLabel·Structure·Component·TransparentTable·KeyField·MANDT·TechnicalSettings·DataBrowser. 본문 `data-glossary` ↔ 사전 키 대조 미정의 0건 검증.
+  - 브랜치 `feature/abap-lesson-content`에 커밋(`84ef31a`) 후 PR 생성.
+- **사용자 피드백(작성 직후 수신, 다음 AI가 반드시 반영)**:
+  1. 현재 본문이 "아는 사람 복습용" 느낌 → **완전 입문자 학습용**으로 더 친절하게.
+  2. **분량 ↑** + 끝에 **핵심만 추린 요약 마무리 섹션** 추가.
+  3. **10·20대 젊은 톤**(현재 스타일 유지하되 더 캐주얼).
+- **수정 파일**: `docs/abap/lesson-content/THEORY-01-M02~M06.html`(신규 5), `reference/abap_glossary.json`(용어 12 추가).
+- **다음 AI를 위한 메모**: **[HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md)** 에 작성 규칙·스타일 기준·복붙 프롬프트·진행 현황을 모두 정리해 두었으니 그것부터 읽을 것. THEORY-01-M02~M06도 위 피드백 기준으로 **재작성 대상**임.
+  - 참고: 운영 거버넌스 정비 작업이 **별도 PR(브랜치 `docs/sync-lesson-viewer-and-pr-backfill`)**로 열려 있음(문서 동기화 + archive 정책 훅). Lesson 작업과 독립적이나 같이 인지할 것.
