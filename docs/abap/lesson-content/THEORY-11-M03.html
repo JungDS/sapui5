@@ -1,0 +1,96 @@
+<!-- lesson-content/THEORY-11-M03.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>데이터를 그룹으로 묶어 요약하는 <span class="glossary-term" data-glossary="GroupBy">GROUP BY</span>와, 그룹마다 계산을 해주는 <span class="glossary-term" data-glossary="AggregateFunction">집계 함수</span>(<span class="glossary-term" data-glossary="SUMFunction">SUM</span>·<span class="glossary-term" data-glossary="COUNTFunction">COUNT</span>·<span class="glossary-term" data-glossary="AVGFunction">AVG</span>)를 배웁니다. "항공사별 총 매출", "편명별 예약 건수" 같은 요약 리포트의 기초입니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 한 줄씩 말고 "묶어서" 보고 싶다 📊</h2>
+  <p>
+    지금까지는 데이터를 <strong>한 줄 한 줄</strong> 그대로 읽었습니다. 그런데 보고서를 만들다 보면 "전체 명세"가 아니라 <strong>요약된 숫자</strong>가 필요할 때가 많습니다.
+  </p>
+  <p>
+    "항공사별로 예약이 몇 건이지?", "이번 달 매출 합계는?" 같은 질문이죠. 예약 데이터 수십만 줄을 사람이 직접 세는 건 불가능합니다. 이때 DB에게 "<strong>그룹으로 묶어서 계산해줘</strong>"라고 시키는 것이 <span class="glossary-term" data-glossary="GroupBy">GROUP BY</span>와 집계 함수입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. GROUP BY는 "같은 것끼리 한 바구니에" 🧺</h2>
+  <p>
+    <span class="glossary-term" data-glossary="GroupBy">GROUP BY</span>는 지정한 필드 값이 <strong>같은 행끼리 한 그룹으로</strong> 묶습니다. 그리고 그 그룹마다 집계 함수로 숫자 하나를 뽑아냅니다.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>일상 비유: 빨래 분류</h4>
+      <p>빨래 더미(전체 데이터)를 색깔별로 바구니에 나눠 담는 게 GROUP BY예요. 그다음 "흰 바구니에 몇 장?"(COUNT), "검은 바구니 무게 합?"(SUM)을 세는 게 집계 함수입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 집계 함수 4종 ✍️</h2>
+  <ul>
+    <li><strong><span class="glossary-term" data-glossary="COUNTFunction">COUNT( * )</span>:</strong> 그룹에 행이 몇 개인지 (건수)</li>
+    <li><strong><span class="glossary-term" data-glossary="SUMFunction">SUM( 필드 )</span>:</strong> 그룹 안 그 필드의 합계</li>
+    <li><strong><span class="glossary-term" data-glossary="AVGFunction">AVG( 필드 )</span>:</strong> 평균</li>
+    <li><strong>MAX / MIN( 필드 ):</strong> 최댓값 / 최솟값</li>
+  </ul>
+  <pre><code>SELECT carrid,
+       COUNT(*) AS cnt,
+       SUM( loccuram ) AS total
+  FROM sbook
+  GROUP BY carrid
+  INTO TABLE @DATA(lt_summary).
+"→ 항공사(carrid)별로 예약 건수(cnt)와 매출 합계(total)가 한 줄씩</code></pre>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">✨</div>
+    <div class="lesson-callout-content">
+      <h4>학습 포인트 — 황금 규칙</h4>
+      <p>집계 SELECT에서 가장 중요한 규칙: <strong>SELECT에 적는 일반 필드는 전부 GROUP BY에도 적어야 합니다.</strong> "묶는 기준이 아닌 일반 필드"를 그냥 꺼내려고 하면 오류가 납니다. 집계 함수로 감싼 필드는 예외입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <ul>
+    <li>✅ <strong>정상:</strong> GROUP BY 기준 필드 + 집계 함수만 SELECT에 적으면 그룹별 요약이 깔끔하게 나옵니다.</li>
+    <li>❌ <strong>오류 1:</strong> GROUP BY에 없는 일반 필드를 SELECT에 적음 → "GROUP BY에 넣으라"는 오류.</li>
+    <li>❌ <strong>오류 2:</strong> 집계 결과를 받을 변수 타입이 너무 작아 합계가 넘침(오버플로). 합계용 필드는 충분히 큰 타입(예: 패킹 타입)으로 받습니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>집계는 DB에서, ABAP 루프로 직접 세지 마세요</h4>
+      <p>초보자는 종종 전체 데이터를 ABAP으로 다 읽어온 뒤 <code>LOOP</code> 돌며 직접 합계를 냅니다. 데이터가 많으면 이건 아주 느리고 메모리도 많이 씁니다. 합계·건수·평균은 <strong>DB에게 GROUP BY로 시키는 것</strong>이 훨씬 빠릅니다. 필요한 요약값만 가볍게 받아오세요.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li><strong>GROUP BY</strong>는 같은 값끼리 묶고, 그룹마다 한 줄로 요약합니다.</li>
+        <li><strong>COUNT/SUM/AVG/MAX/MIN</strong>으로 건수·합계·평균 등을 계산합니다.</li>
+        <li>황금 규칙: SELECT의 일반 필드는 모두 GROUP BY에도 있어야 합니다.</li>
+        <li>요약 계산은 ABAP 루프가 아니라 DB(GROUP BY)에게 맡기는 것이 빠릅니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    그런데 "예약이 100건 넘는 항공사만" 보고 싶다면, 집계 결과를 다시 한 번 걸러야 합니다. 다음 Lesson <strong>HAVING과 집계 조건</strong>에서 그 방법을 배웁니다.
+  </p>
+</section>

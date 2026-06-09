@@ -1,0 +1,83 @@
+<!-- lesson-content/THEORY-11-M07.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>이번 Chapter에서 배운 <span class="glossary-term" data-glossary="SQLJoin">JOIN</span>, <span class="glossary-term" data-glossary="ForAllEntries">FOR ALL ENTRIES</span>, 그리고 <span class="glossary-term" data-glossary="ApplicationLogic">ABAP 처리</span> 세 가지를 "언제 무엇을 쓸지" 기준으로 정리합니다. 정답 하나를 외우는 게 아니라, 상황을 보고 고르는 판단력을 기르는 것이 목표입니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 같은 결과, 다른 길 🛣️</h2>
+  <p>
+    "주문과 주문 상세를 합쳐 보여줘"라는 같은 요구도, 방법은 여러 가지입니다. 두 테이블을 <span class="glossary-term" data-glossary="SQLJoin">JOIN</span>할 수도, 주문을 먼저 읽고 <span class="glossary-term" data-glossary="ForAllEntries">FAE</span>로 상세를 가져올 수도, 아니면 각각 읽어서 ABAP에서 합칠 수도 있습니다.
+  </p>
+  <p>
+    초보자는 "어느 게 정답이지?"라고 묻지만, 실무에서는 <strong>상황에 따라 답이 다릅니다.</strong> 그래서 외우기보다 <strong>판단 기준</strong>을 갖는 게 중요합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. 세 가지 방법, 한 줄 요약 🗂️</h2>
+  <ul>
+    <li><strong>JOIN:</strong> DB 테이블끼리 키로 연결해 한 번에 읽기. DB가 다 처리.</li>
+    <li><strong>FOR ALL ENTRIES:</strong> 이미 ABAP에 들고 있는 목록 기준으로 DB 조회.</li>
+    <li><strong>ABAP 처리:</strong> 각 테이블을 따로 읽어 와서 ABAP <code>LOOP</code>/<code>READ TABLE</code>로 합치고 가공.</li>
+  </ul>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">🔗</div>
+    <div class="lesson-callout-content">
+      <h4>큰 원칙: "되도록 DB에서, 데이터는 적게"</h4>
+      <p>현대 ABAP의 기본 정신은 <strong>코드 푸시다운</strong>입니다. 합치고 거르고 계산하는 일은 가능하면 DB에게 시키고, ABAP으로는 <strong>꼭 필요한 결과만 적게</strong> 가져오는 것이 좋습니다. (이 흐름은 THEORY-17, CDS에서 더 깊어집니다.)</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 선택 기준 가이드 ✍️</h2>
+  <ul>
+    <li>✅ <strong>JOIN이 좋을 때:</strong> 연결할 대상이 모두 DB 테이블이고, 키/인덱스로 깔끔히 연결되며, 한 번에 합쳐 읽는 게 자연스러울 때.</li>
+    <li>✅ <strong>FAE가 좋을 때:</strong> 연결 기준이 이미 ABAP 내부 테이블에 있을 때(화면 선택 목록 등). 단 빈 테이블·중복 함정 주의.</li>
+    <li>✅ <strong>ABAP 처리가 좋을 때:</strong> DB로 표현하기 복잡한 가공·분기 로직이 섞일 때, 또는 데이터가 이미 메모리에 충분히 작게 올라와 있을 때.</li>
+    <li>❌ <strong>피해야 할 것:</strong> <code>SELECT</code>를 <code>LOOP</code> 안에서 반복 호출(THEORY-09에서 본 안티패턴). 같은 일을 JOIN/FAE 한 번으로 바꿀 수 있는지 먼저 보세요.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <ul>
+    <li>✅ <strong>좋은 흐름:</strong> 요구사항을 보고 "데이터 출처가 어디인가 / 얼마나 큰가 / 가공이 복잡한가"를 따져 방법을 고릅니다.</li>
+    <li>❌ <strong>나쁜 흐름:</strong> 늘 쓰던 방식만 습관적으로 사용 → 어떤 경우엔 느리거나 데이터가 틀어집니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>"동작한다"와 "잘 만들었다"는 다릅니다</h4>
+      <p>세 방법 모두 결과는 같게 만들 수 있습니다. 하지만 데이터가 커지면 성능 차이가 극적으로 벌어집니다. 코드를 짠 뒤에는 <strong>ST05(SQL Trace)나 SAT</strong> 같은 도구로 실제로 DB를 몇 번, 얼마나 읽는지 확인하는 습관이 중요합니다(THEORY 이후 실무 트랙에서 다룹니다). 지금은 "선택지가 여러 개이고, 기준이 있다"는 감각만 챙기면 충분합니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>THEORY-11 마무리 핵심</h4>
+      <ul>
+        <li><strong>JOIN</strong>은 DB 테이블끼리, <strong>FAE</strong>는 ABAP 목록 기준, <strong>ABAP 처리</strong>는 복잡한 가공에.</li>
+        <li>큰 원칙: <strong>계산·결합은 DB에서, ABAP으로는 적게</strong> 가져온다(코드 푸시다운).</li>
+        <li>LOOP 안 SELECT 같은 안티패턴은 JOIN/FAE 한 번으로 바꿀 수 있는지 먼저 본다.</li>
+        <li>정답은 하나가 아니다 — 데이터 출처·크기·가공 복잡도로 판단한다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    Open SQL로 데이터를 자유롭게 읽는 법을 익혔습니다. 다음 Chapter <strong>Classic DDIC View와 유지보수 객체</strong>에서는 JOIN을 미리 정의해 두는 View와, 표준 유지보수 화면을 만드는 법을 배웁니다.
+  </p>
+</section>
