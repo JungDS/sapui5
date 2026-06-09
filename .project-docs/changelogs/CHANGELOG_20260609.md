@@ -3,6 +3,7 @@
 ## 참여 AI
 - **Antigravity IDE (Gemini 3.1 Pro)**
 - **Codex (GPT-5)**
+- **Claude (Opus 4.8)**
 
 ## 작업 상세 내용
 - 사용자 피드백(초심자 친화, 분량 증가, 한눈에 정리 섹션 추가, 10·20대 캐주얼 톤 유지)을 반영하여 기존 작성된 `THEORY-01-M02` ~ `M06` 본문을 전면 재작성했습니다.
@@ -150,3 +151,20 @@
 - **Range Table을 조건 언어로 설명**: SIGN/OPTION/LOW/HIGH를 표 구조로만 설명하면 외우기 어려워, “포함/제외 + 비교 방식 + 시작/끝값”이라는 말로 읽는 연습을 반복했습니다.
 - **빈 조건과 넓은 조회 주의**: SELECT-OPTIONS는 편리하지만 대량 조회 위험을 만들 수 있어, 빈 Range와 넓은 범위는 반드시 요구사항과 성능 기준으로 확인해야 한다고 정리했습니다.
 - **UI와 내부 구조 연결**: Multiple Selection 팝업을 별도 화면 기능으로만 보지 않고, Selection Table 내부 행을 편집하는 UI라고 연결해 디버깅 관점을 강화했습니다.
+
+---
+
+## Claude 작업 상세 내용 (THEORY-10 보존 ~ THEORY-14)
+- Codex가 작성했으나 사용량 종료로 미커밋이던 `THEORY-10`(M01~M06)을 검증 후 보존 커밋했습니다.
+- `THEORY-11`(Open SQL JOIN과 집계, M01~M07): INNER/LEFT OUTER JOIN, GROUP BY/집계함수, HAVING, ORDER BY, FOR ALL ENTRIES, JOIN/FAE/ABAP 선택 기준.
+- `THEORY-12`(Classic DDIC View와 유지보수, M01~M06): Database/Projection/Help/Maintenance View, TMG/SM30, Classic→CDS 현대화.
+- `THEORY-13`(Report Event와 Selection Screen 심화, M01~M07): 이벤트 전체 흐름, INITIALIZATION, AT SELECTION-SCREEN OUTPUT(동적 화면), 입력 검증, START/END-OF-SELECTION, AUTHORITY-CHECK/존재 검증.
+- `THEORY-14`(Screen Programming / Dynpro 기초, M01~M07): Module Pool, Screen Painter, 화면 요소 3종, PBO/PAI, PF-STATUS/TITLEBAR, Custom Control/Container.
+- 글로서리 용어를 섹션별로 완전 패리티로 추가(THEORY-11 18종, 12 13종, 13 15종, 14 14종, 총 +60). 매 섹션 미정의 0건 검증.
+- 기존 Codex 톤(지난 Lesson 연결 → 왜 필요한가 → 무엇인가 → 최소 예제 → 정상/오류 → 실무 주의 → 한눈에 정리)을 그대로 이어 일관성 유지.
+
+## Claude 고민했던 점 및 설계 이유
+- **인계 톤 계승**: 새 톤으로 갈아엎지 않고 Codex가 확립한 구조·이모지·콜아웃 패턴을 그대로 따라, 학습자가 챕터 경계에서 이질감을 느끼지 않도록 했습니다.
+- **사실 정확성 우선**: JOIN/FAE의 빈 테이블·중복 함정, 리포트 이벤트 순서, Dynpro PBO/PAI 박자 등 초심자가 실무에서 자주 틀리는 지점을 `warn` 콜아웃으로 스토리텔링했습니다.
+- **현대화 연결**: Classic View·Dynpro처럼 레거시 주제는 "왜 배우는가(기존 자산 유지보수)"와 "어디로 가는가(CDS·Fiori·RAP)"를 함께 제시해 다음 챕터로 다리를 놓았습니다.
+- **프로세스 보완**: 섹션 커밋만 하고 추적 문서(HANDOFF/99_AI_SYNC/changelog) 갱신을 누락했던 점을 사용자 지적으로 인지하고, 이후 섹션마다 함께 갱신하도록 교정했습니다.

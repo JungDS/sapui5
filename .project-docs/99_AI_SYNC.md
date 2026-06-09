@@ -13,14 +13,15 @@
 ---
 
 ## 현재 상태 및 목표 (Current Status & Goals)
-- **현재 목표**: Track 1(THEORY-*) Lesson 본문 작성. 총 137개 중 60개(THEORY-01~THEORY-10) 작성 완료. **77개 남음**.
-- **최근 진행(2026-06-09, Codex)**: THEORY-10-M01~M06 신규 작성 완료. Range Table 구조, SELECT-OPTIONS, WHERE field IN @range, Multiple Selection과 Include/Exclude, EQ/BT/CP 옵션, Selection Table 직접 조작을 초심자 학습지 톤으로 작성하고 글로서리 미정의 0건을 확인함.
+- **현재 목표**: Track 1(THEORY-*) Lesson 본문 작성. 총 137개 중 **87개(THEORY-01~THEORY-14) 작성 완료. 50개 남음**.
+- **최근 진행(2026-06-09, Claude Opus 4.8)**: Codex 미커밋 THEORY-10 보존 커밋 후 **THEORY-11~14 신규 작성**(JOIN과 집계 / Classic DDIC View / Report Event 심화 / Dynpro 기초). Codex 톤·구조 그대로 계승. 글로서리 +60종(섹션별 완전 패리티), 매 섹션 미정의 0건 검증.
 - **⚠️ 인계 핵심 문서**: 이어서 작업할 AI는 **[HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md)를 가장 먼저 정독**할 것. 작성 규칙·스타일 기준·복붙용 프롬프트가 모두 거기 있음.
 
 ---
 
 ## 미결 사항 (Pending Issues / Next Steps)
-- **Lesson 본문 양산**: 다음은 THEORY-11 ~ THEORY-21 (77개). 현재 확정된 10·20대 초심자 친화적 스타일과 "한눈에 정리" 마무리 방식을 그대로 적용한다. Track 2(PRACTICAL-*)는 그 다음.
+- **Lesson 본문 양산**: 다음은 **THEORY-15 ~ THEORY-21 (50개)**. 현재 확정된 10·20대 초심자 친화적 스타일과 "한눈에 정리" 마무리 방식을 그대로 적용한다. Track 2(PRACTICAL-*)는 그 다음.
+- **[프로세스] 섹션 작성 후 추적 3종 동시 갱신**: 섹션 커밋 시 ① `HANDOFF_LESSON_CONTENT.md` 진행표 ② 본 파일(99_AI_SYNC) 작업이력/현황 ③ `changelogs/CHANGELOG_<날짜>.md`를 함께 갱신할 것(누락 주의).
 - **글로서리 완전 패리티**: Lesson에서 쓰는 주요 용어는 `reference/abap_glossary.json`에 반드시 함께 등록(일상 비유 포함). 미등록 용어는 툴팁이 안 뜸(깨진 링크).
 - (선택) Lesson 내 퀴즈·실습 코드 블록 등 상호작용 컴포넌트 고도화.
 
@@ -147,3 +148,12 @@
   - 로컬 뷰어에서 THEORY-10-M01, M03, M06 로딩 확인 완료.
 - **수정 파일**: `docs/abap/lesson-content/THEORY-10-M01~M06.html`, `reference/abap_glossary.json`, `.project-docs/HANDOFF_LESSON_CONTENT.md`, `.project-docs/99_AI_SYNC.md`
 - **다음 AI를 위한 메모**: 다음 섹션은 THEORY-11 `Open SQL 2차: JOIN과 집계`.
+
+### [2026-06-09] Claude (Opus 4.8) — THEORY-11~14 신규
+- **작업 내용**:
+  - Codex 미커밋분 THEORY-10 보존 커밋(`af0fb7f`) 후, THEORY-11~14 4개 섹션 27개 Lesson 신규 작성.
+  - THEORY-11 JOIN과 집계(M01~M07), THEORY-12 Classic DDIC View(M01~M06), THEORY-13 Report Event 심화(M01~M07), THEORY-14 Dynpro 기초(M01~M07).
+  - 글로서리 +60종(11:18, 12:13, 13:15, 14:14). 섹션별 미정의 0건 검증.
+  - 섹션마다 커밋·push, PR #50 갱신.
+- **수정 파일**: `docs/abap/lesson-content/THEORY-11~14-*.html`(27개 신규), `reference/abap_glossary.json`, `.project-docs/HANDOFF_LESSON_CONTENT.md`, `99_AI_SYNC.md`, `changelogs/CHANGELOG_20260609.md`
+- **다음 AI를 위한 메모**: 다음 섹션은 THEORY-15 `Grid ALV 기초`(M01~M09, 9개). 톤·구조·글로서리 패리티·추적 3종 동시 갱신 규칙을 그대로 이어갈 것.

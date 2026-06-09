@@ -2303,5 +2303,147 @@
     ],
     "design_theme": "info",
     "html_content": ""
+  },
+  "Dynpro": {
+    "title": "Dynpro (다이내믹 프로그램)",
+    "desc": "입력 칸·버튼 등을 자유롭게 배치한 SAP GUI 사용자 화면입니다. 화면 한 장마다 번호를 가지며 PBO/PAI 두 박자로 동작합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 발표 슬라이드 한 장과 같아요. 여러 장을 번호로 구분하고, 장면마다 보여줄 내용과 반응을 정해둡니다.",
+    "used_in_lessons": [
+      "THEORY-14-M01"
+    ],
+    "design_theme": "primary",
+    "html_content": "<p>최신 개발은 Fiori(UI5)로 옮겨가지만, 기존 자산 유지보수에 필수입니다.</p>"
+  },
+  "ModulePool": {
+    "title": "Module Pool",
+    "desc": "Dynpro 화면들과 그 화면을 제어하는 ABAP 코드(모듈)를 함께 담는 프로그램(타입 M)입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 슬라이드들과 발표 스크립트를 모두 담은 하나의 발표 파일과 같아요.",
+    "used_in_lessons": [
+      "THEORY-14-M01"
+    ],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "PBO": {
+    "title": "PBO (Process Before Output)",
+    "desc": "Dynpro 화면을 사용자에게 보여주기 직전에 실행되는 처리입니다. 값 채우기, PF-STATUS/TITLEBAR 세팅, 화면 꾸미기를 합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 막이 오르기 직전 무대 장치를 세팅하는 순간이에요. 장면이 바뀔 때마다 다시 준비합니다.",
+    "used_in_lessons": [
+      "THEORY-14-M01",
+      "THEORY-14-M04"
+    ],
+    "design_theme": "primary",
+    "html_content": "<p>화면이 갱신될 때마다 반복 실행되므로 무거운 로직은 피합니다.</p>"
+  },
+  "PAI": {
+    "title": "PAI (Process After Input)",
+    "desc": "사용자가 버튼·Enter로 행동한 직후 실행되는 처리입니다. OK_CODE를 읽어 어떤 버튼인지 판단하고 동작을 분기합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 손님이 버튼을 누른 뒤 점원이 '아, 저장 버튼이네' 하고 반응하는 단계예요.",
+    "used_in_lessons": [
+      "THEORY-14-M01",
+      "THEORY-14-M05"
+    ],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "ScreenNumber": {
+    "title": "Screen Number (화면 번호)",
+    "desc": "Dynpro 화면을 구분하는 고유 번호(예: 0100)입니다. CALL SCREEN으로 번호를 지정해 화면을 호출합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 발표 슬라이드의 페이지 번호와 같아요. '3페이지로 가'처럼 번호로 부릅니다.",
+    "used_in_lessons": [
+      "THEORY-14-M02"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "ScreenPainter": {
+    "title": "Screen Painter (SE51)",
+    "desc": "화면 레이아웃을 마우스로 그려 입력 칸·버튼 등을 배치하는 도구입니다. 화면은 속성+레이아웃+Flow Logic으로 구성됩니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 슬라이드에 글상자와 버튼을 끌어다 놓는 편집기와 같아요.",
+    "used_in_lessons": [
+      "THEORY-14-M02"
+    ],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "InputField": {
+    "title": "Input/Output Field",
+    "desc": "값을 입력받거나 보여주는 화면 칸입니다. 같은 이름의 프로그램 변수와 자동으로 값을 주고받습니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 자판기의 동전 투입구이자 금액 표시창처럼, 값이 드나드는 칸이에요.",
+    "used_in_lessons": [
+      "THEORY-14-M03"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "TextField": {
+    "title": "Text Field",
+    "desc": "사용자가 바꿀 수 없는 설명용 글자(라벨)입니다. 옆 입력 칸이 무엇인지 알려줍니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 서류 양식의 '이름:' 같은 안내 글자예요. 내용이 아니라 설명이죠.",
+    "used_in_lessons": [
+      "THEORY-14-M03"
+    ],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "PushButton": {
+    "title": "Push Button",
+    "desc": "누르면 동작을 일으키는 버튼입니다. Function Code를 가지며, 누르면 그 코드가 OK_CODE로 전달되어 PAI에서 처리됩니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 누르면 음료가 나오는 자판기 버튼과 같아요. 버튼마다 정해진 동작이 있죠.",
+    "used_in_lessons": [
+      "THEORY-14-M03"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "OkCode": {
+    "title": "OK_CODE (sy-ucomm)",
+    "desc": "사용자가 누른 버튼·메뉴의 Function Code가 전달되는 값입니다. PAI에서 이 값을 CASE로 분기해 동작을 정합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 손님이 누른 버튼의 이름표가 점원에게 전달되는 쪽지와 같아요.",
+    "used_in_lessons": [
+      "THEORY-14-M05"
+    ],
+    "design_theme": "code",
+    "html_content": "<p>처리 후 CLEAR ok_code로 비워 유령 동작을 막습니다.</p>"
+  },
+  "PFStatus": {
+    "title": "PF-STATUS (GUI Status)",
+    "desc": "화면의 메뉴·툴바·기능키 묶음입니다. SE41(Menu Painter)에서 만들고 PBO에서 SET PF-STATUS로 적용하며, 각 항목의 Function Code가 OK_CODE로 이어집니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 리모컨의 버튼 배치도와 같아요. 어떤 버튼이 있고 각 버튼이 무슨 신호를 보내는지 정해둡니다.",
+    "used_in_lessons": [
+      "THEORY-14-M06"
+    ],
+    "design_theme": "primary",
+    "html_content": "<p>F3(뒤로)·F12(취소) 등 표준 기능키 관례를 지킵니다.</p>"
+  },
+  "Titlebar": {
+    "title": "TITLEBAR",
+    "desc": "Dynpro 창 위쪽에 표시되는 제목 텍스트입니다. SET TITLEBAR로 적용하며 WITH로 변수를 끼워 동적으로 표시할 수 있습니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 문서 창 맨 위에 뜨는 제목 표시줄과 같아요.",
+    "used_in_lessons": [
+      "THEORY-14-M06"
+    ],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "CustomControl": {
+    "title": "Custom Control",
+    "desc": "화면 한 구역을 빈 자리로 비워 두는 영역입니다. 실행 시 코드로 ALV·브라우저 같은 강력한 부품(컨트롤)을 끼워 넣습니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 벽에 박아둔 액자 걸이 못과 같아요. 못 자체는 빈 자리이고, 무엇을 걸지는 나중에 정합니다.",
+    "used_in_lessons": [
+      "THEORY-14-M07"
+    ],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "GuiContainer": {
+    "title": "Container (CL_GUI_CUSTOM_CONTAINER)",
+    "desc": "Custom Control 자리에 대응하는 ABAP 객체로, 그 자리에 ALV Grid·HTML Viewer 등 실제 부품을 담는 그릇입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 액자 걸이 못에 거는 '액자 틀'이에요. 그 틀 안에 그림(ALV)을 넣습니다.",
+    "used_in_lessons": [
+      "THEORY-14-M07"
+    ],
+    "design_theme": "code",
+    "html_content": "<p>객체는 처음 한 번만 생성하고 이후에는 데이터만 갱신합니다.</p>"
   }
 }

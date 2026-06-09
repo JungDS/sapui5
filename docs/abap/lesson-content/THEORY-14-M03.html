@@ -1,0 +1,89 @@
+<!-- lesson-content/THEORY-14-M03.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>화면에 올리는 기본 부품 3종 — 값을 주고받는 <span class="glossary-term" data-glossary="InputField">Input Field</span>, 설명을 보여주는 <span class="glossary-term" data-glossary="TextField">Text Field</span>, 동작을 일으키는 <span class="glossary-term" data-glossary="PushButton">Push Button</span> — 을 배웁니다. 화면 요소가 프로그램 변수와 어떻게 연결되는지 익힙니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 빈 화면에 부품 올리기 🧩</h2>
+  <p>
+    앞 Lesson에서 화면 틀(0100)을 만들었습니다. 하지만 빈 화면은 아무것도 못 합니다. 사용자가 값을 넣고, 무엇인지 알아보고, 버튼을 눌러 동작시킬 <strong>부품</strong>이 필요합니다.
+  </p>
+  <p>가장 기본이 되는 세 가지를 봅니다.</p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. 세 가지 화면 요소 ✍️</h2>
+  <ul>
+    <li><strong><span class="glossary-term" data-glossary="InputField">Input/Output Field</span>:</strong> 값을 입력받거나 보여주는 칸. <strong>프로그램 변수와 연결</strong>됩니다.</li>
+    <li><strong><span class="glossary-term" data-glossary="TextField">Text Field</span>:</strong> 그냥 글자(라벨/설명). 사용자가 바꾸지 못합니다. "이 칸이 무엇인지" 알려줍니다.</li>
+    <li><strong><span class="glossary-term" data-glossary="PushButton">Push Button</span>:</strong> 누르면 동작을 일으키는 버튼. <strong>Function Code</strong>를 가집니다.</li>
+  </ul>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>비유: 자판기</h4>
+      <p>금액을 보여주는 표시창(Text/Output), 동전을 넣는 투입구(Input), 누르면 음료가 나오는 버튼(Push Button). 화면도 똑같이 이 세 종류로 대부분 구성됩니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 화면 요소 ↔ 프로그램 변수 연결 🔗</h2>
+  <p>
+    Dynpro의 핵심은, 화면의 Input Field가 <strong>프로그램의 변수와 같은 이름으로 자동 연결</strong>된다는 점입니다.
+  </p>
+  <pre><code>" 프로그램 본문 (Module Pool)
+DATA: gv_name TYPE char40.
+
+" 화면(0100)에 'GV_NAME'이라는 Input Field를 올리면…
+" 사용자가 입력한 값이 PAI 때 gv_name 변수로 자동 전달됨</code></pre>
+  <ul>
+    <li>✅ <strong>출력:</strong> PBO에서 <code>gv_name</code>에 값을 넣으면 화면 칸에 그 값이 표시됩니다.</li>
+    <li>✅ <strong>입력:</strong> 사용자가 칸에 입력하면 PAI에서 <code>gv_name</code>으로 값이 들어옵니다.</li>
+  </ul>
+  <blockquote>
+    즉 변수와 화면 칸이 <strong>이름으로 짝</strong>지어져 값을 주고받습니다. 이 자동 연결이 Dynpro의 편리함이자 핵심 원리입니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 버튼의 Function Code 🔘</h2>
+  <p>
+    Push Button에는 <strong>Function Code</strong>(예: <code>SAVE</code>, <code>BACK</code>)를 지정합니다. 사용자가 버튼을 누르면 이 코드가 PAI로 전달되어, "어떤 버튼을 눌렀는지" 알 수 있습니다(다음 Lesson PAI에서 처리).
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>이름이 곧 연결고리입니다</h4>
+      <p>화면 Input Field의 이름과 프로그램 변수 이름이 어긋나면 값이 전달되지 않습니다. 또 DDIC 필드(예: 테이블 필드)를 그대로 화면에 올리면, 라벨·F1 도움말·검증이 자동으로 따라옵니다(THEORY-01~04의 DDIC가 여기서 빛납니다). 가능하면 DDIC 기반으로 화면 요소를 만드는 것이 좋습니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li><strong>Input Field</strong>(값 주고받기), <strong>Text Field</strong>(설명), <strong>Push Button</strong>(동작)이 기본 3요소입니다.</li>
+        <li>Input Field는 <strong>같은 이름의 프로그램 변수</strong>와 자동으로 값을 주고받습니다.</li>
+        <li>Push Button은 <strong>Function Code</strong>를 가지며, 누르면 PAI로 전달됩니다.</li>
+        <li>DDIC 기반으로 만들면 라벨·도움말·검증이 자동으로 따라옵니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    화면에 부품을 올렸으니, 화면을 보여주기 직전 무슨 일이 일어나는지 봅니다. 다음 Lesson <strong>PBO 처리 흐름</strong>에서 화면 출력 직전 단계를 배웁니다.
+  </p>
+</section>

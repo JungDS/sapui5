@@ -1,0 +1,82 @@
+<!-- lesson-content/THEORY-14-M06.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>화면 위쪽의 메뉴·툴바·기능키를 정의하는 <span class="glossary-term" data-glossary="PFStatus">PF-STATUS</span>와, 창 제목을 정하는 <span class="glossary-term" data-glossary="Titlebar">TITLEBAR</span>를 배웁니다. 버튼이 동작하려면 PF-STATUS의 Function Code와 PAI가 어떻게 연결되는지 익힙니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 버튼은 어디서 오는가? 🔘</h2>
+  <p>
+    PAI에서 <code>ok_code = 'SAVE'</code>를 처리했는데, 정작 그 "저장" 버튼은 어디서 만들까요? 화면 본문에 직접 그릴 수도 있지만, 보통 위쪽 <strong>툴바·메뉴</strong>에 둡니다. 이 메뉴·툴바·기능키 묶음을 정의하는 것이 <span class="glossary-term" data-glossary="PFStatus">PF-STATUS(GUI Status)</span>입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. PF-STATUS = 메뉴·툴바·기능키 묶음 ✍️</h2>
+  <p>
+    PF-STATUS는 트랜잭션 <code>SE41</code>(Menu Painter) 또는 SE80에서 만듭니다. 여기에 메뉴 항목과 툴바 버튼을 배치하고, 각각에 <strong>Function Code</strong>를 줍니다. 그리고 PBO에서 적용합니다.
+  </p>
+  <pre><code>MODULE status_0100 OUTPUT.
+  SET PF-STATUS 'STAT_0100'.   "이 화면의 메뉴/툴바 적용
+  SET TITLEBAR  'TITLE_0100'.  "창 제목 적용
+ENDMODULE.</code></pre>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">🔗</div>
+    <div class="lesson-callout-content">
+      <h4>연결 고리: Function Code</h4>
+      <p>PF-STATUS의 버튼에 준 Function Code(<code>SAVE</code>, <code>BACK</code>)가, 사용자가 그 버튼을 누를 때 <strong>OK_CODE로 전달</strong>되어 PAI의 CASE에서 처리됩니다. PF-STATUS(버튼 정의) ↔ PAI(버튼 처리)가 Function Code로 이어지는 거예요.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>3. TITLEBAR로 제목 달기 🏷️</h2>
+  <p>
+    <span class="glossary-term" data-glossary="Titlebar">TITLEBAR</span>는 창 위쪽에 뜨는 제목 텍스트입니다. <code>SET TITLEBAR 'TITLE_0100'</code>처럼 적용하며, 제목에 변수를 끼워 넣을 수도 있습니다.
+  </p>
+  <pre><code>SET TITLEBAR 'TITLE_0100' WITH gv_name.
+"→ 제목이 "홍길동님 상세 정보"처럼 동적으로 표시</code></pre>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <ul>
+    <li>✅ <strong>정상:</strong> PBO에서 PF-STATUS·TITLEBAR 적용 → 메뉴·툴바·제목이 제대로 표시되고 버튼이 동작.</li>
+    <li>❌ <strong>오류 1:</strong> SET PF-STATUS 누락 → 툴바가 비어 BACK·SAVE 버튼이 아예 안 보임.</li>
+    <li>❌ <strong>오류 2:</strong> 표준 기능키(예: F3=뒤로)에 Function Code를 안 주면, 사용자가 뒤로 가기를 못 함.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>표준 기능키 관례를 지키세요</h4>
+      <p>SAP에는 사용자가 익숙한 기능키 관례가 있습니다. <code>F3</code>=뒤로(BACK), <code>F12</code>=취소(CANCEL), <code>Shift+F3</code>=종료(EXIT) 등입니다. 이를 무시하고 제멋대로 배치하면 사용자가 헷갈립니다. 표준 Function Code와 위치를 따르는 것이 좋은 화면의 기본 예의입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li><strong>PF-STATUS</strong>는 메뉴·툴바·기능키 묶음으로, SE41에서 만들고 PBO에서 SET 합니다.</li>
+        <li><strong>TITLEBAR</strong>는 창 제목이며, WITH로 변수를 끼워 동적으로 표시할 수 있습니다.</li>
+        <li>버튼의 <strong>Function Code</strong>가 OK_CODE로 전달되어 PAI에서 처리됩니다.</li>
+        <li>F3(뒤로)·F12(취소) 등 표준 기능키 관례를 지킵니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    화면을 거의 완성했습니다. 마지막으로, 이 화면 안에 표(ALV) 같은 복잡한 부품을 끼워 넣는 법을 봅니다. 다음 Lesson <strong>Custom Control과 Container 개념</strong>에서 배웁니다.
+  </p>
+</section>

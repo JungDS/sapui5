@@ -24,10 +24,10 @@
 | THEORY-08 | Simple ALV / SALV 1차 | 5 | **M01~M05 작성 완료** |
 | THEORY-09 | Open SQL 1차: 기본 조회 | 6 | **M01~M06 작성 완료** |
 | THEORY-10 | SELECT-OPTIONS와 Range Table | 6 | **M01~M06 작성 완료** |
-| THEORY-11 | Open SQL 2차: JOIN과 집계 | 7 | ⬜ 미작성 |
-| THEORY-12 | Classic DDIC View와 유지보수 | 6 | ⬜ |
-| THEORY-13 | Report Event와 Selection Screen 심화 | 7 | ⬜ |
-| THEORY-14 | Screen Programming / Dynpro 기초 | 7 | ⬜ |
+| THEORY-11 | Open SQL 2차: JOIN과 집계 | 7 | **M01~M07 작성 완료** (Claude) |
+| THEORY-12 | Classic DDIC View와 유지보수 | 6 | **M01~M06 작성 완료** (Claude) |
+| THEORY-13 | Report Event와 Selection Screen 심화 | 7 | **M01~M07 작성 완료** (Claude) |
+| THEORY-14 | Screen Programming / Dynpro 기초 | 7 | **M01~M07 작성 완료** (Claude) |
 | THEORY-15 | Grid ALV 기초 | 9 | ⬜ |
 | THEORY-16 | Modern ABAP Syntax | 6 | ⬜ |
 | THEORY-17 | New Open SQL / Modern ABAP SQL | 7 | ⬜ |
