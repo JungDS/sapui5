@@ -1,0 +1,133 @@
+<!-- lesson-content/THEORY-07-M05.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>지난 Lesson에서는 STANDARD TABLE을 정렬한 뒤 BINARY SEARCH를 사용했습니다. 이번에는 처음부터 검색 목적을 더 분명히 표현하는 <span class="glossary-term" data-glossary="SortedTable">SORTED TABLE</span>, <span class="glossary-term" data-glossary="HashedTable">HASHED TABLE</span>, <span class="glossary-term" data-glossary="UniqueKey">Unique Key</span>의 기본 감각을 잡습니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. STANDARD TABLE만으로는 부족할 때가 있다 🧭</h2>
+  <p>
+    STANDARD TABLE은 처음 배우기에 좋고, 순서대로 넣고 순서대로 읽기 쉽습니다. 하지만 검색이 많거나 중복을 엄격히 막아야 하는 경우에는 테이블 종류 자체를 다르게 잡는 것이 더 명확할 수 있습니다.
+  </p>
+  <p>
+    ABAP Internal Table에는 STANDARD TABLE 외에도 SORTED TABLE, HASHED TABLE이 있습니다. 세부 성능 이론은 깊지만, 초심자 단계에서는 “어떤 상황에 어울리는가”부터 잡으면 됩니다.
+  </p>
+  <blockquote>
+    테이블 종류는 데이터를 담는 방식뿐 아니라, 검색과 중복 기준까지 표현하는 설계 선택입니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>2. SORTED TABLE: 키 순서를 유지하는 표 📚</h2>
+  <p>
+    <span class="glossary-term" data-glossary="SortedTable">SORTED TABLE</span>은 지정한 키 기준으로 정렬된 상태를 유지하는 Internal Table입니다. 데이터를 넣을 때도 키 순서가 유지되므로, 정렬된 상태에서 검색하기 좋습니다.
+  </p>
+  <pre><code>DATA lt_sorted TYPE SORTED TABLE OF ty_student
+  WITH UNIQUE KEY id.</code></pre>
+  <p>
+    위 선언은 <code>id</code>가 중복되지 않는 정렬 테이블을 만듭니다. <code>WITH UNIQUE KEY id</code>는 id가 같은 줄을 두 개 넣을 수 없다는 뜻입니다.
+  </p>
+  <ul>
+    <li><strong>어울리는 경우:</strong> 키 순서가 의미 있고, 정렬된 상태로 반복/검색하고 싶을 때</li>
+    <li><strong>주의:</strong> 키 순서를 유지해야 하므로 아무 위치에나 APPEND하는 감각과는 다릅니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>3. HASHED TABLE: 키로 바로 찾는 표 🧩</h2>
+  <p>
+    <span class="glossary-term" data-glossary="HashedTable">HASHED TABLE</span>은 순서보다 키 기반 검색에 초점을 둔 Internal Table입니다. 특정 키로 한 줄을 빠르게 찾는 용도에 어울립니다.
+  </p>
+  <pre><code>DATA lt_hashed TYPE HASHED TABLE OF ty_student
+  WITH UNIQUE KEY id.</code></pre>
+  <p>
+    HASHED TABLE은 인덱스 순서로 접근하는 표가 아닙니다. “몇 번째 줄”보다 “id가 무엇인 줄”이 중심입니다. 그래서 INDEX 기반 처리와는 잘 맞지 않습니다.
+  </p>
+  <ul>
+    <li><strong>어울리는 경우:</strong> 고유 키로 특정 한 줄을 자주 찾아야 할 때</li>
+    <li><strong>주의:</strong> 순서 출력이 목적이라면 다른 선택이 더 자연스러울 수 있습니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>4. Unique Key와 중복 처리 보기 ✍️</h2>
+  <pre><code>REPORT zsorted_hashed_basic.
+
+TYPES: BEGIN OF ty_student,
+         id    TYPE char3,
+         name  TYPE char20,
+         score TYPE i,
+       END OF ty_student.
+
+DATA: lt_sorted TYPE SORTED TABLE OF ty_student WITH UNIQUE KEY id,
+      ls_student TYPE ty_student.
+
+ls_student-id = 'A01'.
+ls_student-name = 'Mina'.
+ls_student-score = 90.
+INSERT ls_student INTO TABLE lt_sorted.
+
+CLEAR ls_student.
+ls_student-id = 'A01'.
+ls_student-name = 'Mina Again'.
+ls_student-score = 95.
+INSERT ls_student INTO TABLE lt_sorted.
+
+IF sy-subrc &lt;&gt; 0.
+  WRITE: / '중복 ID라서 추가되지 않았습니다.'.
+ENDIF.</code></pre>
+  <p>
+    Unique Key가 있는 테이블에 같은 <code>id</code>를 다시 넣으려 하면 실패 흐름으로 갑니다. 이때도 <code>sy-subrc</code>를 확인해야 합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
+  <ul>
+    <li>✅ <strong>정상 흐름:</strong> Unique Key가 겹치지 않는 줄은 INSERT로 들어갑니다.</li>
+    <li>❌ <strong>중복 키:</strong> Unique Key가 같은 줄을 다시 넣으면 실패합니다. 결과는 <code>sy-subrc</code>로 확인합니다.</li>
+    <li>❌ <strong>HASHED TABLE에 INDEX 감각 적용:</strong> HASHED TABLE은 위치보다 키 검색 중심입니다.</li>
+    <li>❌ <strong>목적 없는 선택:</strong> “빠르다더라”만 보고 HASHED TABLE을 쓰면 순서가 필요한 로직에서 오히려 읽기 어려워질 수 있습니다.</li>
+  </ul>
+  <p>
+    미니 실습으로 <code>A02</code>를 추가한 뒤 출력해보세요. 그리고 같은 <code>A02</code>를 다시 추가해 중복 실패 흐름을 확인합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>테이블 종류는 성능만이 아니라 의미의 선택입니다</h4>
+      <p>SORTED/HASHED TABLE은 “빠른가?”만 보고 고르는 도구가 아닙니다. 중복을 허용할지, 순서가 필요한지, 어떤 키로 자주 찾는지까지 함께 봐야 합니다.</p>
+    </div>
+  </div>
+  <p>
+    이번 Lesson은 기초 감각만 다룹니다. 실제 성능 판단은 데이터 건수, 키 설계, READ/LOOP 패턴, SAP 버전과 팀 컨벤션까지 함께 보아야 합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>테이블 종류 핵심</h4>
+      <ul>
+        <li><strong>STANDARD TABLE</strong>은 기본형이며 순차 처리 감각에 좋습니다.</li>
+        <li><strong>SORTED TABLE</strong>은 키 기준 정렬 상태를 유지합니다.</li>
+        <li><strong>HASHED TABLE</strong>은 키 기반 단건 검색에 초점을 둡니다.</li>
+        <li><strong>Unique Key</strong>는 같은 키 값의 중복을 막습니다.</li>
+        <li>테이블 종류는 순서, 중복, 검색 방식이라는 업무 의미까지 고려해 선택합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    다음 Lesson <strong>Field Symbol 기초</strong>에서는 Internal Table의 원본 행에 더 직접적으로 접근하는 방식을 배웁니다.
+  </p>
+</section>

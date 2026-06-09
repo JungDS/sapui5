@@ -94,3 +94,17 @@
 - **테이블이라는 단어의 오해 방지**: 초심자는 Internal Table을 DDIC Transparent Table과 혼동하기 쉬워, “영구 저장소”와 “실행 중 작업용 표”를 M01부터 반복적으로 분리했습니다.
 - **문법보다 데이터 흐름 우선**: `TYPES`, `DATA`, `APPEND`, `LOOP`, `READ`를 개별 문법으로만 설명하면 금방 흩어지므로, Work Area에 한 줄을 담고 Internal Table에 넣고 다시 꺼내는 흐름을 계속 말로 풀었습니다.
 - **성능 심화의 범위 조절**: SORTED/HASHED TABLE, BINARY SEARCH, Field Symbol, MODIFY 등은 THEORY-07 이후 범위로 남기고, 이번 섹션에서는 STANDARD TABLE 기반의 기본 읽기/검색 감각에 집중했습니다.
+
+---
+
+## Codex THEORY-07 작업 상세 내용
+- `THEORY-07-M01` ~ `THEORY-07-M09` 9개 Lesson 본문 조각을 신규 작성했습니다.
+- `MODIFY / INDEX / TRANSPORTING`, `DELETE / WHERE`, `SORT / ASCENDING / DESCENDING`, `READ TABLE ... BINARY SEARCH`, `SORTED TABLE / HASHED TABLE`, `FIELD-SYMBOLS / ASSIGNING`, Secondary Key, Deep Structure, `CLEAR / REFRESH / FREE`를 JSON 지침 순서대로 구성했습니다.
+- 각 Lesson을 “지난 Lesson 연결 → 왜 필요한가 → 무엇인가 → 최소 예제 → 정상/오류 흐름 → 실무 주의 → 한눈에 정리” 구조로 작성했습니다.
+- `MODIFYStatement`, `DELETEStatement`, `SORTStatement`, `BINARYSEARCHAddition`, `SortedTable`, `HashedTable`, `FieldSymbol`, `SecondaryKey`, `DeepStructure`, `CLEARStatement` 등 THEORY-07 용어 26종을 글로서리에 추가했습니다.
+- 기존 `SYSUBRC`의 `used_in_lessons`를 BINARY SEARCH Lesson 사용처에 맞게 보정했습니다.
+
+## Codex THEORY-07 고민했던 점 및 설계 이유
+- **성능 주제의 난이도 조절**: BINARY SEARCH, SORTED/HASHED TABLE, Secondary Key는 깊게 들어가면 자료구조 강의가 되기 쉬워, 초심자 단계에서는 “전제 조건과 오해 방지”에 초점을 맞췄습니다.
+- **원본 변경 위험 강조**: MODIFY, DELETE, Field Symbol은 Internal Table 원본을 바꾸는 문법이므로, 성공 흐름보다 실패/오류 흐름을 더 눈에 띄게 배치했습니다.
+- **후속 범위 분리**: ALV Cell Color/Style, 고급 키 설계, 대량 성능 튜닝은 후속 THEORY-19 또는 실무 심화 범위로 넘기고, 이번 섹션은 Internal Table 응용의 첫 감각에 집중했습니다.

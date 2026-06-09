@@ -1,0 +1,135 @@
+<!-- lesson-content/THEORY-07-M09.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>THEORY-07의 마지막 Lesson입니다. Internal Table과 Work Area를 다룬 뒤 값을 비우거나 메모리를 정리할 때 쓰는 <span class="glossary-term" data-glossary="CLEARStatement">CLEAR</span>, <span class="glossary-term" data-glossary="REFRESHStatement">REFRESH</span>, <span class="glossary-term" data-glossary="FREEStatement">FREE</span>, 그리고 <span class="glossary-term" data-glossary="MemoryManagement">Memory</span> 관점을 정리합니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 데이터를 넣었으면 비우는 법도 알아야 한다 🧭</h2>
+  <p>
+    이번 Chapter에서는 Internal Table의 행을 바꾸고, 지우고, 정렬하고, 검색하고, 깊은 구조까지 살펴봤습니다. 그런데 프로그램이 계속 실행되는 동안 같은 변수와 Internal Table을 재사용하면 이전 값이 남아 다음 처리에 섞일 수 있습니다.
+  </p>
+  <p>
+    그래서 ABAP에서는 값을 초기화하거나 Internal Table 내용을 비우는 문법을 사용합니다. 대표적으로 CLEAR, REFRESH, FREE가 있습니다.
+  </p>
+  <blockquote>
+    정리는 “예쁘게 마무리”가 아니라, 다음 처리에 이전 값이 섞이지 않게 하는 안전장치입니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>2. CLEAR: 변수나 구조를 초기값으로 돌리기 🧽</h2>
+  <p>
+    <span class="glossary-term" data-glossary="CLEARStatement">CLEAR</span>는 변수, Work Area, 구조, Internal Table 등을 초기 상태로 되돌립니다.
+  </p>
+  <pre><code>CLEAR ls_student.</code></pre>
+  <p>
+    Work Area에 CLEAR를 쓰면 각 필드가 타입에 맞는 초기값으로 돌아갑니다. 문자 필드는 공백, 숫자 필드는 0에 가까운 초기 상태가 됩니다.
+  </p>
+  <pre><code>CLEAR lt_students.</code></pre>
+  <p>
+    Header Line을 쓰지 않는 현대적인 Internal Table에서는 <code>CLEAR lt_students</code>로 테이블 내용을 비우는 용도로도 사용합니다. 초심자 단계에서는 “다음 작업 전에 깨끗하게 비운다”는 감각으로 보면 됩니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>3. REFRESH와 FREE는 Internal Table 정리에서 만난다 🗑️</h2>
+  <p>
+    <span class="glossary-term" data-glossary="REFRESHStatement">REFRESH</span>는 예전 ABAP 코드에서 Internal Table의 내용을 비울 때 자주 보입니다.
+  </p>
+  <pre><code>REFRESH lt_students.</code></pre>
+  <p>
+    새 코드에서는 <code>CLEAR lt_students</code>를 더 자연스럽게 쓰는 경우가 많지만, 기존 시스템에서는 REFRESH를 읽을 수 있어야 합니다.
+  </p>
+  <p>
+    <span class="glossary-term" data-glossary="FREEStatement">FREE</span>는 Internal Table 내용을 비우는 것에 더해, 할당된 메모리를 반환하는 의미까지 가집니다.
+  </p>
+  <pre><code>FREE lt_students.</code></pre>
+  <p>
+    대량 데이터를 담았던 Internal Table을 더 이상 쓰지 않을 때는 FREE를 고려할 수 있습니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 전체 예제로 정리 흐름 보기 ✍️</h2>
+  <pre><code>REPORT zclear_refresh_free.
+
+TYPES: BEGIN OF ty_student,
+         id    TYPE char3,
+         name  TYPE char20,
+       END OF ty_student.
+
+DATA: lt_students TYPE STANDARD TABLE OF ty_student,
+      ls_student  TYPE ty_student,
+      lv_count    TYPE i.
+
+ls_student-id = 'A01'.
+ls_student-name = 'Mina'.
+APPEND ls_student TO lt_students.
+
+lv_count = lines( lt_students ).
+WRITE: / '비우기 전 줄 수:', lv_count.
+
+CLEAR ls_student.
+CLEAR lt_students.
+
+lv_count = lines( lt_students ).
+WRITE: / 'CLEAR 후 줄 수:', lv_count.
+
+FREE lt_students.</code></pre>
+  <p>
+    실행하면 CLEAR 후 줄 수가 0이 됩니다. FREE는 이후 더 이상 해당 Internal Table을 쓰지 않을 때 메모리 정리 의도를 드러내는 역할을 합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
+  <ul>
+    <li>✅ <strong>정상 흐름:</strong> CLEAR로 Work Area를 비우면 이전 필드 값이 다음 줄에 섞이지 않습니다.</li>
+    <li>✅ <strong>테이블 비우기:</strong> CLEAR 또는 REFRESH 후 Internal Table 줄 수가 0이 됩니다.</li>
+    <li>✅ <strong>메모리 반환 의도:</strong> FREE는 큰 Internal Table을 더 이상 쓰지 않을 때 메모리 정리 의미를 드러냅니다.</li>
+    <li>❌ <strong>초기화 누락:</strong> Work Area를 재사용하면서 일부 필드만 채우면 이전 값이 남을 수 있습니다.</li>
+    <li>❌ <strong>비운 뒤 사용:</strong> CLEAR/FREE 후에도 데이터가 남아 있다고 가정하면 출력이나 검색이 실패합니다.</li>
+  </ul>
+  <p>
+    미니 실습으로 <code>CLEAR lt_students.</code> 줄을 주석 처리해보세요. 줄 수 출력이 어떻게 달라지는지 보면 비우기 동작을 확실히 확인할 수 있습니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>REFRESH는 기존 코드 읽기용으로 자주 만납니다</h4>
+      <p>REFRESH는 오래된 ABAP 코드에서 Internal Table을 비우는 용도로 자주 등장합니다. 신규 코드에서는 팀 기준에 따라 CLEAR나 FREE를 더 명확히 선택하는 경우가 많으니, 프로젝트 컨벤션을 확인하세요.</p>
+    </div>
+  </div>
+  <p>
+    또한 FREE를 남발한다고 프로그램이 자동으로 빨라지는 것은 아닙니다. 대량 데이터 처리 후 더 이상 사용하지 않는 테이블처럼, 의도가 분명한 곳에 쓰는 것이 좋습니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>THEORY-07 마무리 핵심</h4>
+      <ul>
+        <li><strong>CLEAR</strong>는 변수, 구조, Internal Table을 초기 상태로 돌립니다.</li>
+        <li><strong>REFRESH</strong>는 기존 코드에서 Internal Table을 비우는 문법으로 자주 보입니다.</li>
+        <li><strong>FREE</strong>는 내용을 비우고 메모리 반환 의도까지 표현합니다.</li>
+        <li>Work Area 재사용 전 초기화는 이전 값 섞임을 막는 안전 습관입니다.</li>
+        <li>THEORY-07에서는 변경, 삭제, 정렬, 검색, 키, Field Symbol, Deep Structure, 메모리 정리를 연결했습니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    다음 Chapter <strong>Simple ALV / SALV 1차</strong>에서는 Internal Table 데이터를 더 보기 좋은 리스트 형태로 표시하는 첫 화면 출력 도구를 배웁니다.
+  </p>
+</section>
