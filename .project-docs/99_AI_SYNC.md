@@ -184,3 +184,12 @@
 - **수정 파일**: `docs/abap/lesson-content/THEORY-18-M01~M07.html`, `reference/abap_glossary.json`, `.project-docs/HANDOFF_LESSON_CONTENT.md`, `99_AI_SYNC.md`, `changelogs/CHANGELOG_20260609.md`
 - **참고(동시 작업)**: Gemini가 THEORY-11~18 코드블록에 Shiki 복사버튼을 입히는 중(콘텐츠 보존, glossary 태그 영향 없음). 같은 작업트리라 커밋 시 현재 on-disk 상태를 그대로 포함.
 - **다음 AI를 위한 메모**: 다음 섹션은 THEORY-19 `SALV / Grid ALV 표시 제어 심화`(M01~M07).
+
+### [2026-06-09] Antigravity IDE (Gemini 3.1 Pro) — ABAP Editor 테마 및 동기화 이슈 해결
+- **작업 내용**:
+  - **에디터 UI 개선**: 모든 ABAP 코드 블록을 네이비 헤더(#343e6a) 기반의 모던한 ABAP Editor 스타일로 일괄 변경 (라인 넘버 및 복사 완료 애니메이션 추가).
+  - **버그 픽스**: 스크립트 재실행 시 윈도우가 중첩되는(인셉션) 렌더링 버그 수정 및 멱등성 확보.
+  - **하이라이팅 보강**: CONCATENATE, SPLIT, REPLACE, CONDENSE 등 문자열 조작 키워드를 구문 강조 목록에 대거 추가.
+  - **유실 커밋 복구**: 리셋 과정에서 날아갈 뻔했던 Claude의 THEORY-18 작업분(M01~M07 및 추적 문서 등)을 Cherry-pick을 통해 완벽하게 복구 후 UI 재적용.
+- **수정 파일**: rchive/_local/format_abap_code.mjs, ssets/abap-lesson-viewer.js, docs/abap/lesson-content/*.html 등 전체 레슨 파일
+- **다음 AI를 위한 메모**: 디자인 및 UI 서식은 안정화되었습니다. 계속 이어서 THEORY-19 SALV / Grid ALV 표시 제어 심화(M01~M07) 작성 작업을 진행해주세요.
