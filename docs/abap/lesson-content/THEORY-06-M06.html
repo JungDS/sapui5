@@ -1,0 +1,156 @@
+<!-- lesson-content/THEORY-06-M06.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>이번 Chapter에서 배운 <span class="glossary-term" data-glossary="InternalTable">Internal Table</span>, APPEND, LOOP, READ 흐름을 연결해 미니 데이터 가공 프로그램을 만듭니다. 마지막에는 <span class="glossary-term" data-glossary="WRITEStatement">WRITE</span>로 처리 결과를 확인합니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 이제 조각들을 하나의 흐름으로 묶어보자 🧭</h2>
+  <p>
+    지금까지는 Internal Table의 각 동작을 하나씩 따로 배웠습니다. M01에서는 왜 필요한지, M02에서는 선언, M03에서는 줄 추가, M04에서는 전체 읽기, M05에서는 한 줄 검색을 봤습니다.
+  </p>
+  <p>
+    실무 프로그램에서는 이 조각들이 따로 놀지 않습니다. 데이터를 담고, 조건에 맞게 계산하고, 필요한 값을 찾고, 결과를 출력하는 흐름으로 연결됩니다. 이번 Lesson은 그 연결 감각을 만드는 작은 마무리 실습입니다.
+  </p>
+  <blockquote>
+    Internal Table 실력은 문법 하나를 아는 것보다, 읽기-검색-가공-출력을 연결할 때 생깁니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>2. 미니 시나리오: 학생 점수표 만들기 📋</h2>
+  <p>
+    목표는 단순합니다. 학생 3명의 점수를 Internal Table에 담고, 전체 학생을 출력하면서 90점 이상인 학생 수를 계산합니다. 마지막으로 특정 학생 ID를 READ TABLE로 찾아 상세 메시지를 출력합니다.
+  </p>
+  <ul>
+    <li><strong>입력값:</strong> 코드 안에서 만든 학생 ID, 이름, 점수 3건</li>
+    <li><strong>처리:</strong> Internal Table에 담고 LOOP로 전체 출력, 조건에 따라 우수 학생 수 계산</li>
+    <li><strong>검색:</strong> READ TABLE로 특정 ID 찾기</li>
+    <li><strong>결과:</strong> 전체 목록, 우수 학생 수, 검색 결과 메시지 출력</li>
+  </ul>
+  <p>
+    실제 프로젝트에서는 데이터베이스에서 가져온 데이터로 비슷한 일을 합니다. 지금은 Open SQL로 확장하기 전, 메모리 안에서 가공 흐름만 연습합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 전체 코드 예제 ✍️</h2>
+  <pre><code>REPORT zinternal_table_process.
+
+TYPES: BEGIN OF ty_student,
+         id    TYPE char3,
+         name  TYPE char20,
+         score TYPE i,
+       END OF ty_student.
+
+DATA: lt_students  TYPE STANDARD TABLE OF ty_student,
+      ls_student   TYPE ty_student,
+      lv_high_cnt  TYPE i.
+
+ls_student-id = 'A01'.
+ls_student-name = 'Mina'.
+ls_student-score = 90.
+APPEND ls_student TO lt_students.
+
+CLEAR ls_student.
+ls_student-id = 'A02'.
+ls_student-name = 'Jun'.
+ls_student-score = 85.
+APPEND ls_student TO lt_students.
+
+CLEAR ls_student.
+ls_student-id = 'A03'.
+ls_student-name = 'Sora'.
+ls_student-score = 95.
+APPEND ls_student TO lt_students.
+
+WRITE: / '학생 목록'.
+
+LOOP AT lt_students INTO ls_student.
+  WRITE: / ls_student-id, ls_student-name, ls_student-score.
+
+  IF ls_student-score &gt;= 90.
+    lv_high_cnt = lv_high_cnt + 1.
+  ENDIF.
+ENDLOOP.
+
+WRITE: / '90점 이상 학생 수:', lv_high_cnt.
+
+CLEAR ls_student.
+READ TABLE lt_students INTO ls_student WITH KEY id = 'A02'.
+IF sy-subrc = 0.
+  WRITE: / '검색 성공:', ls_student-name, ls_student-score.
+ELSE.
+  WRITE: / '검색 실패: 해당 학생 없음'.
+ENDIF.</code></pre>
+  <p>
+    코드가 길어 보일 수 있지만 흐름은 단순합니다. 표를 만들고, 줄을 넣고, 전체를 돌며 계산하고, 한 줄을 검색해 결과를 출력합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 처리 흐름을 말로 다시 읽기 🔁</h2>
+  <ol>
+    <li><code>ty_student</code>로 학생 한 줄의 모양을 정합니다.</li>
+    <li><code>lt_students</code>라는 Internal Table과 <code>ls_student</code>라는 Work Area를 만듭니다.</li>
+    <li>학생 3명을 Work Area에 채운 뒤 <code>APPEND</code>로 표에 넣습니다.</li>
+    <li><code>LOOP AT</code>으로 표 전체를 읽고, 각 학생을 출력합니다.</li>
+    <li>점수가 90 이상이면 <code>lv_high_cnt</code>를 1씩 증가시킵니다.</li>
+    <li><code>READ TABLE</code>로 ID가 <code>A02</code>인 학생을 찾아 검색 결과를 출력합니다.</li>
+  </ol>
+  <p>
+    초심자 단계에서는 코드를 손으로 따라가며 “지금 Work Area에는 어떤 학생이 들어 있지?”를 계속 물어보면 좋습니다. 디버거에서 <code>lt_students</code>, <code>ls_student</code>, <code>lv_high_cnt</code>를 보면서 실행하면 훨씬 선명해집니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
+  <ul>
+    <li>✅ <strong>정상 흐름:</strong> 학생 3줄이 추가되고, LOOP가 3번 돌며, 90점 이상 학생 수가 2로 출력됩니다.</li>
+    <li>✅ <strong>검색 성공:</strong> <code>A02</code>가 있으므로 <code>sy-subrc = 0</code>이 되고 Jun의 점수가 출력됩니다.</li>
+    <li>❌ <strong>검색 실패:</strong> 검색 ID를 <code>A99</code>로 바꾸면 실패 메시지가 출력됩니다.</li>
+    <li>❌ <strong>APPEND 누락:</strong> 한 학생의 APPEND를 지우면 LOOP 출력 줄 수와 우수 학생 수가 달라집니다.</li>
+    <li>❌ <strong>CLEAR 누락:</strong> Work Area를 일부 필드만 다시 채우는 코드에서는 이전 값이 섞일 수 있습니다.</li>
+  </ul>
+  <p>
+    미니 실습으로 기준 점수를 90에서 80으로 바꿔보세요. 그리고 검색 ID도 바꿔보며 정상/실패 메시지가 잘 나뉘는지 확인합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>작은 예제의 성공을 운영 규모로 그대로 가져가면 위험합니다</h4>
+      <p>3건짜리 Internal Table에서는 어떤 방식도 빨라 보입니다. 하지만 운영에서는 수천, 수만, 수백만 건이 될 수 있습니다. 데이터 양, 검색 방식, LOOP 안 처리 비용, 메모리 사용량을 함께 봐야 안정적인 프로그램이 됩니다.</p>
+    </div>
+  </div>
+  <p>
+    또한 결과를 출력하기 전에는 검색 실패와 빈 테이블을 분리해 처리해야 합니다. “데이터가 없다”와 “프로그램이 잘못됐다”는 사용자에게 전혀 다른 의미이기 때문입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>THEORY-06 마무리 핵심</h4>
+      <ul>
+        <li><strong>Internal Table</strong>은 여러 줄 데이터를 Runtime Memory에서 다루는 작업용 표입니다.</li>
+        <li>Line Type, Work Area, STANDARD TABLE 선언 흐름을 먼저 잡으면 문법이 덜 복잡해집니다.</li>
+        <li>APPEND와 INSERT로 줄을 추가하고, LOOP AT으로 전체를 읽습니다.</li>
+        <li>READ TABLE과 SY-SUBRC로 특정 줄 검색의 성공/실패를 분리합니다.</li>
+        <li>운영 데이터에서는 메모리, 반복 비용, 중복, 검색 성능을 함께 고려해야 합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    다음 Chapter <strong>Internal Table 응용 / Deep Structure</strong>에서는 Internal Table을 더 잘 다루기 위한 정렬, 삭제, 변경, 중첩 구조 같은 응용 주제로 넘어갑니다.
+  </p>
+</section>

@@ -80,3 +80,17 @@
 - **레거시와 신규 설계의 균형**: ABAP 현장에서는 FORM과 Function Module을 읽어야 하는 일이 많지만, 신규 설계 감각은 Class 중심으로 가야 하므로 “이해해야 하는 문법”과 “새로 만들 때 우선 고려할 선택지”를 분리해 설명했습니다.
 - **파라미터 방향 혼동 줄이기**: `USING`, `CHANGING`, Function Module의 `EXPORTING / IMPORTING`은 초심자가 가장 쉽게 방향을 헷갈리는 부분이라, 호출자 기준과 모듈 기준을 반복적으로 풀어 썼습니다.
 - **OO 범위 조절**: Local/Global Class는 이번 섹션에서 맛보기만 다루고, 상속·인터페이스·예외 클래스 같은 설계 심화는 THEORY-18로 넘겼습니다.
+
+---
+
+## Codex THEORY-06 작업 상세 내용
+- `THEORY-06-M01` ~ `THEORY-06-M06` 6개 Lesson 본문 조각을 신규 작성했습니다.
+- Internal Table 필요성, Runtime Memory와 Application Server, Line Type/Work Area/STANDARD TABLE 선언, APPEND/INSERT, LOOP AT, READ TABLE, 미니 데이터 가공 흐름을 JSON 지침 순서대로 구성했습니다.
+- 각 Lesson을 “지난 Lesson 연결 → 왜 필요한가 → 무엇인가 → 최소 예제 → 정상/오류 흐름 → 실무 주의 → 한눈에 정리” 구조로 작성했습니다.
+- `InternalTable`, `RuntimeMemory`, `ApplicationServer`, `LineType`, `StandardTable`, `APPENDStatement`, `LOOPATStatement`, `READTABLEStatement`, `WITHKEYClause` 등 THEORY-06 용어 12종을 글로서리에 추가했습니다.
+- 기존 `WorkArea`, `WRITEStatement`, `SYSUBRC`의 `used_in_lessons`를 새 본문 사용처에 맞게 보정했습니다.
+
+## Codex THEORY-06 고민했던 점 및 설계 이유
+- **테이블이라는 단어의 오해 방지**: 초심자는 Internal Table을 DDIC Transparent Table과 혼동하기 쉬워, “영구 저장소”와 “실행 중 작업용 표”를 M01부터 반복적으로 분리했습니다.
+- **문법보다 데이터 흐름 우선**: `TYPES`, `DATA`, `APPEND`, `LOOP`, `READ`를 개별 문법으로만 설명하면 금방 흩어지므로, Work Area에 한 줄을 담고 Internal Table에 넣고 다시 꺼내는 흐름을 계속 말로 풀었습니다.
+- **성능 심화의 범위 조절**: SORTED/HASHED TABLE, BINARY SEARCH, Field Symbol, MODIFY 등은 THEORY-07 이후 범위로 남기고, 이번 섹션에서는 STANDARD TABLE 기반의 기본 읽기/검색 감각에 집중했습니다.

@@ -1,0 +1,144 @@
+<!-- lesson-content/THEORY-06-M05.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>지난 Lesson에서는 <code>LOOP AT</code>으로 전체 줄을 읽었습니다. 이번에는 <span class="glossary-term" data-glossary="READTABLEStatement">READ TABLE</span>, <span class="glossary-term" data-glossary="WITHKEYClause">WITH KEY</span>, <span class="glossary-term" data-glossary="SYSUBRC">SY-SUBRC</span>를 사용해 Internal Table에서 원하는 한 줄을 찾는 기본 검색 흐름을 배웁니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 매번 전체를 돌 필요는 없다 🧭</h2>
+  <p>
+    LOOP AT은 Internal Table의 모든 줄을 처리할 때 좋습니다. 하지만 “학생 ID가 A02인 한 명만 찾고 싶다”처럼 목표가 분명할 때는 전체를 끝까지 도는 것보다 검색 문법을 쓰는 편이 읽기 쉽습니다.
+  </p>
+  <p>
+    ABAP에서 Internal Table의 특정 줄을 읽는 기본 문법이 <code>READ TABLE</code>입니다. 검색 조건은 보통 <code>WITH KEY</code>로 적고, 찾았는지 여부는 <code>SY-SUBRC</code>로 확인합니다.
+  </p>
+  <blockquote>
+    READ TABLE은 “이 표에서 조건에 맞는 한 줄을 찾아서 Work Area에 담아줘”라는 요청입니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>2. READ TABLE 기본 구조 🔍</h2>
+  <pre><code>READ TABLE lt_students INTO ls_student WITH KEY id = 'A02'.
+
+IF sy-subrc = 0.
+  WRITE: / '찾음:', ls_student-name.
+ELSE.
+  WRITE: / '해당 ID 없음'.
+ENDIF.</code></pre>
+  <ul>
+    <li><span class="glossary-term" data-glossary="READTABLEStatement">READ TABLE</span>: Internal Table에서 한 줄을 읽습니다.</li>
+    <li><code>INTO ls_student</code>: 찾은 줄을 Work Area에 담습니다.</li>
+    <li><span class="glossary-term" data-glossary="WITHKEYClause">WITH KEY</span>: 어떤 필드 값으로 찾을지 조건을 적습니다.</li>
+    <li><span class="glossary-term" data-glossary="SYSUBRC">SY-SUBRC</span>: 직전 실행 결과를 숫자로 알려주는 시스템 필드입니다.</li>
+  </ul>
+  <p>
+    <code>sy-subrc = 0</code>이면 찾았다는 뜻입니다. 0이 아니면 조건에 맞는 줄을 찾지 못했거나, 해당 문장이 기대한 대로 성공하지 않았다는 신호로 읽습니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 전체 예제로 찾기 성공과 실패 보기 ✍️</h2>
+  <pre><code>REPORT zread_table_basic.
+
+TYPES: BEGIN OF ty_student,
+         id    TYPE char3,
+         name  TYPE char20,
+         score TYPE i,
+       END OF ty_student.
+
+DATA: lt_students TYPE STANDARD TABLE OF ty_student,
+      ls_student  TYPE ty_student.
+
+ls_student-id = 'A01'.
+ls_student-name = 'Mina'.
+ls_student-score = 90.
+APPEND ls_student TO lt_students.
+
+CLEAR ls_student.
+ls_student-id = 'A02'.
+ls_student-name = 'Jun'.
+ls_student-score = 85.
+APPEND ls_student TO lt_students.
+
+CLEAR ls_student.
+READ TABLE lt_students INTO ls_student WITH KEY id = 'A02'.
+IF sy-subrc = 0.
+  WRITE: / '찾음:', ls_student-id, ls_student-name.
+ELSE.
+  WRITE: / 'A02를 찾지 못했습니다.'.
+ENDIF.</code></pre>
+  <p>
+    여기서는 <code>A02</code>가 있으므로 성공 흐름으로 갑니다. 조건을 <code>A99</code>로 바꿔 실행하면 실패 흐름으로 가고, <code>ELSE</code> 메시지가 출력됩니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 찾은 뒤에는 반드시 결과를 확인하기 🚦</h2>
+  <p>
+    초심자가 자주 하는 실수는 READ TABLE을 한 뒤 바로 Work Area 값을 믿고 쓰는 것입니다. 검색에 실패하면 Work Area에 기대한 줄이 들어오지 않았을 수 있습니다. 그래서 READ TABLE 다음에는 거의 항상 <code>sy-subrc</code>를 확인하는 습관이 필요합니다.
+  </p>
+  <pre><code>READ TABLE lt_students INTO ls_student WITH KEY id = 'A99'.
+
+IF sy-subrc &lt;&gt; 0.
+  WRITE: / '검색 실패: A99 없음'.
+  RETURN.
+ENDIF.
+
+WRITE: / '검색 성공:', ls_student-name.</code></pre>
+  <p>
+    위 예제처럼 실패를 먼저 처리하고 빠져나오면, 아래쪽 코드는 “찾은 데이터가 있다”는 전제로 읽기 쉬워집니다. 이 방식은 나중에 오류 처리와 유지보수성에도 도움이 됩니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
+  <ul>
+    <li>✅ <strong>정상 흐름:</strong> 조건에 맞는 줄을 찾으면 <code>sy-subrc = 0</code>이 되고, Work Area에 해당 줄이 담깁니다.</li>
+    <li>❌ <strong>검색 실패:</strong> 조건에 맞는 줄이 없으면 <code>sy-subrc</code>가 0이 아닙니다. 실패 메시지나 대체 처리가 필요합니다.</li>
+    <li>❌ <strong>키 필드 오타:</strong> <code>WITH KEY student_id = 'A02'</code>처럼 없는 필드를 쓰면 문법 오류가 납니다.</li>
+    <li>❌ <strong>중복 줄:</strong> 같은 키 값이 여러 줄이면 기본 READ TABLE은 기대와 다른 첫 번째 줄을 가져올 수 있습니다.</li>
+    <li>❌ <strong>성능 착각:</strong> STANDARD TABLE에서 무조건 빠른 검색이 보장되는 것은 아닙니다. 대량 데이터 검색은 테이블 종류와 키 설계가 중요합니다.</li>
+  </ul>
+  <p>
+    미니 실습으로 <code>A02</code>와 <code>A99</code>를 각각 검색해보세요. 성공 시 이름을 출력하고, 실패 시 “없음”을 출력하도록 만들면 검색 기본 흐름을 잡은 것입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>READ TABLE 다음 sy-subrc 확인은 거의 반사 습관</h4>
+      <p>검색 실패를 확인하지 않고 Work Area를 사용하면 이전 값이나 빈 값으로 잘못된 결과를 출력할 수 있습니다. 특히 금액, 수량, 승인 여부처럼 업무 영향이 큰 데이터는 실패 흐름을 반드시 분리해야 합니다.</p>
+    </div>
+  </div>
+  <p>
+    또한 고객사 코드에는 <code>READ TABLE ... BINARY SEARCH</code>, 테이블 키를 활용한 최신 문법 등이 섞여 있을 수 있습니다. 이번 Lesson은 기본 검색 감각을 익히는 단계이므로, 성능 심화는 후속 Internal Table 응용에서 확장합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>검색 기본 핵심</h4>
+      <ul>
+        <li><strong>READ TABLE</strong>은 Internal Table에서 조건에 맞는 한 줄을 읽습니다.</li>
+        <li><strong>WITH KEY</strong>는 어떤 필드 값으로 찾을지 적는 조건입니다.</li>
+        <li><strong>SY-SUBRC</strong>가 0이면 성공, 0이 아니면 실패 흐름으로 봅니다.</li>
+        <li>READ TABLE 뒤에는 결과 확인 없이 Work Area를 바로 믿지 않습니다.</li>
+        <li>중복과 대량 검색은 별도 키 설계와 성능 기준을 함께 봐야 합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    다음 Lesson <strong>Internal Table 기반 미니 데이터 가공</strong>에서는 APPEND, LOOP, READ, WRITE를 연결해 작은 데이터 처리 프로그램을 완성합니다.
+  </p>
+</section>

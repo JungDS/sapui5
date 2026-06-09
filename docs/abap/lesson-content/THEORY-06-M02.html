@@ -1,0 +1,128 @@
+<!-- lesson-content/THEORY-06-M02.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>지난 Lesson에서 Internal Table이 왜 필요한지 봤습니다. 이번에는 <span class="glossary-term" data-glossary="LineType">Line Type</span>, <span class="glossary-term" data-glossary="WorkArea">Work Area</span>, <span class="glossary-term" data-glossary="StandardTable">STANDARD TABLE</span>을 선언하며 “표의 한 줄 모양 → 한 줄 작업 공간 → 여러 줄 표” 순서를 익힙니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 선언 순서부터 잡으면 덜 헷갈린다 🧭</h2>
+  <p>
+    Internal Table을 처음 보면 <code>TYPES</code>, <code>DATA</code>, <code>STANDARD TABLE OF</code>가 한꺼번에 나와서 복잡해 보입니다. 하지만 실제로는 순서가 꽤 단순합니다.
+  </p>
+  <ol>
+    <li>한 줄이 어떤 칸을 가질지 정합니다. 이것이 Line Type입니다.</li>
+    <li>그 한 줄을 임시로 담을 변수를 만듭니다. 이것이 Work Area입니다.</li>
+    <li>같은 모양의 줄을 여러 개 담을 표를 만듭니다. 이것이 Internal Table입니다.</li>
+  </ol>
+  <blockquote>
+    한 줄 설계도 → 한 줄 메모지 → 여러 줄 노트 순서로 생각하면 됩니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>2. Line Type은 “한 줄의 모양”이다 📏</h2>
+  <p>
+    <span class="glossary-term" data-glossary="LineType">Line Type</span>은 Internal Table에 들어갈 한 줄이 어떤 필드를 가질지 정하는 타입입니다. DDIC Structure처럼 여러 컴포넌트를 가진 한 줄 모양을 로컬 프로그램 안에서 만들 수도 있습니다.
+  </p>
+  <pre><code>TYPES: BEGIN OF ty_student,
+         id    TYPE char3,
+         name  TYPE char20,
+         score TYPE i,
+       END OF ty_student.</code></pre>
+  <p>
+    위 코드는 학생 한 줄이 <code>id</code>, <code>name</code>, <code>score</code> 세 칸을 가진다고 선언합니다. 아직 데이터가 들어간 것은 아닙니다. “이런 모양의 줄을 쓸 거야”라고 설계도를 만든 단계입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>3. Work Area는 한 줄짜리 임시 작업 공간 📝</h2>
+  <p>
+    <span class="glossary-term" data-glossary="WorkArea">Work Area</span>는 Line Type과 같은 모양을 가진 한 줄 변수입니다. Internal Table에 줄을 넣거나, Internal Table에서 줄을 꺼내 읽을 때 자주 사용합니다.
+  </p>
+  <pre><code>DATA ls_student TYPE ty_student.</code></pre>
+  <p>
+    이름에서 <code>ls_</code>는 보통 “local structure” 느낌으로 많이 쓰는 관례입니다. 프로젝트마다 다를 수 있지만, 초심자 단계에서는 <code>ls_</code>를 보면 “한 줄짜리 구조 변수구나”라고 읽으면 됩니다.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>왜 Work Area가 필요할까?</h4>
+      <p>Internal Table 전체를 한 번에 만지는 것이 아니라, 한 줄씩 값을 채우고 넣거나 한 줄씩 꺼내 처리하기 위해 필요합니다. 엑셀 표 전체가 아니라 현재 편집 중인 한 행을 따로 들고 있는 느낌입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>4. STANDARD TABLE은 가장 기본적인 여러 줄 표 📚</h2>
+  <p>
+    <span class="glossary-term" data-glossary="StandardTable">STANDARD TABLE</span>은 Internal Table의 가장 기본적인 형태입니다. 줄이 들어간 순서를 유지하며, 처음 배우는 단계에서 선언과 반복을 익히기에 좋습니다.
+  </p>
+  <pre><code>DATA lt_students TYPE STANDARD TABLE OF ty_student.</code></pre>
+  <p>
+    이름에서 <code>lt_</code>는 보통 “local table” 느낌으로 쓰는 관례입니다. <code>lt_students</code>는 학생 여러 줄을 담는 표이고, 각 줄은 <code>ty_student</code> 모양을 따릅니다.
+  </p>
+  <pre><code>REPORT zstandard_table_decl.
+
+TYPES: BEGIN OF ty_student,
+         id    TYPE char3,
+         name  TYPE char20,
+         score TYPE i,
+       END OF ty_student.
+
+DATA: lt_students TYPE STANDARD TABLE OF ty_student,
+      ls_student  TYPE ty_student.</code></pre>
+  <p>
+    이 코드가 Internal Table 선언의 기본 골격입니다. 아직 값은 없지만, 이제 여러 학생 줄을 담을 준비가 끝났습니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
+  <ul>
+    <li>✅ <strong>정상 흐름:</strong> <code>ty_student</code>를 먼저 만들고, 그 타입을 기준으로 <code>ls_student</code>와 <code>lt_students</code>를 선언합니다.</li>
+    <li>❌ <strong>타입 선언 전 사용:</strong> <code>ty_student</code>를 만들기 전에 <code>DATA lt_students TYPE STANDARD TABLE OF ty_student.</code>를 쓰면 타입을 찾지 못합니다.</li>
+    <li>❌ <strong>필드명 불일치:</strong> <code>score</code>라고 선언해놓고 <code>ls_student-point</code>를 쓰면 없는 필드라서 오류가 납니다.</li>
+    <li>❌ <strong>Work Area 재사용 실수:</strong> 같은 Work Area를 여러 번 채울 때 이전 값이 남아 혼동될 수 있으니 필요하면 <code>CLEAR ls_student.</code>로 비웁니다.</li>
+  </ul>
+  <p>
+    미니 실습으로 <code>age TYPE i</code> 필드를 하나 추가해보세요. 그런 다음 <code>ls_student-age</code>에 값을 넣어도 문법 오류가 나지 않으면 Line Type과 Work Area가 잘 연결된 것입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>STANDARD TABLE만 외우고 끝내면 안 됩니다</h4>
+      <p>STANDARD TABLE은 기본형이지만 모든 상황의 정답은 아닙니다. 정렬과 검색 성능이 중요한 경우에는 SORTED TABLE, HASHED TABLE 같은 다른 종류도 있습니다. 다만 이 Chapter에서는 초심자 흐름에 맞춰 STANDARD TABLE의 선언과 기본 사용에 집중합니다.</p>
+    </div>
+  </div>
+  <p>
+    또한 실제 프로젝트에서는 DDIC Structure나 Table Type을 재사용하는 경우도 많습니다. 지금은 로컬 타입으로 연습하지만, “한 줄 모양을 정하고 여러 줄 표를 만든다”는 원리는 동일합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>선언 3종 세트</h4>
+      <ul>
+        <li><strong>Line Type</strong>은 Internal Table 한 줄의 필드 구성을 정합니다.</li>
+        <li><strong>Work Area</strong>는 한 줄 데이터를 잠깐 담는 작업 공간입니다.</li>
+        <li><strong>STANDARD TABLE</strong>은 같은 모양의 줄을 여러 개 담는 기본 Internal Table입니다.</li>
+        <li>선언 순서는 타입 → Work Area/Table 순서로 읽으면 자연스럽습니다.</li>
+        <li>같은 Work Area를 재사용할 때는 이전 값이 남지 않았는지 확인합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    다음 Lesson <strong>APPEND와 INSERT 기초</strong>에서는 선언한 Internal Table에 실제 줄을 추가하는 방법을 배웁니다.
+  </p>
+</section>

@@ -1,0 +1,142 @@
+<!-- lesson-content/THEORY-06-M04.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>지난 Lesson에서 Internal Table에 줄을 추가했습니다. 이번에는 <span class="glossary-term" data-glossary="LOOPATStatement">LOOP AT</span>과 <span class="glossary-term" data-glossary="INTOClause">INTO</span>를 사용해 전체 데이터를 한 줄씩 읽고, <span class="glossary-term" data-glossary="WorkArea">Work Area</span>로 처리하는 흐름을 익힙니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 여러 줄 데이터는 한 줄씩 읽어야 한다 🧭</h2>
+  <p>
+    Internal Table에 데이터가 들어갔다면 이제 그 데이터를 사용해야 합니다. 여러 줄이 들어 있는 표를 한 번에 눈으로 이해하기 어렵듯, 프로그램도 보통 한 줄씩 꺼내 처리합니다.
+  </p>
+  <p>
+    ABAP에서 Internal Table의 모든 줄을 순서대로 읽을 때 가장 기본이 되는 문법이 <code>LOOP AT ... INTO ... ENDLOOP</code>입니다. 이름 그대로 “이 표를 돌면서 한 줄씩 이 변수에 넣어줘”라는 뜻입니다.
+  </p>
+  <blockquote>
+    LOOP AT은 Internal Table의 줄들을 순서대로 지나가는 읽기 루프입니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>2. LOOP AT / INTO / ENDLOOP 구조 보기 🔁</h2>
+  <pre><code>LOOP AT lt_students INTO ls_student.
+  WRITE: / ls_student-id, ls_student-name, ls_student-score.
+ENDLOOP.</code></pre>
+  <ul>
+    <li><span class="glossary-term" data-glossary="LOOPATStatement">LOOP AT</span>: Internal Table을 처음 줄부터 마지막 줄까지 반복합니다.</li>
+    <li><span class="glossary-term" data-glossary="INTOClause">INTO</span>: 현재 줄의 값을 Work Area로 복사합니다.</li>
+    <li><code>ls_student</code>: 현재 처리 중인 한 줄입니다.</li>
+    <li><code>ENDLOOP</code>: 반복 구간이 끝났다는 표시입니다.</li>
+  </ul>
+  <p>
+    LOOP가 한 번 돌 때마다 <code>ls_student</code>에는 다른 줄이 들어옵니다. 첫 번째 반복에는 첫 번째 학생, 두 번째 반복에는 두 번째 학생이 들어오는 식입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 전체 예제로 출력 순서 확인하기 ✍️</h2>
+  <pre><code>REPORT zloop_at_basic.
+
+TYPES: BEGIN OF ty_student,
+         id    TYPE char3,
+         name  TYPE char20,
+         score TYPE i,
+       END OF ty_student.
+
+DATA: lt_students TYPE STANDARD TABLE OF ty_student,
+      ls_student  TYPE ty_student.
+
+ls_student-id = 'A01'.
+ls_student-name = 'Mina'.
+ls_student-score = 90.
+APPEND ls_student TO lt_students.
+
+CLEAR ls_student.
+ls_student-id = 'A02'.
+ls_student-name = 'Jun'.
+ls_student-score = 85.
+APPEND ls_student TO lt_students.
+
+LOOP AT lt_students INTO ls_student.
+  WRITE: / ls_student-id, ls_student-name, ls_student-score.
+ENDLOOP.</code></pre>
+  <p>
+    이 프로그램은 두 줄을 추가한 뒤, 추가된 순서대로 출력합니다. STANDARD TABLE은 기본적으로 들어간 순서를 유지하므로, 별도 정렬을 하지 않았다면 APPEND한 순서대로 LOOP가 돕니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>4. LOOP 안에서는 현재 줄만 보고 있다고 생각하기 🔍</h2>
+  <p>
+    LOOP 안쪽 코드에서는 Internal Table 전체가 아니라 “지금 Work Area에 들어온 한 줄”을 처리한다고 생각하면 쉽습니다.
+  </p>
+  <pre><code>LOOP AT lt_students INTO ls_student.
+  IF ls_student-score &gt;= 90.
+    WRITE: / ls_student-name, '우수'.
+  ELSE.
+    WRITE: / ls_student-name, '보통'.
+  ENDIF.
+ENDLOOP.</code></pre>
+  <p>
+    위 예제는 각 학생의 점수를 보고 문구를 다르게 출력합니다. 아직 Internal Table을 수정하는 것은 아니고, 한 줄씩 읽어서 조건에 따라 출력만 하는 흐름입니다.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>읽기와 수정은 구분하기</h4>
+      <p><code>LOOP AT ... INTO</code>는 현재 줄을 Work Area로 복사해 읽는 형태입니다. Internal Table 원본 줄을 바꾸는 문법은 뒤에서 별도로 더 정확히 다룹니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
+  <ul>
+    <li>✅ <strong>정상 흐름:</strong> Internal Table에 줄이 있으면 첫 줄부터 마지막 줄까지 LOOP 본문이 실행됩니다.</li>
+    <li>✅ <strong>빈 테이블:</strong> Internal Table이 비어 있으면 LOOP 본문은 한 번도 실행되지 않습니다. 오류가 아니라 처리할 줄이 없는 상태입니다.</li>
+    <li>❌ <strong>ENDLOOP 누락:</strong> LOOP를 열고 닫지 않으면 문법 오류가 납니다.</li>
+    <li>❌ <strong>Work Area 타입 불일치:</strong> Internal Table의 줄 모양과 맞지 않는 Work Area를 쓰면 컴파일 단계에서 문제가 생깁니다.</li>
+    <li>❌ <strong>무거운 처리:</strong> LOOP 안에서 데이터베이스를 반복 호출하는 코드는 성능 문제가 되기 쉽습니다.</li>
+  </ul>
+  <p>
+    미니 실습으로 <code>score &gt;= 90</code>인 학생만 출력하도록 조건을 넣어보세요. 출력 줄 수가 조건에 따라 줄어들면 LOOP 흐름을 제대로 잡은 것입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>LOOP 안에서 느린 일을 반복하지 않기</h4>
+      <p>Internal Table을 LOOP로 도는 것은 흔한 일이지만, LOOP 안에서 SELECT를 반복하거나 무거운 Function Module을 계속 호출하면 성능이 급격히 나빠질 수 있습니다. 초심자 단계에서는 “반복문 안에는 반복 횟수만큼 비용이 쌓인다”를 꼭 기억하세요.</p>
+    </div>
+  </div>
+  <p>
+    이번 Lesson은 전체 데이터를 읽는 기초에 집중합니다. 조건 검색, 정렬, 성능 좋은 탐색, MODIFY 같은 변경 작업은 뒤 Section에서 더 깊게 다룹니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>전체 읽기 핵심</h4>
+      <ul>
+        <li><strong>LOOP AT</strong>은 Internal Table의 줄을 처음부터 끝까지 반복합니다.</li>
+        <li><strong>INTO</strong>는 현재 줄을 Work Area로 복사해 담습니다.</li>
+        <li>LOOP 안에서는 현재 Work Area의 한 줄을 처리한다고 생각하면 쉽습니다.</li>
+        <li>빈 Internal Table은 LOOP 본문을 실행하지 않을 뿐, 그 자체가 오류는 아닙니다.</li>
+        <li>LOOP 안의 무거운 처리는 반복 횟수만큼 비용이 커지므로 주의합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    다음 Lesson <strong>READ TABLE 기본 검색</strong>에서는 전체를 다 돌지 않고 특정 조건의 한 줄을 찾아보는 방법을 배웁니다.
+  </p>
+</section>
