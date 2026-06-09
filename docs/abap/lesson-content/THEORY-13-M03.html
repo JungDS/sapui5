@@ -1,0 +1,101 @@
+<!-- lesson-content/THEORY-13-M03.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>선택 화면의 입력 칸을 상황에 따라 숨기거나 비활성화하는 <span class="glossary-term" data-glossary="AtSelectionScreenOutput">AT SELECTION-SCREEN OUTPUT</span>을 배웁니다. <span class="glossary-term" data-glossary="LoopAtScreen">LOOP AT SCREEN</span>과 <span class="glossary-term" data-glossary="ModifId">MODIF ID</span>로 화면을 동적으로 제어하는 감각을 잡습니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 화면을 "꾸미는" 타이밍 🎨</h2>
+  <p>
+    기본값을 채웠으니, 이번에는 화면 모양 자체를 바꿔봅니다. 예를 들어 사용자가 "상세 옵션 보기"를 켰을 때만 추가 입력 칸을 보여주고, 평소엔 숨기고 싶을 수 있습니다.
+  </p>
+  <p>
+    이렇게 <strong>화면이 그려지기 직전</strong>에 입력 칸의 상태(보임/숨김/입력가능)를 조정하는 이벤트가 <span class="glossary-term" data-glossary="AtSelectionScreenOutput">AT SELECTION-SCREEN OUTPUT</span>입니다. 화면이 다시 그려질 때마다 실행됩니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. LOOP AT SCREEN으로 칸 하나하나 손보기 ✍️</h2>
+  <p>
+    이 이벤트 안에서는 <span class="glossary-term" data-glossary="LoopAtScreen">LOOP AT SCREEN</span>으로 화면의 모든 요소를 한 바퀴 돌며, 각 칸의 속성을 바꿀 수 있습니다.
+  </p>
+  <pre><code>AT SELECTION-SCREEN OUTPUT.
+  LOOP AT SCREEN.
+    IF screen-name = 'P_DETAIL'.
+      screen-active = '0'.        "이 칸을 숨김 (0=숨김, 1=표시)
+      MODIFY SCREEN.              "변경을 실제 화면에 반영
+    ENDIF.
+  ENDLOOP.</code></pre>
+  <ul>
+    <li><strong><code>screen-active = '0'</code>:</strong> 칸을 숨깁니다.</li>
+    <li><strong><code>screen-input = '0'</code>:</strong> 보이되 입력은 막습니다(회색 비활성).</li>
+    <li><strong><code>MODIFY SCREEN</code>:</strong> 바꾼 속성을 실제로 적용합니다. 빼먹으면 안 바뀝니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>3. MODIF ID로 그룹 단위 제어 🏷️</h2>
+  <p>
+    칸이 여러 개라면 이름을 하나하나 비교하기 번거롭습니다. 이때 <span class="glossary-term" data-glossary="ModifId">MODIF ID</span>로 칸들을 <strong>그룹</strong>으로 묶어 한 번에 제어합니다.
+  </p>
+  <pre><code>PARAMETERS: p_a TYPE c MODIF ID grp,
+            p_b TYPE c MODIF ID grp.
+
+AT SELECTION-SCREEN OUTPUT.
+  LOOP AT SCREEN.
+    IF screen-group1 = 'GRP'.     "MODIF ID가 GRP인 칸 전부
+      screen-active = '0'.
+      MODIFY SCREEN.
+    ENDIF.
+  ENDLOOP.</code></pre>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>비유: 무대 조명 그룹</h4>
+      <p>조명을 하나씩 켜고 끄는 대신, "왼쪽 조명 그룹"을 한 번에 끄는 것과 같아요. MODIF ID가 그 '그룹 이름표'예요.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <ul>
+    <li>✅ <strong>정상:</strong> 조건에 따라 칸이 자연스럽게 나타났다 사라지고, 화면이 깔끔해집니다.</li>
+    <li>❌ <strong>오류 1:</strong> <code>MODIFY SCREEN</code>을 빼먹어 속성이 반영되지 않음(가장 흔한 실수).</li>
+    <li>❌ <strong>오류 2:</strong> 이 이벤트는 화면 재표시마다 실행되므로, 안에서 무거운 로직을 돌리면 화면이 버벅입니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>"안 보인다"고 "값이 없다"는 아닙니다</h4>
+      <p>칸을 숨겨도(<code>screen-active = 0</code>) 그 변수에는 값이 남아 있을 수 있습니다. 숨긴 칸의 값이 뒤 로직에 영향을 주면 안 되는 경우, 숨길 때 값도 함께 비우는(<code>CLEAR</code>) 처리를 고려하세요. 화면에서 안 보이는 것과 데이터가 없는 것은 별개입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li><strong>AT SELECTION-SCREEN OUTPUT</strong>은 화면이 그려지기 직전, 칸 상태를 조정합니다.</li>
+        <li><strong>LOOP AT SCREEN</strong> + <code>screen-active/input</code> + <strong>MODIFY SCREEN</strong>으로 제어합니다.</li>
+        <li><strong>MODIF ID</strong>로 칸을 그룹으로 묶어 한 번에 보이거나 숨깁니다.</li>
+        <li>숨김 ≠ 값 없음. 필요하면 CLEAR로 값도 비웁니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    화면 모양을 다뤘으니, 이제 사용자가 넣은 값이 올바른지 확인할 차례입니다. 다음 Lesson <strong>AT SELECTION-SCREEN 입력 검증</strong>에서 잘못된 입력을 막는 법을 배웁니다.
+  </p>
+</section>
