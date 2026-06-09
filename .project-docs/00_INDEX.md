@@ -1,6 +1,6 @@
 # .project-docs 인덱스
 
-SAP Developer Learning Library 운영 분석 문서. 2026-06-05 재분석 기준으로 **새 구조로 재작성**했다.
+SAP Developer Learning Library 운영 분석 문서. 2026-06-09 18:11 기준으로 **최신화 갱신**했다.
 (구 00~10 문서는 `archive/project-docs/20260605/`에 원본 보존)
 
 ## 문서 지도

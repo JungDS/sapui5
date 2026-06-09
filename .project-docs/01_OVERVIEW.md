@@ -12,11 +12,10 @@
 - 데이터: `data/*.json`(내비 카탈로그·이력), `reference/*.json`(커리큘럼 원천 데이터, 런타임 fetch)
 - 도구: `tools/*.mjs` (Node 생성 스크립트)
 
-## 현재 단계 (2026-06-05)
+## 현재 단계 (2026-06-09 18:11)
 - **Stage 7 셸 리팩토링은 완료.** 모든 운영 문서가 `docs/` 경로 + page-type 기반 셸을 사용.
 - **현재 미결 과제 2개:**
-  1. **ABAP 커리큘럼 화면 디자인 확정** — `docs/roadmap`에 다수 버전 샘플(codex/claude/antigravity)을
-     만들어 비교 중. 사실상 최신 후보는 `codex-v8_sampleA`. (→ [06](06_ABAP_CURRICULUM.md))
+  1. **ABAP 커리큘럼 진행 중** — 01~18번 커리큘럼 신규 작성 완료 및 단일 네이비(Navy) ABAP Editor UI 서식/복사 애니메이션 확정 적용 완료. (→ [06](06_ABAP_CURRICULUM.md))
   2. **폴더/자산 정리** — asset 파일명 간결화, 미사용 정리, 문서 구조 정돈. (→ [07](07_DECISIONS_AND_ROADMAP.md))
 
 ## 문서 규모
