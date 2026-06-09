@@ -1,0 +1,122 @@
+<!-- lesson-content/THEORY-05-M01.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>지금까지는 코드를 위에서 아래로 쭉 작성했습니다. 이번 Chapter에서는 코드를 작은 단위로 나누는 ABAP 모듈화의 첫걸음을 배웁니다. 가장 기초적인 <span class="glossary-term" data-glossary="FORMStatement">FORM</span>, <span class="glossary-term" data-glossary="PERFORMStatement">PERFORM</span>, <span class="glossary-term" data-glossary="Subroutine">Subroutine</span>의 역할을 이해합니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 Chapter 연결: 코드가 길어지면 길을 잃는다 🧭</h2>
+  <p>
+    THEORY-04까지 우리는 입력값을 받고, 검증하고, 출력하는 흐름을 배웠습니다. 처음에는 코드가 짧아서 위에서 아래로 읽으면 됩니다. 하지만 입력값이 많아지고, 검증이 늘고, 출력도 복잡해지면 한 프로그램 안이 금방 길어집니다.
+  </p>
+  <p>
+    긴 코드는 처음에는 “한 파일에 다 있으니 편하다”처럼 보이지만, 시간이 지나면 어디가 입력 검증이고 어디가 출력인지 찾기 어려워집니다. 그래서 관련 있는 코드를 작은 이름 붙은 덩어리로 나눕니다. 이것이 모듈화의 출발점입니다.
+  </p>
+  <blockquote>
+    모듈화는 코드를 숨기는 기술이 아니라, 코드를 읽기 좋은 작은 방으로 나누는 기술입니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>2. Subroutine은 이름 붙은 코드 묶음 📦</h2>
+  <p>
+    <span class="glossary-term" data-glossary="Subroutine">Subroutine</span>은 프로그램 안에서 반복해서 실행할 수 있는 작은 코드 묶음입니다. ABAP의 전통적인 Subroutine 문법이 <code>FORM ... ENDFORM</code>이고, 그 Subroutine을 호출하는 문법이 <code>PERFORM</code>입니다.
+  </p>
+  <ul>
+    <li><strong>FORM:</strong> 코드 묶음을 정의합니다. “이름 붙은 작업 상자”를 만드는 단계입니다.</li>
+    <li><strong>PERFORM:</strong> 정의된 FORM을 실행합니다. “저 작업 상자를 지금 실행해줘”라고 부르는 단계입니다.</li>
+    <li><strong>ENDFORM:</strong> FORM 정의가 끝났다는 표시입니다.</li>
+  </ul>
+  <p>
+    요즘 신규 설계에서는 Class와 Method를 더 많이 권장하지만, 기존 SAP 현장 코드에는 FORM/PERFORM이 여전히 많이 남아 있습니다. 읽고 고칠 수 있어야 하는 중요한 기초입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 가장 작은 FORM / PERFORM 예제 ✍️</h2>
+  <pre><code>REPORT zform_basic.
+
+PERFORM display_header.
+WRITE: / '본문 내용을 출력합니다.'.
+
+FORM display_header.
+  WRITE: / '=== ABAP 모듈화 연습 ==='.
+ENDFORM.</code></pre>
+  <p>
+    위 프로그램은 먼저 <code>PERFORM display_header.</code>로 <code>display_header</code>라는 Subroutine을 호출합니다. 그러면 아래에 정의된 <code>FORM display_header.</code> 안의 코드가 실행되고, 다시 원래 위치로 돌아와 본문 출력이 이어집니다.
+  </p>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>읽는 순서와 실행 순서</h4>
+      <p>FORM 정의가 코드 아래쪽에 있어도 PERFORM으로 호출할 수 있습니다. 하지만 사람은 위에서 아래로 읽기 때문에, FORM 이름을 보고 무슨 일을 하는지 바로 알 수 있게 짓는 것이 중요합니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 언제 FORM으로 나누면 좋을까? 🧩</h2>
+  <p>
+    FORM은 “이 코드는 한 가지 일을 한다”라고 이름 붙일 수 있을 때 나누기 좋습니다.
+  </p>
+  <ul>
+    <li><code>check_input</code>: 입력값 검증</li>
+    <li><code>read_data</code>: 데이터 읽기</li>
+    <li><code>display_result</code>: 결과 출력</li>
+    <li><code>build_message</code>: 메시지 만들기</li>
+  </ul>
+  <p>
+    이름을 붙였는데도 설명이 길어지면 그 FORM은 너무 많은 일을 하고 있을 가능성이 큽니다. 처음에는 완벽하게 나누려 하기보다, “읽는 사람이 큰 흐름을 빨리 찾을 수 있게 하자”를 목표로 잡으면 됩니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
+  <ul>
+    <li>✅ <strong>정상 흐름:</strong> <code>PERFORM display_header.</code>가 실행되고, <code>FORM display_header.</code> 안의 출력문이 실행됩니다.</li>
+    <li>❌ <strong>이름 불일치:</strong> <code>PERFORM display_head.</code>라고 호출했는데 FORM 이름이 <code>display_header</code>이면 호출 대상을 찾지 못해 오류가 납니다.</li>
+    <li>❌ <strong>ENDFORM 누락:</strong> FORM을 열고 닫지 않으면 문법 오류가 납니다.</li>
+    <li>❌ <strong>과한 분리:</strong> 한 줄짜리 의미 없는 코드를 너무 많이 FORM으로 나누면 오히려 읽기 어려워질 수 있습니다.</li>
+  </ul>
+  <p>
+    미니 실습으로 제목 출력, 입력값 출력, 마무리 문장 출력을 각각 FORM으로 나누어 실행해보세요. Output List의 순서가 호출 순서대로 보이면 성공입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>FORM은 기존 코드 이해용으로 매우 중요하지만, 신규 설계의 유일한 답은 아닙니다</h4>
+      <p>FORM/PERFORM은 오래된 ABAP 코드에서 많이 보입니다. 하지만 새 개발에서는 Function Module이나 Class Method가 더 적합한 경우가 많습니다. “FORM을 배웠으니 항상 FORM으로 나누자”가 아니라, 기존 코드를 읽는 기초와 모듈화 감각을 얻는 단계로 이해하세요.</p>
+    </div>
+  </div>
+  <p>
+    또한 FORM이 전역 변수에 너무 많이 의존하면, 어디서 값이 바뀌는지 추적하기 어려워집니다. 다음 Lesson에서 USING과 CHANGING으로 값을 주고받는 방법을 배우면 이 문제를 조금 더 명확히 다룰 수 있습니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li><strong>Subroutine</strong>은 이름 붙은 코드 묶음입니다.</li>
+        <li><strong>FORM</strong>은 Subroutine을 정의하고, <strong>PERFORM</strong>은 그 Subroutine을 호출합니다.</li>
+        <li>모듈화는 긴 코드를 읽기 좋은 작은 단위로 나누는 일입니다.</li>
+        <li>FORM 이름은 그 안에서 하는 일을 바로 알 수 있게 지어야 합니다.</li>
+        <li>FORM/PERFORM은 기존 코드 이해에 중요하지만, 신규 설계에서는 Class Method 등도 함께 고려합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    다음 Lesson <strong>USING / CHANGING 파라미터</strong>에서는 FORM과 값을 주고받는 방법을 배웁니다.
+  </p>
+</section>

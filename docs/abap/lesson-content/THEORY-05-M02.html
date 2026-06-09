@@ -1,0 +1,139 @@
+<!-- lesson-content/THEORY-05-M02.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>지난 Lesson에서 <span class="glossary-term" data-glossary="FORMStatement">FORM</span>과 <span class="glossary-term" data-glossary="PERFORMStatement">PERFORM</span>으로 코드를 나누었습니다. 이번에는 Subroutine과 값을 주고받는 <span class="glossary-term" data-glossary="USINGParameter">USING</span>, <span class="glossary-term" data-glossary="CHANGINGParameter">CHANGING</span>, <span class="glossary-term" data-glossary="ParameterPassing">Parameter Passing</span>을 배웁니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: FORM이 혼자 일하려면 재료가 필요하다 🧺</h2>
+  <p>
+    이전 Lesson에서 FORM으로 코드를 작은 작업 단위로 나누었습니다. 그런데 FORM 안에서 처리하려면 재료가 필요합니다. 예를 들어 이름을 받아 인사말을 만들거나, 금액을 받아 할인 후 금액을 계산하려면 값을 전달해야 합니다.
+  </p>
+  <p>
+    값을 전달하지 않고 전역 변수만 바라보는 FORM을 만들 수도 있지만, 그렇게 하면 FORM이 어떤 값에 의존하는지 읽기 어려워집니다. 그래서 FORM 호출 시 값을 명시적으로 넘기는 방법을 사용합니다.
+  </p>
+  <blockquote>
+    Parameter Passing은 FORM에게 “이 재료를 가지고 일해줘”라고 건네주는 과정입니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>2. USING: 값을 읽기 위해 전달하기 📥</h2>
+  <p>
+    <span class="glossary-term" data-glossary="USINGParameter">USING</span>은 FORM이 사용할 입력값을 전달할 때 씁니다. FORM 입장에서는 “읽어서 사용해야 할 값”입니다.
+  </p>
+  <pre><code>REPORT zform_using.
+
+PARAMETERS p_name TYPE string DEFAULT 'ABAP'.
+
+PERFORM greet_user USING p_name.
+
+FORM greet_user USING iv_name TYPE string.
+  WRITE: / '안녕하세요,', iv_name.
+ENDFORM.</code></pre>
+  <p>
+    <code>PERFORM greet_user USING p_name.</code>은 <code>p_name</code> 값을 FORM에게 전달합니다. FORM 안에서는 그 값을 <code>iv_name</code>이라는 이름으로 받아 사용합니다.
+  </p>
+  <p>
+    이름 앞의 <code>iv_</code>는 “importing/input value” 느낌의 관습적인 접두어로 볼 수 있습니다. 회사마다 네이밍 규칙은 다를 수 있습니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>3. CHANGING: 값을 바꿔서 돌려주기 🔁</h2>
+  <p>
+    <span class="glossary-term" data-glossary="CHANGINGParameter">CHANGING</span>은 FORM 안에서 값을 바꾸고, 그 바뀐 값을 호출한 쪽에서도 쓰고 싶을 때 사용합니다.
+  </p>
+  <pre><code>REPORT zform_changing.
+
+DATA gv_count TYPE i VALUE 0.
+
+PERFORM add_one CHANGING gv_count.
+
+WRITE: / '결과:', gv_count.
+
+FORM add_one CHANGING cv_count TYPE i.
+  cv_count = cv_count + 1.
+ENDFORM.</code></pre>
+  <p>
+    처음 <code>gv_count</code>는 0입니다. <code>add_one</code> FORM 안에서 1을 더하면, 호출한 쪽의 <code>gv_count</code>도 1로 바뀝니다. 그래서 출력 결과는 1입니다.
+  </p>
+  <blockquote>
+    USING은 주로 “읽기용 재료”, CHANGING은 “바뀌어서 돌아오는 재료”라고 기억하면 쉽습니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>4. USING과 CHANGING을 함께 쓰기 🧪</h2>
+  <p>
+    입력값은 USING으로 받고, 결과값은 CHANGING으로 돌려주는 형태도 자주 볼 수 있습니다.
+  </p>
+  <pre><code>REPORT zform_calc.
+
+DATA gv_amount TYPE i VALUE 100.
+DATA gv_total  TYPE i.
+
+PERFORM calc_total USING gv_amount CHANGING gv_total.
+
+WRITE: / '원금:', gv_amount,
+       / '결과:', gv_total.
+
+FORM calc_total USING iv_amount TYPE i
+                CHANGING cv_total TYPE i.
+  cv_total = iv_amount + 10.
+ENDFORM.</code></pre>
+  <p>
+    이 예제에서 <code>iv_amount</code>는 계산에 필요한 입력값이고, <code>cv_total</code>은 계산 결과를 담아 호출한 쪽으로 돌려주는 값입니다. 입력과 결과를 분리하면 FORM이 무슨 일을 하는지 더 잘 보입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
+  <ul>
+    <li>✅ <strong>정상 흐름:</strong> PERFORM의 USING/CHANGING 순서와 FORM 정의의 USING/CHANGING 순서가 맞으면 값이 정상 전달됩니다.</li>
+    <li>❌ <strong>순서 불일치:</strong> PERFORM에서 넘긴 값 순서와 FORM에서 받는 순서가 다르면 엉뚱한 값이 들어갈 수 있습니다.</li>
+    <li>❌ <strong>타입 불일치:</strong> 숫자를 기대하는 FORM에 문자열을 넘기면 변환 오류나 예상 못한 결과가 날 수 있습니다.</li>
+    <li>❌ <strong>CHANGING 남용:</strong> FORM 안에서 여러 값을 마구 바꾸면 호출한 쪽에서 어떤 값이 바뀌는지 추적하기 어렵습니다.</li>
+  </ul>
+  <p>
+    미니 실습으로 숫자 두 개를 USING으로 넘기고 합계를 CHANGING으로 돌려주는 FORM을 만들어보세요. 입력과 결과가 분리되는 느낌을 잡을 수 있습니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>Parameter는 FORM의 계약서입니다</h4>
+      <p>FORM이 어떤 값을 입력으로 받고 어떤 값을 바꿔서 돌려주는지 명확해야 합니다. USING과 CHANGING이 뒤섞여 있거나 이름이 모호하면, 나중에 코드를 수정할 때 어디서 값이 바뀌는지 찾기 어려워집니다.</p>
+    </div>
+  </div>
+  <p>
+    현대 ABAP에서는 Method의 IMPORTING, EXPORTING, CHANGING 파라미터로 더 명확하게 표현하는 경우가 많습니다. 하지만 FORM의 USING/CHANGING을 이해하면 기존 리포트 코드를 읽는 데 큰 도움이 됩니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li><strong>Parameter Passing</strong>은 FORM과 값을 주고받는 과정입니다.</li>
+        <li><strong>USING</strong>은 FORM이 읽어 사용할 입력값을 전달합니다.</li>
+        <li><strong>CHANGING</strong>은 FORM 안에서 바뀐 값을 호출한 쪽으로 돌려줍니다.</li>
+        <li>PERFORM과 FORM 정의의 파라미터 순서와 타입을 맞춰야 합니다.</li>
+        <li>값 변경이 많아질수록 FORM의 역할과 파라미터 이름을 더 명확히 해야 합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    다음 Lesson <strong>CALL FUNCTION 기본 구조</strong>에서는 프로그램 안 FORM을 넘어, 시스템에 등록된 Function Module을 호출하는 방법을 배웁니다.
+  </p>
+</section>

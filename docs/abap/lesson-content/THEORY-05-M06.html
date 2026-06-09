@@ -1,0 +1,121 @@
+<!-- lesson-content/THEORY-05-M06.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>THEORY-05의 마무리로 <span class="glossary-term" data-glossary="Modularization">Modularization</span> 도구를 선택하는 기준을 정리합니다. <span class="glossary-term" data-glossary="Subroutine">Subroutine</span>, Function Module, Class를 언제 고려할지 보고, <span class="glossary-term" data-glossary="Reuse">Reuse</span>와 <span class="glossary-term" data-glossary="Readability">Readability</span> 관점으로 판단하는 습관을 만듭니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 도구를 배웠으면 고르는 기준도 필요하다 🧭</h2>
+  <p>
+    이번 Chapter에서는 FORM/PERFORM, USING/CHANGING, CALL FUNCTION, Local Class, Global Class를 차례로 맛봤습니다. 이제 질문이 생깁니다. “그럼 실무에서는 뭘 써야 하나요?”
+  </p>
+  <p>
+    정답은 하나가 아닙니다. 기존 코드 구조, 재사용 범위, 팀 기준, 시스템 버전, ABAP Cloud 여부, 유지보수 난이도에 따라 선택이 달라집니다. 그래서 문법을 아는 것만큼 선택 기준을 갖는 것이 중요합니다.
+  </p>
+  <blockquote>
+    좋은 모듈화는 멋진 문법을 쓰는 것이 아니라, 다음 사람이 빨리 이해하고 안전하게 재사용할 수 있게 만드는 것입니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>2. Subroutine은 같은 프로그램 안의 작은 정리함 📦</h2>
+  <p>
+    FORM/PERFORM 기반 Subroutine은 같은 Report 안에서 코드를 나누는 데 유용합니다. 특히 오래된 리포트에서 입력 검증, 데이터 조회, 출력 같은 구역을 FORM으로 나눈 코드를 자주 만납니다.
+  </p>
+  <ul>
+    <li><strong>어울리는 경우:</strong> 기존 Report 안에서 작은 로직을 정리하거나 유지보수할 때</li>
+    <li><strong>장점:</strong> 구조가 단순하고 오래된 코드에서 익숙하게 보입니다.</li>
+    <li><strong>주의:</strong> 전역 변수 의존이 커지면 값 흐름을 추적하기 어렵습니다.</li>
+  </ul>
+  <p>
+    신규 설계에서 무조건 FORM을 선택하기보다는, 기존 코드 맥락과 팀 기준을 먼저 봐야 합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>3. Function Module은 시스템 공용 기능 단위 🧰</h2>
+  <p>
+    Function Module은 여러 프로그램에서 재사용할 수 있는 전통적인 공용 기능 단위입니다. 표준 SAP Function Module도 많고, 고객사에서 만든 Z Function Module도 있을 수 있습니다.
+  </p>
+  <ul>
+    <li><strong>어울리는 경우:</strong> 여러 프로그램에서 이미 사용하는 기능을 호출하거나, 기존 Function Module 기반 설계를 유지보수할 때</li>
+    <li><strong>장점:</strong> 시스템에 등록되어 재사용하기 쉽고, 인터페이스가 비교적 명확합니다.</li>
+    <li><strong>주의:</strong> 오래된 구현이나 비권장 표준 객체가 섞여 있을 수 있으므로 사용 가능성을 확인해야 합니다.</li>
+  </ul>
+  <p>
+    특히 Function Module 호출 후에는 예외와 <code>sy-subrc</code> 확인을 습관화해야 합니다. 공용 기능을 부른다는 것은 실패 가능성도 함께 다룬다는 뜻입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>4. Class는 현대 ABAP 설계의 중심축 🏛️</h2>
+  <p>
+    Class는 관련 데이터와 기능을 Method로 묶어 구조화하는 방식입니다. Local Class는 한 프로그램 안에서 정리할 때, Global Class는 여러 프로그램에서 재사용할 때 사용할 수 있습니다.
+  </p>
+  <ul>
+    <li><strong>어울리는 경우:</strong> 새 기능을 구조적으로 만들거나, 테스트·재사용·확장성을 고려할 때</li>
+    <li><strong>장점:</strong> 책임을 Method와 Class 단위로 나누기 좋고, 현대 ABAP/ABAP Cloud 방향과 잘 맞습니다.</li>
+    <li><strong>주의:</strong> 역할을 나누지 않은 거대한 Class는 읽기 어려운 FORM 덩어리와 다르지 않습니다.</li>
+  </ul>
+  <p>
+    OO ABAP의 깊은 설계 원칙은 THEORY-18에서 다루지만, 지금부터 “새로운 재사용 설계는 Class를 먼저 떠올린다”는 감각을 가져가면 좋습니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 선택 기준: Reuse와 Readability로 생각하기 🔍</h2>
+  <p>
+    <span class="glossary-term" data-glossary="Reuse">Reuse</span>는 같은 기능을 여러 곳에서 다시 쓸 수 있는지, <span class="glossary-term" data-glossary="Readability">Readability</span>는 코드를 읽는 사람이 빠르게 이해할 수 있는지를 뜻합니다.
+  </p>
+  <ul>
+    <li><strong>현재 프로그램 안에서만 쓰는 작은 로직:</strong> 기존 코드라면 FORM, 새 코드라면 Local Class Method도 고려</li>
+    <li><strong>여러 프로그램이 공유하는 기존 기능:</strong> 이미 있는 Function Module이나 Global Class 재사용 검토</li>
+    <li><strong>새로 만드는 공용 업무 로직:</strong> Global Class와 Method 중심 설계 우선 검토</li>
+    <li><strong>단순 반복 제거:</strong> 문법보다 이름과 책임이 명확한지가 먼저</li>
+  </ul>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>초심자 판단 문장</h4>
+      <p>“이 로직은 어디서 다시 쓰일까?”, “다음 사람이 이름만 보고 이해할까?”, “값이 어디서 들어오고 어디서 바뀔까?” 이 세 질문만 해도 모듈화 품질이 확 좋아집니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>새 문법이 항상 좋은 설계를 보장하지는 않습니다</h4>
+      <p>Class를 쓴다고 자동으로 Clean Code가 되는 것도 아니고, FORM을 쓴다고 무조건 나쁜 코드가 되는 것도 아닙니다. 중요한 것은 책임이 작고 명확한지, 입력과 출력이 드러나는지, 표준과 고객사 기준에 맞는지입니다.</p>
+    </div>
+  </div>
+  <p>
+    또한 기존 시스템에서는 과거 방식과 현대 방식이 섞여 있습니다. 기존 코드를 존중하며 읽되, 새로 만드는 로직은 팀의 최신 기준과 SAP 권장 방향을 확인해 선택해야 합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>THEORY-05 마무리 핵심</h4>
+      <ul>
+        <li><strong>Modularization</strong>은 코드를 작고 의미 있는 단위로 나누는 설계 습관입니다.</li>
+        <li><strong>Subroutine</strong>은 같은 프로그램 안의 전통적인 코드 묶음입니다.</li>
+        <li><strong>Function Module</strong>은 시스템에 등록된 전통적인 공용 기능 단위입니다.</li>
+        <li><strong>Class</strong>는 현대 ABAP에서 재사용과 구조화를 위한 중요한 중심축입니다.</li>
+        <li>도구 선택은 Reuse, Readability, 기존 코드 맥락, 팀 기준, SAP 권장 방향을 함께 보고 결정합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    다음 Chapter <strong>Internal Table 기초</strong>에서는 한 줄 데이터가 아니라 여러 줄 데이터를 메모리에서 다루는 ABAP의 핵심 도구를 배웁니다.
+  </p>
+</section>

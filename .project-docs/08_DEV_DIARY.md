@@ -11,4 +11,4 @@
 
 ## 📅 일자별 기록 목록
 - [2026-06-08 (Lesson 뷰어 아키텍처 개편 및 용어 사전 UI 구축)](changelogs/CHANGELOG_20260608.md)
-- [2026-06-09 (THEORY-01-M02~M06 초심자 친화 피드백 반영 재작성)](changelogs/CHANGELOG_20260609.md)
+- [2026-06-09 (ABAP Track 1 Lesson 본문 재보강 및 양산)](changelogs/CHANGELOG_20260609.md)

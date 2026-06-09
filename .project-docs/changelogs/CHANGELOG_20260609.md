@@ -66,3 +66,17 @@
 - **Value Table 오해 방지**: Domain의 Value Table을 실제 Foreign Key 검증과 혼동하기 쉬워, M02에서 “후보/힌트”와 “실제 관계”를 반복적으로 분리해 설명했습니다.
 - **입력 도움말과 검증의 경계**: F4 Help가 보인다고 업무 권한이나 모든 검증이 끝난 것은 아니므로, Search Help는 편의 기능이고 최종 업무 검증은 별도 로직이 필요하다는 점을 여러 Lesson에 분산해 강조했습니다.
 - **후속 주제 확장 제한**: `AT SELECTION-SCREEN`, 고급 Search Help Exit, 복잡한 권한 검증은 후속 심화 범위로 남기고, 이번 섹션은 DDIC 관계와 F4 Help 기본 원리에 집중했습니다.
+
+---
+
+## Codex THEORY-05 작업 상세 내용
+- `THEORY-05-M01` ~ `THEORY-05-M06` 6개 Lesson 본문 조각을 신규 작성했습니다.
+- `FORM / PERFORM`, `USING / CHANGING`, `CALL FUNCTION`, Local Class, Global Class, 모듈화 선택 기준을 JSON 지침 순서대로 구성했습니다.
+- 각 Lesson을 “지난 Lesson 연결 → 왜 필요한가 → 무엇인가 → 최소 예제 → 정상/오류 흐름 → 실무 주의 → 한눈에 정리” 흐름으로 작성했습니다.
+- `FORMStatement`, `PERFORMStatement`, `FunctionModule`, `CALLFUNCTION`, `LocalClass`, `GlobalClass`, `StaticMethod`, `InstanceMethod`, `Modularization` 등 THEORY-05 용어 23종을 글로서리에 추가했습니다.
+- 글로서리 미정의 검증과 로컬 뷰어 확인(`THEORY-05-M01`, `M03`, `M06`)을 완료했습니다.
+
+## Codex THEORY-05 고민했던 점 및 설계 이유
+- **레거시와 신규 설계의 균형**: ABAP 현장에서는 FORM과 Function Module을 읽어야 하는 일이 많지만, 신규 설계 감각은 Class 중심으로 가야 하므로 “이해해야 하는 문법”과 “새로 만들 때 우선 고려할 선택지”를 분리해 설명했습니다.
+- **파라미터 방향 혼동 줄이기**: `USING`, `CHANGING`, Function Module의 `EXPORTING / IMPORTING`은 초심자가 가장 쉽게 방향을 헷갈리는 부분이라, 호출자 기준과 모듈 기준을 반복적으로 풀어 썼습니다.
+- **OO 범위 조절**: Local/Global Class는 이번 섹션에서 맛보기만 다루고, 상속·인터페이스·예외 클래스 같은 설계 심화는 THEORY-18로 넘겼습니다.

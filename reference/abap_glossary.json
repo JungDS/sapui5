@@ -387,7 +387,7 @@
     "title": "String (문자열 타입)",
     "desc": "길이가 유동적인 텍스트를 담는 ABAP 기본 타입입니다. 메시지나 설명처럼 길이가 일정하지 않은 문자열에 편리합니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 길이에 맞춰 늘어나는 메모지처럼, 짧은 글도 긴 글도 담을 수 있습니다.",
-    "used_in_lessons": ["THEORY-02-M06"],
+    "used_in_lessons": ["THEORY-02-M06", "THEORY-05-M03"],
     "design_theme": "code",
     "html_content": ""
   },
@@ -605,6 +605,190 @@
     "everyday_analogy": "이해하기 쉬운 일상 사례: 앱에서 '비밀번호가 틀렸습니다'라고 알려주는 알림창과 같아요.",
     "used_in_lessons": ["THEORY-04-M06"],
     "design_theme": "code",
+    "html_content": ""
+  },
+  "FORMStatement": {
+    "title": "FORM 문",
+    "desc": "ABAP 프로그램 안에서 Subroutine을 정의하는 전통적인 문법입니다. ENDFORM과 짝을 이룹니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 자주 하는 일을 '청소하기'라는 체크리스트로 따로 적어두는 것과 같아요.",
+    "used_in_lessons": ["THEORY-05-M01", "THEORY-05-M02"],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "PERFORMStatement": {
+    "title": "PERFORM 문",
+    "desc": "FORM으로 정의한 Subroutine을 실행하는 ABAP 문법입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 체크리스트에 적어둔 '청소하기' 작업을 지금 실행하라고 부르는 것과 같아요.",
+    "used_in_lessons": ["THEORY-05-M01", "THEORY-05-M02"],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "Subroutine": {
+    "title": "Subroutine (서브루틴)",
+    "desc": "프로그램 안에서 이름을 붙여 재사용할 수 있는 작은 코드 묶음입니다. ABAP에서는 전통적으로 FORM/PERFORM으로 작성합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 요리 레시피 중 '소스 만들기' 부분을 따로 떼어 이름 붙인 작은 레시피와 같아요.",
+    "used_in_lessons": ["THEORY-05-M01", "THEORY-05-M06"],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "USINGParameter": {
+    "title": "USING 파라미터",
+    "desc": "FORM 호출 시 Subroutine이 읽어 사용할 입력값을 전달하는 파라미터 구역입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 요리사에게 재료를 건네주며 '이걸로 요리해줘'라고 말하는 것과 같아요.",
+    "used_in_lessons": ["THEORY-05-M02"],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "CHANGINGParameter": {
+    "title": "CHANGING 파라미터",
+    "desc": "FORM 안에서 값이 변경되고, 변경된 값이 호출한 쪽으로 다시 돌아오는 파라미터 구역입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 수선집에 옷을 맡기면 고쳐진 옷이 다시 돌아오는 것과 같아요.",
+    "used_in_lessons": ["THEORY-05-M02"],
+    "design_theme": "warn",
+    "html_content": ""
+  },
+  "ParameterPassing": {
+    "title": "Parameter Passing (파라미터 전달)",
+    "desc": "프로그램의 한 처리 단위가 다른 처리 단위에 값을 넘기고 결과를 받는 과정입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 주문서에 필요한 정보를 적어 담당자에게 넘기고 처리 결과를 받는 흐름과 같아요.",
+    "used_in_lessons": ["THEORY-05-M02"],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "FunctionModule": {
+    "title": "Function Module (함수 모듈)",
+    "desc": "SAP 시스템에 등록되어 여러 프로그램에서 호출할 수 있는 전통적인 ABAP 재사용 기능 단위입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 회사 공용 프린터처럼 여러 사람이 같은 기능을 함께 빌려 쓰는 도구와 같아요.",
+    "used_in_lessons": ["THEORY-05-M03"],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "CALLFUNCTION": {
+    "title": "CALL FUNCTION 문",
+    "desc": "Function Module을 호출해 실행하는 ABAP 문법입니다. EXPORTING, IMPORTING, CHANGING, TABLES 등의 구역으로 값을 주고받습니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 공용 도구함에 있는 기능 버튼을 눌러 작업을 맡기는 것과 같아요.",
+    "used_in_lessons": ["THEORY-05-M03"],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "ImportingParameter": {
+    "title": "IMPORTING 파라미터",
+    "desc": "Function Module이나 Method가 호출자에게 돌려주는 결과값을 받는 파라미터 방향입니다. CALL FUNCTION 문에서는 호출자가 결과를 받는 구역으로 보입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 세탁소에 맡긴 뒤 깨끗해진 옷을 다시 받아오는 것과 같아요.",
+    "used_in_lessons": ["THEORY-05-M03"],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "ExportingParameter": {
+    "title": "EXPORTING 파라미터",
+    "desc": "호출자가 Function Module이나 Method에 넘겨주는 입력값을 적는 파라미터 방향입니다. CALL FUNCTION에서는 호출자가 함수로 보내는 값입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 수리점에 고장난 물건과 요청서를 맡기는 것과 같아요.",
+    "used_in_lessons": ["THEORY-05-M03"],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "ChangingParameterFM": {
+    "title": "CHANGING 파라미터 (Function/Method)",
+    "desc": "값을 호출 대상에 넘기고, 처리 중 변경된 값을 다시 돌려받는 파라미터 방향입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 초안을 보내고, 담당자가 수정한 최종본을 다시 받는 것과 같아요.",
+    "used_in_lessons": ["THEORY-05-M03"],
+    "design_theme": "warn",
+    "html_content": ""
+  },
+  "TablesParameter": {
+    "title": "TABLES 파라미터",
+    "desc": "Function Module에서 내부 테이블 형태의 여러 줄 데이터를 주고받기 위해 사용되던 전통적인 파라미터 방식입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 한 장짜리 메모가 아니라 여러 줄이 있는 엑셀 표 전체를 주고받는 것과 같아요.",
+    "used_in_lessons": ["THEORY-05-M03"],
+    "design_theme": "warn",
+    "html_content": "<p>현대 ABAP에서는 명확한 테이블 타입을 IMPORTING/EXPORTING/CHANGING으로 다루거나 Class Method를 사용하는 설계도 많습니다.</p>"
+  },
+  "LocalClass": {
+    "title": "Local Class (로컬 클래스)",
+    "desc": "하나의 ABAP 프로그램 안에 정의되어 그 프로그램 안에서 주로 사용하는 Class입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 내 책상 위에서만 쓰는 개인 도구함과 같아요.",
+    "used_in_lessons": ["THEORY-05-M04"],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "ClassDefinition": {
+    "title": "CLASS DEFINITION",
+    "desc": "ABAP Class가 어떤 Method와 Attribute를 제공하는지 선언하는 부분입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 식당 메뉴판처럼 어떤 기능을 제공하는지 먼저 보여주는 목록입니다.",
+    "used_in_lessons": ["THEORY-05-M04"],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "ClassImplementation": {
+    "title": "CLASS IMPLEMENTATION",
+    "desc": "CLASS DEFINITION에서 선언한 Method의 실제 처리 코드를 작성하는 부분입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 메뉴판 뒤의 실제 조리법과 같아요.",
+    "used_in_lessons": ["THEORY-05-M04"],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "MethodCall": {
+    "title": "Method Call (메서드 호출)",
+    "desc": "Class에 정의된 Method를 실행하는 문법입니다. Static Method는 =>, Instance Method는 -> 기호로 호출합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 리모컨에서 특정 버튼을 눌러 정해진 기능을 실행하는 것과 같아요.",
+    "used_in_lessons": ["THEORY-05-M04"],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "GlobalClass": {
+    "title": "Global Class (전역 클래스)",
+    "desc": "Repository Object로 관리되어 여러 ABAP 프로그램에서 재사용할 수 있는 Class입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 회사 공용 장비실에 있는 도구처럼 여러 팀이 함께 사용할 수 있는 도구함입니다.",
+    "used_in_lessons": ["THEORY-05-M05"],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "SE24Transaction": {
+    "title": "SE24 (Class Builder)",
+    "desc": "SAP GUI에서 Global Class를 조회, 생성, 변경할 때 사용하는 전통적인 트랜잭션 코드입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 공용 도구함의 설계도와 사용 설명서를 열어보는 관리 화면과 같아요.",
+    "used_in_lessons": ["THEORY-05-M05"],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "StaticMethod": {
+    "title": "Static Method (정적 메서드)",
+    "desc": "객체를 생성하지 않고 Class 이름으로 바로 호출할 수 있는 Method입니다. ABAP에서는 보통 => 기호로 호출합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 계산기 앱을 켜자마자 바로 덧셈 버튼을 누르는 것처럼, 별도 준비물 없이 쓰는 기능입니다.",
+    "used_in_lessons": ["THEORY-05-M05"],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "InstanceMethod": {
+    "title": "Instance Method (인스턴스 메서드)",
+    "desc": "객체를 생성한 뒤 그 객체 참조를 통해 호출하는 Method입니다. ABAP에서는 보통 -> 기호로 호출합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 자전거를 실제로 한 대 꺼낸 뒤 그 자전거의 브레이크를 잡는 것과 같아요.",
+    "used_in_lessons": ["THEORY-05-M05"],
+    "design_theme": "warn",
+    "html_content": ""
+  },
+  "Modularization": {
+    "title": "Modularization (모듈화)",
+    "desc": "긴 프로그램을 작고 의미 있는 처리 단위로 나누어 재사용성과 유지보수성을 높이는 설계 방식입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 큰 방 하나에 모든 물건을 던져두지 않고, 옷장·책장·서랍으로 나눠 정리하는 것과 같아요.",
+    "used_in_lessons": ["THEORY-05-M06"],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "Reuse": {
+    "title": "Reuse (재사용)",
+    "desc": "같은 기능이나 타입을 여러 곳에서 다시 사용할 수 있게 설계하는 원칙입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 매번 새 양식을 만들지 않고 검증된 신청서 양식을 복사해 쓰는 것과 같아요.",
+    "used_in_lessons": ["THEORY-05-M06"],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "Readability": {
+    "title": "Readability (가독성)",
+    "desc": "코드를 읽는 사람이 의도와 흐름을 빠르게 이해할 수 있는 정도입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 정리된 필기 노트처럼, 처음 보는 사람도 제목과 문단만 보고 흐름을 따라갈 수 있는 상태입니다.",
+    "used_in_lessons": ["THEORY-05-M06"],
+    "design_theme": "primary",
     "html_content": ""
   }
 }
