@@ -13,7 +13,7 @@
 ---
 
 ## 현재 상태 및 목표 (Current Status & Goals)
-- **현재 목표**: Track 1(THEORY-*) Lesson 본문 작성. 총 137개 중 **109개(THEORY-01~THEORY-17) 작성 완료. 28개 남음**.
+- **현재 목표**: Track 1(THEORY-*) Lesson 본문 작성. 총 137개 중 **116개(THEORY-01~THEORY-18) 작성 완료. 21개 남음**.
 - **최근 진행(2026-06-09, Claude Opus 4.8)**: Codex 미커밋 THEORY-10 보존 후 **THEORY-11~17 신규 작성**(JOIN과 집계 / Classic DDIC View / Report Event 심화 / Dynpro 기초 / Grid ALV 기초 / Modern ABAP Syntax / New Open SQL). Codex 톤·구조 계승. 글로서리 +111종(섹션별 완전 패리티), 매 섹션 미정의 0건 검증. 추적 3종 동시 갱신.
 - **⚠️ 동시 작업 주의**: Gemini(Antigravity)가 같은 작업트리에서 THEORY-01~10 고도화(Chapter/Lesson 명칭·Shiki 복사버튼) 병행 중. 콘텐츠 범위는 안 겹치나(나는 11~21) 공유 문서/`git add -A`로 인한 커밋 혼입 주의. 신규 Lesson도 Chapter/Lesson 용어 사용.
 - **⚠️ 인계 핵심 문서**: 이어서 작업할 AI는 **[HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md)를 가장 먼저 정독**할 것. 작성 규칙·스타일 기준·복붙용 프롬프트가 모두 거기 있음.
@@ -21,7 +21,7 @@
 ---
 
 ## 미결 사항 (Pending Issues / Next Steps)
-- **Lesson 본문 양산**: 다음은 **THEORY-18 ~ THEORY-21 (28개)**. 현재 확정된 10·20대 초심자 친화적 스타일과 "한눈에 정리" 마무리 방식을 그대로 적용한다. Track 2(PRACTICAL-*)는 그 다음.
+- **Lesson 본문 양산**: 다음은 **THEORY-19 ~ THEORY-21 (21개)**. 현재 확정된 10·20대 초심자 친화적 스타일과 "한눈에 정리" 마무리 방식을 그대로 적용한다. Track 2(PRACTICAL-*)는 그 다음.
 - **[프로세스] 섹션 작성 후 추적 3종 동시 갱신**: 섹션 커밋 시 ① `HANDOFF_LESSON_CONTENT.md` 진행표 ② 본 파일(99_AI_SYNC) 작업이력/현황 ③ `changelogs/CHANGELOG_<날짜>.md`를 함께 갱신할 것(누락 주의).
 - **글로서리 완전 패리티**: Lesson에서 쓰는 주요 용어는 `reference/abap_glossary.json`에 반드시 함께 등록(일상 비유 포함). 미등록 용어는 툴팁이 안 뜸(깨진 링크).
 - (선택) Lesson 내 퀴즈·실습 코드 블록 등 상호작용 컴포넌트 고도화.
@@ -176,3 +176,11 @@
 - **수정 파일**: `docs/abap/lesson-content/THEORY-15~17-*.html`, `reference/abap_glossary.json`, `.project-docs/HANDOFF_LESSON_CONTENT.md`, `99_AI_SYNC.md`, `changelogs/CHANGELOG_20260609.md`
 - **주의(동시 작업)**: Gemini 커밋 `07b5a7f`이 THEORY-17 M01~M06을 함께 담아감(내용 보존). M07·글로서리는 본 커밋으로 마감.
 - **다음 AI를 위한 메모**: 다음 섹션은 THEORY-18 `OO ABAP 기본 설계`(M01~M07). Work Log는 섹션마다 항목을 즉시 추가할 것(현황/CHANGELOG만 갱신하지 말 것).
+
+### [2026-06-09] Claude (Opus 4.8) — THEORY-18 신규
+- **작업 내용**: THEORY-18 OO ABAP 기본 설계(M01~M07) 신규 작성.
+  - 클래스/객체 개념, 속성·메서드·Visibility(캡슐화), 생성자, Static vs Instance Method, 인터페이스/다형성, 예외 클래스(TRY...CATCH/RAISE EXCEPTION), 상속/재정의.
+  - 글로서리 +14종. 미정의 0건 검증(총 304종).
+- **수정 파일**: `docs/abap/lesson-content/THEORY-18-M01~M07.html`, `reference/abap_glossary.json`, `.project-docs/HANDOFF_LESSON_CONTENT.md`, `99_AI_SYNC.md`, `changelogs/CHANGELOG_20260609.md`
+- **참고(동시 작업)**: Gemini가 THEORY-11~18 코드블록에 Shiki 복사버튼을 입히는 중(콘텐츠 보존, glossary 태그 영향 없음). 같은 작업트리라 커밋 시 현재 on-disk 상태를 그대로 포함.
+- **다음 AI를 위한 메모**: 다음 섹션은 THEORY-19 `SALV / Grid ALV 표시 제어 심화`(M01~M07).
