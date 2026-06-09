@@ -4,110 +4,124 @@
   <div class="lesson-callout-icon">🎯</div>
   <div class="lesson-callout-content">
     <h4>학습 목표</h4>
-    <p><span class="glossary-term" data-glossary="DataElement">Data Element</span>가 방금 전 배운 <span class="glossary-term" data-glossary="Domain">Domain</span> 위에 어떻게 <strong>의미(Semantic)</strong>와 <span class="glossary-term" data-glossary="FieldLabel">필드 라벨(Field Label)</span>을 예쁘게 입히는지 배웁니다. 왜 테이블에서 Domain을 바로 쓰지 않고 굳이 Data Element를 거치는지, 그 깊은 뜻을 이해해 봅니다.</p>
+    <p>지난 Lesson에서 만든 <span class="glossary-term" data-glossary="Domain">Domain</span> 위에 <span class="glossary-term" data-glossary="SemanticMeaning">Semantic Meaning</span>과 <span class="glossary-term" data-glossary="FieldLabel">Field Label</span>을 입히는 <span class="glossary-term" data-glossary="DataElement">Data Element</span>를 배웁니다. “왜 그냥 Domain을 바로 테이블에 쓰면 안 되나요?”라는 초보자의 자연스러운 질문에 답할 수 있게 되는 것이 오늘의 목표입니다.</p>
   </div>
 </div>
 
 <section class="lesson-section">
-  <h2>1. 지난 시간 요약 & Data Element란 무엇인가? 🏷️</h2>
+  <h2>1. 지난 시간 연결: 재질만으로는 부족하다 🏷️</h2>
   <p>
-    이전 Lesson에서 우리는 데이터의 "재질"을 결정하는 <strong><span class="glossary-term" data-glossary="Domain">Domain</span></strong>을 만들었습니다. 그런데 문제가 하나 있습니다. Domain은 "이건 3자리 문자(<code>CHAR 3</code>)야!"라는 것만 알 뿐, 그게 무엇을 뜻하는지는 전혀 모른다는 것입니다. 똑같은 <code>CHAR 3</code> 재질이라도 어떨 때는 '항공사 코드'일 수도 있고, 어떨 때는 '통화 코드'일 수도 있잖아요?
+    이전 Lesson에서 우리는 Domain을 만들며 “항공사 코드는 <code>CHAR 3</code>이다”처럼 데이터의 재질을 정했습니다. 그런데 여기서 살짝 멈춰볼게요. <code>CHAR 3</code>이라는 정보만 보고 사람이 그 값의 뜻을 바로 알 수 있을까요?
   </p>
   <p>
-    바로 여기서 등장하는 것이 <strong><span class="glossary-term" data-glossary="DataElement">Data Element(데이터 엘리먼트)</span></strong>입니다. Data Element는 재질(Domain) 위에 <strong>'의미(Semantic)'와 '화면에 보여줄 이름표(Label)'</strong>를 붙여주는 역할을 하는 핵심 부품입니다.
+    <code>KE</code>가 항공사 코드인지, 국가 코드인지, 내부 부서 코드인지 Domain만 보고는 모릅니다. <span class="glossary-term" data-glossary="DataType">Data Type</span>과 길이는 기술적으로 중요하지만, 화면을 보는 사용자에게는 “이 칸에 무엇을 입력해야 하는지”가 더 중요합니다.
   </p>
-  
+  <blockquote>
+    Domain이 “이 칸은 3자리 문자야”라고 말한다면, Data Element는 “이 칸은 항공사 코드야. 화면에는 항공사 코드라고 보여줘”라고 말합니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>2. Data Element는 의미와 이름표를 붙이는 단계 💬</h2>
+  <p>
+    <span class="glossary-term" data-glossary="DataElement">Data Element</span>는 Domain 위에 사람이 이해할 수 있는 <strong>의미</strong>를 붙입니다. SAP 문서에서는 이런 의미를 <span class="glossary-term" data-glossary="SemanticMeaning">Semantic Meaning</span>이라고 부릅니다. 어렵게 들리지만, 쉽게 말하면 “이 값이 업무적으로 무엇을 뜻하는가?”입니다.
+  </p>
+  <ul>
+    <li><strong>Domain:</strong> 기술적 재질입니다. 예: <code>CHAR 3</code></li>
+    <li><strong>Data Element:</strong> 업무적 의미입니다. 예: <code>항공사 코드</code></li>
+    <li><strong>Table Field:</strong> 실제 테이블의 한 칸입니다. 예: 항공편 테이블의 <code>CARRID</code></li>
+  </ul>
   <div class="lesson-callout">
     <div class="lesson-callout-icon">🔗</div>
     <div class="lesson-callout-content">
-      <h4>3단 조립 구조를 꼭 기억하세요!</h4>
-      <p>SAP의 필드는 아래에서 위로 조립되는 <strong>상향식(Bottom-Up) 구조</strong>를 가집니다.</p>
-      <ol>
-        <li><strong>Domain:</strong> 재질 결정 (예: <code>CHAR 3</code>)</li>
-        <li><strong>Data Element:</strong> 의미 부여 (예: 이 <code>CHAR 3</code>는 "항공사 코드"임 + 이름표 달기)</li>
-        <li><strong>Table Field:</strong> 최종 사용 (실제 테이블에서 이 Data Element를 가져다 씀)</li>
-      </ol>
+      <h4>조립 순서 다시 보기</h4>
+      <p><strong>Domain → Data Element → Table Field</strong> 순서로 올라갑니다. 이 구조를 이해하면 DDIC가 갑자기 복잡한 미로가 아니라, 레고처럼 차근차근 쌓는 조립 방식으로 보이기 시작합니다.</p>
     </div>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>2. 필드 라벨(Field Label) — 화면에 뜨는 예쁜 글자 📋</h2>
+  <h2>3. Field Label 4종: 화면에 자동으로 뜨는 이름표 📋</h2>
   <p>
-    Data Element의 가장 중요한 임무 중 하나는 바로 <strong><span class="glossary-term" data-glossary="FieldLabel">필드 라벨(Field Label)</span></strong>을 설정하는 것입니다. 화면에 덩그러니 입력 칸만 있으면 사용자가 뭘 입력해야 할지 모르겠죠? 그래서 길이별로 4종류의 라벨을 미리 등록해 둡니다.
+    Data Element에서 초심자가 꼭 봐야 하는 칸이 <span class="glossary-term" data-glossary="FieldLabel">Field Label</span>입니다. 화면이나 리포트에 필드를 보여줄 때, SAP는 Data Element에 저장된 라벨을 가져와 자동으로 제목을 붙입니다.
   </p>
   <ul>
-    <li><strong>Short (짧은):</strong> 최대 10자. 공간이 아주 좁은 표의 머리글로 쓰입니다. (예: "항공사")</li>
-    <li><strong>Medium (중간):</strong> 최대 20자. 일반적인 화면의 필드 이름표로 자주 쓰입니다. (예: "항공사 코드")</li>
-    <li><strong>Long (긴):</strong> 최대 40자. 공간이 아주 넉넉할 때 자세히 보여줍니다. (예: "해당 비행기의 항공사 코드")</li>
-    <li><strong>Heading (제목):</strong> 리포트나 ALV(목록 화면)의 컬럼(열) 제목으로 전용으로 쓰입니다.</li>
+    <li><strong>Short:</strong> 아주 좁은 칸에서 쓰는 짧은 라벨입니다. 예: <code>항공사</code></li>
+    <li><strong>Medium:</strong> 일반 입력 화면에서 자주 쓰는 기본 라벨입니다. 예: <code>항공사 코드</code></li>
+    <li><strong>Long:</strong> 설명을 조금 더 자세히 보여줄 여유가 있을 때 씁니다. 예: <code>항공편의 항공사 코드</code></li>
+    <li><strong>Heading:</strong> 리스트나 ALV의 컬럼 제목으로 자주 쓰입니다. 예: <code>항공사</code></li>
   </ul>
-  
+  <p>
+    이 라벨은 작은 기능처럼 보이지만, 실무에서는 엄청난 생산성 차이를 만듭니다. 같은 Data Element를 100개 화면에서 쓰고 있다면, 라벨 하나를 바꾸는 것만으로 100개 화면의 제목이 함께 정리될 수 있습니다. 이것이 DDIC 재사용의 맛입니다.
+  </p>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">✨</div>
+    <div class="lesson-callout-content">
+      <h4>학습지 포인트</h4>
+      <p>처음에는 Short, Medium, Long, Heading의 차이가 귀찮아 보여도 괜찮습니다. “화면 공간에 따라 SAP가 적당한 이름표를 골라 쓰려고 4종류를 준비해 둔다”라고 기억하면 충분합니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>4. F1 Help와 문서화: 사용자를 위한 작은 설명서 📖</h2>
+  <p>
+    Data Element는 라벨만 담당하지 않습니다. 사용자가 SAP 화면에서 어떤 필드에 커서를 두고 <span class="glossary-term" data-glossary="F1Help">F1 Help</span>를 누르면, 그 필드의 설명 문서가 나타날 수 있습니다. 이 설명도 Data Element의 Documentation 영역에서 관리합니다.
+  </p>
+  <p>
+    예를 들어 <code>CARRID</code> 필드에 “항공편을 운항하는 항공사를 식별하는 코드입니다”라고 문서를 달아두면, 개발자뿐 아니라 현업 사용자도 도움말을 통해 의미를 확인할 수 있습니다. 단순히 코드를 짜는 것이 아니라, <strong>사용자가 덜 헤매게 만드는 친절함</strong>까지 DDIC에 담는 셈입니다.
+  </p>
+  <ul>
+    <li>✅ <strong>정상 흐름:</strong> Data Element에 라벨과 Documentation을 입력합니다. 화면 필드가 자동으로 읽기 쉬운 이름과 도움말을 갖습니다.</li>
+    <li>❌ <strong>부족한 흐름:</strong> 라벨을 비워두거나 너무 짧게 적습니다. 화면에는 애매한 약어가 뜨고, 사용자는 “이 칸이 뭐지?” 하고 멈춥니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 왜 Domain을 바로 쓰지 않을까? 🤔</h2>
+  <p>
+    이 질문은 아주 좋습니다. 처음 배우는 입장에서는 Domain도 있고 Data Element도 있으니 “왜 굳이 두 번 만들지?”라는 생각이 자연스럽습니다. 답은 <strong>분업</strong>과 <strong>재사용</strong>입니다.
+  </p>
+  <ul>
+    <li><strong>재질만 같고 의미가 다른 경우:</strong> 출발 공항과 도착 공항은 둘 다 <code>CHAR 3</code>일 수 있습니다. 하지만 화면 라벨과 의미가 다르므로 Data Element는 나누는 것이 좋습니다.</li>
+    <li><strong>의미까지 같은 경우:</strong> 회사 코드처럼 SAP 표준 Data Element가 의미와 라벨까지 딱 맞는다면, 새로 만들지 말고 표준을 재사용하는 것이 좋습니다.</li>
+    <li><strong>라벨만 바꾸고 싶은 경우:</strong> Data Element만 수정하면 됩니다. 굳이 Domain의 기술적 재질을 건드릴 필요가 없습니다.</li>
+  </ul>
   <blockquote>
-    <strong>놀라운 자동화 마법:</strong> 이 Data Element에 한 번만 라벨을 정성껏 입력해 두세요. 그러면 이 부품을 가져다 쓰는 <strong>수많은 화면, 수많은 리포트 프로그램</strong>이 자동으로 똑같은 한글 제목을 달고 화면에 튀어나옵니다! 화면을 만들 때마다 일일이 글자를 칠 필요가 없어지는 엄청난 생산성의 비밀입니다.
+    핵심은 이겁니다. Domain은 기계가 이해할 규칙에 가깝고, Data Element는 사람과 화면이 이해할 설명에 가깝습니다.
   </blockquote>
-
-  <p>
-    보너스로 하나 더! 사용자가 어떤 입력 칸에 마우스를 두고 키보드 <strong>F1(도움말)</strong> 키를 누르면 나오는 상세한 텍스트 설명도 바로 이 Data Element에서 관리(Documentation)합니다.
-  </p>
 </section>
 
 <section class="lesson-section">
-  <h2>3. 굳이 이렇게 나눠서 쓰는 이유가 뭘까? 🤔</h2>
-  <p>
-    초보자분들이 가장 많이 하는 질문입니다. <em>"아니, 그냥 테이블에다가 바로 '이건 3자리 문자고 이름은 항공사 코드야'라고 쓰면 편하지 않나요? 왜 Domain 만들고, 그걸로 또 Data Element 만들고 귀찮게 2번 일하나요?"</em>
-  </p>
-  <p>정답은 <strong>철저한 분업과 완벽한 재사용</strong> 때문입니다.</p>
-
-  <ul>
-    <li>✅ <strong>일관성의 끝판왕:</strong> 'BUKRS(회사코드)'라는 Data Element를 100개의 테이블이 공유한다고 해봅시다. 나중에 회사 정책이 바뀌어서 화면에 표시되는 이름을 "회사코드"에서 "법인코드"로 바꿔야 한다면? 저 Data Element 라벨 딱 한 군데만 "법인코드"로 고치면, 100개 테이블을 쓰는 수백 개의 화면 이름이 <strong>한 방에 1초 만에 전부 다 바뀝니다.</strong></li>
-    <li>✅ <strong>위험 분산:</strong> 재질(길이·타입)은 Domain이 관리하고, 의미(라벨·뜻)는 Data Element가 나눠서 관리하죠? 라벨(이름표)만 바꾸고 싶을 때 시스템에 부담을 주는 Domain을 건드릴 필요 없이 Data Element만 쏙 고치면 훨씬 안전합니다.</li>
-  </ul>
-</section>
-
-<section class="lesson-section">
-  <h2>4. 실무에서 조심해야 할 점 🚨</h2>
-  <p>Data Element를 설계할 때 주의해야 할 핵심 포인트를 알려드릴게요.</p>
-
+  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
   <div class="lesson-callout warn">
     <div class="lesson-callout-icon">⚠️</div>
     <div class="lesson-callout-content">
-      <h4>"길이가 같다고 아무 Data Element나 막 쓰면 안 됩니다!"</h4>
-      <p>
-        '출발 공항'과 '도착 공항'은 둘 다 3자리 문자(<code>CHAR 3</code>)입니다. 재질(Domain)은 똑같은 걸 재사용해도 됩니다. 하지만 Data Element를 똑같은 걸 쓰면 어떻게 될까요? 화면에 둘 다 이름표가 똑같이 "공항"이라고 떠서 사용자가 헷갈리게 됩니다! 
-      </p>
-      <p>
-        따라서 <strong>의미와 화면 표시 라벨이 달라야 한다면</strong>, 재질(Domain)이 같더라도 Data Element는 각각 '출발 공항용', '도착 공항용'으로 <strong>따로 만들어야</strong> 합니다.
-      </p>
+      <h4>길이가 같다고 같은 Data Element를 쓰면 안 됩니다</h4>
+      <p><code>출발 공항</code>과 <code>도착 공항</code>은 둘 다 3자리 문자일 수 있습니다. 하지만 두 필드의 의미는 다릅니다. 같은 Data Element를 쓰면 화면 라벨도 같아지고, 도움말도 같아져서 사용자가 헷갈릴 수 있습니다. 재질이 같아도 업무 의미가 다르면 Data Element를 분리하세요.</p>
     </div>
   </div>
-
   <p>
-    물론 반대로, SAP가 만들어둔 표준 Data Element(<code>BUKRS</code>, <code>MATNR</code> 등)의 의미와 라벨이 내가 만들려는 것과 <strong>정확히 똑같다면</strong> 절대로 새로 만들지 말고 표준을 재사용하는 것이 베스트 프랙티스입니다!
+    반대로, SAP 표준 Data Element의 의미와 라벨이 내가 원하는 것과 정확히 맞는다면 커스텀으로 새로 만들 필요가 없습니다. 표준을 재사용하면 다른 프로그램과 용어가 맞아지고, 나중에 유지보수할 사람도 훨씬 빨리 이해합니다.
   </p>
 </section>
 
 <section class="lesson-section">
-  <h2>5. 한눈에 정리 🏁</h2>
-  
+  <h2>7. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">
-      <h4>오늘의 요약</h4>
+      <h4>오늘의 핵심만 딱 잡기</h4>
       <ul>
-        <li><strong>Data Element</strong>는 의미 없는 재질(Domain)에 <strong>'의미'와 '이름표(Field Label)'</strong>를 달아주는 역할을 합니다.</li>
-        <li>Data Element에 설정한 길이별 <strong>필드 라벨(Short, Medium, Long, Heading)</strong>은 모든 화면과 프로그램에서 자동으로 통일되어 출력됩니다. (번거로운 수작업 안녕!)</li>
-        <li>테이블을 만들 때는 Domain을 직접 쓰지 않고 항상 Data Element를 거쳐서 사용합니다. 이는 철저한 분업과 유지보수의 편의를 위한 SAP만의 천재적인 설계입니다.</li>
-        <li>재질이 같아도 화면에 띄울 이름이나 의미가 다르면 Data Element는 별도로 분리해야 합니다.</li>
+        <li><strong>Data Element</strong>는 Domain의 재질 위에 업무 의미와 화면 라벨을 붙입니다.</li>
+        <li><strong>Semantic Meaning</strong>은 “이 값이 업무적으로 무엇인가?”라는 뜻입니다.</li>
+        <li><strong>Field Label</strong>은 Short, Medium, Long, Heading 4종류로 화면 표시를 도와줍니다.</li>
+        <li><strong>F1 Help</strong> 문서화를 통해 사용자와 개발자에게 필드 설명을 제공할 수 있습니다.</li>
+        <li>재질이 같아도 의미가 다르면 Data Element를 분리하고, 의미까지 같으면 표준을 먼저 재사용합니다.</li>
       </ul>
     </div>
   </div>
-
   <p>
-    자, 여기까지 우리는 <strong>재질(Domain) + 의미(Data Element)</strong>를 완벽하게 결합하여 어디 내놔도 손색없는 훌륭한 "낱개 필드 부품" 하나를 완성했습니다.
-  </p>
-  <p>
-    하지만 실무에서 데이터는 혼자 다니지 않죠? 사원번호, 이름, 부서가 뭉쳐 다녀야 하나의 '사원 데이터'가 됩니다. 
-    다음 Lesson <strong>'Structure 기본 생성'</strong>에서는 지금까지 만든 낱개 부품들을 하나로 예쁘게 묶어주는 <strong>구조체(Structure)</strong>에 대해 배워보겠습니다. 가볼까요?
+    이제 낱개 필드에 재질과 의미를 모두 붙였습니다. 다음 Lesson <strong>Structure 기본 생성</strong>에서는 이렇게 만든 필드들을 한 줄짜리 데이터 꾸러미로 묶어보겠습니다.
   </p>
 </section>

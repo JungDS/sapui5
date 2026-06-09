@@ -3,7 +3,7 @@
     "title": "단일 진실 공급원 (SSOT)",
     "desc": "모든 데이터 요소를 오직 한 곳에서만 정의하고 관리하여, 데이터의 중복이나 불일치를 방지하는 아키텍처 원칙입니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 동아리 회비를 걷을 때, 여러 명이 각자 수첩에 적지 않고 오직 '총무 한 명의 엑셀 파일(한 곳)'에만 기록하는 것과 같아요. 그래야 나중에 금액이 달라져서 싸우는 일이 없겠죠?",
-    "used_in_lessons": ["THEORY-01-M01"],
+    "used_in_lessons": ["THEORY-01-M01", "THEORY-01-M02", "THEORY-01-M05"],
     "design_theme": "info",
     "html_content": "<p>ABAP에서는 <strong>DDIC (SAP Dictionary)</strong>가 시스템 전체 데이터의 SSOT 역할을 완벽하게 수행합니다.</p>"
   },
@@ -11,7 +11,7 @@
     "title": "SAP Dictionary (DDIC)",
     "desc": "SAP 시스템 내의 모든 데이터 정의(테이블, 데이터 타입 등)를 중앙 집중식으로 관리하고 보관하는 핵심 도구입니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 자동차 공장의 '표준 부품 규격서'와 같아요. 모든 부서가 이 규격서 하나만 보고 부품을 만들기 때문에 나중에 조립이 안 되는 불상사가 없습니다.",
-    "used_in_lessons": ["THEORY-01-M01"],
+    "used_in_lessons": ["THEORY-01-M01", "THEORY-01-M02"],
     "design_theme": "primary",
     "html_content": ""
   },
@@ -19,7 +19,7 @@
     "title": "DDL (Data Definition Language)",
     "desc": "데이터베이스에서 테이블과 같은 구조를 생성(CREATE), 수정(ALTER), 삭제(DROP)할 때 사용하는 SQL 명령어입니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 엑셀에서 새 시트를 만들거나 열(Column) 제목을 새로 추가하는 행위와 같습니다. 안의 데이터(내용물)가 아니라 '틀'을 바꾸는 작업입니다.",
-    "used_in_lessons": ["THEORY-01-M01"],
+    "used_in_lessons": ["THEORY-01-M01", "THEORY-01-M02"],
     "design_theme": "code",
     "html_content": ""
   },
@@ -51,8 +51,24 @@
     "title": "Data Type (데이터 타입)",
     "desc": "값이 문자(CHAR)인지, 숫자(NUMC·INT4·DEC)인지, 날짜(DATS)인지 등 데이터의 기본 종류입니다. Domain에서 길이와 함께 지정합니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 택배 상자에 '깨지는 물건', '냉장 보관' 같은 취급 라벨을 붙이는 것과 같아요. 내용물의 성격에 따라 다루는 방법이 달라집니다.",
+    "used_in_lessons": ["THEORY-01-M02", "THEORY-01-M03"],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "Length": {
+    "title": "Length (길이)",
+    "desc": "Domain에서 값이 실제로 저장될 수 있는 최대 자리수입니다. 문자 타입이라면 최대 글자 수, 숫자형 코드라면 최대 자릿수를 의미합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 필통에 연필이 몇 자루까지 들어가는지 정하는 것과 같아요. 필통 크기를 넘는 연필은 억지로 넣을 수 없습니다.",
     "used_in_lessons": ["THEORY-01-M02"],
     "design_theme": "code",
+    "html_content": "<p><strong>Output Length</strong>와 헷갈리지 마세요. Length는 저장 가능 크기, Output Length는 화면 표시 폭에 가깝습니다.</p>"
+  },
+  "OutputLength": {
+    "title": "Output Length (출력 길이)",
+    "desc": "값을 화면이나 리스트에 표시할 때 사용할 폭을 정하는 설정입니다. 내부 저장 길이와 같게 두는 경우가 많지만 역할은 다릅니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 실제 내용이 들어가는 서랍 크기(Length)와, 매대에서 그 상품을 보여주는 진열 공간(Output Length)이 따로 있는 것과 비슷해요.",
+    "used_in_lessons": ["THEORY-01-M02"],
+    "design_theme": "info",
     "html_content": ""
   },
   "FixedValue": {
@@ -71,6 +87,14 @@
     "design_theme": "primary",
     "html_content": ""
   },
+  "SemanticMeaning": {
+    "title": "Semantic Meaning (업무 의미)",
+    "desc": "데이터가 업무적으로 무엇을 뜻하는지 나타내는 의미입니다. 같은 CHAR 3이라도 항공사 코드인지 국가 코드인지 구분하는 기준입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 같은 빈 상자라도 '간식 상자'라고 라벨을 붙이면 무엇을 담아야 하는지 바로 알 수 있는 것과 같아요.",
+    "used_in_lessons": ["THEORY-01-M03"],
+    "design_theme": "primary",
+    "html_content": ""
+  },
   "FieldLabel": {
     "title": "필드 라벨 (Field Label)",
     "desc": "Data Element에 등록하는 화면 표시용 제목입니다. Short(10)·Medium(20)·Long(40)·Heading 4종류를 등록하면, 이를 쓰는 모든 화면·리포트·ALV가 자동으로 같은 제목을 답니다.",
@@ -79,11 +103,19 @@
     "design_theme": "info",
     "html_content": ""
   },
+  "F1Help": {
+    "title": "F1 Help (필드 도움말)",
+    "desc": "SAP 화면에서 필드에 커서를 두고 F1을 눌렀을 때 표시되는 설명 문서입니다. 보통 Data Element의 Documentation을 통해 관리합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 문제집 옆에 붙은 '힌트 보기' 버튼과 같아요. 막혔을 때 누르면 그 칸이 무엇인지 설명해 줍니다.",
+    "used_in_lessons": ["THEORY-01-M03"],
+    "design_theme": "info",
+    "html_content": ""
+  },
   "Structure": {
     "title": "Structure (구조체)",
     "desc": "여러 필드(컴포넌트)를 정해진 순서로 묶은 DDIC 타입입니다. 데이터를 영구 저장하지 않고, 프로그램이 한 줄씩 처리하는 '그릇(Work Area)' 모양을 정의합니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 칸이 나뉜 도시락 통과 같아요. 밥·반찬·국 자리가 정해져 있지만, 통 자체는 음식을 영구 보관하지 않고 담았다 비우는 그릇이죠.",
-    "used_in_lessons": ["THEORY-01-M04"],
+    "used_in_lessons": ["THEORY-01-M04", "THEORY-01-M05"],
     "design_theme": "primary",
     "html_content": "<p>영구 저장은 <strong>Transparent Table</strong>이 담당합니다.</p>"
   },
@@ -93,6 +125,22 @@
     "everyday_analogy": "이해하기 쉬운 일상 사례: 도시락 통(Structure) 안의 '밥 칸', '반찬 칸' 하나하나가 컴포넌트예요.",
     "used_in_lessons": ["THEORY-01-M04"],
     "design_theme": "code",
+    "html_content": ""
+  },
+  "WorkArea": {
+    "title": "Work Area (작업 영역)",
+    "desc": "ABAP 프로그램 실행 중 메모리에 잠깐 만들어지는 한 줄짜리 변수입니다. 보통 Structure와 같은 모양으로 선언해 데이터를 담고 처리합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 요리할 때 잠깐 재료를 올려두는 도마와 같아요. 요리가 끝나면 도마 위 재료는 치워지고 영구 보관되지는 않습니다.",
+    "used_in_lessons": ["THEORY-01-M04"],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "ReusableType": {
+    "title": "Reusable Type (재사용 가능한 타입)",
+    "desc": "한 번 정의해 여러 프로그램, 변수, 인터페이스에서 같은 데이터 모양으로 다시 사용할 수 있는 타입입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 매번 새 양식을 그리지 않고, 학교에서 정해둔 신청서 양식을 계속 복사해 쓰는 것과 같아요.",
+    "used_in_lessons": ["THEORY-01-M04"],
+    "design_theme": "primary",
     "html_content": ""
   },
   "TransparentTable": {
@@ -119,6 +167,14 @@
     "design_theme": "info",
     "html_content": ""
   },
+  "ClientDependent": {
+    "title": "Client-Dependent (클라이언트 종속)",
+    "desc": "MANDT 필드를 통해 클라이언트별로 데이터가 분리되는 테이블 성격입니다. 로그인한 클라이언트 기준으로 데이터가 자동 필터링됩니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 같은 건물 안에서도 각 층 출입증이 있어 자기 층 자료실만 열 수 있는 것과 같아요.",
+    "used_in_lessons": ["THEORY-01-M05"],
+    "design_theme": "info",
+    "html_content": ""
+  },
   "TechnicalSettings": {
     "title": "Technical Settings (기술 설정)",
     "desc": "Transparent Table을 활성화하기 위해 채우는 운영 설정입니다. 데이터 클래스(저장 영역), 크기 범주(예상 데이터 양), 버퍼링(캐싱 여부) 등을 지정합니다.",
@@ -127,6 +183,30 @@
     "design_theme": "info",
     "html_content": ""
   },
+  "DataClass": {
+    "title": "Data Class (데이터 클래스)",
+    "desc": "Transparent Table이 담을 데이터의 성격을 지정하는 기술 설정입니다. 마스터 데이터, 트랜잭션 데이터 등 저장 영역 운영 기준에 영향을 줍니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 창고에서 냉장 식품, 일반 택배, 문서 보관함을 서로 다른 구역에 두는 것과 비슷해요.",
+    "used_in_lessons": ["THEORY-01-M06"],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "SizeCategory": {
+    "title": "Size Category (크기 범주)",
+    "desc": "테이블에 앞으로 어느 정도 데이터가 쌓일지 알려주는 기술 설정입니다. 예상 데이터량에 따라 초기 저장 공간 운영에 참고됩니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 책 몇 권을 꽂을 작은 책꽂이가 필요한지, 수천 권을 둘 서가가 필요한지 미리 고르는 것과 같아요.",
+    "used_in_lessons": ["THEORY-01-M06"],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "Buffering": {
+    "title": "Buffering (버퍼링)",
+    "desc": "자주 읽고 거의 변하지 않는 테이블 데이터를 애플리케이션 서버 메모리에 올려 빠르게 조회하는 설정입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 자주 보는 단어장을 책상 위에 펼쳐두는 것과 같아요. 매번 책장까지 가지 않아 빨리 볼 수 있지만, 단어장이 자주 바뀌면 최신 내용 관리가 어려워집니다.",
+    "used_in_lessons": ["THEORY-01-M06"],
+    "design_theme": "warn",
+    "html_content": "<p>버퍼링은 성능에 도움이 될 수 있지만, 최신성이 중요한 트랜잭션 데이터에는 신중해야 합니다.</p>"
+  },
   "DataBrowser": {
     "title": "Data Browser (SE16 / SE16N)",
     "desc": "테이블에 실제로 담긴 데이터를 표 형태로 조회하는 도구입니다. SE11이 테이블의 '구조(설계도)'를 본다면, Data Browser는 그 안의 '내용물(데이터)'을 봅니다.",
@@ -134,5 +214,13 @@
     "used_in_lessons": ["THEORY-01-M06"],
     "design_theme": "code",
     "html_content": "<p>운영 시스템에서 SE16N으로 직접 데이터를 수정하는 것은 금물입니다(검증·로직 우회).</p>"
+  },
+  "TestData": {
+    "title": "Test Data (테스트 데이터)",
+    "desc": "개발이나 테스트 환경에서 기능 검증을 위해 넣어보는 임시 데이터입니다. 운영 업무 데이터와 구분해서 다뤄야 합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 새 펜이 잘 나오는지 확인하려고 연습장에 끄적여보는 글씨와 같아요. 진짜 계약서에 바로 쓰는 것이 아닙니다.",
+    "used_in_lessons": ["THEORY-01-M06"],
+    "design_theme": "primary",
+    "html_content": ""
   }
 }

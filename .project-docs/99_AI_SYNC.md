@@ -13,14 +13,14 @@
 ---
 
 ## 현재 상태 및 목표 (Current Status & Goals)
-- **현재 목표**: Track 1(THEORY-*) 전체 Lesson 본문(`docs/abap/lesson-content/<ID>.html`)을 순서대로 작성. 총 137개 중 6개(THEORY-01 M01~M06) 작성 완료 및 피드백(초심자 친화, 요약 마무리 추가 등) 반영 완료. **131개 남음**.
-- **최근 진행(2026-06-09, Antigravity IDE)**: THEORY-01-M02~M06을 사용자 피드백에 맞춰 전면 재작성함. 분량을 대폭 늘리고 각 레슨 마지막에 "한눈에 정리 🏁" 섹션을 추가하여 친절한 서술로 개선.
+- **현재 목표**: Track 1(THEORY-*) Lesson 본문 작성. 총 137개 중 6개(THEORY-01 M01~M06) 작성 완료, M02~M06은 사용자 확인용 재보강까지 완료. **131개 남음**.
+- **최근 진행(2026-06-09, Codex)**: THEORY-01-M02~M06만 범위로 제한해 초심자 학습지 톤을 추가 보강함. `Length`, `Output Length`, `Work Area`, `Buffering` 등 주요 용어 글로서리도 함께 추가하고 미정의 0건을 확인함.
 - **⚠️ 인계 핵심 문서**: 이어서 작업할 AI는 **[HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md)를 가장 먼저 정독**할 것. 작성 규칙·스타일 기준·복붙용 프롬프트가 모두 거기 있음.
 
 ---
 
 ## 미결 사항 (Pending Issues / Next Steps)
-- **Lesson 본문 양산**: THEORY-02 ~ THEORY-21 (131개). 현재 확정된 10·20대 초심자 친화적 스타일과 "한눈에 정리" 마무리 방식을 그대로 적용하여 신규 작성할 것. Track 2(PRACTICAL-*)는 그 다음.
+- **Lesson 본문 양산**: THEORY-02 ~ THEORY-21 (131개). 사용자가 THEORY-01 재보강 결과를 확인한 뒤 별도 지시하면 진행할 것. 현재 확정된 10·20대 초심자 친화적 스타일과 "한눈에 정리" 마무리 방식을 그대로 적용한다. Track 2(PRACTICAL-*)는 그 다음.
 - **글로서리 완전 패리티**: Lesson에서 쓰는 주요 용어는 `reference/abap_glossary.json`에 반드시 함께 등록(일상 비유 포함). 미등록 용어는 툴팁이 안 뜸(깨진 링크).
 - (선택) Lesson 내 퀴즈·실습 코드 블록 등 상호작용 컴포넌트 고도화.
 
@@ -50,3 +50,11 @@
   - 진행 현황 문서(HANDOFF) 및 AI_SYNC 업데이트.
 - **수정 파일**: `docs/abap/lesson-content/THEORY-01-M02~M06.html`, `.project-docs/HANDOFF_LESSON_CONTENT.md`, `.project-docs/99_AI_SYNC.md`
 - **다음 AI를 위한 메모**: 이후 THEORY-02부터 작성 시 이번에 재작성된 THEORY-01-M02의 스타일과 분량을 꼭 참조하여 작성 바랍니다.
+
+### [2026-06-09] Codex (GPT-5)
+- **작업 내용**:
+  - 사용자 지시에 따라 범위를 THEORY-01-M02~M06 재보강으로 제한하고, THEORY-02 이후 신규 작성은 진행하지 않음.
+  - M02~M06을 "지난 Lesson 연결 → 왜 필요한가 → 무엇인가 → 설정/확인 → 정상/오류 흐름 → 실무 주의 → 한눈에 정리" 흐름으로 재정렬.
+  - 글로서리 신규 용어 11종 추가 및 기존 `used_in_lessons` 일부 보정, 미정의 0건 확인.
+- **수정 파일**: `docs/abap/lesson-content/THEORY-01-M02~M06.html`, `reference/abap_glossary.json`, `.project-docs/HANDOFF_LESSON_CONTENT.md`, `.project-docs/99_AI_SYNC.md`
+- **다음 AI를 위한 메모**: 사용자가 재보강 결과를 확인한 뒤 지시하기 전까지 THEORY-02 신규 작성은 보류.
