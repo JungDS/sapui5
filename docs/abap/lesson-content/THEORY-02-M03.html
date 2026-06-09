@@ -1,0 +1,131 @@
+<!-- lesson-content/THEORY-02-M03.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>지난 Lesson에서 선언한 변수와 상수를 <span class="glossary-term" data-glossary="WRITEStatement">WRITE</span>로 화면에 출력합니다. ABAP Report가 만드는 <span class="glossary-term" data-glossary="OutputList">Output List</span>의 느낌을 잡고, 줄바꿈과 간단한 <span class="glossary-term" data-glossary="FormattingBasic">Formatting Basic</span>을 익힙니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 담은 값을 눈으로 확인하기 👀</h2>
+  <p>
+    이전 Lesson에서 <code>DATA</code>로 변수, <code>CONSTANTS</code>로 상수를 만들었습니다. 그런데 프로그램 안에 값이 들어갔다고 해도, 화면에 보여주지 않으면 초보자는 제대로 들어갔는지 확인하기 어렵습니다.
+  </p>
+  <p>
+    그래서 가장 먼저 배우는 출력 문법이 <span class="glossary-term" data-glossary="WRITEStatement">WRITE</span>입니다. 웹 개발의 <code>console.log</code>처럼 “일단 화면에 찍어서 확인해보자”에 가까운 역할을 합니다. 다만 ABAP Report에서는 그 결과가 <span class="glossary-term" data-glossary="OutputList">Output List</span>라는 리스트 화면에 나타납니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. WRITE의 가장 기본 모양 🖨️</h2>
+  <p>
+    <code>WRITE</code> 뒤에 출력하고 싶은 값이나 문자를 적고 마침표로 끝내면 됩니다.
+  </p>
+  <pre><code>REPORT zwrite_basic.
+
+DATA gv_name TYPE string.
+gv_name = 'ABAP Learner'.
+
+WRITE 'Hello'.
+WRITE gv_name.</code></pre>
+  <p>
+    위 코드는 <code>Hello</code>와 변수 <code>gv_name</code>의 값을 출력합니다. 처음에는 예쁘게 정렬하는 것보다 “내가 넣은 값이 보인다”는 감각이 더 중요합니다.
+  </p>
+  <blockquote>
+    WRITE는 학습과 간단한 확인에 아주 좋습니다. 하지만 실무의 표 형태 화면은 나중에 ALV에서 더 체계적으로 배웁니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>3. Slash(/)로 줄바꿈하기 ↩️</h2>
+  <p>
+    Output List에서 새 줄로 내려가고 싶으면 <code>/</code>를 사용합니다. 콜론 <code>:</code>과 쉼표 <code>,</code>를 함께 쓰면 여러 WRITE를 한 문장처럼 묶을 수 있습니다.
+  </p>
+  <pre><code>REPORT zwrite_lines.
+
+DATA gv_name TYPE string VALUE 'JUN'.
+DATA gv_age  TYPE i      VALUE 20.
+
+WRITE: / '이름:', gv_name,
+       / '나이:', gv_age.</code></pre>
+  <ul>
+    <li><code>WRITE:</code>는 이어지는 출력 항목들을 묶어줍니다.</li>
+    <li><code>/</code>는 새 줄에서 출력하라는 뜻입니다.</li>
+    <li><code>,</code>는 다음 출력 항목이 이어진다는 표시입니다.</li>
+  </ul>
+  <p>
+    처음에는 문법 기호가 많아 보이지만, “콜론으로 묶고, 슬래시로 줄을 바꾸고, 쉼표로 이어간다”라고 읽으면 됩니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 기본 Formatting: 보기 좋게 살짝 다듬기 ✨</h2>
+  <p>
+    <span class="glossary-term" data-glossary="FormattingBasic">Formatting Basic</span>은 출력 결과를 아주 간단히 보기 좋게 만드는 기본 기술입니다. 이번 단계에서는 깊게 들어가지 않고, 날짜와 숫자, 라벨을 함께 출력하는 정도만 잡습니다.
+  </p>
+  <pre><code>REPORT zwrite_format.
+
+DATA gv_score TYPE i VALUE 95.
+
+WRITE: / '오늘 날짜:', sy-datum,
+       / '점수:', gv_score.</code></pre>
+  <p>
+    여기서 <code>sy-datum</code>은 시스템 날짜입니다. 아직 시스템 필드는 M06에서 더 자세히 다루므로, 지금은 “SAP가 자동으로 들고 있는 현재 날짜 값”이라고만 기억해도 충분합니다.
+  </p>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>초반 출력은 깔끔함보다 확인이 먼저</h4>
+      <p>초보 단계에서는 예쁜 리포트 디자인보다 값이 맞게 들어왔는지, 조건문이 원하는 흐름으로 갔는지를 확인하는 데 WRITE를 많이 씁니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
+  <ul>
+    <li>✅ <strong>정상 흐름:</strong> 변수에 값을 넣고 <code>WRITE</code>로 출력하면 Output List에 값이 보입니다.</li>
+    <li>❌ <strong>마침표 누락:</strong> 출력 문장 끝의 <code>.</code>를 빼면 다음 줄까지 한 문장으로 이어져 문법 오류가 날 수 있습니다.</li>
+    <li>❌ <strong>따옴표 누락:</strong> 문자 그대로 출력할 텍스트는 작은따옴표로 감싸야 합니다. <code>WRITE Hello.</code>처럼 쓰면 변수나 식별자로 해석하려고 합니다.</li>
+    <li>❌ <strong>출력만 믿기:</strong> WRITE 결과가 보인다고 데이터 저장이나 업무 처리가 모두 성공한 것은 아닙니다. 지금은 확인 도구로 쓰는 단계입니다.</li>
+  </ul>
+  <p>
+    미니 실습으로는 이름, 나이, 오늘 날짜를 각각 다른 줄에 출력해보세요. 화면에 원하는 순서로 보이면 성공입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>WRITE는 만능 화면 도구가 아닙니다</h4>
+      <p>WRITE는 기초 학습과 간단한 리스트 출력에는 좋지만, 사용자가 정렬·필터·다운로드를 기대하는 업무 화면에는 보통 ALV 같은 도구가 더 적합합니다. 이 Lesson에서는 ABAP 흐름을 눈으로 확인하는 기본 출력으로만 다룹니다.</p>
+    </div>
+  </div>
+  <p>
+    또한 운영 프로그램에 임시 확인용 WRITE를 남겨두면 사용자가 볼 필요 없는 값이 화면에 나타날 수 있습니다. 학습용 코드는 괜찮지만, 실무 코드에서는 목적 없는 출력문을 정리하는 습관이 필요합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li><strong>WRITE</strong>는 값을 Output List에 출력하는 기본 문법입니다.</li>
+        <li><code>/</code>는 새 줄 출력, <code>:</code>와 <code>,</code>는 여러 출력 항목을 묶는 데 사용합니다.</li>
+        <li>문자 그대로 출력할 텍스트는 작은따옴표로 감쌉니다.</li>
+        <li>초반 WRITE는 예쁜 화면보다 값과 흐름 확인이 목적입니다.</li>
+        <li>실무의 풍부한 목록 화면은 이후 ALV에서 더 깊게 다룹니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    다음 Lesson <strong>IF / CASE 조건 분기</strong>에서는 값에 따라 서로 다른 문장이 출력되도록 프로그램의 갈림길을 만들어보겠습니다.
+  </p>
+</section>

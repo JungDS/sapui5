@@ -13,14 +13,14 @@
 ---
 
 ## 현재 상태 및 목표 (Current Status & Goals)
-- **현재 목표**: Track 1(THEORY-*) Lesson 본문 작성. 총 137개 중 6개(THEORY-01 M01~M06) 작성 완료, M02~M06은 사용자 확인용 재보강까지 완료. **131개 남음**.
-- **최근 진행(2026-06-09, Codex)**: THEORY-01-M02~M06만 범위로 제한해 초심자 학습지 톤을 추가 보강함. `Length`, `Output Length`, `Work Area`, `Buffering` 등 주요 용어 글로서리도 함께 추가하고 미정의 0건을 확인함.
+- **현재 목표**: Track 1(THEORY-*) Lesson 본문 작성. 총 137개 중 12개(THEORY-01~THEORY-02) 작성 완료. **125개 남음**.
+- **최근 진행(2026-06-09, Codex)**: THEORY-02-M01~M06 신규 작성 완료. ABAP Program 기본 구조, DATA/CONSTANTS/TYPES, WRITE, IF/CASE, DO/WHILE, String/System Field를 초심자 학습지 톤으로 작성하고 글로서리 미정의 0건을 확인함.
 - **⚠️ 인계 핵심 문서**: 이어서 작업할 AI는 **[HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md)를 가장 먼저 정독**할 것. 작성 규칙·스타일 기준·복붙용 프롬프트가 모두 거기 있음.
 
 ---
 
 ## 미결 사항 (Pending Issues / Next Steps)
-- **Lesson 본문 양산**: THEORY-02 ~ THEORY-21 (131개). 사용자가 THEORY-01 재보강 결과를 확인한 뒤 별도 지시하면 진행할 것. 현재 확정된 10·20대 초심자 친화적 스타일과 "한눈에 정리" 마무리 방식을 그대로 적용한다. Track 2(PRACTICAL-*)는 그 다음.
+- **Lesson 본문 양산**: 다음은 THEORY-03 ~ THEORY-21 (125개). 현재 확정된 10·20대 초심자 친화적 스타일과 "한눈에 정리" 마무리 방식을 그대로 적용한다. Track 2(PRACTICAL-*)는 그 다음.
 - **글로서리 완전 패리티**: Lesson에서 쓰는 주요 용어는 `reference/abap_glossary.json`에 반드시 함께 등록(일상 비유 포함). 미등록 용어는 툴팁이 안 뜸(깨진 링크).
 - (선택) Lesson 내 퀴즈·실습 코드 블록 등 상호작용 컴포넌트 고도화.
 
@@ -57,4 +57,13 @@
   - M02~M06을 "지난 Lesson 연결 → 왜 필요한가 → 무엇인가 → 설정/확인 → 정상/오류 흐름 → 실무 주의 → 한눈에 정리" 흐름으로 재정렬.
   - 글로서리 신규 용어 11종 추가 및 기존 `used_in_lessons` 일부 보정, 미정의 0건 확인.
 - **수정 파일**: `docs/abap/lesson-content/THEORY-01-M02~M06.html`, `reference/abap_glossary.json`, `.project-docs/HANDOFF_LESSON_CONTENT.md`, `.project-docs/99_AI_SYNC.md`
-- **다음 AI를 위한 메모**: 사용자가 재보강 결과를 확인한 뒤 지시하기 전까지 THEORY-02 신규 작성은 보류.
+- **다음 AI를 위한 메모**: 당시에는 THEORY-02 신규 작성을 보류했으나, 이후 아래 Codex 작업에서 THEORY-02 작성 완료.
+
+### [2026-06-09] Codex (GPT-5)
+- **작업 내용**:
+  - THEORY-02-M01~M06 6개 Lesson 신규 작성.
+  - ABAP 기본 문법을 REPORT → 선언 → WRITE → 조건 → 반복 → 시스템 필드 순서로 연결하고, 각 Lesson에 "한눈에 정리" 마무리 섹션 포함.
+  - 글로서리 신규 용어 24종 추가 및 미정의 0건 확인.
+  - 로컬 뷰어에서 THEORY-02-M01, M03, M06 로딩 확인 완료.
+- **수정 파일**: `docs/abap/lesson-content/THEORY-02-M01~M06.html`, `reference/abap_glossary.json`, `.project-docs/HANDOFF_LESSON_CONTENT.md`, `.project-docs/99_AI_SYNC.md`
+- **다음 AI를 위한 메모**: 다음 섹션은 THEORY-03 `PARAMETERS 기반 Selection Screen 맛보기`.

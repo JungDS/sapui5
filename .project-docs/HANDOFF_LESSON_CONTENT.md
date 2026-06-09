@@ -15,8 +15,8 @@
 | 섹션 | 주제 | Lesson 수 | 상태 |
 |---|---|---|---|
 | THEORY-01 | DDIC 1차: 기본 데이터 구조 | 6 (M01~M06) | **M01~M06 작성 완료** (M02~M06 Codex 재보강 완료) |
-| THEORY-02 | ABAP 기본 문법과 WRITE | 6 | ⬜ 미작성 (사용자 확인 후 진행) |
-| THEORY-03 | PARAMETERS Selection Screen | 4 | ⬜ |
+| THEORY-02 | ABAP 기본 문법과 WRITE | 6 | **M01~M06 작성 완료** |
+| THEORY-03 | PARAMETERS Selection Screen | 4 | ⬜ 미작성 |
 | THEORY-04 | DDIC 2차: 관계와 입력 도움말 | 6 | ⬜ |
 | THEORY-05 | ABAP 모듈화 기초 | 6 | ⬜ |
 | THEORY-06 | Internal Table 기초 | 6 | ⬜ |
@@ -192,7 +192,7 @@ console.log(miss === 0 ? "OK: 미정의 0" : "미정의 "+miss);
 해야 할 일:
 - 브랜치 feature/abap-lesson-content 에서 이어서 작업.
 - THEORY-01-M02~M06은 사용자 피드백 기준(완전 초심자용, 분량 보강, 한눈에 정리, 10·20대 학습지 톤)으로 Codex 재보강 완료. 이후 Lesson 작성 시 이 톤과 구조를 참고.
-- 사용자 확인 후 THEORY-02 → THEORY-21까지 섹션 순서대로 신규 작성. 각 Lesson은
+- 다음은 THEORY-03부터 THEORY-21까지 섹션 순서대로 신규 작성. 각 Lesson은
   reference/abap_curriculum_v5_4_20260605_000000.json 의 해당 unit 지침(handled_contents,
   technical_keywords, learning_content_design, hands_on_lab, caution_points)에 근거해서 정확하게.
 - 본문에서 쓰는 주요 용어는 reference/abap_glossary.json 에 "완전 패리티"로 함께 등록
