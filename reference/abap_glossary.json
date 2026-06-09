@@ -38,5 +38,101 @@
     "used_in_lessons": ["THEORY-01-M01"],
     "design_theme": "warn",
     "html_content": "<p>최신 SAP 환경(ABAP Cloud 등)에서는 SE11 대신 <strong>ADT</strong> 사용을 권장합니다.</p>"
+  },
+  "Domain": {
+    "title": "Domain (도메인)",
+    "desc": "데이터의 기술적 형태(데이터 타입·길이·소수 자릿수)와 허용 값(고정값)을 정의하는 DDIC의 가장 밑바닥 부품입니다. 의미가 아니라 '재질'만 책임집니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 옷을 만들 때 '면 100%, 두께 3mm 원단' 같은 원단 규격서와 같아요. 이 원단으로 티셔츠를 만들지 바지를 만들지(=의미)는 아직 정하지 않은 상태입니다.",
+    "used_in_lessons": ["THEORY-01-M02", "THEORY-01-M03"],
+    "design_theme": "primary",
+    "html_content": "<p>Domain 위에 의미를 입히는 것이 <strong>Data Element</strong>입니다. (재질 → 의미 순서)</p>"
+  },
+  "DataType": {
+    "title": "Data Type (데이터 타입)",
+    "desc": "값이 문자(CHAR)인지, 숫자(NUMC·INT4·DEC)인지, 날짜(DATS)인지 등 데이터의 기본 종류입니다. Domain에서 길이와 함께 지정합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 택배 상자에 '깨지는 물건', '냉장 보관' 같은 취급 라벨을 붙이는 것과 같아요. 내용물의 성격에 따라 다루는 방법이 달라집니다.",
+    "used_in_lessons": ["THEORY-01-M02"],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "FixedValue": {
+    "title": "고정값 (Fixed Value)",
+    "desc": "Domain에 '들어올 수 있는 값의 목록'을 미리 못 박아 두는 기능입니다. 등록되지 않은 값은 입력이 거부되고, F4 입력 도움말 목록에도 자동으로 표시됩니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 자판기 버튼처럼, 정해진 메뉴(콜라·사이다·물)만 누를 수 있고 그 외의 것은 아예 선택지에 없는 것과 같아요.",
+    "used_in_lessons": ["THEORY-01-M02"],
+    "design_theme": "info",
+    "html_content": "<p>값이 많거나 자주 바뀌면 고정값 대신 <strong>Check Table</strong>을 씁니다(THEORY-04).</p>"
+  },
+  "DataElement": {
+    "title": "Data Element (데이터 엘리먼트)",
+    "desc": "Domain의 '재질' 위에 의미(Semantic)와 화면 라벨(Field Label), F1 도움말을 입히는 부품입니다. 테이블 필드는 Domain이 아니라 이 Data Element를 직접 참조합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 같은 '검은색 원단(Domain)'이라도 거기에 '교복 명찰'을 달면 교복이 되는 것처럼, 재질에 이름표와 용도를 붙여주는 단계예요.",
+    "used_in_lessons": ["THEORY-01-M03", "THEORY-01-M04"],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "FieldLabel": {
+    "title": "필드 라벨 (Field Label)",
+    "desc": "Data Element에 등록하는 화면 표시용 제목입니다. Short(10)·Medium(20)·Long(40)·Heading 4종류를 등록하면, 이를 쓰는 모든 화면·리포트·ALV가 자동으로 같은 제목을 답니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 상품에 붙는 가격표 하나만 잘 만들어 두면, 그 상품이 어느 매대에 놓이든 똑같은 이름과 가격으로 보이는 것과 같아요.",
+    "used_in_lessons": ["THEORY-01-M03"],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "Structure": {
+    "title": "Structure (구조체)",
+    "desc": "여러 필드(컴포넌트)를 정해진 순서로 묶은 DDIC 타입입니다. 데이터를 영구 저장하지 않고, 프로그램이 한 줄씩 처리하는 '그릇(Work Area)' 모양을 정의합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 칸이 나뉜 도시락 통과 같아요. 밥·반찬·국 자리가 정해져 있지만, 통 자체는 음식을 영구 보관하지 않고 담았다 비우는 그릇이죠.",
+    "used_in_lessons": ["THEORY-01-M04"],
+    "design_theme": "primary",
+    "html_content": "<p>영구 저장은 <strong>Transparent Table</strong>이 담당합니다.</p>"
+  },
+  "Component": {
+    "title": "컴포넌트 (Component)",
+    "desc": "Structure 안에 들어있는 각각의 필드입니다. 보통 Data Element를 타입으로 지정해, 의미와 라벨을 그대로 물려받습니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 도시락 통(Structure) 안의 '밥 칸', '반찬 칸' 하나하나가 컴포넌트예요.",
+    "used_in_lessons": ["THEORY-01-M04"],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "TransparentTable": {
+    "title": "Transparent Table (투명 테이블)",
+    "desc": "데이터를 영구 저장하는 DDIC 테이블로, 실제 데이터베이스의 물리 테이블 1개와 1:1로 그대로 대응됩니다. 그래서 '투명(비쳐 보인다)'이라고 부릅니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 설계도(DDIC)와 실제로 지어진 창고(DB 테이블)가 완전히 똑같은 것과 같아요. 설계도를 고치고 '활성화'하면 진짜 창고도 그대로 바뀝니다.",
+    "used_in_lessons": ["THEORY-01-M05", "THEORY-01-M06"],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "KeyField": {
+    "title": "키 필드 (Key Field)",
+    "desc": "테이블의 각 행을 유일하게 구분하는 기준 필드입니다. 키로 지정한 필드들의 조합은 테이블 안에서 중복될 수 없으며, 항상 테이블 정의 맨 앞에 모여 있어야 합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 학교에서 학번과 같아요. 이름은 같은 사람이 있어도 학번은 절대 겹치지 않아서, 학번만 알면 한 사람을 정확히 찾을 수 있죠.",
+    "used_in_lessons": ["THEORY-01-M05"],
+    "design_theme": "warn",
+    "html_content": ""
+  },
+  "MANDT": {
+    "title": "MANDT (클라이언트 필드)",
+    "desc": "대부분의 업무 테이블 맨 앞에 오는 필드로, 하나의 SAP 시스템 안에서 여러 회사·환경의 데이터를 칸막이로 분리합니다. 로그인한 클라이언트의 데이터만 Open SQL이 자동으로 보여줍니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 한 건물(시스템) 안의 여러 회사가 층(클라이언트)으로 나뉘어 있는 것과 같아요. 3층 직원은 3층 자료만 보게 되고, 다른 층 자료는 자동으로 가려집니다.",
+    "used_in_lessons": ["THEORY-01-M05"],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "TechnicalSettings": {
+    "title": "Technical Settings (기술 설정)",
+    "desc": "Transparent Table을 활성화하기 위해 채우는 운영 설정입니다. 데이터 클래스(저장 영역), 크기 범주(예상 데이터 양), 버퍼링(캐싱 여부) 등을 지정합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 창고를 지을 때 '어느 부지에, 얼마나 큰 규모로, 자주 찾는 물건은 입구 가까이' 같은 운영 방침을 정하는 것과 같아요.",
+    "used_in_lessons": ["THEORY-01-M06"],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "DataBrowser": {
+    "title": "Data Browser (SE16 / SE16N)",
+    "desc": "테이블에 실제로 담긴 데이터를 표 형태로 조회하는 도구입니다. SE11이 테이블의 '구조(설계도)'를 본다면, Data Browser는 그 안의 '내용물(데이터)'을 봅니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 설계도(SE11)를 보는 게 아니라, 실제 창고 문을 열고 안에 무슨 물건이 몇 개 있는지 들여다보는 것과 같아요.",
+    "used_in_lessons": ["THEORY-01-M06"],
+    "design_theme": "code",
+    "html_content": "<p>운영 시스템에서 SE16N으로 직접 데이터를 수정하는 것은 금물입니다(검증·로직 우회).</p>"
   }
 }
