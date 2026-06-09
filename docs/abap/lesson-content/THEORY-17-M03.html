@@ -20,11 +20,11 @@
 
 <section class="lesson-section">
   <h2>2. 자동으로 맞춰지는 결과 타입 ✍️</h2>
-  <pre><code>SELECT carrid, connid, price
-  FROM sflight
-  INTO TABLE @DATA(lt_flights).
-"→ lt_flights는 carrid/connid/price 3개 필드를 가진
-"   Internal Table로 자동 생성됨</code></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">SELECT</span> carrid, connid, price
+  <span style="color: #005cc5; font-weight: bold;">FROM</span> sflight
+  <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lt_flights).
+<span style="color: #888888; font-style: italic;">"→ lt_flights는 carrid/connid/price 3개 필드를 가진</span>
+<span style="color: #888888; font-style: italic;">"   Internal Table로 자동 생성됨</span></code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><strong>구조 자동:</strong> SELECT한 필드 그대로 결과 구조가 만들어집니다.</li>
     <li><strong>단건은 @DATA로:</strong> <code>SELECT SINGLE ... INTO @DATA(ls)</code>면 구조(한 줄)로 생성됩니다.</li>
@@ -43,12 +43,12 @@
   <p>
     계산식이나 집계를 SELECT하면 필드 이름이 애매할 수 있습니다. <code>AS</code>로 이름을 주면 결과 구조의 필드 이름이 깔끔해집니다.
   </p>
-  <pre><code>SELECT carrid,
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">SELECT</span> carrid,
        SUM( price ) AS total_price
-  FROM sflight
-  GROUP BY carrid
-  INTO TABLE @DATA(lt).
-"→ 결과 필드 이름: carrid, total_price</code></pre>
+  <span style="color: #005cc5; font-weight: bold;">FROM</span> sflight
+  GROUP <span style="color: #005cc5; font-weight: bold;">BY</span> carrid
+  <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lt).
+<span style="color: #888888; font-style: italic;">"→ 결과 필드 이름: carrid, total_price</span></code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
 </section>
 
 <section class="lesson-section">

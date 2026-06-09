@@ -20,11 +20,11 @@
 
 <section class="lesson-section">
   <h2>2. ORDER BY 기본 문법 ✍️</h2>
-  <pre><code>SELECT carrid, connid, fldate, price
-  FROM spfli
-  ORDER BY carrid ASCENDING,      "항공사 코드 오름차순,
-           price  DESCENDING      "같은 항공사면 요금 내림차순
-  INTO TABLE @DATA(lt_sorted).</code></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">SELECT</span> carrid, connid, fldate, price
+  <span style="color: #005cc5; font-weight: bold;">FROM</span> spfli
+  ORDER <span style="color: #005cc5; font-weight: bold;">BY</span> carrid <span style="color: #005cc5; font-weight: bold;">ASCENDING</span>,      <span style="color: #888888; font-style: italic;">"항공사 코드 오름차순,</span>
+           price  <span style="color: #005cc5; font-weight: bold;">DESCENDING</span>      <span style="color: #888888; font-style: italic;">"같은 항공사면 요금 내림차순</span>
+  <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lt_sorted).</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><strong><span class="glossary-term" data-glossary="SortOrder">ASCENDING</span>:</strong> 오름차순(작은 값 → 큰 값). 기본값이라 생략 가능.</li>
     <li><strong>DESCENDING:</strong> 내림차순(큰 값 → 작은 값).</li>

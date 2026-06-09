@@ -42,14 +42,14 @@
     <li>숫자(INT, DEC) → <strong>0</strong></li>
     <li>날짜(DATS) → <strong>00000000</strong></li>
   </ul>
-  <pre><code>SELECT f~carrid, f~connid,
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">SELECT</span> f~carrid, f~connid,
        b~bookid
-  FROM spfli AS f
+  <span style="color: #005cc5; font-weight: bold;">FROM</span> spfli AS f
   LEFT OUTER JOIN sbook AS b
     ON f~carrid = b~carrid
    AND f~connid = b~connid
-  INTO TABLE @DATA(lt_result).
-"→ 예약(sbook)이 없는 항공편도 결과에 남고, bookid 자리는 초기값(공백/0)으로 채워짐</code></pre>
+  <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lt_result).
+<span style="color: #888888; font-style: italic;">"→ 예약(sbook)이 없는 항공편도 결과에 남고, bookid 자리는 초기값(공백/0)으로 채워짐</span></code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <blockquote>
     그래서 "예약이 진짜 없는 것"과 "값이 0/공백인 것"을 구분하려면 주의가 필요합니다. 초기값으로 채워졌다고 해서 실제 데이터가 0이었다는 뜻은 아닙니다.
   </blockquote>

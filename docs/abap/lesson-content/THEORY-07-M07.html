@@ -39,15 +39,15 @@
 
 <section class="lesson-section">
   <h2>3. Secondary Key 선언 맛보기 ✍️</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>TYPES tt_students TYPE STANDARD TABLE OF ty_student
-  WITH NON-UNIQUE SORTED KEY score_key COMPONENTS score.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">TYPES</span> tt_students <span style="color: #005cc5; font-weight: bold;">TYPE</span> STANDARD <span style="color: #005cc5; font-weight: bold;">TABLE</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student
+  <span style="color: #005cc5; font-weight: bold;">WITH</span> NON-UNIQUE SORTED <span style="color: #005cc5; font-weight: bold;">KEY</span> score_key COMPONENTS score.
 
-DATA lt_students TYPE tt_students.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">DATA</span> lt_students <span style="color: #005cc5; font-weight: bold;">TYPE</span> tt_students.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     위 선언은 STANDARD TABLE이지만, <code>score_key</code>라는 보조 정렬 키를 함께 정의합니다. <code>score</code> 값이 같은 학생이 여러 명 있을 수 있으므로 <code>NON-UNIQUE</code>로 둡니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>READ TABLE lt_students INTO ls_student
-  WITH KEY score_key COMPONENTS score = 90.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">READ</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> lt_students <span style="color: #005cc5; font-weight: bold;">INTO</span> ls_student
+  <span style="color: #005cc5; font-weight: bold;">WITH</span> <span style="color: #005cc5; font-weight: bold;">KEY</span> score_key COMPONENTS score = <span style="color: #22863a;">90</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     이 코드는 <code>score_key</code>라는 Secondary Key를 사용해 점수가 90인 줄을 찾는 예시입니다. 실제 성능 이득은 데이터 양과 접근 패턴에 따라 달라집니다.
   </p>

@@ -26,8 +26,8 @@
   <p>
     아래 두 선언은 화면에서 비슷한 입력칸처럼 보일 수 있지만, DDIC 정보 연결 면에서는 차이가 있습니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>PARAMETERS p_raw  TYPE c LENGTH 3.
-PARAMETERS p_carr TYPE zde_carrid.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">PARAMETERS</span> p_raw  <span style="color: #005cc5; font-weight: bold;">TYPE</span> c LENGTH <span style="color: #22863a;">3</span>.
+<span style="color: #005cc5; font-weight: bold;">PARAMETERS</span> p_carr <span style="color: #005cc5; font-weight: bold;">TYPE</span> zde_carrid.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><code>p_raw TYPE c LENGTH 3</code>: 그냥 3자리 문자 입력칸입니다. 업무 의미나 Search Help 연결 정보가 없습니다.</li>
     <li><code>p_carr TYPE zde_carrid</code>: Data Element를 타입으로 사용합니다. Data Element의 의미, 라벨, Search Help 연결을 활용할 수 있습니다.</li>
@@ -63,11 +63,11 @@ PARAMETERS p_carr TYPE zde_carrid.</code><button class="shiki-copy-button" data-
   <p>
     아래 예제는 직접 F4 로직을 코딩하지 않고, DDIC 타입을 통해 입력 도움말을 기대하는 흐름입니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zparam_ddic_f4.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zparam_ddic_f4.
 
-PARAMETERS p_carr TYPE zde_carrid OBLIGATORY.
+<span style="color: #005cc5; font-weight: bold;">PARAMETERS</span> p_carr <span style="color: #005cc5; font-weight: bold;">TYPE</span> zde_carrid OBLIGATORY.
 
-WRITE: / '선택한 항공사:', p_carr.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'선택한 항공사:'</span>, p_carr.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     실습 포인트는 코드가 짧다는 점입니다. F4 후보 목록을 직접 SELECT해서 팝업으로 만드는 것이 아니라, DDIC에 이미 정의된 Data Element와 Search Help 관계를 활용합니다.
   </p>

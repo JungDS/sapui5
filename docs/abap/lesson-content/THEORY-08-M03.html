@@ -26,7 +26,7 @@
   <p>
     SALV의 기본 기능 버튼을 제어하려면 Functions 객체를 가져옵니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>DATA lo_functions TYPE REF TO cl_salv_functions_list.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">DATA</span> lo_functions <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #005cc5; font-weight: bold;">REF</span> <span style="color: #005cc5; font-weight: bold;">TO</span> cl_salv_functions_list.
 
 lo_functions = lo_alv-&gt;get_functions( ).
 lo_functions-&gt;set_all( abap_true ).</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
@@ -42,9 +42,9 @@ lo_functions-&gt;set_all( abap_true ).</code><button class="shiki-copy-button" d
 
 <section class="lesson-section">
   <h2>3. 설정 순서: FACTORY → Functions → DISPLAY 🔁</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>cl_salv_table=&gt;factory(
-  IMPORTING r_salv_table = lo_alv
-  CHANGING  t_table      = lt_students ).
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code>cl_salv_table=&gt;factory(
+  <span style="color: #005cc5; font-weight: bold;">IMPORTING</span> r_salv_table = lo_alv
+  <span style="color: #005cc5; font-weight: bold;">CHANGING</span>  t_table      = lt_students ).
 
 lo_functions = lo_alv-&gt;get_functions( ).
 lo_functions-&gt;set_all( abap_true ).
@@ -64,22 +64,22 @@ lo_alv-&gt;display( ).</code><button class="shiki-copy-button" data-copied="fals
 
 <section class="lesson-section">
   <h2>4. 전체 예제에 기본 기능 추가하기 ✍️</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>DATA: lo_alv       TYPE REF TO cl_salv_table,
-      lo_functions TYPE REF TO cl_salv_functions_list,
-      lx_msg       TYPE REF TO cx_salv_msg.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">DATA</span>: lo_alv       <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #005cc5; font-weight: bold;">REF</span> <span style="color: #005cc5; font-weight: bold;">TO</span> cl_salv_table,
+      lo_functions <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #005cc5; font-weight: bold;">REF</span> <span style="color: #005cc5; font-weight: bold;">TO</span> cl_salv_functions_list,
+      lx_msg       <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #005cc5; font-weight: bold;">REF</span> <span style="color: #005cc5; font-weight: bold;">TO</span> cx_salv_msg.
 
 TRY.
     cl_salv_table=&gt;factory(
-      IMPORTING r_salv_table = lo_alv
-      CHANGING  t_table      = lt_students ).
+      <span style="color: #005cc5; font-weight: bold;">IMPORTING</span> r_salv_table = lo_alv
+      <span style="color: #005cc5; font-weight: bold;">CHANGING</span>  t_table      = lt_students ).
 
     lo_functions = lo_alv-&gt;get_functions( ).
     lo_functions-&gt;set_all( abap_true ).
 
     lo_alv-&gt;display( ).
 
-  CATCH cx_salv_msg INTO lx_msg.
-    MESSAGE lx_msg-&gt;get_text( ) TYPE 'E'.
+  CATCH cx_salv_msg <span style="color: #005cc5; font-weight: bold;">INTO</span> lx_msg.
+    MESSAGE lx_msg-&gt;get_text( ) <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #22863a;">'E'</span>.
 ENDTRY.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     이 조각은 Lesson 2 전체 예제의 SALV 부분에 붙여 사용할 수 있습니다. 실제 화면에서는 표 위쪽에 기본 기능 버튼들이 표시됩니다.

@@ -26,17 +26,17 @@
   <p>
     <span class="glossary-term" data-glossary="IFStatement">IF</span>는 조건이 참인지 확인한 뒤, 참이면 해당 블록을 실행합니다. 여러 조건을 차례대로 검사할 때 <span class="glossary-term" data-glossary="ELSEIFStatement">ELSEIF</span>를 사용하고, 아무 조건도 맞지 않을 때 <code>ELSE</code>를 사용합니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zif_basic.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zif_basic.
 
-DATA gv_score TYPE i VALUE 85.
+<span style="color: #005cc5; font-weight: bold;">DATA</span> gv_score <span style="color: #005cc5; font-weight: bold;">TYPE</span> i <span style="color: #005cc5; font-weight: bold;">VALUE</span> <span style="color: #22863a;">85</span>.
 
-IF gv_score >= 90.
-  WRITE 'A 등급'.
-ELSEIF gv_score >= 80.
-  WRITE 'B 등급'.
-ELSE.
-  WRITE '다시 도전'.
-ENDIF.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">IF</span> gv_score &gt;= <span style="color: #22863a;">90</span>.
+  <span style="color: #005cc5; font-weight: bold;">WRITE</span> <span style="color: #22863a;">'A 등급'</span>.
+<span style="color: #005cc5; font-weight: bold;">ELSEIF</span> gv_score &gt;= <span style="color: #22863a;">80</span>.
+  <span style="color: #005cc5; font-weight: bold;">WRITE</span> <span style="color: #22863a;">'B 등급'</span>.
+<span style="color: #005cc5; font-weight: bold;">ELSE</span>.
+  <span style="color: #005cc5; font-weight: bold;">WRITE</span> <span style="color: #22863a;">'다시 도전'</span>.
+<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     ABAP에서는 조건 비교에 <code>=</code>, <code>&lt;&gt;</code>, <code>&gt;=</code>, <code>&lt;=</code> 같은 연산자를 사용합니다. 다른 언어처럼 <code>==</code>를 쓰지 않는다는 점도 기억해두세요.
   </p>
@@ -47,18 +47,18 @@ ENDIF.</code><button class="shiki-copy-button" data-copied="false">Copy</button>
   <p>
     <span class="glossary-term" data-glossary="CASEStatement">CASE</span>는 하나의 값을 기준으로 여러 경우를 나눌 때 읽기 좋습니다. 각 경우는 <span class="glossary-term" data-glossary="WHENStatement">WHEN</span>으로 작성합니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zcase_basic.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zcase_basic.
 
-DATA gv_grade TYPE c LENGTH 1 VALUE 'B'.
+<span style="color: #005cc5; font-weight: bold;">DATA</span> gv_grade <span style="color: #005cc5; font-weight: bold;">TYPE</span> c LENGTH <span style="color: #22863a;">1</span> <span style="color: #005cc5; font-weight: bold;">VALUE</span> <span style="color: #22863a;">'B'</span>.
 
-CASE gv_grade.
-  WHEN 'A'.
-    WRITE '아주 좋아요'.
-  WHEN 'B'.
-    WRITE '좋아요'.
-  WHEN OTHERS.
-    WRITE '확인이 필요해요'.
-ENDCASE.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">CASE</span> gv_grade.
+  <span style="color: #005cc5; font-weight: bold;">WHEN</span> <span style="color: #22863a;">'A'</span>.
+    <span style="color: #005cc5; font-weight: bold;">WRITE</span> <span style="color: #22863a;">'아주 좋아요'</span>.
+  <span style="color: #005cc5; font-weight: bold;">WHEN</span> <span style="color: #22863a;">'B'</span>.
+    <span style="color: #005cc5; font-weight: bold;">WRITE</span> <span style="color: #22863a;">'좋아요'</span>.
+  <span style="color: #005cc5; font-weight: bold;">WHEN</span> OTHERS.
+    <span style="color: #005cc5; font-weight: bold;">WRITE</span> <span style="color: #22863a;">'확인이 필요해요'</span>.
+<span style="color: #005cc5; font-weight: bold;">ENDCASE</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     IF가 다양한 조건식을 자유롭게 쓸 수 있는 갈림길이라면, CASE는 “이 값이 A냐, B냐, C냐”처럼 한 기준값을 여러 후보와 비교할 때 깔끔합니다.
   </p>

@@ -23,12 +23,12 @@
 
 <section class="lesson-section">
   <h2>2. MODIFY 기본 구조 보기 🔧</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>READ TABLE lt_students INTO ls_student WITH KEY id = 'A02'.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">READ</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> lt_students <span style="color: #005cc5; font-weight: bold;">INTO</span> ls_student <span style="color: #005cc5; font-weight: bold;">WITH</span> <span style="color: #005cc5; font-weight: bold;">KEY</span> id = <span style="color: #22863a;">'A02'</span>.
 
-IF sy-subrc = 0.
-  ls_student-score = 88.
-  MODIFY lt_students FROM ls_student INDEX 2.
-ENDIF.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">IF</span> sy-subrc = <span style="color: #22863a;">0</span>.
+  ls_student-score = <span style="color: #22863a;">88</span>.
+  <span style="color: #005cc5; font-weight: bold;">MODIFY</span> lt_students <span style="color: #005cc5; font-weight: bold;">FROM</span> ls_student INDEX <span style="color: #22863a;">2</span>.
+<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     위 코드는 <code>A02</code> 학생을 Work Area로 읽어온 뒤 점수를 바꾸고, Internal Table의 2번째 줄을 Work Area 값으로 변경합니다. 여기서 중요한 것은 <code>MODIFY</code>가 Internal Table 원본 줄을 바꾼다는 점입니다.
   </p>
@@ -44,8 +44,8 @@ ENDIF.</code><button class="shiki-copy-button" data-copied="false">Copy</button>
   <p>
     <span class="glossary-term" data-glossary="TRANSPORTINGAddition">TRANSPORTING</span>은 Work Area 전체가 아니라 지정한 필드만 Internal Table에 반영하고 싶을 때 사용합니다. 초심자에게는 “필드 단위 안전장치”라고 생각하면 좋습니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>ls_student-score = 88.
-MODIFY lt_students FROM ls_student INDEX 2 TRANSPORTING score.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code>ls_student-score = <span style="color: #22863a;">88</span>.
+<span style="color: #005cc5; font-weight: bold;">MODIFY</span> lt_students <span style="color: #005cc5; font-weight: bold;">FROM</span> ls_student INDEX <span style="color: #22863a;">2</span> TRANSPORTING score.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     이 코드는 2번째 줄의 <code>score</code> 필드만 바꿉니다. Work Area에 다른 필드 값이 비어 있거나 오래된 값이어도, <code>score</code>만 반영되므로 원치 않는 필드 덮어쓰기를 줄일 수 있습니다.
   </p>
@@ -60,33 +60,33 @@ MODIFY lt_students FROM ls_student INDEX 2 TRANSPORTING score.</code><button cla
 
 <section class="lesson-section">
   <h2>4. 전체 예제로 점수 수정하기 ✍️</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zmodify_itab_basic.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zmodify_itab_basic.
 
-TYPES: BEGIN OF ty_student,
-         id    TYPE char3,
-         name  TYPE char20,
-         score TYPE i,
-       END OF ty_student.
+<span style="color: #005cc5; font-weight: bold;">TYPES</span>: <span style="color: #005cc5; font-weight: bold;">BEGIN</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student,
+         id    <span style="color: #005cc5; font-weight: bold;">TYPE</span> char3,
+         name  <span style="color: #005cc5; font-weight: bold;">TYPE</span> char20,
+         score <span style="color: #005cc5; font-weight: bold;">TYPE</span> i,
+       <span style="color: #005cc5; font-weight: bold;">END</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student.
 
-DATA: lt_students TYPE STANDARD TABLE OF ty_student,
-      ls_student  TYPE ty_student.
+<span style="color: #005cc5; font-weight: bold;">DATA</span>: lt_students <span style="color: #005cc5; font-weight: bold;">TYPE</span> STANDARD <span style="color: #005cc5; font-weight: bold;">TABLE</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student,
+      ls_student  <span style="color: #005cc5; font-weight: bold;">TYPE</span> ty_student.
 
-ls_student-id = 'A01'. ls_student-name = 'Mina'. ls_student-score = 90.
-APPEND ls_student TO lt_students.
+ls_student-id = <span style="color: #22863a;">'A01'</span>. ls_student-name = <span style="color: #22863a;">'Mina'</span>. ls_student-score = <span style="color: #22863a;">90</span>.
+<span style="color: #005cc5; font-weight: bold;">APPEND</span> ls_student <span style="color: #005cc5; font-weight: bold;">TO</span> lt_students.
 
-CLEAR ls_student.
-ls_student-id = 'A02'. ls_student-name = 'Jun'. ls_student-score = 85.
-APPEND ls_student TO lt_students.
+<span style="color: #005cc5; font-weight: bold;">CLEAR</span> ls_student.
+ls_student-id = <span style="color: #22863a;">'A02'</span>. ls_student-name = <span style="color: #22863a;">'Jun'</span>. ls_student-score = <span style="color: #22863a;">85</span>.
+<span style="color: #005cc5; font-weight: bold;">APPEND</span> ls_student <span style="color: #005cc5; font-weight: bold;">TO</span> lt_students.
 
-READ TABLE lt_students INTO ls_student WITH KEY id = 'A02'.
-IF sy-subrc = 0.
-  ls_student-score = 88.
-  MODIFY lt_students FROM ls_student INDEX 2 TRANSPORTING score.
-ENDIF.
+<span style="color: #005cc5; font-weight: bold;">READ</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> lt_students <span style="color: #005cc5; font-weight: bold;">INTO</span> ls_student <span style="color: #005cc5; font-weight: bold;">WITH</span> <span style="color: #005cc5; font-weight: bold;">KEY</span> id = <span style="color: #22863a;">'A02'</span>.
+<span style="color: #005cc5; font-weight: bold;">IF</span> sy-subrc = <span style="color: #22863a;">0</span>.
+  ls_student-score = <span style="color: #22863a;">88</span>.
+  <span style="color: #005cc5; font-weight: bold;">MODIFY</span> lt_students <span style="color: #005cc5; font-weight: bold;">FROM</span> ls_student INDEX <span style="color: #22863a;">2</span> TRANSPORTING score.
+<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.
 
-LOOP AT lt_students INTO ls_student.
-  WRITE: / ls_student-id, ls_student-name, ls_student-score.
-ENDLOOP.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> lt_students <span style="color: #005cc5; font-weight: bold;">INTO</span> ls_student.
+  <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / ls_student-id, ls_student-name, ls_student-score.
+<span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     실행하면 Jun의 점수가 85에서 88로 바뀐 상태로 출력됩니다. 디버거에서 MODIFY 전후의 <code>lt_students</code>를 보면 원본 Internal Table 행이 실제로 바뀌는 것을 확인할 수 있습니다.
   </p>

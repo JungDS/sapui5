@@ -26,7 +26,7 @@
   <p>
     <span class="glossary-term" data-glossary="INDEXAddition">INDEX</span>를 사용하면 특정 위치의 한 줄을 삭제할 수 있습니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>DELETE lt_students INDEX 1.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">DELETE</span> lt_students INDEX <span style="color: #22863a;">1</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     위 코드는 현재 Internal Table의 1번째 줄을 삭제합니다. 삭제가 성공하면 이후 줄들이 앞으로 당겨집니다. 그래서 INDEX 기반 삭제를 여러 번 할 때는 순서 변화에 특히 조심해야 합니다.
   </p>
@@ -41,7 +41,7 @@
   <p>
     <span class="glossary-term" data-glossary="WHEREClause">WHERE</span>는 조건에 맞는 줄을 삭제할 때 사용합니다. 업무 기준이 필드 값으로 표현될 수 있다면 INDEX보다 읽기 쉬운 경우가 많습니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>DELETE lt_students WHERE score &lt; 80.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">DELETE</span> lt_students <span style="color: #005cc5; font-weight: bold;">WHERE</span> score &lt; <span style="color: #22863a;">80</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     위 코드는 점수가 80 미만인 모든 학생 줄을 삭제합니다. 한 줄만 지우는 것이 아니라 조건에 맞는 여러 줄이 한 번에 삭제될 수 있다는 점을 꼭 기억하세요.
   </p>
@@ -56,33 +56,33 @@
 
 <section class="lesson-section">
   <h2>4. 전체 예제로 낮은 점수 제거하기 ✍️</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zdelete_itab_basic.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zdelete_itab_basic.
 
-TYPES: BEGIN OF ty_student,
-         id    TYPE char3,
-         name  TYPE char20,
-         score TYPE i,
-       END OF ty_student.
+<span style="color: #005cc5; font-weight: bold;">TYPES</span>: <span style="color: #005cc5; font-weight: bold;">BEGIN</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student,
+         id    <span style="color: #005cc5; font-weight: bold;">TYPE</span> char3,
+         name  <span style="color: #005cc5; font-weight: bold;">TYPE</span> char20,
+         score <span style="color: #005cc5; font-weight: bold;">TYPE</span> i,
+       <span style="color: #005cc5; font-weight: bold;">END</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student.
 
-DATA: lt_students TYPE STANDARD TABLE OF ty_student,
-      ls_student  TYPE ty_student.
+<span style="color: #005cc5; font-weight: bold;">DATA</span>: lt_students <span style="color: #005cc5; font-weight: bold;">TYPE</span> STANDARD <span style="color: #005cc5; font-weight: bold;">TABLE</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student,
+      ls_student  <span style="color: #005cc5; font-weight: bold;">TYPE</span> ty_student.
 
-ls_student-id = 'A01'. ls_student-name = 'Mina'. ls_student-score = 90.
-APPEND ls_student TO lt_students.
+ls_student-id = <span style="color: #22863a;">'A01'</span>. ls_student-name = <span style="color: #22863a;">'Mina'</span>. ls_student-score = <span style="color: #22863a;">90</span>.
+<span style="color: #005cc5; font-weight: bold;">APPEND</span> ls_student <span style="color: #005cc5; font-weight: bold;">TO</span> lt_students.
 
-CLEAR ls_student.
-ls_student-id = 'A02'. ls_student-name = 'Jun'. ls_student-score = 75.
-APPEND ls_student TO lt_students.
+<span style="color: #005cc5; font-weight: bold;">CLEAR</span> ls_student.
+ls_student-id = <span style="color: #22863a;">'A02'</span>. ls_student-name = <span style="color: #22863a;">'Jun'</span>. ls_student-score = <span style="color: #22863a;">75</span>.
+<span style="color: #005cc5; font-weight: bold;">APPEND</span> ls_student <span style="color: #005cc5; font-weight: bold;">TO</span> lt_students.
 
-CLEAR ls_student.
-ls_student-id = 'A03'. ls_student-name = 'Sora'. ls_student-score = 85.
-APPEND ls_student TO lt_students.
+<span style="color: #005cc5; font-weight: bold;">CLEAR</span> ls_student.
+ls_student-id = <span style="color: #22863a;">'A03'</span>. ls_student-name = <span style="color: #22863a;">'Sora'</span>. ls_student-score = <span style="color: #22863a;">85</span>.
+<span style="color: #005cc5; font-weight: bold;">APPEND</span> ls_student <span style="color: #005cc5; font-weight: bold;">TO</span> lt_students.
 
-DELETE lt_students WHERE score &lt; 80.
+<span style="color: #005cc5; font-weight: bold;">DELETE</span> lt_students <span style="color: #005cc5; font-weight: bold;">WHERE</span> score &lt; <span style="color: #22863a;">80</span>.
 
-LOOP AT lt_students INTO ls_student.
-  WRITE: / ls_student-id, ls_student-name, ls_student-score.
-ENDLOOP.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> lt_students <span style="color: #005cc5; font-weight: bold;">INTO</span> ls_student.
+  <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / ls_student-id, ls_student-name, ls_student-score.
+<span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     실행하면 75점인 Jun의 줄이 삭제되고, Mina와 Sora만 출력됩니다. 조건을 <code>score &lt; 90</code>으로 바꾸면 삭제되는 줄이 달라지는 것도 확인해보세요.
   </p>

@@ -23,11 +23,11 @@
 
 <section class="lesson-section">
   <h2>2. 기본 문법 보기 ✍️</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zselect_options_basic.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zselect_options_basic.
 
-DATA gv_land1 TYPE t005t-land1.
+<span style="color: #005cc5; font-weight: bold;">DATA</span> gv_land1 <span style="color: #005cc5; font-weight: bold;">TYPE</span> t005t-land1.
 
-SELECT-OPTIONS s_land1 FOR gv_land1.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">SELECT-OPTIONS</span> s_land1 FOR gv_land1.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     이 코드를 실행하면 Selection Screen에 <code>s_land1</code>이라는 범위 입력 필드가 생깁니다. 사용자는 단일값, 범위, Multiple Selection 팝업을 통해 여러 조건을 넣을 수 있습니다.
   </p>
@@ -43,12 +43,12 @@ SELECT-OPTIONS s_land1 FOR gv_land1.</code><button class="shiki-copy-button" dat
   <p>
     <span class="glossary-term" data-glossary="SelectionTable">Selection Table</span>은 SELECT-OPTIONS가 자동으로 만들어주는 Range Table입니다. 내부적으로는 SIGN, OPTION, LOW, HIGH 필드를 가진 여러 줄 조건표입니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>LOOP AT s_land1 INTO DATA(ls_range).
-  WRITE: / ls_range-sign,
-           ls_range-option,
-           ls_range-low,
-           ls_range-high.
-ENDLOOP.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> s_land1 <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">DATA</span>(ls_range).
+  <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / ls_range-<span style="color: #005cc5; font-weight: bold;">sign</span>,
+           ls_range-<span style="color: #005cc5; font-weight: bold;">option</span>,
+           ls_range-<span style="color: #005cc5; font-weight: bold;">low</span>,
+           ls_range-<span style="color: #005cc5; font-weight: bold;">high</span>.
+<span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     사용자가 화면에서 입력한 조건이 실제로 어떤 Range Table 줄로 들어왔는지 확인할 수 있습니다. 디버거에서 <code>s_land1</code>을 펼쳐보는 것도 좋은 연습입니다.
   </p>
@@ -56,24 +56,24 @@ ENDLOOP.</code><button class="shiki-copy-button" data-copied="false">Copy</butto
 
 <section class="lesson-section">
   <h2>4. 전체 예제로 입력값 확인하기 🔎</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zselect_options_check.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zselect_options_check.
 
-DATA gv_land1 TYPE t005t-land1.
+<span style="color: #005cc5; font-weight: bold;">DATA</span> gv_land1 <span style="color: #005cc5; font-weight: bold;">TYPE</span> t005t-land1.
 
-SELECT-OPTIONS s_land1 FOR gv_land1.
+<span style="color: #005cc5; font-weight: bold;">SELECT-OPTIONS</span> s_land1 FOR gv_land1.
 
-START-OF-SELECTION.
+<span style="color: #005cc5; font-weight: bold;">START-OF-SELECTION</span>.
 
-  IF s_land1 IS INITIAL.
-    WRITE: / '입력된 선택 조건이 없습니다.'.
-  ELSE.
-    LOOP AT s_land1 INTO DATA(ls_range).
-      WRITE: / ls_range-sign,
-               ls_range-option,
-               ls_range-low,
-               ls_range-high.
-    ENDLOOP.
-  ENDIF.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <span style="color: #005cc5; font-weight: bold;">IF</span> s_land1 <span style="color: #005cc5; font-weight: bold;">IS</span> <span style="color: #005cc5; font-weight: bold;">INITIAL</span>.
+    <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'입력된 선택 조건이 없습니다.'</span>.
+  <span style="color: #005cc5; font-weight: bold;">ELSE</span>.
+    <span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> s_land1 <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">DATA</span>(ls_range).
+      <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / ls_range-<span style="color: #005cc5; font-weight: bold;">sign</span>,
+               ls_range-<span style="color: #005cc5; font-weight: bold;">option</span>,
+               ls_range-<span style="color: #005cc5; font-weight: bold;">low</span>,
+               ls_range-<span style="color: #005cc5; font-weight: bold;">high</span>.
+    <span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.
+  <span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     실행 후 단일값 <code>KR</code>을 넣어보고, Multiple Selection에서 여러 값을 넣어보세요. 출력되는 SIGN/OPTION/LOW/HIGH가 어떻게 달라지는지 보는 것이 핵심입니다.
   </p>

@@ -20,14 +20,14 @@
 
 <section class="lesson-section">
   <h2>2. START-OF-SELECTION에 들어가는 것 ✍️</h2>
-  <pre><code>START-OF-SELECTION.
-  SELECT carrid, connid, fldate, price
-    FROM sflight
-    WHERE carrid = @p_carrid
-      AND fldate IN @s_date        "검증된 입력값 사용
-    INTO TABLE @gt_result.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">START-OF-SELECTION</span>.
+  <span style="color: #005cc5; font-weight: bold;">SELECT</span> carrid, connid, fldate, price
+    <span style="color: #005cc5; font-weight: bold;">FROM</span> sflight
+    <span style="color: #005cc5; font-weight: bold;">WHERE</span> carrid = @p_carrid
+      AND fldate IN @s_date        <span style="color: #888888; font-style: italic;">"검증된 입력값 사용</span>
+    <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @gt_result.
 
-  " 필요하면 추가 가공 (계산, 매핑 등)</code></pre>
+  <span style="color: #888888; font-style: italic;">" 필요하면 추가 가공 (계산, 매핑 등)</span></code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><strong>데이터 조회:</strong> 앞에서 배운 <span class="glossary-term" data-glossary="ABAPSQL">Open SQL</span>로 DB에서 필요한 데이터를 가져옵니다.</li>
     <li><strong>가공:</strong> 가져온 데이터를 내부 테이블에서 다듬습니다(합계, 매핑 등).</li>

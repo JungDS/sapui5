@@ -39,54 +39,54 @@
 
 <section class="lesson-section">
   <h2>3. 전체 코드 예제 ✍️</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zinternal_table_process.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zinternal_table_process.
 
-TYPES: BEGIN OF ty_student,
-         id    TYPE char3,
-         name  TYPE char20,
-         score TYPE i,
-       END OF ty_student.
+<span style="color: #005cc5; font-weight: bold;">TYPES</span>: <span style="color: #005cc5; font-weight: bold;">BEGIN</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student,
+         id    <span style="color: #005cc5; font-weight: bold;">TYPE</span> char3,
+         name  <span style="color: #005cc5; font-weight: bold;">TYPE</span> char20,
+         score <span style="color: #005cc5; font-weight: bold;">TYPE</span> i,
+       <span style="color: #005cc5; font-weight: bold;">END</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student.
 
-DATA: lt_students  TYPE STANDARD TABLE OF ty_student,
-      ls_student   TYPE ty_student,
-      lv_high_cnt  TYPE i.
+<span style="color: #005cc5; font-weight: bold;">DATA</span>: lt_students  <span style="color: #005cc5; font-weight: bold;">TYPE</span> STANDARD <span style="color: #005cc5; font-weight: bold;">TABLE</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student,
+      ls_student   <span style="color: #005cc5; font-weight: bold;">TYPE</span> ty_student,
+      lv_high_cnt  <span style="color: #005cc5; font-weight: bold;">TYPE</span> i.
 
-ls_student-id = 'A01'.
-ls_student-name = 'Mina'.
-ls_student-score = 90.
-APPEND ls_student TO lt_students.
+ls_student-id = <span style="color: #22863a;">'A01'</span>.
+ls_student-name = <span style="color: #22863a;">'Mina'</span>.
+ls_student-score = <span style="color: #22863a;">90</span>.
+<span style="color: #005cc5; font-weight: bold;">APPEND</span> ls_student <span style="color: #005cc5; font-weight: bold;">TO</span> lt_students.
 
-CLEAR ls_student.
-ls_student-id = 'A02'.
-ls_student-name = 'Jun'.
-ls_student-score = 85.
-APPEND ls_student TO lt_students.
+<span style="color: #005cc5; font-weight: bold;">CLEAR</span> ls_student.
+ls_student-id = <span style="color: #22863a;">'A02'</span>.
+ls_student-name = <span style="color: #22863a;">'Jun'</span>.
+ls_student-score = <span style="color: #22863a;">85</span>.
+<span style="color: #005cc5; font-weight: bold;">APPEND</span> ls_student <span style="color: #005cc5; font-weight: bold;">TO</span> lt_students.
 
-CLEAR ls_student.
-ls_student-id = 'A03'.
-ls_student-name = 'Sora'.
-ls_student-score = 95.
-APPEND ls_student TO lt_students.
+<span style="color: #005cc5; font-weight: bold;">CLEAR</span> ls_student.
+ls_student-id = <span style="color: #22863a;">'A03'</span>.
+ls_student-name = <span style="color: #22863a;">'Sora'</span>.
+ls_student-score = <span style="color: #22863a;">95</span>.
+<span style="color: #005cc5; font-weight: bold;">APPEND</span> ls_student <span style="color: #005cc5; font-weight: bold;">TO</span> lt_students.
 
-WRITE: / '학생 목록'.
+<span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'학생 목록'</span>.
 
-LOOP AT lt_students INTO ls_student.
-  WRITE: / ls_student-id, ls_student-name, ls_student-score.
+<span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> lt_students <span style="color: #005cc5; font-weight: bold;">INTO</span> ls_student.
+  <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / ls_student-id, ls_student-name, ls_student-score.
 
-  IF ls_student-score &gt;= 90.
-    lv_high_cnt = lv_high_cnt + 1.
-  ENDIF.
-ENDLOOP.
+  <span style="color: #005cc5; font-weight: bold;">IF</span> ls_student-score &gt;= <span style="color: #22863a;">90</span>.
+    lv_high_cnt = lv_high_cnt + <span style="color: #22863a;">1</span>.
+  <span style="color: #005cc5; font-weight: bold;">ENDIF</span>.
+<span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.
 
-WRITE: / '90점 이상 학생 수:', lv_high_cnt.
+<span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'90점 이상 학생 수:'</span>, lv_high_cnt.
 
-CLEAR ls_student.
-READ TABLE lt_students INTO ls_student WITH KEY id = 'A02'.
-IF sy-subrc = 0.
-  WRITE: / '검색 성공:', ls_student-name, ls_student-score.
-ELSE.
-  WRITE: / '검색 실패: 해당 학생 없음'.
-ENDIF.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">CLEAR</span> ls_student.
+<span style="color: #005cc5; font-weight: bold;">READ</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> lt_students <span style="color: #005cc5; font-weight: bold;">INTO</span> ls_student <span style="color: #005cc5; font-weight: bold;">WITH</span> <span style="color: #005cc5; font-weight: bold;">KEY</span> id = <span style="color: #22863a;">'A02'</span>.
+<span style="color: #005cc5; font-weight: bold;">IF</span> sy-subrc = <span style="color: #22863a;">0</span>.
+  <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'검색 성공:'</span>, ls_student-name, ls_student-score.
+<span style="color: #005cc5; font-weight: bold;">ELSE</span>.
+  <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'검색 실패: 해당 학생 없음'</span>.
+<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     코드가 길어 보일 수 있지만 흐름은 단순합니다. 표를 만들고, 줄을 넣고, 전체를 돌며 계산하고, 한 줄을 검색해 결과를 출력합니다.
   </p>

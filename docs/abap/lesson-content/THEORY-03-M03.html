@@ -39,12 +39,12 @@
 
 <section class="lesson-section">
   <h2>3. 최소 예제: 입력한 이름으로 인사하기 👋</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zparam_output.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zparam_output.
 
-PARAMETERS p_name TYPE string DEFAULT 'ABAP' OBLIGATORY.
+<span style="color: #005cc5; font-weight: bold;">PARAMETERS</span> p_name <span style="color: #005cc5; font-weight: bold;">TYPE</span> string DEFAULT <span style="color: #22863a;">'ABAP'</span> OBLIGATORY.
 
-WRITE: / '안녕하세요,', p_name,
-       / 'ABAP 학습을 시작합니다!'.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'안녕하세요,'</span>, p_name,
+       / <span style="color: #22863a;">'ABAP 학습을 시작합니다!'</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     이 프로그램을 실행하면 먼저 <code>p_name</code> 입력칸이 보입니다. 기본값은 <code>ABAP</code>이고 필수 입력이므로 비워둘 수 없습니다. 사용자가 값을 입력한 뒤 실행하면 Output List에 인사 문장이 출력됩니다.
   </p>
@@ -62,14 +62,14 @@ WRITE: / '안녕하세요,', p_name,
   <p>
     PARAMETERS는 여러 개 선언할 수 있습니다. 예를 들어 항공사 코드와 조회 일수를 입력받아 간단한 안내 문장을 만들 수 있습니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zparam_summary.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zparam_summary.
 
-PARAMETERS p_carr TYPE c LENGTH 3 DEFAULT 'KE' OBLIGATORY.
-PARAMETERS p_days TYPE i DEFAULT 7.
+<span style="color: #005cc5; font-weight: bold;">PARAMETERS</span> p_carr <span style="color: #005cc5; font-weight: bold;">TYPE</span> c LENGTH <span style="color: #22863a;">3</span> DEFAULT <span style="color: #22863a;">'KE'</span> OBLIGATORY.
+<span style="color: #005cc5; font-weight: bold;">PARAMETERS</span> p_days <span style="color: #005cc5; font-weight: bold;">TYPE</span> i DEFAULT <span style="color: #22863a;">7</span>.
 
-WRITE: / '항공사 코드:', p_carr,
-       / '조회 일수:', p_days,
-       / '위 조건으로 조회를 시작합니다.'.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'항공사 코드:'</span>, p_carr,
+       / <span style="color: #22863a;">'조회 일수:'</span>, p_days,
+       / <span style="color: #22863a;">'위 조건으로 조회를 시작합니다.'</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     아직 실제 데이터베이스를 조회하지는 않습니다. 하지만 사용자가 어떤 조건을 넣었는지 먼저 출력해보는 것만으로도 입력값이 프로그램에 잘 들어왔는지 확인할 수 있습니다.
   </p>

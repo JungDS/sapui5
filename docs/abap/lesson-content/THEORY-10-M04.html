@@ -87,20 +87,20 @@
 
 <section class="lesson-section">
   <h2>4. 입력 결과를 출력해보기 ✍️</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zselect_options_multiple.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zselect_options_multiple.
 
-DATA gv_land1 TYPE t005t-land1.
+<span style="color: #005cc5; font-weight: bold;">DATA</span> gv_land1 <span style="color: #005cc5; font-weight: bold;">TYPE</span> t005t-land1.
 
-SELECT-OPTIONS s_land1 FOR gv_land1.
+<span style="color: #005cc5; font-weight: bold;">SELECT-OPTIONS</span> s_land1 FOR gv_land1.
 
-START-OF-SELECTION.
+<span style="color: #005cc5; font-weight: bold;">START-OF-SELECTION</span>.
 
-  LOOP AT s_land1 INTO DATA(ls_range).
-    WRITE: / ls_range-sign,
-             ls_range-option,
-             ls_range-low,
-             ls_range-high.
-  ENDLOOP.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> s_land1 <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">DATA</span>(ls_range).
+    <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / ls_range-<span style="color: #005cc5; font-weight: bold;">sign</span>,
+             ls_range-<span style="color: #005cc5; font-weight: bold;">option</span>,
+             ls_range-<span style="color: #005cc5; font-weight: bold;">low</span>,
+             ls_range-<span style="color: #005cc5; font-weight: bold;">high</span>.
+  <span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     Multiple Selection에서 포함값과 제외값을 넣은 뒤 실행해보세요. 출력되는 <code>sign</code> 값이 <code>I</code>와 <code>E</code>로 달라지는 것을 확인할 수 있습니다.
   </p>

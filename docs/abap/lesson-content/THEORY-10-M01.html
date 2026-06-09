@@ -80,11 +80,11 @@
 
 <section class="lesson-section">
   <h2>4. 최소 코드로 Range Table 만들기 ✍️</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>DATA r_land1 TYPE RANGE OF t005t-land1.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">DATA</span> r_land1 <span style="color: #005cc5; font-weight: bold;">TYPE</span> RANGE <span style="color: #005cc5; font-weight: bold;">OF</span> t005t-land1.
 
-APPEND VALUE #( sign = 'I' option = 'EQ' low = 'KR' ) TO r_land1.
-APPEND VALUE #( sign = 'I' option = 'EQ' low = 'US' ) TO r_land1.
-APPEND VALUE #( sign = 'E' option = 'EQ' low = 'KP' ) TO r_land1.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">APPEND</span> <span style="color: #005cc5; font-weight: bold;">VALUE</span> #( <span style="color: #005cc5; font-weight: bold;">sign</span> = <span style="color: #22863a;">'I'</span> <span style="color: #005cc5; font-weight: bold;">option</span> = <span style="color: #22863a;">'EQ'</span> <span style="color: #005cc5; font-weight: bold;">low</span> = <span style="color: #22863a;">'KR'</span> ) <span style="color: #005cc5; font-weight: bold;">TO</span> r_land1.
+<span style="color: #005cc5; font-weight: bold;">APPEND</span> <span style="color: #005cc5; font-weight: bold;">VALUE</span> #( <span style="color: #005cc5; font-weight: bold;">sign</span> = <span style="color: #22863a;">'I'</span> <span style="color: #005cc5; font-weight: bold;">option</span> = <span style="color: #22863a;">'EQ'</span> <span style="color: #005cc5; font-weight: bold;">low</span> = <span style="color: #22863a;">'US'</span> ) <span style="color: #005cc5; font-weight: bold;">TO</span> r_land1.
+<span style="color: #005cc5; font-weight: bold;">APPEND</span> <span style="color: #005cc5; font-weight: bold;">VALUE</span> #( <span style="color: #005cc5; font-weight: bold;">sign</span> = <span style="color: #22863a;">'E'</span> <span style="color: #005cc5; font-weight: bold;">option</span> = <span style="color: #22863a;">'EQ'</span> <span style="color: #005cc5; font-weight: bold;">low</span> = <span style="color: #22863a;">'KP'</span> ) <span style="color: #005cc5; font-weight: bold;">TO</span> r_land1.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     위 코드는 국가 코드용 Range Table을 직접 만든 예시입니다. <code>KR</code>과 <code>US</code>는 포함하고, <code>KP</code>는 제외하는 조건을 표현합니다.
   </p>

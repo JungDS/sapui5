@@ -58,15 +58,15 @@
   <p>
     <span class="glossary-term" data-glossary="MESSAGEStatement">MESSAGE</span>는 사용자에게 오류, 경고, 정보 메시지를 보여주는 ABAP 문법입니다. 여기서는 가장 단순한 감각만 잡습니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zinput_check.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zinput_check.
 
-PARAMETERS p_days TYPE i DEFAULT 7.
+<span style="color: #005cc5; font-weight: bold;">PARAMETERS</span> p_days <span style="color: #005cc5; font-weight: bold;">TYPE</span> i DEFAULT <span style="color: #22863a;">7</span>.
 
-IF p_days &gt; 30.
-  MESSAGE '조회 일수는 30일을 넘길 수 없습니다.' TYPE 'E'.
-ENDIF.
+<span style="color: #005cc5; font-weight: bold;">IF</span> p_days &gt; <span style="color: #22863a;">30</span>.
+  MESSAGE <span style="color: #22863a;">'조회 일수는 30일을 넘길 수 없습니다.'</span> <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #22863a;">'E'</span>.
+<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.
 
-WRITE: / '조회 일수:', p_days.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'조회 일수:'</span>, p_days.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     위 예제는 조회 일수가 30보다 크면 오류 메시지를 보여줍니다. 실제 Selection Screen 검증 이벤트인 <code>AT SELECTION-SCREEN</code>은 나중에 더 깊게 다룹니다. 지금은 “업무 조건을 코드로 확인하고 사용자에게 메시지를 줄 수 있다”는 감각만 가져가면 됩니다.
   </p>

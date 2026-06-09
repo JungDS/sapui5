@@ -55,23 +55,23 @@
 
 <section class="lesson-section">
   <h2>4. 가장 작은 Internal Table 맛보기 ✍️</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zinternal_table_intro.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zinternal_table_intro.
 
-TYPES: BEGIN OF ty_student,
-         id   TYPE char3,
-         name TYPE char20,
-       END OF ty_student.
+<span style="color: #005cc5; font-weight: bold;">TYPES</span>: <span style="color: #005cc5; font-weight: bold;">BEGIN</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student,
+         id   <span style="color: #005cc5; font-weight: bold;">TYPE</span> char3,
+         name <span style="color: #005cc5; font-weight: bold;">TYPE</span> char20,
+       <span style="color: #005cc5; font-weight: bold;">END</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student.
 
-DATA: lt_students TYPE STANDARD TABLE OF ty_student,
-      ls_student  TYPE ty_student.
+<span style="color: #005cc5; font-weight: bold;">DATA</span>: lt_students <span style="color: #005cc5; font-weight: bold;">TYPE</span> STANDARD <span style="color: #005cc5; font-weight: bold;">TABLE</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student,
+      ls_student  <span style="color: #005cc5; font-weight: bold;">TYPE</span> ty_student.
 
-ls_student-id = 'A01'.
-ls_student-name = 'Mina'.
-APPEND ls_student TO lt_students.
+ls_student-id = <span style="color: #22863a;">'A01'</span>.
+ls_student-name = <span style="color: #22863a;">'Mina'</span>.
+<span style="color: #005cc5; font-weight: bold;">APPEND</span> ls_student <span style="color: #005cc5; font-weight: bold;">TO</span> lt_students.
 
-LOOP AT lt_students INTO ls_student.
-  WRITE: / ls_student-id, ls_student-name.
-ENDLOOP.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> lt_students <span style="color: #005cc5; font-weight: bold;">INTO</span> ls_student.
+  <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / ls_student-id, ls_student-name.
+<span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     지금은 문법을 완벽히 외우지 않아도 됩니다. 큰 흐름만 먼저 보세요. 한 줄 모양을 정하고, 여러 줄을 담을 표를 만들고, 한 줄을 넣은 뒤, 반복해서 출력합니다.
   </p>

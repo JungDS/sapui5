@@ -20,12 +20,12 @@
 
 <section class="lesson-section">
   <h2>2. INITIALIZATION으로 기본값 채우기 ✍️</h2>
-  <pre><code>PARAMETERS: p_date TYPE sy-datum,
-            p_bukrs TYPE bukrs.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">PARAMETERS</span>: p_date <span style="color: #005cc5; font-weight: bold;">TYPE</span> sy-datum,
+            p_bukrs <span style="color: #005cc5; font-weight: bold;">TYPE</span> bukrs.
 
-INITIALIZATION.
-  p_date  = sy-datum.        "오늘 날짜를 기본값으로
-  p_bukrs = '1000'.          "회사코드 기본값</code></pre>
+<span style="color: #005cc5; font-weight: bold;">INITIALIZATION</span>.
+  p_date  = sy-datum.        <span style="color: #888888; font-style: italic;">"오늘 날짜를 기본값으로</span>
+  p_bukrs = <span style="color: #22863a;">'1000'</span>.          <span style="color: #888888; font-style: italic;">"회사코드 기본값</span></code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     이렇게 하면 화면이 처음 뜰 때 날짜 칸에 오늘 날짜가, 회사코드 칸에 <code>1000</code>이 미리 채워져 나타납니다. 사용자는 그대로 실행하거나 필요할 때만 바꾸면 됩니다.
   </p>

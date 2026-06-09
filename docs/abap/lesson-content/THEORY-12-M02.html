@@ -39,10 +39,10 @@
     <li>✅ <strong>의미 부여:</strong> "이 용도에는 이 필드들만 쓴다"는 약속을 View 이름으로 표현할 수 있습니다.</li>
     <li>✅ <strong>변화 흡수:</strong> 원본 테이블에 필드가 늘어도, 이 View를 쓰는 코드는 영향을 덜 받습니다.</li>
   </ul>
-  <pre><code>" Projection View도 테이블처럼 사용
-SELECT matnr, maktx
-  FROM zv_material_basic     "← 자재 마스터에서 핵심 칸만 추린 View
-  INTO TABLE @DATA(lt).</code></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #888888; font-style: italic;">" Projection View도 테이블처럼 사용</span>
+<span style="color: #005cc5; font-weight: bold;">SELECT</span> matnr, maktx
+  <span style="color: #005cc5; font-weight: bold;">FROM</span> zv_material_basic     <span style="color: #888888; font-style: italic;">"← 자재 마스터에서 핵심 칸만 추린 View</span>
+  <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lt).</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
 </section>
 
 <section class="lesson-section">

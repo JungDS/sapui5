@@ -23,14 +23,14 @@
   <p>
     <span class="glossary-term" data-glossary="StringType">String</span>은 길이가 고정되지 않은 문자열 타입입니다. 짧은 이름부터 긴 메시지까지 비교적 편하게 담을 수 있습니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zstring_basic.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zstring_basic.
 
-DATA gv_name    TYPE string VALUE 'ABAP'.
-DATA gv_message TYPE string.
+<span style="color: #005cc5; font-weight: bold;">DATA</span> gv_name    <span style="color: #005cc5; font-weight: bold;">TYPE</span> string <span style="color: #005cc5; font-weight: bold;">VALUE</span> <span style="color: #22863a;">'ABAP'</span>.
+<span style="color: #005cc5; font-weight: bold;">DATA</span> gv_message <span style="color: #005cc5; font-weight: bold;">TYPE</span> string.
 
-CONCATENATE 'Hello' gv_name INTO gv_message SEPARATED BY space.
+CONCATENATE <span style="color: #22863a;">'Hello'</span> gv_name <span style="color: #005cc5; font-weight: bold;">INTO</span> gv_message SEPARATED <span style="color: #005cc5; font-weight: bold;">BY</span> space.
 
-WRITE gv_message.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">WRITE</span> gv_message.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     <code>CONCATENATE</code>는 여러 문자열을 이어 붙입니다. <code>SEPARATED BY space</code>는 단어 사이에 공백을 넣겠다는 뜻입니다. 결과는 <code>Hello ABAP</code>처럼 보입니다.
   </p>
@@ -44,10 +44,10 @@ WRITE gv_message.</code><button class="shiki-copy-button" data-copied="false">Co
   <p>
     <span class="glossary-term" data-glossary="SYDATUM">SY-DATUM</span>은 현재 시스템 날짜를 담고, <span class="glossary-term" data-glossary="SYUNAME">SY-UNAME</span>은 현재 프로그램을 실행한 사용자 ID를 담습니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zsystem_fields.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zsystem_fields.
 
-WRITE: / '오늘 날짜:', sy-datum,
-       / '실행 사용자:', sy-uname.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'오늘 날짜:'</span>, sy-datum,
+       / <span style="color: #22863a;">'실행 사용자:'</span>, sy-uname.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><code>sy-datum</code>: 날짜 값입니다. 보통 내부적으로 <code>YYYYMMDD</code> 형태로 이해하면 됩니다.</li>
     <li><code>sy-uname</code>: 현재 로그인한 SAP 사용자 ID입니다.</li>
@@ -62,17 +62,17 @@ WRITE: / '오늘 날짜:', sy-datum,
   <p>
     <span class="glossary-term" data-glossary="SYSUBRC">SY-SUBRC</span>는 많은 ABAP 문장이 실행된 뒤 결과 코드를 담는 시스템 필드입니다. 보통 <code>0</code>이면 성공, <code>0</code>이 아니면 실패나 다른 상태로 해석합니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zsubrc_basic.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zsubrc_basic.
 
-DATA gv_text TYPE string VALUE 'Hello ABAP'.
+<span style="color: #005cc5; font-weight: bold;">DATA</span> gv_text <span style="color: #005cc5; font-weight: bold;">TYPE</span> string <span style="color: #005cc5; font-weight: bold;">VALUE</span> <span style="color: #22863a;">'Hello ABAP'</span>.
 
-FIND 'ABAP' IN gv_text.
+FIND <span style="color: #22863a;">'ABAP'</span> IN gv_text.
 
-IF sy-subrc = 0.
-  WRITE '문자열을 찾았어요'.
-ELSE.
-  WRITE '문자열을 찾지 못했어요'.
-ENDIF.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">IF</span> sy-subrc = <span style="color: #22863a;">0</span>.
+  <span style="color: #005cc5; font-weight: bold;">WRITE</span> <span style="color: #22863a;">'문자열을 찾았어요'</span>.
+<span style="color: #005cc5; font-weight: bold;">ELSE</span>.
+  <span style="color: #005cc5; font-weight: bold;">WRITE</span> <span style="color: #22863a;">'문자열을 찾지 못했어요'</span>.
+<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     위 예제에서 <code>FIND</code>가 문자열을 찾으면 <code>sy-subrc</code>가 0이 됩니다. 찾지 못하면 0이 아닌 값이 됩니다. 그래서 바로 다음 줄에서 <code>IF sy-subrc = 0.</code>으로 성공 여부를 확인합니다.
   </p>

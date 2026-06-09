@@ -37,16 +37,16 @@
   <p>
     Custom Control 자리에 실제로 부품을 담으려면 <span class="glossary-term" data-glossary="GuiContainer">Container 객체</span>가 필요합니다. 대표적으로 <code>CL_GUI_CUSTOM_CONTAINER</code>를 만들어 화면의 Custom Control과 연결합니다.
   </p>
-  <pre><code>DATA: go_container TYPE REF TO cl_gui_custom_container,
-      go_alv       TYPE REF TO cl_gui_alv_grid.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">DATA</span>: go_container <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #005cc5; font-weight: bold;">REF</span> <span style="color: #005cc5; font-weight: bold;">TO</span> cl_gui_custom_container,
+      go_alv       <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #005cc5; font-weight: bold;">REF</span> <span style="color: #005cc5; font-weight: bold;">TO</span> cl_gui_alv_grid.
 
-" PBO에서 (처음 한 번만)
-IF go_container IS INITIAL.
-  CREATE OBJECT go_container
-    EXPORTING container_name = 'CC_ALV'.   "화면의 Custom Control 이름
-  CREATE OBJECT go_alv
-    EXPORTING i_parent = go_container.      "그 자리에 ALV를 담음
-ENDIF.</code></pre>
+<span style="color: #888888; font-style: italic;">" PBO에서 (처음 한 번만)</span>
+<span style="color: #005cc5; font-weight: bold;">IF</span> go_container <span style="color: #005cc5; font-weight: bold;">IS</span> <span style="color: #005cc5; font-weight: bold;">INITIAL</span>.
+  <span style="color: #005cc5; font-weight: bold;">CREATE</span> <span style="color: #005cc5; font-weight: bold;">OBJECT</span> go_container
+    <span style="color: #005cc5; font-weight: bold;">EXPORTING</span> container_name = <span style="color: #22863a;">'CC_ALV'</span>.   <span style="color: #888888; font-style: italic;">"화면의 Custom Control 이름</span>
+  <span style="color: #005cc5; font-weight: bold;">CREATE</span> <span style="color: #005cc5; font-weight: bold;">OBJECT</span> go_alv
+    <span style="color: #005cc5; font-weight: bold;">EXPORTING</span> i_parent = go_container.      <span style="color: #888888; font-style: italic;">"그 자리에 ALV를 담음</span>
+<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><strong>Container:</strong> Custom Control 자리에 대응하는 ABAP 객체(그릇).</li>
     <li><strong>부품:</strong> 그 그릇(<code>i_parent</code>)에 ALV Grid·HTML Viewer 등을 담습니다.</li>

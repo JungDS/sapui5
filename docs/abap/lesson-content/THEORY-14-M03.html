@@ -37,11 +37,11 @@
   <p>
     Dynpro의 핵심은, 화면의 Input Field가 <strong>프로그램의 변수와 같은 이름으로 자동 연결</strong>된다는 점입니다.
   </p>
-  <pre><code>" 프로그램 본문 (Module Pool)
-DATA: gv_name TYPE char40.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #888888; font-style: italic;">" 프로그램 본문 (Module Pool)</span>
+<span style="color: #005cc5; font-weight: bold;">DATA</span>: gv_name <span style="color: #005cc5; font-weight: bold;">TYPE</span> char40.
 
-" 화면(0100)에 'GV_NAME'이라는 Input Field를 올리면…
-" 사용자가 입력한 값이 PAI 때 gv_name 변수로 자동 전달됨</code></pre>
+<span style="color: #888888; font-style: italic;">" 화면(0100)에 'GV_NAME'이라는 Input Field를 올리면…</span>
+<span style="color: #888888; font-style: italic;">" 사용자가 입력한 값이 PAI 때 gv_name 변수로 자동 전달됨</span></code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li>✅ <strong>출력:</strong> PBO에서 <code>gv_name</code>에 값을 넣으면 화면 칸에 그 값이 표시됩니다.</li>
     <li>✅ <strong>입력:</strong> 사용자가 칸에 입력하면 PAI에서 <code>gv_name</code>으로 값이 들어옵니다.</li>

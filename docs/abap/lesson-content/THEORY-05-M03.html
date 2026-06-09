@@ -26,24 +26,24 @@
   <p>
     Function Module을 실행할 때는 <span class="glossary-term" data-glossary="CALLFUNCTION">CALL FUNCTION</span> 문을 사용합니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zcall_function_basic.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zcall_function_basic.
 
-DATA gv_week TYPE scal-week.
+<span style="color: #005cc5; font-weight: bold;">DATA</span> gv_week <span style="color: #005cc5; font-weight: bold;">TYPE</span> scal-week.
 
-CALL FUNCTION 'DATE_GET_WEEK'
-  EXPORTING
+<span style="color: #005cc5; font-weight: bold;">CALL</span> <span style="color: #005cc5; font-weight: bold;">FUNCTION</span> <span style="color: #22863a;">'DATE_GET_WEEK'</span>
+  <span style="color: #005cc5; font-weight: bold;">EXPORTING</span>
     date = sy-datum
-  IMPORTING
+  <span style="color: #005cc5; font-weight: bold;">IMPORTING</span>
     week = gv_week
-  EXCEPTIONS
-    date_invalid = 1
-    OTHERS       = 2.
+  <span style="color: #005cc5; font-weight: bold;">EXCEPTIONS</span>
+    date_invalid = <span style="color: #22863a;">1</span>
+    OTHERS       = <span style="color: #22863a;">2</span>.
 
-IF sy-subrc = 0.
-  WRITE: / '현재 주차:', gv_week.
-ELSE.
-  WRITE: / '주차 계산 실패'.
-ENDIF.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">IF</span> sy-subrc = <span style="color: #22863a;">0</span>.
+  <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'현재 주차:'</span>, gv_week.
+<span style="color: #005cc5; font-weight: bold;">ELSE</span>.
+  <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'주차 계산 실패'</span>.
+<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     위 예제는 표준 Function Module <code>DATE_GET_WEEK</code>를 호출해 현재 날짜가 몇 번째 주인지 계산합니다. 날짜를 Function Module로 보내고, 결과 주차를 받아 출력합니다.
   </p>

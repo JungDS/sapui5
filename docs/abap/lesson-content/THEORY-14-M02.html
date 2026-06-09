@@ -16,8 +16,8 @@
   <p>
     보통 <code>0100</code>, <code>0200</code>처럼 네 자리 숫자를 씁니다. 프로그램은 "이제 0100 화면을 띄워라"라고 번호로 화면을 호출합니다.
   </p>
-  <pre><code>" 프로그램에서 화면 호출
-CALL SCREEN 0100.</code></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #888888; font-style: italic;">" 프로그램에서 화면 호출</span>
+<span style="color: #005cc5; font-weight: bold;">CALL</span> SCREEN <span style="color: #22863a;">0100</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
 </section>
 
 <section class="lesson-section">
@@ -43,11 +43,11 @@ CALL SCREEN 0100.</code></pre>
   <p>
     화면을 그리면 자동으로 짧은 <strong>Flow Logic</strong>이 생깁니다. 이것이 "화면을 보여주기 전에 무슨 모듈을, 입력 후에 무슨 모듈을 부를지" 정합니다.
   </p>
-  <pre><code>PROCESS BEFORE OUTPUT.
-  MODULE status_0100.       "PBO: 화면 꾸미기
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code>PROCESS BEFORE OUTPUT.
+  <span style="color: #005cc5; font-weight: bold;">MODULE</span> status_0100.       <span style="color: #888888; font-style: italic;">"PBO: 화면 꾸미기</span>
 
 PROCESS AFTER INPUT.
-  MODULE user_command_0100. "PAI: 버튼 처리</code></pre>
+  <span style="color: #005cc5; font-weight: bold;">MODULE</span> user_command_0100. <span style="color: #888888; font-style: italic;">"PAI: 버튼 처리</span></code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     여기서 <code>MODULE status_0100</code>, <code>user_command_0100</code> 같은 실제 ABAP 코드는 Module Pool 프로그램 본문에 작성합니다. Flow Logic은 "언제 무엇을 부를지"의 다리 역할만 합니다.
   </p>

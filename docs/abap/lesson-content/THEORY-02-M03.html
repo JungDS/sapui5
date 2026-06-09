@@ -23,13 +23,13 @@
   <p>
     <code>WRITE</code> 뒤에 출력하고 싶은 값이나 문자를 적고 마침표로 끝내면 됩니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zwrite_basic.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zwrite_basic.
 
-DATA gv_name TYPE string.
-gv_name = 'ABAP Learner'.
+<span style="color: #005cc5; font-weight: bold;">DATA</span> gv_name <span style="color: #005cc5; font-weight: bold;">TYPE</span> string.
+gv_name = <span style="color: #22863a;">'ABAP Learner'</span>.
 
-WRITE 'Hello'.
-WRITE gv_name.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">WRITE</span> <span style="color: #22863a;">'Hello'</span>.
+<span style="color: #005cc5; font-weight: bold;">WRITE</span> gv_name.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     위 코드는 <code>Hello</code>와 변수 <code>gv_name</code>의 값을 출력합니다. 처음에는 예쁘게 정렬하는 것보다 “내가 넣은 값이 보인다”는 감각이 더 중요합니다.
   </p>
@@ -43,13 +43,13 @@ WRITE gv_name.</code><button class="shiki-copy-button" data-copied="false">Copy<
   <p>
     Output List에서 새 줄로 내려가고 싶으면 <code>/</code>를 사용합니다. 콜론 <code>:</code>과 쉼표 <code>,</code>를 함께 쓰면 여러 WRITE를 한 문장처럼 묶을 수 있습니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zwrite_lines.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zwrite_lines.
 
-DATA gv_name TYPE string VALUE 'JUN'.
-DATA gv_age  TYPE i      VALUE 20.
+<span style="color: #005cc5; font-weight: bold;">DATA</span> gv_name <span style="color: #005cc5; font-weight: bold;">TYPE</span> string <span style="color: #005cc5; font-weight: bold;">VALUE</span> <span style="color: #22863a;">'JUN'</span>.
+<span style="color: #005cc5; font-weight: bold;">DATA</span> gv_age  <span style="color: #005cc5; font-weight: bold;">TYPE</span> i      <span style="color: #005cc5; font-weight: bold;">VALUE</span> <span style="color: #22863a;">20</span>.
 
-WRITE: / '이름:', gv_name,
-       / '나이:', gv_age.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'이름:'</span>, gv_name,
+       / <span style="color: #22863a;">'나이:'</span>, gv_age.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><code>WRITE:</code>는 이어지는 출력 항목들을 묶어줍니다.</li>
     <li><code>/</code>는 새 줄에서 출력하라는 뜻입니다.</li>
@@ -65,12 +65,12 @@ WRITE: / '이름:', gv_name,
   <p>
     <span class="glossary-term" data-glossary="FormattingBasic">Formatting Basic</span>은 출력 결과를 아주 간단히 보기 좋게 만드는 기본 기술입니다. 이번 단계에서는 깊게 들어가지 않고, 날짜와 숫자, 라벨을 함께 출력하는 정도만 잡습니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zwrite_format.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zwrite_format.
 
-DATA gv_score TYPE i VALUE 95.
+<span style="color: #005cc5; font-weight: bold;">DATA</span> gv_score <span style="color: #005cc5; font-weight: bold;">TYPE</span> i <span style="color: #005cc5; font-weight: bold;">VALUE</span> <span style="color: #22863a;">95</span>.
 
-WRITE: / '오늘 날짜:', sy-datum,
-       / '점수:', gv_score.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'오늘 날짜:'</span>, sy-datum,
+       / <span style="color: #22863a;">'점수:'</span>, gv_score.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     여기서 <code>sy-datum</code>은 시스템 날짜입니다. 아직 시스템 필드는 Lesson 6에서 더 자세히 다루므로, 지금은 “SAP가 자동으로 들고 있는 현재 날짜 값”이라고만 기억해도 충분합니다.
   </p>

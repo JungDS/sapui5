@@ -20,13 +20,13 @@
 
 <section class="lesson-section">
   <h2>2. DISVARIANT와 I_SAVE ✍️</h2>
-  <pre><code>DATA gs_variant TYPE disvariant.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">DATA</span> gs_variant <span style="color: #005cc5; font-weight: bold;">TYPE</span> disvariant.
 
-gs_variant-report = sy-repid.   "이 프로그램 기준으로 변형 관리
+gs_variant-<span style="color: #005cc5; font-weight: bold;">report</span> = sy-repid.   <span style="color: #888888; font-style: italic;">"이 프로그램 기준으로 변형 관리</span>
 
-" 표시 메서드에 함께 넘김 (다음 Lesson M07)
-"   is_variant = gs_variant
-"   i_save     = 'A'</code></pre>
+<span style="color: #888888; font-style: italic;">" 표시 메서드에 함께 넘김 (다음 Lesson M07)</span>
+<span style="color: #888888; font-style: italic;">"   is_variant = gs_variant</span>
+<span style="color: #888888; font-style: italic;">"   i_save     = 'A'</span></code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><strong><span class="glossary-term" data-glossary="DISVARIANT">DISVARIANT</span>:</strong> 변형 정보를 담는 구조. 보통 <code>report</code>에 프로그램 ID를 넣어 "어느 프로그램의 변형인지" 구분합니다.</li>
     <li><strong><span class="glossary-term" data-glossary="ISave">i_save</span>:</strong> 저장 허용 범위를 정합니다.</li>

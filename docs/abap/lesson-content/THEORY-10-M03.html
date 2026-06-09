@@ -23,15 +23,15 @@
 
 <section class="lesson-section">
   <h2>2. 기본 구조 보기 🔍</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>DATA gv_land1 TYPE t005t-land1.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">DATA</span> gv_land1 <span style="color: #005cc5; font-weight: bold;">TYPE</span> t005t-land1.
 
-SELECT-OPTIONS s_land1 FOR gv_land1.
+<span style="color: #005cc5; font-weight: bold;">SELECT-OPTIONS</span> s_land1 FOR gv_land1.
 
-SELECT FROM t005t
+<span style="color: #005cc5; font-weight: bold;">SELECT</span> <span style="color: #005cc5; font-weight: bold;">FROM</span> t005t
   FIELDS land1, landx
-  WHERE spras = @sy-langu
+  <span style="color: #005cc5; font-weight: bold;">WHERE</span> spras = @sy-langu
     AND land1 IN @s_land1
-  INTO TABLE @DATA(lt_countries).</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lt_countries).</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     여기서 <code>land1</code>은 데이터베이스 필드이고, <code>s_land1</code>은 사용자가 입력한 Selection Table입니다. <code>@s_land1</code>처럼 <code>@</code>를 붙여 ABAP 쪽 Range Table을 SQL 조건으로 전달합니다.
   </p>
@@ -44,27 +44,27 @@ SELECT FROM t005t
 
 <section class="lesson-section">
   <h2>3. 전체 예제로 조회하기 ✍️</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zsql_where_in_range.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zsql_where_in_range.
 
-DATA gv_land1 TYPE t005t-land1.
+<span style="color: #005cc5; font-weight: bold;">DATA</span> gv_land1 <span style="color: #005cc5; font-weight: bold;">TYPE</span> t005t-land1.
 
-SELECT-OPTIONS s_land1 FOR gv_land1.
+<span style="color: #005cc5; font-weight: bold;">SELECT-OPTIONS</span> s_land1 FOR gv_land1.
 
-START-OF-SELECTION.
+<span style="color: #005cc5; font-weight: bold;">START-OF-SELECTION</span>.
 
-  SELECT FROM t005t
+  <span style="color: #005cc5; font-weight: bold;">SELECT</span> <span style="color: #005cc5; font-weight: bold;">FROM</span> t005t
     FIELDS land1, landx
-    WHERE spras = @sy-langu
+    <span style="color: #005cc5; font-weight: bold;">WHERE</span> spras = @sy-langu
       AND land1 IN @s_land1
-    INTO TABLE @DATA(lt_countries).
+    <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lt_countries).
 
-  IF lt_countries IS INITIAL.
-    WRITE: / '조회 결과가 없습니다.'.
-  ELSE.
-    LOOP AT lt_countries INTO DATA(ls_country).
-      WRITE: / ls_country-land1, ls_country-landx.
-    ENDLOOP.
-  ENDIF.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <span style="color: #005cc5; font-weight: bold;">IF</span> lt_countries <span style="color: #005cc5; font-weight: bold;">IS</span> <span style="color: #005cc5; font-weight: bold;">INITIAL</span>.
+    <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'조회 결과가 없습니다.'</span>.
+  <span style="color: #005cc5; font-weight: bold;">ELSE</span>.
+    <span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> lt_countries <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">DATA</span>(ls_country).
+      <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / ls_country-land1, ls_country-landx.
+    <span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.
+  <span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     Selection Screen에서 <code>KR</code>, <code>US</code>를 여러 값으로 넣으면 두 국가 텍스트가 조회됩니다. 범위를 넣으면 해당 범위의 국가 코드가 조회 조건에 들어갑니다.
   </p>

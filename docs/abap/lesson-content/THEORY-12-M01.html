@@ -39,10 +39,10 @@
     <li><strong>Open SQL JOIN:</strong> 코드 안에서 그때그때 정의. 상황마다 자유롭게 바꿀 수 있음(유연함).</li>
     <li><strong>Database View:</strong> DDIC에 한 번 정의해 재사용. 여러 프로그램이 같은 정의를 공유(일관성).</li>
   </ul>
-  <pre><code>" View를 테이블처럼 사용
-SELECT carrid, connid, carrname
-  FROM zv_flight_carr      "← 미리 정의해 둔 Database View
-  INTO TABLE @DATA(lt).</code></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #888888; font-style: italic;">" View를 테이블처럼 사용</span>
+<span style="color: #005cc5; font-weight: bold;">SELECT</span> carrid, connid, carrname
+  <span style="color: #005cc5; font-weight: bold;">FROM</span> zv_flight_carr      <span style="color: #888888; font-style: italic;">"← 미리 정의해 둔 Database View</span>
+  <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lt).</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <blockquote>
     "이 JOIN을 여러 곳에서 똑같이 쓴다" → Database View가 어울립니다. "이번만, 이 화면에서만 특수하게 합친다" → 코드 JOIN이 편합니다.
   </blockquote>

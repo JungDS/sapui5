@@ -39,30 +39,30 @@
 
 <section class="lesson-section">
   <h2>3. 주문과 품목 예제로 보기 ✍️</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zdeep_structure_basic.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zdeep_structure_basic.
 
-TYPES: BEGIN OF ty_item,
-         product TYPE char20,
-         amount  TYPE i,
-       END OF ty_item.
+<span style="color: #005cc5; font-weight: bold;">TYPES</span>: <span style="color: #005cc5; font-weight: bold;">BEGIN</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_item,
+         product <span style="color: #005cc5; font-weight: bold;">TYPE</span> char20,
+         amount  <span style="color: #005cc5; font-weight: bold;">TYPE</span> i,
+       <span style="color: #005cc5; font-weight: bold;">END</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_item.
 
-TYPES tt_items TYPE STANDARD TABLE OF ty_item WITH DEFAULT KEY.
+<span style="color: #005cc5; font-weight: bold;">TYPES</span> tt_items <span style="color: #005cc5; font-weight: bold;">TYPE</span> STANDARD <span style="color: #005cc5; font-weight: bold;">TABLE</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_item <span style="color: #005cc5; font-weight: bold;">WITH</span> DEFAULT <span style="color: #005cc5; font-weight: bold;">KEY</span>.
 
-TYPES: BEGIN OF ty_order,
-         order_id TYPE char10,
-         note     TYPE string,
-         items    TYPE tt_items,
-       END OF ty_order.
+<span style="color: #005cc5; font-weight: bold;">TYPES</span>: <span style="color: #005cc5; font-weight: bold;">BEGIN</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_order,
+         order_id <span style="color: #005cc5; font-weight: bold;">TYPE</span> char10,
+         note     <span style="color: #005cc5; font-weight: bold;">TYPE</span> string,
+         items    <span style="color: #005cc5; font-weight: bold;">TYPE</span> tt_items,
+       <span style="color: #005cc5; font-weight: bold;">END</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_order.
 
-DATA: ls_order TYPE ty_order,
-      ls_item  TYPE ty_item.
+<span style="color: #005cc5; font-weight: bold;">DATA</span>: ls_order <span style="color: #005cc5; font-weight: bold;">TYPE</span> ty_order,
+      ls_item  <span style="color: #005cc5; font-weight: bold;">TYPE</span> ty_item.
 
-ls_order-order_id = 'O-100'.
-ls_order-note = '첫 주문 메모입니다.'.
+ls_order-order_id = <span style="color: #22863a;">'O-100'</span>.
+ls_order-note = <span style="color: #22863a;">'첫 주문 메모입니다.'</span>.
 
-ls_item-product = 'BOOK'.
-ls_item-amount = 2.
-APPEND ls_item TO ls_order-items.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+ls_item-product = <span style="color: #22863a;">'BOOK'</span>.
+ls_item-amount = <span style="color: #22863a;">2</span>.
+<span style="color: #005cc5; font-weight: bold;">APPEND</span> ls_item <span style="color: #005cc5; font-weight: bold;">TO</span> ls_order-items.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     <code>ty_order</code> 구조 안에는 <code>note TYPE string</code>과 <code>items TYPE tt_items</code>가 있습니다. <code>items</code>는 주문 한 건 안에 들어 있는 품목 목록 Internal Table입니다.
   </p>

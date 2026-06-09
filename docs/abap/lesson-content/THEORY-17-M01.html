@@ -20,17 +20,17 @@
 
 <section class="lesson-section">
   <h2>2. 한눈에 보는 Before / After ✍️</h2>
-  <pre><code>" Classic Open SQL (옛 스타일)
-DATA lt TYPE TABLE OF sflight.
-SELECT carrid connid price          "필드 사이 콤마 없음
-  INTO TABLE lt                     "@ 없음
-  FROM sflight
-  WHERE carrid = lv_carrid.         "변수 앞 @ 없음</code></pre>
-  <pre><code>" Modern ABAP SQL (새 스타일)
-SELECT carrid, connid, price        "필드 사이 콤마
-  FROM sflight
-  WHERE carrid = @lv_carrid         "변수 앞 @ (Host Variable)
-  INTO TABLE @DATA(lt).             "@ + 인라인 선언</code></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #888888; font-style: italic;">" Classic Open SQL (옛 스타일)</span>
+<span style="color: #005cc5; font-weight: bold;">DATA</span> lt <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> <span style="color: #005cc5; font-weight: bold;">OF</span> sflight.
+<span style="color: #005cc5; font-weight: bold;">SELECT</span> carrid connid price          <span style="color: #888888; font-style: italic;">"필드 사이 콤마 없음</span>
+  <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> lt                     <span style="color: #888888; font-style: italic;">"@ 없음</span>
+  <span style="color: #005cc5; font-weight: bold;">FROM</span> sflight
+  <span style="color: #005cc5; font-weight: bold;">WHERE</span> carrid = lv_carrid.         <span style="color: #888888; font-style: italic;">"변수 앞 @ 없음</span></code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #888888; font-style: italic;">" Modern ABAP SQL (새 스타일)</span>
+<span style="color: #005cc5; font-weight: bold;">SELECT</span> carrid, connid, price        <span style="color: #888888; font-style: italic;">"필드 사이 콤마</span>
+  <span style="color: #005cc5; font-weight: bold;">FROM</span> sflight
+  <span style="color: #005cc5; font-weight: bold;">WHERE</span> carrid = @lv_carrid         <span style="color: #888888; font-style: italic;">"변수 앞 @ (Host Variable)</span>
+  <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lt).             <span style="color: #888888; font-style: italic;">"@ + 인라인 선언</span></code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <div class="lesson-callout">
     <div class="lesson-callout-icon">💡</div>
     <div class="lesson-callout-content">

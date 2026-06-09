@@ -23,13 +23,13 @@
   <p>
     이 이벤트 안에서는 <span class="glossary-term" data-glossary="LoopAtScreen">LOOP AT SCREEN</span>으로 화면의 모든 요소를 한 바퀴 돌며, 각 칸의 속성을 바꿀 수 있습니다.
   </p>
-  <pre><code>AT SELECTION-SCREEN OUTPUT.
-  LOOP AT SCREEN.
-    IF screen-name = 'P_DETAIL'.
-      screen-active = '0'.        "이 칸을 숨김 (0=숨김, 1=표시)
-      MODIFY SCREEN.              "변경을 실제 화면에 반영
-    ENDIF.
-  ENDLOOP.</code></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">AT</span> <span style="color: #005cc5; font-weight: bold;">SELECTION-SCREEN</span> OUTPUT.
+  <span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> SCREEN.
+    <span style="color: #005cc5; font-weight: bold;">IF</span> screen-name = <span style="color: #22863a;">'P_DETAIL'</span>.
+      screen-active = <span style="color: #22863a;">'0'</span>.        <span style="color: #888888; font-style: italic;">"이 칸을 숨김 (0=숨김, 1=표시)</span>
+      <span style="color: #005cc5; font-weight: bold;">MODIFY</span> SCREEN.              <span style="color: #888888; font-style: italic;">"변경을 실제 화면에 반영</span>
+    <span style="color: #005cc5; font-weight: bold;">ENDIF</span>.
+  <span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><strong><code>screen-active = '0'</code>:</strong> 칸을 숨깁니다.</li>
     <li><strong><code>screen-input = '0'</code>:</strong> 보이되 입력은 막습니다(회색 비활성).</li>
@@ -42,16 +42,16 @@
   <p>
     칸이 여러 개라면 이름을 하나하나 비교하기 번거롭습니다. 이때 <span class="glossary-term" data-glossary="ModifId">MODIF ID</span>로 칸들을 <strong>그룹</strong>으로 묶어 한 번에 제어합니다.
   </p>
-  <pre><code>PARAMETERS: p_a TYPE c MODIF ID grp,
-            p_b TYPE c MODIF ID grp.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">PARAMETERS</span>: p_a <span style="color: #005cc5; font-weight: bold;">TYPE</span> c MODIF ID grp,
+            p_b <span style="color: #005cc5; font-weight: bold;">TYPE</span> c MODIF ID grp.
 
-AT SELECTION-SCREEN OUTPUT.
-  LOOP AT SCREEN.
-    IF screen-group1 = 'GRP'.     "MODIF ID가 GRP인 칸 전부
-      screen-active = '0'.
-      MODIFY SCREEN.
-    ENDIF.
-  ENDLOOP.</code></pre>
+<span style="color: #005cc5; font-weight: bold;">AT</span> <span style="color: #005cc5; font-weight: bold;">SELECTION-SCREEN</span> OUTPUT.
+  <span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> SCREEN.
+    <span style="color: #005cc5; font-weight: bold;">IF</span> screen-group1 = <span style="color: #22863a;">'GRP'</span>.     <span style="color: #888888; font-style: italic;">"MODIF ID가 GRP인 칸 전부</span>
+      screen-active = <span style="color: #22863a;">'0'</span>.
+      <span style="color: #005cc5; font-weight: bold;">MODIFY</span> SCREEN.
+    <span style="color: #005cc5; font-weight: bold;">ENDIF</span>.
+  <span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <div class="lesson-callout">
     <div class="lesson-callout-icon">💡</div>
     <div class="lesson-callout-content">

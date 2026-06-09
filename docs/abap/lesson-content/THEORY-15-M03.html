@@ -20,20 +20,20 @@
 
 <section class="lesson-section">
   <h2>2. 출력용 Internal Table 준비 ✍️</h2>
-  <pre><code>" 화면에 보여줄 구조 = 표의 컬럼들
-TYPES: BEGIN OF ty_flight,
-         carrid  TYPE s_carr_id,
-         connid  TYPE s_conn_id,
-         fldate  TYPE s_date,
-         price   TYPE s_price,
-       END OF ty_flight.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #888888; font-style: italic;">" 화면에 보여줄 구조 = 표의 컬럼들</span>
+<span style="color: #005cc5; font-weight: bold;">TYPES</span>: <span style="color: #005cc5; font-weight: bold;">BEGIN</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_flight,
+         carrid  <span style="color: #005cc5; font-weight: bold;">TYPE</span> s_carr_id,
+         connid  <span style="color: #005cc5; font-weight: bold;">TYPE</span> s_conn_id,
+         fldate  <span style="color: #005cc5; font-weight: bold;">TYPE</span> s_date,
+         price   <span style="color: #005cc5; font-weight: bold;">TYPE</span> s_price,
+       <span style="color: #005cc5; font-weight: bold;">END</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_flight.
 
-DATA gt_outtab TYPE STANDARD TABLE OF ty_flight.
+<span style="color: #005cc5; font-weight: bold;">DATA</span> gt_outtab <span style="color: #005cc5; font-weight: bold;">TYPE</span> STANDARD <span style="color: #005cc5; font-weight: bold;">TABLE</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_flight.
 
-START-OF-SELECTION.
-  SELECT carrid, connid, fldate, price
-    FROM sflight
-    INTO TABLE @gt_outtab.</code></pre>
+<span style="color: #005cc5; font-weight: bold;">START-OF-SELECTION</span>.
+  <span style="color: #005cc5; font-weight: bold;">SELECT</span> carrid, connid, fldate, price
+    <span style="color: #005cc5; font-weight: bold;">FROM</span> sflight
+    <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @gt_outtab.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><strong>구조(컬럼):</strong> Internal Table의 각 필드가 표의 각 컬럼이 됩니다.</li>
     <li><strong>한 줄(행):</strong> 조회로 채운 각 줄이 표의 한 행으로 그려집니다.</li>

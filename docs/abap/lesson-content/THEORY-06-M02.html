@@ -28,11 +28,11 @@
   <p>
     <span class="glossary-term" data-glossary="LineType">Line Type</span>은 Internal Table에 들어갈 한 줄이 어떤 필드를 가질지 정하는 타입입니다. DDIC Structure처럼 여러 컴포넌트를 가진 한 줄 모양을 로컬 프로그램 안에서 만들 수도 있습니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>TYPES: BEGIN OF ty_student,
-         id    TYPE char3,
-         name  TYPE char20,
-         score TYPE i,
-       END OF ty_student.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">TYPES</span>: <span style="color: #005cc5; font-weight: bold;">BEGIN</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student,
+         id    <span style="color: #005cc5; font-weight: bold;">TYPE</span> char3,
+         name  <span style="color: #005cc5; font-weight: bold;">TYPE</span> char20,
+         score <span style="color: #005cc5; font-weight: bold;">TYPE</span> i,
+       <span style="color: #005cc5; font-weight: bold;">END</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     위 코드는 학생 한 줄이 <code>id</code>, <code>name</code>, <code>score</code> 세 칸을 가진다고 선언합니다. 아직 데이터가 들어간 것은 아닙니다. “이런 모양의 줄을 쓸 거야”라고 설계도를 만든 단계입니다.
   </p>
@@ -43,7 +43,7 @@
   <p>
     <span class="glossary-term" data-glossary="WorkArea">Work Area</span>는 Line Type과 같은 모양을 가진 한 줄 변수입니다. Internal Table에 줄을 넣거나, Internal Table에서 줄을 꺼내 읽을 때 자주 사용합니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>DATA ls_student TYPE ty_student.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">DATA</span> ls_student <span style="color: #005cc5; font-weight: bold;">TYPE</span> ty_student.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     이름에서 <code>ls_</code>는 보통 “local structure” 느낌으로 많이 쓰는 관례입니다. 프로젝트마다 다를 수 있지만, 초심자 단계에서는 <code>ls_</code>를 보면 “한 줄짜리 구조 변수구나”라고 읽으면 됩니다.
   </p>
@@ -61,20 +61,20 @@
   <p>
     <span class="glossary-term" data-glossary="StandardTable">STANDARD TABLE</span>은 Internal Table의 가장 기본적인 형태입니다. 줄이 들어간 순서를 유지하며, 처음 배우는 단계에서 선언과 반복을 익히기에 좋습니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>DATA lt_students TYPE STANDARD TABLE OF ty_student.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">DATA</span> lt_students <span style="color: #005cc5; font-weight: bold;">TYPE</span> STANDARD <span style="color: #005cc5; font-weight: bold;">TABLE</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     이름에서 <code>lt_</code>는 보통 “local table” 느낌으로 쓰는 관례입니다. <code>lt_students</code>는 학생 여러 줄을 담는 표이고, 각 줄은 <code>ty_student</code> 모양을 따릅니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zstandard_table_decl.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zstandard_table_decl.
 
-TYPES: BEGIN OF ty_student,
-         id    TYPE char3,
-         name  TYPE char20,
-         score TYPE i,
-       END OF ty_student.
+<span style="color: #005cc5; font-weight: bold;">TYPES</span>: <span style="color: #005cc5; font-weight: bold;">BEGIN</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student,
+         id    <span style="color: #005cc5; font-weight: bold;">TYPE</span> char3,
+         name  <span style="color: #005cc5; font-weight: bold;">TYPE</span> char20,
+         score <span style="color: #005cc5; font-weight: bold;">TYPE</span> i,
+       <span style="color: #005cc5; font-weight: bold;">END</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student.
 
-DATA: lt_students TYPE STANDARD TABLE OF ty_student,
-      ls_student  TYPE ty_student.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">DATA</span>: lt_students <span style="color: #005cc5; font-weight: bold;">TYPE</span> STANDARD <span style="color: #005cc5; font-weight: bold;">TABLE</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student,
+      ls_student  <span style="color: #005cc5; font-weight: bold;">TYPE</span> ty_student.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     이 코드가 Internal Table 선언의 기본 골격입니다. 아직 값은 없지만, 이제 여러 학생 줄을 담을 준비가 끝났습니다.
   </p>

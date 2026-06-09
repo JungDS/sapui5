@@ -23,11 +23,11 @@
 
 <section class="lesson-section">
   <h2>2. 기본 구조: SORT 후 READ TABLE 🔍</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>SORT lt_students BY id.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">SORT</span> lt_students <span style="color: #005cc5; font-weight: bold;">BY</span> id.
 
-READ TABLE lt_students INTO ls_student
-  WITH KEY id = 'A02'
-  BINARY SEARCH.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">READ</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> lt_students <span style="color: #005cc5; font-weight: bold;">INTO</span> ls_student
+  <span style="color: #005cc5; font-weight: bold;">WITH</span> <span style="color: #005cc5; font-weight: bold;">KEY</span> id = <span style="color: #22863a;">'A02'</span>
+  <span style="color: #005cc5; font-weight: bold;">BINARY</span> <span style="color: #005cc5; font-weight: bold;">SEARCH</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     순서는 반드시 먼저 정렬, 그다음 검색입니다. 여기서는 <code>id</code> 기준으로 찾기 때문에 <code>id</code> 기준으로 정렬해둡니다.
   </p>
@@ -41,36 +41,36 @@ READ TABLE lt_students INTO ls_student
 
 <section class="lesson-section">
   <h2>3. 전체 예제로 검색 흐름 보기 ✍️</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zbinary_search_basic.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zbinary_search_basic.
 
-TYPES: BEGIN OF ty_student,
-         id    TYPE char3,
-         name  TYPE char20,
-         score TYPE i,
-       END OF ty_student.
+<span style="color: #005cc5; font-weight: bold;">TYPES</span>: <span style="color: #005cc5; font-weight: bold;">BEGIN</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student,
+         id    <span style="color: #005cc5; font-weight: bold;">TYPE</span> char3,
+         name  <span style="color: #005cc5; font-weight: bold;">TYPE</span> char20,
+         score <span style="color: #005cc5; font-weight: bold;">TYPE</span> i,
+       <span style="color: #005cc5; font-weight: bold;">END</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student.
 
-DATA: lt_students TYPE STANDARD TABLE OF ty_student,
-      ls_student  TYPE ty_student.
+<span style="color: #005cc5; font-weight: bold;">DATA</span>: lt_students <span style="color: #005cc5; font-weight: bold;">TYPE</span> STANDARD <span style="color: #005cc5; font-weight: bold;">TABLE</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student,
+      ls_student  <span style="color: #005cc5; font-weight: bold;">TYPE</span> ty_student.
 
-ls_student-id = 'A03'. ls_student-name = 'Sora'. ls_student-score = 95.
-APPEND ls_student TO lt_students.
+ls_student-id = <span style="color: #22863a;">'A03'</span>. ls_student-name = <span style="color: #22863a;">'Sora'</span>. ls_student-score = <span style="color: #22863a;">95</span>.
+<span style="color: #005cc5; font-weight: bold;">APPEND</span> ls_student <span style="color: #005cc5; font-weight: bold;">TO</span> lt_students.
 
-CLEAR ls_student.
-ls_student-id = 'A01'. ls_student-name = 'Mina'. ls_student-score = 90.
-APPEND ls_student TO lt_students.
+<span style="color: #005cc5; font-weight: bold;">CLEAR</span> ls_student.
+ls_student-id = <span style="color: #22863a;">'A01'</span>. ls_student-name = <span style="color: #22863a;">'Mina'</span>. ls_student-score = <span style="color: #22863a;">90</span>.
+<span style="color: #005cc5; font-weight: bold;">APPEND</span> ls_student <span style="color: #005cc5; font-weight: bold;">TO</span> lt_students.
 
-CLEAR ls_student.
-ls_student-id = 'A02'. ls_student-name = 'Jun'. ls_student-score = 85.
-APPEND ls_student TO lt_students.
+<span style="color: #005cc5; font-weight: bold;">CLEAR</span> ls_student.
+ls_student-id = <span style="color: #22863a;">'A02'</span>. ls_student-name = <span style="color: #22863a;">'Jun'</span>. ls_student-score = <span style="color: #22863a;">85</span>.
+<span style="color: #005cc5; font-weight: bold;">APPEND</span> ls_student <span style="color: #005cc5; font-weight: bold;">TO</span> lt_students.
 
-SORT lt_students BY id.
+<span style="color: #005cc5; font-weight: bold;">SORT</span> lt_students <span style="color: #005cc5; font-weight: bold;">BY</span> id.
 
-READ TABLE lt_students INTO ls_student WITH KEY id = 'A02' BINARY SEARCH.
-IF sy-subrc = 0.
-  WRITE: / '검색 성공:', ls_student-id, ls_student-name.
-ELSE.
-  WRITE: / '검색 실패'.
-ENDIF.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">READ</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> lt_students <span style="color: #005cc5; font-weight: bold;">INTO</span> ls_student <span style="color: #005cc5; font-weight: bold;">WITH</span> <span style="color: #005cc5; font-weight: bold;">KEY</span> id = <span style="color: #22863a;">'A02'</span> <span style="color: #005cc5; font-weight: bold;">BINARY</span> <span style="color: #005cc5; font-weight: bold;">SEARCH</span>.
+<span style="color: #005cc5; font-weight: bold;">IF</span> sy-subrc = <span style="color: #22863a;">0</span>.
+  <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'검색 성공:'</span>, ls_student-id, ls_student-name.
+<span style="color: #005cc5; font-weight: bold;">ELSE</span>.
+  <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'검색 실패'</span>.
+<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     처음 APPEND 순서는 A03, A01, A02입니다. 하지만 검색 전에 <code>SORT lt_students BY id.</code>를 실행했기 때문에 BINARY SEARCH가 기대하는 정렬 상태가 됩니다.
   </p>
@@ -81,8 +81,8 @@ ENDIF.</code><button class="shiki-copy-button" data-copied="false">Copy</button>
   <p>
     BINARY SEARCH는 “이미 올바르게 정렬되어 있다”는 전제 위에서 움직입니다. 그런데 <code>id</code>로 찾으면서 <code>score</code>로 정렬해두면, 검색 알고리즘이 잘못된 방향으로 범위를 줄일 수 있습니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>SORT lt_students BY score.
-READ TABLE lt_students INTO ls_student WITH KEY id = 'A02' BINARY SEARCH.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">SORT</span> lt_students <span style="color: #005cc5; font-weight: bold;">BY</span> score.
+<span style="color: #005cc5; font-weight: bold;">READ</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> lt_students <span style="color: #005cc5; font-weight: bold;">INTO</span> ls_student <span style="color: #005cc5; font-weight: bold;">WITH</span> <span style="color: #005cc5; font-weight: bold;">KEY</span> id = <span style="color: #22863a;">'A02'</span> <span style="color: #005cc5; font-weight: bold;">BINARY</span> <span style="color: #005cc5; font-weight: bold;">SEARCH</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     위 코드는 문법상 보일 수는 있지만, 검색 기준과 정렬 기준이 맞지 않아 결과를 신뢰하기 어렵습니다. 초심자 단계에서는 “BINARY SEARCH 앞에는 같은 기준의 SORT가 있어야 한다”라고 강하게 기억해두세요.
   </p>

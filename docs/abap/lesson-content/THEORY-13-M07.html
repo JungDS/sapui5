@@ -23,13 +23,13 @@
   <p>
     <span class="glossary-term" data-glossary="AuthorityCheck">AUTHORITY-CHECK</span>는 현재 사용자가 특정 작업에 대한 권한을 가졌는지 검사합니다. 보통 검증 단계나 조회 직전에 둡니다.
   </p>
-  <pre><code>AUTHORITY-CHECK OBJECT 'F_BKPF_BUK'
-  ID 'BUKRS' FIELD p_bukrs
-  ID 'ACTVT' FIELD '03'.        "03 = 조회(Display)
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code>AUTHORITY-CHECK <span style="color: #005cc5; font-weight: bold;">OBJECT</span> <span style="color: #22863a;">'F_BKPF_BUK'</span>
+  ID <span style="color: #22863a;">'BUKRS'</span> FIELD p_bukrs
+  ID <span style="color: #22863a;">'ACTVT'</span> FIELD <span style="color: #22863a;">'03'</span>.        <span style="color: #888888; font-style: italic;">"03 = 조회(Display)</span>
 
-IF sy-subrc &lt;&gt; 0.
-  MESSAGE '해당 회사코드를 조회할 권한이 없습니다.' TYPE 'E'.
-ENDIF.</code></pre>
+<span style="color: #005cc5; font-weight: bold;">IF</span> sy-subrc &lt;&gt; <span style="color: #22863a;">0</span>.
+  MESSAGE <span style="color: #22863a;">'해당 회사코드를 조회할 권한이 없습니다.'</span> <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #22863a;">'E'</span>.
+<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><strong>OBJECT:</strong> 검사할 권한 객체(Authorization Object).</li>
     <li><strong>ID ... FIELD:</strong> 검사할 값(여기서는 회사코드와 활동 유형).</li>
@@ -42,12 +42,12 @@ ENDIF.</code></pre>
   <p>
     입력값이 형식상 맞아도, 실제 마스터 데이터에 없으면 조회가 헛돕니다. 그래서 조회 전 존재 여부를 확인합니다(THEORY-13-M04의 검증과 같은 맥락).
   </p>
-  <pre><code>SELECT SINGLE bukrs FROM t001
-  INTO @DATA(lv_dummy)
-  WHERE bukrs = @p_bukrs.
-IF sy-subrc &lt;&gt; 0.
-  MESSAGE '존재하지 않는 회사코드입니다.' TYPE 'E'.
-ENDIF.</code></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">SELECT</span> SINGLE bukrs <span style="color: #005cc5; font-weight: bold;">FROM</span> t001
+  <span style="color: #005cc5; font-weight: bold;">INTO</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lv_dummy)
+  <span style="color: #005cc5; font-weight: bold;">WHERE</span> bukrs = @p_bukrs.
+<span style="color: #005cc5; font-weight: bold;">IF</span> sy-subrc &lt;&gt; <span style="color: #22863a;">0</span>.
+  MESSAGE <span style="color: #22863a;">'존재하지 않는 회사코드입니다.'</span> <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #22863a;">'E'</span>.
+<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <div class="lesson-callout">
     <div class="lesson-callout-icon">💡</div>
     <div class="lesson-callout-content">

@@ -23,7 +23,7 @@
 
 <section class="lesson-section">
   <h2>2. RANGE OF로 조건표 선언하기 📦</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>DATA r_land1 TYPE RANGE OF t005t-land1.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">DATA</span> r_land1 <span style="color: #005cc5; font-weight: bold;">TYPE</span> RANGE <span style="color: #005cc5; font-weight: bold;">OF</span> t005t-land1.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     이 선언은 <code>T005T-LAND1</code> 타입에 맞는 Range Table을 만듭니다. 내부 행은 SIGN, OPTION, LOW, HIGH 구조를 가집니다.
   </p>
@@ -34,9 +34,9 @@
 
 <section class="lesson-section">
   <h2>3. APPEND VALUE로 Range Line 추가하기 ✍️</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>APPEND VALUE #( sign = 'I' option = 'EQ' low = 'KR' ) TO r_land1.
-APPEND VALUE #( sign = 'I' option = 'EQ' low = 'US' ) TO r_land1.
-APPEND VALUE #( sign = 'I' option = 'BT' low = 'A' high = 'C' ) TO r_land1.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">APPEND</span> <span style="color: #005cc5; font-weight: bold;">VALUE</span> #( <span style="color: #005cc5; font-weight: bold;">sign</span> = <span style="color: #22863a;">'I'</span> <span style="color: #005cc5; font-weight: bold;">option</span> = <span style="color: #22863a;">'EQ'</span> <span style="color: #005cc5; font-weight: bold;">low</span> = <span style="color: #22863a;">'KR'</span> ) <span style="color: #005cc5; font-weight: bold;">TO</span> r_land1.
+<span style="color: #005cc5; font-weight: bold;">APPEND</span> <span style="color: #005cc5; font-weight: bold;">VALUE</span> #( <span style="color: #005cc5; font-weight: bold;">sign</span> = <span style="color: #22863a;">'I'</span> <span style="color: #005cc5; font-weight: bold;">option</span> = <span style="color: #22863a;">'EQ'</span> <span style="color: #005cc5; font-weight: bold;">low</span> = <span style="color: #22863a;">'US'</span> ) <span style="color: #005cc5; font-weight: bold;">TO</span> r_land1.
+<span style="color: #005cc5; font-weight: bold;">APPEND</span> <span style="color: #005cc5; font-weight: bold;">VALUE</span> #( <span style="color: #005cc5; font-weight: bold;">sign</span> = <span style="color: #22863a;">'I'</span> <span style="color: #005cc5; font-weight: bold;">option</span> = <span style="color: #22863a;">'BT'</span> <span style="color: #005cc5; font-weight: bold;">low</span> = <span style="color: #22863a;">'A'</span> <span style="color: #005cc5; font-weight: bold;">high</span> = <span style="color: #22863a;">'C'</span> ) <span style="color: #005cc5; font-weight: bold;">TO</span> r_land1.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     각 <code>APPEND VALUE #( ... )</code>는 Range Table에 조건 한 줄을 추가합니다. <code>EQ</code>는 HIGH가 필요 없고, <code>BT</code>는 LOW와 HIGH가 함께 필요합니다.
   </p>
@@ -51,22 +51,22 @@ APPEND VALUE #( sign = 'I' option = 'BT' low = 'A' high = 'C' ) TO r_land1.</cod
 
 <section class="lesson-section">
   <h2>4. 직접 만든 Range로 SELECT하기 🔍</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zrange_manual_basic.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zrange_manual_basic.
 
-DATA r_land1 TYPE RANGE OF t005t-land1.
+<span style="color: #005cc5; font-weight: bold;">DATA</span> r_land1 <span style="color: #005cc5; font-weight: bold;">TYPE</span> RANGE <span style="color: #005cc5; font-weight: bold;">OF</span> t005t-land1.
 
-APPEND VALUE #( sign = 'I' option = 'EQ' low = 'KR' ) TO r_land1.
-APPEND VALUE #( sign = 'I' option = 'EQ' low = 'US' ) TO r_land1.
+<span style="color: #005cc5; font-weight: bold;">APPEND</span> <span style="color: #005cc5; font-weight: bold;">VALUE</span> #( <span style="color: #005cc5; font-weight: bold;">sign</span> = <span style="color: #22863a;">'I'</span> <span style="color: #005cc5; font-weight: bold;">option</span> = <span style="color: #22863a;">'EQ'</span> <span style="color: #005cc5; font-weight: bold;">low</span> = <span style="color: #22863a;">'KR'</span> ) <span style="color: #005cc5; font-weight: bold;">TO</span> r_land1.
+<span style="color: #005cc5; font-weight: bold;">APPEND</span> <span style="color: #005cc5; font-weight: bold;">VALUE</span> #( <span style="color: #005cc5; font-weight: bold;">sign</span> = <span style="color: #22863a;">'I'</span> <span style="color: #005cc5; font-weight: bold;">option</span> = <span style="color: #22863a;">'EQ'</span> <span style="color: #005cc5; font-weight: bold;">low</span> = <span style="color: #22863a;">'US'</span> ) <span style="color: #005cc5; font-weight: bold;">TO</span> r_land1.
 
-SELECT FROM t005t
+<span style="color: #005cc5; font-weight: bold;">SELECT</span> <span style="color: #005cc5; font-weight: bold;">FROM</span> t005t
   FIELDS land1, landx
-  WHERE spras = @sy-langu
+  <span style="color: #005cc5; font-weight: bold;">WHERE</span> spras = @sy-langu
     AND land1 IN @r_land1
-  INTO TABLE @DATA(lt_countries).
+  <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lt_countries).
 
-LOOP AT lt_countries INTO DATA(ls_country).
-  WRITE: / ls_country-land1, ls_country-landx.
-ENDLOOP.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> lt_countries <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">DATA</span>(ls_country).
+  <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / ls_country-land1, ls_country-landx.
+<span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     이 예제는 화면 입력 없이 코드에서 만든 Range Table을 Open SQL 조건으로 사용합니다. SELECT-OPTIONS로 만든 <code>s_land1</code>과 직접 만든 <code>r_land1</code> 모두 Range Table 구조라는 점이 연결됩니다.
   </p>

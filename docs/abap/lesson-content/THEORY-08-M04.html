@@ -23,45 +23,45 @@
 
 <section class="lesson-section">
   <h2>2. 미니 리포트 전체 코드 ✍️</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zsalv_mini_report.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zsalv_mini_report.
 
-TYPES: BEGIN OF ty_student,
-         id    TYPE char3,
-         name  TYPE char20,
-         score TYPE i,
-       END OF ty_student.
+<span style="color: #005cc5; font-weight: bold;">TYPES</span>: <span style="color: #005cc5; font-weight: bold;">BEGIN</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student,
+         id    <span style="color: #005cc5; font-weight: bold;">TYPE</span> char3,
+         name  <span style="color: #005cc5; font-weight: bold;">TYPE</span> char20,
+         score <span style="color: #005cc5; font-weight: bold;">TYPE</span> i,
+       <span style="color: #005cc5; font-weight: bold;">END</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student.
 
-DATA: lt_students  TYPE STANDARD TABLE OF ty_student,
-      ls_student   TYPE ty_student,
-      lo_alv       TYPE REF TO cl_salv_table,
-      lo_functions TYPE REF TO cl_salv_functions_list,
-      lx_msg       TYPE REF TO cx_salv_msg.
+<span style="color: #005cc5; font-weight: bold;">DATA</span>: lt_students  <span style="color: #005cc5; font-weight: bold;">TYPE</span> STANDARD <span style="color: #005cc5; font-weight: bold;">TABLE</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student,
+      ls_student   <span style="color: #005cc5; font-weight: bold;">TYPE</span> ty_student,
+      lo_alv       <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #005cc5; font-weight: bold;">REF</span> <span style="color: #005cc5; font-weight: bold;">TO</span> cl_salv_table,
+      lo_functions <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #005cc5; font-weight: bold;">REF</span> <span style="color: #005cc5; font-weight: bold;">TO</span> cl_salv_functions_list,
+      lx_msg       <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #005cc5; font-weight: bold;">REF</span> <span style="color: #005cc5; font-weight: bold;">TO</span> cx_salv_msg.
 
-ls_student-id = 'A01'. ls_student-name = 'Mina'. ls_student-score = 90.
-APPEND ls_student TO lt_students.
+ls_student-id = <span style="color: #22863a;">'A01'</span>. ls_student-name = <span style="color: #22863a;">'Mina'</span>. ls_student-score = <span style="color: #22863a;">90</span>.
+<span style="color: #005cc5; font-weight: bold;">APPEND</span> ls_student <span style="color: #005cc5; font-weight: bold;">TO</span> lt_students.
 
-CLEAR ls_student.
-ls_student-id = 'A02'. ls_student-name = 'Jun'. ls_student-score = 85.
-APPEND ls_student TO lt_students.
+<span style="color: #005cc5; font-weight: bold;">CLEAR</span> ls_student.
+ls_student-id = <span style="color: #22863a;">'A02'</span>. ls_student-name = <span style="color: #22863a;">'Jun'</span>. ls_student-score = <span style="color: #22863a;">85</span>.
+<span style="color: #005cc5; font-weight: bold;">APPEND</span> ls_student <span style="color: #005cc5; font-weight: bold;">TO</span> lt_students.
 
-CLEAR ls_student.
-ls_student-id = 'A03'. ls_student-name = 'Sora'. ls_student-score = 95.
-APPEND ls_student TO lt_students.
+<span style="color: #005cc5; font-weight: bold;">CLEAR</span> ls_student.
+ls_student-id = <span style="color: #22863a;">'A03'</span>. ls_student-name = <span style="color: #22863a;">'Sora'</span>. ls_student-score = <span style="color: #22863a;">95</span>.
+<span style="color: #005cc5; font-weight: bold;">APPEND</span> ls_student <span style="color: #005cc5; font-weight: bold;">TO</span> lt_students.
 
-SORT lt_students BY score DESCENDING.
+<span style="color: #005cc5; font-weight: bold;">SORT</span> lt_students <span style="color: #005cc5; font-weight: bold;">BY</span> score <span style="color: #005cc5; font-weight: bold;">DESCENDING</span>.
 
 TRY.
     cl_salv_table=&gt;factory(
-      IMPORTING r_salv_table = lo_alv
-      CHANGING  t_table      = lt_students ).
+      <span style="color: #005cc5; font-weight: bold;">IMPORTING</span> r_salv_table = lo_alv
+      <span style="color: #005cc5; font-weight: bold;">CHANGING</span>  t_table      = lt_students ).
 
     lo_functions = lo_alv-&gt;get_functions( ).
     lo_functions-&gt;set_all( abap_true ).
 
     lo_alv-&gt;display( ).
 
-  CATCH cx_salv_msg INTO lx_msg.
-    MESSAGE lx_msg-&gt;get_text( ) TYPE 'E'.
+  CATCH cx_salv_msg <span style="color: #005cc5; font-weight: bold;">INTO</span> lx_msg.
+    MESSAGE lx_msg-&gt;get_text( ) <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #22863a;">'E'</span>.
 ENDTRY.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     코드는 길어 보이지만 실제 덩어리는 네 개입니다. 타입 선언, 데이터 채우기, 정렬, SALV 표시입니다.
@@ -88,10 +88,10 @@ ENDTRY.</code><button class="shiki-copy-button" data-copied="false">Copy</button
   <p>
     Internal Table이 비어 있으면 SALV 화면이 비어 보일 수 있습니다. 이것이 기술적으로는 오류가 아닐 수 있지만, 사용자 입장에서는 “왜 아무것도 안 나오지?”가 됩니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>IF lt_students IS INITIAL.
-  MESSAGE '표시할 학생 데이터가 없습니다.' TYPE 'I'.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">IF</span> lt_students <span style="color: #005cc5; font-weight: bold;">IS</span> <span style="color: #005cc5; font-weight: bold;">INITIAL</span>.
+  MESSAGE <span style="color: #22863a;">'표시할 학생 데이터가 없습니다.'</span> <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #22863a;">'I'</span>.
   RETURN.
-ENDIF.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     실제 Report에서는 SALV 표시 전에 데이터가 없는 경우를 안내하는 메시지를 넣는 것이 좋습니다. 초심자 단계에서는 “빈 결과도 설계 대상”이라는 감각을 가져가세요.
   </p>

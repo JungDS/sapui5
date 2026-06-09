@@ -38,12 +38,12 @@
 <section class="lesson-section">
   <h2>3. 최소 예제로 직접 보기 ✍️</h2>
   <p>항공편 일정(<code>SPFLI</code>)에 항공사 이름(<code>SCARR</code>)을 붙여 읽어 봅시다.</p>
-  <pre><code>SELECT s~carrid, s~connid, s~cityfrom, s~cityto,
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">SELECT</span> s~carrid, s~connid, s~cityfrom, s~cityto,
        c~carrname
-  FROM spfli AS s
+  <span style="color: #005cc5; font-weight: bold;">FROM</span> spfli AS s
   INNER JOIN scarr AS c
     ON s~carrid = c~carrid
-  INTO TABLE @DATA(lt_flights).</code></pre>
+  <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lt_flights).</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>천천히 뜯어볼게요.</p>
   <ul>
     <li><strong><span class="glossary-term" data-glossary="SQLAlias">AS s</span> / AS c (Alias):</strong> <code>spfli</code>를 <code>s</code>, <code>scarr</code>를 <code>c</code>라는 짧은 별명으로 부릅니다. 필드 앞에 <code>s~</code>, <code>c~</code>를 붙여 "어느 테이블의 필드인지" 분명히 합니다.</li>

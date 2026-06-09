@@ -20,13 +20,13 @@
 
 <section class="lesson-section">
   <h2>2. Container를 만들어 화면과 연결 ✍️</h2>
-  <pre><code>DATA: go_container TYPE REF TO cl_gui_custom_container.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">DATA</span>: go_container <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #005cc5; font-weight: bold;">REF</span> <span style="color: #005cc5; font-weight: bold;">TO</span> cl_gui_custom_container.
 
-" 화면(0100)의 PBO에서, 처음 한 번만
-IF go_container IS INITIAL.
-  CREATE OBJECT go_container
-    EXPORTING container_name = 'CC_ALV'.   "화면에 그린 Custom Control 이름
-ENDIF.</code></pre>
+<span style="color: #888888; font-style: italic;">" 화면(0100)의 PBO에서, 처음 한 번만</span>
+<span style="color: #005cc5; font-weight: bold;">IF</span> go_container <span style="color: #005cc5; font-weight: bold;">IS</span> <span style="color: #005cc5; font-weight: bold;">INITIAL</span>.
+  <span style="color: #005cc5; font-weight: bold;">CREATE</span> <span style="color: #005cc5; font-weight: bold;">OBJECT</span> go_container
+    <span style="color: #005cc5; font-weight: bold;">EXPORTING</span> container_name = <span style="color: #22863a;">'CC_ALV'</span>.   <span style="color: #888888; font-style: italic;">"화면에 그린 Custom Control 이름</span>
+<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><strong><span class="glossary-term" data-glossary="ContainerName">container_name</span>:</strong> Screen Painter에서 Custom Control에 준 이름과 <strong>정확히 같아야</strong> 합니다(예: <code>CC_ALV</code>).</li>
     <li><strong>참조 변수:</strong> <code>go_container</code>는 이 그릇을 가리키는 손잡이입니다. 이후 ALV를 담을 때 이 손잡이를 넘깁니다.</li>

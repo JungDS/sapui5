@@ -23,10 +23,10 @@
 
 <section class="lesson-section">
   <h2>2. TYPES로 결과 한 줄 모양 정하기 📏</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>TYPES: BEGIN OF ty_country,
-         land1 TYPE t005t-land1,
-         landx TYPE t005t-landx,
-       END OF ty_country.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">TYPES</span>: <span style="color: #005cc5; font-weight: bold;">BEGIN</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_country,
+         land1 <span style="color: #005cc5; font-weight: bold;">TYPE</span> t005t-land1,
+         landx <span style="color: #005cc5; font-weight: bold;">TYPE</span> t005t-landx,
+       <span style="color: #005cc5; font-weight: bold;">END</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_country.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     위 코드는 조회 결과 한 줄이 국가 코드와 국가명 두 필드로 구성된다고 정의합니다. DDIC 필드 타입을 참조하므로 실제 테이블 필드 타입과 맞추기 쉽습니다.
   </p>
@@ -37,14 +37,14 @@
 
 <section class="lesson-section">
   <h2>3. DATA lt_table로 Typed Internal Table 선언하기 📦</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>DATA lt_countries TYPE STANDARD TABLE OF ty_country.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">DATA</span> lt_countries <span style="color: #005cc5; font-weight: bold;">TYPE</span> STANDARD <span style="color: #005cc5; font-weight: bold;">TABLE</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_country.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     <span class="glossary-term" data-glossary="TypedInternalTable">Typed Internal Table</span>은 어떤 Line Type을 담는지 명확히 정해진 Internal Table입니다. 여기서는 <code>ty_country</code> 모양의 여러 줄을 담습니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>SELECT FROM t005t
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">SELECT</span> <span style="color: #005cc5; font-weight: bold;">FROM</span> t005t
   FIELDS land1, landx
-  WHERE spras = @sy-langu
-  INTO TABLE @lt_countries.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <span style="color: #005cc5; font-weight: bold;">WHERE</span> spras = @sy-langu
+  <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @lt_countries.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     이제 SELECT 결과는 미리 선언한 <code>lt_countries</code>에 들어갑니다. 이 <code>lt_countries</code>가 Target Variable입니다.
   </p>
@@ -52,24 +52,24 @@
 
 <section class="lesson-section">
   <h2>4. 전체 예제로 명시적 Target 사용하기 ✍️</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zsql_explicit_target.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zsql_explicit_target.
 
-TYPES: BEGIN OF ty_country,
-         land1 TYPE t005t-land1,
-         landx TYPE t005t-landx,
-       END OF ty_country.
+<span style="color: #005cc5; font-weight: bold;">TYPES</span>: <span style="color: #005cc5; font-weight: bold;">BEGIN</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_country,
+         land1 <span style="color: #005cc5; font-weight: bold;">TYPE</span> t005t-land1,
+         landx <span style="color: #005cc5; font-weight: bold;">TYPE</span> t005t-landx,
+       <span style="color: #005cc5; font-weight: bold;">END</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_country.
 
-DATA lt_countries TYPE STANDARD TABLE OF ty_country.
-DATA ls_country   TYPE ty_country.
+<span style="color: #005cc5; font-weight: bold;">DATA</span> lt_countries <span style="color: #005cc5; font-weight: bold;">TYPE</span> STANDARD <span style="color: #005cc5; font-weight: bold;">TABLE</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_country.
+<span style="color: #005cc5; font-weight: bold;">DATA</span> ls_country   <span style="color: #005cc5; font-weight: bold;">TYPE</span> ty_country.
 
-SELECT FROM t005t
+<span style="color: #005cc5; font-weight: bold;">SELECT</span> <span style="color: #005cc5; font-weight: bold;">FROM</span> t005t
   FIELDS land1, landx
-  WHERE spras = @sy-langu
-  INTO TABLE @lt_countries.
+  <span style="color: #005cc5; font-weight: bold;">WHERE</span> spras = @sy-langu
+  <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @lt_countries.
 
-LOOP AT lt_countries INTO ls_country.
-  WRITE: / ls_country-land1, ls_country-landx.
-ENDLOOP.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> lt_countries <span style="color: #005cc5; font-weight: bold;">INTO</span> ls_country.
+  <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / ls_country-land1, ls_country-landx.
+<span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     이 코드는 inline 선언보다 조금 길지만, 조회 결과 구조가 코드 위쪽에 명확하게 드러납니다. 협업 코드나 긴 Report에서는 이런 명확성이 도움이 됩니다.
   </p>

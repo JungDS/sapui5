@@ -23,11 +23,11 @@
 
 <section class="lesson-section">
   <h2>2. FIELD-SYMBOLS 선언과 ASSIGNING 구조 🔗</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>FIELD-SYMBOLS &lt;fs_student&gt; TYPE ty_student.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">FIELD-SYMBOLS</span> &lt;fs_student&gt; <span style="color: #005cc5; font-weight: bold;">TYPE</span> ty_student.
 
-LOOP AT lt_students ASSIGNING &lt;fs_student&gt;.
-  &lt;fs_student&gt;-score = &lt;fs_student&gt;-score + 1.
-ENDLOOP.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> lt_students <span style="color: #005cc5; font-weight: bold;">ASSIGNING</span> &lt;fs_student&gt;.
+  &lt;fs_student&gt;-score = &lt;fs_student&gt;-score + <span style="color: #22863a;">1</span>.
+<span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><span class="glossary-term" data-glossary="FieldSymbol">FIELD-SYMBOLS</span>: Field Symbol 이름과 타입을 선언합니다.</li>
     <li><span class="glossary-term" data-glossary="ASSIGNINGAddition">ASSIGNING</span>: LOOP가 현재 행을 Field Symbol에 연결합니다.</li>
@@ -40,33 +40,33 @@ ENDLOOP.</code><button class="shiki-copy-button" data-copied="false">Copy</butto
 
 <section class="lesson-section">
   <h2>3. 전체 예제로 원본 행 변경 확인하기 ✍️</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zfield_symbol_basic.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zfield_symbol_basic.
 
-TYPES: BEGIN OF ty_student,
-         id    TYPE char3,
-         name  TYPE char20,
-         score TYPE i,
-       END OF ty_student.
+<span style="color: #005cc5; font-weight: bold;">TYPES</span>: <span style="color: #005cc5; font-weight: bold;">BEGIN</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student,
+         id    <span style="color: #005cc5; font-weight: bold;">TYPE</span> char3,
+         name  <span style="color: #005cc5; font-weight: bold;">TYPE</span> char20,
+         score <span style="color: #005cc5; font-weight: bold;">TYPE</span> i,
+       <span style="color: #005cc5; font-weight: bold;">END</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student.
 
-DATA: lt_students TYPE STANDARD TABLE OF ty_student,
-      ls_student  TYPE ty_student.
+<span style="color: #005cc5; font-weight: bold;">DATA</span>: lt_students <span style="color: #005cc5; font-weight: bold;">TYPE</span> STANDARD <span style="color: #005cc5; font-weight: bold;">TABLE</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student,
+      ls_student  <span style="color: #005cc5; font-weight: bold;">TYPE</span> ty_student.
 
-FIELD-SYMBOLS &lt;fs_student&gt; TYPE ty_student.
+<span style="color: #005cc5; font-weight: bold;">FIELD-SYMBOLS</span> &lt;fs_student&gt; <span style="color: #005cc5; font-weight: bold;">TYPE</span> ty_student.
 
-ls_student-id = 'A01'. ls_student-name = 'Mina'. ls_student-score = 90.
-APPEND ls_student TO lt_students.
+ls_student-id = <span style="color: #22863a;">'A01'</span>. ls_student-name = <span style="color: #22863a;">'Mina'</span>. ls_student-score = <span style="color: #22863a;">90</span>.
+<span style="color: #005cc5; font-weight: bold;">APPEND</span> ls_student <span style="color: #005cc5; font-weight: bold;">TO</span> lt_students.
 
-CLEAR ls_student.
-ls_student-id = 'A02'. ls_student-name = 'Jun'. ls_student-score = 85.
-APPEND ls_student TO lt_students.
+<span style="color: #005cc5; font-weight: bold;">CLEAR</span> ls_student.
+ls_student-id = <span style="color: #22863a;">'A02'</span>. ls_student-name = <span style="color: #22863a;">'Jun'</span>. ls_student-score = <span style="color: #22863a;">85</span>.
+<span style="color: #005cc5; font-weight: bold;">APPEND</span> ls_student <span style="color: #005cc5; font-weight: bold;">TO</span> lt_students.
 
-LOOP AT lt_students ASSIGNING &lt;fs_student&gt;.
-  &lt;fs_student&gt;-score = &lt;fs_student&gt;-score + 1.
-ENDLOOP.
+<span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> lt_students <span style="color: #005cc5; font-weight: bold;">ASSIGNING</span> &lt;fs_student&gt;.
+  &lt;fs_student&gt;-score = &lt;fs_student&gt;-score + <span style="color: #22863a;">1</span>.
+<span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.
 
-LOOP AT lt_students INTO ls_student.
-  WRITE: / ls_student-id, ls_student-name, ls_student-score.
-ENDLOOP.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> lt_students <span style="color: #005cc5; font-weight: bold;">INTO</span> ls_student.
+  <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / ls_student-id, ls_student-name, ls_student-score.
+<span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     실행하면 두 학생의 점수가 각각 1점씩 올라간 상태로 출력됩니다. 첫 번째 LOOP에서 Field Symbol로 원본 행을 직접 바꿨기 때문입니다.
   </p>

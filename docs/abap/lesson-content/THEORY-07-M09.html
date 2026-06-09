@@ -26,11 +26,11 @@
   <p>
     <span class="glossary-term" data-glossary="CLEARStatement">CLEAR</span>는 변수, Work Area, 구조, Internal Table 등을 초기 상태로 되돌립니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>CLEAR ls_student.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">CLEAR</span> ls_student.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     Work Area에 CLEAR를 쓰면 각 필드가 타입에 맞는 초기값으로 돌아갑니다. 문자 필드는 공백, 숫자 필드는 0에 가까운 초기 상태가 됩니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>CLEAR lt_students.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">CLEAR</span> lt_students.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     Header Line을 쓰지 않는 현대적인 Internal Table에서는 <code>CLEAR lt_students</code>로 테이블 내용을 비우는 용도로도 사용합니다. 초심자 단계에서는 “다음 작업 전에 깨끗하게 비운다”는 감각으로 보면 됩니다.
   </p>
@@ -41,14 +41,14 @@
   <p>
     <span class="glossary-term" data-glossary="REFRESHStatement">REFRESH</span>는 예전 ABAP 코드에서 Internal Table의 내용을 비울 때 자주 보입니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REFRESH lt_students.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REFRESH</span> lt_students.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     새 코드에서는 <code>CLEAR lt_students</code>를 더 자연스럽게 쓰는 경우가 많지만, 기존 시스템에서는 REFRESH를 읽을 수 있어야 합니다.
   </p>
   <p>
     <span class="glossary-term" data-glossary="FREEStatement">FREE</span>는 Internal Table 내용을 비우는 것에 더해, 할당된 메모리를 반환하는 의미까지 가집니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>FREE lt_students.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">FREE</span> lt_students.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     대량 데이터를 담았던 Internal Table을 더 이상 쓰지 않을 때는 FREE를 고려할 수 있습니다.
   </p>
@@ -56,31 +56,31 @@
 
 <section class="lesson-section">
   <h2>4. 전체 예제로 정리 흐름 보기 ✍️</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zclear_refresh_free.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zclear_refresh_free.
 
-TYPES: BEGIN OF ty_student,
-         id    TYPE char3,
-         name  TYPE char20,
-       END OF ty_student.
+<span style="color: #005cc5; font-weight: bold;">TYPES</span>: <span style="color: #005cc5; font-weight: bold;">BEGIN</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student,
+         id    <span style="color: #005cc5; font-weight: bold;">TYPE</span> char3,
+         name  <span style="color: #005cc5; font-weight: bold;">TYPE</span> char20,
+       <span style="color: #005cc5; font-weight: bold;">END</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student.
 
-DATA: lt_students TYPE STANDARD TABLE OF ty_student,
-      ls_student  TYPE ty_student,
-      lv_count    TYPE i.
+<span style="color: #005cc5; font-weight: bold;">DATA</span>: lt_students <span style="color: #005cc5; font-weight: bold;">TYPE</span> STANDARD <span style="color: #005cc5; font-weight: bold;">TABLE</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student,
+      ls_student  <span style="color: #005cc5; font-weight: bold;">TYPE</span> ty_student,
+      lv_count    <span style="color: #005cc5; font-weight: bold;">TYPE</span> i.
 
-ls_student-id = 'A01'.
-ls_student-name = 'Mina'.
-APPEND ls_student TO lt_students.
-
-lv_count = lines( lt_students ).
-WRITE: / '비우기 전 줄 수:', lv_count.
-
-CLEAR ls_student.
-CLEAR lt_students.
+ls_student-id = <span style="color: #22863a;">'A01'</span>.
+ls_student-name = <span style="color: #22863a;">'Mina'</span>.
+<span style="color: #005cc5; font-weight: bold;">APPEND</span> ls_student <span style="color: #005cc5; font-weight: bold;">TO</span> lt_students.
 
 lv_count = lines( lt_students ).
-WRITE: / 'CLEAR 후 줄 수:', lv_count.
+<span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'비우기 전 줄 수:'</span>, lv_count.
 
-FREE lt_students.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">CLEAR</span> ls_student.
+<span style="color: #005cc5; font-weight: bold;">CLEAR</span> lt_students.
+
+lv_count = lines( lt_students ).
+<span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'CLEAR 후 줄 수:'</span>, lv_count.
+
+<span style="color: #005cc5; font-weight: bold;">FREE</span> lt_students.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     실행하면 CLEAR 후 줄 수가 0이 됩니다. FREE는 이후 더 이상 해당 Internal Table을 쓰지 않을 때 메모리 정리 의도를 드러내는 역할을 합니다.
   </p>

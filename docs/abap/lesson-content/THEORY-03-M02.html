@@ -23,11 +23,11 @@
   <p>
     <span class="glossary-term" data-glossary="DEFAULTOption">DEFAULT</span>는 PARAMETERS 입력칸에 기본값을 넣어줍니다. 사용자는 필요하면 그대로 실행하고, 필요하면 다른 값으로 바꿀 수 있습니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zparam_default.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zparam_default.
 
-PARAMETERS p_carr TYPE c LENGTH 3 DEFAULT 'KE'.
+<span style="color: #005cc5; font-weight: bold;">PARAMETERS</span> p_carr <span style="color: #005cc5; font-weight: bold;">TYPE</span> c LENGTH <span style="color: #22863a;">3</span> DEFAULT <span style="color: #22863a;">'KE'</span>.
 
-WRITE: / '항공사 코드:', p_carr.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'항공사 코드:'</span>, p_carr.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     위 프로그램을 실행하면 Selection Screen의 <code>p_carr</code> 칸에 <code>KE</code>가 미리 들어 있습니다. 사용자가 대한항공 데이터를 자주 조회한다면 꽤 편하겠죠. 하지만 다른 항공사를 보고 싶으면 값을 바꾸면 됩니다.
   </p>
@@ -41,11 +41,11 @@ WRITE: / '항공사 코드:', p_carr.</code><button class="shiki-copy-button" da
   <p>
     <span class="glossary-term" data-glossary="OBLIGATORYOption">OBLIGATORY</span>는 입력 필드를 필수값으로 만듭니다. 사용자가 값을 비워두고 실행하려 하면 Selection Screen 단계에서 오류가 나고, 프로그램 본문으로 넘어가지 않습니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zparam_required.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zparam_required.
 
-PARAMETERS p_carr TYPE c LENGTH 3 OBLIGATORY.
+<span style="color: #005cc5; font-weight: bold;">PARAMETERS</span> p_carr <span style="color: #005cc5; font-weight: bold;">TYPE</span> c LENGTH <span style="color: #22863a;">3</span> OBLIGATORY.
 
-WRITE: / '항공사 코드:', p_carr.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'항공사 코드:'</span>, p_carr.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     항공사 코드 없이 실행되면 의미가 없는 프로그램이라면 이렇게 필수 입력으로 만드는 것이 좋습니다. 사용자가 실수로 빈값 실행을 누르는 상황을 화면에서 먼저 막아줍니다.
   </p>
@@ -82,13 +82,13 @@ WRITE: / '항공사 코드:', p_carr.</code><button class="shiki-copy-button" da
 
 <section class="lesson-section">
   <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zparam_options.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zparam_options.
 
-PARAMETERS p_carr TYPE c LENGTH 3 DEFAULT 'KE' OBLIGATORY.
-PARAMETERS p_days TYPE i DEFAULT 7.
+<span style="color: #005cc5; font-weight: bold;">PARAMETERS</span> p_carr <span style="color: #005cc5; font-weight: bold;">TYPE</span> c LENGTH <span style="color: #22863a;">3</span> DEFAULT <span style="color: #22863a;">'KE'</span> OBLIGATORY.
+<span style="color: #005cc5; font-weight: bold;">PARAMETERS</span> p_days <span style="color: #005cc5; font-weight: bold;">TYPE</span> i DEFAULT <span style="color: #22863a;">7</span>.
 
-WRITE: / '항공사:', p_carr,
-       / '조회 일수:', p_days.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'항공사:'</span>, p_carr,
+       / <span style="color: #22863a;">'조회 일수:'</span>, p_days.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li>✅ <strong>정상 흐름:</strong> 기본값 <code>KE</code>와 <code>7</code>이 미리 들어 있고, 사용자가 실행하면 그대로 출력됩니다.</li>
     <li>✅ <strong>수정 흐름:</strong> 사용자가 <code>p_carr</code>를 <code>AA</code>로 바꾸면 변경된 값이 출력됩니다.</li>

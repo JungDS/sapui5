@@ -38,14 +38,14 @@
 
 <section class="lesson-section">
   <h2>3. 가장 작은 FORM / PERFORM 예제 ✍️</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zform_basic.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zform_basic.
 
 PERFORM display_header.
-WRITE: / '본문 내용을 출력합니다.'.
+<span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'본문 내용을 출력합니다.'</span>.
 
-FORM display_header.
-  WRITE: / '=== ABAP 모듈화 연습 ==='.
-ENDFORM.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">FORM</span> display_header.
+  <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'=== ABAP 모듈화 연습 ==='</span>.
+<span style="color: #005cc5; font-weight: bold;">ENDFORM</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     위 프로그램은 먼저 <code>PERFORM display_header.</code>로 <code>display_header</code>라는 Subroutine을 호출합니다. 그러면 아래에 정의된 <code>FORM display_header.</code> 안의 코드가 실행되고, 다시 원래 위치로 돌아와 본문 출력이 이어집니다.
   </p>

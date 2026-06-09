@@ -23,18 +23,18 @@
   <p>
     버튼을 누르면 그 버튼의 Function Code가 <span class="glossary-term" data-glossary="OkCode">OK_CODE</span>(화면에 연결된 특수 필드, 또는 <code>sy-ucomm</code>)로 전달됩니다. PAI에서 이 값을 보고 분기합니다.
   </p>
-  <pre><code>PROCESS AFTER INPUT.
-  MODULE user_command_0100.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code>PROCESS AFTER INPUT.
+  <span style="color: #005cc5; font-weight: bold;">MODULE</span> user_command_0100.
 
-MODULE user_command_0100 INPUT.
-  CASE ok_code.
-    WHEN 'SAVE'.
-      PERFORM save_data.        "저장 처리
-    WHEN 'BACK' OR 'EXIT'.
-      LEAVE TO SCREEN 0.        "화면 종료
-  ENDCASE.
-  CLEAR ok_code.               "다음을 위해 비워줌
-ENDMODULE.</code></pre>
+<span style="color: #005cc5; font-weight: bold;">MODULE</span> user_command_0100 INPUT.
+  <span style="color: #005cc5; font-weight: bold;">CASE</span> ok_code.
+    <span style="color: #005cc5; font-weight: bold;">WHEN</span> <span style="color: #22863a;">'SAVE'</span>.
+      PERFORM save_data.        <span style="color: #888888; font-style: italic;">"저장 처리</span>
+    <span style="color: #005cc5; font-weight: bold;">WHEN</span> <span style="color: #22863a;">'BACK'</span> OR <span style="color: #22863a;">'EXIT'</span>.
+      LEAVE <span style="color: #005cc5; font-weight: bold;">TO</span> SCREEN <span style="color: #22863a;">0</span>.        <span style="color: #888888; font-style: italic;">"화면 종료</span>
+  <span style="color: #005cc5; font-weight: bold;">ENDCASE</span>.
+  <span style="color: #005cc5; font-weight: bold;">CLEAR</span> ok_code.               <span style="color: #888888; font-style: italic;">"다음을 위해 비워줌</span>
+<span style="color: #005cc5; font-weight: bold;">ENDMODULE</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <div class="lesson-callout">
     <div class="lesson-callout-icon">💡</div>
     <div class="lesson-callout-content">

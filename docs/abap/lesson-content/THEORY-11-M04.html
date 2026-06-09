@@ -39,13 +39,13 @@
 
 <section class="lesson-section">
   <h2>3. 최소 예제로 보기 ✍️</h2>
-  <pre><code>SELECT carrid,
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">SELECT</span> carrid,
        COUNT(*) AS cnt
-  FROM sbook
-  WHERE fldate >= '20260101'      "① 먼저 2026년 행만 추리고
-  GROUP BY carrid                 "② 항공사별로 묶은 뒤
-  HAVING COUNT(*) > 100           "③ 건수 100 초과 그룹만 남김
-  INTO TABLE @DATA(lt_top).</code></pre>
+  <span style="color: #005cc5; font-weight: bold;">FROM</span> sbook
+  <span style="color: #005cc5; font-weight: bold;">WHERE</span> fldate &gt;= <span style="color: #22863a;">'20260101'</span>      <span style="color: #888888; font-style: italic;">"① 먼저 2026년 행만 추리고</span>
+  GROUP <span style="color: #005cc5; font-weight: bold;">BY</span> carrid                 <span style="color: #888888; font-style: italic;">"② 항공사별로 묶은 뒤</span>
+  HAVING COUNT(*) &gt; <span style="color: #22863a;">100</span>           <span style="color: #888888; font-style: italic;">"③ 건수 100 초과 그룹만 남김</span>
+  <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lt_top).</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><strong>①  WHERE:</strong> 개별 예약 행 중 2026년 것만 통과시킵니다.</li>
     <li><strong>② GROUP BY:</strong> 통과한 행을 항공사별로 묶어 건수를 셉니다.</li>

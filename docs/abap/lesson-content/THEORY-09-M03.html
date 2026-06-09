@@ -23,11 +23,11 @@
 
 <section class="lesson-section">
   <h2>2. SELECT SINGLE 기본 구조 🔍</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>SELECT SINGLE FROM t005t
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">SELECT</span> SINGLE <span style="color: #005cc5; font-weight: bold;">FROM</span> t005t
   FIELDS land1, landx
-  WHERE spras = @sy-langu
+  <span style="color: #005cc5; font-weight: bold;">WHERE</span> spras = @sy-langu
     AND land1 = @p_land1
-  INTO @DATA(ls_country).</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <span style="color: #005cc5; font-weight: bold;">INTO</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(ls_country).</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     여러 줄을 받는 <code>INTO TABLE</code>과 달리, SELECT SINGLE은 한 줄 구조에 결과를 담습니다. 그래서 변수 이름도 <code>lt_</code>가 아니라 <code>ls_</code>처럼 한 줄 구조 느낌으로 읽으면 좋습니다.
   </p>
@@ -40,17 +40,17 @@
 
 <section class="lesson-section">
   <h2>3. 결과 확인은 바로 뒤에서 하기 🚦</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>SELECT SINGLE FROM t005t
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">SELECT</span> SINGLE <span style="color: #005cc5; font-weight: bold;">FROM</span> t005t
   FIELDS land1, landx
-  WHERE spras = @sy-langu
+  <span style="color: #005cc5; font-weight: bold;">WHERE</span> spras = @sy-langu
     AND land1 = @p_land1
-  INTO @DATA(ls_country).
+  <span style="color: #005cc5; font-weight: bold;">INTO</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(ls_country).
 
-IF sy-subrc = 0.
-  WRITE: / ls_country-land1, ls_country-landx.
-ELSE.
-  WRITE: / '해당 국가 텍스트를 찾지 못했습니다.'.
-ENDIF.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">IF</span> sy-subrc = <span style="color: #22863a;">0</span>.
+  <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / ls_country-land1, ls_country-landx.
+<span style="color: #005cc5; font-weight: bold;">ELSE</span>.
+  <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'해당 국가 텍스트를 찾지 못했습니다.'</span>.
+<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     <span class="glossary-term" data-glossary="SYSUBRC">SY-SUBRC</span>는 직전 명령의 결과 상태를 알려주는 시스템 필드입니다. 다른 명령이 실행되면 값이 바뀔 수 있으므로, 확인하고 싶은 SELECT 바로 뒤에서 읽는 습관이 중요합니다.
   </p>
@@ -58,22 +58,22 @@ ENDIF.</code><button class="shiki-copy-button" data-copied="false">Copy</button>
 
 <section class="lesson-section">
   <h2>4. 전체 예제로 단건 조회하기 ✍️</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zsql_select_single.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zsql_select_single.
 
-PARAMETERS p_land1 TYPE t005t-land1 DEFAULT 'KR'.
+<span style="color: #005cc5; font-weight: bold;">PARAMETERS</span> p_land1 <span style="color: #005cc5; font-weight: bold;">TYPE</span> t005t-land1 DEFAULT <span style="color: #22863a;">'KR'</span>.
 
-SELECT SINGLE FROM t005t
+<span style="color: #005cc5; font-weight: bold;">SELECT</span> SINGLE <span style="color: #005cc5; font-weight: bold;">FROM</span> t005t
   FIELDS land1, landx
-  WHERE spras = @sy-langu
+  <span style="color: #005cc5; font-weight: bold;">WHERE</span> spras = @sy-langu
     AND land1 = @p_land1
-  INTO @DATA(ls_country).
+  <span style="color: #005cc5; font-weight: bold;">INTO</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(ls_country).
 
-IF sy-subrc = 0.
-  WRITE: / '국가 코드:', ls_country-land1.
-  WRITE: / '국가명:',    ls_country-landx.
-ELSE.
-  WRITE: / '조회 결과가 없습니다.'.
-ENDIF.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">IF</span> sy-subrc = <span style="color: #22863a;">0</span>.
+  <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'국가 코드:'</span>, ls_country-land1.
+  <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'국가명:'</span>,    ls_country-landx.
+<span style="color: #005cc5; font-weight: bold;">ELSE</span>.
+  <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'조회 결과가 없습니다.'</span>.
+<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     <code>p_land1</code>에 존재하는 국가 코드를 넣으면 성공 흐름으로, 존재하지 않는 코드를 넣으면 실패 흐름으로 갑니다. 이 성공/실패 분리가 단건 조회의 핵심입니다.
   </p>
