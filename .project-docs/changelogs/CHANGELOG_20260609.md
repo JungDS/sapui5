@@ -40,3 +40,16 @@
 - **초심자 문법 폭 조절**: ABAP 기본 문법을 다루면서도 Open SQL, Internal Table, ALV 같은 후속 주제를 끌어오지 않도록 조심했습니다. 필요한 경우 “나중에 다룬다”로만 연결했습니다.
 - **코드 예제의 최소성**: 예제는 모두 한 화면에서 읽을 수 있는 짧은 Report 형태로 제한했습니다. 첫 문법 학습 단계에서는 예쁜 구조보다 실행 가능한 작은 성공 경험이 더 중요하다고 판단했습니다.
 - **시스템 필드 설명 방식**: `SY-SUBRC`는 후속 Lesson에서 계속 등장할 핵심 개념이므로, `FIND` 예제로 성공/실패 확인만 보여주고 데이터베이스 조회나 Internal Table 세부 내용은 확장하지 않았습니다.
+
+---
+
+## Codex THEORY-03 작업 상세 내용
+- `THEORY-03-M01` ~ `THEORY-03-M04` 4개 Lesson 본문 조각을 신규 작성했습니다.
+- `PARAMETERS` 기본 선언, `DEFAULT / OBLIGATORY`, 입력값 `WRITE` 출력, `SELECTION-SCREEN BEGIN OF BLOCK`과 `FRAME TITLE` 기초를 JSON 지침 순서대로 구성했습니다.
+- 각 Lesson을 초심자 학습 흐름에 맞춰 “입력 화면이 왜 필요한가 → 무엇을 쓰나 → 최소 예제 → 정상/오류 흐름 → 실무 주의 → 한눈에 정리” 구조로 작성했습니다.
+- `PARAMETERSStatement`, `SelectionScreen`, `DEFAULTOption`, `OBLIGATORYOption`, `InputOutputFlow`, `SelectionScreenBlock` 등 THEORY-03 용어 11종을 글로서리에 추가했습니다.
+
+## Codex THEORY-03 고민했던 점 및 설계 이유
+- **후속 주제 경계 유지**: Selection Screen을 다루다 보면 `SELECT-OPTIONS`, `AT SELECTION-SCREEN`, Value Help로 바로 확장하고 싶어지지만, JSON 지침에 맞춰 PARAMETERS 맛보기 수준으로 제한했습니다.
+- **입력 화면의 UX 감각**: 단순 문법 설명이 아니라 “사용자가 프로그램 실행 전에 값을 넣는 첫 화면”이라는 관점으로 DEFAULT, OBLIGATORY, Block을 설명했습니다.
+- **Block 설명의 깊이 조절**: 텍스트 심볼과 프레임 제목은 필요한 만큼만 언급하고, 화면 이벤트 검증이나 복잡한 선택 조건은 뒤 Section으로 넘겼습니다.

@@ -299,7 +299,7 @@
     "title": "WRITE 문",
     "desc": "ABAP 리포트 프로그램에서 값이나 문자열을 Output List에 출력하는 기본 문법입니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 계산한 결과를 칠판에 적어 모두가 볼 수 있게 하는 것과 같아요.",
-    "used_in_lessons": ["THEORY-02-M03"],
+    "used_in_lessons": ["THEORY-02-M03", "THEORY-03-M03"],
     "design_theme": "code",
     "html_content": ""
   },
@@ -414,5 +414,93 @@
     "used_in_lessons": ["THEORY-02-M06"],
     "design_theme": "warn",
     "html_content": "<p><code>SY-SUBRC</code>는 다른 문장이 실행되면 값이 바뀔 수 있으므로, 확인하고 싶은 명령 바로 뒤에서 읽는 습관이 중요합니다.</p>"
+  },
+  "PARAMETERSStatement": {
+    "title": "PARAMETERS 문",
+    "desc": "ABAP Report의 Selection Screen에 한 칸짜리 입력 필드를 만들고, 사용자가 입력한 값을 프로그램에서 사용할 수 있게 하는 문법입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 설문지에 '이름을 적어주세요'라는 빈칸 하나를 만드는 것과 같아요.",
+    "used_in_lessons": ["THEORY-03-M01", "THEORY-03-M02", "THEORY-03-M03"],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "SelectionScreen": {
+    "title": "Selection Screen (선택 화면)",
+    "desc": "ABAP Report 실행 전에 사용자에게 조회 조건이나 입력값을 받기 위해 자동으로 표시되는 입력 화면입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 검색 사이트에서 검색어, 기간, 카테고리를 먼저 입력하는 검색 조건 화면과 같아요.",
+    "used_in_lessons": ["THEORY-03-M01"],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "ScreenInput": {
+    "title": "Screen Input (화면 입력값)",
+    "desc": "사용자가 Selection Screen 같은 SAP 화면에서 직접 입력하는 값입니다. 프로그램은 이 값을 받아 처리에 사용합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 키오스크에서 메뉴 수량이나 전화번호를 직접 입력하는 것과 같아요.",
+    "used_in_lessons": ["THEORY-03-M01"],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "ElementaryInput": {
+    "title": "Elementary Input (단일 기본 입력)",
+    "desc": "문자, 숫자, 날짜처럼 한 칸에 들어가는 단순한 입력값입니다. PARAMETERS는 보통 이런 단일 값을 받는 데 사용합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 신청서의 이름 한 칸, 나이 한 칸처럼 하나의 작은 답을 적는 입력입니다.",
+    "used_in_lessons": ["THEORY-03-M01"],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "DEFAULTOption": {
+    "title": "DEFAULT 옵션",
+    "desc": "PARAMETERS 입력칸에 프로그램 실행 전 미리 채워둘 기본값을 지정하는 옵션입니다. 사용자는 필요하면 값을 바꿀 수 있습니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 배달 앱 주소칸에 집 주소가 미리 들어 있지만, 필요하면 회사 주소로 바꿀 수 있는 것과 같아요.",
+    "used_in_lessons": ["THEORY-03-M02", "THEORY-03-M03"],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "OBLIGATORYOption": {
+    "title": "OBLIGATORY 옵션",
+    "desc": "PARAMETERS 입력칸을 필수 입력으로 만들어, 사용자가 빈 값으로 실행하지 못하게 막는 옵션입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 회원가입에서 이메일 필수 입력칸을 비우면 다음 단계로 넘어가지 못하는 것과 같아요.",
+    "used_in_lessons": ["THEORY-03-M02", "THEORY-03-M03"],
+    "design_theme": "warn",
+    "html_content": ""
+  },
+  "InitialValue": {
+    "title": "Initial Value (초기값)",
+    "desc": "변수나 입력 필드가 명시적인 값 없이 시작할 때 갖는 기본 빈값입니다. 타입에 따라 공백, 0, 빈 날짜처럼 해석될 수 있습니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 새 공책을 펼쳤을 때 아무것도 적혀 있지 않은 첫 상태와 같아요.",
+    "used_in_lessons": ["THEORY-03-M02"],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "InputOutputFlow": {
+    "title": "Input Output (입력-출력 흐름)",
+    "desc": "사용자가 값을 입력하고, 프로그램이 그 값을 처리한 뒤 결과를 출력하는 기본 프로그램 흐름입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 자판기에 돈과 번호를 넣으면, 기계가 처리한 뒤 음료를 내보내는 흐름과 같아요.",
+    "used_in_lessons": ["THEORY-03-M03"],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "SelectionScreenBlock": {
+    "title": "Selection Screen Block (선택 화면 블록)",
+    "desc": "Selection Screen에서 관련 입력 필드를 하나의 영역으로 묶어 보여주는 화면 구성 단위입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 신청서에서 '개인 정보', '연락처', '동의 항목'을 박스로 나눠 정리하는 것과 같아요.",
+    "used_in_lessons": ["THEORY-03-M04"],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "SelectionScreenBeginBlock": {
+    "title": "SELECTION-SCREEN BEGIN OF BLOCK",
+    "desc": "Selection Screen에서 입력 필드 그룹의 시작을 선언하는 문법입니다. END OF BLOCK과 짝을 이룹니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 노트에 괄호를 열어 관련 내용을 묶기 시작하는 표시와 같아요. 끝에는 괄호를 닫아야 합니다.",
+    "used_in_lessons": ["THEORY-03-M04"],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "FrameTitle": {
+    "title": "FRAME TITLE (프레임 제목)",
+    "desc": "Selection Screen Block의 테두리 영역에 표시할 제목입니다. 보통 텍스트 심볼과 연결해 사용합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 서랍 앞에 붙이는 '문구류', '영수증' 같은 라벨과 같아요.",
+    "used_in_lessons": ["THEORY-03-M04"],
+    "design_theme": "info",
+    "html_content": ""
   }
 }

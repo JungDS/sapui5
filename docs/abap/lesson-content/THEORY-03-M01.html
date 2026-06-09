@@ -1,0 +1,133 @@
+<!-- lesson-content/THEORY-03-M01.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>지난 Chapter에서 ABAP 프로그램이 값을 선언하고 출력하는 방법을 배웠습니다. 이번에는 프로그램 실행 전에 사용자에게 값을 입력받는 <span class="glossary-term" data-glossary="PARAMETERSStatement">PARAMETERS</span>를 배웁니다. <span class="glossary-term" data-glossary="SelectionScreen">Selection Screen</span>, <span class="glossary-term" data-glossary="ScreenInput">Screen Input</span>, <span class="glossary-term" data-glossary="ElementaryInput">Elementary Input</span>이 무엇인지 아주 처음부터 잡아봅니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 Chapter 연결: 코드 안 값에서 화면 입력값으로 🖥️</h2>
+  <p>
+    THEORY-02에서는 <code>DATA gv_name TYPE string VALUE 'ABAP'.</code>처럼 코드 안에 값을 직접 넣고 <code>WRITE</code>로 출력했습니다. 학습할 때는 이 방식이 간단하지만, 실제 프로그램이 매번 같은 값만 처리하면 쓸모가 많이 줄어듭니다.
+  </p>
+  <p>
+    사용자가 실행할 때마다 이름, 날짜, 회사 코드, 상태값을 직접 입력하고 싶을 수 있습니다. 이때 ABAP Report가 자동으로 보여주는 입력 화면이 <span class="glossary-term" data-glossary="SelectionScreen">Selection Screen</span>입니다.
+  </p>
+  <blockquote>
+    Selection Screen은 “프로그램 시작 전에 사용자에게 필요한 값을 묻는 첫 화면”입니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>2. PARAMETERS는 한 칸짜리 입력 질문이다 ✍️</h2>
+  <p>
+    <span class="glossary-term" data-glossary="PARAMETERSStatement">PARAMETERS</span>는 Selection Screen에 입력 필드 하나를 만들어주는 문법입니다. 사용자가 그 칸에 값을 넣고 실행하면, ABAP 프로그램은 그 값을 변수처럼 사용할 수 있습니다.
+  </p>
+  <pre><code>REPORT zparam_basic.
+
+PARAMETERS p_name TYPE string.
+
+WRITE: / '입력한 이름:', p_name.</code></pre>
+  <p>
+    위 프로그램을 실행하면 바로 결과가 나오는 것이 아니라, 먼저 입력 화면이 나타납니다. 사용자가 <code>p_name</code> 칸에 값을 입력하고 실행하면, 그 값이 프로그램 안으로 들어오고 <code>WRITE</code>로 출력됩니다.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>DATA와 PARAMETERS의 차이</h4>
+      <ul>
+        <li><strong>DATA:</strong> 프로그램 내부에서 쓰는 변수입니다. 화면 입력칸이 자동으로 생기지는 않습니다.</li>
+        <li><strong>PARAMETERS:</strong> 변수 역할도 하면서 Selection Screen에 입력칸을 만들어줍니다.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>3. Screen Input과 Elementary Input 감각 잡기 🧩</h2>
+  <p>
+    <span class="glossary-term" data-glossary="ScreenInput">Screen Input</span>은 사용자가 화면에서 직접 넣는 값입니다. PARAMETERS는 보통 한 번에 하나의 단순 값을 받습니다. 이런 단순 입력을 <span class="glossary-term" data-glossary="ElementaryInput">Elementary Input</span>이라고 생각하면 쉽습니다.
+  </p>
+  <ul>
+    <li><code>p_name TYPE string</code>: 이름 한 개 입력</li>
+    <li><code>p_age TYPE i</code>: 나이 한 개 입력</li>
+    <li><code>p_carr TYPE c LENGTH 3</code>: 항공사 코드 한 개 입력</li>
+    <li><code>p_date TYPE d</code>: 날짜 한 개 입력</li>
+  </ul>
+  <p>
+    여기서 중요한 것은 “한 개”입니다. 지금 배우는 PARAMETERS는 범위 여러 개를 받는 도구가 아닙니다. 나중에 <code>SELECT-OPTIONS</code>를 배우면 여러 값과 범위를 입력받을 수 있지만, 이번 Chapter에서는 한 칸짜리 입력부터 정확히 익힙니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 최소 실습: 이름과 나이를 입력받아 출력하기 🧪</h2>
+  <p>
+    이제 입력값 2개를 받아 Output List에 출력해봅시다.
+  </p>
+  <pre><code>REPORT zparam_profile.
+
+PARAMETERS p_name TYPE string.
+PARAMETERS p_age  TYPE i.
+
+WRITE: / '이름:', p_name,
+       / '나이:', p_age.</code></pre>
+  <ul>
+    <li>프로그램 실행 → Selection Screen 표시</li>
+    <li><code>p_name</code>에 이름 입력</li>
+    <li><code>p_age</code>에 숫자 입력</li>
+    <li>실행 → Output List에 입력값 출력</li>
+  </ul>
+  <p>
+    처음에는 화면 라벨이 변수명처럼 투박하게 보일 수 있습니다. 더 예쁜 화면 텍스트와 블록 구성은 뒤 Lesson에서 조금씩 다룹니다. 지금은 “사용자가 입력한 값이 프로그램으로 들어온다”는 흐름이 핵심입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
+  <ul>
+    <li>✅ <strong>정상 흐름:</strong> 사용자가 <code>p_name</code>과 <code>p_age</code>에 값을 입력하고 실행하면, 입력값이 그대로 출력됩니다.</li>
+    <li>❌ <strong>타입 오류:</strong> <code>p_age TYPE i</code>에 숫자가 아닌 문자를 넣으면 입력 단계에서 오류가 날 수 있습니다.</li>
+    <li>❌ <strong>빈 값 허용:</strong> 기본 PARAMETERS는 값을 꼭 넣으라고 강제하지 않습니다. 빈 값이 들어와도 프로그램이 실행될 수 있습니다.</li>
+    <li>❌ <strong>과도한 확장:</strong> 여러 값, 범위, 복잡한 검증은 이번 Lesson에서 다루지 않습니다. 지금은 한 칸 입력에 집중합니다.</li>
+  </ul>
+  <blockquote>
+    입력 화면은 프로그램의 첫인상입니다. 사용자가 어떤 값을 넣어야 하는지 명확해야 좋은 프로그램이 됩니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>입력받았다고 바로 믿으면 안 됩니다</h4>
+      <p>Selection Screen이 타입에 맞지 않는 값 일부를 막아주긴 하지만, 업무적으로 올바른 값인지까지 자동으로 보장하지는 않습니다. 예를 들어 존재하지 않는 항공사 코드, 권한이 없는 회사 코드, 미래 날짜 같은 검증은 별도로 고민해야 합니다. 이 깊은 검증은 이후 Lesson에서 확장합니다.</p>
+    </div>
+  </div>
+  <p>
+    또한 회사마다 PARAMETERS 이름, 화면 텍스트, 기본값 처리 관행이 다를 수 있습니다. 고객사 스타일을 따르되, 표준 SAP 문법과 회사 관행을 섞어 외우지 않는 것이 좋습니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li><strong>Selection Screen</strong>은 프로그램 실행 전에 사용자에게 값을 묻는 입력 화면입니다.</li>
+        <li><strong>PARAMETERS</strong>는 한 칸짜리 입력 필드를 만들고, 그 값을 프로그램에서 사용할 수 있게 합니다.</li>
+        <li><strong>DATA</strong>는 내부 변수이고, <strong>PARAMETERS</strong>는 화면 입력칸까지 만들어주는 변수에 가깝습니다.</li>
+        <li><strong>Elementary Input</strong>은 이름, 나이, 날짜처럼 단순 값 하나를 받는 입력입니다.</li>
+        <li>입력 타입은 기본 오류를 줄여주지만, 업무 검증까지 모두 대신하지는 않습니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    다음 Lesson <strong>DEFAULT / OBLIGATORY 사용</strong>에서는 입력칸에 기본값을 넣고, 꼭 입력해야 하는 필드로 만드는 방법을 배웁니다.
+  </p>
+</section>
