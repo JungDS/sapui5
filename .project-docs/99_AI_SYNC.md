@@ -13,14 +13,14 @@
 ---
 
 ## 현재 상태 및 목표 (Current Status & Goals)
-- **현재 목표**: Track 1(THEORY-*) Lesson 본문 작성. 총 137개 중 16개(THEORY-01~THEORY-03) 작성 완료. **121개 남음**.
-- **최근 진행(2026-06-09, Codex)**: THEORY-03-M01~M04 신규 작성 완료. PARAMETERS 기반 Selection Screen, DEFAULT/OBLIGATORY, 입력값 WRITE 출력, Selection Screen Block 기초를 초심자 학습지 톤으로 작성하고 글로서리 미정의 0건을 확인함.
+- **현재 목표**: Track 1(THEORY-*) Lesson 본문 작성. 총 137개 중 22개(THEORY-01~THEORY-04) 작성 완료. **115개 남음**.
+- **최근 진행(2026-06-09, Codex)**: THEORY-04-M01~M06 신규 작성 완료. Foreign Key/Check Table, Value Table 차이, Search Help, Collective Search Help, PARAMETERS와 F4 Help 연결, DDIC 검증과 프로그램 검증 분리를 초심자 학습지 톤으로 작성하고 글로서리 미정의 0건을 확인함.
 - **⚠️ 인계 핵심 문서**: 이어서 작업할 AI는 **[HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md)를 가장 먼저 정독**할 것. 작성 규칙·스타일 기준·복붙용 프롬프트가 모두 거기 있음.
 
 ---
 
 ## 미결 사항 (Pending Issues / Next Steps)
-- **Lesson 본문 양산**: 다음은 THEORY-04 ~ THEORY-21 (121개). 현재 확정된 10·20대 초심자 친화적 스타일과 "한눈에 정리" 마무리 방식을 그대로 적용한다. Track 2(PRACTICAL-*)는 그 다음.
+- **Lesson 본문 양산**: 다음은 THEORY-05 ~ THEORY-21 (115개). 현재 확정된 10·20대 초심자 친화적 스타일과 "한눈에 정리" 마무리 방식을 그대로 적용한다. Track 2(PRACTICAL-*)는 그 다음.
 - **글로서리 완전 패리티**: Lesson에서 쓰는 주요 용어는 `reference/abap_glossary.json`에 반드시 함께 등록(일상 비유 포함). 미등록 용어는 툴팁이 안 뜸(깨진 링크).
 - (선택) Lesson 내 퀴즈·실습 코드 블록 등 상호작용 컴포넌트 고도화.
 
@@ -77,3 +77,13 @@
   - 로컬 뷰어에서 THEORY-03-M01, M03, M04 로딩 확인 완료.
 - **수정 파일**: `docs/abap/lesson-content/THEORY-03-M01~M04.html`, `reference/abap_glossary.json`, `.project-docs/HANDOFF_LESSON_CONTENT.md`, `.project-docs/99_AI_SYNC.md`
 - **다음 AI를 위한 메모**: 다음 섹션은 THEORY-04 `DDIC 2차: 관계와 입력 도움말`.
+
+### [2026-06-09] Codex (GPT-5)
+- **작업 내용**:
+  - THEORY-04-M01~M06 6개 Lesson 신규 작성.
+  - Foreign Key/Check Table/Cardinality, Value Table과 Foreign Key 차이, Elementary/Collective Search Help, PARAMETERS와 DDIC F4 Help 연결, DDIC 검증과 프로그램 검증 역할 분리를 JSON 지침 범위 안에서 작성.
+  - Value Table은 실제 검증이 아니라 Domain 레벨 후보이며, 실제 검증은 Foreign Key 관계가 핵심임을 명시.
+  - 글로서리 신규 용어 12종 추가 및 미정의 0건 확인.
+  - 로컬 뷰어에서 THEORY-04-M01, M03, M06 로딩 확인 완료.
+- **수정 파일**: `docs/abap/lesson-content/THEORY-04-M01~M06.html`, `reference/abap_glossary.json`, `.project-docs/HANDOFF_LESSON_CONTENT.md`, `.project-docs/99_AI_SYNC.md`
+- **다음 AI를 위한 메모**: 다음 섹션은 THEORY-05 `ABAP 모듈화 기초`.

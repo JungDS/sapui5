@@ -53,3 +53,16 @@
 - **후속 주제 경계 유지**: Selection Screen을 다루다 보면 `SELECT-OPTIONS`, `AT SELECTION-SCREEN`, Value Help로 바로 확장하고 싶어지지만, JSON 지침에 맞춰 PARAMETERS 맛보기 수준으로 제한했습니다.
 - **입력 화면의 UX 감각**: 단순 문법 설명이 아니라 “사용자가 프로그램 실행 전에 값을 넣는 첫 화면”이라는 관점으로 DEFAULT, OBLIGATORY, Block을 설명했습니다.
 - **Block 설명의 깊이 조절**: 텍스트 심볼과 프레임 제목은 필요한 만큼만 언급하고, 화면 이벤트 검증이나 복잡한 선택 조건은 뒤 Section으로 넘겼습니다.
+
+---
+
+## Codex THEORY-04 작업 상세 내용
+- `THEORY-04-M01` ~ `THEORY-04-M06` 6개 Lesson 본문 조각을 신규 작성했습니다.
+- `Foreign Key`, `Check Table`, `Cardinality`, `Value Table`, `Search Help`, `F4 Help`, `Selection Method`, `Collective Search Help`, `MESSAGE` 등을 JSON 지침 순서대로 구성했습니다.
+- 각 Lesson에 정상 흐름과 오류 흐름을 분리해, 기준표 관계·입력 도움말·프로그램 검증의 역할을 초심자가 구분할 수 있도록 작성했습니다.
+- `ForeignKey`, `CheckTable`, `ValueTable`, `SearchHelp`, `F4Help`, `CollectiveSearchHelp`, `DDICValidation` 등 THEORY-04 용어 12종을 글로서리에 추가했습니다.
+
+## Codex THEORY-04 고민했던 점 및 설계 이유
+- **Value Table 오해 방지**: Domain의 Value Table을 실제 Foreign Key 검증과 혼동하기 쉬워, M02에서 “후보/힌트”와 “실제 관계”를 반복적으로 분리해 설명했습니다.
+- **입력 도움말과 검증의 경계**: F4 Help가 보인다고 업무 권한이나 모든 검증이 끝난 것은 아니므로, Search Help는 편의 기능이고 최종 업무 검증은 별도 로직이 필요하다는 점을 여러 Lesson에 분산해 강조했습니다.
+- **후속 주제 확장 제한**: `AT SELECTION-SCREEN`, 고급 Search Help Exit, 복잡한 권한 검증은 후속 심화 범위로 남기고, 이번 섹션은 DDIC 관계와 F4 Help 기본 원리에 집중했습니다.

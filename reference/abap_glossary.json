@@ -3,7 +3,7 @@
     "title": "단일 진실 공급원 (SSOT)",
     "desc": "모든 데이터 요소를 오직 한 곳에서만 정의하고 관리하여, 데이터의 중복이나 불일치를 방지하는 아키텍처 원칙입니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 동아리 회비를 걷을 때, 여러 명이 각자 수첩에 적지 않고 오직 '총무 한 명의 엑셀 파일(한 곳)'에만 기록하는 것과 같아요. 그래야 나중에 금액이 달라져서 싸우는 일이 없겠죠?",
-    "used_in_lessons": ["THEORY-01-M01", "THEORY-01-M02", "THEORY-01-M05"],
+    "used_in_lessons": ["THEORY-01-M01", "THEORY-01-M02", "THEORY-01-M05", "THEORY-04-M01"],
     "design_theme": "info",
     "html_content": "<p>ABAP에서는 <strong>DDIC (SAP Dictionary)</strong>가 시스템 전체 데이터의 SSOT 역할을 완벽하게 수행합니다.</p>"
   },
@@ -51,7 +51,7 @@
     "title": "Data Type (데이터 타입)",
     "desc": "값이 문자(CHAR)인지, 숫자(NUMC·INT4·DEC)인지, 날짜(DATS)인지 등 데이터의 기본 종류입니다. Domain에서 길이와 함께 지정합니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 택배 상자에 '깨지는 물건', '냉장 보관' 같은 취급 라벨을 붙이는 것과 같아요. 내용물의 성격에 따라 다루는 방법이 달라집니다.",
-    "used_in_lessons": ["THEORY-01-M02", "THEORY-01-M03"],
+    "used_in_lessons": ["THEORY-01-M02", "THEORY-01-M03", "THEORY-04-M02"],
     "design_theme": "code",
     "html_content": ""
   },
@@ -83,7 +83,7 @@
     "title": "Data Element (데이터 엘리먼트)",
     "desc": "Domain의 '재질' 위에 의미(Semantic)와 화면 라벨(Field Label), F1 도움말을 입히는 부품입니다. 테이블 필드는 Domain이 아니라 이 Data Element를 직접 참조합니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 같은 '검은색 원단(Domain)'이라도 거기에 '교복 명찰'을 달면 교복이 되는 것처럼, 재질에 이름표와 용도를 붙여주는 단계예요.",
-    "used_in_lessons": ["THEORY-01-M03", "THEORY-01-M04"],
+    "used_in_lessons": ["THEORY-01-M03", "THEORY-01-M04", "THEORY-04-M05"],
     "design_theme": "primary",
     "html_content": ""
   },
@@ -419,7 +419,7 @@
     "title": "PARAMETERS 문",
     "desc": "ABAP Report의 Selection Screen에 한 칸짜리 입력 필드를 만들고, 사용자가 입력한 값을 프로그램에서 사용할 수 있게 하는 문법입니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 설문지에 '이름을 적어주세요'라는 빈칸 하나를 만드는 것과 같아요.",
-    "used_in_lessons": ["THEORY-03-M01", "THEORY-03-M02", "THEORY-03-M03"],
+    "used_in_lessons": ["THEORY-03-M01", "THEORY-03-M02", "THEORY-03-M03", "THEORY-04-M01", "THEORY-04-M05"],
     "design_theme": "code",
     "html_content": ""
   },
@@ -501,6 +501,110 @@
     "everyday_analogy": "이해하기 쉬운 일상 사례: 서랍 앞에 붙이는 '문구류', '영수증' 같은 라벨과 같아요.",
     "used_in_lessons": ["THEORY-03-M04"],
     "design_theme": "info",
+    "html_content": ""
+  },
+  "ForeignKey": {
+    "title": "Foreign Key (외래 키)",
+    "desc": "현재 테이블의 필드가 다른 기준 테이블의 키 값을 참조하도록 DDIC에 설정하는 관계입니다. 입력값 존재 여부와 F4 도움말 연결에 영향을 줍니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 동아리 신청서의 회원번호가 실제 회원 명단에 있어야 인정되는 것과 같아요.",
+    "used_in_lessons": ["THEORY-04-M01", "THEORY-04-M02"],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "CheckTable": {
+    "title": "Check Table (검사 테이블)",
+    "desc": "입력 가능한 값의 기준 목록을 담은 테이블입니다. Foreign Key 관계에서 현재 필드의 값이 존재해야 하는 대상 테이블로 사용됩니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 초대 명단과 같아요. 입장하려는 이름이 명단에 있어야 들어갈 수 있습니다.",
+    "used_in_lessons": ["THEORY-04-M01", "THEORY-04-M02"],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "Cardinality": {
+    "title": "Cardinality (카디널리티)",
+    "desc": "두 테이블 사이의 숫자 관계를 나타내는 설정입니다. 한 기준값이 여러 업무 데이터와 연결될 수 있는지 같은 관계 감각을 표현합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 한 담임 선생님이 여러 학생을 맡을 수 있는지, 한 학생이 한 반에만 속하는지 같은 관계 숫자표와 같아요.",
+    "used_in_lessons": ["THEORY-04-M01"],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "ValueTable": {
+    "title": "Value Table (값 테이블)",
+    "desc": "Domain에 지정하는 기준 테이블 후보입니다. Foreign Key 생성 시 참고될 수 있지만, 그 자체만으로 특정 테이블 필드의 실제 검증 관계가 완성되지는 않습니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: '이 과목은 보통 이 참고서를 봅니다'라는 안내문과 같아요. 실제 시험 채점 기준으로 연결하려면 별도 약속이 필요합니다.",
+    "used_in_lessons": ["THEORY-04-M02"],
+    "design_theme": "warn",
+    "html_content": "<p>Value Table과 Foreign Key를 같은 것으로 외우면 안 됩니다. 실제 필드 검증은 Foreign Key 관계가 핵심입니다.</p>"
+  },
+  "SearchHelp": {
+    "title": "Search Help (검색 도움말)",
+    "desc": "사용자가 F4를 눌렀을 때 후보 목록을 보여주기 위해 DDIC에서 정의하는 입력 도움말 객체입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 검색창 자동완성 후보 목록과 같아요. 정확한 값을 외우지 않아도 목록에서 고를 수 있습니다.",
+    "used_in_lessons": ["THEORY-04-M03", "THEORY-04-M05"],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "ElementarySearchHelp": {
+    "title": "Elementary Search Help (단일 검색 도움말)",
+    "desc": "하나의 검색 방법과 Selection Method를 가진 가장 기본적인 Search Help입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 연락처 앱에서 이름으로만 검색하는 단일 검색창과 같아요.",
+    "used_in_lessons": ["THEORY-04-M03"],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "F4Help": {
+    "title": "F4 Help (F4 입력 도움말)",
+    "desc": "SAP 입력 필드에서 F4 키를 눌렀을 때 가능한 값 후보를 보여주는 기능입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 온라인 쇼핑몰 검색창에서 추천 검색어가 펼쳐지는 것과 같아요.",
+    "used_in_lessons": ["THEORY-04-M03", "THEORY-04-M05"],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "SelectionMethod": {
+    "title": "Selection Method (선택 메서드)",
+    "desc": "Search Help가 후보 목록을 읽어올 테이블이나 뷰입니다. 후보 데이터의 출처를 정합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 추천 메뉴를 만들 때 참고하는 메뉴판 원본과 같아요.",
+    "used_in_lessons": ["THEORY-04-M03"],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "CollectiveSearchHelp": {
+    "title": "Collective Search Help (복합 검색 도움말)",
+    "desc": "여러 Elementary Search Help를 하나로 묶어, 사용자가 여러 검색 방법 중 선택할 수 있게 하는 Search Help입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 쇼핑몰에서 상품명, 브랜드, 카테고리별 검색 탭을 한 검색 화면에 모아둔 것과 같아요.",
+    "used_in_lessons": ["THEORY-04-M04"],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "SearchHelpParameter": {
+    "title": "Search Help Parameter (검색 도움말 파라미터)",
+    "desc": "Search Help가 입력 화면과 값을 주고받기 위해 사용하는 필드 매핑입니다. 검색 조건, 목록 표시, 반환값 역할을 할 수 있습니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 주문서와 창고 사이에서 '상품코드', '상품명'을 맞춰주는 전달 칸과 같아요.",
+    "used_in_lessons": ["THEORY-04-M04"],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "DDICValidation": {
+    "title": "DDIC Validation (DDIC 검증)",
+    "desc": "DDIC에 정의한 타입, 길이, 고정값, Foreign Key, Search Help 같은 공통 규칙을 통해 입력값 품질을 높이는 검증입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 놀이공원 입구에서 키 제한과 티켓 여부를 공통으로 확인하는 기본 입장 검사와 같아요.",
+    "used_in_lessons": ["THEORY-04-M06"],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "InputCheck": {
+    "title": "Input Check (입력 검증)",
+    "desc": "프로그램의 업무 문맥에 맞춰 사용자가 입력한 값을 확인하는 로직입니다. 기간, 권한, 상태, 조합 조건 등을 검사할 수 있습니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 입장권은 있어도 특정 좌석에 앉을 수 있는지 직원이 한 번 더 확인하는 것과 같아요.",
+    "used_in_lessons": ["THEORY-04-M06"],
+    "design_theme": "warn",
+    "html_content": ""
+  },
+  "MESSAGEStatement": {
+    "title": "MESSAGE 문",
+    "desc": "ABAP 프로그램에서 사용자에게 오류, 경고, 정보 같은 메시지를 보여주는 문법입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 앱에서 '비밀번호가 틀렸습니다'라고 알려주는 알림창과 같아요.",
+    "used_in_lessons": ["THEORY-04-M06"],
+    "design_theme": "code",
     "html_content": ""
   }
 }
