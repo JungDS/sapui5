@@ -1,0 +1,98 @@
+<!-- lesson-content/THEORY-15-M03.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>Grid ALV에 표시할 데이터를 담는 <span class="glossary-term" data-glossary="OutputInternalTable">출력용 Internal Table</span>을 준비하는 법을 배웁니다. 화면 표의 한 줄이 Internal Table의 한 줄과 어떻게 대응되는지 익힙니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 틀은 있고, 내용물이 필요하다 📦</h2>
+  <p>
+    Container와 Grid라는 틀은 만들었습니다. 하지만 표에 보여줄 <strong>실제 데이터</strong>가 없으면 빈 표만 뜹니다. 그 데이터를 담는 그릇이 바로 우리가 THEORY-06에서 배운 <span class="glossary-term" data-glossary="InternalTable">Internal Table</span>입니다.
+  </p>
+  <p>
+    Grid ALV는 아주 단순한 약속으로 동작합니다. <strong>Internal Table의 한 줄 = 화면 표의 한 줄.</strong> 그래서 화면에 보여줄 모양 그대로 Internal Table을 준비하면 됩니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. 출력용 Internal Table 준비 ✍️</h2>
+  <pre><code>" 화면에 보여줄 구조 = 표의 컬럼들
+TYPES: BEGIN OF ty_flight,
+         carrid  TYPE s_carr_id,
+         connid  TYPE s_conn_id,
+         fldate  TYPE s_date,
+         price   TYPE s_price,
+       END OF ty_flight.
+
+DATA gt_outtab TYPE STANDARD TABLE OF ty_flight.
+
+START-OF-SELECTION.
+  SELECT carrid, connid, fldate, price
+    FROM sflight
+    INTO TABLE @gt_outtab.</code></pre>
+  <ul>
+    <li><strong>구조(컬럼):</strong> Internal Table의 각 필드가 표의 각 컬럼이 됩니다.</li>
+    <li><strong>한 줄(행):</strong> 조회로 채운 각 줄이 표의 한 행으로 그려집니다.</li>
+  </ul>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>비유: 엑셀 데이터 영역</h4>
+      <p>출력용 Internal Table은 엑셀의 데이터 영역과 같아요. 행과 열이 그대로 화면 표가 됩니다. 그래서 "화면에 보여줄 모양대로 데이터를 만든다"가 핵심입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>3. DDIC 타입을 쓰면 더 똑똑해진다 🧠</h2>
+  <p>
+    구조의 필드를 <strong>Data Element</strong>(THEORY-01-M03)로 타입 지정하면, 표의 컬럼 제목·자릿수·F1 도움말이 자동으로 따라옵니다. <span class="glossary-term" data-glossary="LVCGrid">LVC 기반</span> ALV는 이런 DDIC 정보를 잘 활용합니다.
+  </p>
+  <ul>
+    <li>✅ <strong>DDIC 기반:</strong> 컬럼 제목·길이가 자동 → Field Catalog(M04) 작성이 편해집니다.</li>
+    <li>❌ <strong>단순 타입만:</strong> <code>TYPE c LENGTH 10</code> 같은 익명 타입이면 제목을 일일이 지정해야 합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <ul>
+    <li>✅ <strong>정상:</strong> 보여줄 모양대로 구조 정의 → 조회로 적재 → 그대로 표에 표시.</li>
+    <li>❌ <strong>오류 1:</strong> 화면에 필요 없는 필드까지 잔뜩 담음 → 표가 지저분하고 느려짐. 필요한 컬럼만.</li>
+    <li>❌ <strong>오류 2:</strong> 합계·가공이 필요한데 원본 그대로만 담음 → 표시 전에 가공(THEORY-06)을 끝내 두세요.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>"보여줄 데이터"와 "원본 데이터"를 구분하세요</h4>
+      <p>DB에서 읽은 원본을 그대로 표에 꽂기보다, 화면 표시에 맞게 가공한 <strong>출력 전용 테이블</strong>을 따로 두는 것이 깔끔합니다. 표시용 합계 컬럼·플래그·색상 기준 필드 등을 여기에 추가하면, 원본은 건드리지 않으면서 표만 풍성하게 만들 수 있습니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li>Grid ALV는 <strong>Internal Table 한 줄 = 표 한 행</strong>으로 그립니다.</li>
+        <li>구조의 필드가 표의 컬럼이 되므로, 보여줄 모양대로 준비합니다.</li>
+        <li><strong>DDIC(Data Element) 타입</strong>을 쓰면 제목·길이·도움말이 자동으로 따라옵니다.</li>
+        <li>표시용 가공은 표시 전에 끝내고, 출력 전용 테이블을 두면 깔끔합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    데이터를 준비했으니, 이제 "각 컬럼을 어떻게 보여줄지"를 정할 차례입니다. 다음 Lesson <strong>Field Catalog 기초</strong>에서 컬럼 설명서를 만드는 법을 배웁니다.
+  </p>
+</section>

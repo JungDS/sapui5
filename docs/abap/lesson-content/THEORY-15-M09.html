@@ -1,0 +1,104 @@
+<!-- lesson-content/THEORY-15-M09.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>표에서 중요한 값을 눈에 띄게 하는 색상을 배웁니다. 컬럼 전체에 색을 주는 <span class="glossary-term" data-glossary="EmphasizeColor">EMPHASIZE</span>와, 행마다 색을 다르게 하는 <span class="glossary-term" data-glossary="RowColor">행 색상(INFO_FNAME)</span>의 기초를 익히며 Grid ALV Chapter를 마무리합니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 숫자만으론 안 보인다 🌈</h2>
+  <p>
+    표가 길고 숫자가 많으면, 정작 중요한 값(마이너스 금액, 마감 임박 건 등)이 묻혀버립니다. 이럴 때 <strong>색상</strong>으로 강조하면 사용자가 한눈에 알아챕니다.
+  </p>
+  <p>색을 주는 방법은 크게 두 가지입니다. <strong>컬럼 단위</strong>와 <strong>행 단위</strong>입니다.</p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. 컬럼 색상 — Field Catalog의 EMPHASIZE ✍️</h2>
+  <p>
+    특정 컬럼 전체에 색을 주려면 Field Catalog(M04)의 <span class="glossary-term" data-glossary="EmphasizeColor">emphasize</span> 항목에 색상 코드를 넣습니다.
+  </p>
+  <pre><code>gs_fcat-fieldname = 'PRICE'.
+gs_fcat-coltext   = '요금'.
+gs_fcat-emphasize = 'C610'.   "색상 코드 (C + 색번호 + 강도 + 반전)
+APPEND gs_fcat TO gt_fcat.</code></pre>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>색상 코드 읽는 법 (Cxyz)</h4>
+      <ul>
+        <li><strong>C</strong>: 색상이라는 표시(Color).</li>
+        <li><strong>x(1~7):</strong> 색 번호(예: 5=초록, 6=빨강 계열).</li>
+        <li><strong>y(0/1):</strong> 강도(intensified).</li>
+        <li><strong>z(0/1):</strong> 반전(inverse).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 행 색상 — Layout의 INFO_FNAME 🎨</h2>
+  <p>
+    행마다 다른 색을 주려면, 출력 테이블에 색상 코드를 담을 <strong>전용 필드</strong>를 두고, Layout(M05)의 <span class="glossary-term" data-glossary="InfoFname">info_fname</span>에 그 필드 이름을 알려줍니다.
+  </p>
+  <pre><code>" 1) 출력 구조에 색상 필드 추가
+TYPES: BEGIN OF ty_row,
+         ...,
+         rowcolor TYPE char4,   "행 색상 코드
+       END OF ty_row.
+
+" 2) 조건에 따라 색 채우기
+LOOP AT gt_outtab ASSIGNING FIELD-SYMBOL(&lt;fs&gt;).
+  IF &lt;fs&gt;-price &gt; 1000.
+    &lt;fs&gt;-rowcolor = 'C610'.   "비싼 항공편은 빨갛게
+  ENDIF.
+ENDLOOP.
+
+" 3) Layout에 연결
+gs_layout-info_fname = 'ROWCOLOR'.</code></pre>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <ul>
+    <li>✅ <strong>정상:</strong> 컬럼은 emphasize로, 행은 색상 필드 + info_fname으로 강조됩니다.</li>
+    <li>❌ <strong>오류 1:</strong> info_fname에 적은 필드가 출력 테이블에 없음 → 행 색상이 동작 안 함(M05 주의 그대로).</li>
+    <li>❌ <strong>오류 2:</strong> 색을 너무 많이 써서 표가 알록달록 → 오히려 무엇이 중요한지 안 보임.</li>
+  </ul>
+  <blockquote>
+    참고로 셀(칸) 하나하나에 색을 주는 더 세밀한 방법(Cell Color)도 있는데, 이는 Deep Structure를 쓰며 THEORY-19에서 다룹니다. 이번엔 컬럼·행 단위까지만.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>색은 "의미"를 담을 때만</h4>
+      <p>색상은 "예뻐서"가 아니라 "의미를 전달할 때" 써야 합니다. 빨강=경고/마이너스, 초록=정상처럼 일관된 규칙을 정하고, 한 화면에 색은 2~3종류로 절제하세요. 또 색맹 사용자를 위해 색에만 의존하지 말고, 아이콘이나 텍스트로도 함께 표시하는 것이 좋은 접근성입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>THEORY-15 마무리 핵심</h4>
+      <ul>
+        <li>Grid ALV: <strong>Container → Grid → (데이터·Field Catalog·Layout) → first_display</strong>의 흐름.</li>
+        <li>갱신은 <strong>refresh(is_stable)</strong>로 위치를 유지하며 다시 그립니다.</li>
+        <li>컬럼 색은 Field Catalog의 <strong>emphasize</strong>, 행 색은 색상 필드 + Layout의 <strong>info_fname</strong>.</li>
+        <li>색은 의미를 담아 절제해서 사용합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    Grid ALV의 기본기를 모두 익혔습니다. 다음 Chapter <strong>Modern ABAP Syntax</strong>에서는 지금까지의 ABAP 코드를 훨씬 짧고 깔끔하게 쓰는 최신 문법을 배웁니다.
+  </p>
+</section>

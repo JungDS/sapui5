@@ -160,6 +160,7 @@
 - `THEORY-12`(Classic DDIC View와 유지보수, M01~M06): Database/Projection/Help/Maintenance View, TMG/SM30, Classic→CDS 현대화.
 - `THEORY-13`(Report Event와 Selection Screen 심화, M01~M07): 이벤트 전체 흐름, INITIALIZATION, AT SELECTION-SCREEN OUTPUT(동적 화면), 입력 검증, START/END-OF-SELECTION, AUTHORITY-CHECK/존재 검증.
 - `THEORY-14`(Screen Programming / Dynpro 기초, M01~M07): Module Pool, Screen Painter, 화면 요소 3종, PBO/PAI, PF-STATUS/TITLEBAR, Custom Control/Container.
+- `THEORY-15`(Grid ALV 기초, M01~M09): CL_GUI_CUSTOM_CONTAINER, CL_GUI_ALV_GRID, 출력 Internal Table, Field Catalog(LVC_T_FCAT), Layout(LVC_S_LAYO), Variant(DISVARIANT/I_SAVE), SET_TABLE_FOR_FIRST_DISPLAY, refresh(IS_STABLE), 컬럼/행 색상.
 - 글로서리 용어를 섹션별로 완전 패리티로 추가(THEORY-11 18종, 12 13종, 13 15종, 14 14종, 총 +60). 매 섹션 미정의 0건 검증.
 - 기존 Codex 톤(지난 Lesson 연결 → 왜 필요한가 → 무엇인가 → 최소 예제 → 정상/오류 → 실무 주의 → 한눈에 정리)을 그대로 이어 일관성 유지.
 

@@ -2445,5 +2445,267 @@
     ],
     "design_theme": "code",
     "html_content": "<p>객체는 처음 한 번만 생성하고 이후에는 데이터만 갱신합니다.</p>"
+  },
+  "CLGUICUSTOMCONTAINER": {
+    "title": "CL_GUI_CUSTOM_CONTAINER",
+    "desc": "화면의 Custom Control 자리에 대응하는 그릇 객체입니다. 이 안에 ALV Grid 같은 부품을 담습니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 벽에 박은 못에 거는 액자 틀이에요. 틀이 있어야 그림을 넣을 수 있죠.",
+    "used_in_lessons": [
+      "THEORY-15-M01",
+      "THEORY-15-M02"
+    ],
+    "design_theme": "primary",
+    "html_content": "<p>container_name은 화면의 Custom Control 이름과 정확히 일치해야 합니다.</p>"
+  },
+  "ContainerName": {
+    "title": "container_name",
+    "desc": "Container를 만들 때 지정하는, 화면 Custom Control의 이름입니다. Screen Painter에서 준 이름과 같아야 합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 액자 틀을 걸 '바로 그 못'의 이름표예요. 이름이 달라지면 엉뚱한 자리에 걸리거나 못 걸립니다.",
+    "used_in_lessons": [
+      "THEORY-15-M01"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "CLGUIALVGRID": {
+    "title": "CL_GUI_ALV_GRID",
+    "desc": "화면에 뜨는 표(Grid ALV)의 실체가 되는 클래스입니다. Container 안에 담겨 데이터를 표로 그립니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 액자 틀 안에 넣는 실제 그림이에요. 우리가 보는 표 그 자체입니다.",
+    "used_in_lessons": [
+      "THEORY-15-M02"
+    ],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "ParentContainer": {
+    "title": "i_parent (Parent Container)",
+    "desc": "ALV Grid를 만들 때 '어느 Container에 담길지' 지정하는 부모 그릇입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 그림을 어느 액자 틀에 넣을지 알려주는 거예요.",
+    "used_in_lessons": [
+      "THEORY-15-M02"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "OutputInternalTable": {
+    "title": "출력용 Internal Table",
+    "desc": "Grid ALV에 표시할 데이터를 담는 Internal Table입니다. 한 줄이 표의 한 행, 필드가 컬럼이 됩니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 엑셀의 데이터 영역과 같아요. 행과 열이 그대로 화면 표가 됩니다.",
+    "used_in_lessons": [
+      "THEORY-15-M03"
+    ],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "LVCGrid": {
+    "title": "LVC 기반 ALV",
+    "desc": "CL_GUI_ALV_GRID가 사용하는 컨트롤 구조 계열(LVC_*)을 가리킵니다. Field Catalog·Layout 등이 모두 LVC 구조로 정의됩니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 최신 규격의 표 부품 세트라고 보면 됩니다. 설명서·외형 양식이 모두 이 규격을 따릅니다.",
+    "used_in_lessons": [
+      "THEORY-15-M03"
+    ],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "FieldCatalog": {
+    "title": "Field Catalog",
+    "desc": "표의 각 컬럼을 어떻게 보여줄지 적은 설명서입니다. 컬럼 하나당 한 줄로 제목·너비 등을 정합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 상품 진열대의 '각 칸 이름표 모음'이에요. 칸마다 무엇을 어떻게 표시할지 적어둡니다.",
+    "used_in_lessons": [
+      "THEORY-15-M04"
+    ],
+    "design_theme": "primary",
+    "html_content": "<p>DDIC로 자동 생성 후 일부만 수정하는 방식이 효율적입니다.</p>"
+  },
+  "LVCTFCAT": {
+    "title": "LVC_T_FCAT",
+    "desc": "Field Catalog를 담는 Internal Table 타입입니다. 각 줄(LVC_S_FCAT)이 컬럼 하나를 설명합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 이름표를 한 장씩 모아 끼우는 명함첩 같은 거예요.",
+    "used_in_lessons": [
+      "THEORY-15-M04"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "FcatFieldname": {
+    "title": "fieldname (Field Catalog)",
+    "desc": "설명할 컬럼의 필드명입니다. 출력 Internal Table의 필드명과 정확히 같아야 합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 이름표가 '어느 칸의 것인지' 가리키는 표시예요. 어긋나면 엉뚱한 칸에 붙습니다.",
+    "used_in_lessons": [
+      "THEORY-15-M04"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "FcatColtext": {
+    "title": "coltext (컬럼 제목)",
+    "desc": "화면에 표시되는 컬럼 제목 텍스트입니다. 비우면 영문 필드명이 그대로 떠 사용자가 헷갈립니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 진열대 칸 위에 붙는 '과일', '채소' 같은 안내 글자예요.",
+    "used_in_lessons": [
+      "THEORY-15-M04"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "FcatOutputlen": {
+    "title": "outputlen (표시 너비)",
+    "desc": "컬럼의 화면 표시 너비입니다. 너무 좁으면 값이 잘려 보입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 진열 칸의 폭이에요. 좁으면 물건이 삐져나오고, 넓으면 공간이 낭비되죠.",
+    "used_in_lessons": [
+      "THEORY-15-M04"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "ALVLayout": {
+    "title": "ALV Layout",
+    "desc": "표 전체의 외형(줄무늬·너비·색 기준 등)을 정하는 설정입니다. 컬럼 단위가 아니라 표 단위입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 표 전체에 적용하는 테마예요. 줄무늬·너비·색 같은 전체 분위기를 정합니다.",
+    "used_in_lessons": [
+      "THEORY-15-M05"
+    ],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "LVCSLAYO": {
+    "title": "LVC_S_LAYO",
+    "desc": "ALV Layout 값을 담는 구조입니다. zebra·cwidth_opt·info_fname 등을 채워 표시 메서드에 넘깁니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 표 테마 설정값을 적는 한 장짜리 양식이에요.",
+    "used_in_lessons": [
+      "THEORY-15-M05"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "ZebraLayout": {
+    "title": "Zebra (줄무늬)",
+    "desc": "한 줄 걸러 음영을 넣어 행 구분을 쉽게 하는 Layout 옵션입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 줄 쳐진 노트처럼, 한 줄씩 색을 달리해 읽기 쉽게 하는 거예요.",
+    "used_in_lessons": [
+      "THEORY-15-M05"
+    ],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "CwidthOpt": {
+    "title": "CWIDTH_OPT (자동 너비)",
+    "desc": "데이터 길이에 맞춰 컬럼 너비를 자동 조정하는 Layout 옵션입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 옷을 몸에 맞게 자동으로 줄여주는 기능과 같아요. 단 너무 긴 데이터엔 과하게 넓어질 수 있죠.",
+    "used_in_lessons": [
+      "THEORY-15-M05"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "InfoFname": {
+    "title": "INFO_FNAME (행 색상 필드)",
+    "desc": "각 행의 색상 코드를 담는 출력 테이블 필드의 이름을 Layout에 알려주는 항목입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 줄마다 붙일 형광펜 색을 적어둔 '색상 메모 칸'을 가리키는 거예요.",
+    "used_in_lessons": [
+      "THEORY-15-M05",
+      "THEORY-15-M09"
+    ],
+    "design_theme": "code",
+    "html_content": "<p>지정한 필드가 출력 테이블에 실제로 있어야 동작합니다.</p>"
+  },
+  "LayoutVariant": {
+    "title": "Layout Variant",
+    "desc": "사용자가 컬럼 배치·정렬·필터를 이름 붙여 저장하고 다시 불러 쓰는 기능입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 책상 정리 상태를 '내 배치'로 저장해 두고 다음에 그대로 복원하는 것과 같아요.",
+    "used_in_lessons": [
+      "THEORY-15-M06"
+    ],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "DISVARIANT": {
+    "title": "DISVARIANT",
+    "desc": "Layout Variant 정보를 담는 구조입니다. report에 프로그램 ID를 넣어 어느 프로그램의 변형인지 구분합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: '누구의, 어떤 배치인지' 적어두는 변형 관리 카드예요.",
+    "used_in_lessons": [
+      "THEORY-15-M06"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "ISave": {
+    "title": "I_SAVE",
+    "desc": "변형 저장 허용 범위를 정하는 값입니다. ' '(불가)/'U'(사용자별)/'X'(공용)/'A'(둘 다).",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 저장 권한 설정이에요. '나만 저장', '모두 공유', '둘 다' 중 고르는 거죠.",
+    "used_in_lessons": [
+      "THEORY-15-M06"
+    ],
+    "design_theme": "warn",
+    "html_content": "<p>공용('X')은 모든 사용자에게 영향을 주므로 신중히 사용합니다.</p>"
+  },
+  "SetTableForFirstDisplay": {
+    "title": "SET_TABLE_FOR_FIRST_DISPLAY",
+    "desc": "준비한 데이터·Field Catalog·Layout을 모아 표를 처음 띄우는 핵심 메서드입니다. 최초 1회만 호출합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 재료를 모아 처음 상을 차리는 것과 같아요. 이후 반찬만 바꿀 땐 다시 차리지 않고 갱신(refresh)합니다.",
+    "used_in_lessons": [
+      "THEORY-15-M07"
+    ],
+    "design_theme": "primary",
+    "html_content": "<p>이후 갱신은 refresh_table_display를 씁니다.</p>"
+  },
+  "ItOuttab": {
+    "title": "IT_OUTTAB",
+    "desc": "SET_TABLE_FOR_FIRST_DISPLAY에 넘기는, 화면에 그릴 데이터 테이블입니다(필수, CHANGING).",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 상에 올릴 실제 음식이에요. 이게 없으면 빈 상만 차려집니다.",
+    "used_in_lessons": [
+      "THEORY-15-M07"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "ItFieldcatalog": {
+    "title": "IT_FIELDCATALOG",
+    "desc": "표시 메서드에 넘기는 컬럼 설명서(Field Catalog)입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 음식마다 붙일 이름표 모음을 함께 건네는 거예요.",
+    "used_in_lessons": [
+      "THEORY-15-M07"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "RefreshTableDisplay": {
+    "title": "REFRESH_TABLE_DISPLAY",
+    "desc": "이미 떠 있는 표를 새 데이터로 다시 그리는 메서드입니다. 데이터를 바꾼 뒤 호출합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 상을 다시 차리지 않고 반찬만 새것으로 바꿔 놓는 것과 같아요.",
+    "used_in_lessons": [
+      "THEORY-15-M08"
+    ],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "IsStable": {
+    "title": "IS_STABLE (Stable Refresh)",
+    "desc": "표를 갱신할 때 사용자의 스크롤·선택 위치(row/col)를 유지하게 해주는 옵션입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 책갈피를 끼워두고 그 페이지만 새로고침하는 것과 같아요. 보던 자리를 잃지 않습니다.",
+    "used_in_lessons": [
+      "THEORY-15-M08"
+    ],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "EmphasizeColor": {
+    "title": "EMPHASIZE (컬럼 색상)",
+    "desc": "Field Catalog에 색상 코드를 넣어 특정 컬럼 전체에 색을 주는 항목입니다(Cxyz 코드).",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 진열대 한 칸 전체를 형광색 배경으로 칠해 눈에 띄게 하는 것과 같아요.",
+    "used_in_lessons": [
+      "THEORY-15-M09"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "RowColor": {
+    "title": "행 색상 (Row Color)",
+    "desc": "출력 테이블의 색상 필드 + Layout의 info_fname을 이용해 행마다 다른 색을 주는 기능입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 조건에 맞는 줄에 형광펜을 긋는 것과 같아요. 비싼 항목만 빨갛게처럼요.",
+    "used_in_lessons": [
+      "THEORY-15-M09"
+    ],
+    "design_theme": "info",
+    "html_content": "<p>셀 단위 색상(Cell Color)은 THEORY-19에서 다룹니다.</p>"
   }
 }
