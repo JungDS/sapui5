@@ -1,5 +1,7 @@
 # 인계 문서 — ABAP Lesson 본문 양산 (Track 1)
 
+> 📅 **최종수정: 2026-06-10 00:50 KST**
+
 > 이 문서는 ABAP 커리큘럼의 Lesson 본문(`docs/abap/lesson-content/<ID>.html`)을 이어서 작성할 AI를 위한 단일 인계서다.
 > **시작 전 이 문서를 끝까지 읽고**, `.project-docs/99_AI_SYNC.md`와 기존 작성본 `THEORY-01-M01.html`(기준 샘플)을 확인할 것.
 

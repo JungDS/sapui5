@@ -1,5 +1,7 @@
 # AI Workspace Synchronization Log (AI-SYNC)
 
+> 📅 **최종수정: 2026-06-10 00:50 KST**
+
 ## 목적 및 규칙 (Purpose & Rules)
 본 파일(`.project-docs/99_AI_SYNC.md`)은 여러 AI 모델(Codex, Antigravity, Claude 등)이 컨텍스트를 공유하고 작업을 이어가기 위한 공통 데이터베이스 역할을 합니다.
 새로운 채팅 또는 새로운 AI 모델이 투입되었을 때, 이 파일을 가장 먼저 읽어 이전 작업의 맥락과 현재 진행 상태를 파악해야 합니다.

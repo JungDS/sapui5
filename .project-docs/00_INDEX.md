@@ -1,5 +1,7 @@
 # .project-docs 인덱스
 
+> 📅 **최종수정: 2026-06-10 00:50 KST**
+
 SAP Developer Learning Library 운영 분석 문서. 2026-06-09 18:11 기준으로 **최신화 갱신**했다.
 (구 00~10 문서는 `archive/project-docs/20260605/`에 원본 보존)
 
@@ -14,10 +16,15 @@ SAP Developer Learning Library 운영 분석 문서. 2026-06-09 18:11 기준으�
 | [05_INVENTORIES.md](05_INVENTORIES.md) | 증거 기반 인벤토리: asset 의존 맵 / data JSON / 로드맵 샘플 계보 |
 | [06_ABAP_CURRICULUM.md](06_ABAP_CURRICULUM.md) | ABAP 커리큘럼 2-Track 구조·샘플 계보·선호 후보·다음 단계 |
 | [07_DECISIONS_AND_ROADMAP.md](07_DECISIONS_AND_ROADMAP.md) | 미결 결정·권고 집약(이원화, sample 폴더, stage7 de-naming, 리네임 제안) |
+| [08_DEV_DIARY.md](08_DEV_DIARY.md) | 개발 일지 — 일자별 changelog 링크 모음 |
+| [09_IMAGE_ASSETS_RULE.md](09_IMAGE_ASSETS_RULE.md) | 이미지 자산 명명·보관·삽입 규칙 |
+| [99_AI_SYNC.md](99_AI_SYNC.md) | **AI 인계 허브** — 여러 AI 공유 현황/미결/Work Log (작업 시작 시 1순위 정독) |
+| [HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md) | ABAP Lesson 본문 양산 인계서 — 작성 규칙·진행표·복붙 프롬프트 |
+| [changelogs/](changelogs/) | 일자별 개발 상세 일지(CHANGELOG_YYYYMMDD.md) |
 
 ## 권장 읽기 순서
-처음이면 **01 → 02 → 03 → 04**로 운영 기준을 잡고, 작업 영역에 따라 05(정리·인벤토리),
-06(커리큘럼), 07(구조 결정)을 참조한다.
+처음이면 **99(AI 인계 허브) → 01 → 02 → 03 → 04**로 현재 상태와 운영 기준을 잡고, 작업 영역에 따라
+05(정리·인벤토리), 06(커리큘럼·Lesson 양산), 07(구조 결정), HANDOFF(Lesson 작성)를 참조한다.
 
 ## 설계 원칙 (이번 재작성)
 - 역할 1:1 분리, 중복 제거 (구 11개 → 8개)

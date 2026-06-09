@@ -1,6 +1,8 @@
 # 05. 인벤토리 (증거 기반)
 
-2026-06-05 재분석 시점의 실제 참조 검색 결과. 이후 변경 시 갱신한다.
+> 📅 **최종수정: 2026-06-10 00:50 KST**
+
+2026-06-05 재분석 기준 + **2026-06-09~10 Lesson 양산/뷰어/글로서리 반영분**을 갱신했다. 이후 변경 시 갱신한다.
 
 ## A. asset 의존 맵 (assets/*.css·js)
 비-archive HTML 기준 참조. **완전 미사용 asset은 0개**(모두 최소 1개 HTML이 참조).
@@ -10,6 +12,8 @@
 | `common.css` / `common.js` | 다수(사이트 전역) | 모든 운영 페이지 공통 |
 | `shell.css` / `shell.js` | 다수(셸 페이지 전역) | page-type 셸 + 문서 SSOT |
 | `home.css` | 1 | `index.html` 전용 |
+| `abap-lesson-viewer.css` / `.js` | 1 | `docs/abap/lesson-viewer.html` (Lesson 단일 뷰어 엔진) |
+| `abap-glossary.css` / `.js` | 1 | `docs/abap/lesson-viewer.html` (`data-glossary` 툴팁) |
 | `abap-curriculum.css` / `.js` | 1 | `docs/roadmap/abap-curriculum.html` 운영본 전용 |
 | `metro-process.css` / `.js` | 2 | `docs/module/erp-business-process-metro.html`, `docs/roadmap/abap-curriculum-v5-3-antigravity.html` |
 | `abap-curriculum-section-detail.*` | 1 | `docs/roadmap/abap-curriculum-section-detail.html` |
@@ -70,6 +74,19 @@
 
 | 파일 | 상태 | 비고 |
 |---|---|---|
-| `abap_curriculum_v5_4_20260605_000000.json` | **운영 유지** | 운영본 fetch 대상. `learning_friendly.handled_contents.ko` 추가 |
+| `abap_curriculum_v5_4_20260605_000000.json` | **운영 유지** | 운영본 + Lesson 뷰어 fetch 대상. `learning_friendly.handled_contents.ko` 포함 |
+| `abap_glossary.json` | **운영 유지** | Lesson 용어 툴팁 사전. **304개 용어**(THEORY-01~18 완전 패리티), `abap-glossary.js`가 fetch |
 | `abap_curriculum_v5_3_20260602_010000.json` | 유지 | 샘플/비교 원본, v5.4의 기반 |
 | `abap_curriculum_v5_3.md`, `TRACK1/` | 유지 | 커리큘럼 설계 참고자료 |
+
+## F. docs/abap/lesson-content (Lesson 본문 조각)
+ABAP 커리큘럼 Track 1(THEORY-*) Lesson 본문. `lesson-viewer.html?lesson=<ID>`가 fetch하는 순수 조각(fragment) HTML.
+
+| 항목 | 현황 |
+|---|---|
+| 작성 완료 | **THEORY-01~18 = 116개** (총 137개 중) |
+| 남은 작업 | THEORY-19~21 = 21개 (SALV/ALV 심화 · CDS · RAP) |
+| 코드 서식 | 전 Lesson 코드블록에 네이비(#343e6a) ABAP Editor 목업 + Shiki 복사버튼 적용(Antigravity) |
+| 용어 | 본문 `data-glossary` ↔ `reference/abap_glossary.json` 완전 패리티(미정의 0건) |
+
+> 진행 현황 표·작성 규칙은 [HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md), 인계 허브는 [99_AI_SYNC.md](99_AI_SYNC.md).

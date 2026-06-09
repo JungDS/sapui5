@@ -1,5 +1,7 @@
 # 01. 프로젝트 개요
 
+> 📅 **최종수정: 2026-06-10 00:50 KST**
+
 ## 정체성
 - **SAP Developer Learning Library** — SAP 개발자(ABAP / UI5·Fiori)용 HTML 학습자료 저장소.
 - **정적 사이트**: 빌드 프레임워크 없이 순수 HTML + 공유 CSS/JS. GitHub Pages 배포.

@@ -1,7 +1,22 @@
 # 06. ABAP 커리큘럼
 
+> 📅 **최종수정: 2026-06-10 00:50 KST**
+
 현재 가장 많은 변경이 발생하는 활성 영역. 다양한 디자인 샘플 비교 결과를 바탕으로 2026-06-05에
 운영본 `docs/roadmap/abap-curriculum.html`을 신규 작성했다. 구 샘플들은 비교/보존용으로 남겨 둔다.
+
+## ✅ Lesson 본문 양산 현황 (2026-06-09~10, 활성)
+Single Viewer(`docs/abap/lesson-viewer.html`) + 본문 조각(`docs/abap/lesson-content/<ID>.html`) 구조로 Track 1 Lesson을 순서대로 작성 중.
+
+- **진행: Track 1(THEORY-*) 137개 중 116개(THEORY-01~18) 작성 완료. 21개 남음(THEORY-19~21).**
+  - 01 DDIC1 / 02 기본문법 / 03 PARAMETERS / 04 DDIC2 / 05 모듈화 / 06 Internal Table / 07 ITAB 응용 /
+    08 SALV / 09 OpenSQL1 / 10 SELECT-OPTIONS / 11 JOIN·집계 / 12 Classic View / 13 Report Event /
+    14 Dynpro / 15 Grid ALV / 16 Modern ABAP / 17 New OpenSQL / 18 OO ABAP
+  - 남음: 19 ALV 표시제어 심화 · 20 CDS View Entity · 21 RAP/ABAP Cloud. Track 2(PRACTICAL-*)는 그 다음.
+- **참여 AI**: Antigravity(뷰어/글로서리 아키텍처·THEORY-01~10 재보강·코드블록 Shiki/네이비 Editor 목업) +
+  Codex(THEORY-02~10) + Claude(THEORY-11~18).
+- **글로서리 완전 패리티**: 본문 `data-glossary` ↔ `reference/abap_glossary.json`(304개 용어, 미정의 0건).
+- **작성 규칙/진행표/복붙 프롬프트**: [HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md). 인계 허브: [99_AI_SYNC.md](99_AI_SYNC.md).
 
 ## 원천 데이터
 - 운영본 런타임 데이터: `reference/abap_curriculum_v5_4_20260605_000000.json`.
