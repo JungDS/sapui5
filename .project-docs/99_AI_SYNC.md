@@ -13,14 +13,14 @@
 ---
 
 ## 현재 상태 및 목표 (Current Status & Goals)
-- **현재 목표**: Track 1(THEORY-*) Lesson 본문 작성. 총 137개 중 48개(THEORY-01~THEORY-08) 작성 완료. **89개 남음**.
-- **최근 진행(2026-06-09, Codex)**: THEORY-08-M01~M05 신규 작성 완료. SALV 목적, CL_SALV_TABLE, FACTORY, DISPLAY, 기본 Functions, Internal Table → SALV 미니 리포트, Sort/Layout/Variant 심화 범위 분리를 초심자 학습지 톤으로 작성하고 글로서리 미정의 0건을 확인함.
+- **현재 목표**: Track 1(THEORY-*) Lesson 본문 작성. 총 137개 중 54개(THEORY-01~THEORY-09) 작성 완료. **83개 남음**.
+- **최근 진행(2026-06-09, Codex)**: THEORY-09-M01~M06 신규 작성 완료. SELECT FROM/FIELDS, WHERE와 Host Variable @, SELECT SINGLE, INTO TABLE, 명시적 Target Table, SELECT in LOOP 성능 위험을 초심자 학습지 톤으로 작성하고 글로서리 미정의 0건을 확인함.
 - **⚠️ 인계 핵심 문서**: 이어서 작업할 AI는 **[HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md)를 가장 먼저 정독**할 것. 작성 규칙·스타일 기준·복붙용 프롬프트가 모두 거기 있음.
 
 ---
 
 ## 미결 사항 (Pending Issues / Next Steps)
-- **Lesson 본문 양산**: 다음은 THEORY-09 ~ THEORY-21 (89개). 현재 확정된 10·20대 초심자 친화적 스타일과 "한눈에 정리" 마무리 방식을 그대로 적용한다. Track 2(PRACTICAL-*)는 그 다음.
+- **Lesson 본문 양산**: 다음은 THEORY-10 ~ THEORY-21 (83개). 현재 확정된 10·20대 초심자 친화적 스타일과 "한눈에 정리" 마무리 방식을 그대로 적용한다. Track 2(PRACTICAL-*)는 그 다음.
 - **글로서리 완전 패리티**: Lesson에서 쓰는 주요 용어는 `reference/abap_glossary.json`에 반드시 함께 등록(일상 비유 포함). 미등록 용어는 툴팁이 안 뜸(깨진 링크).
 - (선택) Lesson 내 퀴즈·실습 코드 블록 등 상호작용 컴포넌트 고도화.
 
@@ -127,3 +127,13 @@
   - 로컬 뷰어에서 THEORY-08-M01, M03, M05 로딩 확인 완료.
 - **수정 파일**: `docs/abap/lesson-content/THEORY-08-M01~M05.html`, `reference/abap_glossary.json`, `.project-docs/HANDOFF_LESSON_CONTENT.md`, `.project-docs/99_AI_SYNC.md`
 - **다음 AI를 위한 메모**: 다음 섹션은 THEORY-09 `Open SQL 1차: 기본 조회`.
+
+### [2026-06-09] Codex (GPT-5)
+- **작업 내용**:
+  - THEORY-09-M01~M06 6개 Lesson 신규 작성.
+  - SELECT FROM/FIELDS 기본 구조, WHERE 조건과 Host Variable @, SELECT SINGLE 단건 조회, INTO TABLE Result Set 적재, 명시적 Target Table 선언, SELECT in LOOP 안티패턴을 JSON 지침 범위 안에서 작성.
+  - 조건 없는 대량 조회, SELECT SINGLE 키 조건 부족, INTO TABLE 메모리 부담, 반복 SELECT 성능 위험을 초심자용 경고로 정리.
+  - 글로서리 신규 용어 13종 추가 및 기존 `WHEREClause`, `PARAMETERSStatement`, `SYSUBRC`, `InternalTable` 사용 Lesson 보정, 미정의 0건 확인.
+  - 로컬 뷰어에서 THEORY-09-M01, M03, M06 로딩 확인 완료.
+- **수정 파일**: `docs/abap/lesson-content/THEORY-09-M01~M06.html`, `reference/abap_glossary.json`, `.project-docs/HANDOFF_LESSON_CONTENT.md`, `.project-docs/99_AI_SYNC.md`
+- **다음 AI를 위한 메모**: 다음 섹션은 THEORY-10 `SELECT-OPTIONS와 Range Table`.

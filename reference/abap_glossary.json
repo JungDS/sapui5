@@ -411,7 +411,7 @@
     "title": "SY-SUBRC (시스템 반환 코드)",
     "desc": "많은 ABAP 문장이 실행된 뒤 성공 여부나 결과 상태를 알려주는 시스템 필드입니다. 일반적으로 0이면 성공으로 해석합니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 배달 앱의 '성공', '실패', '찾을 수 없음' 같은 처리 결과 표시와 같아요.",
-    "used_in_lessons": ["THEORY-02-M06", "THEORY-05-M03", "THEORY-06-M05", "THEORY-07-M04"],
+    "used_in_lessons": ["THEORY-02-M06", "THEORY-05-M03", "THEORY-06-M05", "THEORY-07-M04", "THEORY-09-M03"],
     "design_theme": "warn",
     "html_content": "<p><code>SY-SUBRC</code>는 다른 문장이 실행되면 값이 바뀔 수 있으므로, 확인하고 싶은 명령 바로 뒤에서 읽는 습관이 중요합니다.</p>"
   },
@@ -419,7 +419,7 @@
     "title": "PARAMETERS 문",
     "desc": "ABAP Report의 Selection Screen에 한 칸짜리 입력 필드를 만들고, 사용자가 입력한 값을 프로그램에서 사용할 수 있게 하는 문법입니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 설문지에 '이름을 적어주세요'라는 빈칸 하나를 만드는 것과 같아요.",
-    "used_in_lessons": ["THEORY-03-M01", "THEORY-03-M02", "THEORY-03-M03", "THEORY-04-M01", "THEORY-04-M05"],
+    "used_in_lessons": ["THEORY-03-M01", "THEORY-03-M02", "THEORY-03-M03", "THEORY-04-M01", "THEORY-04-M05", "THEORY-09-M02"],
     "design_theme": "code",
     "html_content": ""
   },
@@ -795,7 +795,7 @@
     "title": "Internal Table (내부 테이블)",
     "desc": "ABAP 프로그램 실행 중 Runtime Memory에 만들어지는 임시 표 형태의 데이터 객체입니다. 여러 줄 데이터를 담아 반복, 검색, 계산, 출력에 사용합니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 창고(DB)에서 물건을 꺼내 작업대 위에 임시로 펼쳐둔 체크리스트와 같아요. 작업이 끝나면 체크리스트는 치워지고 창고의 원본 보관과는 별개입니다.",
-    "used_in_lessons": ["THEORY-06-M01", "THEORY-06-M02", "THEORY-06-M03", "THEORY-06-M04", "THEORY-06-M05", "THEORY-06-M06", "THEORY-08-M04"],
+    "used_in_lessons": ["THEORY-06-M01", "THEORY-06-M02", "THEORY-06-M03", "THEORY-06-M04", "THEORY-06-M05", "THEORY-06-M06", "THEORY-08-M04", "THEORY-09-M04"],
     "design_theme": "primary",
     "html_content": "<p>Internal Table은 Transparent Table처럼 데이터베이스에 영구 저장되는 테이블이 아닙니다. 프로그램 실행 중 처리용으로 쓰는 메모리 객체입니다.</p>"
   },
@@ -923,7 +923,7 @@
     "title": "WHERE 조건",
     "desc": "특정 필드 값 조건에 맞는 데이터만 선택, 삭제, 처리하도록 제한하는 조건 구문입니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 명단에서 '90점 이상만', '서울 거주자만'처럼 조건에 맞는 사람만 고르는 필터와 같아요.",
-    "used_in_lessons": ["THEORY-07-M02"],
+    "used_in_lessons": ["THEORY-07-M02", "THEORY-09-M02"],
     "design_theme": "info",
     "html_content": ""
   },
@@ -1180,6 +1180,110 @@
     "desc": "사용자별 ALV 레이아웃 변형 저장과 불러오기 같은 Variant 기능을 후속 심화 범위로 미루는 학습 범위 표시입니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 자주 쓰는 화면 배치를 저장하는 개인 설정 기능은 기본 사용법을 익힌 뒤 배우기로 표시해두는 것과 같아요.",
     "used_in_lessons": ["THEORY-08-M05"],
+    "design_theme": "warn",
+    "html_content": ""
+  },
+  "ABAPSQL": {
+    "title": "ABAP SQL",
+    "desc": "ABAP 프로그램에서 데이터베이스 테이블을 조회하고 처리할 때 사용하는 데이터베이스 독립적인 SQL 문법입니다. 과거에는 Open SQL이라고도 불렀습니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 여러 종류의 창고(DB)가 있어도 같은 주문서 양식으로 물건을 요청할 수 있게 해주는 공통 주문 언어와 같아요.",
+    "used_in_lessons": ["THEORY-09-M01"],
+    "design_theme": "primary",
+    "html_content": "<p>ABAP SQL은 ABAP 프로그램과 데이터베이스 사이의 표준 조회 언어입니다. 데이터 권한과 업무 검증은 별도로 설계해야 합니다.</p>"
+  },
+  "SELECTFROMStatement": {
+    "title": "SELECT FROM 문",
+    "desc": "ABAP SQL에서 어느 데이터베이스 테이블이나 데이터 소스에서 값을 읽을지 지정하는 기본 조회 문장입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 도서관에서 '어느 책장에서 책을 찾을지' 먼저 정하는 것과 같아요.",
+    "used_in_lessons": ["THEORY-09-M01"],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "FIELDSClause": {
+    "title": "FIELDS 절",
+    "desc": "SELECT에서 가져올 필드 목록을 명시하는 구문입니다. 필요한 열만 조회하도록 의도를 드러냅니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 신청서 전체가 아니라 이름과 전화번호 칸만 복사해오는 것과 같아요.",
+    "used_in_lessons": ["THEORY-09-M01"],
+    "design_theme": "info",
+    "html_content": "<p>필요한 필드만 명시하면 조회 의도가 분명해지고 불필요한 데이터 이동을 줄일 수 있습니다.</p>"
+  },
+  "HostVariableAt": {
+    "title": "Host Variable @",
+    "desc": "ABAP SQL 안에서 ABAP 프로그램 변수나 시스템 필드 값을 사용할 때 앞에 붙이는 표시입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: SQL 방에 들어가는 ABAP 변수에게 붙이는 출입증과 같아요. 이 표시가 있어야 DB 필드가 아니라 ABAP 변수임을 알 수 있습니다.",
+    "used_in_lessons": ["THEORY-09-M02"],
+    "design_theme": "code",
+    "html_content": "<p>최신 ABAP SQL 문맥에서는 ABAP 변수 앞의 <code>@</code>가 변수와 DB 필드 이름을 구분하는 중요한 역할을 합니다.</p>"
+  },
+  "SELECTSINGLEStatement": {
+    "title": "SELECT SINGLE 문",
+    "desc": "조건에 맞는 한 줄만 조회해 구조 변수 등에 담는 ABAP SQL 문법입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 명단 전체를 가져오는 것이 아니라 학생 번호로 한 사람의 카드만 꺼내오는 것과 같아요.",
+    "used_in_lessons": ["THEORY-09-M03"],
+    "design_theme": "code",
+    "html_content": "<p>조건이 고유하지 않으면 어떤 한 줄을 가져오는지 업무적으로 애매할 수 있으므로 키 조건을 명확히 하는 것이 좋습니다.</p>"
+  },
+  "SingleRow": {
+    "title": "Single Row (단일 행)",
+    "desc": "데이터베이스나 Internal Table에서 조회된 한 줄의 데이터입니다. SELECT SINGLE 결과는 보통 단일 구조 변수에 담습니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 엑셀 표 전체가 아니라 그중 한 행만 가져오는 것과 같아요.",
+    "used_in_lessons": ["THEORY-09-M03"],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "INTOTABLEClause": {
+    "title": "INTO TABLE 절",
+    "desc": "SELECT의 여러 줄 조회 결과를 ABAP Internal Table에 담도록 지정하는 구문입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 창고에서 가져온 물건 여러 개를 작업대 위 체크리스트 표에 한꺼번에 옮겨 적는 것과 같아요.",
+    "used_in_lessons": ["THEORY-09-M04"],
+    "design_theme": "code",
+    "html_content": "<p>INTO TABLE은 조회 결과를 Application Server 메모리의 Internal Table에 담는 작업이므로 데이터 양을 의식해야 합니다.</p>"
+  },
+  "ResultSet": {
+    "title": "Result Set (조회 결과 집합)",
+    "desc": "SELECT 문을 실행한 뒤 데이터베이스가 돌려주는 결과 행들의 묶음입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 검색창에 조건을 넣었을 때 화면에 나온 검색 결과 목록 전체와 같아요.",
+    "used_in_lessons": ["THEORY-09-M04"],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "ExplicitTargetTable": {
+    "title": "명시적 Target Table",
+    "desc": "SELECT 결과를 받을 Internal Table의 타입과 변수를 코드에서 미리 선언해두는 방식입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 물건을 받기 전에 어떤 크기의 상자에 담을지 미리 준비해두는 것과 같아요.",
+    "used_in_lessons": ["THEORY-09-M05"],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "TypedInternalTable": {
+    "title": "Typed Internal Table (타입 지정 내부 테이블)",
+    "desc": "어떤 Line Type을 담는지 명확히 선언된 Internal Table입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: '학생 기록 전용 양식'만 들어갈 수 있도록 칸 모양이 정해진 파일철과 같아요.",
+    "used_in_lessons": ["THEORY-09-M05"],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "TargetVariable": {
+    "title": "Target Variable (대상 변수)",
+    "desc": "SELECT나 READ 등의 결과가 담기는 ABAP 변수입니다. 단건이면 구조, 여러 건이면 Internal Table이 될 수 있습니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 복사한 내용을 붙여 넣을 빈 문서나 표와 같아요.",
+    "used_in_lessons": ["THEORY-09-M05"],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "SELECTInLoop": {
+    "title": "SELECT in LOOP",
+    "desc": "LOOP 반복문 안에서 SELECT를 반복 호출하는 패턴입니다. 데이터 건수가 많아지면 데이터베이스 왕복이 급증할 수 있는 성능 위험 신호입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 장 볼 목록 100개를 한 번에 가져오지 않고, 물건 하나마다 집과 마트를 100번 왕복하는 것과 같아요.",
+    "used_in_lessons": ["THEORY-09-M06"],
+    "design_theme": "warn",
+    "html_content": "<p>항상 100% 금지라는 뜻은 아니지만, 코드 리뷰에서 먼저 의심해야 하는 대표 성능 위험 패턴입니다.</p>"
+  },
+  "PerformanceRisk": {
+    "title": "Performance Risk (성능 위험)",
+    "desc": "현재는 실행되더라도 데이터가 늘거나 운영 부하가 커질 때 응답 지연, DB 부하, 메모리 문제로 이어질 수 있는 위험입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 사람이 적을 때는 괜찮던 좁은 출입문이, 행사 당일에는 줄을 길게 만드는 병목이 되는 것과 같아요.",
+    "used_in_lessons": ["THEORY-09-M06"],
     "design_theme": "warn",
     "html_content": ""
   }

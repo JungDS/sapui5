@@ -1,0 +1,124 @@
+<!-- lesson-content/THEORY-09-M06.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>THEORY-09의 마무리입니다. <span class="glossary-term" data-glossary="SELECTInLoop">SELECT in LOOP</span>가 왜 위험한지 맛보고, Open SQL 조회에서 가장 자주 만나는 <span class="glossary-term" data-glossary="PerformanceRisk">Performance Risk</span>를 초심자 눈높이로 정리합니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 실행은 되지만 느려질 수 있는 코드 🧭</h2>
+  <p>
+    Open SQL을 배우면 “필요할 때 SELECT하면 되지 않을까?”라는 생각이 자연스럽게 듭니다. 하지만 반복문 안에서 SELECT를 계속 실행하면 데이터베이스를 반복해서 호출하게 됩니다.
+  </p>
+  <p>
+    3번 반복이면 큰 문제가 안 보일 수 있습니다. 하지만 10,000번 반복하면 데이터베이스 요청도 10,000번이 될 수 있습니다. 이런 패턴을 흔히 SELECT in LOOP 안티패턴이라고 부릅니다.
+  </p>
+  <blockquote>
+    반복문 안의 SELECT는 작게 보이지만, 반복 횟수만큼 데이터베이스 왕복 비용이 쌓입니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>2. 위험한 예제 먼저 보기 ⚠️</h2>
+  <pre><code>LOOP AT lt_orders INTO DATA(ls_order).
+  SELECT SINGLE FROM t005t
+    FIELDS landx
+    WHERE spras = @sy-langu
+      AND land1 = @ls_order-land1
+    INTO @DATA(lv_country_name).
+
+  WRITE: / ls_order-order_id, lv_country_name.
+ENDLOOP.</code></pre>
+  <p>
+    이 코드는 주문 목록을 돌면서 각 주문의 국가명을 데이터베이스에서 한 번씩 읽습니다. 주문이 5건이면 SELECT 5번, 50,000건이면 SELECT 50,000번이 됩니다.
+  </p>
+  <p>
+    초심자 단계에서 꼭 기억할 문장: LOOP 안의 SELECT는 “반복 횟수만큼 DB에 물어본다”입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 더 나은 방향: 먼저 읽고 메모리에서 찾기 🔁</h2>
+  <p>
+    이번 Chapter에서는 JOIN을 아직 배우지 않았으므로, 가장 쉬운 개선 방향만 맛봅니다. 자주 참조할 작은 기준 데이터를 먼저 Internal Table로 읽어두고, LOOP 안에서는 데이터베이스가 아니라 Internal Table을 검색합니다.
+  </p>
+  <pre><code>SELECT FROM t005t
+  FIELDS land1, landx
+  WHERE spras = @sy-langu
+  INTO TABLE @DATA(lt_country_texts).
+
+LOOP AT lt_orders INTO DATA(ls_order).
+  READ TABLE lt_country_texts INTO DATA(ls_text)
+    WITH KEY land1 = ls_order-land1.
+
+  IF sy-subrc = 0.
+    WRITE: / ls_order-order_id, ls_text-landx.
+  ENDIF.
+ENDLOOP.</code></pre>
+  <p>
+    이 방식은 국가 텍스트를 한 번 읽고, 반복문 안에서는 Internal Table을 찾습니다. 실제 실무에서는 데이터 양과 키 설계, JOIN 여부를 함께 검토해야 하지만, “DB 왕복을 줄인다”는 방향은 중요합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 왜 성능 문제가 생길까? 🐢</h2>
+  <p>
+    ABAP 프로그램은 Application Server에서 실행되고, 데이터는 Database Server에 있습니다. SELECT를 할 때마다 두 영역 사이에 요청과 응답이 오갑니다. 이 왕복이 반복되면 전체 프로그램이 느려집니다.
+  </p>
+  <ul>
+    <li><strong>반복 횟수:</strong> LOOP가 몇 번 도는지에 따라 SELECT 횟수가 늘어납니다.</li>
+    <li><strong>데이터베이스 부하:</strong> 같은 종류의 작은 조회라도 많이 반복되면 부담이 됩니다.</li>
+    <li><strong>네트워크/서버 왕복:</strong> Application Server와 Database Server 사이 요청이 누적됩니다.</li>
+    <li><strong>유지보수성:</strong> 성능 문제가 데이터가 많아진 뒤에야 드러날 수 있습니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
+  <ul>
+    <li>✅ <strong>작은 실습 흐름:</strong> 데이터가 몇 건 없으면 SELECT in LOOP도 겉으로는 잘 실행될 수 있습니다.</li>
+    <li>❌ <strong>운영 대량 흐름:</strong> 반복 건수가 늘면 DB 호출이 폭증해 성능 문제가 됩니다.</li>
+    <li>❌ <strong>빈 결과 미처리:</strong> LOOP 안 SELECT 실패를 확인하지 않으면 빈 값이나 이전 값이 출력될 수 있습니다.</li>
+    <li>❌ <strong>무조건 사전 조회:</strong> 기준 데이터가 너무 크면 먼저 전부 읽는 방식도 위험할 수 있습니다.</li>
+  </ul>
+  <p>
+    미니 실습으로 “주문 10건이면 SELECT 몇 번?”, “주문 10,000건이면 SELECT 몇 번?”을 직접 계산해보세요. 숫자로 보면 위험이 훨씬 선명해집니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>SELECT in LOOP는 코드 리뷰에서 바로 눈에 띄는 냄새입니다</h4>
+      <p>반복문 안의 SELECT가 항상 100% 금지라는 뜻은 아니지만, 대부분 먼저 의심해야 하는 성능 위험 신호입니다. 가능한 한 한 번에 읽기, JOIN, FOR ALL ENTRIES, CDS 등 더 적절한 방식을 검토합니다.</p>
+    </div>
+  </div>
+  <p>
+    JOIN과 집계, FOR ALL ENTRIES, CDS는 후속 Chapter에서 더 차근차근 다룹니다. 지금은 “반복문 안에서 DB를 계속 부르는 코드는 위험할 수 있다”는 감각을 가져가면 충분합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>THEORY-09 마무리 핵심</h4>
+      <ul>
+        <li><strong>Open SQL</strong>은 데이터베이스에서 데이터를 읽어오는 ABAP의 기본 조회 문법입니다.</li>
+        <li><strong>WHERE</strong>와 <strong>@ Host Variable</strong>로 사용자 입력 기반 조건 조회를 만들 수 있습니다.</li>
+        <li><strong>SELECT SINGLE</strong>은 단건 조회, <strong>INTO TABLE</strong>은 여러 줄 조회에 어울립니다.</li>
+        <li>명시적 Target Table 선언은 조회 결과 구조를 코드에 분명히 드러냅니다.</li>
+        <li><strong>SELECT in LOOP</strong>는 반복 횟수만큼 DB 호출이 쌓이는 성능 위험 패턴입니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    다음 Chapter <strong>SELECT-OPTIONS와 Range Table</strong>에서는 한 값만 받는 PARAMETERS를 넘어, 여러 조건 범위를 입력받아 조회하는 방식을 배웁니다.
+  </p>
+</section>
