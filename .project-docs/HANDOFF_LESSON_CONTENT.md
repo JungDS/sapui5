@@ -14,7 +14,7 @@
 ### Lesson 목록 / 진행 현황 (Track 1 = THEORY-*, 총 137개)
 | 섹션 | 주제 | Lesson 수 | 상태 |
 |---|---|---|---|
-| THEORY-01 | DDIC 1차: 기본 데이터 구조 | 6 (M01~M06) | **M01~M06 작성됨** (M02~M06은 ⚠️ 재작성 대상, 아래 §4) |
+| THEORY-01 | DDIC 1차: 기본 데이터 구조 | 6 (M01~M06) | **M01~M06 작성 완료** (피드백 반영) |
 | THEORY-02 | ABAP 기본 문법과 WRITE | 6 | ⬜ 미작성 |
 | THEORY-03 | PARAMETERS Selection Screen | 4 | ⬜ |
 | THEORY-04 | DDIC 2차: 관계와 입력 도움말 | 6 | ⬜ |
@@ -194,7 +194,7 @@ console.log(miss === 0 ? "OK: 미정의 0" : "미정의 "+miss);
 - 먼저 THEORY-01-M02~M06(이미 작성됨)을 사용자 피드백 기준으로 "재작성"해줘. 피드백 요지:
   (1) 아는 사람 복습용이 아니라 "완전 초심자가 처음 배우는" 친절한 서술,
   (2) 분량을 더 늘리되 맨 끝에 핵심만 추린 "요약/정리 마무리 섹션"을 넣을 것,
-  (3) 10·20대 젊은 캐주얼 톤(현재 이모지/콜아웃 스타일은 유지).
+  (3) 10·20대 학습지와 같은 스타일 선호(현재 이모지/콜아웃 스타일은 유지).
 - 그다음 THEORY-02 → THEORY-21까지 섹션 순서대로 신규 작성. 각 Lesson은
   reference/abap_curriculum_v5_4_20260605_000000.json 의 해당 unit 지침(handled_contents,
   technical_keywords, learning_content_design, hands_on_lab, caution_points)에 근거해서 정확하게.
