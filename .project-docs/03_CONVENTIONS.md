@@ -77,3 +77,7 @@
 - 브랜치 → PR → 리뷰 → 머지. main 직접 수정 금지.
 - 제목·본문 한국어. 구조 변경 PR과 콘텐츠 PR은 분리.
 - `README.md`는 요약, 상세 이력은 PR 본문/`.project-docs`.
+- **[신규] "최근 변경" 링크 backfill**: README "최근 변경" 표의 링크 칸은 작업 완료 시 우선 `로컬 작업`으로 적고,
+  **그 브랜치가 PR로 머지되면 즉시 해당 행의 링크 칸을 PR URL로 교체(backfill)**한다.
+  `로컬 작업`은 "아직 PR 전" 상태만을 뜻하며, 머지된 작업이 `로컬 작업`으로 남아 있으면 안 된다.
+  과거 행의 PR 매핑은 `git log --merges --ancestry-path <commit>..main | tail -1`로 확정한다.
