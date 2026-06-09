@@ -2020,5 +2020,136 @@
     ],
     "design_theme": "info",
     "html_content": "<p>가능하면 결합·계산은 DB에 맡기고 ABAP으로는 적게 가져오는 것이 원칙(코드 푸시다운).</p>"
+  },
+  "DatabaseView": {
+    "title": "Database View",
+    "desc": "여러 테이블을 INNER JOIN으로 미리 연결해 둔 DDIC View입니다. 테이블처럼 SELECT로 조회하며, 데이터를 따로 저장하지 않고 조회 시 합쳐 보여줍니다(읽기 전용).",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 자주 만드는 요리의 레시피 카드를 한 장 만들어 두고, 다음부터 그 카드만 꺼내 쓰는 것과 같아요.",
+    "used_in_lessons": [
+      "THEORY-12-M01",
+      "THEORY-12-M02"
+    ],
+    "design_theme": "primary",
+    "html_content": "<p>최신 환경에서는 CDS View Entity로 대체되는 추세입니다.</p>"
+  },
+  "DDICView": {
+    "title": "DDIC View",
+    "desc": "SAP Dictionary(DDIC)에 정의하는 가상 테이블의 통칭입니다. Database/Projection/Help/Maintenance View 등 용도별 종류가 있습니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 원본 자료를 그대로 두고, 보기 좋게 가공한 '요약 창'을 여러 종류로 만들어 두는 것과 같아요.",
+    "used_in_lessons": [
+      "THEORY-12-M01"
+    ],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "ProjectionView": {
+    "title": "Projection View",
+    "desc": "단 하나의 테이블에서 필요한 필드만 골라 보여주는 DDIC View입니다. JOIN은 하지 않고, 칸을 솎아 단순하게 만드는 것이 목적입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 개인정보가 가득한 신상카드에서 명함에 넣을 이름·부서·전화번호만 추리는 것과 같아요.",
+    "used_in_lessons": [
+      "THEORY-12-M02"
+    ],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "FieldRestriction": {
+    "title": "필드 제한 (Field Restriction)",
+    "desc": "원본 테이블의 많은 필드 중 일부만 노출하도록 제한하는 것입니다. Projection View의 핵심 동작입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 큰 창문에 블라인드를 쳐서 보여줄 부분만 남기는 것과 같아요.",
+    "used_in_lessons": [
+      "THEORY-12-M02"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "HelpView": {
+    "title": "Help View",
+    "desc": "F4 입력 도움말 목록을 만들기 위해 테이블들을 연결하는 DDIC View입니다. 혼자 쓰이지 않고 Search Help의 데이터 공급원으로 동작합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 전화번호만 저장돼 있어도 검색창에는 이름·회사가 같이 떠야 고르기 쉽듯, 도움말 목록을 보기 좋게 합쳐주는 역할이에요.",
+    "used_in_lessons": [
+      "THEORY-12-M03"
+    ],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "MaintenanceView": {
+    "title": "Maintenance View",
+    "desc": "여러 테이블을 묶어 한 화면에서 데이터를 직접 입력·수정·삭제할 수 있게 해주는 편집용 DDIC View입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 담당자가 직접 여닫으며 줄을 추가하는 공유 엑셀 시트와 같아요. 단 잘못된 값은 규칙으로 막히죠.",
+    "used_in_lessons": [
+      "THEORY-12-M04"
+    ],
+    "design_theme": "primary",
+    "html_content": "<p>Foreign Key 관계가 잘못된 값 입력을 막아 데이터를 보호합니다.</p>"
+  },
+  "TableRelationship": {
+    "title": "테이블 관계 (Table Relationship)",
+    "desc": "여러 테이블이 어떤 필드로 연결되는지를 정의한 관계입니다. Foreign Key로 표현되며, Maintenance View가 안전하게 동작하는 기반입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 주문서와 고객 명단이 '고객번호'로 이어져 있는 것처럼, 표들이 어떤 열쇠로 연결되는지 정해두는 거예요.",
+    "used_in_lessons": [
+      "THEORY-12-M04"
+    ],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "TMG": {
+    "title": "Table Maintenance Generator (TMG)",
+    "desc": "테이블이나 View로부터 데이터 입력·수정 화면(유지보수 다이얼로그)을 자동으로 생성해주는 도구입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 양식만 주면 입력 폼을 자동으로 만들어 주는 폼 생성기와 같아요. 직접 화면을 코딩할 필요가 없죠.",
+    "used_in_lessons": [
+      "THEORY-12-M05"
+    ],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "SM30": {
+    "title": "트랜잭션 SM30",
+    "desc": "TMG로 만든 유지보수 화면을 열어 테이블/View 데이터를 표 형태로 관리하는 트랜잭션입니다. 저장 시 Foreign Key 검증이 작동합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 설정값을 직접 고치러 들어가는 '관리자 페이지' 입구와 같아요.",
+    "used_in_lessons": [
+      "THEORY-12-M05"
+    ],
+    "design_theme": "code",
+    "html_content": "<p>데이터를 직접 바꾸므로 권한 그룹과 변경 로그 관리가 중요합니다.</p>"
+  },
+  "MaintenanceDialog": {
+    "title": "유지보수 다이얼로그 (Maintenance Dialog)",
+    "desc": "TMG가 생성하는 데이터 입력·수정 화면 묶음입니다. Function Group과 화면 번호에 담겨 SM30에서 호출됩니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 자동으로 만들어진 '입력 폼 화면' 그 자체예요.",
+    "used_in_lessons": [
+      "THEORY-12-M05"
+    ],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "ClassicView": {
+    "title": "Classic View",
+    "desc": "SE11 기반의 전통적 DDIC View들(Database/Projection/Help/Maintenance)을 통칭합니다. 현대의 CDS View Entity 이전 세대 방식입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 용도별로 따로 깔던 옛날 앱들처럼, 기능마다 다른 도구를 쓰던 방식이에요.",
+    "used_in_lessons": [
+      "THEORY-12-M06"
+    ],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "CDSViewEntity": {
+    "title": "CDS View Entity",
+    "desc": "코드(소스)로 정의하는 현대 SAP의 통합 데이터 모델입니다. JOIN·계산·Association·Annotation을 한 곳에서 표현하고, OData·Fiori·RAP로 이어집니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 지도·길찾기·맛집을 따로 깔던 시절에서, 하나의 앱이 다 해주는 올인원 앱으로 바뀐 것과 같아요.",
+    "used_in_lessons": [
+      "THEORY-12-M06"
+    ],
+    "design_theme": "primary",
+    "html_content": "<p>THEORY-20에서 본격적으로 배웁니다.</p>"
+  },
+  "Modernization": {
+    "title": "현대화 (Modernization)",
+    "desc": "Classic DDIC View 등 오래된 방식을 CDS·RAP 같은 현대적 모델로 옮겨가는 흐름입니다. 신규는 현대 방식, 기존은 점진적 전환이 원칙입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 잘 쓰던 옛 장비를 한꺼번에 버리지 않고, 새것으로 단계적으로 바꿔가는 것과 같아요.",
+    "used_in_lessons": [
+      "THEORY-12-M06"
+    ],
+    "design_theme": "info",
+    "html_content": ""
   }
 }
