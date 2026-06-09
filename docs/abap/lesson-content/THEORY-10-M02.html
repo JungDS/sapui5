@@ -23,11 +23,11 @@
 
 <section class="lesson-section">
   <h2>2. 기본 문법 보기 ✍️</h2>
-  <pre><code>REPORT zselect_options_basic.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zselect_options_basic.
 
 DATA gv_land1 TYPE t005t-land1.
 
-SELECT-OPTIONS s_land1 FOR gv_land1.</code></pre>
+SELECT-OPTIONS s_land1 FOR gv_land1.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     이 코드를 실행하면 Selection Screen에 <code>s_land1</code>이라는 범위 입력 필드가 생깁니다. 사용자는 단일값, 범위, Multiple Selection 팝업을 통해 여러 조건을 넣을 수 있습니다.
   </p>
@@ -43,12 +43,12 @@ SELECT-OPTIONS s_land1 FOR gv_land1.</code></pre>
   <p>
     <span class="glossary-term" data-glossary="SelectionTable">Selection Table</span>은 SELECT-OPTIONS가 자동으로 만들어주는 Range Table입니다. 내부적으로는 SIGN, OPTION, LOW, HIGH 필드를 가진 여러 줄 조건표입니다.
   </p>
-  <pre><code>LOOP AT s_land1 INTO DATA(ls_range).
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>LOOP AT s_land1 INTO DATA(ls_range).
   WRITE: / ls_range-sign,
            ls_range-option,
            ls_range-low,
            ls_range-high.
-ENDLOOP.</code></pre>
+ENDLOOP.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     사용자가 화면에서 입력한 조건이 실제로 어떤 Range Table 줄로 들어왔는지 확인할 수 있습니다. 디버거에서 <code>s_land1</code>을 펼쳐보는 것도 좋은 연습입니다.
   </p>
@@ -56,7 +56,7 @@ ENDLOOP.</code></pre>
 
 <section class="lesson-section">
   <h2>4. 전체 예제로 입력값 확인하기 🔎</h2>
-  <pre><code>REPORT zselect_options_check.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zselect_options_check.
 
 DATA gv_land1 TYPE t005t-land1.
 
@@ -73,7 +73,7 @@ START-OF-SELECTION.
                ls_range-low,
                ls_range-high.
     ENDLOOP.
-  ENDIF.</code></pre>
+  ENDIF.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     실행 후 단일값 <code>KR</code>을 넣어보고, Multiple Selection에서 여러 값을 넣어보세요. 출력되는 SIGN/OPTION/LOW/HIGH가 어떻게 달라지는지 보는 것이 핵심입니다.
   </p>

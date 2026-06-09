@@ -23,13 +23,13 @@
 
 <section class="lesson-section">
   <h2>2. READ TABLE 기본 구조 🔍</h2>
-  <pre><code>READ TABLE lt_students INTO ls_student WITH KEY id = 'A02'.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>READ TABLE lt_students INTO ls_student WITH KEY id = 'A02'.
 
 IF sy-subrc = 0.
   WRITE: / '찾음:', ls_student-name.
 ELSE.
   WRITE: / '해당 ID 없음'.
-ENDIF.</code></pre>
+ENDIF.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><span class="glossary-term" data-glossary="READTABLEStatement">READ TABLE</span>: Internal Table에서 한 줄을 읽습니다.</li>
     <li><code>INTO ls_student</code>: 찾은 줄을 Work Area에 담습니다.</li>
@@ -43,7 +43,7 @@ ENDIF.</code></pre>
 
 <section class="lesson-section">
   <h2>3. 전체 예제로 찾기 성공과 실패 보기 ✍️</h2>
-  <pre><code>REPORT zread_table_basic.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zread_table_basic.
 
 TYPES: BEGIN OF ty_student,
          id    TYPE char3,
@@ -71,7 +71,7 @@ IF sy-subrc = 0.
   WRITE: / '찾음:', ls_student-id, ls_student-name.
 ELSE.
   WRITE: / 'A02를 찾지 못했습니다.'.
-ENDIF.</code></pre>
+ENDIF.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     여기서는 <code>A02</code>가 있으므로 성공 흐름으로 갑니다. 조건을 <code>A99</code>로 바꿔 실행하면 실패 흐름으로 가고, <code>ELSE</code> 메시지가 출력됩니다.
   </p>
@@ -82,14 +82,14 @@ ENDIF.</code></pre>
   <p>
     초심자가 자주 하는 실수는 READ TABLE을 한 뒤 바로 Work Area 값을 믿고 쓰는 것입니다. 검색에 실패하면 Work Area에 기대한 줄이 들어오지 않았을 수 있습니다. 그래서 READ TABLE 다음에는 거의 항상 <code>sy-subrc</code>를 확인하는 습관이 필요합니다.
   </p>
-  <pre><code>READ TABLE lt_students INTO ls_student WITH KEY id = 'A99'.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>READ TABLE lt_students INTO ls_student WITH KEY id = 'A99'.
 
 IF sy-subrc &lt;&gt; 0.
   WRITE: / '검색 실패: A99 없음'.
   RETURN.
 ENDIF.
 
-WRITE: / '검색 성공:', ls_student-name.</code></pre>
+WRITE: / '검색 성공:', ls_student-name.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     위 예제처럼 실패를 먼저 처리하고 빠져나오면, 아래쪽 코드는 “찾은 데이터가 있다”는 전제로 읽기 쉬워집니다. 이 방식은 나중에 오류 처리와 유지보수성에도 도움이 됩니다.
   </p>

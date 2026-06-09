@@ -28,9 +28,9 @@
   <p>
     <span class="glossary-term" data-glossary="FactoryMethod">FACTORY</span>는 SALV 객체를 생성하는 Method입니다. 이름 그대로 “공장”처럼 필요한 표시 객체를 만들어 돌려줍니다.
   </p>
-  <pre><code>cl_salv_table=&gt;factory(
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>cl_salv_table=&gt;factory(
   IMPORTING r_salv_table = lo_alv
-  CHANGING  t_table      = lt_students ).</code></pre>
+  CHANGING  t_table      = lt_students ).</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><code>cl_salv_table=&gt;factory</code>: Class의 Static Method 호출입니다.</li>
     <li><code>r_salv_table = lo_alv</code>: 생성된 SALV 객체를 <code>lo_alv</code>에 받습니다.</li>
@@ -43,7 +43,7 @@
 
 <section class="lesson-section">
   <h2>3. 전체 예제: 학생 표 SALV로 띄우기 ✍️</h2>
-  <pre><code>REPORT zsalv_factory_basic.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zsalv_factory_basic.
 
 TYPES: BEGIN OF ty_student,
          id    TYPE char3,
@@ -72,7 +72,7 @@ TRY.
 
   CATCH cx_salv_msg INTO lx_msg.
     MESSAGE lx_msg-&gt;get_text( ) TYPE 'E'.
-ENDTRY.</code></pre>
+ENDTRY.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     이 코드는 학생 2명을 Internal Table에 넣고 SALV로 표시합니다. <code>TRY...CATCH</code>는 SALV 객체 생성 중 발생할 수 있는 예외를 처리하기 위한 기본 안전장치입니다.
   </p>
@@ -83,7 +83,7 @@ ENDTRY.</code></pre>
   <p>
     <span class="glossary-term" data-glossary="DISPLAYMethod">DISPLAY</span>는 준비된 SALV 객체를 실제 화면에 표시합니다. FACTORY까지만 호출하고 DISPLAY를 호출하지 않으면 객체는 만들어졌지만 사용자는 화면을 보지 못합니다.
   </p>
-  <pre><code>lo_alv-&gt;display( ).</code></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>lo_alv-&gt;display( ).</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     이 한 줄은 “준비된 ALV 표를 지금 사용자에게 보여줘”라는 의미입니다. SALV 기본 사용에서는 사실상 마지막 실행 버튼입니다.
   </p>

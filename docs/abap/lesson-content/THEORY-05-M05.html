@@ -26,13 +26,13 @@
   <p>
     <span class="glossary-term" data-glossary="StaticMethod">Static Method</span>는 객체를 만들지 않고 Class 이름으로 바로 호출할 수 있는 Method입니다. 보통 상태를 오래 들고 있지 않는 계산, 변환, 유틸리티 기능에 어울립니다.
   </p>
-  <pre><code>DATA gv_text TYPE string.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>DATA gv_text TYPE string.
 
 gv_text = zcl_demo_text=&gt;build_greeting(
   iv_name = 'ABAP'
 ).
 
-WRITE gv_text.</code></pre>
+WRITE gv_text.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     위 예제는 <code>ZCL_DEMO_TEXT</code>라는 커스텀 Global Class에 <code>BUILD_GREETING</code> Static Method가 있다고 가정한 코드입니다. <code>=&gt;</code> 기호는 Static Method나 Static Attribute에 접근할 때 사용합니다.
   </p>
@@ -50,13 +50,13 @@ WRITE gv_text.</code></pre>
   <p>
     <span class="glossary-term" data-glossary="InstanceMethod">Instance Method</span>는 객체를 먼저 만든 뒤 호출하는 Method입니다. 객체마다 상태를 가질 수 있거나, 생성 과정을 거쳐야 하는 기능에 어울립니다.
   </p>
-  <pre><code>DATA lo_checker TYPE REF TO zcl_demo_checker.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>DATA lo_checker TYPE REF TO zcl_demo_checker.
 
 lo_checker = NEW zcl_demo_checker( ).
 
 lo_checker-&gt;check_input(
   iv_value = 'KE'
-).</code></pre>
+).</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     여기서는 <code>NEW zcl_demo_checker( )</code>로 객체를 만들고, <code>lo_checker-&gt;check_input( )</code>으로 Instance Method를 호출합니다. <code>-&gt;</code> 기호는 객체 참조를 통해 Method를 호출할 때 사용합니다.
   </p>

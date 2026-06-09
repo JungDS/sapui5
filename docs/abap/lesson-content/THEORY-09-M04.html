@@ -23,10 +23,10 @@
 
 <section class="lesson-section">
   <h2>2. INTO TABLE 기본 구조 📥</h2>
-  <pre><code>SELECT FROM t005t
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>SELECT FROM t005t
   FIELDS land1, landx
   WHERE spras = @sy-langu
-  INTO TABLE @DATA(lt_countries).</code></pre>
+  INTO TABLE @DATA(lt_countries).</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     <code>lt_countries</code>는 조회된 여러 줄을 담는 Internal Table입니다. 조회 결과가 0건이면 빈 Internal Table이 되고, 여러 건이면 그만큼 줄이 들어갑니다.
   </p>
@@ -39,8 +39,8 @@
 
 <section class="lesson-section">
   <h2>3. 조회 후 건수 확인하기 🔢</h2>
-  <pre><code>DATA(lv_count) = lines( lt_countries ).
-WRITE: / '조회 건수:', lv_count.</code></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>DATA(lv_count) = lines( lt_countries ).
+WRITE: / '조회 건수:', lv_count.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     Open SQL 조회 후에는 “몇 건이 들어왔는지”를 먼저 확인하는 습관이 좋습니다. 특히 SALV로 바로 넘기기 전에 건수를 확인하면 빈 결과와 대량 결과를 구분할 수 있습니다.
   </p>
@@ -55,7 +55,7 @@ WRITE: / '조회 건수:', lv_count.</code></pre>
 
 <section class="lesson-section">
   <h2>4. 전체 예제: 조회 결과를 SALV로 넘기기 ✍️</h2>
-  <pre><code>REPORT zsql_into_table.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zsql_into_table.
 
 DATA: lo_alv TYPE REF TO cl_salv_table,
       lx_msg TYPE REF TO cx_salv_msg.
@@ -79,9 +79,9 @@ TRY.
 
   CATCH cx_salv_msg INTO lx_msg.
     MESSAGE lx_msg-&gt;get_text( ) TYPE 'E'.
-ENDTRY.</code></pre>
+ENDTRY.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
-    이 예제는 Open SQL 조회 결과를 Internal Table에 담고, 그 Internal Table을 SALV로 표시합니다. THEORY-08과 Open SQL이 연결되는 지점입니다.
+    이 예제는 Open SQL 조회 결과를 Internal Table에 담고, 그 Internal Table을 SALV로 표시합니다. Chapter 8과 Open SQL이 연결되는 지점입니다.
   </p>
 </section>
 

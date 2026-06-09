@@ -157,3 +157,11 @@
   - 섹션마다 커밋·push, PR #50 갱신.
 - **수정 파일**: `docs/abap/lesson-content/THEORY-11~14-*.html`(27개 신규), `reference/abap_glossary.json`, `.project-docs/HANDOFF_LESSON_CONTENT.md`, `99_AI_SYNC.md`, `changelogs/CHANGELOG_20260609.md`
 - **다음 AI를 위한 메모**: 다음 섹션은 THEORY-15 `Grid ALV 기초`(M01~M09, 9개). 톤·구조·글로서리 패리티·추적 3종 동시 갱신 규칙을 그대로 이어갈 것.
+
+### [2026-06-09] Antigravity IDE (Gemini 3.1 Pro)
+- **작업 내용**:
+  - THEORY-01~10 구간 `THEORY` → `Chapter`, `MXX` → `Lesson` 명칭 일괄 치환 스크립트 작성 및 51개 파일 치환 완료.
+  - 모든 ABAP 예제 코드 블록에 Shiki 복사 버튼 래핑 적용.
+  - 이미지 자산 네이밍 규칙 및 위치 추천을 담은 `09_IMAGE_ASSETS_RULE.md` 추가.
+- **수정 파일**: `docs/abap/lesson-content/THEORY-01~10*.html`, `.project-docs/09_IMAGE_ASSETS_RULE.md`, `.project-docs/99_AI_SYNC.md`, `changelogs/CHANGELOG_20260609.md`
+- **다음 AI를 위한 메모**: 다음 섹션 작성은 그대로 이어나가면 됩니다. 신규 작성 시에도 Chapter/Lesson 용어를 사용하고 Shiki 포맷을 적용하는 것이 좋습니다.

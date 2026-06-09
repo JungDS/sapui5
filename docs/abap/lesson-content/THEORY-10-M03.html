@@ -23,7 +23,7 @@
 
 <section class="lesson-section">
   <h2>2. 기본 구조 보기 🔍</h2>
-  <pre><code>DATA gv_land1 TYPE t005t-land1.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>DATA gv_land1 TYPE t005t-land1.
 
 SELECT-OPTIONS s_land1 FOR gv_land1.
 
@@ -31,7 +31,7 @@ SELECT FROM t005t
   FIELDS land1, landx
   WHERE spras = @sy-langu
     AND land1 IN @s_land1
-  INTO TABLE @DATA(lt_countries).</code></pre>
+  INTO TABLE @DATA(lt_countries).</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     여기서 <code>land1</code>은 데이터베이스 필드이고, <code>s_land1</code>은 사용자가 입력한 Selection Table입니다. <code>@s_land1</code>처럼 <code>@</code>를 붙여 ABAP 쪽 Range Table을 SQL 조건으로 전달합니다.
   </p>
@@ -44,7 +44,7 @@ SELECT FROM t005t
 
 <section class="lesson-section">
   <h2>3. 전체 예제로 조회하기 ✍️</h2>
-  <pre><code>REPORT zsql_where_in_range.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zsql_where_in_range.
 
 DATA gv_land1 TYPE t005t-land1.
 
@@ -64,7 +64,7 @@ START-OF-SELECTION.
     LOOP AT lt_countries INTO DATA(ls_country).
       WRITE: / ls_country-land1, ls_country-landx.
     ENDLOOP.
-  ENDIF.</code></pre>
+  ENDIF.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     Selection Screen에서 <code>KR</code>, <code>US</code>를 여러 값으로 넣으면 두 국가 텍스트가 조회됩니다. 범위를 넣으면 해당 범위의 국가 코드가 조회 조건에 들어갑니다.
   </p>

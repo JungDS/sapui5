@@ -23,13 +23,13 @@
   <p>
     <span class="glossary-term" data-glossary="DOStatement">DO</span>는 반복 횟수를 정해두고 실행할 때 좋습니다. 가장 초보자 친화적인 반복문입니다.
   </p>
-  <pre><code>REPORT zdo_basic.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zdo_basic.
 
 DO 5 TIMES.
   WRITE: / sy-index, '번째 실행'.
-ENDDO.</code></pre>
+ENDDO.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
-    <code>sy-index</code>는 현재 반복이 몇 번째인지 알려주는 시스템 필드입니다. 첫 번째 반복에서는 1, 두 번째 반복에서는 2처럼 값이 바뀝니다. 시스템 필드는 M06에서 더 자세히 다룹니다.
+    <code>sy-index</code>는 현재 반복이 몇 번째인지 알려주는 시스템 필드입니다. 첫 번째 반복에서는 1, 두 번째 반복에서는 2처럼 값이 바뀝니다. 시스템 필드는 Lesson 6에서 더 자세히 다룹니다.
   </p>
   <blockquote>
     DO는 “딱 몇 번 반복할지 알고 있을 때” 쓰기 좋습니다.
@@ -41,14 +41,14 @@ ENDDO.</code></pre>
   <p>
     <span class="glossary-term" data-glossary="WHILEStatement">WHILE</span>은 조건이 참인 동안 반복합니다. 횟수보다 조건이 더 중요할 때 사용합니다.
   </p>
-  <pre><code>REPORT zwhile_basic.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zwhile_basic.
 
 DATA gv_count TYPE i VALUE 0.
 
 WHILE gv_count &lt; 3.
   gv_count = gv_count + 1.
   WRITE: / gv_count, '회차'.
-ENDWHILE.</code></pre>
+ENDWHILE.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     위 예제는 <code>gv_count</code>가 3보다 작은 동안 반복합니다. 반복 안에서 <code>gv_count</code>를 1씩 올리기 때문에 결국 조건이 거짓이 되고 반복이 끝납니다.
   </p>
@@ -70,7 +70,7 @@ ENDWHILE.</code></pre>
     <li><strong>EXIT:</strong> 반복문을 완전히 빠져나갑니다.</li>
     <li><strong>CONTINUE:</strong> 현재 회차의 남은 코드를 건너뛰고 다음 반복으로 넘어갑니다.</li>
   </ul>
-  <pre><code>REPORT zloop_control.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zloop_control.
 
 DO 5 TIMES.
   IF sy-index = 2.
@@ -82,7 +82,7 @@ DO 5 TIMES.
   ENDIF.
 
   WRITE: / sy-index.
-ENDDO.</code></pre>
+ENDDO.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     위 예제는 2번째 회차에서는 출력을 건너뛰고, 4번째 회차에서는 반복을 끝냅니다. 그래서 Output List에는 1과 3만 보입니다.
   </p>

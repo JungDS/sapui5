@@ -4,7 +4,7 @@
   <div class="lesson-callout-icon">🎯</div>
   <div class="lesson-callout-content">
     <h4>학습 목표</h4>
-    <p>THEORY-06~07에서 Internal Table을 만들고 가공했습니다. 이번 Chapter에서는 그 데이터를 화면 표로 보기 좋게 보여주는 <span class="glossary-term" data-glossary="SALV">SALV</span>와 <span class="glossary-term" data-glossary="CLSALVTABLE">CL_SALV_TABLE</span>의 목적을 이해합니다. 단순 <span class="glossary-term" data-glossary="ListOutput">List Output</span>과 무엇이 다른지도 감을 잡습니다.</p>
+    <p>Chapter 6~07에서 Internal Table을 만들고 가공했습니다. 이번 Chapter에서는 그 데이터를 화면 표로 보기 좋게 보여주는 <span class="glossary-term" data-glossary="SALV">SALV</span>와 <span class="glossary-term" data-glossary="CLSALVTABLE">CL_SALV_TABLE</span>의 목적을 이해합니다. 단순 <span class="glossary-term" data-glossary="ListOutput">List Output</span>과 무엇이 다른지도 감을 잡습니다.</p>
   </div>
 </div>
 
@@ -40,9 +40,9 @@
 <section class="lesson-section">
   <h2>3. CL_SALV_TABLE은 SALV 표 객체를 만드는 Class 🏛️</h2>
   <p>
-    <span class="glossary-term" data-glossary="CLSALVTABLE">CL_SALV_TABLE</span>은 SALV 표 화면을 만들고 표시할 때 사용하는 대표 Class입니다. THEORY-05에서 Class와 Method를 맛봤기 때문에, 이제 이 문장이 조금 덜 낯설 것입니다.
+    <span class="glossary-term" data-glossary="CLSALVTABLE">CL_SALV_TABLE</span>은 SALV 표 화면을 만들고 표시할 때 사용하는 대표 Class입니다. Chapter 5에서 Class와 Method를 맛봤기 때문에, 이제 이 문장이 조금 덜 낯설 것입니다.
   </p>
-  <pre><code>DATA lo_alv TYPE REF TO cl_salv_table.</code></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>DATA lo_alv TYPE REF TO cl_salv_table.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     위 코드는 SALV 표 객체를 가리킬 참조 변수 <code>lo_alv</code>를 선언합니다. 실제 객체 생성은 다음 Lesson에서 <code>factory</code> Method로 진행합니다.
   </p>
@@ -57,17 +57,17 @@
 
 <section class="lesson-section">
   <h2>4. WRITE 출력과 SALV 출력의 느낌 차이 ✍️</h2>
-  <pre><code>LOOP AT lt_students INTO ls_student.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>LOOP AT lt_students INTO ls_student.
   WRITE: / ls_student-id, ls_student-name, ls_student-score.
-ENDLOOP.</code></pre>
+ENDLOOP.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     위 코드는 List Output으로 한 줄씩 값을 찍습니다. 간단하지만 열 정렬, 사용자 기능, 표 형태 시각화가 부족합니다.
   </p>
-  <pre><code>cl_salv_table=&gt;factory(
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>cl_salv_table=&gt;factory(
   IMPORTING r_salv_table = lo_alv
   CHANGING  t_table      = lt_students ).
 
-lo_alv-&gt;display( ).</code></pre>
+lo_alv-&gt;display( ).</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     SALV는 Internal Table 전체를 표 화면으로 넘기고, SALV 객체가 표시를 담당합니다. 지금은 문법을 외우기보다 “Internal Table을 SALV에게 맡기면 표 화면이 나온다”는 흐름을 잡으세요.
   </p>

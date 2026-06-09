@@ -4,7 +4,7 @@
   <div class="lesson-callout-icon">🎯</div>
   <div class="lesson-callout-content">
     <h4>학습 목표</h4>
-    <p>THEORY-08에서는 Internal Table을 SALV로 보여줬습니다. 이번 Chapter에서는 데이터베이스에서 데이터를 읽어오는 <span class="glossary-term" data-glossary="ABAPSQL">ABAP SQL</span>의 첫 문법을 배웁니다. 가장 기본이 되는 <span class="glossary-term" data-glossary="SELECTFROMStatement">SELECT FROM</span>과 <span class="glossary-term" data-glossary="FIELDSClause">FIELDS</span> 구조를 읽을 수 있게 됩니다.</p>
+    <p>Chapter 8에서는 Internal Table을 SALV로 보여줬습니다. 이번 Chapter에서는 데이터베이스에서 데이터를 읽어오는 <span class="glossary-term" data-glossary="ABAPSQL">ABAP SQL</span>의 첫 문법을 배웁니다. 가장 기본이 되는 <span class="glossary-term" data-glossary="SELECTFROMStatement">SELECT FROM</span>과 <span class="glossary-term" data-glossary="FIELDSClause">FIELDS</span> 구조를 읽을 수 있게 됩니다.</p>
   </div>
 </div>
 
@@ -23,9 +23,9 @@
 
 <section class="lesson-section">
   <h2>2. SELECT FROM / FIELDS 구조 읽기 📚</h2>
-  <pre><code>SELECT FROM t005t
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>SELECT FROM t005t
   FIELDS land1, landx
-  INTO TABLE @DATA(lt_countries).</code></pre>
+  INTO TABLE @DATA(lt_countries).</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     위 코드는 국가 텍스트 테이블 <code>T005T</code>에서 국가 코드 <code>LAND1</code>과 국가명 <code>LANDX</code>를 읽어 Internal Table <code>lt_countries</code>에 담는 예제입니다.
   </p>
@@ -59,7 +59,7 @@
 
 <section class="lesson-section">
   <h2>4. 최소 예제: 조회 후 WRITE로 확인하기 ✍️</h2>
-  <pre><code>REPORT zsql_select_basic.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zsql_select_basic.
 
 SELECT FROM t005t
   FIELDS land1, landx
@@ -67,7 +67,7 @@ SELECT FROM t005t
 
 LOOP AT lt_countries INTO DATA(ls_country).
   WRITE: / ls_country-land1, ls_country-landx.
-ENDLOOP.</code></pre>
+ENDLOOP.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     이 예제는 조회 결과를 Internal Table에 담고, LOOP로 한 줄씩 출력합니다. 데이터가 많으면 출력도 길어질 수 있으므로 실제 실습에서는 강사가 지정한 작은 테이블이나 조건을 함께 사용하는 것이 좋습니다.
   </p>

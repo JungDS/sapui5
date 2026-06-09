@@ -4,7 +4,7 @@
   <div class="lesson-callout-icon">🎯</div>
   <div class="lesson-callout-content">
     <h4>학습 목표</h4>
-    <p>THEORY-10의 마무리입니다. SELECT-OPTIONS 화면이 아니라 코드에서 직접 <span class="glossary-term" data-glossary="AppendRange">APPEND Range</span>를 만들어 <span class="glossary-term" data-glossary="RangeLine">Range Line</span>을 추가하고, <span class="glossary-term" data-glossary="LOWHIGHFields">LOW/HIGH</span> 값을 채우는 기초를 배웁니다.</p>
+    <p>Chapter 10의 마무리입니다. SELECT-OPTIONS 화면이 아니라 코드에서 직접 <span class="glossary-term" data-glossary="AppendRange">APPEND Range</span>를 만들어 <span class="glossary-term" data-glossary="RangeLine">Range Line</span>을 추가하고, <span class="glossary-term" data-glossary="LOWHIGHFields">LOW/HIGH</span> 값을 채우는 기초를 배웁니다.</p>
   </div>
 </div>
 
@@ -23,7 +23,7 @@
 
 <section class="lesson-section">
   <h2>2. RANGE OF로 조건표 선언하기 📦</h2>
-  <pre><code>DATA r_land1 TYPE RANGE OF t005t-land1.</code></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>DATA r_land1 TYPE RANGE OF t005t-land1.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     이 선언은 <code>T005T-LAND1</code> 타입에 맞는 Range Table을 만듭니다. 내부 행은 SIGN, OPTION, LOW, HIGH 구조를 가집니다.
   </p>
@@ -34,9 +34,9 @@
 
 <section class="lesson-section">
   <h2>3. APPEND VALUE로 Range Line 추가하기 ✍️</h2>
-  <pre><code>APPEND VALUE #( sign = 'I' option = 'EQ' low = 'KR' ) TO r_land1.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>APPEND VALUE #( sign = 'I' option = 'EQ' low = 'KR' ) TO r_land1.
 APPEND VALUE #( sign = 'I' option = 'EQ' low = 'US' ) TO r_land1.
-APPEND VALUE #( sign = 'I' option = 'BT' low = 'A' high = 'C' ) TO r_land1.</code></pre>
+APPEND VALUE #( sign = 'I' option = 'BT' low = 'A' high = 'C' ) TO r_land1.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     각 <code>APPEND VALUE #( ... )</code>는 Range Table에 조건 한 줄을 추가합니다. <code>EQ</code>는 HIGH가 필요 없고, <code>BT</code>는 LOW와 HIGH가 함께 필요합니다.
   </p>
@@ -51,7 +51,7 @@ APPEND VALUE #( sign = 'I' option = 'BT' low = 'A' high = 'C' ) TO r_land1.</cod
 
 <section class="lesson-section">
   <h2>4. 직접 만든 Range로 SELECT하기 🔍</h2>
-  <pre><code>REPORT zrange_manual_basic.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zrange_manual_basic.
 
 DATA r_land1 TYPE RANGE OF t005t-land1.
 
@@ -66,7 +66,7 @@ SELECT FROM t005t
 
 LOOP AT lt_countries INTO DATA(ls_country).
   WRITE: / ls_country-land1, ls_country-landx.
-ENDLOOP.</code></pre>
+ENDLOOP.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     이 예제는 화면 입력 없이 코드에서 만든 Range Table을 Open SQL 조건으로 사용합니다. SELECT-OPTIONS로 만든 <code>s_land1</code>과 직접 만든 <code>r_land1</code> 모두 Range Table 구조라는 점이 연결됩니다.
   </p>
@@ -105,7 +105,7 @@ ENDLOOP.</code></pre>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">
-      <h4>THEORY-10 마무리 핵심</h4>
+      <h4>Chapter 10 마무리 핵심</h4>
       <ul>
         <li><strong>Range Table</strong>은 SIGN, OPTION, LOW, HIGH로 조건을 표현합니다.</li>
         <li><strong>SELECT-OPTIONS</strong>는 사용자 입력을 Selection Table로 만들어줍니다.</li>

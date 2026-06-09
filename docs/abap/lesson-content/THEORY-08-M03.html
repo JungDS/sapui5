@@ -26,10 +26,10 @@
   <p>
     SALV의 기본 기능 버튼을 제어하려면 Functions 객체를 가져옵니다.
   </p>
-  <pre><code>DATA lo_functions TYPE REF TO cl_salv_functions_list.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>DATA lo_functions TYPE REF TO cl_salv_functions_list.
 
 lo_functions = lo_alv-&gt;get_functions( ).
-lo_functions-&gt;set_all( abap_true ).</code></pre>
+lo_functions-&gt;set_all( abap_true ).</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><code>get_functions( )</code>: SALV의 기능 버튼 설정 객체를 가져옵니다.</li>
     <li><code>set_all( abap_true )</code>: 기본 기능을 전체 활성화합니다.</li>
@@ -42,14 +42,14 @@ lo_functions-&gt;set_all( abap_true ).</code></pre>
 
 <section class="lesson-section">
   <h2>3. 설정 순서: FACTORY → Functions → DISPLAY 🔁</h2>
-  <pre><code>cl_salv_table=&gt;factory(
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>cl_salv_table=&gt;factory(
   IMPORTING r_salv_table = lo_alv
   CHANGING  t_table      = lt_students ).
 
 lo_functions = lo_alv-&gt;get_functions( ).
 lo_functions-&gt;set_all( abap_true ).
 
-lo_alv-&gt;display( ).</code></pre>
+lo_alv-&gt;display( ).</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     핵심은 순서입니다. 먼저 FACTORY로 <code>lo_alv</code>가 만들어져야 Functions를 꺼낼 수 있습니다. 그리고 DISPLAY 전에 기능 설정을 끝내야 화면에 반영됩니다.
   </p>
@@ -64,7 +64,7 @@ lo_alv-&gt;display( ).</code></pre>
 
 <section class="lesson-section">
   <h2>4. 전체 예제에 기본 기능 추가하기 ✍️</h2>
-  <pre><code>DATA: lo_alv       TYPE REF TO cl_salv_table,
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>DATA: lo_alv       TYPE REF TO cl_salv_table,
       lo_functions TYPE REF TO cl_salv_functions_list,
       lx_msg       TYPE REF TO cx_salv_msg.
 
@@ -80,9 +80,9 @@ TRY.
 
   CATCH cx_salv_msg INTO lx_msg.
     MESSAGE lx_msg-&gt;get_text( ) TYPE 'E'.
-ENDTRY.</code></pre>
+ENDTRY.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
-    이 조각은 M02 전체 예제의 SALV 부분에 붙여 사용할 수 있습니다. 실제 화면에서는 표 위쪽에 기본 기능 버튼들이 표시됩니다.
+    이 조각은 Lesson 2 전체 예제의 SALV 부분에 붙여 사용할 수 있습니다. 실제 화면에서는 표 위쪽에 기본 기능 버튼들이 표시됩니다.
   </p>
 </section>
 

@@ -23,7 +23,7 @@
   <p>
     <span class="glossary-term" data-glossary="DATAStatement">DATA</span>는 프로그램 실행 중 값을 담아두는 변수를 만듭니다. 변수는 실행 중에 값이 바뀔 수 있습니다.
   </p>
-  <pre><code>REPORT zbasic_data.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zbasic_data.
 
 DATA gv_name TYPE string.
 DATA gv_age  TYPE i.
@@ -31,7 +31,7 @@ DATA gv_age  TYPE i.
 gv_name = 'JUN'.
 gv_age  = 20.
 
-WRITE: / gv_name, gv_age.</code></pre>
+WRITE: / gv_name, gv_age.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><code>gv_name</code>은 문자열을 담는 변수입니다.</li>
     <li><code>gv_age</code>는 정수를 담는 변수입니다.</li>
@@ -64,8 +64,8 @@ WRITE: / gv_name, gv_age.</code></pre>
   <p>
     <span class="glossary-term" data-glossary="CONSTANTSStatement">CONSTANTS</span>는 실행 중에 바뀌지 않는 값을 선언합니다. 예를 들어 최대 재시도 횟수, 기본 통화, 고정 상태 코드처럼 프로그램 전체에서 같은 의미로 쓰는 값에 어울립니다.
   </p>
-  <pre><code>CONSTANTS gc_max_retry TYPE i VALUE 3.
-CONSTANTS gc_currency  TYPE c LENGTH 3 VALUE 'KRW'.</code></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>CONSTANTS gc_max_retry TYPE i VALUE 3.
+CONSTANTS gc_currency  TYPE c LENGTH 3 VALUE 'KRW'.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><code>gc_max_retry</code>는 최대 재시도 횟수입니다. 실행 중 값을 바꾸면 안 됩니다.</li>
     <li><code>gc_currency</code>는 기본 통화 코드입니다. 길이 3자리 문자로 고정했습니다.</li>
@@ -84,10 +84,10 @@ CONSTANTS gc_currency  TYPE c LENGTH 3 VALUE 'KRW'.</code></pre>
   <p>
     <span class="glossary-term" data-glossary="TYPESStatement">TYPES</span>는 값을 담는 변수를 만드는 것이 아니라, <strong>타입의 별명</strong>을 만듭니다. 같은 타입 모양을 여러 번 써야 할 때 유용합니다.
   </p>
-  <pre><code>TYPES ty_carrid TYPE c LENGTH 3.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>TYPES ty_carrid TYPE c LENGTH 3.
 
 DATA gv_from_carrier TYPE ty_carrid.
-DATA gv_to_carrier   TYPE ty_carrid.</code></pre>
+DATA gv_to_carrier   TYPE ty_carrid.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     여기서 <code>ty_carrid</code> 자체가 값을 담는 변수는 아닙니다. “3자리 문자 타입을 앞으로 ty_carrid라고 부르자”라는 약속입니다. 그 약속을 사용해 <code>gv_from_carrier</code>, <code>gv_to_carrier</code> 변수를 같은 모양으로 만들 수 있습니다.
   </p>

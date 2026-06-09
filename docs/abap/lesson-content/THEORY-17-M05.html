@@ -1,0 +1,87 @@
+<!-- lesson-content/THEORY-17-M05.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>SELECT 안에서 문자열을 합치고 날짜를 다루는 <span class="glossary-term" data-glossary="SQLStringFunction">SQL 문자열 함수</span>와 <span class="glossary-term" data-glossary="SQLDateFunction">SQL 날짜 함수</span>를 배웁니다. ABAP으로 가져와 가공하던 일을 DB에서 끝내는 감각을 익힙니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 문자·날짜도 DB에서 손질 🧶</h2>
+  <p>
+    앞 Lesson에서 CASE·CAST로 값을 가공했습니다. 그런데 "이름을 합쳐서 보여주기", "두 날짜 사이 일수 구하기" 같은 문자·날짜 가공도 자주 필요합니다. 이것도 DB가 조회하면서 처리할 수 있습니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. 문자열 함수 ✍️</h2>
+  <pre><code>SELECT
+   CONCAT( cityfrom, cityto )          AS route,        "이어 붙이기
+   CONCAT_WITH_SPACE( cityfrom, cityto, 1 ) AS route2,  "공백 끼워 붙이기
+   UPPER( carrid )                     AS carrid_up,    "대문자
+   LENGTH( connid )                    AS len           "길이
+  FROM spfli
+  INTO TABLE @DATA(lt).</code></pre>
+  <ul>
+    <li><strong>CONCAT / CONCAT_WITH_SPACE:</strong> 문자열 결합.</li>
+    <li><strong>UPPER / LOWER:</strong> 대/소문자.</li>
+    <li><strong>SUBSTRING / REPLACE / LENGTH:</strong> 부분 추출·치환·길이.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 날짜 함수 📅</h2>
+  <pre><code>SELECT carrid, fldate,
+   DATS_DAYS_BETWEEN( fldate, @sy-datum ) AS days_left,  "두 날짜 사이 일수
+   DATS_IS_VALID( fldate )                AS is_valid    "유효한 날짜인가
+  FROM sflight
+  INTO TABLE @DATA(lt).</code></pre>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>이름이 길지만 뜻은 직관적</h4>
+      <p><code>DATS_DAYS_BETWEEN</code>(두 날짜 사이 일수), <code>DATS_ADD_DAYS</code>(날짜에 일수 더하기)처럼 이름이 기능을 그대로 말해줘요. 외우기보다 "필요할 때 DATS_로 찾는다"고 기억하면 됩니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <ul>
+    <li>✅ <strong>정상:</strong> 문자·날짜 가공을 DB에서 끝내 ABAP 코드가 단순해집니다.</li>
+    <li>❌ <strong>오류 1:</strong> DB마다(또는 버전마다) 지원 함수가 조금씩 다를 수 있습니다. 표준 함수 위주로 쓰고, 안 되면 ABAP 가공으로.</li>
+    <li>❌ <strong>오류 2:</strong> 무거운 문자열 가공을 수백만 행에 적용하면 DB 부하가 커질 수 있습니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>날짜·숫자 형식은 결국 화면에서 한 번 더</h4>
+      <p>SQL 함수로 일수·결합 문자열을 만들어도, 사용자에게 보여줄 때는 THEORY-16에서 배운 String Template의 <code>DATE = USER</code> 같은 표시 형식을 다시 챙겨야 합니다. DB 가공(값 만들기)과 화면 표시(형식 입히기)는 별개의 단계임을 기억하세요.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li>SELECT 안에서 <strong>문자열 함수</strong>(CONCAT·UPPER·SUBSTRING 등)를 쓸 수 있습니다.</li>
+        <li><strong>날짜 함수</strong>(DATS_DAYS_BETWEEN·DATS_IS_VALID 등)로 날짜를 다룹니다.</li>
+        <li>가공을 DB에서 끝내면 ABAP 코드가 단순해집니다.</li>
+        <li>DB별 지원 차이와 대량 부하, 화면 표시 형식은 따로 챙깁니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    DB 테이블을 다루는 법을 익혔으니, 이번엔 ABAP 메모리의 Internal Table을 SQL로 조회하는 신기한 기능을 봅니다. 다음 Lesson <strong>SELECT FROM @itab 기초</strong>를 배웁니다.
+  </p>
+</section>

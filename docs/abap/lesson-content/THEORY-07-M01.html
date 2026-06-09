@@ -4,7 +4,7 @@
   <div class="lesson-callout-icon">🎯</div>
   <div class="lesson-callout-content">
     <h4>학습 목표</h4>
-    <p>THEORY-06에서 Internal Table에 줄을 넣고 읽고 검색했습니다. 이번에는 이미 들어 있는 행을 <span class="glossary-term" data-glossary="MODIFYStatement">MODIFY</span>로 바꾸는 방법을 배웁니다. 특히 <span class="glossary-term" data-glossary="INDEXAddition">INDEX</span>와 <span class="glossary-term" data-glossary="TRANSPORTINGAddition">TRANSPORTING</span>을 사용해 “몇 번째 줄의 어떤 필드만 바꿀지”를 안전하게 지정합니다.</p>
+    <p>Chapter 6에서 Internal Table에 줄을 넣고 읽고 검색했습니다. 이번에는 이미 들어 있는 행을 <span class="glossary-term" data-glossary="MODIFYStatement">MODIFY</span>로 바꾸는 방법을 배웁니다. 특히 <span class="glossary-term" data-glossary="INDEXAddition">INDEX</span>와 <span class="glossary-term" data-glossary="TRANSPORTINGAddition">TRANSPORTING</span>을 사용해 “몇 번째 줄의 어떤 필드만 바꿀지”를 안전하게 지정합니다.</p>
   </div>
 </div>
 
@@ -23,12 +23,12 @@
 
 <section class="lesson-section">
   <h2>2. MODIFY 기본 구조 보기 🔧</h2>
-  <pre><code>READ TABLE lt_students INTO ls_student WITH KEY id = 'A02'.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>READ TABLE lt_students INTO ls_student WITH KEY id = 'A02'.
 
 IF sy-subrc = 0.
   ls_student-score = 88.
   MODIFY lt_students FROM ls_student INDEX 2.
-ENDIF.</code></pre>
+ENDIF.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     위 코드는 <code>A02</code> 학생을 Work Area로 읽어온 뒤 점수를 바꾸고, Internal Table의 2번째 줄을 Work Area 값으로 변경합니다. 여기서 중요한 것은 <code>MODIFY</code>가 Internal Table 원본 줄을 바꾼다는 점입니다.
   </p>
@@ -44,8 +44,8 @@ ENDIF.</code></pre>
   <p>
     <span class="glossary-term" data-glossary="TRANSPORTINGAddition">TRANSPORTING</span>은 Work Area 전체가 아니라 지정한 필드만 Internal Table에 반영하고 싶을 때 사용합니다. 초심자에게는 “필드 단위 안전장치”라고 생각하면 좋습니다.
   </p>
-  <pre><code>ls_student-score = 88.
-MODIFY lt_students FROM ls_student INDEX 2 TRANSPORTING score.</code></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>ls_student-score = 88.
+MODIFY lt_students FROM ls_student INDEX 2 TRANSPORTING score.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     이 코드는 2번째 줄의 <code>score</code> 필드만 바꿉니다. Work Area에 다른 필드 값이 비어 있거나 오래된 값이어도, <code>score</code>만 반영되므로 원치 않는 필드 덮어쓰기를 줄일 수 있습니다.
   </p>
@@ -60,7 +60,7 @@ MODIFY lt_students FROM ls_student INDEX 2 TRANSPORTING score.</code></pre>
 
 <section class="lesson-section">
   <h2>4. 전체 예제로 점수 수정하기 ✍️</h2>
-  <pre><code>REPORT zmodify_itab_basic.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zmodify_itab_basic.
 
 TYPES: BEGIN OF ty_student,
          id    TYPE char3,
@@ -86,7 +86,7 @@ ENDIF.
 
 LOOP AT lt_students INTO ls_student.
   WRITE: / ls_student-id, ls_student-name, ls_student-score.
-ENDLOOP.</code></pre>
+ENDLOOP.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     실행하면 Jun의 점수가 85에서 88로 바뀐 상태로 출력됩니다. 디버거에서 MODIFY 전후의 <code>lt_students</code>를 보면 원본 Internal Table 행이 실제로 바뀌는 것을 확인할 수 있습니다.
   </p>

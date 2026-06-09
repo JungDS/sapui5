@@ -26,7 +26,7 @@
   <p>
     Function Module을 실행할 때는 <span class="glossary-term" data-glossary="CALLFUNCTION">CALL FUNCTION</span> 문을 사용합니다.
   </p>
-  <pre><code>REPORT zcall_function_basic.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zcall_function_basic.
 
 DATA gv_week TYPE scal-week.
 
@@ -43,7 +43,7 @@ IF sy-subrc = 0.
   WRITE: / '현재 주차:', gv_week.
 ELSE.
   WRITE: / '주차 계산 실패'.
-ENDIF.</code></pre>
+ENDIF.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     위 예제는 표준 Function Module <code>DATE_GET_WEEK</code>를 호출해 현재 날짜가 몇 번째 주인지 계산합니다. 날짜를 Function Module로 보내고, 결과 주차를 받아 출력합니다.
   </p>
@@ -80,7 +80,7 @@ ENDIF.</code></pre>
     <li><code>sy-subrc = 2</code>: 그 외 예외</li>
   </ul>
   <p>
-    THEORY-02에서 배운 <span class="glossary-term" data-glossary="SYSUBRC">SY-SUBRC</span>가 여기서 다시 등장합니다. 외부 기능을 호출한 뒤에는 성공했는지 바로 확인하는 습관이 중요합니다.
+    Chapter 2에서 배운 <span class="glossary-term" data-glossary="SYSUBRC">SY-SUBRC</span>가 여기서 다시 등장합니다. 외부 기능을 호출한 뒤에는 성공했는지 바로 확인하는 습관이 중요합니다.
   </p>
 </section>
 

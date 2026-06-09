@@ -11,7 +11,7 @@
 <section class="lesson-section">
   <h2>1. 지난 Chapter 연결: 모듈 안에서 다룰 데이터가 필요하다 🧭</h2>
   <p>
-    THEORY-05에서는 코드를 FORM, Function Module, Class처럼 작은 기능 단위로 나누는 법을 봤습니다. 그런데 기능을 나누기만 해서는 부족합니다. 실제 업무 프로그램은 보통 한 건이 아니라 여러 건의 데이터를 읽고, 비교하고, 합치고, 출력합니다.
+    Chapter 5에서는 코드를 FORM, Function Module, Class처럼 작은 기능 단위로 나누는 법을 봤습니다. 그런데 기능을 나누기만 해서는 부족합니다. 실제 업무 프로그램은 보통 한 건이 아니라 여러 건의 데이터를 읽고, 비교하고, 합치고, 출력합니다.
   </p>
   <p>
     예를 들어 학생 1명의 이름을 출력하는 것은 변수 하나로 충분합니다. 하지만 학생 30명의 점수를 읽고 평균을 계산하려면, 한 줄짜리 변수만으로는 금방 답답해집니다. 이때 필요한 것이 프로그램 안의 임시 표, 즉 Internal Table입니다.
@@ -55,7 +55,7 @@
 
 <section class="lesson-section">
   <h2>4. 가장 작은 Internal Table 맛보기 ✍️</h2>
-  <pre><code>REPORT zinternal_table_intro.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zinternal_table_intro.
 
 TYPES: BEGIN OF ty_student,
          id   TYPE char3,
@@ -71,7 +71,7 @@ APPEND ls_student TO lt_students.
 
 LOOP AT lt_students INTO ls_student.
   WRITE: / ls_student-id, ls_student-name.
-ENDLOOP.</code></pre>
+ENDLOOP.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     지금은 문법을 완벽히 외우지 않아도 됩니다. 큰 흐름만 먼저 보세요. 한 줄 모양을 정하고, 여러 줄을 담을 표를 만들고, 한 줄을 넣은 뒤, 반복해서 출력합니다.
   </p>

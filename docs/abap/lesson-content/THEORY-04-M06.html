@@ -4,7 +4,7 @@
   <div class="lesson-callout-icon">🎯</div>
   <div class="lesson-callout-content">
     <h4>학습 목표</h4>
-    <p>THEORY-04의 마무리로 <span class="glossary-term" data-glossary="DDICValidation">DDIC Validation</span>과 프로그램 안의 <span class="glossary-term" data-glossary="InputCheck">Input Check</span> 역할을 나눠봅니다. 어디까지는 DDIC가 막아주고, 어디부터는 ABAP 코드와 <span class="glossary-term" data-glossary="MESSAGEStatement">MESSAGE</span>로 처리해야 하는지 초심자 기준으로 정리합니다.</p>
+    <p>Chapter 4의 마무리로 <span class="glossary-term" data-glossary="DDICValidation">DDIC Validation</span>과 프로그램 안의 <span class="glossary-term" data-glossary="InputCheck">Input Check</span> 역할을 나눠봅니다. 어디까지는 DDIC가 막아주고, 어디부터는 ABAP 코드와 <span class="glossary-term" data-glossary="MESSAGEStatement">MESSAGE</span>로 처리해야 하는지 초심자 기준으로 정리합니다.</p>
   </div>
 </div>
 
@@ -58,7 +58,7 @@
   <p>
     <span class="glossary-term" data-glossary="MESSAGEStatement">MESSAGE</span>는 사용자에게 오류, 경고, 정보 메시지를 보여주는 ABAP 문법입니다. 여기서는 가장 단순한 감각만 잡습니다.
   </p>
-  <pre><code>REPORT zinput_check.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zinput_check.
 
 PARAMETERS p_days TYPE i DEFAULT 7.
 
@@ -66,7 +66,7 @@ IF p_days &gt; 30.
   MESSAGE '조회 일수는 30일을 넘길 수 없습니다.' TYPE 'E'.
 ENDIF.
 
-WRITE: / '조회 일수:', p_days.</code></pre>
+WRITE: / '조회 일수:', p_days.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     위 예제는 조회 일수가 30보다 크면 오류 메시지를 보여줍니다. 실제 Selection Screen 검증 이벤트인 <code>AT SELECTION-SCREEN</code>은 나중에 더 깊게 다룹니다. 지금은 “업무 조건을 코드로 확인하고 사용자에게 메시지를 줄 수 있다”는 감각만 가져가면 됩니다.
   </p>
@@ -104,7 +104,7 @@ WRITE: / '조회 일수:', p_days.</code></pre>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">
-      <h4>THEORY-04 마무리 핵심</h4>
+      <h4>Chapter 4 마무리 핵심</h4>
       <ul>
         <li><strong>DDIC Validation</strong>은 타입, 길이, 고정값, Foreign Key, Search Help 같은 공통 규칙에 강합니다.</li>
         <li><strong>Program Input Check</strong>는 기간, 권한, 상태, 조합 조건 같은 업무 문맥을 확인합니다.</li>

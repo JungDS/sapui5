@@ -39,15 +39,15 @@
 
 <section class="lesson-section">
   <h2>3. Secondary Key 선언 맛보기 ✍️</h2>
-  <pre><code>TYPES tt_students TYPE STANDARD TABLE OF ty_student
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>TYPES tt_students TYPE STANDARD TABLE OF ty_student
   WITH NON-UNIQUE SORTED KEY score_key COMPONENTS score.
 
-DATA lt_students TYPE tt_students.</code></pre>
+DATA lt_students TYPE tt_students.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     위 선언은 STANDARD TABLE이지만, <code>score_key</code>라는 보조 정렬 키를 함께 정의합니다. <code>score</code> 값이 같은 학생이 여러 명 있을 수 있으므로 <code>NON-UNIQUE</code>로 둡니다.
   </p>
-  <pre><code>READ TABLE lt_students INTO ls_student
-  WITH KEY score_key COMPONENTS score = 90.</code></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>READ TABLE lt_students INTO ls_student
+  WITH KEY score_key COMPONENTS score = 90.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     이 코드는 <code>score_key</code>라는 Secondary Key를 사용해 점수가 90인 줄을 찾는 예시입니다. 실제 성능 이득은 데이터 양과 접근 패턴에 따라 달라집니다.
   </p>

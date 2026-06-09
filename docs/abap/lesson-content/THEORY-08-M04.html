@@ -11,7 +11,7 @@
 <section class="lesson-section">
   <h2>1. 이제 데이터와 화면을 연결한다 🧭</h2>
   <p>
-    M01~M03에서는 SALV의 목적, FACTORY, DISPLAY, 기본 Functions를 나누어 봤습니다. 이제 이 조각들을 하나의 Report 흐름으로 묶어봅니다.
+    Lesson 1~Lesson 3에서는 SALV의 목적, FACTORY, DISPLAY, 기본 Functions를 나누어 봤습니다. 이제 이 조각들을 하나의 Report 흐름으로 묶어봅니다.
   </p>
   <p>
     실무 Report의 기본 골격은 생각보다 단순합니다. 입력값을 받고, 데이터를 읽거나 만들고, Internal Table에 담고, 마지막에 ALV/SALV로 보여줍니다. 이번 예제는 데이터베이스 조회 전 단계이므로 코드 안에서 작은 데이터를 만들어 표시합니다.
@@ -23,7 +23,7 @@
 
 <section class="lesson-section">
   <h2>2. 미니 리포트 전체 코드 ✍️</h2>
-  <pre><code>REPORT zsalv_mini_report.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>REPORT zsalv_mini_report.
 
 TYPES: BEGIN OF ty_student,
          id    TYPE char3,
@@ -62,7 +62,7 @@ TRY.
 
   CATCH cx_salv_msg INTO lx_msg.
     MESSAGE lx_msg-&gt;get_text( ) TYPE 'E'.
-ENDTRY.</code></pre>
+ENDTRY.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     코드는 길어 보이지만 실제 덩어리는 네 개입니다. 타입 선언, 데이터 채우기, 정렬, SALV 표시입니다.
   </p>
@@ -88,10 +88,10 @@ ENDTRY.</code></pre>
   <p>
     Internal Table이 비어 있으면 SALV 화면이 비어 보일 수 있습니다. 이것이 기술적으로는 오류가 아닐 수 있지만, 사용자 입장에서는 “왜 아무것도 안 나오지?”가 됩니다.
   </p>
-  <pre><code>IF lt_students IS INITIAL.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #282c34"><code>IF lt_students IS INITIAL.
   MESSAGE '표시할 학생 데이터가 없습니다.' TYPE 'I'.
   RETURN.
-ENDIF.</code></pre>
+ENDIF.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>
     실제 Report에서는 SALV 표시 전에 데이터가 없는 경우를 안내하는 메시지를 넣는 것이 좋습니다. 초심자 단계에서는 “빈 결과도 설계 대상”이라는 감각을 가져가세요.
   </p>
