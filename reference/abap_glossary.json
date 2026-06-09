@@ -795,7 +795,7 @@
     "title": "Internal Table (내부 테이블)",
     "desc": "ABAP 프로그램 실행 중 Runtime Memory에 만들어지는 임시 표 형태의 데이터 객체입니다. 여러 줄 데이터를 담아 반복, 검색, 계산, 출력에 사용합니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 창고(DB)에서 물건을 꺼내 작업대 위에 임시로 펼쳐둔 체크리스트와 같아요. 작업이 끝나면 체크리스트는 치워지고 창고의 원본 보관과는 별개입니다.",
-    "used_in_lessons": ["THEORY-06-M01", "THEORY-06-M02", "THEORY-06-M03", "THEORY-06-M04", "THEORY-06-M05", "THEORY-06-M06"],
+    "used_in_lessons": ["THEORY-06-M01", "THEORY-06-M02", "THEORY-06-M03", "THEORY-06-M04", "THEORY-06-M05", "THEORY-06-M06", "THEORY-08-M04"],
     "design_theme": "primary",
     "html_content": "<p>Internal Table은 Transparent Table처럼 데이터베이스에 영구 저장되는 테이블이 아닙니다. 프로그램 실행 중 처리용으로 쓰는 메모리 객체입니다.</p>"
   },
@@ -1093,6 +1093,94 @@
     "everyday_analogy": "이해하기 쉬운 일상 사례: 책상 위에 필요한 자료만 두고, 끝난 자료는 치워 다음 작업 공간을 확보하는 것과 같아요.",
     "used_in_lessons": ["THEORY-07-M09"],
     "design_theme": "info",
+    "html_content": ""
+  },
+  "SALV": {
+    "title": "SALV (Simple ALV)",
+    "desc": "ABAP Internal Table 데이터를 간단한 표 형태의 ALV 화면으로 표시하는 데 사용하는 조회용 출력 방식입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 엑셀 표처럼 행과 열이 보이도록 결과 목록을 보기 좋게 펼쳐주는 화면 틀과 같아요.",
+    "used_in_lessons": ["THEORY-08-M01", "THEORY-08-M04"],
+    "design_theme": "primary",
+    "html_content": "<p>SALV는 조회 결과 표시에는 편리하지만, 복잡한 편집 화면이나 셀 스타일 제어는 별도 ALV 심화 범위에서 다룹니다.</p>"
+  },
+  "CLSALVTABLE": {
+    "title": "CL_SALV_TABLE",
+    "desc": "SALV 표 화면을 만들고 표시할 때 사용하는 대표 ABAP Class입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 데이터를 표 화면으로 바꿔주는 전용 프레젠테이션 도구 상자와 같아요.",
+    "used_in_lessons": ["THEORY-08-M01"],
+    "design_theme": "code",
+    "html_content": "<p>보통 <code>CL_SALV_TABLE=&gt;FACTORY</code>로 SALV 객체를 생성하고, 생성된 객체의 <code>DISPLAY</code> Method로 화면을 표시합니다.</p>"
+  },
+  "ListOutput": {
+    "title": "List Output (리스트 출력)",
+    "desc": "ABAP Report에서 WRITE 문 등으로 출력되는 전통적인 줄 단위 결과 화면입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 표 계산 프로그램이 아니라 메모장에 결과를 한 줄씩 적어 보여주는 것과 같아요.",
+    "used_in_lessons": ["THEORY-08-M01"],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "FactoryMethod": {
+    "title": "FACTORY Method",
+    "desc": "SALV 객체처럼 필요한 객체를 생성해 돌려주는 Method입니다. CL_SALV_TABLE에서는 Internal Table을 기반으로 SALV 표 객체를 만듭니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 주문서를 넣으면 완성된 상품을 만들어 내주는 작은 공장과 같아요.",
+    "used_in_lessons": ["THEORY-08-M02"],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "ChangingTable": {
+    "title": "Changing Table",
+    "desc": "Method 호출에서 CHANGING 파라미터로 전달되는 Internal Table입니다. SALV FACTORY에서는 표시할 데이터 테이블을 넘기는 역할을 합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 화면 제작자에게 넘겨주는 원본 표 자료 묶음과 같아요.",
+    "used_in_lessons": ["THEORY-08-M02"],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "DISPLAYMethod": {
+    "title": "DISPLAY Method",
+    "desc": "준비된 SALV 객체를 실제 화면에 표시하는 Method입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 발표 자료를 다 만든 뒤 빔프로젝터에 띄우는 마지막 버튼과 같아요.",
+    "used_in_lessons": ["THEORY-08-M02", "THEORY-08-M03"],
+    "design_theme": "code",
+    "html_content": "<p>FACTORY와 설정이 끝난 뒤 <code>DISPLAY</code>를 호출해야 사용자가 SALV 화면을 볼 수 있습니다.</p>"
+  },
+  "FunctionsBasic": {
+    "title": "Functions Basic (SALV 기본 기능)",
+    "desc": "SALV 화면에서 정렬, 필터, 내보내기 등 기본 기능 버튼을 표시하거나 제어하는 첫 설정 영역입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 표 화면 위에 붙어 있는 기본 도구 버튼 모음과 같아요.",
+    "used_in_lessons": ["THEORY-08-M03"],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "MiniReport": {
+    "title": "Mini Report (미니 리포트)",
+    "desc": "데이터 준비부터 결과 표시까지 한 화면 흐름으로 연결한 작은 ABAP Report 예제입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 재료 준비부터 접시에 담아 내기까지 한 번에 해보는 작은 요리 실습과 같아요.",
+    "used_in_lessons": ["THEORY-08-M04"],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "SortDeferred": {
+    "title": "Sort Deferred (정렬 심화 보류)",
+    "desc": "SALV 화면 자체의 정렬 제어를 이번 1차 범위에서 다루지 않고 후속 ALV 심화로 미루는 학습 범위 표시입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 오늘은 표를 띄우는 법만 배우고, 표 안에서 고급 정렬 규칙을 저장하는 법은 다음 단원으로 표시해두는 것과 같아요.",
+    "used_in_lessons": ["THEORY-08-M05"],
+    "design_theme": "warn",
+    "html_content": ""
+  },
+  "LayoutDeferred": {
+    "title": "Layout Deferred (레이아웃 심화 보류)",
+    "desc": "열 순서, 열 너비, 숨김, 표시명 같은 ALV 레이아웃 제어를 후속 심화 범위로 미루는 학습 범위 표시입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 오늘은 표를 만드는 법만 배우고, 표를 예쁘게 꾸미는 상세 편집은 나중에 배우기로 접어두는 것과 같아요.",
+    "used_in_lessons": ["THEORY-08-M05"],
+    "design_theme": "warn",
+    "html_content": ""
+  },
+  "VariantDeferred": {
+    "title": "Variant Deferred (Variant 심화 보류)",
+    "desc": "사용자별 ALV 레이아웃 변형 저장과 불러오기 같은 Variant 기능을 후속 심화 범위로 미루는 학습 범위 표시입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 자주 쓰는 화면 배치를 저장하는 개인 설정 기능은 기본 사용법을 익힌 뒤 배우기로 표시해두는 것과 같아요.",
+    "used_in_lessons": ["THEORY-08-M05"],
+    "design_theme": "warn",
     "html_content": ""
   }
 }

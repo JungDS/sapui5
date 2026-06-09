@@ -108,3 +108,17 @@
 - **성능 주제의 난이도 조절**: BINARY SEARCH, SORTED/HASHED TABLE, Secondary Key는 깊게 들어가면 자료구조 강의가 되기 쉬워, 초심자 단계에서는 “전제 조건과 오해 방지”에 초점을 맞췄습니다.
 - **원본 변경 위험 강조**: MODIFY, DELETE, Field Symbol은 Internal Table 원본을 바꾸는 문법이므로, 성공 흐름보다 실패/오류 흐름을 더 눈에 띄게 배치했습니다.
 - **후속 범위 분리**: ALV Cell Color/Style, 고급 키 설계, 대량 성능 튜닝은 후속 THEORY-19 또는 실무 심화 범위로 넘기고, 이번 섹션은 Internal Table 응용의 첫 감각에 집중했습니다.
+
+---
+
+## Codex THEORY-08 작업 상세 내용
+- `THEORY-08-M01` ~ `THEORY-08-M05` 5개 Lesson 본문 조각을 신규 작성했습니다.
+- SALV 목적과 `CL_SALV_TABLE`, `FACTORY` Method로 Internal Table 출력, 기본 Functions와 `DISPLAY`, Internal Table → SALV 미니 리포트, Sort/Layout/Variant 심화 범위 분리를 JSON 지침 순서대로 구성했습니다.
+- 각 Lesson을 “지난 Lesson 연결 → 왜 필요한가 → 무엇인가 → 최소 예제 → 정상/오류 흐름 → 실무 주의 → 한눈에 정리” 구조로 작성했습니다.
+- `SALV`, `CLSALVTABLE`, `ListOutput`, `FactoryMethod`, `DISPLAYMethod`, `FunctionsBasic`, `MiniReport`, `SortDeferred`, `LayoutDeferred`, `VariantDeferred` 등 THEORY-08 용어 11종을 글로서리에 추가했습니다.
+- 기존 `InternalTable`의 `used_in_lessons`를 SALV 미니 리포트 Lesson 사용처에 맞게 보정했습니다.
+
+## Codex THEORY-08 고민했던 점 및 설계 이유
+- **ALV 심화 범위 분리**: SALV를 다루면 Layout, Variant, Event, Cell Style까지 바로 확장되기 쉬워, JSON 지침대로 이번 섹션은 `FACTORY → Functions → DISPLAY` 기본 흐름에 집중했습니다.
+- **OO 문법 부담 완화**: `CL_SALV_TABLE=>FACTORY`와 `lo_alv->display( )`가 초심자에게 갑자기 어려워 보일 수 있어, Class/Method 의미보다 “SALV 객체 생성 후 화면 표시”라는 흐름을 반복했습니다.
+- **예쁜 화면과 데이터 정확성 구분**: SALV 화면이 떠도 데이터 검증이 끝난 것은 아니므로, 빈 결과 안내와 표시 전 데이터 품질 확인을 별도 주의점으로 넣었습니다.
