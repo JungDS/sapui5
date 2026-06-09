@@ -162,6 +162,7 @@
 - `THEORY-14`(Screen Programming / Dynpro 기초, M01~M07): Module Pool, Screen Painter, 화면 요소 3종, PBO/PAI, PF-STATUS/TITLEBAR, Custom Control/Container.
 - `THEORY-15`(Grid ALV 기초, M01~M09): CL_GUI_CUSTOM_CONTAINER, CL_GUI_ALV_GRID, 출력 Internal Table, Field Catalog(LVC_T_FCAT), Layout(LVC_S_LAYO), Variant(DISVARIANT/I_SAVE), SET_TABLE_FOR_FIRST_DISPLAY, refresh(IS_STABLE), 컬럼/행 색상.
 - `THEORY-16`(Modern ABAP Syntax, M01~M06): 인라인 선언(DATA/@DATA), VALUE 표현식, CORRESPONDING/MAPPING, Table Expression(lt[...]/OPTIONAL), String Template, Legacy→Modern 리팩터링.
+- `THEORY-17`(New Open SQL / Modern ABAP SQL, M01~M07): Classic vs Modern, @Host Variable/Host Expression, INTO @DATA 인라인 타겟, SQL 표현식(CASE/CAST/COALESCE), SQL 문자/날짜 함수, SELECT FROM @itab, 코드 푸시다운과 CDS 연결.
 - 글로서리 용어를 섹션별로 완전 패리티로 추가(THEORY-11 18종, 12 13종, 13 15종, 14 14종, 총 +60). 매 섹션 미정의 0건 검증.
 - 기존 Codex 톤(지난 Lesson 연결 → 왜 필요한가 → 무엇인가 → 최소 예제 → 정상/오류 → 실무 주의 → 한눈에 정리)을 그대로 이어 일관성 유지.
 

@@ -13,14 +13,15 @@
 ---
 
 ## 현재 상태 및 목표 (Current Status & Goals)
-- **현재 목표**: Track 1(THEORY-*) Lesson 본문 작성. 총 137개 중 **102개(THEORY-01~THEORY-16) 작성 완료. 35개 남음**.
-- **최근 진행(2026-06-09, Claude Opus 4.8)**: Codex 미커밋 THEORY-10 보존 후 **THEORY-11~16 신규 작성**(JOIN과 집계 / Classic DDIC View / Report Event 심화 / Dynpro 기초 / Grid ALV 기초 / Modern ABAP Syntax). Codex 톤·구조 계승. 글로서리 +98종(섹션별 완전 패리티), 매 섹션 미정의 0건 검증. 추적 3종 동시 갱신.
+- **현재 목표**: Track 1(THEORY-*) Lesson 본문 작성. 총 137개 중 **109개(THEORY-01~THEORY-17) 작성 완료. 28개 남음**.
+- **최근 진행(2026-06-09, Claude Opus 4.8)**: Codex 미커밋 THEORY-10 보존 후 **THEORY-11~17 신규 작성**(JOIN과 집계 / Classic DDIC View / Report Event 심화 / Dynpro 기초 / Grid ALV 기초 / Modern ABAP Syntax / New Open SQL). Codex 톤·구조 계승. 글로서리 +111종(섹션별 완전 패리티), 매 섹션 미정의 0건 검증. 추적 3종 동시 갱신.
+- **⚠️ 동시 작업 주의**: Gemini(Antigravity)가 같은 작업트리에서 THEORY-01~10 고도화(Chapter/Lesson 명칭·Shiki 복사버튼) 병행 중. 콘텐츠 범위는 안 겹치나(나는 11~21) 공유 문서/`git add -A`로 인한 커밋 혼입 주의. 신규 Lesson도 Chapter/Lesson 용어 사용.
 - **⚠️ 인계 핵심 문서**: 이어서 작업할 AI는 **[HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md)를 가장 먼저 정독**할 것. 작성 규칙·스타일 기준·복붙용 프롬프트가 모두 거기 있음.
 
 ---
 
 ## 미결 사항 (Pending Issues / Next Steps)
-- **Lesson 본문 양산**: 다음은 **THEORY-17 ~ THEORY-21 (35개)**. 현재 확정된 10·20대 초심자 친화적 스타일과 "한눈에 정리" 마무리 방식을 그대로 적용한다. Track 2(PRACTICAL-*)는 그 다음.
+- **Lesson 본문 양산**: 다음은 **THEORY-18 ~ THEORY-21 (28개)**. 현재 확정된 10·20대 초심자 친화적 스타일과 "한눈에 정리" 마무리 방식을 그대로 적용한다. Track 2(PRACTICAL-*)는 그 다음.
 - **[프로세스] 섹션 작성 후 추적 3종 동시 갱신**: 섹션 커밋 시 ① `HANDOFF_LESSON_CONTENT.md` 진행표 ② 본 파일(99_AI_SYNC) 작업이력/현황 ③ `changelogs/CHANGELOG_<날짜>.md`를 함께 갱신할 것(누락 주의).
 - **글로서리 완전 패리티**: Lesson에서 쓰는 주요 용어는 `reference/abap_glossary.json`에 반드시 함께 등록(일상 비유 포함). 미등록 용어는 툴팁이 안 뜸(깨진 링크).
 - (선택) Lesson 내 퀴즈·실습 코드 블록 등 상호작용 컴포넌트 고도화.
@@ -165,3 +166,13 @@
   - 이미지 자산 네이밍 규칙 및 위치 추천을 담은 `09_IMAGE_ASSETS_RULE.md` 추가.
 - **수정 파일**: `docs/abap/lesson-content/THEORY-01~10*.html`, `.project-docs/09_IMAGE_ASSETS_RULE.md`, `.project-docs/99_AI_SYNC.md`, `changelogs/CHANGELOG_20260609.md`
 - **다음 AI를 위한 메모**: 다음 섹션 작성은 그대로 이어나가면 됩니다. 신규 작성 시에도 Chapter/Lesson 용어를 사용하고 Shiki 포맷을 적용하는 것이 좋습니다.
+
+### [2026-06-09] Claude (Opus 4.8) — THEORY-15~17 신규 (Work Log 보강)
+- **작업 내용**: (앞선 THEORY-11~14 항목에 이어) THEORY-15·16·17을 신규 작성. 이전에 현황/CHANGELOG만 갱신하고 본 Work Log 항목을 누락했던 것을 사용자 지적으로 보강함.
+  - THEORY-15 Grid ALV 기초(M01~M09): Container/Grid 생성, 출력 Internal Table, Field Catalog, Layout, Variant, SET_TABLE_FOR_FIRST_DISPLAY, refresh(Stable), 컬럼/행 색상.
+  - THEORY-16 Modern ABAP Syntax(M01~M06): 인라인 선언, VALUE, CORRESPONDING, Table Expression, String Template, Legacy 리팩터링.
+  - THEORY-17 New Open SQL(M01~M07): Classic vs Modern, @Host Variable/Expression, @DATA 인라인 타겟, SQL 표현식(CASE/CAST/COALESCE), 문자/날짜 함수, SELECT FROM @itab, 코드 푸시다운.
+  - 글로서리: 15(+26), 16(+12), 17(+13). 섹션별 미정의 0건 검증.
+- **수정 파일**: `docs/abap/lesson-content/THEORY-15~17-*.html`, `reference/abap_glossary.json`, `.project-docs/HANDOFF_LESSON_CONTENT.md`, `99_AI_SYNC.md`, `changelogs/CHANGELOG_20260609.md`
+- **주의(동시 작업)**: Gemini 커밋 `07b5a7f`이 THEORY-17 M01~M06을 함께 담아감(내용 보존). M07·글로서리는 본 커밋으로 마감.
+- **다음 AI를 위한 메모**: 다음 섹션은 THEORY-18 `OO ABAP 기본 설계`(M01~M07). Work Log는 섹션마다 항목을 즉시 추가할 것(현황/CHANGELOG만 갱신하지 말 것).
