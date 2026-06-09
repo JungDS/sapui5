@@ -45,10 +45,23 @@
 | 구조 전면 개편 | major: 4.x → 5.0 |
 
 ## 4) Archive 규칙
+**원칙: 모든 콘텐츠·코드 파일(`*.html`·`*.css`·`*.js`·`*.mjs`)은 수정/삭제 시 직전 원본을 archive에 보존한다.**
+이 원칙은 git pre-commit 훅으로 **자동 강제**되며(아래), 사람·Claude·타 AI 모든 커밋에 동일하게 적용된다.
+
+### 4-1. 자동 archive (강제) — `archive/auto/`
+- 수단: `.githooks/pre-commit` 훅. 활성화는 클론마다 1회 `git config core.hooksPath .githooks` ([.githooks/README.md](../.githooks/README.md)).
+- 동작: 커밋 시 수정(M)·이름변경(R)·삭제(D)되는 대상 확장자 파일의 **직전(HEAD) 버전**을
+  `archive/auto/<원본경로>/<파일명>__<YYYYMMDD-HHMMSS>.<ext>`로 자동 복사해 같은 커밋에 포함.
+- **우회 금지**: `git commit --no-verify`로 건너뛰지 않는다. 신규(Added) 파일은 직전 버전이 없어 제외.
+
+### 4-2. 수동 버전 archive (큐레이션) — 운영 HTML
 - 형식: `archive/docs/<category>/<doc-id>/<YYYYMMDD>_<hhmmss>_v<version>.html`
 - 타임스탬프 출처: 운영본의 `data-doc-updated-at` (archive 생성 시각 아님). TZ: KST(+09:00).
-- archive 파일은 **절대 수정하지 않는다.**
-- 내부 운영 문서(.project-docs 등)·자산 정리는 `archive/<영역>/<YYYYMMDD>/` 형태로 보존.
+- 운영본 **버전 승격(minor/major) 시** 의도된 스냅샷으로 만든다. 4-1 자동 안전망이 있어도 생략하지 않는다.
+
+### 4-3. 공통
+- archive 파일은 **절대 수정하지 않는다.** (`archive/`는 읽기 전용 — 훅 대상에서도 제외)
+- 내부 운영 문서(.project-docs 등)·자산 **일괄 정리/이동**은 `archive/<영역>/<YYYYMMDD>/` 형태로 보존.
 
 ## 5) 신규 문서 체크리스트
 - [ ] `docs/<category>/<file>.html` 생성 (메타데이터·섹션 id 포함)
@@ -57,8 +70,9 @@
 - [ ] `pages/<category>.html`에 카드 추가
 - [ ] `README.md` 갱신
 
-## 6) [신규] asset 주석 헤더 규칙
-모든 `assets/*.css`·`*.js`는 **최상단에 수정 이력 주석**을 둔다. 수정할 때마다 갱신한다.
+## 6) [신규] 코드 파일 주석 헤더 규칙
+**프로젝트 전체의 모든 `.css`·`.js`·`.mjs` 파일**(폴더 무관: `assets/`, `docs/`, `tools/`, `sample/` 등)은
+**최상단에 수정 이력 주석**을 둔다. 수정할 때마다 갱신한다. (`archive/`는 읽기 전용이므로 제외.)
 ```css
 /* <파일 목적> | 최종수정 2026-06-05 14:30 KST | v1.2 */
 ```
@@ -66,7 +80,8 @@
 // <파일 목적> | 최종수정 2026-06-05 14:30 KST | v1.2
 ```
 - 목적: JSON처럼 주석이 불가한 산출물 외에는 파일 자체에 수정일시·버전을 남겨 추적성 확보.
-- 적용 범위 확대(전 파일 일괄 부여)는 asset 리네임 라운드에서 함께 수행(→07). 본 라운드는 규칙 정의.
+- **적용 범위: 프로젝트 전체.** 신규 파일은 생성 시 헤더를 반드시 포함하고, 기존 파일은 **수정하는 시점에 헤더를 부여/갱신**한다.
+  (전 파일 일괄 백필은 별도 라운드에서 수행 가능 → [07](07_DECISIONS_AND_ROADMAP.md). 단 규칙 자체는 즉시 전면 적용.)
 
 ## 7) [신규] data/ 설명 md 규칙
 - `data/*.json`은 주석을 담지 못하므로, 운영 JSON마다 `data/<name>.json.md`로 역할·구조·동기화 규칙을 설명한다.
