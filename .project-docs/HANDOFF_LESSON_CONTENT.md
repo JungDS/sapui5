@@ -29,7 +29,7 @@
 | THEORY-13 | Report Event와 Selection Screen 심화 | 7 | **M01~M07 작성 완료** (Claude) |
 | THEORY-14 | Screen Programming / Dynpro 기초 | 7 | **M01~M07 작성 완료** (Claude) |
 | THEORY-15 | Grid ALV 기초 | 9 | **M01~M09 작성 완료** (Claude) |
-| THEORY-16 | Modern ABAP Syntax | 6 | ⬜ |
+| THEORY-16 | Modern ABAP Syntax | 6 | **M01~M06 작성 완료** (Claude) |
 | THEORY-17 | New Open SQL / Modern ABAP SQL | 7 | ⬜ |
 | THEORY-18 | OO ABAP 기본 설계 | 7 | ⬜ |
 | THEORY-19 | SALV / Grid ALV 표시 제어 심화 | 7 | ⬜ |

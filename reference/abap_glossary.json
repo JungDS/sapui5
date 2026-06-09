@@ -2707,5 +2707,125 @@
     ],
     "design_theme": "info",
     "html_content": "<p>셀 단위 색상(Cell Color)은 THEORY-19에서 다룹니다.</p>"
+  },
+  "InlineDeclaration": {
+    "title": "인라인 선언 (Inline Declaration)",
+    "desc": "변수를 위에서 미리 선언하지 않고, 처음 값을 대입하는 그 자리에서 DATA( )로 만드는 최신 문법입니다. 타입은 자동 추론됩니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 필요할 때 그 자리에서 바로 메모지를 한 장 꺼내 쓰는 것과 같아요. 미리 책상에 쌓아둘 필요가 없죠.",
+    "used_in_lessons": [
+      "THEORY-16-M01"
+    ],
+    "design_theme": "primary",
+    "html_content": "<p>타입이 숨으므로 명확성이 중요하면 명시 선언도 고려합니다.</p>"
+  },
+  "DataInline": {
+    "title": "DATA( )",
+    "desc": "인라인으로 변수를 선언하는 표현식입니다. 괄호 안 이름으로 변수를 즉석에서 만들고 타입을 자동 추론합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 빈칸에 이름을 적는 순간 새 사물함이 배정되는 것과 같아요.",
+    "used_in_lessons": [
+      "THEORY-16-M01"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "AtDataInline": {
+    "title": "@DATA( )",
+    "desc": "Open SQL의 INTO에서 결과를 담을 변수/테이블을 그 자리에서 만드는 인라인 선언입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 주문하면서 동시에 받을 그릇까지 자동으로 준비되는 것과 같아요.",
+    "used_in_lessons": [
+      "THEORY-16-M01"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "ValueExpression": {
+    "title": "VALUE 표현식",
+    "desc": "구조체나 Internal Table을 만들면서 동시에 값을 채우는 생성자 표현식입니다. 여러 줄의 대입·APPEND를 한 덩어리로 바꿉니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 빈 상자에 물건을 하나씩 넣는 대신, 내용물이 채워진 상자를 통째로 만드는 것과 같아요.",
+    "used_in_lessons": [
+      "THEORY-16-M02"
+    ],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "CorrespondingExpression": {
+    "title": "CORRESPONDING",
+    "desc": "두 구조에서 이름이 같은 필드끼리 값을 자동으로 복사하는 표현식입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 이삿짐을 옮길 때 상자에 적힌 방 이름이 같은 것끼리 자동으로 같은 방에 넣어주는 것과 같아요.",
+    "used_in_lessons": [
+      "THEORY-16-M03"
+    ],
+    "design_theme": "primary",
+    "html_content": "<p>이름이 다른 필드는 조용히 누락되니 MAPPING으로 짝짓거나 결과를 확인합니다.</p>"
+  },
+  "MoveCorresponding": {
+    "title": "MOVE-CORRESPONDING",
+    "desc": "이름이 같은 필드끼리 값을 옮기는 전통적인 문장입니다. CORRESPONDING 표현식과 같은 일을 합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 예전부터 쓰던, 이름표 보고 짐 옮기기의 문장형 버전이에요.",
+    "used_in_lessons": [
+      "THEORY-16-M03"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "MappingClause": {
+    "title": "MAPPING / EXCEPT",
+    "desc": "CORRESPONDING에서 이름이 다른 필드를 짝짓거나(MAPPING), 특정 필드를 제외(EXCEPT)하는 옵션입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 이름이 다른 상자에 '이건 안방으로'라고 따로 표시해 주거나, '이 상자는 빼'라고 지정하는 거예요.",
+    "used_in_lessons": [
+      "THEORY-16-M03"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "TableExpression": {
+    "title": "Table Expression",
+    "desc": "Internal Table에서 원하는 줄을 대괄호 lt[ ... ]로 인덱스나 조건으로 바로 꺼내는 최신 문법입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 사물함 번호나 이름표로 해당 칸을 바로 여는 것과 같아요. READ TABLE을 한 줄로 줄입니다.",
+    "used_in_lessons": [
+      "THEORY-16-M04"
+    ],
+    "design_theme": "primary",
+    "html_content": "<p>못 찾으면 예외가 나므로 OPTIONAL이나 line_exists로 안전 처리합니다.</p>"
+  },
+  "ItabLineNotFound": {
+    "title": "CX_SY_ITAB_LINE_NOT_FOUND",
+    "desc": "Table Expression이 조건에 맞는 줄을 못 찾았을 때 던지는 예외입니다. 처리하지 않으면 프로그램이 덤프됩니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 열려던 사물함이 아예 없을 때 나는 '없음' 경보예요. 대비 안 하면 작업이 멈춥니다.",
+    "used_in_lessons": [
+      "THEORY-16-M04"
+    ],
+    "design_theme": "warn",
+    "html_content": "<p>VALUE #( lt[ ... ] OPTIONAL )로 예외 없이 초기값을 받을 수 있습니다.</p>"
+  },
+  "StringTemplate": {
+    "title": "String Template",
+    "desc": "막대기(|) 사이에 글자와 { 변수 }를 섞어 문자열을 조립하는 최신 문법입니다. 서식 옵션도 줄 수 있습니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 빈칸 채우기 편지지 같아요. 정해진 문장에 이름·날짜만 끼워 넣으면 완성됩니다.",
+    "used_in_lessons": [
+      "THEORY-16-M05"
+    ],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "StringFunction": {
+    "title": "문자열 내장 함수",
+    "desc": "strlen·to_upper·condense·replace·substring 등 문자열을 다루는 최신 내장 함수들입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 글자 수 세기, 대문자 바꾸기, 공백 정리 같은 작업을 바로 해주는 도구 세트예요.",
+    "used_in_lessons": [
+      "THEORY-16-M05"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "ModernRefactoring": {
+    "title": "Modern ABAP 리팩터링",
+    "desc": "동작은 그대로 두고 옛 스타일 코드를 최신 문법으로 깔끔하게 바꾸는 작업입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 가구 배치를 바꿔 같은 방을 더 쓰기 좋게 정리하는 것과 같아요. 물건(기능)은 그대로죠.",
+    "used_in_lessons": [
+      "THEORY-16-M06"
+    ],
+    "design_theme": "info",
+    "html_content": "<p>바꾼 뒤에는 같은 결과인지 반드시 테스트합니다.</p>"
   }
 }
