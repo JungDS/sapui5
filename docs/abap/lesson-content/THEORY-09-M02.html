@@ -23,13 +23,33 @@
 
 <section class="lesson-section">
   <h2>2. PARAMETERS 값을 WHERE에 넣기 🎛️</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">PARAMETERS</span> p_land1 <span style="color: #005cc5; font-weight: bold;">TYPE</span> t005t-land1 DEFAULT <span style="color: #22863a;">'KR'</span>.
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #ffffff; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+  <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
+    <div style="display: flex; gap: 6px;">
+      <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
+    </div>
+    <div style="margin-left: auto; color: #ffffff; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
+    <div style="margin-left: 16px;">
+      <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body" style="display: flex; background-color: #ffffff;">
+    <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
+      1<br>2<br>3<br>4<br>5<br>6<br>7
+    </div>
+    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #005cc5; font-weight: bold;">PARAMETERS</span> p_land1 <span style="color: #005cc5; font-weight: bold;">TYPE</span> t005t-land1 DEFAULT <span style="color: #22863a;">'KR'</span>.
 
 <span style="color: #005cc5; font-weight: bold;">SELECT</span> <span style="color: #005cc5; font-weight: bold;">FROM</span> t005t
   FIELDS land1, landx
   <span style="color: #005cc5; font-weight: bold;">WHERE</span> spras = @sy-langu
     AND land1 = @p_land1
-  <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lt_countries).</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lt_countries).</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
   <p>
     이 코드는 사용자가 입력한 국가 코드 <code>p_land1</code>와 현재 로그온 언어 <code>sy-langu</code>에 맞는 국가 텍스트만 조회합니다.
   </p>
@@ -59,7 +79,24 @@
 
 <section class="lesson-section">
   <h2>4. 전체 예제로 조건 조회 확인하기 ✍️</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zsql_where_host.
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #ffffff; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+  <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
+    <div style="display: flex; gap: 6px;">
+      <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
+    </div>
+    <div style="margin-left: auto; color: #ffffff; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
+    <div style="margin-left: 16px;">
+      <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body" style="display: flex; background-color: #ffffff;">
+    <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17
+    </div>
+    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zsql_where_host.
 
 <span style="color: #005cc5; font-weight: bold;">PARAMETERS</span> p_land1 <span style="color: #005cc5; font-weight: bold;">TYPE</span> t005t-land1 DEFAULT <span style="color: #22863a;">'KR'</span>.
 
@@ -75,7 +112,10 @@
   <span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> lt_countries <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">DATA</span>(ls_country).
     <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / ls_country-land1, ls_country-landx.
   <span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.
-<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
   <p>
     실행할 때 <code>p_land1</code> 값을 <code>KR</code>, <code>US</code>, <code>DE</code>처럼 바꿔보세요. 시스템 데이터와 언어 설정에 따라 결과가 달라질 수 있습니다.
   </p>

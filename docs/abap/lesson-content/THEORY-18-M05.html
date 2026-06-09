@@ -20,21 +20,41 @@
 
 <section class="lesson-section">
   <h2>2. 인터페이스 = 메서드 약속 ✍️</h2>
-  <pre><code>" 약속 정의 (구현은 없음)
-INTERFACE zif_printer PUBLIC.
-  METHODS print.
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #ffffff; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+  <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
+    <div style="display: flex; gap: 6px;">
+      <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
+    </div>
+    <div style="margin-left: auto; color: #ffffff; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
+    <div style="margin-left: 16px;">
+      <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body" style="display: flex; background-color: #ffffff;">
+    <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15
+    </div>
+    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #888888; font-style: italic;">" 약속 정의 (구현은 없음)</span>
+INTERFACE zif_printer <span style="color: #005cc5; font-weight: bold;">PUBLIC</span>.
+  <span style="color: #005cc5; font-weight: bold;">METHODS</span> print.
 ENDINTERFACE.
 
-" 약속을 지키는 클래스들
-CLASS zcl_pdf DEFINITION PUBLIC.
-  PUBLIC SECTION.
-    INTERFACES zif_printer.        "이 약속을 따른다
-ENDCLASS.
-CLASS zcl_pdf IMPLEMENTATION.
+<span style="color: #888888; font-style: italic;">" 약속을 지키는 클래스들</span>
+<span style="color: #005cc5; font-weight: bold;">CLASS</span> zcl_pdf DEFINITION <span style="color: #005cc5; font-weight: bold;">PUBLIC</span>.
+  <span style="color: #005cc5; font-weight: bold;">PUBLIC</span> <span style="color: #005cc5; font-weight: bold;">SECTION</span>.
+    INTERFACES zif_printer.        <span style="color: #888888; font-style: italic;">"이 약속을 따른다</span>
+<span style="color: #005cc5; font-weight: bold;">ENDCLASS</span>.
+<span style="color: #005cc5; font-weight: bold;">CLASS</span> zcl_pdf IMPLEMENTATION.
   METHOD zif_printer~print.
-    " PDF 방식으로 출력
+    <span style="color: #888888; font-style: italic;">" PDF 방식으로 출력</span>
   ENDMETHOD.
-ENDCLASS.</code></pre>
+<span style="color: #005cc5; font-weight: bold;">ENDCLASS</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
   <div class="lesson-callout">
     <div class="lesson-callout-icon">💡</div>
     <div class="lesson-callout-content">
@@ -49,13 +69,33 @@ ENDCLASS.</code></pre>
   <p>
     인터페이스 타입으로 객체를 다루면, 쓰는 쪽은 <strong>어느 클래스인지 몰라도</strong> 같은 메서드를 부를 수 있습니다. 이것이 <span class="glossary-term" data-glossary="Polymorphism">다형성</span>입니다.
   </p>
-  <pre><code>DATA: lo_printer TYPE REF TO zif_printer.
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #ffffff; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+  <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
+    <div style="display: flex; gap: 6px;">
+      <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
+    </div>
+    <div style="margin-left: auto; color: #ffffff; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
+    <div style="margin-left: 16px;">
+      <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body" style="display: flex; background-color: #ffffff;">
+    <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
+      1<br>2<br>3<br>4<br>5<br>6<br>7
+    </div>
+    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #005cc5; font-weight: bold;">DATA</span>: lo_printer <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #005cc5; font-weight: bold;">REF</span> <span style="color: #005cc5; font-weight: bold;">TO</span> zif_printer.
 
 lo_printer = NEW zcl_pdf( ).
-lo_printer->print( ).      "PDF로 출력
+lo_printer-&gt;print( ).      <span style="color: #888888; font-style: italic;">"PDF로 출력</span>
 
 lo_printer = NEW zcl_excel( ).
-lo_printer->print( ).      "엑셀로 출력 (같은 호출, 다른 동작)</code></pre>
+lo_printer-&gt;print( ).      <span style="color: #888888; font-style: italic;">"엑셀로 출력 (같은 호출, 다른 동작)</span></code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
   <p>쓰는 코드는 <code>print( )</code> 하나면 끝. 새 출력 방식(클래스)이 늘어도 <strong>쓰는 코드는 안 바뀝니다.</strong></p>
 </section>
 

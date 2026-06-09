@@ -26,7 +26,24 @@
   <p>
     <span class="glossary-term" data-glossary="USINGParameter">USING</span>은 FORM이 사용할 입력값을 전달할 때 씁니다. FORM 입장에서는 “읽어서 사용해야 할 값”입니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zform_using.
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #ffffff; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+  <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
+    <div style="display: flex; gap: 6px;">
+      <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
+    </div>
+    <div style="margin-left: auto; color: #ffffff; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
+    <div style="margin-left: 16px;">
+      <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body" style="display: flex; background-color: #ffffff;">
+    <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9
+    </div>
+    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zform_using.
 
 <span style="color: #005cc5; font-weight: bold;">PARAMETERS</span> p_name <span style="color: #005cc5; font-weight: bold;">TYPE</span> string DEFAULT <span style="color: #22863a;">'ABAP'</span>.
 
@@ -34,7 +51,10 @@ PERFORM greet_user <span style="color: #005cc5; font-weight: bold;">USING</span>
 
 <span style="color: #005cc5; font-weight: bold;">FORM</span> greet_user <span style="color: #005cc5; font-weight: bold;">USING</span> iv_name <span style="color: #005cc5; font-weight: bold;">TYPE</span> string.
   <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'안녕하세요,'</span>, iv_name.
-<span style="color: #005cc5; font-weight: bold;">ENDFORM</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">ENDFORM</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
   <p>
     <code>PERFORM greet_user USING p_name.</code>은 <code>p_name</code> 값을 FORM에게 전달합니다. FORM 안에서는 그 값을 <code>iv_name</code>이라는 이름으로 받아 사용합니다.
   </p>
@@ -48,7 +68,24 @@ PERFORM greet_user <span style="color: #005cc5; font-weight: bold;">USING</span>
   <p>
     <span class="glossary-term" data-glossary="CHANGINGParameter">CHANGING</span>은 FORM 안에서 값을 바꾸고, 그 바뀐 값을 호출한 쪽에서도 쓰고 싶을 때 사용합니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zform_changing.
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #ffffff; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+  <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
+    <div style="display: flex; gap: 6px;">
+      <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
+    </div>
+    <div style="margin-left: auto; color: #ffffff; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
+    <div style="margin-left: 16px;">
+      <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body" style="display: flex; background-color: #ffffff;">
+    <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11
+    </div>
+    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zform_changing.
 
 <span style="color: #005cc5; font-weight: bold;">DATA</span> gv_count <span style="color: #005cc5; font-weight: bold;">TYPE</span> i <span style="color: #005cc5; font-weight: bold;">VALUE</span> <span style="color: #22863a;">0</span>.
 
@@ -58,7 +95,10 @@ PERFORM add_one <span style="color: #005cc5; font-weight: bold;">CHANGING</span>
 
 <span style="color: #005cc5; font-weight: bold;">FORM</span> add_one <span style="color: #005cc5; font-weight: bold;">CHANGING</span> cv_count <span style="color: #005cc5; font-weight: bold;">TYPE</span> i.
   cv_count = cv_count + <span style="color: #22863a;">1</span>.
-<span style="color: #005cc5; font-weight: bold;">ENDFORM</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">ENDFORM</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
   <p>
     처음 <code>gv_count</code>는 0입니다. <code>add_one</code> FORM 안에서 1을 더하면, 호출한 쪽의 <code>gv_count</code>도 1로 바뀝니다. 그래서 출력 결과는 1입니다.
   </p>
@@ -72,7 +112,24 @@ PERFORM add_one <span style="color: #005cc5; font-weight: bold;">CHANGING</span>
   <p>
     입력값은 USING으로 받고, 결과값은 CHANGING으로 돌려주는 형태도 자주 볼 수 있습니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zform_calc.
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #ffffff; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+  <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
+    <div style="display: flex; gap: 6px;">
+      <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
+    </div>
+    <div style="margin-left: auto; color: #ffffff; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
+    <div style="margin-left: 16px;">
+      <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body" style="display: flex; background-color: #ffffff;">
+    <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14
+    </div>
+    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zform_calc.
 
 <span style="color: #005cc5; font-weight: bold;">DATA</span> gv_amount <span style="color: #005cc5; font-weight: bold;">TYPE</span> i <span style="color: #005cc5; font-weight: bold;">VALUE</span> <span style="color: #22863a;">100</span>.
 <span style="color: #005cc5; font-weight: bold;">DATA</span> gv_total  <span style="color: #005cc5; font-weight: bold;">TYPE</span> i.
@@ -85,7 +142,10 @@ PERFORM calc_total <span style="color: #005cc5; font-weight: bold;">USING</span>
 <span style="color: #005cc5; font-weight: bold;">FORM</span> calc_total <span style="color: #005cc5; font-weight: bold;">USING</span> iv_amount <span style="color: #005cc5; font-weight: bold;">TYPE</span> i
                 <span style="color: #005cc5; font-weight: bold;">CHANGING</span> cv_total <span style="color: #005cc5; font-weight: bold;">TYPE</span> i.
   cv_total = iv_amount + <span style="color: #22863a;">10</span>.
-<span style="color: #005cc5; font-weight: bold;">ENDFORM</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">ENDFORM</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
   <p>
     이 예제에서 <code>iv_amount</code>는 계산에 필요한 입력값이고, <code>cv_total</code>은 계산 결과를 담아 호출한 쪽으로 돌려주는 값입니다. 입력과 결과를 분리하면 FORM이 무슨 일을 하는지 더 잘 보입니다.
   </p>

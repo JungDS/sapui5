@@ -23,13 +23,33 @@
   <p>
     <span class="glossary-term" data-glossary="AuthorityCheck">AUTHORITY-CHECK</span>는 현재 사용자가 특정 작업에 대한 권한을 가졌는지 검사합니다. 보통 검증 단계나 조회 직전에 둡니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code>AUTHORITY-CHECK <span style="color: #005cc5; font-weight: bold;">OBJECT</span> <span style="color: #22863a;">'F_BKPF_BUK'</span>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #ffffff; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+  <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
+    <div style="display: flex; gap: 6px;">
+      <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
+    </div>
+    <div style="margin-left: auto; color: #ffffff; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
+    <div style="margin-left: 16px;">
+      <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body" style="display: flex; background-color: #ffffff;">
+    <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
+      1<br>2<br>3<br>4<br>5<br>6<br>7
+    </div>
+    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code>AUTHORITY-CHECK <span style="color: #005cc5; font-weight: bold;">OBJECT</span> <span style="color: #22863a;">'F_BKPF_BUK'</span>
   ID <span style="color: #22863a;">'BUKRS'</span> FIELD p_bukrs
-  ID <span style="color: #22863a;">'ACTVT'</span> FIELD <span style="color: #22863a;">'03'</span>.        <span style="color: #888888; font-style: italic;">"03 = 조회(Display)</span>
+  ID <span style="color: #22863a;">'ACTVT'</span> FIELD <span style="color: #22863a;">'03'</span>.        <span style="color: #888888; font-style: italic;">"03 = 조회(Display)</span>
 
 <span style="color: #005cc5; font-weight: bold;">IF</span> sy-subrc &lt;&gt; <span style="color: #22863a;">0</span>.
   MESSAGE <span style="color: #22863a;">'해당 회사코드를 조회할 권한이 없습니다.'</span> <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #22863a;">'E'</span>.
-<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
   <ul>
     <li><strong>OBJECT:</strong> 검사할 권한 객체(Authorization Object).</li>
     <li><strong>ID ... FIELD:</strong> 검사할 값(여기서는 회사코드와 활동 유형).</li>
@@ -42,12 +62,32 @@
   <p>
     입력값이 형식상 맞아도, 실제 마스터 데이터에 없으면 조회가 헛돕니다. 그래서 조회 전 존재 여부를 확인합니다(THEORY-13-M04의 검증과 같은 맥락).
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">SELECT</span> SINGLE bukrs <span style="color: #005cc5; font-weight: bold;">FROM</span> t001
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #ffffff; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+  <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
+    <div style="display: flex; gap: 6px;">
+      <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
+    </div>
+    <div style="margin-left: auto; color: #ffffff; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
+    <div style="margin-left: 16px;">
+      <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body" style="display: flex; background-color: #ffffff;">
+    <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
+      1<br>2<br>3<br>4<br>5<br>6
+    </div>
+    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #005cc5; font-weight: bold;">SELECT</span> SINGLE bukrs <span style="color: #005cc5; font-weight: bold;">FROM</span> t001
   <span style="color: #005cc5; font-weight: bold;">INTO</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lv_dummy)
   <span style="color: #005cc5; font-weight: bold;">WHERE</span> bukrs = @p_bukrs.
 <span style="color: #005cc5; font-weight: bold;">IF</span> sy-subrc &lt;&gt; <span style="color: #22863a;">0</span>.
   MESSAGE <span style="color: #22863a;">'존재하지 않는 회사코드입니다.'</span> <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #22863a;">'E'</span>.
-<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
   <div class="lesson-callout">
     <div class="lesson-callout-icon">💡</div>
     <div class="lesson-callout-content">

@@ -37,7 +37,24 @@
 
 <section class="lesson-section">
   <h2>3. 가장 작은 Local Class 예제 ✍️</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zlocal_class_basic.
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #ffffff; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+  <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
+    <div style="display: flex; gap: 6px;">
+      <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
+    </div>
+    <div style="margin-left: auto; color: #ffffff; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
+    <div style="margin-left: 16px;">
+      <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body" style="display: flex; background-color: #ffffff;">
+    <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16
+    </div>
+    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zlocal_class_basic.
 
 <span style="color: #005cc5; font-weight: bold;">CLASS</span> lcl_greeter DEFINITION.
   <span style="color: #005cc5; font-weight: bold;">PUBLIC</span> <span style="color: #005cc5; font-weight: bold;">SECTION</span>.
@@ -52,7 +69,10 @@
 
 <span style="color: #005cc5; font-weight: bold;">START-OF-SELECTION</span>.
   <span style="color: #005cc5; font-weight: bold;">DATA</span>(lo_greeter) = NEW lcl_greeter( ).
-  lo_greeter-&gt;say_hello( iv_name = <span style="color: #22863a;">'ABAP'</span> ).</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  lo_greeter-&gt;say_hello( iv_name = <span style="color: #22863a;">'ABAP'</span> ).</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
   <p>
     코드가 길어 보이지만 조각으로 나누면 어렵지 않습니다. <code>lcl_greeter</code>라는 Local Class를 정의하고, <code>say_hello</code> Method를 만든 뒤, 실행 구간에서 객체를 생성해 Method를 호출합니다.
   </p>
@@ -63,7 +83,27 @@
   <p>
     <span class="glossary-term" data-glossary="MethodCall">Method Call</span>은 Method를 실행하는 문법입니다. 위 예제에서는 아래 줄이 Method 호출입니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code>lo_greeter-&gt;say_hello( iv_name = <span style="color: #22863a;">'ABAP'</span> ).</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #ffffff; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+  <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
+    <div style="display: flex; gap: 6px;">
+      <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
+    </div>
+    <div style="margin-left: auto; color: #ffffff; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
+    <div style="margin-left: 16px;">
+      <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body" style="display: flex; background-color: #ffffff;">
+    <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
+      1
+    </div>
+    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code>lo_greeter-&gt;say_hello( iv_name = <span style="color: #22863a;">'ABAP'</span> ).</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
   <ul>
     <li><code>lo_greeter</code>: 생성된 객체를 담은 참조 변수입니다.</li>
     <li><code>-&gt;</code>: 객체의 Method를 호출할 때 쓰는 화살표입니다.</li>

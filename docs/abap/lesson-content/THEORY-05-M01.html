@@ -38,14 +38,34 @@
 
 <section class="lesson-section">
   <h2>3. 가장 작은 FORM / PERFORM 예제 ✍️</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zform_basic.
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #ffffff; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+  <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
+    <div style="display: flex; gap: 6px;">
+      <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
+    </div>
+    <div style="margin-left: auto; color: #ffffff; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
+    <div style="margin-left: 16px;">
+      <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body" style="display: flex; background-color: #ffffff;">
+    <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8
+    </div>
+    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zform_basic.
 
 PERFORM display_header.
 <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'본문 내용을 출력합니다.'</span>.
 
 <span style="color: #005cc5; font-weight: bold;">FORM</span> display_header.
   <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'=== ABAP 모듈화 연습 ==='</span>.
-<span style="color: #005cc5; font-weight: bold;">ENDFORM</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">ENDFORM</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
   <p>
     위 프로그램은 먼저 <code>PERFORM display_header.</code>로 <code>display_header</code>라는 Subroutine을 호출합니다. 그러면 아래에 정의된 <code>FORM display_header.</code> 안의 코드가 실행되고, 다시 원래 위치로 돌아와 본문 출력이 이어집니다.
   </p>

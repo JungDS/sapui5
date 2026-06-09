@@ -23,7 +23,24 @@
   <p>
     <span class="glossary-term" data-glossary="DATAStatement">DATA</span>는 프로그램 실행 중 값을 담아두는 변수를 만듭니다. 변수는 실행 중에 값이 바뀔 수 있습니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zbasic_data.
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #ffffff; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+  <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
+    <div style="display: flex; gap: 6px;">
+      <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
+    </div>
+    <div style="margin-left: auto; color: #ffffff; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
+    <div style="margin-left: 16px;">
+      <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body" style="display: flex; background-color: #ffffff;">
+    <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9
+    </div>
+    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zbasic_data.
 
 <span style="color: #005cc5; font-weight: bold;">DATA</span> gv_name <span style="color: #005cc5; font-weight: bold;">TYPE</span> string.
 <span style="color: #005cc5; font-weight: bold;">DATA</span> gv_age  <span style="color: #005cc5; font-weight: bold;">TYPE</span> i.
@@ -31,7 +48,10 @@
 gv_name = <span style="color: #22863a;">'JUN'</span>.
 gv_age  = <span style="color: #22863a;">20</span>.
 
-<span style="color: #005cc5; font-weight: bold;">WRITE</span>: / gv_name, gv_age.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">WRITE</span>: / gv_name, gv_age.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
   <ul>
     <li><code>gv_name</code>은 문자열을 담는 변수입니다.</li>
     <li><code>gv_age</code>는 정수를 담는 변수입니다.</li>
@@ -64,8 +84,28 @@ gv_age  = <span style="color: #22863a;">20</span>.
   <p>
     <span class="glossary-term" data-glossary="CONSTANTSStatement">CONSTANTS</span>는 실행 중에 바뀌지 않는 값을 선언합니다. 예를 들어 최대 재시도 횟수, 기본 통화, 고정 상태 코드처럼 프로그램 전체에서 같은 의미로 쓰는 값에 어울립니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">CONSTANTS</span> gc_max_retry <span style="color: #005cc5; font-weight: bold;">TYPE</span> i <span style="color: #005cc5; font-weight: bold;">VALUE</span> <span style="color: #22863a;">3</span>.
-<span style="color: #005cc5; font-weight: bold;">CONSTANTS</span> gc_currency  <span style="color: #005cc5; font-weight: bold;">TYPE</span> c LENGTH <span style="color: #22863a;">3</span> <span style="color: #005cc5; font-weight: bold;">VALUE</span> <span style="color: #22863a;">'KRW'</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #ffffff; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+  <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
+    <div style="display: flex; gap: 6px;">
+      <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
+    </div>
+    <div style="margin-left: auto; color: #ffffff; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
+    <div style="margin-left: 16px;">
+      <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body" style="display: flex; background-color: #ffffff;">
+    <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
+      1<br>2
+    </div>
+    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #005cc5; font-weight: bold;">CONSTANTS</span> gc_max_retry <span style="color: #005cc5; font-weight: bold;">TYPE</span> i <span style="color: #005cc5; font-weight: bold;">VALUE</span> <span style="color: #22863a;">3</span>.
+<span style="color: #005cc5; font-weight: bold;">CONSTANTS</span> gc_currency  <span style="color: #005cc5; font-weight: bold;">TYPE</span> c LENGTH <span style="color: #22863a;">3</span> <span style="color: #005cc5; font-weight: bold;">VALUE</span> <span style="color: #22863a;">'KRW'</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
   <ul>
     <li><code>gc_max_retry</code>는 최대 재시도 횟수입니다. 실행 중 값을 바꾸면 안 됩니다.</li>
     <li><code>gc_currency</code>는 기본 통화 코드입니다. 길이 3자리 문자로 고정했습니다.</li>
@@ -84,10 +124,30 @@ gv_age  = <span style="color: #22863a;">20</span>.
   <p>
     <span class="glossary-term" data-glossary="TYPESStatement">TYPES</span>는 값을 담는 변수를 만드는 것이 아니라, <strong>타입의 별명</strong>을 만듭니다. 같은 타입 모양을 여러 번 써야 할 때 유용합니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">TYPES</span> ty_carrid <span style="color: #005cc5; font-weight: bold;">TYPE</span> c LENGTH <span style="color: #22863a;">3</span>.
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #ffffff; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+  <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
+    <div style="display: flex; gap: 6px;">
+      <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
+    </div>
+    <div style="margin-left: auto; color: #ffffff; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
+    <div style="margin-left: 16px;">
+      <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body" style="display: flex; background-color: #ffffff;">
+    <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
+      1<br>2<br>3<br>4
+    </div>
+    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #005cc5; font-weight: bold;">TYPES</span> ty_carrid <span style="color: #005cc5; font-weight: bold;">TYPE</span> c LENGTH <span style="color: #22863a;">3</span>.
 
 <span style="color: #005cc5; font-weight: bold;">DATA</span> gv_from_carrier <span style="color: #005cc5; font-weight: bold;">TYPE</span> ty_carrid.
-<span style="color: #005cc5; font-weight: bold;">DATA</span> gv_to_carrier   <span style="color: #005cc5; font-weight: bold;">TYPE</span> ty_carrid.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">DATA</span> gv_to_carrier   <span style="color: #005cc5; font-weight: bold;">TYPE</span> ty_carrid.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
   <p>
     여기서 <code>ty_carrid</code> 자체가 값을 담는 변수는 아닙니다. “3자리 문자 타입을 앞으로 ty_carrid라고 부르자”라는 약속입니다. 그 약속을 사용해 <code>gv_from_carrier</code>, <code>gv_to_carrier</code> 변수를 같은 모양으로 만들 수 있습니다.
   </p>

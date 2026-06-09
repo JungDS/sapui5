@@ -18,14 +18,34 @@
 
 <section class="lesson-section">
   <h2>2. 메서드 호출 모양 ✍️</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code>go_grid-&gt;set_table_for_first_display(
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #ffffff; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+  <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
+    <div style="display: flex; gap: 6px;">
+      <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
+    </div>
+    <div style="margin-left: auto; color: #ffffff; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
+    <div style="margin-left: 16px;">
+      <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body" style="display: flex; background-color: #ffffff;">
+    <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8
+    </div>
+    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code>go_grid-&gt;set_table_for_first_display(
   <span style="color: #005cc5; font-weight: bold;">EXPORTING</span>
-    is_layout       = gs_layout       <span style="color: #888888; font-style: italic;">"표 외형</span>
-    is_variant      = gs_variant      <span style="color: #888888; font-style: italic;">"레이아웃 변형</span>
-    i_save          = <span style="color: #22863a;">'A'</span>             <span style="color: #888888; font-style: italic;">"변형 저장 허용</span>
+    is_layout       = gs_layout       <span style="color: #888888; font-style: italic;">"표 외형</span>
+    is_variant      = gs_variant      <span style="color: #888888; font-style: italic;">"레이아웃 변형</span>
+    i_save          = <span style="color: #22863a;">'A'</span>             <span style="color: #888888; font-style: italic;">"변형 저장 허용</span>
   <span style="color: #005cc5; font-weight: bold;">CHANGING</span>
-    it_outtab       = gt_outtab       <span style="color: #888888; font-style: italic;">"보여줄 데이터(필수)</span>
-    it_fieldcatalog = gt_fcat ).      <span style="color: #888888; font-style: italic;">"컬럼 설명서</span></code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+    it_outtab       = gt_outtab       <span style="color: #888888; font-style: italic;">"보여줄 데이터(필수)</span>
+    it_fieldcatalog = gt_fcat ).      <span style="color: #888888; font-style: italic;">"컬럼 설명서</span></code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
   <ul>
     <li><strong><span class="glossary-term" data-glossary="ItOuttab">it_outtab</span>:</strong> 화면에 그릴 데이터 테이블. <strong>필수</strong>이며 CHANGING으로 넘깁니다.</li>
     <li><strong><span class="glossary-term" data-glossary="ItFieldcatalog">it_fieldcatalog</span>:</strong> 컬럼 설명서(Field Catalog).</li>

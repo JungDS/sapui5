@@ -23,9 +23,29 @@
 
 <section class="lesson-section">
   <h2>2. LOOP AT / INTO / ENDLOOP 구조 보기 🔁</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> lt_students <span style="color: #005cc5; font-weight: bold;">INTO</span> ls_student.
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #ffffff; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+  <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
+    <div style="display: flex; gap: 6px;">
+      <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
+    </div>
+    <div style="margin-left: auto; color: #ffffff; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
+    <div style="margin-left: 16px;">
+      <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body" style="display: flex; background-color: #ffffff;">
+    <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
+      1<br>2<br>3
+    </div>
+    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> lt_students <span style="color: #005cc5; font-weight: bold;">INTO</span> ls_student.
   <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / ls_student-id, ls_student-name, ls_student-score.
-<span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
   <ul>
     <li><span class="glossary-term" data-glossary="LOOPATStatement">LOOP AT</span>: Internal Table을 처음 줄부터 마지막 줄까지 반복합니다.</li>
     <li><span class="glossary-term" data-glossary="INTOClause">INTO</span>: 현재 줄의 값을 Work Area로 복사합니다.</li>
@@ -39,7 +59,24 @@
 
 <section class="lesson-section">
   <h2>3. 전체 예제로 출력 순서 확인하기 ✍️</h2>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zloop_at_basic.
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #ffffff; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+  <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
+    <div style="display: flex; gap: 6px;">
+      <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
+    </div>
+    <div style="margin-left: auto; color: #ffffff; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
+    <div style="margin-left: 16px;">
+      <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body" style="display: flex; background-color: #ffffff;">
+    <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25
+    </div>
+    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zloop_at_basic.
 
 <span style="color: #005cc5; font-weight: bold;">TYPES</span>: <span style="color: #005cc5; font-weight: bold;">BEGIN</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student,
          id    <span style="color: #005cc5; font-weight: bold;">TYPE</span> char3,
@@ -63,7 +100,10 @@ ls_student-score = <span style="color: #22863a;">85</span>.
 
 <span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> lt_students <span style="color: #005cc5; font-weight: bold;">INTO</span> ls_student.
   <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / ls_student-id, ls_student-name, ls_student-score.
-<span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
   <p>
     이 프로그램은 두 줄을 추가한 뒤, 추가된 순서대로 출력합니다. STANDARD TABLE은 기본적으로 들어간 순서를 유지하므로, 별도 정렬을 하지 않았다면 APPEND한 순서대로 LOOP가 돕니다.
   </p>
@@ -74,13 +114,33 @@ ls_student-score = <span style="color: #22863a;">85</span>.
   <p>
     LOOP 안쪽 코드에서는 Internal Table 전체가 아니라 “지금 Work Area에 들어온 한 줄”을 처리한다고 생각하면 쉽습니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> lt_students <span style="color: #005cc5; font-weight: bold;">INTO</span> ls_student.
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #ffffff; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+  <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
+    <div style="display: flex; gap: 6px;">
+      <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
+    </div>
+    <div style="margin-left: auto; color: #ffffff; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
+    <div style="margin-left: 16px;">
+      <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body" style="display: flex; background-color: #ffffff;">
+    <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
+      1<br>2<br>3<br>4<br>5<br>6<br>7
+    </div>
+    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> lt_students <span style="color: #005cc5; font-weight: bold;">INTO</span> ls_student.
   <span style="color: #005cc5; font-weight: bold;">IF</span> ls_student-score &gt;= <span style="color: #22863a;">90</span>.
     <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / ls_student-name, <span style="color: #22863a;">'우수'</span>.
   <span style="color: #005cc5; font-weight: bold;">ELSE</span>.
     <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / ls_student-name, <span style="color: #22863a;">'보통'</span>.
   <span style="color: #005cc5; font-weight: bold;">ENDIF</span>.
-<span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
   <p>
     위 예제는 각 학생의 점수를 보고 문구를 다르게 출력합니다. 아직 Internal Table을 수정하는 것은 아니고, 한 줄씩 읽어서 조건에 따라 출력만 하는 흐름입니다.
   </p>

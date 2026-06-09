@@ -278,4 +278,32 @@
       renderError(error.message);
     });
 
+  // Event delegation for shiki-copy-button
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.shiki-copy-button');
+    if (!btn) return;
+
+    var wrapper = btn.closest('.shiki-copy-wrapper');
+    if (!wrapper) return;
+
+    var codeEl = wrapper.querySelector('code');
+    if (!codeEl) return;
+
+    var textToCopy = codeEl.innerText;
+    navigator.clipboard.writeText(textToCopy).then(function() {
+      var originalText = btn.textContent;
+      btn.textContent = '✓ Copied!';
+      btn.style.color = '#27c93f';
+      btn.style.borderColor = '#27c93f';
+      
+      setTimeout(function() {
+        btn.textContent = originalText;
+        btn.style.color = '';
+        btn.style.borderColor = '';
+      }, 2000);
+    }).catch(function(err) {
+      console.error('Failed to copy text: ', err);
+    });
+  });
+
 })();

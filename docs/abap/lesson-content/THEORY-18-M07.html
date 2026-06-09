@@ -20,18 +20,38 @@
 
 <section class="lesson-section">
   <h2>2. 상속 — 물려받기 ✍️</h2>
-  <pre><code>" 부모 클래스
-CLASS zcl_employee DEFINITION PUBLIC.
-  PUBLIC SECTION.
-    METHODS work.
-ENDCLASS.
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #ffffff; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+  <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
+    <div style="display: flex; gap: 6px;">
+      <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
+    </div>
+    <div style="margin-left: auto; color: #ffffff; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
+    <div style="margin-left: 16px;">
+      <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body" style="display: flex; background-color: #ffffff;">
+    <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12
+    </div>
+    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #888888; font-style: italic;">" 부모 클래스</span>
+<span style="color: #005cc5; font-weight: bold;">CLASS</span> zcl_employee DEFINITION <span style="color: #005cc5; font-weight: bold;">PUBLIC</span>.
+  <span style="color: #005cc5; font-weight: bold;">PUBLIC</span> <span style="color: #005cc5; font-weight: bold;">SECTION</span>.
+    <span style="color: #005cc5; font-weight: bold;">METHODS</span> work.
+<span style="color: #005cc5; font-weight: bold;">ENDCLASS</span>.
 
-" 자식 클래스 — 부모를 물려받음
-CLASS zcl_manager DEFINITION PUBLIC
-  INHERITING FROM zcl_employee.        "상속
-  PUBLIC SECTION.
-    METHODS approve.                   "관리자만의 새 기능
-ENDCLASS.</code></pre>
+<span style="color: #888888; font-style: italic;">" 자식 클래스 — 부모를 물려받음</span>
+<span style="color: #005cc5; font-weight: bold;">CLASS</span> zcl_manager DEFINITION <span style="color: #005cc5; font-weight: bold;">PUBLIC</span>
+  INHERITING <span style="color: #005cc5; font-weight: bold;">FROM</span> zcl_employee.        <span style="color: #888888; font-style: italic;">"상속</span>
+  <span style="color: #005cc5; font-weight: bold;">PUBLIC</span> <span style="color: #005cc5; font-weight: bold;">SECTION</span>.
+    <span style="color: #005cc5; font-weight: bold;">METHODS</span> approve.                   <span style="color: #888888; font-style: italic;">"관리자만의 새 기능</span>
+<span style="color: #005cc5; font-weight: bold;">ENDCLASS</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
   <p><code>zcl_manager</code>는 <code>work( )</code>를 따로 안 적어도 부모에게서 물려받아 쓸 수 있고, <code>approve( )</code>만 추가하면 됩니다.</p>
   <div class="lesson-callout">
     <div class="lesson-callout-icon">💡</div>
@@ -47,11 +67,31 @@ ENDCLASS.</code></pre>
   <p>
     물려받은 메서드의 동작을 자식에서 다르게 하고 싶으면 <span class="glossary-term" data-glossary="Redefinition">재정의(REDEFINITION)</span>합니다.
   </p>
-  <pre><code>CLASS zcl_manager DEFINITION PUBLIC
-  INHERITING FROM zcl_employee.
-  PUBLIC SECTION.
-    METHODS work REDEFINITION.    "부모의 work를 다르게 구현
-ENDCLASS.</code></pre>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #ffffff; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+  <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
+    <div style="display: flex; gap: 6px;">
+      <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
+    </div>
+    <div style="margin-left: auto; color: #ffffff; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
+    <div style="margin-left: 16px;">
+      <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body" style="display: flex; background-color: #ffffff;">
+    <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
+      1<br>2<br>3<br>4<br>5
+    </div>
+    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #005cc5; font-weight: bold;">CLASS</span> zcl_manager DEFINITION <span style="color: #005cc5; font-weight: bold;">PUBLIC</span>
+  INHERITING <span style="color: #005cc5; font-weight: bold;">FROM</span> zcl_employee.
+  <span style="color: #005cc5; font-weight: bold;">PUBLIC</span> <span style="color: #005cc5; font-weight: bold;">SECTION</span>.
+    <span style="color: #005cc5; font-weight: bold;">METHODS</span> work REDEFINITION.    <span style="color: #888888; font-style: italic;">"부모의 work를 다르게 구현</span>
+<span style="color: #005cc5; font-weight: bold;">ENDCLASS</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
   <p>재정의 안에서 <code>super-&gt;work( )</code>로 부모 동작을 부른 뒤 추가 작업을 더할 수도 있습니다("부모 것 + 내 것").</p>
 </section>
 

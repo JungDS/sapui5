@@ -26,13 +26,33 @@
   <p>
     <span class="glossary-term" data-glossary="StaticMethod">Static Method</span>는 객체를 만들지 않고 Class 이름으로 바로 호출할 수 있는 Method입니다. 보통 상태를 오래 들고 있지 않는 계산, 변환, 유틸리티 기능에 어울립니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">DATA</span> gv_text <span style="color: #005cc5; font-weight: bold;">TYPE</span> string.
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #ffffff; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+  <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
+    <div style="display: flex; gap: 6px;">
+      <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
+    </div>
+    <div style="margin-left: auto; color: #ffffff; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
+    <div style="margin-left: 16px;">
+      <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body" style="display: flex; background-color: #ffffff;">
+    <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
+      1<br>2<br>3<br>4<br>5<br>6<br>7
+    </div>
+    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #005cc5; font-weight: bold;">DATA</span> gv_text <span style="color: #005cc5; font-weight: bold;">TYPE</span> string.
 
 gv_text = zcl_demo_text=&gt;build_greeting(
   iv_name = <span style="color: #22863a;">'ABAP'</span>
 ).
 
-<span style="color: #005cc5; font-weight: bold;">WRITE</span> gv_text.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">WRITE</span> gv_text.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
   <p>
     위 예제는 <code>ZCL_DEMO_TEXT</code>라는 커스텀 Global Class에 <code>BUILD_GREETING</code> Static Method가 있다고 가정한 코드입니다. <code>=&gt;</code> 기호는 Static Method나 Static Attribute에 접근할 때 사용합니다.
   </p>
@@ -50,13 +70,33 @@ gv_text = zcl_demo_text=&gt;build_greeting(
   <p>
     <span class="glossary-term" data-glossary="InstanceMethod">Instance Method</span>는 객체를 먼저 만든 뒤 호출하는 Method입니다. 객체마다 상태를 가질 수 있거나, 생성 과정을 거쳐야 하는 기능에 어울립니다.
   </p>
-  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">DATA</span> lo_checker <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #005cc5; font-weight: bold;">REF</span> <span style="color: #005cc5; font-weight: bold;">TO</span> zcl_demo_checker.
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #ffffff; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+  <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
+    <div style="display: flex; gap: 6px;">
+      <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
+    </div>
+    <div style="margin-left: auto; color: #ffffff; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
+    <div style="margin-left: 16px;">
+      <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body" style="display: flex; background-color: #ffffff;">
+    <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
+      1<br>2<br>3<br>4<br>5<br>6<br>7
+    </div>
+    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #005cc5; font-weight: bold;">DATA</span> lo_checker <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #005cc5; font-weight: bold;">REF</span> <span style="color: #005cc5; font-weight: bold;">TO</span> zcl_demo_checker.
 
 lo_checker = NEW zcl_demo_checker( ).
 
 lo_checker-&gt;check_input(
   iv_value = <span style="color: #22863a;">'KE'</span>
-).</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+).</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
   <p>
     여기서는 <code>NEW zcl_demo_checker( )</code>로 객체를 만들고, <code>lo_checker-&gt;check_input( )</code>으로 Instance Method를 호출합니다. <code>-&gt;</code> 기호는 객체 참조를 통해 Method를 호출할 때 사용합니다.
   </p>
