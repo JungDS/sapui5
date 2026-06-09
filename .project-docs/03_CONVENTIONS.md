@@ -45,22 +45,27 @@
 | 구조 전면 개편 | major: 4.x → 5.0 |
 
 ## 4) Archive 규칙
-**원칙: 모든 콘텐츠·코드 파일(`*.html`·`*.css`·`*.js`·`*.mjs`)은 수정/삭제 시 직전 원본을 archive에 보존한다.**
-이 원칙은 git pre-commit 훅으로 **자동 강제**되며(아래), 사람·Claude·타 AI 모든 커밋에 동일하게 적용된다.
+**원칙: 과거 버전의 영구 이력은 git이 SSOT다.** 별도 누적 archive는 두지 않는다(git과 중복이므로).
+archive의 목적별 정리:
+1. **AI 실수 복원** → `git restore` / `git checkout <rev> -- <path>` / reflog. (archive 불필요)
+2. **과거 기록 분석**(다른 AI 모델 투입 시) → `git log` / `git show <rev>:<path>` / `git diff`. (archive 불필요)
+3. **커밋 전 작업 중 복원**(잦은 편집 되돌리기) → git이 못 잡는 유일한 영역. 아래 로컬 스냅샷으로 보완.
 
-### 4-1. 자동 archive (강제) — `archive/auto/`
-- 수단: `.githooks/pre-commit` 훅. 활성화는 클론마다 1회 `git config core.hooksPath .githooks` ([.githooks/README.md](../.githooks/README.md)).
-- 동작: 커밋 시 수정(M)·이름변경(R)·삭제(D)되는 대상 확장자 파일의 **직전(HEAD) 버전**을
-  `archive/auto/<원본경로>/<파일명>__<YYYYMMDD-HHMMSS>.<ext>`로 자동 복사해 같은 커밋에 포함.
-- **우회 금지**: `git commit --no-verify`로 건너뛰지 않는다. 신규(Added) 파일은 직전 버전이 없어 제외.
+### 4-1. 로컬 pre-edit 스냅샷 (3번 전용, 비추적)
+- 수단: Claude **PreToolUse 훅** `.claude/hooks/snapshot-before-edit.mjs` (`.claude/settings.json`에 등록).
+- 동작: Edit/Write **직전**에 디스크 원본을 `archive/_local/<원본경로>/<파일명>/<yyyymmdd>_<hhmmss>.<ext>`로 복사.
+- 저장 위치 `archive/_local/`은 **`.gitignore` 대상**(로컬 전용, 저장소·이력 미오염). `.githooks/post-commit`이 **커밋마다 초기화**.
+- 타임스탬프 = **수정 전 원본의 시각**: `.html`은 `data-doc-updated-at`, `.css/.js/.mjs`는 첫 줄 헤더의 `최종수정 YYYY-MM-DD HH:MM`,
+  둘 다 없으면 파일 mtime으로 fallback. (css/js 헤더는 분 단위 → 초는 `00`)
+- 한계: PreToolUse는 **Claude 편집만** 커버(타 AI/수동 편집·git 외부 변경은 미적용). 영구 복원은 항상 git을 신뢰.
 
-### 4-2. 수동 버전 archive (큐레이션) — 운영 HTML
-- 형식: `archive/docs/<category>/<doc-id>/<YYYYMMDD>_<hhmmss>_v<version>.html`
-- 타임스탬프 출처: 운영본의 `data-doc-updated-at` (archive 생성 시각 아님). TZ: KST(+09:00).
-- 운영본 **버전 승격(minor/major) 시** 의도된 스냅샷으로 만든다. 4-1 자동 안전망이 있어도 생략하지 않는다.
+### 4-2. 수동 버전 archive (선택, 큐레이션) — 운영 HTML
+- 운영본 **버전 승격(minor/major) 시** 브라우저로 바로 열어볼 수 있는 스냅샷이 필요하면 만든다(선택).
+- 형식: `archive/docs/<category>/<doc-id>/<YYYYMMDD>_<hhmmss>_v<version>.html`, 타임스탬프는 `data-doc-updated-at`(KST).
+- 이건 git 이력과 별개로 **사람이 의도적으로 보존**하는 큐레이션본이며 추적 대상(committed)이다.
 
 ### 4-3. 공통
-- archive 파일은 **절대 수정하지 않는다.** (`archive/`는 읽기 전용 — 훅 대상에서도 제외)
+- `archive/` 의 추적된(committed) 파일은 **절대 수정하지 않는다**(읽기 전용). 스냅샷 훅도 `archive/`는 제외.
 - 내부 운영 문서(.project-docs 등)·자산 **일괄 정리/이동**은 `archive/<영역>/<YYYYMMDD>/` 형태로 보존.
 
 ## 5) 신규 문서 체크리스트

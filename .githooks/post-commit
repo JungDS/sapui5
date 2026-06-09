@@ -1,0 +1,7 @@
+#!/bin/sh
+# .githooks/post-commit
+# 커밋이 끝나면 로컬 pre-edit 스냅샷(archive/_local/)을 비운다.
+# 근거: .project-docs/03_CONVENTIONS.md §4 — 3번(커밋 전 복원) 안전망은 커밋마다 초기화.
+# (영구 이력은 git이 보관하므로 커밋 후 스냅샷은 불필요.)
+rm -rf archive/_local 2>/dev/null || true
+exit 0

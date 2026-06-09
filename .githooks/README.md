@@ -7,19 +7,17 @@ git config core.hooksPath .githooks
 ```
 
 > `core.hooksPath`는 로컬 설정이라 클론마다 1회 지정이 필요하다(git 보안 정책상 자동 적용은 불가).
-> 새 작업 환경/새 AI 세션을 시작할 때 가장 먼저 위 명령을 실행할 것.
 
-## pre-commit — 수정 파일 자동 archive
+## archive 정책 (요약)
 
-수정·이름변경·삭제되는 `*.html` `*.css` `*.js` `*.mjs` 파일의 **직전(HEAD) 버전**을
-`archive/auto/<원본경로>/<파일명>__<YYYYMMDD-HHMMSS>.<ext>` 로 자동 복사해 같은 커밋에 포함한다.
+과거 버전의 **영구 이력은 git이 담당**한다(`git restore` / `git show <rev>:<path>` / `git log`).
+별도 누적 archive는 두지 않는다(git과 중복이므로).
 
-- 근거 규칙: [`.project-docs/03_CONVENTIONS.md` §4](../.project-docs/03_CONVENTIONS.md)
-- **우회 금지**: `git commit --no-verify`로 건너뛰지 말 것.
-- 신규(Added) 파일은 직전 버전이 없으므로 보관하지 않는다.
-- `archive/` 자체는 읽기 전용이라 제외된다.
+유일한 예외는 **커밋 전 작업 중 복원**(잦은 편집 되돌리기)이다. 이건 git이 못 잡으므로
+**로컬 pre-edit 스냅샷**으로 보완한다 — `.gitignore`된 `archive/_local/`에만 쌓이고 저장소/이력을 오염시키지 않는다.
 
-### 수동 버전 archive와의 관계
-- `archive/auto/` = 모든 커밋 단위의 **자동 안전망**(타임스탬프 기준).
-- `archive/docs/<category>/<doc-id>/<...>_v<version>.html` = 운영 HTML **버전 승격 시의 큐레이션 스냅샷**(§4, `data-doc-updated-at` 기준).
-- 둘은 공존한다. 자동 안전망이 있다고 해서 운영본 버전 archive를 생략하지 않는다.
+- **수정 직전 스냅샷**: Claude의 PreToolUse 훅(`.claude/hooks/snapshot-before-edit.mjs`)이 Edit/Write 직전 원본을
+  `archive/_local/<원본경로>/<파일명>/<yyyymmdd>_<hhmmss>.<ext>`로 복사. (타 AI/수동 편집은 미적용.)
+- **post-commit**: 커밋이 끝나면 `archive/_local/`을 비운다(커밋마다 초기화).
+
+자세한 규칙: [`.project-docs/03_CONVENTIONS.md` §4](../.project-docs/03_CONVENTIONS.md)
