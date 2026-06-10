@@ -3249,5 +3249,135 @@
     ],
     "design_theme": "code",
     "html_content": ""
+  },
+  "DDLSource": {
+    "title": "DDL Source",
+    "desc": "CDS View를 정의하는 텍스트 소스 코드입니다. 화면 클릭 대신 코드로 작성해 버전 관리·이관이 쉽습니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 가구를 손으로 배치하는 대신 '설계 도면(코드)'으로 정의하는 것과 같아요. 도면은 복사·수정·공유가 쉽죠.",
+    "used_in_lessons": [
+      "THEORY-20-M01"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "DefineViewEntity": {
+    "title": "define view entity",
+    "desc": "CDS View Entity를 선언하는 최신 키워드입니다. 옛 define view보다 깔끔하며 ABAP Cloud 표준입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: '새 양식 만들기' 버튼의 최신 버전이에요. 옛 버튼 대신 이걸 씁니다.",
+    "used_in_lessons": [
+      "THEORY-20-M01"
+    ],
+    "design_theme": "code",
+    "html_content": "<p>신규는 옛 define view가 아닌 view entity로 만듭니다.</p>"
+  },
+  "InterfaceView": {
+    "title": "Interface View (ZI_)",
+    "desc": "JOIN·계산·Association을 담는 재사용 가능한 CDS 데이터 기반 층입니다. 여러 곳에서 공유합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 가공을 끝낸 '원자재 창고'예요. 여러 매장(화면)이 이 창고를 공유합니다.",
+    "used_in_lessons": [
+      "THEORY-20-M02"
+    ],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "ProjectionViewCDS": {
+    "title": "Projection View (ZC_)",
+    "desc": "특정 화면/서비스를 위해 Interface View에서 필요한 필드만 골라 UI 주석을 입힌 소비용 CDS 층입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 원자재 창고에서 이 매장에 맞게 '진열한 매대'예요. 화면마다 다르게 꾸밀 수 있죠.",
+    "used_in_lessons": [
+      "THEORY-20-M02"
+    ],
+    "design_theme": "primary",
+    "html_content": "<p>as projection on으로 Interface를 투영합니다.</p>"
+  },
+  "CdsAssociation": {
+    "title": "Association",
+    "desc": "CDS에서 View 간 관계를 정의하되, 실제로 필요할 때만 따라가는 유연한 연결입니다. JOIN과 달리 항상 합치지 않습니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 전화번호부의 단축번호 같아요. 평소엔 안 걸어도 되고 필요할 때만 그 번호로 연결합니다.",
+    "used_in_lessons": [
+      "THEORY-20-M03"
+    ],
+    "design_theme": "primary",
+    "html_content": "<p>카디널리티([1..1]/[0..*])는 실제 관계대로 정확히 적습니다.</p>"
+  },
+  "CdsAnnotation": {
+    "title": "Annotation (@)",
+    "desc": "CDS 필드·뷰에 의미를 입히는 @로 시작하는 주석입니다. 라벨·금액·수량·화면배치 등을 코드로 부여합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 상품에 붙이는 라벨이에요. '우유, 1L, 냉장보관'처럼 의미를 달면 매장(화면)이 알아서 처리하죠.",
+    "used_in_lessons": [
+      "THEORY-20-M04"
+    ],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "Semantics": {
+    "title": "의미 (Semantics)",
+    "desc": "값이 업무적으로 무엇인지(금액·수량·통화 등)에 대한 정보입니다. CDS에서는 @Semantics 주석으로 부여합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 숫자 100이 '돈 100원'인지 '100개'인지 알려주는 꼬리표예요.",
+    "used_in_lessons": [
+      "THEORY-20-M04"
+    ],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "EndUserTextLabel": {
+    "title": "@EndUserText.label",
+    "desc": "CDS 필드의 화면 표시 라벨을 지정하는 Annotation입니다. DDIC 필드 라벨과 같은 역할을 합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 입력 칸 위에 붙는 '요금' 같은 안내 글자를 코드로 정하는 거예요.",
+    "used_in_lessons": [
+      "THEORY-20-M04"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "SemanticsAnnotation": {
+    "title": "@Semantics (금액/수량)",
+    "desc": "값의 의미를 지정하는 Annotation입니다. 금액은 통화 필드를, 수량은 단위 필드를 짝지어 화면이 형식을 올바르게 처리하게 합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: '이건 금액이고 통화는 옆 칸'이라고 짝지어 알려주는 라벨이에요. 짝이 있어야 합계·변환이 맞죠.",
+    "used_in_lessons": [
+      "THEORY-20-M04"
+    ],
+    "design_theme": "warn",
+    "html_content": "<p>금액·수량은 통화·단위 짝 지정을 빠뜨리면 화면 형식이 깨집니다.</p>"
+  },
+  "MetadataExtension": {
+    "title": "Metadata Extension (MDE)",
+    "desc": "CDS의 UI 주석을 본문 View에서 떼어 별도 파일로 관리하는 객체입니다. View 본문을 데이터에 집중하게 합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 기본 옷(데이터)은 그대로 두고 액세서리(화면 꾸밈)만 따로 관리하는 것과 같아요.",
+    "used_in_lessons": [
+      "THEORY-20-M05"
+    ],
+    "design_theme": "primary",
+    "html_content": "<p>annotate entity ... with 로 기존 View에 주석을 덧붙입니다.</p>"
+  },
+  "MetadataLayer": {
+    "title": "@Metadata.layer",
+    "desc": "MDE 주석이 적용되는 계층(#CORE/#INDUSTRY/#CUSTOMER 등)입니다. 여러 층이 겹쳐도 우선순위로 정리됩니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 같은 옷에 여러 액세서리를 층층이 코디할 때, 어느 것이 위에 오는지 정하는 순서예요.",
+    "used_in_lessons": [
+      "THEORY-20-M05"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "DCL": {
+    "title": "DCL (Data Control Language)",
+    "desc": "CDS View 조회 시 행 단위로 권한 필터를 거는 권한 규칙 언어입니다. DDL이 구조라면 DCL은 권한입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 건물 자동 출입 통제예요. 출입증(권한)으로 들어갈 수 있는 층만 자동으로 열립니다.",
+    "used_in_lessons": [
+      "THEORY-20-M06"
+    ],
+    "design_theme": "warn",
+    "html_content": ""
+  },
+  "AccessControl": {
+    "title": "Access Control (권한 검사)",
+    "desc": "CDS에 권한 검사를 켜는 설정(@AccessControl.authorizationCheck)과 DCL role로 정의하는 행 단위 접근 제어입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 조회하면 내 권한에 맞는 데이터만 자동으로 걸러져 보이는 장치예요. MANDT의 권한 버전 같은 거죠.",
+    "used_in_lessons": [
+      "THEORY-20-M06"
+    ],
+    "design_theme": "warn",
+    "html_content": "<p>운영 데이터는 #CHECK로 검사를 기본 켜고 신중히 설계합니다.</p>"
   }
 }

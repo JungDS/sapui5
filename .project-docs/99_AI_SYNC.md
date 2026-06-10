@@ -15,7 +15,7 @@
 ---
 
 ## 현재 상태 및 목표 (Current Status & Goals)
-- **현재 목표**: Track 1(THEORY-*) Lesson 본문 작성. 총 137개 중 **123개(THEORY-01~THEORY-19) 작성 완료. 14개 남음(THEORY-20~21)**.
+- **현재 목표**: Track 1(THEORY-*) Lesson 본문 작성. 총 137개 중 **129개(THEORY-01~THEORY-20) 작성 완료. 8개 남음(THEORY-21)**.
 - **최근 진행(2026-06-09, Claude Opus 4.8)**: Codex 미커밋 THEORY-10 보존 후 **THEORY-11~17 신규 작성**(JOIN과 집계 / Classic DDIC View / Report Event 심화 / Dynpro 기초 / Grid ALV 기초 / Modern ABAP Syntax / New Open SQL). Codex 톤·구조 계승. 글로서리 +111종(섹션별 완전 패리티), 매 섹션 미정의 0건 검증. 추적 3종 동시 갱신.
 - **⚠️ 동시 작업 주의**: Gemini(Antigravity)가 같은 작업트리에서 THEORY-01~10 고도화(Chapter/Lesson 명칭·Shiki 복사버튼) 병행 중. 콘텐츠 범위는 안 겹치나(나는 11~21) 공유 문서/`git add -A`로 인한 커밋 혼입 주의. 신규 Lesson도 Chapter/Lesson 용어 사용.
 - **⚠️ 인계 핵심 문서**: 이어서 작업할 AI는 **[HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md)를 가장 먼저 정독**할 것. 작성 규칙·스타일 기준·복붙용 프롬프트가 모두 거기 있음.
@@ -23,7 +23,7 @@
 ---
 
 ## 미결 사항 (Pending Issues / Next Steps)
-- **Lesson 본문 양산**: 다음은 **THEORY-20 ~ THEORY-21 (14개)**. 현재 확정된 10·20대 초심자 친화적 스타일과 "한눈에 정리" 마무리 방식을 그대로 적용한다. Track 2(PRACTICAL-*)는 그 다음.
+- **Lesson 본문 양산**: 다음은 **THEORY-21 (8개) — Track 1 마지막 섹션**. 현재 확정된 10·20대 초심자 친화적 스타일과 "한눈에 정리" 마무리 방식을 그대로 적용한다. Track 2(PRACTICAL-*)는 그 다음.
 - **[조율] 신규 19~21 코드블록 서식**: Claude가 작성한 THEORY-19~21은 표준 `<pre><code>`로 작성됨. 완성 후 Antigravity의 네이비 ABAP Editor 멱등 포맷터(`archive/_local/format_abap_code.mjs`)를 한 번 돌려 서식 통일 필요.
 - **[프로세스] 섹션 작성 후 추적 3종 동시 갱신**: 섹션 커밋 시 ① `HANDOFF_LESSON_CONTENT.md` 진행표 ② 본 파일(99_AI_SYNC) 작업이력/현황 ③ `changelogs/CHANGELOG_<날짜>.md`를 함께 갱신할 것(누락 주의).
 - **글로서리 완전 패리티**: Lesson에서 쓰는 주요 용어는 `reference/abap_glossary.json`에 반드시 함께 등록(일상 비유 포함). 미등록 용어는 툴팁이 안 뜸(깨진 링크).
@@ -206,3 +206,11 @@
   - ⚠️ 본문 코드블록은 표준 `<pre><code>`로 작성됨 → Antigravity 네이비 Editor 포맷터 1회 적용 필요.
 - **수정 파일**: `docs/abap/lesson-content/THEORY-19-M01~M07.html`, `reference/abap_glossary.json`, `HANDOFF_LESSON_CONTENT.md`, `99_AI_SYNC.md`, `changelogs/CHANGELOG_20260609.md`
 - **다음 AI를 위한 메모**: 다음 섹션은 THEORY-20 `CDS View Entity 기초`(M01~M06).
+
+### [2026-06-10] Claude (Opus 4.8) — THEORY-20 신규
+- **작업 내용**: THEORY-20 CDS View Entity 기초(M01~M06) 신규 작성.
+  - View Entity 기본 구조(DDL), Interface(ZI_)/Projection(ZC_) 2계층, Association, Annotation(@Semantics/@UI/@EndUserText), Metadata Extension, DCL/Access Control.
+  - 글로서리 +13종(총 332). 미정의 0건 검증.
+  - ⚠️ 코드블록 표준 `<pre><code>` → 네이비 Editor 포맷터 1회 적용 필요.
+- **수정 파일**: `docs/abap/lesson-content/THEORY-20-M01~M06.html`, `reference/abap_glossary.json`, `HANDOFF_LESSON_CONTENT.md`, `99_AI_SYNC.md`, `changelogs/CHANGELOG_20260609.md`
+- **다음 AI를 위한 메모**: 다음 섹션은 THEORY-21 `RAP / ABAP Cloud 입문`(M01~M08) — **Track 1 마지막 섹션**.

@@ -1,0 +1,92 @@
+<!-- lesson-content/THEORY-20-M05.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>UI 주석을 본문 View에서 떼어 별도 파일로 관리하는 <span class="glossary-term" data-glossary="MetadataExtension">Metadata Extension(MDE)</span>을 배웁니다. View 본문을 깔끔하게 유지하면서 화면 꾸밈을 분리하는 이유를 익힙니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 주석이 너무 많아 지저분해졌다 🧹</h2>
+  <p>
+    앞 Lesson에서 <code>@UI</code> 주석으로 화면 배치까지 지정했습니다. 그런데 컬럼이 많아지면 View 안이 주석으로 가득 차, 정작 <strong>데이터 정의가 안 보이게</strong> 됩니다. 게다가 같은 View를 화면마다 다르게 꾸미고 싶을 때도 곤란하죠.
+  </p>
+  <p>그래서 UI 주석을 <strong>별도 파일로 분리</strong>하는 것이 <span class="glossary-term" data-glossary="MetadataExtension">Metadata Extension</span>입니다.</p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. MDE로 주석 분리 ✍️</h2>
+  <pre><code>" 본문 View는 데이터에 집중 (UI 주석 없음)
+" 별도 MDE 파일에서 화면 주석만 관리:
+@Metadata.layer: #CORE
+annotate entity ZC_Flight with
+{
+  @UI.lineItem: [{ position: 10 }]
+  carrid;
+
+  @UI.lineItem: [{ position: 20 }]
+  @EndUserText.label: '요금'
+  price;
+}</code></pre>
+  <ul>
+    <li><strong>annotate entity ... with:</strong> 기존 View에 주석만 "덧붙이는" 별도 객체.</li>
+    <li><strong><span class="glossary-term" data-glossary="MetadataLayer">@Metadata.layer</span>:</strong> 주석 적용 계층(#CORE, #INDUSTRY, #CUSTOMER…). 여러 층이 겹쳐도 우선순위로 정리됨.</li>
+  </ul>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>비유: 옷과 액세서리 분리</h4>
+      <p>View 본문이 기본 옷이라면, MDE는 그날그날 바꿔 다는 액세서리예요. 옷(데이터 모델)은 그대로 두고 액세서리(화면 꾸밈)만 따로 관리하니, 옷장이 깔끔하고 코디(화면)를 자유롭게 바꿀 수 있죠.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 분리의 이점 🔑</h2>
+  <ul>
+    <li>✅ <strong>가독성:</strong> View 본문은 데이터 정의에 집중, 주석은 MDE에.</li>
+    <li>✅ <strong>유연성:</strong> 같은 View에 여러 MDE를 계층(layer)으로 적용 가능.</li>
+    <li>✅ <strong>유지보수:</strong> 화면 꾸밈 변경이 데이터 모델을 건드리지 않음.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <ul>
+    <li>✅ <strong>정상:</strong> 데이터는 View, 화면 주석은 MDE → 깔끔한 분리.</li>
+    <li>❌ <strong>오류 1:</strong> 같은 주석을 View 본문과 MDE에 중복 → 충돌·혼란. 한 곳에서만 관리.</li>
+    <li>❌ <strong>오류 2:</strong> layer 우선순위를 모르고 여러 MDE를 얹어 예상과 다른 주석이 적용됨.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>"데이터 의미"와 "화면 꾸밈"의 경계</h4>
+      <p>금액·수량 같은 <strong>데이터 의미(@Semantics)</strong>는 본문 View(특히 Interface)에 두는 게 맞고, 컬럼 배치·라벨 같은 <strong>화면 꾸밈(@UI)</strong>은 MDE로 분리하는 것이 일반적입니다. 둘의 경계가 처음엔 헷갈리지만, "이게 데이터 자체의 성질인가, 특정 화면의 표현인가?"를 기준으로 판단하면 됩니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li><strong>Metadata Extension(MDE)</strong>은 UI 주석을 별도 파일로 분리합니다.</li>
+        <li><code>annotate entity ... with { ... }</code>로 기존 View에 주석을 덧붙입니다.</li>
+        <li><strong>@Metadata.layer</strong>로 주석 계층·우선순위를 관리합니다.</li>
+        <li>데이터 의미는 본문에, 화면 꾸밈은 MDE에 — 경계를 지킵니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    데이터·관계·의미·화면 주석까지 다뤘습니다. 마지막으로 "누가 이 데이터를 볼 수 있는가"를 봅니다. 다음 Lesson <strong>DCL / Authorization 개요</strong>에서 이 Chapter를 마무리합니다.
+  </p>
+</section>

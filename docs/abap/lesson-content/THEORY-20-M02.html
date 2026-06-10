@@ -1,0 +1,90 @@
+<!-- lesson-content/THEORY-20-M02.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>CDS를 계층으로 나누는 핵심 패턴 — 재사용 기반인 <span class="glossary-term" data-glossary="InterfaceView">Interface View(ZI_)</span>와 화면용인 <span class="glossary-term" data-glossary="ProjectionViewCDS">Projection View(ZC_)</span>의 구분을 배웁니다. 왜 한 덩어리로 안 만들고 나누는지 익힙니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: View 하나로 다 하면 안 될까? 🤔</h2>
+  <p>
+    앞에서 만든 <code>ZI_Flight</code> 하나로 모든 화면·프로그램이 쓰면 될 것 같지만, 문제가 생깁니다. 화면용 꾸밈(UI 주석)과 순수 데이터 모델이 한 곳에 섞이면, 재사용하기도 어렵고 화면마다 요구가 충돌합니다.
+  </p>
+  <p>그래서 CDS는 보통 <strong>2계층</strong>으로 나눕니다: 데이터 기반(Interface) + 소비용(Projection).</p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. 두 계층의 역할 ✍️</h2>
+  <ul>
+    <li><strong><span class="glossary-term" data-glossary="InterfaceView">Interface View (ZI_)</span>:</strong> 순수 데이터 모델. JOIN·계산·Association을 담는 <strong>재사용 가능한 기반</strong>. 여러 곳에서 공유.</li>
+    <li><strong><span class="glossary-term" data-glossary="ProjectionViewCDS">Projection View (ZC_)</span>:</strong> 특정 화면/서비스를 위한 <strong>소비용 층</strong>. Interface에서 필요한 필드만 골라 UI 주석을 입힘.</li>
+  </ul>
+  <pre><code>" 소비용 Projection View — Interface를 투영
+define view entity ZC_Flight
+  as projection on ZI_Flight
+{
+  key carrid,
+  key connid,
+  key fldate,
+      price,
+      currency
+}</code></pre>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>비유: 원자재 창고 vs 매장 진열</h4>
+      <p>Interface View(ZI_)는 가공·결합을 끝낸 <strong>원자재 창고</strong>예요. Projection View(ZC_)는 그 중 이 매장(화면)에 맞게 <strong>진열한 매대</strong>입니다. 창고 하나로 여러 매장을 꾸밀 수 있죠.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 왜 나누면 좋은가 🔑</h2>
+  <ul>
+    <li>✅ <strong>재사용:</strong> 같은 ZI_를 여러 ZC_(화면별)가 공유 → 데이터 로직 한 번만.</li>
+    <li>✅ <strong>안정성:</strong> 화면 요구가 바뀌어도 ZC_만 손대고 ZI_(데이터 기반)는 보호.</li>
+    <li>✅ <strong>RAP 연결:</strong> 이 ZI_/ZC_ 2계층이 THEORY-21의 RAP 구조로 그대로 이어집니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <ul>
+    <li>✅ <strong>정상:</strong> ZI_(기반) → ZC_(투영)로 계층화 → 재사용·확장 용이.</li>
+    <li>❌ <strong>오류 1:</strong> Projection에 무거운 JOIN·계산을 또 넣음 → 계층 의미가 무너짐. 무거운 로직은 Interface에.</li>
+    <li>❌ <strong>오류 2:</strong> UI 주석을 Interface View에 박음 → 재사용성 저하. UI는 Projection(또는 MDE, M05)에.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>계층 책임을 섞지 마세요</h4>
+      <p>"Interface = 데이터·재사용, Projection = 화면·소비"라는 책임 분리가 CDS 설계의 핵심입니다. 귀찮다고 한 View에 다 몰아넣으면, 처음엔 빨라도 화면이 늘수록 유지보수가 급격히 어려워집니다. 작은 프로젝트라도 이 2계층 습관을 들이면 나중에 RAP·Fiori 확장이 훨씬 수월합니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li>CDS는 보통 <strong>Interface View(ZI_)</strong> + <strong>Projection View(ZC_)</strong> 2계층입니다.</li>
+        <li>ZI_ = 재사용 데이터 기반(JOIN·계산), ZC_ = 화면용 소비층(필드 선택·UI).</li>
+        <li><code>as projection on</code>으로 Interface를 투영합니다.</li>
+        <li>이 2계층이 RAP 구조로 그대로 이어집니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    계층을 나눴으니, View끼리 관계를 잇는 법을 봅니다. 다음 Lesson <strong>Association 기초</strong>에서 JOIN보다 똑똑한 관계 정의를 배웁니다.
+  </p>
+</section>
