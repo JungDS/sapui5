@@ -1,6 +1,6 @@
 # Track 1 Lesson 고품질화 계획
 
-> 📅 **최종수정: 2026-06-10 18:30 KST**
+> 📅 **최종수정: 2026-06-10 18:45 KST**
 
 이 문서는 Track 1(`THEORY-*`) 137개 Lesson을 "작성 완료" 상태에서 "고품질 교육용 웹페이지" 상태로 끌어올리기 위한 성공 기준과 실행 계획이다.
 기존 본문 양산 규칙은 [HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md)를 따르고, 본 문서는 그 다음 라운드의 품질 기준을 정의한다.
@@ -24,9 +24,9 @@
 | `data-glossary` 용어 태깅 | 137/137 | 용어 팝업 기반은 전 Lesson에 존재한다. |
 | `lesson-callout warn` | 137/137 | 실무 주의 콜아웃은 전 Lesson에 존재한다. |
 | 코드 블록 | 114/137 | 개념형 Lesson 23개는 코드 예시 또는 화면/설계 예시 보강 여부를 재판단해야 한다. |
-| 퀴즈/문제/정답/해설 관련 텍스트 | 약 31/137 | `Chapter 1의 Lesson 1`에 기준 패턴을 적용했으며, 나머지 Lesson으로 확산 필요. |
-| 실습/연습 관련 텍스트 | 약 76/137 | `Chapter 1의 Lesson 1`에 완료 조건 포함 실습을 추가했으며, 나머지 Lesson은 표준화 필요. |
-| 공식 링크 또는 외부 링크 `<a>` | 1/137 | `Chapter 1의 Lesson 1`에 SAP 공식 링크 3개를 추가했으며, 나머지 Lesson으로 확산 필요. |
+| 퀴즈/문제/정답/해설 관련 텍스트 | 약 36/137 | `Chapter 1의 Lesson 1~6`에 기준 패턴을 적용했으며, 나머지 Lesson으로 확산 필요. |
+| 실습/연습 관련 텍스트 | 약 57/137 | `Chapter 1의 Lesson 1~6`에 완료 조건 포함 실습을 추가했으며, 나머지 Lesson은 표준화 필요. |
+| 공식 링크 또는 외부 링크 `<a>` | 6/137 | `Chapter 1의 Lesson 1~6`에 SAP 공식 링크를 추가했으며, 나머지 Lesson으로 확산 필요. |
 
 따라서 다음 라운드는 단순 분량 증가가 아니라, **Lesson별 학습 완결성**을 만드는 작업이다.
 
@@ -91,7 +91,7 @@ NotebookLM 질의 결과, 노트북은 대체로 다음 범위에 강하다.
 
 ## 6. 우선순위
 
-1. **Chapter 1~3**: 최신 기준과 가장 차이가 큰 초반 Lesson을 먼저 정비한다. `Chapter 1의 Lesson 1`은 요약, 실습, 퀴즈, 공식 링크 기준 패턴 적용 완료.
+1. **Chapter 1~3**: 최신 기준과 가장 차이가 큰 초반 Lesson을 먼저 정비한다. `Chapter 1의 Lesson 1~6`은 요약, 실습, 퀴즈, 정답/해설, 공식 링크 기준 패턴 적용 완료.
 2. **Chapter 20~21**: CDS/RAP/ABAP Cloud는 최신성 위험이 높으므로 SAP 공식 링크와 버전 주의 문구를 우선 보강한다.
 3. **Chapter 11~19**: SQL, Dynpro, ALV, OO ABAP는 실습과 오개념 퀴즈를 강화한다.
 4. **Chapter 4~10**: DDIC, 모듈화, Internal Table, SALV, Selection Screen은 초심자 실습과 화면 흐름을 보강한다.

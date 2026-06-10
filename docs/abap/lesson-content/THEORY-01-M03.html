@@ -107,7 +107,57 @@
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: Data Element 이름표 설계하기 🧪</h2>
+  <p>
+    이번에는 Domain 위에 의미와 라벨을 얹는 연습을 해봅니다. 지난 Lesson의 <code>ZCARRID</code> Domain을 이미 만들었다고 가정하고, 항공사 코드를 위한 Data Element를 설계해보세요.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>Data Element 이름을 정합니다. 예: <code>ZDE_CARRID</code></li>
+        <li>참조할 Domain을 적습니다. 예: <code>ZCARRID</code></li>
+        <li>Short, Medium, Long, Heading 라벨을 각각 적습니다.</li>
+        <li><span class="glossary-term" data-glossary="F1Help">F1 Help</span>에 들어갈 한 문장 설명을 작성합니다.</li>
+        <li>의미가 다른데 같은 Data Element를 쓰면 생길 오류 케이스를 1개 적습니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> 라벨 4종과 F1 Help 문장이 모두 있고, “재질은 같지만 의미가 다른 필드” 예시를 하나 설명할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+  <p>
+    NotebookLM 자료에서도 Data Element는 기술 규격보다 의미와 화면 텍스트를 담당하는 객체로 정리됩니다. 그래서 실습의 핵심은 <code>CHAR 3</code>을 다시 외우는 것이 아니라, 사용자가 보는 이름표를 정확히 만드는 것입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://learning.sap.com/courses/building-data-models-with-the-abap-dictionary-and-abap-core-data-services/defining-domains-and-data-elements_b65b511a-4ad1-4437-80f5-5ad689cab833" target="_blank" rel="noopener">SAP Learning: Domain과 Data Element 정의</a> — Data Element가 Domain 위에 의미와 텍스트를 얹는 흐름을 확인합니다.</li>
+    <li><a href="https://learning.sap.com/courses/building-data-models-with-the-abap-dictionary-and-abap-core-data-services/using-dictionary-objects-as-data-types_e28df7c3-7686-414e-9827-673dceeb21fb" target="_blank" rel="noopener">SAP Learning: Dictionary Object를 데이터 타입으로 사용하기</a> — Data Element, Structure, Database Table을 타입으로 재사용하는 방식을 함께 봅니다.</li>
+    <li><a href="https://help.sap.com/docs/SAP_NETWEAVER_702/ff5206fc6c551014a1d28b076487e7df/908d7307b1af11d194f600a0c929b3c3.html" target="_blank" rel="noopener">SAP Help Portal: Creating Data Elements</a> — Data Element 생성 절차를 공식 도움말 관점에서 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>Data Element의 핵심 역할은 Data Type과 Length를 새로 정하는 것일까요, 업무 의미와 화면 라벨을 붙이는 것일까요?</li>
+    <li>출발 공항과 도착 공항이 둘 다 <code>CHAR 3</code>이면 반드시 같은 Data Element를 써야 할까요?</li>
+    <li>사용자가 필드 의미를 몰라 F1을 눌렀을 때 도움을 주는 설명은 어느 DDIC 객체 쪽에서 관리할 수 있을까요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>업무 의미와 화면 라벨</strong>입니다. 기술 규격은 보통 Domain에서 물려받습니다.</li>
+      <li><strong>아니요.</strong> 재질은 같아도 의미가 다르면 라벨과 도움말이 달라야 하므로 Data Element를 분리하는 것이 안전합니다.</li>
+      <li><strong>Data Element</strong>입니다. Data Element의 문서화 영역을 통해 F1 Help 설명을 제공할 수 있습니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

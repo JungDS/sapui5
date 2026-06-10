@@ -91,6 +91,7 @@
         <li>허용된 방식으로 <span class="glossary-term" data-glossary="TestData">Test Data</span> 한 줄을 입력하거나, 별도 테스트 프로그램으로 데이터를 넣습니다.</li>
         <li>같은 Key Field 조합으로 한 줄을 더 넣으려 할 때 중복 오류가 나는지 확인합니다.</li>
       </ol>
+      <p><strong>완료 조건:</strong> Technical Settings 값, 테스트 데이터 1건, 중복 키 오류 확인 결과를 각각 한 줄씩 기록하면 성공입니다.</p>
     </div>
   </div>
   <p>
@@ -117,7 +118,33 @@
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://learning.sap.com/courses/building-data-models-with-the-abap-dictionary-and-abap-core-data-services/creating-database-tables_ebc1477d-96ed-414b-82d4-4171da43f4a6" target="_blank" rel="noopener">SAP Learning: Database Tables 생성</a> — Technical Settings가 테이블 생성 흐름에서 어떤 위치인지 확인합니다.</li>
+    <li><a href="https://help.sap.com/docs/SAP_NETWEAVER_731_BW_ABAP/ec1c9c8191b74de98feb94001a95dd76/cf21eab8446011d189700000e8322d00.html?locale=en-US" target="_blank" rel="noopener">SAP Help Portal: Technical Settings</a> — Data Class, Size Category, Buffering 같은 설정의 의미를 공식 도움말로 확인합니다.</li>
+    <li><a href="https://help.sap.com/docs/SAP_NETWEAVER_731_BW_ABAP/ec1c9c8191b74de98feb94001a95dd76/cf21eadf446011d189700000e8322d00.html" target="_blank" rel="noopener">SAP Help Portal: Buffering Permission</a> — Buffering을 허용할지 말지 판단하는 기본 설정을 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>Technical Settings는 필드의 업무 의미를 정하는 설정일까요, 테이블의 물리적 운영 방식을 정하는 설정일까요?</li>
+    <li>Buffering은 주문·재고·전표처럼 자주 바뀌는 테이블에 항상 켜는 것이 좋을까요?</li>
+    <li>개발 환경에서 같은 키로 테스트 데이터를 두 번 넣었을 때 오류가 나면 무조건 실패일까요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>테이블의 물리적 운영 방식</strong>을 정하는 설정입니다. 필드 의미는 Data Element 쪽에서 다룹니다.</li>
+      <li><strong>아니요.</strong> NotebookLM의 BC430 기반 요약과 SAP Help의 Buffering 설명 모두, Buffering은 작고 자주 읽으며 변경이 적은 데이터에 신중히 쓰는 설정이라는 점을 강조합니다.</li>
+      <li><strong>아니요.</strong> 같은 키를 막는 오류라면 Key Field가 중복을 제대로 막고 있다는 신호일 수 있습니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">
