@@ -1,6 +1,6 @@
 # 04. 함정과 주의점
 
-> 📅 **최종수정: 2026-06-10 00:50 KST**
+> 📅 **최종수정: 2026-06-10 10:05 KST**
 
 ## 🔴 깨지기 쉬운 지점
 - **[P1] 상대경로 오산정** — `docs/**/*.html`는 `../../`로 asset을 참조해야 한다. 틀리면 셸 전체 미동작.
@@ -31,3 +31,11 @@
   과거 `[object Object]` 표시 버그 이력 있음. 용어 모달 수정 시 인코딩 확인.
 - **[P10] "stage7" 명칭** — 파일명·JS 전역은 정리 완료(`shell.*`, `SAPShell`). **CSS 클래스 `.stage7-*`만 잔존**
   (커리큘럼 샘플 asset과 얽혀 다음 라운드로 보류). project-docs·data 파일명·prose의 "Stage 7"은 역사 기록으로 유지(→07).
+
+## 🔴 멀티 AI 동시 작업 (가장 크게 겪은 함정)
+- **[P11] 같은 브랜치를 두 AI가 동시 커밋 → 분기·충돌** — Claude·Codex·Antigravity(Gemini)가 같은 작업트리/브랜치(`feature/abap-lesson-content`)를 동시에 커밋·푸시하면서
+  **동일 커밋이 다른 해시로 중복**(예: THEORY-18이 `4cb7b45`와 `eb7c7fc`로 이중) 생성 → rebase 시 **~90개 Lesson 파일이 전부 충돌**한 사고가 있었음(2026-06-10).
+  - **원인**: `git add -A`로 타 AI의 미커밋 파일까지 휩쓸어 커밋, 서로 다른 베이스에서 같은 서식 작업을 중복 적용.
+  - **회피 규칙(→[03 §9](03_CONVENTIONS.md))**: ① **한 번에 한 AI만** 커밋·푸시 ② 작업 시작·푸시 직전 `git pull` ③ 내 파일만 명시적 `git add`(`-A` 금지) ④ 범위 분리(예: A=서식, B=신규 Lesson).
+  - **충돌 복구**: 서식 커밋을 cherry-pick으로 병합하면 대규모 충돌 → `reset --hard origin` + 문서 커밋만 cherry-pick + **멱등 포맷터 재실행**으로 결과물을 재생성하는 편이 안전.
+- **[P12] 신규 Lesson 코드블록 서식 미적용** — THEORY-19~21은 표준 `<pre><code>`로 작성됨. 네이비 ABAP Editor 멱등 포맷터(`archive/_local/format_abap_code.mjs`)를 1회 돌려 THEORY-01~18과 서식을 통일해야 함.

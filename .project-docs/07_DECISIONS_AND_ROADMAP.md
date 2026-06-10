@@ -1,6 +1,6 @@
 # 07. 미결 결정 · 로드맵 (권고 집약)
 
-> 📅 **최종수정: 2026-06-10 00:50 KST**
+> 📅 **최종수정: 2026-06-10 10:05 KST**
 
 구조 변경을 수반하는 항목의 결정·권고를 모은다. 완료분은 "✅ 완료"로 표기한다.
 
@@ -100,3 +100,13 @@
 - 헤더 좌측에는 Chapter / Lesson / Lesson 제목, 우측에는 `이전` / `다음` / `자세히` 액션 배치
 - 본문 키워드를 독립 칩 줄에서 `abc-info-block` 기반 `핵심 키워드` 블록으로 이동
 - `docs/roadmap/abap-curriculum.html`의 운영 CSS/JS URL에 캐시 버전(`v=20260605-readerhead1`) 부여
+
+### 라운드 8 — 🎉 ABAP Track 1 Lesson 본문 양산 완성 (2026-06-08~10)
+- **Lesson Single Viewer** + 본문 조각 구조로 Track 1(THEORY-01~21) **137개 Lesson 전부 작성 완료**.
+- 참여: Antigravity(뷰어·글로서리·THEORY-01~10 재보강·Shiki/네이비 Editor 서식) + Codex(THEORY-02~10) + Claude(THEORY-11~21).
+- 글로서리 348개 용어(완전 패리티, 미정의 0건). 작성 규칙 [03 §9](03_CONVENTIONS.md), 동시작업 함정 [04 P11](04_PITFALLS.md).
+
+## 결정 6. 다음 로드맵 (2026-06-10)
+1. **THEORY-19~21 서식 통일** — 네이비 ABAP Editor 멱등 포맷터 1회 적용. ([04 P12](04_PITFALLS.md))
+2. **Track 2(PRACTICAL-* 13섹션 ~70 Lesson) 신규 작성** — 같은 규칙 적용, JSON `d.tracks[1]` 추출.
+3. lesson-content PR(#50) 및 거버넌스 PR(#49) 머지 검토.
