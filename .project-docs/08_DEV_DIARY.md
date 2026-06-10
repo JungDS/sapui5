@@ -12,6 +12,7 @@
 ---
 
 ## 📅 일자별 기록 목록
+- [2026-06-09 (운영 분석 문서 동기화 — Lesson Viewer 아키텍처 반영, 코드 변경 없음)](changelogs/CHANGELOG_20260609.md)
 - [2026-06-08 (Lesson 뷰어 아키텍처 개편 및 용어 사전 UI 구축)](changelogs/CHANGELOG_20260608.md)
 - [2026-06-09 (ABAP Track 1 Lesson 본문 재보강 및 양산 — THEORY-01~21 대부분)](changelogs/CHANGELOG_20260609.md)
 - [2026-06-09 P2 (Antigravity — THEORY-01~10 Chapter/Lesson 치환 · Shiki 서식)](changelogs/CHANGELOG_20260609_P2.md)

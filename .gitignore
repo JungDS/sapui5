@@ -6,3 +6,6 @@
 # OS 생성 파일
 .DS_Store
 Thumbs.db
+
+# 로컬 pre-edit 스냅샷(커밋 전 복원용 안전망, 영구 이력은 git이 보관)
+archive/_local/

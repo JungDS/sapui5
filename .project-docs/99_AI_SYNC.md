@@ -11,6 +11,7 @@
 2. **작업 종료 시**: 수행한 내용을 "Work Log"에 추가하고, 미결 사항(Pending Issues)을 업데이트합니다.
 3. 내역을 추가할 때는 최신 내용이 가장 위로 오도록(역순 배치) 기록하거나, 시간 순서대로 기록하되 명확하게 날짜/시간을 명시합니다. (현재는 최신 내용을 아래로 누적하는 것을 권장합니다.)
 4. **[필수] 개발 일지 작성**: 작업을 마칠 때마다 `.project-docs/changelogs/CHANGELOG_YYYYMMDD.md` 파일에 작업 상세 내용, 참여 AI 모델, 일시, **고민했던 점(설계 이유 등)**을 의무적으로 남기고, `.project-docs/08_DEV_DIARY.md`에 링크를 연결해야 합니다.
+5. **[필수] AI 작업자 표기**: AI Agent가 만든 커밋은 커밋 본문에 `AI-Author: <AI/모델명>` 또는 `Co-Authored-By: <AI/모델명>`을 남깁니다. 과거 커밋처럼 확인이 어려운 경우 PR 본문에 "커밋 단위 확인 불가, 문서 Work Log 기준 추정"이라고 명시합니다.
 
 ---
 
@@ -41,12 +42,12 @@
 ### [2026-06-10] Codex (GPT-5) — Lesson 코드 하이라이트 공통화 및 포맷터 보강
 - **작업 내용**:
   - `assets/abap-lesson-viewer.css`에 `abap-token-keyword/string/number/comment` 토큰 클래스를 추가.
-  - `archive/_local/format_abap_code.mjs`가 `<span style="...">` 대신 토큰 클래스를 생성하도록 수정하고, Track 2 `PRACTICAL-*` 파일명도 처리하도록 패턴 확장.
+  - `tools/format-abap-code.mjs`가 `<span style="...">` 대신 토큰 클래스를 생성하도록 수정하고, Track 2 `PRACTICAL-*` 파일명도 처리하도록 패턴 확장.
   - 포맷터를 전체 Lesson에 재실행하여 215개 코드 mockup의 하이라이트를 클래스 기반으로 재생성.
   - `assets/abap-lesson-viewer.js`의 사이드바 고정 인라인 스타일과 Copy 버튼 직접 스타일 조작을 CSS 클래스 기반으로 정리.
   - `docs/abap/lesson-viewer.html`의 lesson viewer CSS/JS 참조에 캐시 버전(`v=20260610-token3`) 부여.
 - **검증**:
-  - `node archive/_local/format_abap_code.mjs` 재실행 시 수정 0건(멱등성 확인).
+  - `node tools/format-abap-code.mjs` 재실행 시 수정 0건(멱등성 확인).
   - `docs/abap/lesson-content` 기준 인라인 스타일 0건, `<script>`/`<style>`/인라인 이벤트 0건.
   - 글로서리 미정의 0건.
   - 로컬 뷰어에서 `THEORY-02-M01`, `THEORY-20-M01` 코드 블록/토큰 렌더링 확인.
@@ -208,7 +209,7 @@
   - **버그 픽스**: 스크립트 재실행 시 윈도우가 중첩되는(인셉션) 렌더링 버그 수정 및 멱등성 확보.
   - **하이라이팅 보강**: CONCATENATE, SPLIT, REPLACE, CONDENSE 등 문자열 조작 키워드를 구문 강조 목록에 대거 추가.
   - **유실 커밋 복구**: 리셋 과정에서 날아갈 뻔했던 Claude의 THEORY-18 작업분(M01~M07 및 추적 문서 등)을 Cherry-pick을 통해 완벽하게 복구 후 UI 재적용.
-- **수정 파일**: rchive/_local/format_abap_code.mjs, ssets/abap-lesson-viewer.js, docs/abap/lesson-content/*.html 등 전체 레슨 파일
+- **수정 파일**: tools/format-abap-code.mjs, assets/abap-lesson-viewer.js, docs/abap/lesson-content/*.html 등 전체 레슨 파일
 - **다음 AI를 위한 메모**: 디자인 및 UI 서식은 안정화되었습니다. 계속 이어서 THEORY-19 SALV / Grid ALV 표시 제어 심화(M01~M07) 작성 작업을 진행해주세요.
 
 ### [2026-06-10] Claude (Opus 4.8) — THEORY-19 신규
@@ -238,7 +239,7 @@
 
 ### [2026-06-10] Antigravity IDE (Gemini 3.1 Pro) — 네이비 Editor 서식 일괄 재적용 및 아키텍처 리팩토링
 - **작업 내용**: 
-  - THEORY-19~21 신규 작성분에 누락되었던 네이비 ABAP Editor 코드 블록 서식(Shiki 복사 버튼 포함)을 멱등 포맷터(`archive/_local/format_abap_code.mjs`)를 통해 일괄 적용 완료. 
+  - THEORY-19~21 신규 작성분에 누락되었던 네이비 ABAP Editor 코드 블록 서식(Shiki 복사 버튼 포함)을 멱등 포맷터(`tools/format-abap-code.mjs`)를 통해 일괄 적용 완료. 
   - **CSS 아키텍처 리팩토링**: 137개 레슨 HTML에 하드코딩 되어 있던 인라인 스타일을 모두 제거하고, `assets/abap-lesson-viewer.css`에 공통 클래스로 추출하여 137개 파일 전체 덮어쓰기 완료.
   - **디자인 보강**: D2Coding 웹폰트를 CDN으로 로드하여 코드 블록에 적용, ABAP 텍스트 색상 최적화(#ffa03b).
   - **캐시 버스터**: 로컬 `fetch` 시 강력한 브라우저 캐시 문제를 우회하기 위해 `lesson-viewer.js`에 시간 기반 쿼리스트링 추가.

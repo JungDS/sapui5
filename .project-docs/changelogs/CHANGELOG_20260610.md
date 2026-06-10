@@ -30,13 +30,13 @@
 - **changelog 일자 분리**: 06-10 작업이 06-09 파일에 섞여 있던 것을 본 파일(06-10)로 분리하고, 08_DEV_DIARY에 모든 일자(P2 포함) 링크를 보강.
 
 ### Antigravity IDE (Gemini 3.1 Pro) — 네이비 Editor 서식 및 CSS 아키텍처 리팩토링
-- 멱등 포맷터(`archive/_local/format_abap_code.mjs`)를 실행하여 THEORY-19~21을 포함한 누락된 코드 블록들에 네이비 ABAP Editor 스타일 및 복사 버튼 일괄 적용 완료.
+- 멱등 포맷터(`tools/format-abap-code.mjs`)를 실행하여 THEORY-19~21을 포함한 누락된 코드 블록들에 네이비 ABAP Editor 스타일 및 복사 버튼 일괄 적용 완료.
 - **CSS 아키텍처 리팩토링**: 137개 레슨 HTML에 하드코딩 되어 있던 인라인 스타일(`style="..."`)을 모두 제거하고, `assets/abap-lesson-viewer.css`에 공통 클래스로 추출. 전체 파일 덮어쓰기 완료.
 - **디자인 고도화**: D2Coding 웹폰트 적용 및 ABAP 텍스트 색상 최적화(#ffa03b).
 - **인계 프롬프트 교정**: Codex가 Track 1을 덮어쓰지 않도록 `HANDOFF_LESSON_CONTENT.md`의 프롬프트 타겟을 Track 2(PRACTICAL-*)로 전면 교체.
 
 ### Codex (GPT-5) — Lesson 코드 하이라이트 토큰 공통화
-- `format_abap_code.mjs`가 인라인 `<span style="...">` 대신 `abap-token-keyword/string/number/comment` 클래스를 생성하도록 수정.
+- `format-abap-code.mjs`가 인라인 `<span style="...">` 대신 `abap-token-keyword/string/number/comment` 클래스를 생성하도록 수정.
 - 포맷터 처리 대상을 `THEORY-*`뿐 아니라 Track 2 `PRACTICAL-*` 파일명까지 포함하도록 확장.
 - 215개 코드 mockup을 재생성해 Lesson 본문 `style=` 잔존을 0건으로 정리.
 - `abap-lesson-viewer.js`의 사이드바 고정 인라인 스타일과 Copy 버튼 직접 스타일 조작을 CSS 클래스 기반으로 정리하고, clipboard fallback을 추가.

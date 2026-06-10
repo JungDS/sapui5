@@ -17,6 +17,8 @@
 | `abap-curriculum.css` / `.js` | 1 | `docs/roadmap/abap-curriculum.html` 운영본 전용 |
 | `metro-process.css` / `.js` | 2 | `docs/module/erp-business-process-metro.html`, `docs/roadmap/abap-curriculum-v5-3-antigravity.html` |
 | `abap-curriculum-section-detail.*` | 1 | `docs/roadmap/abap-curriculum-section-detail.html` |
+| `abap-lesson-viewer.css` / `.js` | 1 | `docs/abap/lesson-viewer.html` (2026-06-08 신규 단일 뷰어 엔진) |
+| `abap-glossary.css` / `.js` | 1 | `docs/abap/lesson-viewer.html` (2026-06-08 신규 `data-glossary` 툴팁) |
 | `abap-curriculum-v5-3.*` | 1 | `docs/roadmap/abap-curriculum-codex-20260602-113746.html` |
 | `abap-curriculum-codex-v7.*` | 2 | codex v7 sampleA, v8 sampleA |
 | `abap-curriculum-codex-v8.*` | 1 | codex v8 sampleA (v7 위 오버레이) |
@@ -50,6 +52,7 @@
 |---|---|---|
 | `build-abap-curriculum.mjs` | **유지** | `reference/abap_curriculum_20260529_180000.json`로 커리큘럼 생성(활성 영역) |
 | `build-curriculum-samples.mjs` | **유지** | `reference/abap_curriculum_v5_3_...json`로 샘플 생성(활성 영역) |
+| `format-abap-code.mjs` | **유지** | Lesson 본문 코드 예제에 네이비 ABAP Editor/복사 버튼/토큰 클래스 서식을 적용하는 포맷터 |
 | `cleanse-docs.mjs` | → archive | 일회성 문서 클렌징(완료) |
 | `refactor-paths-and-links.mjs` | → archive | 일회성 경로/링크 리팩토링(완료) |
 | `stage7-update-abap-catalog-paths.mjs` | → archive | Stage 7 카탈로그 경로 갱신(완료) |
@@ -70,6 +73,11 @@
 
 > 정리 제안(패밀리별 최신만 유지)은 [07](07_DECISIONS_AND_ROADMAP.md)에 제안서로 기록. 본 라운드 미실행.
 
+### orphan / 신규 (2026-06-08~)
+- `docs/roadmap/_abap-curriculum-gallery.html` — **어디서도 링크되지 않는 orphan**(임시 샘플 갤러리, 커밋 `b0256bb`). archive 또는 삭제 후보.
+- `docs/abap/lesson-viewer.html` — Lesson 단일 뷰어 템플릿(SSOT 미등록, [04 P11](04_PITFALLS.md)).
+- `docs/abap/lesson-content/*.html` — Track 1 Lesson 콘텐츠 조각 137개(THEORY-01~21) 작성 완료. Track 2는 미작성.
+
 ## E. reference/ ABAP 커리큘럼 JSON
 
 | 파일 | 상태 | 비고 |
@@ -77,6 +85,7 @@
 | `abap_curriculum_v5_4_20260605_000000.json` | **운영 유지** | 운영본 + Lesson 뷰어 fetch 대상. `learning_friendly.handled_contents.ko` 포함 |
 | `abap_glossary.json` | **운영 유지** | Lesson 용어 툴팁 사전. **348개 용어**(THEORY-01~21 완전 패리티), `abap-glossary.js`가 fetch |
 | `abap_curriculum_v5_3_20260602_010000.json` | 유지 | 샘플/비교 원본, v5.4의 기반 |
+| `abap_curriculum_20260529_180000.json` | 유지 | `tools/build-abap-curriculum.mjs` 입력 원본 |
 | `abap_curriculum_v5_3.md`, `TRACK1/` | 유지 | 커리큘럼 설계 참고자료 |
 
 ## F. docs/abap/lesson-content (Lesson 본문 조각)
