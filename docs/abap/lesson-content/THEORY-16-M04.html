@@ -18,23 +18,23 @@
 <section class="lesson-section">
   <h2>2. 대괄호로 줄 꺼내기 ✍️</h2>
   <!-- ABAP_MOCKUP_START -->
-<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: 'D2Coding', Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
-  <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
-    <div style="display: flex; gap: 6px;">
-      <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
-      <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
-      <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
     </div>
-    <div style="margin-left: auto; color: #ffa03b; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
-    <div style="margin-left: 16px;">
-      <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
     </div>
   </div>
-  <div class="abap-editor-body" style="display: flex; background-color: #f6f8fa;">
-    <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5
     </div>
-    <pre class="shiki" style="background-color: transparent; color: #333333; padding: 12px; margin: 0; border: none; overflow-x: auto; font-family: 'D2Coding', Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5; width: 100%;"><code><span style="color: #888888; font-style: italic;">" 인덱스로 꺼내기</span>
+    <pre class="shiki abap-editor-code"><code><span style="color: #888888; font-style: italic;">" 인덱스로 꺼내기</span>
 <span style="color: #005cc5; font-weight: bold;">DATA</span>(ls_first) = lt_flights[ <span style="color: #22863a;">1</span> ].           <span style="color: #888888; font-style: italic;">"첫 번째 줄</span>
 
 <span style="color: #888888; font-style: italic;">" 키(조건)로 꺼내기</span>
@@ -61,23 +61,23 @@
     조심할 점이 있습니다. 조건에 맞는 줄이 <strong>없으면</strong> Table Expression은 <span class="glossary-term" data-glossary="ItabLineNotFound">CX_SY_ITAB_LINE_NOT_FOUND</span> 예외를 던지며 프로그램이 멈춥니다. <code>READ TABLE</code>이 <code>sy-subrc</code>로 조용히 알려주던 것과 다릅니다.
   </p>
   <!-- ABAP_MOCKUP_START -->
-<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: 'D2Coding', Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
-  <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
-    <div style="display: flex; gap: 6px;">
-      <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
-      <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
-      <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
     </div>
-    <div style="margin-left: auto; color: #ffa03b; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
-    <div style="margin-left: 16px;">
-      <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
     </div>
   </div>
-  <div class="abap-editor-body" style="display: flex; background-color: #f6f8fa;">
-    <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8
     </div>
-    <pre class="shiki" style="background-color: transparent; color: #333333; padding: 12px; margin: 0; border: none; overflow-x: auto; font-family: 'D2Coding', Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5; width: 100%;"><code><span style="color: #888888; font-style: italic;">" 안전하게: 없으면 빈 구조(OPTIONAL) 또는 기본값(DEFAULT)</span>
+    <pre class="shiki abap-editor-code"><code><span style="color: #888888; font-style: italic;">" 안전하게: 없으면 빈 구조(OPTIONAL) 또는 기본값(DEFAULT)</span>
 <span style="color: #005cc5; font-weight: bold;">DATA</span>(ls) = <span style="color: #005cc5; font-weight: bold;">VALUE</span> #( lt_flights[ carrid = <span style="color: #22863a;">'XX'</span> ] OPTIONAL ).
 <span style="color: #888888; font-style: italic;">"→ 못 찾아도 예외 없이 초기값 구조를 돌려줌</span>
 

@@ -18,23 +18,23 @@
 <section class="lesson-section">
   <h2>2. Service Definition: 무엇을 노출할지 ✍️</h2>
   <!-- ABAP_MOCKUP_START -->
-<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: 'D2Coding', Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
-  <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
-    <div style="display: flex; gap: 6px;">
-      <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
-      <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
-      <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
     </div>
-    <div style="margin-left: auto; color: #ffa03b; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
-    <div style="margin-left: 16px;">
-      <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
     </div>
   </div>
-  <div class="abap-editor-body" style="display: flex; background-color: #f6f8fa;">
-    <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5
     </div>
-    <pre class="shiki" style="background-color: transparent; color: #333333; padding: 12px; margin: 0; border: none; overflow-x: auto; font-family: 'D2Coding', Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5; width: 100%;"><code>define service ZUI_Travel {
+    <pre class="shiki abap-editor-code"><code>define service ZUI_Travel {
   expose ZC_Travel as Travel;
   // 필요하면 관련 뷰도 함께 노출
   expose ZC_Agency as Agency;
