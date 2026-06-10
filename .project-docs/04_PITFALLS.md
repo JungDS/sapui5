@@ -38,4 +38,4 @@
   - **원인**: `git add -A`로 타 AI의 미커밋 파일까지 휩쓸어 커밋, 서로 다른 베이스에서 같은 서식 작업을 중복 적용.
   - **회피 규칙(→[03 §9](03_CONVENTIONS.md))**: ① **한 번에 한 AI만** 커밋·푸시 ② 작업 시작·푸시 직전 `git pull` ③ 내 파일만 명시적 `git add`(`-A` 금지) ④ 범위 분리(예: A=서식, B=신규 Lesson).
   - **충돌 복구**: 서식 커밋을 cherry-pick으로 병합하면 대규모 충돌 → `reset --hard origin` + 문서 커밋만 cherry-pick + **멱등 포맷터 재실행**으로 결과물을 재생성하는 편이 안전.
-- **[P12] 신규 Lesson 코드블록 서식 미적용** — THEORY-19~21은 표준 `<pre><code>`로 작성됨. 네이비 ABAP Editor 멱등 포맷터(`archive/_local/format_abap_code.mjs`)를 1회 돌려 THEORY-01~18과 서식을 통일해야 함.
+- **[P12] 신규 Lesson 코드블록 서식 누락 위험** — 다른 AI가 작성 시 표준 `<pre><code>`로만 작성될 수 있음. 항상 작업의 마지막에 네이비 ABAP Editor 멱등 포맷터(`archive/_local/format_abap_code.mjs`)를 1회 돌려 서식을 통일해야 함 (THEORY-19~21 포함 전체 통일 완료).

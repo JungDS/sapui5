@@ -107,6 +107,6 @@
 - 글로서리 348개 용어(완전 패리티, 미정의 0건). 작성 규칙 [03 §9](03_CONVENTIONS.md), 동시작업 함정 [04 P11](04_PITFALLS.md).
 
 ## 결정 6. 다음 로드맵 (2026-06-10)
-1. **THEORY-19~21 서식 통일** — 네이비 ABAP Editor 멱등 포맷터 1회 적용. ([04 P12](04_PITFALLS.md))
+1. ~~**THEORY-19~21 서식 통일** — 네이비 ABAP Editor 멱등 포맷터 1회 적용. ([04 P12](04_PITFALLS.md))~~ ✅ 완료 (2026-06-10)
 2. **Track 2(PRACTICAL-* 13섹션 ~70 Lesson) 신규 작성** — 같은 규칙 적용, JSON `d.tracks[1]` 추출.
 3. lesson-content PR(#50) 및 거버넌스 PR(#49) 머지 검토.
