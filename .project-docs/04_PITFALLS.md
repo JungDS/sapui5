@@ -38,4 +38,7 @@
   - **원인**: `git add -A`로 타 AI의 미커밋 파일까지 휩쓸어 커밋, 서로 다른 베이스에서 같은 서식 작업을 중복 적용.
   - **회피 규칙(→[03 §9](03_CONVENTIONS.md))**: ① **한 번에 한 AI만** 커밋·푸시 ② 작업 시작·푸시 직전 `git pull` ③ 내 파일만 명시적 `git add`(`-A` 금지) ④ 범위 분리(예: A=서식, B=신규 Lesson).
   - **충돌 복구**: 서식 커밋을 cherry-pick으로 병합하면 대규모 충돌 → `reset --hard origin` + 문서 커밋만 cherry-pick + **멱등 포맷터 재실행**으로 결과물을 재생성하는 편이 안전.
-- **[P12] 신규 Lesson 코드블록 서식 누락 위험** — 다른 AI가 작성 시 표준 `<pre><code>`로만 작성될 수 있음. 항상 작업의 마지막에 네이비 ABAP Editor 멱등 포맷터(`archive/_local/format_abap_code.mjs`)를 1회 돌려 서식을 통일해야 함 (THEORY-19~21 포함 전체 통일 완료).
+- **[P12] 신규 Lesson 코드블록 서식 누락 위험** — 다른 AI가 신규 레슨 작성 시 HTML 본문에는 순수 `<pre><code>`로만 작성해야 함. 작업 마지막에 네이비 ABAP Editor 멱등 포맷터(`archive/_local/format_abap_code.mjs`)를 1회 돌려 서식을 통일해야 함.
+  - **CSS 리팩토링 완료**: 포맷터는 더 이상 인라인 스타일(`style="..."`)을 하드코딩하지 않고, `assets/abap-lesson-viewer.css`에 정의된 공통 클래스를 삽입함. 따라서 신규 레슨 파일에는 임의로 인라인 스타일을 주입하지 말 것.
+- **[P13] 로컬 Fetch 캐시 주의 (신규)** — 순수 HTML/JS 환경에서 `fetch()` API로 `lesson-content/*.html` 조각을 동적으로 불러올 때, 브라우저 로컬 캐시가 강력하게 작용하여 새로고침을 해도 옛날 파일이 보일 수 있음.
+  - `lesson-viewer.js` 등 동적 로딩 스크립트 작성 시 `fetch(url + '?v=' + Date.now())`와 같은 **Cache Buster** 파라미터를 붙이는 것을 권장함.

@@ -108,5 +108,6 @@
 
 ## 결정 6. 다음 로드맵 (2026-06-10)
 1. ~~**THEORY-19~21 서식 통일** — 네이비 ABAP Editor 멱등 포맷터 1회 적용. ([04 P12](04_PITFALLS.md))~~ ✅ 완료 (2026-06-10)
-2. **Track 2(PRACTICAL-* 13섹션 ~70 Lesson) 신규 작성** — 같은 규칙 적용, JSON `d.tracks[1]` 추출.
-3. lesson-content PR(#50) 및 거버넌스 PR(#49) 머지 검토.
+2. ~~**전체 레슨 디자인 리팩토링** — 인라인 스타일 제거 및 CSS 클래스 분리.~~ ✅ 완료 (2026-06-10)
+3. **Track 2(PRACTICAL-* 13섹션 ~70 Lesson) 신규 작성** — 같은 규칙 적용, JSON `d.tracks[1]` 추출.
+4. lesson-content PR(#50) 및 거버넌스 PR(#49) 머지 검토.

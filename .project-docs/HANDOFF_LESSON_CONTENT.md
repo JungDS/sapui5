@@ -38,7 +38,7 @@
 | THEORY-20 | CDS View Entity 기초 | 6 | **M01~M06 작성 완료** (Claude) |
 | THEORY-21 | RAP / ABAP Cloud 입문 | 8 | **M01~M08 작성 완료** (Claude) — 🎉 **Track 1 완성(137/137)** |
 
-> Track 2(PRACTICAL-*, 13개 섹션)는 Track 1을 마친 뒤 진행. 정확한 ID/이름은 JSON에서 추출(아래 §6 스크립트).
+> Track 2(PRACTICAL-*, 13개 섹션)는 현재 진행 중. 정확한 ID/이름은 JSON의 `d.tracks[1]`에서 추출(아래 §6 스크립트 참조).
 
 ---
 
@@ -184,7 +184,7 @@ console.log(miss === 0 ? "OK: 미정의 0" : "미정의 "+miss);
 
 ```
 이 저장소(c:\ui5\study\sapui5)는 SAP 개발자용 정적 HTML 학습 사이트야.
-지금 ABAP 커리큘럼 Track 1(THEORY-*)의 Lesson 본문을 순서대로 작성하는 중이야.
+Track 1(THEORY-*) 137개 레슨은 모두 작성 완료되었고, 이제 **Track 2(PRACTICAL-*)** 의 Lesson 본문을 순서대로 신규 작성하려고 해.
 
 먼저 아래 3개를 정독해:
 1) .project-docs/HANDOFF_LESSON_CONTENT.md  ← 작성 규칙·스타일·스크립트·진행현황 전부 여기 있음
@@ -193,10 +193,11 @@ console.log(miss === 0 ? "OK: 미정의 0" : "미정의 "+miss);
 
 해야 할 일:
 - 브랜치 feature/abap-lesson-content 에서 이어서 작업.
-- THEORY-01-M02~M06은 사용자 피드백 기준(완전 초심자용, 분량 보강, 한눈에 정리, 10·20대 학습지 톤)으로 Codex 재보강 완료. 이후 Lesson 작성 시 이 톤과 구조를 참고.
-- 다음은 THEORY-11부터 THEORY-21까지 섹션 순서대로 신규 작성. 각 Lesson은
-  reference/abap_curriculum_v5_4_20260605_000000.json 의 해당 unit 지침(handled_contents,
-  technical_keywords, learning_content_design, hands_on_lab, caution_points)에 근거해서 정확하게.
+- 다음 목표는 Track 2(PRACTICAL-*) 13개 섹션, 약 70개 레슨을 신규 작성하는 거야.
+- reference/abap_curriculum_v5_4_20260605_000000.json 의 **d.tracks[1].sections** 를 순회하면서 작성해.
+- 각 Lesson은 json의 지침(handled_contents, technical_keywords, learning_content_design, hands_on_lab, caution_points)에 근거해서 정확하게.
+- Track 1에서 확립된 톤앤매너(완전 초심자용, 분량 보강, 한눈에 정리, 10·20대 학습지 톤)를 철저히 유지해.
+- **[매우 중요]** 코드 블록은 순수 `<pre><code>` 로만 작성해. 내가 나중에 포맷터 스크립트로 네이비 에디터 서식(CSS 공통 클래스 기반)을 일괄 적용할 거야. 임의로 인라인 style 속성을 넣지 마.
 - 본문에서 쓰는 주요 용어는 reference/abap_glossary.json 에 "완전 패리티"로 함께 등록
   (title/desc/everyday_analogy/used_in_lessons/design_theme). 미등록 용어는 툴팁이 안 뜸.
 - 섹션 단위로 커밋하고, 매 섹션 후 글로서리 미정의 0건을 검증(HANDOFF 문서 §6 스크립트).
@@ -204,5 +205,5 @@ console.log(miss === 0 ? "OK: 미정의 0" : "미정의 "+miss);
 
 작업 규칙: main 직접 수정 금지, 커밋 메시지 한국어, 컨벤션은 .project-docs/03_CONVENTIONS.md.
 확인 팁: 본문 조각은 단독으로 열면 스타일/툴팁이 안 보임. 반드시 로컬 서버에서
-docs/abap/lesson-viewer.html?lesson=<ID> 로 확인.
+docs/abap/lesson-viewer.html?lesson=<ID> 로 확인. (로컬 캐시가 강력하므로 강제 새로고침 주의)
 ```

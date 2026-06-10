@@ -28,6 +28,8 @@
 - **멱등 스크립트 우회**: 서식 커밋을 cherry-pick으로 병합하면 116파일 충돌이 나므로, "결과물을 재생성"하는 멱등 스크립트 재실행이 훨씬 안전하다는 결론.
 - **changelog 일자 분리**: 06-10 작업이 06-09 파일에 섞여 있던 것을 본 파일(06-10)로 분리하고, 08_DEV_DIARY에 모든 일자(P2 포함) 링크를 보강.
 
-### Antigravity IDE (Gemini 3.1 Pro) — 네이비 Editor 서식 통일 완료
-- 멱등 포맷터(`archive/_local/format_abap_code.mjs`)를 실행하여 THEORY-19~21을 포함한 누락된 코드 블록들에 네이비 ABAP Editor 스타일 및 복사 버튼 일괄 적용 완료 (총 114개 파일 수정됨).
-- 이로써 Track 1 마무리 완료.
+### Antigravity IDE (Gemini 3.1 Pro) — 네이비 Editor 서식 및 CSS 아키텍처 리팩토링
+- 멱등 포맷터(`archive/_local/format_abap_code.mjs`)를 실행하여 THEORY-19~21을 포함한 누락된 코드 블록들에 네이비 ABAP Editor 스타일 및 복사 버튼 일괄 적용 완료.
+- **CSS 아키텍처 리팩토링**: 137개 레슨 HTML에 하드코딩 되어 있던 인라인 스타일(`style="..."`)을 모두 제거하고, `assets/abap-lesson-viewer.css`에 공통 클래스로 추출. 전체 파일 덮어쓰기 완료.
+- **디자인 고도화**: D2Coding 웹폰트 적용 및 ABAP 텍스트 색상 최적화(#ffa03b).
+- **인계 프롬프트 교정**: Codex가 Track 1을 덮어쓰지 않도록 `HANDOFF_LESSON_CONTENT.md`의 프롬프트 타겟을 Track 2(PRACTICAL-*)로 전면 교체.

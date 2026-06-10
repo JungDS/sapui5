@@ -16,15 +16,15 @@
 
 ## 현재 상태 및 목표 (Current Status & Goals)
 - **현재 목표**: 🎉 **Track 1(THEORY-*) 137/137 작성 완료!** (THEORY-01~21 전부). 다음 목표는 **Track 2(PRACTICAL-* 13개 섹션)** 신규 작성.
-- **최근 진행(2026-06-09, Claude Opus 4.8)**: Codex 미커밋 THEORY-10 보존 후 **THEORY-11~17 신규 작성**(JOIN과 집계 / Classic DDIC View / Report Event 심화 / Dynpro 기초 / Grid ALV 기초 / Modern ABAP Syntax / New Open SQL). Codex 톤·구조 계승. 글로서리 +111종(섹션별 완전 패리티), 매 섹션 미정의 0건 검증. 추적 3종 동시 갱신.
-- **⚠️ 동시 작업 주의**: Gemini(Antigravity)가 같은 작업트리에서 THEORY-01~10 고도화(Chapter/Lesson 명칭·Shiki 복사버튼) 병행 중. 콘텐츠 범위는 안 겹치나(나는 11~21) 공유 문서/`git add -A`로 인한 커밋 혼입 주의. 신규 Lesson도 Chapter/Lesson 용어 사용.
+- **최근 진행(2026-06-10, Antigravity IDE)**: 네이비 ABAP Editor 디자인 리팩토링(CSS 클래스 공통화) 및 D2Coding 폰트 적용 완료. 로컬 캐시 우회 로직 추가. Codex에 대한 인계 프롬프트 완벽 재정비 완료.
+- **⚠️ 동시 작업 주의**: AI 작업 간 겹침 방지를 위해 섹션 단위 작업을 엄수.
 - **⚠️ 인계 핵심 문서**: 이어서 작업할 AI는 **[HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md)를 가장 먼저 정독**할 것. 작성 규칙·스타일 기준·복붙용 프롬프트가 모두 거기 있음.
 
 ---
 
 ## 미결 사항 (Pending Issues / Next Steps)
 - **Lesson 본문 양산**: Track 1 완료. 다음은 **Track 2(PRACTICAL-* 13개 섹션, 약 70개 Lesson)** 신규 작성. 같은 스타일(초심자·한눈에 정리·글로서리 패리티·추적 3종 동시 갱신·Chapter/Lesson 용어)을 그대로 적용한다. JSON의 `d.tracks[1]`에서 PRACTICAL 섹션/Lesson ID 추출.
-- **[완료] 신규 19~21 코드블록 서식**: Antigravity가 네이비 ABAP Editor 멱등 포맷터(`archive/_local/format_abap_code.mjs`)를 돌려 서식 통일을 완료함.
+- **[완료] 신규 19~21 코드블록 서식 및 CSS 아키텍처 리팩토링**: Antigravity가 네이비 ABAP Editor 포맷터 개선을 통해 모든 인라인 스타일을 CSS 클래스로 분리함.
 - **[프로세스] 섹션 작성 후 추적 3종 동시 갱신**: 섹션 커밋 시 ① `HANDOFF_LESSON_CONTENT.md` 진행표 ② 본 파일(99_AI_SYNC) 작업이력/현황 ③ `changelogs/CHANGELOG_<날짜>.md`를 함께 갱신할 것(누락 주의).
 - **글로서리 완전 패리티**: Lesson에서 쓰는 주요 용어는 `reference/abap_glossary.json`에 반드시 함께 등록(일상 비유 포함). 미등록 용어는 툴팁이 안 뜸(깨진 링크).
 - (선택) Lesson 내 퀴즈·실습 코드 블록 등 상호작용 컴포넌트 고도화.
@@ -222,6 +222,11 @@
   - ⚠️ THEORY-19~21 코드블록은 표준 `<pre><code>` → 네이비 Editor 포맷터 1회 적용 필요(THEORY-01~18은 적용됨).
 - **다음 AI를 위한 메모**: ① (서식) THEORY-19~21에 Antigravity 네이비 Editor 멱등 포맷터 1회 적용. ② (콘텐츠) **Track 2(PRACTICAL-* 13개 섹션 ~70 Lesson)** 신규 작성 시작. JSON `d.tracks[1]`에서 섹션/ID 추출, 동일 규칙 적용.
 
-### [2026-06-10] Antigravity IDE (Gemini 3.1 Pro) — 네이비 Editor 서식 일괄 재적용 (THEORY-19~21 포함)
-- **작업 내용**: THEORY-19~21 신규 작성분에 누락되었던 네이비 ABAP Editor 코드 블록 서식(Shiki 복사 버튼 포함)을 멱등 포맷터(`archive/_local/format_abap_code.mjs`)를 통해 일괄 적용 완료. 전체 137개 파일 중 114개 파일이 재포맷되어 서식이 완벽하게 통일됨.
-- **다음 AI를 위한 메모**: Track 1(THEORY)의 모든 문서 작업 및 서식 통일이 완벽히 종료되었습니다. 이제 Track 2(PRACTICAL-* 13개 섹션) 작성을 시작할 수 있습니다.
+### [2026-06-10] Antigravity IDE (Gemini 3.1 Pro) — 네이비 Editor 서식 일괄 재적용 및 아키텍처 리팩토링
+- **작업 내용**: 
+  - THEORY-19~21 신규 작성분에 누락되었던 네이비 ABAP Editor 코드 블록 서식(Shiki 복사 버튼 포함)을 멱등 포맷터(`archive/_local/format_abap_code.mjs`)를 통해 일괄 적용 완료. 
+  - **CSS 아키텍처 리팩토링**: 137개 레슨 HTML에 하드코딩 되어 있던 인라인 스타일을 모두 제거하고, `assets/abap-lesson-viewer.css`에 공통 클래스로 추출하여 137개 파일 전체 덮어쓰기 완료.
+  - **디자인 보강**: D2Coding 웹폰트를 CDN으로 로드하여 코드 블록에 적용, ABAP 텍스트 색상 최적화(#ffa03b).
+  - **캐시 버스터**: 로컬 `fetch` 시 강력한 브라우저 캐시 문제를 우회하기 위해 `lesson-viewer.js`에 시간 기반 쿼리스트링 추가.
+  - **인계 문서 정비**: Codex가 Track 1을 덮어쓰지 않도록 `HANDOFF_LESSON_CONTENT.md`의 프롬프트 전면 수정.
+- **다음 AI를 위한 메모**: Track 1(THEORY)의 모든 문서 작업 및 디자인/서식/아키텍처 정비가 완벽히 종료되었습니다. 이제 **Track 2(PRACTICAL-* 13개 섹션)** 작성을 시작할 수 있습니다. 화이팅!
