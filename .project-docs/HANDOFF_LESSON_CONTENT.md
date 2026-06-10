@@ -34,7 +34,7 @@
 | THEORY-16 | Modern ABAP Syntax | 6 | **M01~M06 작성 완료** (Claude) |
 | THEORY-17 | New Open SQL / Modern ABAP SQL | 7 | **M01~M07 작성 완료** (Claude) |
 | THEORY-18 | OO ABAP 기본 설계 | 7 | **M01~M07 작성 완료** (Claude) |
-| THEORY-19 | SALV / Grid ALV 표시 제어 심화 | 7 | ⬜ |
+| THEORY-19 | SALV / Grid ALV 표시 제어 심화 | 7 | **M01~M07 작성 완료** (Claude) |
 | THEORY-20 | CDS View Entity 기초 | 6 | ⬜ |
 | THEORY-21 | RAP / ABAP Cloud 입문 | 8 | ⬜ |
 

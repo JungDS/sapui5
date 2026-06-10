@@ -1,0 +1,79 @@
+<!-- lesson-content/THEORY-19-M06.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>지금까지 배운 <span class="glossary-term" data-glossary="RowColor">행 색상</span>·<span class="glossary-term" data-glossary="EmphasizeColor">컬럼 색상</span>·<span class="glossary-term" data-glossary="CellColor">셀 색상</span>을 "언제 무엇을 쓸지" 기준으로 정리합니다. 비용과 효과를 견줘 고르는 판단력을 기릅니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 색 주는 방법이 3가지 🌈</h2>
+  <p>
+    이제 표에 색을 주는 방법을 모두 배웠습니다. 행 전체(<span class="glossary-term" data-glossary="InfoFname">info_fname</span>), 컬럼 전체(<span class="glossary-term" data-glossary="EmphasizeColor">emphasize</span>), 칸 하나(<span class="glossary-term" data-glossary="CtabFname">ctab_fname</span> + Deep Structure). 세 가지가 있으니, "어느 걸 써야 하지?"라는 질문이 자연스럽습니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. 3가지 비교표 🗂️</h2>
+  <ul>
+    <li><strong>행 색상(Row):</strong> 출력 구조에 색상 필드 1개 + Layout <code>info_fname</code>. <strong>가벼움.</strong> "이 줄 전체가 특별"할 때(예: 마감 임박 건 줄 전체 노랑).</li>
+    <li><strong>컬럼 색상(Column):</strong> Field Catalog <code>emphasize</code>. <strong>가장 가벼움.</strong> "이 열은 늘 강조"할 때(예: 합계 컬럼 항상 파랑).</li>
+    <li><strong>셀 색상(Cell):</strong> Deep Structure(LVC_T_SCOL) + <code>ctab_fname</code>. <strong>가장 무거움.</strong> "특정 줄의 특정 칸만"일 때(예: 재고 부족 자재의 수량 칸만 빨강).</li>
+  </ul>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>고르는 한 문장</h4>
+      <p>"줄 전체면 행, 열 전체면 컬럼, 콕 집은 칸이면 셀." 그리고 <strong>가벼운 것부터</strong> 검토하세요. 행/컬럼으로 충분하면 굳이 무거운 셀 색상을 쓰지 않습니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 비용–효과 판단 ⚖️</h2>
+  <ul>
+    <li>✅ <strong>효과:</strong> 색은 사용자가 한눈에 중요한 것을 찾게 해줍니다(잘 쓰면).</li>
+    <li>⚠️ <strong>비용:</strong> 셀 색상은 Deep Structure라 데이터가 많으면 메모리·복사 부담. 행/컬럼은 가벼움.</li>
+    <li>📌 <strong>원칙:</strong> 효과가 비슷하면 더 가벼운 방법을, 색 종류는 2~3개로 절제.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <ul>
+    <li>✅ <strong>좋은 흐름:</strong> "강조 범위(줄/열/칸)"를 먼저 정하고 그에 맞는 가장 가벼운 방법을 고름.</li>
+    <li>❌ <strong>나쁜 흐름:</strong> 무조건 셀 색상으로 모든 걸 처리 → 코드 복잡·성능 저하. 또는 색을 남발해 무엇이 중요한지 안 보임.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>색은 "보조 신호"여야 합니다</h4>
+      <p>색에만 의존하면 색맹 사용자나 흑백 출력에서 정보가 사라집니다. 중요한 상태는 색과 함께 <strong>아이콘·텍스트·정렬</strong>로도 표현하세요. 또 회사·팀의 색 규칙(빨강=경고 등)을 따라 일관성을 지키면, 사용자가 새 화면도 직관적으로 이해합니다. 색은 거들 뿐, 데이터 자체가 명확해야 합니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li><strong>줄 전체=행(info_fname), 열 전체=컬럼(emphasize), 콕 집은 칸=셀(ctab_fname)</strong>.</li>
+        <li>비용은 컬럼 ≤ 행 &lt; 셀(Deep Structure). <strong>가벼운 것부터</strong> 검토.</li>
+        <li>색은 2~3종으로 절제하고, 일관된 규칙을 지킵니다.</li>
+        <li>색은 보조 신호 — 아이콘·텍스트로도 함께 표현해 접근성을 챙깁니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    표시 제어를 거의 마쳤습니다. 마지막으로, 데이터를 갱신할 때 사용자가 보던 자리를 지키는 법을 정리합니다. 다음 Lesson <strong>Stable Refresh와 표시 상태 보존</strong>에서 이 Chapter를 마무리합니다.
+  </p>
+</section>

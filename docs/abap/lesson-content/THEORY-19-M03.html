@@ -1,0 +1,87 @@
+<!-- lesson-content/THEORY-19-M03.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>Grid ALV의 <span class="glossary-term" data-glossary="FieldCatalog">Field Catalog</span>를 활용해 컬럼을 세밀하게 제어하는 법을 배웁니다. <span class="glossary-term" data-glossary="ColumnControl">컬럼 속성</span>(숨김·키·편집)과 입력 형식 <span class="glossary-term" data-glossary="EditMask">Edit Mask</span>를 익힙니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 컬럼 하나하나를 손보자 🔧</h2>
+  <p>
+    THEORY-15에서 Field Catalog로 컬럼 제목·너비를 정했습니다. 사실 Field Catalog에는 컬럼을 제어하는 속성이 훨씬 많습니다. 이번엔 그 <span class="glossary-term" data-glossary="ColumnControl">심화 속성</span>들을 봅니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. 자주 쓰는 컬럼 제어 속성 ✍️</h2>
+  <pre><code>gs_fcat-fieldname = 'PRICE'.
+gs_fcat-coltext   = '요금'.
+gs_fcat-no_out    = 'X'.    "컬럼 숨김(데이터는 있되 화면에 안 보임)
+gs_fcat-key       = 'X'.    "키 컬럼(고정·강조)
+gs_fcat-edit      = 'X'.    "이 컬럼 편집 가능
+gs_fcat-just      = 'R'.    "정렬(R=우측, 숫자에 적합)
+gs_fcat-do_sum    = 'X'.    "하단 합계 표시
+APPEND gs_fcat TO gt_fcat.</code></pre>
+  <ul>
+    <li><strong>no_out:</strong> 숨김(레이아웃에서 사용자가 다시 켤 수 있음).</li>
+    <li><strong>key:</strong> 키 컬럼으로 표시(좌측 고정·강조).</li>
+    <li><strong>edit:</strong> 편집 가능(편집 ALV는 PRACTICAL 트랙에서 깊게 다룸).</li>
+    <li><strong>do_sum:</strong> 숫자 컬럼 하단 합계.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>3. Edit Mask로 입력·표시 형식 지정 🎭</h2>
+  <p>
+    <span class="glossary-term" data-glossary="EditMask">Edit Mask</span>(<code>edit_mask</code>)는 값을 보여주거나 입력받을 때의 형식을 지정합니다. 예를 들어 전화번호·코드에 구분 기호를 넣는 식입니다.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>Conversion Exit와의 관계</h4>
+      <p>SAP에는 값을 화면용으로 변환하는 <strong>Conversion Exit</strong>(예: 자재번호 앞 0 제거)이 있습니다. 보통 DDIC Data Element에 이미 붙어 있어, DDIC 기반 컬럼이면 자동 적용됩니다. Edit Mask는 그게 부족할 때 보조로 씁니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <ul>
+    <li>✅ <strong>정상:</strong> 컬럼별로 숨김·키·정렬을 지정해 깔끔하고 의미 있는 표를 만듭니다.</li>
+    <li>❌ <strong>오류 1:</strong> 모든 컬럼을 다 보이게 두어 표가 가로로 끝없이 길어짐 → 핵심만 보이고 나머지는 no_out.</li>
+    <li>❌ <strong>오류 2:</strong> edit를 켜놓고 변경값 저장 로직을 안 만듦 → 사용자가 고쳐도 DB에 안 들어감(편집은 별도 처리 필요, PRACTICAL 트랙).</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>가능하면 DDIC 기반으로</h4>
+      <p>컬럼을 DDIC 구조(Data Element) 기반으로 만들면 제목·길이·Conversion Exit·F1 도움말이 자동으로 따라옵니다(THEORY-01의 DDIC가 여기서 빛납니다). Field Catalog 속성은 그걸 "보정"하는 용도로 최소한만 쓰는 것이 유지보수에 좋습니다. 모든 걸 손으로 지정하면 나중에 바꿀 때 빠뜨리기 쉽습니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li>Field Catalog의 <strong>no_out·key·edit·just·do_sum</strong>으로 컬럼을 세밀 제어합니다.</li>
+        <li><strong>Edit Mask</strong>·Conversion Exit로 값의 표시·입력 형식을 다듬습니다.</li>
+        <li>핵심 컬럼만 보이고 나머지는 숨겨 가독성을 지킵니다.</li>
+        <li>가능하면 DDIC 기반으로, Field Catalog는 보정용으로 최소화합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    컬럼 단위 제어를 익혔습니다. 다음 Lesson <strong>Deep Structure 기반 Cell Color</strong>에서는 표의 "칸 하나하나"에 색을 입히는 더 정밀한 기법을 배웁니다.
+  </p>
+</section>

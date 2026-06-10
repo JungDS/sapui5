@@ -1,0 +1,96 @@
+<!-- lesson-content/THEORY-19-M04.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>표의 칸(셀) 하나하나에 색을 입히는 <span class="glossary-term" data-glossary="CellColor">Cell Color</span>를 배웁니다. THEORY-07에서 배운 <span class="glossary-term" data-glossary="DeepStructure">Deep Structure</span>를 이용해, 출력 테이블 안에 색상 정보 테이블(<span class="glossary-term" data-glossary="LVCTSCOL">LVC_T_SCOL</span>)을 품는 구조를 익힙니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 행/컬럼 말고 "칸" 단위 색 🎨</h2>
+  <p>
+    THEORY-15에서 행 색상(전체 줄)과 컬럼 색상(전체 열)을 배웠습니다. 그런데 "이 줄의 이 칸만 빨갛게"처럼 <strong>특정 셀 하나</strong>를 강조하고 싶을 때가 있습니다. 예: 재고가 부족한 자재의 '수량' 칸만 빨강.
+  </p>
+  <p>이 정밀 제어가 <span class="glossary-term" data-glossary="CellColor">Cell Color</span>이고, 여기서 <span class="glossary-term" data-glossary="DeepStructure">Deep Structure</span>가 필요해집니다.</p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. 출력 구조 안에 색상 테이블을 품는다 ✍️</h2>
+  <p>
+    셀마다 다른 색을 주려면, 각 행이 "어느 칸을 무슨 색으로"라는 정보를 들고 있어야 합니다. 그래서 출력 구조 안에 <span class="glossary-term" data-glossary="LVCTSCOL">LVC_T_SCOL</span>(색상 정보 Internal Table)을 컬럼으로 넣습니다 — 이것이 Deep Structure입니다.
+  </p>
+  <pre><code>TYPES: BEGIN OF ty_row,
+         carrid TYPE s_carr_id,
+         price  TYPE s_price,
+         cellcolors TYPE lvc_t_scol,   "★ 셀 색상 정보(테이블 in 구조)
+       END OF ty_row.</code></pre>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>비유: 줄마다 붙은 색칠 메모지</h4>
+      <p>각 행(줄)이 "내 칸들 중 PRICE는 빨강"이라고 적힌 메모지(cellcolors)를 하나씩 들고 다니는 거예요. ALV는 그 메모지를 읽어 칸을 칠합니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 색 채우고 Layout에 연결 🔗</h2>
+  <pre><code>" 조건에 맞는 행의 특정 셀에 색 지정
+LOOP AT gt_out ASSIGNING FIELD-SYMBOL(&lt;fs&gt;).
+  IF &lt;fs&gt;-price &gt; 1000.
+    APPEND VALUE lvc_s_scol(
+      fname = 'PRICE'                 "이 칸을
+      color = VALUE #( col = 6 ) )    "빨강(6) 계열로
+      TO &lt;fs&gt;-cellcolors.
+  ENDIF.
+ENDLOOP.
+
+" Layout에 "색상 정보 필드 이름" 알려주기
+gs_layout-ctab_fname = 'CELLCOLORS'.</code></pre>
+  <ul>
+    <li><strong>fname:</strong> 색을 줄 컬럼 이름.</li>
+    <li><strong>color-col:</strong> 색 번호(THEORY-15의 Cxyz 색 코드 체계).</li>
+    <li><strong><span class="glossary-term" data-glossary="CtabFname">ctab_fname</span>:</strong> Layout에 "셀 색상 정보가 이 필드에 있다"고 알려줌.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <ul>
+    <li>✅ <strong>정상:</strong> 색상 필드 + ctab_fname 연결 → 조건에 맞는 셀만 정확히 칠해짐.</li>
+    <li>❌ <strong>오류 1:</strong> ctab_fname을 안 알려줌 → 색을 채워도 표시 안 됨(M05의 stylefname과 헷갈리기 쉬움).</li>
+    <li>❌ <strong>오류 2:</strong> fname을 잘못 적음 → 엉뚱한 칸이 칠해지거나 무시됨.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>Deep Structure는 메모리·복사 비용이 있다</h4>
+      <p>모든 행마다 색상 테이블을 품으면(THEORY-07에서 배운 Deep Structure), 데이터가 많을 때 메모리와 복사 비용이 늘어납니다. 정말 셀 단위 강조가 필요한 경우에만 쓰고, "전체 줄이면 충분"하면 행 색상(가벼움)을 쓰세요. 강조는 꼭 필요한 곳에 절제해서.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li><strong>Cell Color</strong>는 칸 하나하나를 칠하는 정밀 색상 제어입니다.</li>
+        <li>출력 구조 안에 <strong>LVC_T_SCOL</strong>을 품는 <strong>Deep Structure</strong>로 구현합니다.</li>
+        <li>각 셀에 <code>fname</code>+<code>color</code>를 채우고 Layout의 <strong>ctab_fname</strong>으로 연결합니다.</li>
+        <li>메모리 비용이 있으니 셀 단위가 꼭 필요할 때만 사용합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    셀에 "색"을 줬으니, 이번엔 셀에 "상태(편집 가능/비활성)"를 주는 법을 봅니다. 다음 Lesson <strong>Deep Structure 기반 Cell Style</strong>을 배웁니다.
+  </p>
+</section>
