@@ -1,6 +1,6 @@
 # 개발 일지 - 2026-06-10
 
-> 📅 **최종수정: 2026-06-10 13:34 KST**
+> 📅 **최종수정: 2026-06-10 18:20 KST**
 
 ## 참여 AI
 - **Claude (Opus 4.8)**
@@ -8,6 +8,19 @@
 - **Codex (GPT-5)**
 
 ## 작업 상세 내용
+
+### Codex (GPT-5) — Track 1 Lesson 고품질화 목표·계획 수립
+- 사용자의 새 목표에 맞춰 실제 Lesson 본문 수정 전에 성공 기준을 먼저 문서화.
+- 작업 시작 전 `main`을 `origin/main`과 fast-forward 동기화하고, `codex/track1-quality-plan` 브랜치를 생성.
+- `.project-docs` 최신 규칙, Lesson Viewer 구조, Track 1 21개 Chapter / 137개 Lesson 범위를 확인.
+- 빠른 정적 감사를 통해 현재 Track 1은 설명·글로서리·실무 주의·요약 기반은 갖췄지만, 퀴즈/정답/해설, 공식 링크, 실습 완료 조건이 일관되지 않음을 확인.
+- NotebookLM 노트 `ABAP Evolution and Messaging Channels Training Guide`(69개 소스)를 확인하고, SAP 교육 PDF/SAP Learning/ABAP Cloud/CDS/RAP/Open SQL 자료를 활용하되 공식 문서 검증을 거치도록 원칙화.
+- 신규 문서 `.project-docs/TRACK1_QUALITY_PLAN.md`를 추가하고, `00_INDEX`, `03_CONVENTIONS`, `99_AI_SYNC`에 연결.
+
+### Codex 고민했던 점 및 설계 이유
+- **작성 완료와 고품질 완료의 차이**: 기존 문서에는 Track 1 137개 작성 완료가 명시되어 있었지만, 사용자 목표의 기준은 퀴즈·실습·공식 링크·NotebookLM 확장까지 포함하므로 별도 완료 기준이 필요했다.
+- **NotebookLM 근거 사용 방식**: 노트에는 SAP 교육 PDF와 공식 SAP Learning도 있지만 블로그·Scribd·생성 텍스트도 섞여 있어, 설명 아이디어와 공식 검증 근거를 분리하는 원칙을 먼저 세웠다.
+- **Chapter 단위 확산 전략**: 137개를 한 번에 고치면 품질 패턴이 흔들릴 수 있어, Chapter 1에서 퀴즈/실습/링크 패턴을 확정한 뒤 Chapter 단위로 확산하는 계획을 택했다.
 
 ### Claude — ABAP Track 1 완성 (THEORY-19 ~ 21)
 - `THEORY-19`(SALV / Grid ALV 표시 제어 심화, M01~M07): SALV Sort/Filter/Functions, Layout/Variant, Grid Column 제어, Deep Structure 기반 Cell Color(LVC_T_SCOL/ctab_fname)·Cell Style(LVC_T_STYL/stylefname), Row/Column/Cell 색상 선택 기준, Stable Refresh.
