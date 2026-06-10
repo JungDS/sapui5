@@ -1,6 +1,6 @@
 # 인계 문서 — ABAP Lesson 본문 양산 (Track 1)
 
-> 📅 **최종수정: 2026-06-10 00:50 KST**
+> 📅 **최종수정: 2026-06-10 18:30 KST**
 
 > 이 문서는 ABAP 커리큘럼의 Lesson 본문(`docs/abap/lesson-content/<ID>.html`)을 이어서 작성할 AI를 위한 단일 인계서다.
 > **시작 전 이 문서를 끝까지 읽고**, `.project-docs/99_AI_SYNC.md`와 기존 작성본 `THEORY-01-M01.html`(기준 샘플)을 확인할 것.
@@ -39,6 +39,8 @@
 | THEORY-21 | RAP / ABAP Cloud 입문 | 8 | **M01~M08 작성 완료** (Claude) — 🎉 **Track 1 완성(137/137)** |
 
 > Track 2(PRACTICAL-*, 13개 섹션)는 현재 진행 중. 정확한 ID/이름은 JSON의 `d.tracks[1]`에서 추출(아래 §6 스크립트 참조).
+>
+> **Track 1 고품질화 라운드 시작(2026-06-10 Codex):** `Chapter 1의 Lesson 1`에 실습 과제, 완료 조건, 확인 퀴즈, 정답/해설, SAP 공식 링크 3개를 추가해 후속 Lesson 보강 패턴을 만들었다. 상세 기준은 [TRACK1_QUALITY_PLAN.md](TRACK1_QUALITY_PLAN.md).
 
 ---
 

@@ -1,6 +1,6 @@
 # 개발 일지 - 2026-06-10
 
-> 📅 **최종수정: 2026-06-10 18:20 KST**
+> 📅 **최종수정: 2026-06-10 18:30 KST**
 
 ## 참여 AI
 - **Claude (Opus 4.8)**
@@ -8,6 +8,18 @@
 - **Codex (GPT-5)**
 
 ## 작업 상세 내용
+
+### Codex (GPT-5) — Chapter 1의 Lesson 1 고품질화 패턴 적용
+- `docs/abap/lesson-content/THEORY-01-M01.html`을 Track 1 품질 기준에 맞춰 전면 보강.
+- 추가한 구성: 지난 시간 연결, DDIC 필요성 상세 설명, Repository Object 설명, SE11/ADT 비교, 저장과 활성화 차이, 미니 실습, 완료 조건, 공식 SAP 링크, 확인 퀴즈, 정답/해설, 한눈에 정리.
+- SAP 공식 링크는 SAP Learning의 ABAP Dictionary/Repository Object 및 Domain/Data Element 자료, SAP Help Portal의 ADT 문서를 우선 사용.
+- `reference/abap_glossary.json`에 `RepositoryObject` 항목을 추가해 용어 팝업 패리티 유지.
+- Lesson Viewer에서 실습/퀴즈/요약/공식 링크/용어 태그가 렌더링되고 사용자 화면 텍스트에 내부 ID가 노출되지 않음을 확인.
+
+### Codex 고민했던 점 및 설계 이유
+- **패턴 우선 적용**: 137개를 곧장 일괄 수정하면 퀴즈·실습·링크 톤이 흔들릴 수 있어, 가장 부족했던 `Chapter 1의 Lesson 1`에 먼저 패턴을 만들었다.
+- **공식 링크 개수 제한**: 초심자 본문 흐름을 해치지 않도록 SAP 공식 링크는 핵심 3개로 제한하고, "더 확인하기" 섹션에 모았다.
+- **실습의 난이도 조절**: 첫 Lesson은 아직 시스템 조작을 깊게 요구하기 이르므로, 실제 시스템이 없어도 수행 가능한 흐름 기록형 실습으로 설계했다.
 
 ### Codex (GPT-5) — Track 1 Lesson 고품질화 목표·계획 수립
 - 사용자의 새 목표에 맞춰 실제 Lesson 본문 수정 전에 성공 기준을 먼저 문서화.

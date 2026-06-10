@@ -1,6 +1,6 @@
 # AI Workspace Synchronization Log (AI-SYNC)
 
-> 📅 **최종수정: 2026-06-10 18:20 KST**
+> 📅 **최종수정: 2026-06-10 18:30 KST**
 
 ## 목적 및 규칙 (Purpose & Rules)
 본 파일(`.project-docs/99_AI_SYNC.md`)은 여러 AI 모델(Codex, Antigravity, Claude 등)이 컨텍스트를 공유하고 작업을 이어가기 위한 공통 데이터베이스 역할을 합니다.
@@ -17,14 +17,14 @@
 
 ## 현재 상태 및 목표 (Current Status & Goals)
 - **현재 목표**: 🎉 **Track 1(THEORY-*) 137/137 작성 완료!** (THEORY-01~21 전부). 사용자의 새 목표에 따라 Track 1을 "고품질 교육용 웹페이지" 기준으로 재감사·보강하는 라운드를 준비 중. 기준 문서: [TRACK1_QUALITY_PLAN.md](TRACK1_QUALITY_PLAN.md). 병행 다음 목표는 **Track 2(PRACTICAL-* 13개 섹션)** 신규 작성.
-- **최근 진행(2026-06-10, Codex)**: Lesson 코드 하이라이트 인라인 스타일 2,390건을 `abap-token-*` CSS 클래스로 공통화하고, 포맷터를 Track 2(PRACTICAL-*)까지 처리하도록 보강. Lesson 본문 인라인 스타일 0건, 포맷터 멱등성 확인 완료.
+- **최근 진행(2026-06-10, Codex)**: `Chapter 1의 Lesson 1`을 Track 1 고품질화 기준으로 보강해 실습 과제, 완료 조건, 확인 퀴즈, 정답/해설, SAP 공식 링크 3개를 추가. Lesson Viewer 렌더링 확인 완료.
 - **⚠️ 동시 작업 주의**: AI 작업 간 겹침 방지를 위해 섹션 단위 작업을 엄수.
 - **⚠️ 인계 핵심 문서**: 이어서 작업할 AI는 **[HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md)를 가장 먼저 정독**할 것. 작성 규칙·스타일 기준·복붙용 프롬프트가 모두 거기 있음.
 
 ---
 
 ## 미결 사항 (Pending Issues / Next Steps)
-- **Track 1 고품질화**: 현재 Lesson은 설명·글로서리·실무 주의·요약 기반은 갖췄지만, 전 Lesson 공통의 퀴즈/정답/해설, 공식 링크, 실습 완료 조건은 부족하다. `TRACK1_QUALITY_PLAN.md` 기준으로 Chapter 단위 보강 예정.
+- **Track 1 고품질화**: `Chapter 1의 Lesson 1` 기준 패턴 적용 완료. 나머지 Lesson은 설명·글로서리·실무 주의·요약 기반은 갖췄지만, 전 Lesson 공통의 퀴즈/정답/해설, 공식 링크, 실습 완료 조건은 아직 부족하다. `TRACK1_QUALITY_PLAN.md` 기준으로 Chapter 단위 보강 예정.
 - **Lesson 본문 양산**: Track 1 완료. 다음은 **Track 2(PRACTICAL-* 13개 섹션, 약 70개 Lesson)** 신규 작성. 같은 스타일(초심자·한눈에 정리·글로서리 패리티·추적 3종 동시 갱신·Chapter/Lesson 용어)을 그대로 적용한다. JSON의 `d.tracks[1]`에서 PRACTICAL 섹션/Lesson ID 추출.
 - **[완료] 신규 19~21 코드블록 서식 및 CSS 아키텍처 리팩토링**: Antigravity가 네이비 ABAP Editor 포맷터 개선을 통해 에디터 외곽 인라인 스타일을 CSS 클래스로 분리했고, Codex가 코드 하이라이트 토큰까지 `abap-token-*` 클래스로 공통화함.
 - **[프로세스] 섹션 작성 후 추적 3종 동시 갱신**: 섹션 커밋 시 ① `HANDOFF_LESSON_CONTENT.md` 진행표 ② 본 파일(99_AI_SYNC) 작업이력/현황 ③ `changelogs/CHANGELOG_<날짜>.md`를 함께 갱신할 것(누락 주의).
@@ -39,6 +39,18 @@
 ---
 
 ## 작업 이력 (Work Log)
+
+### [2026-06-10] Codex (GPT-5) — Chapter 1의 Lesson 1 고품질화 패턴 적용
+- **작업 내용**:
+  - `docs/abap/lesson-content/THEORY-01-M01.html`을 초심자 학습 흐름에 맞춰 재구성.
+  - 실습 과제, 완료 조건, 확인 퀴즈, 정답/해설, SAP 공식 링크 3개를 추가.
+  - `RepositoryObject` 글로서리 항목을 추가하고, 전체 Track 1 글로서리 미정의 0건을 확인.
+  - Lesson Viewer에서 실습/퀴즈/요약/공식 링크/용어 태그 렌더링과 사용자 화면 내부 ID 미노출을 확인.
+- **검증**:
+  - `reference/abap_glossary.json` JSON 파싱 성공.
+  - Track 1 `data-glossary` 미정의 0건.
+  - `node tools/format-abap-code.mjs` 2회차 수정 0건.
+  - `http://localhost:8000/docs/abap/lesson-viewer.html?lesson=THEORY-01-M01` 렌더링 확인.
 
 ### [2026-06-10] Codex (GPT-5) — Track 1 고품질화 성공 기준 수립
 - **작업 내용**:
