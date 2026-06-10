@@ -170,7 +170,54 @@ gv_age  = <span class="abap-token-number">20</span>.
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 변수, 상수, 타입을 한 번에 구분하기 🧪</h2>
+  <p>
+    이번 실습은 “값을 담는 것”, “값을 고정하는 것”, “타입 이름을 만드는 것”을 분리해서 적는 연습입니다.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li><code>DATA</code>로 이름과 점수를 담는 변수를 선언합니다.</li>
+        <li><code>CONSTANTS</code>로 합격 기준 점수 80을 선언합니다.</li>
+        <li><code>TYPES</code>로 3자리 코드 타입을 하나 만들고, 그 타입으로 변수를 하나 선언합니다.</li>
+        <li><code>CONSTANTS</code> 값을 다시 대입하려 하면 어떤 오류가 나는지 예상해봅니다.</li>
+        <li><code>string</code>과 <code>c LENGTH 3</code> 중 어떤 상황에 무엇이 어울리는지 한 줄씩 적습니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> DATA, CONSTANTS, TYPES가 각각 무엇을 만드는지 예제 한 줄로 설명할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://learning.sap.com/courses/basic-abap-programming/working-with-basic-data-objects-and-data-types_cf92dee2-85ec-4b9f-a778-1a7cfef70dad" target="_blank" rel="noopener">SAP Learning: 기본 Data Object와 Data Type</a> — 변수, 상수, 리터럴, 타입의 차이를 공식 학습 흐름으로 확인합니다.</li>
+    <li><a href="https://learning.sap.com/courses/basic-abap-programming/debugging-an-abap-program_d070e545-efd5-4d87-8b75-20f18d7b7d3b" target="_blank" rel="noopener">SAP Learning: ABAP 디버깅</a> — TYPES, CONSTANTS, DATA 선언 이후 값이 어떻게 바뀌는지 디버거로 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapdata.html" target="_blank" rel="noopener">SAP Help Portal: DATA</a> — 변수를 선언하는 <code>DATA</code> 문의 공식 설명입니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>실행 중 값이 바뀔 수 있는 데이터 객체는 DATA와 CONSTANTS 중 무엇으로 선언하나요?</li>
+    <li><code>CONSTANTS</code> 선언에서 <code>VALUE</code>는 선택일까요, 필수일까요?</li>
+    <li><code>TYPES ty_carrid TYPE c LENGTH 3.</code>는 값을 담는 변수를 만든 것일까요, 타입 이름을 만든 것일까요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>DATA</strong>입니다. DATA는 실행 중 값이 바뀔 수 있는 변수를 만듭니다.</li>
+      <li><strong>필수</strong>입니다. 상수는 고정값이므로 선언 시 어떤 값을 가질지 정해야 합니다.</li>
+      <li><strong>타입 이름</strong>을 만든 것입니다. 실제 값을 담으려면 그 타입을 사용해 별도의 DATA 변수를 선언해야 합니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

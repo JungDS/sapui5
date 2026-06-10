@@ -1,6 +1,6 @@
 # 개발 일지 - 2026-06-10
 
-> 📅 **최종수정: 2026-06-10 18:45 KST**
+> 📅 **최종수정: 2026-06-10 18:57 KST**
 
 ## 참여 AI
 - **Claude (Opus 4.8)**
@@ -8,6 +8,19 @@
 - **Codex (GPT-5)**
 
 ## 작업 상세 내용
+
+### Codex (GPT-5) — Chapter 2의 Lesson 1~6 고품질화 패턴 확산
+- `docs/abap/lesson-content/THEORY-02-M01.html` ~ `THEORY-02-M06.html`에 미니 실습, 완료 조건, 공식 문서 링크, 확인 퀴즈, 정답/해설을 추가.
+- NotebookLM 노트 `ABAP Evolution and Messaging Channels Training Guide`에서 ABAP 기본 문법 주제의 실무 맥락과 흔한 오해를 확인하고, SAP 공식 문서와 충돌하지 않도록 교육용 문장으로 재구성.
+- Lesson별 공식 링크는 SAP Learning Basic ABAP Programming 과정과 SAP Help Portal ABAP Keyword Documentation을 우선 사용.
+- 전체 Track 1 정적 감사 기준을 다시 계산해 `TRACK1_QUALITY_PLAN.md`의 퀴즈/실습/공식 링크 수치를 갱신.
+- 포맷터 실행 중 기존 후반 Lesson 12개가 다시 쓰이는 현상이 있었으나, 이번 변경 범위를 Chapter 2의 Lesson 1~6으로 유지하기 위해 범위 밖 변경은 원복.
+- Lesson Viewer에서 Chapter 2의 Lesson 1~6 전체를 열어 실습/퀴즈/요약/공식 링크/용어 태그 렌더링과 사용자 화면 내부 ID 미노출을 확인.
+
+### Codex 고민했던 점 및 설계 이유
+- **Classic Report와 최신 ABAP 균형**: Chapter 2는 `REPORT`와 `WRITE` 같은 Classic 문법을 다루지만, 공식 SAP Learning의 최신 Basic ABAP 과정은 ADT class runner 예시도 함께 다룬다. 그래서 본문은 기존 Classic Report 흐름을 유지하고, 공식 링크는 관련 개념의 최신 자료로 보강했다.
+- **퀴즈의 초점**: 문법 암기보다 저장/활성화 차이, 상수 변경 불가, WRITE의 한계, 조건 순서, 무한 반복, `sy-subrc` 즉시 확인처럼 초심자가 실제로 헷갈리는 지점을 우선했다.
+- **범위 관리**: 문자열 템플릿, ALV, 데이터베이스 조회, 권한 체크는 본문에서 살짝 연결만 하고 후속 Chapter의 깊은 설명 영역으로 남겼다.
 
 ### Codex (GPT-5) — Chapter 1의 Lesson 2~6 고품질화 패턴 확산
 - `docs/abap/lesson-content/THEORY-01-M02.html` ~ `THEORY-01-M06.html`에 미니 실습, 완료 조건, 공식 문서 링크, 확인 퀴즈, 정답/해설을 추가.

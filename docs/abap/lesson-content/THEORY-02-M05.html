@@ -177,7 +177,53 @@
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 반복 흐름 표로 추적하기 🧪</h2>
+  <p>
+    반복문은 눈으로만 보면 헷갈리기 쉽습니다. 이번에는 반복 회차마다 어떤 일이 일어났는지 표처럼 적어보세요.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li><code>DO 10 TIMES.</code> 안에서 <code>sy-index</code>를 출력합니다.</li>
+        <li>2의 배수 회차는 <code>CONTINUE</code>로 건너뜁니다.</li>
+        <li>7번째 회차에서는 <code>EXIT</code>으로 반복을 끝냅니다.</li>
+        <li>출력되는 회차와 출력되지 않는 회차를 구분해서 적습니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> CONTINUE는 현재 회차만 건너뛰고, EXIT은 반복문 전체를 끝낸다는 차이를 예제로 설명할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://learning.sap.com/courses/basic-abap-programming/using-control-structures-in-abap_a4d7803e-eac2-458e-acf9-8628289f3701" target="_blank" rel="noopener">SAP Learning: ABAP Control Structures</a> — 반복과 조건 분기를 같은 흐름에서 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDO.html" target="_blank" rel="noopener">SAP Help Portal: DO</a> — <code>DO</code> 반복문과 반복 제어의 공식 설명입니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPWHILE.html" target="_blank" rel="noopener">SAP Help Portal: WHILE</a> — 조건이 참인 동안 반복하는 <code>WHILE</code>의 공식 설명입니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>반복 횟수를 미리 알고 있을 때 DO와 WHILE 중 무엇이 더 단순한 출발점인가요?</li>
+    <li>현재 회차만 건너뛰고 다음 반복으로 가는 키워드는 무엇인가요?</li>
+    <li>WHILE에서 조건이 절대 거짓이 되지 않으면 어떤 문제가 생길 수 있나요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>DO</strong>입니다. <code>DO 5 TIMES.</code>처럼 횟수를 직접 적을 수 있습니다.</li>
+      <li><strong>CONTINUE</strong>입니다. EXIT은 반복문 전체를 빠져나갑니다.</li>
+      <li><strong>무한 반복</strong>이 될 수 있습니다. 반복 안에서 조건이 언젠가 거짓이 되도록 값을 바꾸거나 EXIT 조건을 마련해야 합니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

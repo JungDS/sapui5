@@ -173,7 +173,53 @@ FIND <span class="abap-token-string">'ABAP'</span> IN gv_text.
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 시스템 필드 바로 확인하기 🧪</h2>
+  <p>
+    이번 실습은 Chapter 2 마무리용입니다. 문자열을 만들고, 현재 날짜와 사용자, 그리고 <code>sy-subrc</code>를 바로 확인하는 습관을 같이 연습합니다.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li><code>sy-uname</code>과 <code>sy-datum</code>을 이용해 실행자와 실행일을 출력합니다.</li>
+        <li><code>CONCATENATE</code> 또는 문자열 연결로 인사말을 만듭니다.</li>
+        <li><code>FIND 'ABAP' IN gv_text.</code> 뒤에서 바로 <code>sy-subrc</code>를 확인합니다.</li>
+        <li>검색어를 없는 단어로 바꾸고 결과 메시지가 달라지는지 확인합니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> <code>sy-subrc</code>를 설정한 문장 바로 다음에서 확인해야 하는 이유를 설명할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://learning.sap.com/courses/basic-abap-programming/processing-data_b025c9e3-697d-423f-977a-43b9051a7c15" target="_blank" rel="noopener">SAP Learning: 데이터 처리</a> — 문자열 템플릿, 날짜/숫자 포맷, 문자열 연결 흐름을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_750_index_htm/7.50/en-US/abensystem_fields.htm" target="_blank" rel="noopener">SAP Help Portal: ABAP System Fields</a> — <code>sy-datum</code>, <code>sy-uname</code>, <code>sy-subrc</code> 같은 시스템 필드의 공식 설명입니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCONCATENATE.html" target="_blank" rel="noopener">SAP Help Portal: CONCATENATE</a> — 문자열을 이어 붙이는 기본 문법의 공식 설명입니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li><code>sy-datum</code>과 <code>sy-uname</code>은 개발자가 직접 계산해 넣는 값인가요?</li>
+    <li>많은 ABAP 문장에서 <code>sy-subrc = 0</code>은 보통 어떤 의미인가요?</li>
+    <li><code>FIND</code> 뒤에 여러 문장을 실행한 다음 <code>sy-subrc</code>를 확인해도 항상 안전할까요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>아니요.</strong> SAP 런타임이 자동으로 채워주는 시스템 필드입니다.</li>
+      <li><strong>성공 또는 정상 처리</strong>를 뜻하는 경우가 많습니다. 다만 문장마다 의미가 다를 수 있으므로 문맥과 공식 문서를 함께 봐야 합니다.</li>
+      <li><strong>안전하지 않습니다.</strong> 다른 문장이 <code>sy-subrc</code>를 다시 설정할 수 있으므로, 확인하려는 문장 바로 뒤에서 읽는 습관이 중요합니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">
