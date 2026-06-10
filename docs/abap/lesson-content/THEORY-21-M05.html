@@ -37,27 +37,27 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">CLASS</span> lhc_travel DEFINITION INHERITING <span style="color: #005cc5; font-weight: bold;">FROM</span> cl_abap_behavior_handler.
-  <span style="color: #005cc5; font-weight: bold;">PRIVATE</span> <span style="color: #005cc5; font-weight: bold;">SECTION</span>.
-    <span style="color: #005cc5; font-weight: bold;">METHODS</span> validate_dates FOR VALIDATE ON SAVE
-      <span style="color: #005cc5; font-weight: bold;">IMPORTING</span> keys FOR Travel~validateDates.
-<span style="color: #005cc5; font-weight: bold;">ENDCLASS</span>.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">CLASS</span> lhc_travel DEFINITION INHERITING <span class="abap-token-keyword">FROM</span> cl_abap_behavior_handler.
+  <span class="abap-token-keyword">PRIVATE</span> <span class="abap-token-keyword">SECTION</span>.
+    <span class="abap-token-keyword">METHODS</span> validate_dates <span class="abap-token-keyword">FOR</span> <span class="abap-token-keyword">VALIDATE</span> <span class="abap-token-keyword">ON</span> <span class="abap-token-keyword">SAVE</span>
+      <span class="abap-token-keyword">IMPORTING</span> keys <span class="abap-token-keyword">FOR</span> Travel~validateDates.
+<span class="abap-token-keyword">ENDCLASS</span>.
 
-<span style="color: #005cc5; font-weight: bold;">CLASS</span> lhc_travel IMPLEMENTATION.
+<span class="abap-token-keyword">CLASS</span> lhc_travel <span class="abap-token-keyword">IMPLEMENTATION</span>.
   METHOD validate_dates.
-    <span style="color: #888888; font-style: italic;">" 키로 해당 건들을 읽어 검증</span>
-    <span style="color: #005cc5; font-weight: bold;">READ</span> ENTITIES <span style="color: #005cc5; font-weight: bold;">OF</span> zi_travel IN LOCAL MODE
-      ENTITY Travel FIELDS ( begin_date end_date ) <span style="color: #005cc5; font-weight: bold;">WITH</span> CORRESPONDING #( keys )
-      RESULT <span style="color: #005cc5; font-weight: bold;">DATA</span>(travels).
+    <span class="abap-token-comment">" 키로 해당 건들을 읽어 검증</span>
+    <span class="abap-token-keyword">READ</span> ENTITIES <span class="abap-token-keyword">OF</span> zi_travel IN <span class="abap-token-keyword">LOCAL</span> <span class="abap-token-keyword">MODE</span>
+      <span class="abap-token-keyword">ENTITY</span> Travel <span class="abap-token-keyword">FIELDS</span> ( begin_date end_date ) <span class="abap-token-keyword">WITH</span> CORRESPONDING #( keys )
+      <span class="abap-token-keyword">RESULT</span> <span class="abap-token-keyword">DATA</span>(travels).
 
-    <span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> travels <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">DATA</span>(travel).
-      <span style="color: #005cc5; font-weight: bold;">IF</span> travel-end_date &lt; travel-begin_date.
-        <span style="color: #005cc5; font-weight: bold;">APPEND</span> <span style="color: #005cc5; font-weight: bold;">VALUE</span> #( %tky = travel-%tky ) <span style="color: #005cc5; font-weight: bold;">TO</span> failed-travel.
-        <span style="color: #888888; font-style: italic;">" 메시지도 함께 보고</span>
-      <span style="color: #005cc5; font-weight: bold;">ENDIF</span>.
-    <span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.
+    <span class="abap-token-keyword">LOOP</span> <span class="abap-token-keyword">AT</span> travels <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">DATA</span>(travel).
+      <span class="abap-token-keyword">IF</span> travel-end_date &lt; travel-begin_date.
+        <span class="abap-token-keyword">APPEND</span> <span class="abap-token-keyword">VALUE</span> #( %tky = travel-%tky ) <span class="abap-token-keyword">TO</span> <span class="abap-token-keyword">failed</span>-travel.
+        <span class="abap-token-comment">" 메시지도 함께 보고</span>
+      <span class="abap-token-keyword">ENDIF</span>.
+    <span class="abap-token-keyword">ENDLOOP</span>.
   ENDMETHOD.
-<span style="color: #005cc5; font-weight: bold;">ENDCLASS</span>.</code></pre>
+<span class="abap-token-keyword">ENDCLASS</span>.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

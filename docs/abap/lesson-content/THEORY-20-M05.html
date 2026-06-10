@@ -35,16 +35,16 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #888888; font-style: italic;">" 본문 View는 데이터에 집중 (UI 주석 없음)</span>
-<span style="color: #888888; font-style: italic;">" 별도 MDE 파일에서 화면 주석만 관리:</span>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" 본문 View는 데이터에 집중 (UI 주석 없음)</span>
+<span class="abap-token-comment">" 별도 MDE 파일에서 화면 주석만 관리:</span>
 @Metadata.layer: #CORE
-annotate entity ZC_Flight <span style="color: #005cc5; font-weight: bold;">with</span>
+<span class="abap-token-keyword">annotate</span> <span class="abap-token-keyword">entity</span> ZC_Flight <span class="abap-token-keyword">with</span>
 {
-  @UI.lineItem: [{ position: <span style="color: #22863a;">10</span> }]
+  @UI.lineItem: [{ position: <span class="abap-token-number">10</span> }]
   carrid;
 
-  @UI.lineItem: [{ position: <span style="color: #22863a;">20</span> }]
-  @EndUserText.label: <span style="color: #22863a;">'요금'</span>
+  @UI.lineItem: [{ position: <span class="abap-token-number">20</span> }]
+  @EndUserText.label: <span class="abap-token-string">'요금'</span>
   price;
 }</code></pre>
   </div>

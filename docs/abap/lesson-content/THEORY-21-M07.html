@@ -39,12 +39,12 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7
     </div>
-    <pre class="shiki abap-editor-code"><code>define behavior for ZI_Travel alias Travel
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">define</span> behavior <span class="abap-token-keyword">for</span> ZI_Travel alias Travel
 {
   ...
-  validation validateDates on save { field begin_date, end_date; }
-  determination setStatus on <span style="color: #005cc5; font-weight: bold;">modify</span> { <span style="color: #005cc5; font-weight: bold;">create</span>; }
-  action ( features : instance ) acceptTravel result [<span style="color: #22863a;">1</span>] $self;
+  validation validateDates <span class="abap-token-keyword">on</span> <span class="abap-token-keyword">save</span> { field begin_date, end_date; }
+  <span class="abap-token-keyword">determination</span> setStatus <span class="abap-token-keyword">on</span> <span class="abap-token-keyword">modify</span> { <span class="abap-token-keyword">create</span>; }
+  <span class="abap-token-keyword">action</span> ( <span class="abap-token-keyword">features</span> : <span class="abap-token-keyword">instance</span> ) acceptTravel <span class="abap-token-keyword">result</span> [<span class="abap-token-number">1</span>] $self;
 }</code></pre>
   </div>
 </div>

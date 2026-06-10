@@ -43,8 +43,8 @@
     <div class="abap-editor-line-numbers">
       1<br>2
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">DATA</span> lt_sorted <span style="color: #005cc5; font-weight: bold;">TYPE</span> SORTED <span style="color: #005cc5; font-weight: bold;">TABLE</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student
-  <span style="color: #005cc5; font-weight: bold;">WITH</span> UNIQUE <span style="color: #005cc5; font-weight: bold;">KEY</span> id.</code></pre>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span> lt_sorted <span class="abap-token-keyword">TYPE</span> SORTED <span class="abap-token-keyword">TABLE</span> <span class="abap-token-keyword">OF</span> ty_student
+  <span class="abap-token-keyword">WITH</span> <span class="abap-token-keyword">UNIQUE</span> <span class="abap-token-keyword">KEY</span> id.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -79,8 +79,8 @@
     <div class="abap-editor-line-numbers">
       1<br>2
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">DATA</span> lt_hashed <span style="color: #005cc5; font-weight: bold;">TYPE</span> HASHED <span style="color: #005cc5; font-weight: bold;">TABLE</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student
-  <span style="color: #005cc5; font-weight: bold;">WITH</span> UNIQUE <span style="color: #005cc5; font-weight: bold;">KEY</span> id.</code></pre>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span> lt_hashed <span class="abap-token-keyword">TYPE</span> HASHED <span class="abap-token-keyword">TABLE</span> <span class="abap-token-keyword">OF</span> ty_student
+  <span class="abap-token-keyword">WITH</span> <span class="abap-token-keyword">UNIQUE</span> <span class="abap-token-keyword">KEY</span> id.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -112,31 +112,31 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zsorted_hashed_basic.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zsorted_hashed_basic.
 
-<span style="color: #005cc5; font-weight: bold;">TYPES</span>: <span style="color: #005cc5; font-weight: bold;">BEGIN</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student,
-         id    <span style="color: #005cc5; font-weight: bold;">TYPE</span> char3,
-         name  <span style="color: #005cc5; font-weight: bold;">TYPE</span> char20,
-         score <span style="color: #005cc5; font-weight: bold;">TYPE</span> i,
-       <span style="color: #005cc5; font-weight: bold;">END</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student.
+<span class="abap-token-keyword">TYPES</span>: <span class="abap-token-keyword">BEGIN</span> <span class="abap-token-keyword">OF</span> ty_student,
+         id    <span class="abap-token-keyword">TYPE</span> char3,
+         name  <span class="abap-token-keyword">TYPE</span> char20,
+         score <span class="abap-token-keyword">TYPE</span> i,
+       <span class="abap-token-keyword">END</span> <span class="abap-token-keyword">OF</span> ty_student.
 
-<span style="color: #005cc5; font-weight: bold;">DATA</span>: lt_sorted <span style="color: #005cc5; font-weight: bold;">TYPE</span> SORTED <span style="color: #005cc5; font-weight: bold;">TABLE</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student <span style="color: #005cc5; font-weight: bold;">WITH</span> UNIQUE <span style="color: #005cc5; font-weight: bold;">KEY</span> id,
-      ls_student <span style="color: #005cc5; font-weight: bold;">TYPE</span> ty_student.
+<span class="abap-token-keyword">DATA</span>: lt_sorted <span class="abap-token-keyword">TYPE</span> SORTED <span class="abap-token-keyword">TABLE</span> <span class="abap-token-keyword">OF</span> ty_student <span class="abap-token-keyword">WITH</span> <span class="abap-token-keyword">UNIQUE</span> <span class="abap-token-keyword">KEY</span> id,
+      ls_student <span class="abap-token-keyword">TYPE</span> ty_student.
 
-ls_student-id = <span style="color: #22863a;">'A01'</span>.
-ls_student-name = <span style="color: #22863a;">'Mina'</span>.
-ls_student-score = <span style="color: #22863a;">90</span>.
-<span style="color: #005cc5; font-weight: bold;">INSERT</span> ls_student <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> lt_sorted.
+ls_student-id = <span class="abap-token-string">'A01'</span>.
+ls_student-name = <span class="abap-token-string">'Mina'</span>.
+ls_student-score = <span class="abap-token-number">90</span>.
+<span class="abap-token-keyword">INSERT</span> ls_student <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> lt_sorted.
 
-<span style="color: #005cc5; font-weight: bold;">CLEAR</span> ls_student.
-ls_student-id = <span style="color: #22863a;">'A01'</span>.
-ls_student-name = <span style="color: #22863a;">'Mina Again'</span>.
-ls_student-score = <span style="color: #22863a;">95</span>.
-<span style="color: #005cc5; font-weight: bold;">INSERT</span> ls_student <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> lt_sorted.
+<span class="abap-token-keyword">CLEAR</span> ls_student.
+ls_student-id = <span class="abap-token-string">'A01'</span>.
+ls_student-name = <span class="abap-token-string">'Mina Again'</span>.
+ls_student-score = <span class="abap-token-number">95</span>.
+<span class="abap-token-keyword">INSERT</span> ls_student <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> lt_sorted.
 
-<span style="color: #005cc5; font-weight: bold;">IF</span> sy-subrc &lt;&gt; <span style="color: #22863a;">0</span>.
-  <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'중복 ID라서 추가되지 않았습니다.'</span>.
-<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code></pre>
+<span class="abap-token-keyword">IF</span> sy-subrc &lt;&gt; <span class="abap-token-number">0</span>.
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'중복 ID라서 추가되지 않았습니다.'</span>.
+<span class="abap-token-keyword">ENDIF</span>.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

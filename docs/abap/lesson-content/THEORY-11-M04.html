@@ -56,13 +56,13 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">SELECT</span> carrid,
-       COUNT(*) AS cnt
-  <span style="color: #005cc5; font-weight: bold;">FROM</span> sbook
-  <span style="color: #005cc5; font-weight: bold;">WHERE</span> fldate &gt;= <span style="color: #22863a;">'20260101'</span>      <span style="color: #888888; font-style: italic;">"① 먼저 2026년 행만 추리고</span>
-  GROUP <span style="color: #005cc5; font-weight: bold;">BY</span> carrid                 <span style="color: #888888; font-style: italic;">"② 항공사별로 묶은 뒤</span>
-  HAVING COUNT(*) &gt; <span style="color: #22863a;">100</span>           <span style="color: #888888; font-style: italic;">"③ 건수 100 초과 그룹만 남김</span>
-  <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lt_top).</code></pre>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">SELECT</span> carrid,
+       COUNT(*) <span class="abap-token-keyword">AS</span> cnt
+  <span class="abap-token-keyword">FROM</span> sbook
+  <span class="abap-token-keyword">WHERE</span> fldate &gt;= <span class="abap-token-string">'20260101'</span>      <span class="abap-token-comment">"① 먼저 2026년 행만 추리고</span>
+  GROUP <span class="abap-token-keyword">BY</span> carrid                 <span class="abap-token-comment">"② 항공사별로 묶은 뒤</span>
+  HAVING COUNT(*) &gt; <span class="abap-token-number">100</span>           <span class="abap-token-comment">"③ 건수 100 초과 그룹만 남김</span>
+  <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt_top).</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

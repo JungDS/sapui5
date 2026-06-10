@@ -41,17 +41,17 @@
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12
     </div>
     <pre class="shiki abap-editor-code"><code>PROCESS AFTER INPUT.
-  <span style="color: #005cc5; font-weight: bold;">MODULE</span> user_command_0100.
+  <span class="abap-token-keyword">MODULE</span> user_command_0100.
 
-<span style="color: #005cc5; font-weight: bold;">MODULE</span> user_command_0100 INPUT.
-  <span style="color: #005cc5; font-weight: bold;">CASE</span> ok_code.
-    <span style="color: #005cc5; font-weight: bold;">WHEN</span> <span style="color: #22863a;">'SAVE'</span>.
-      PERFORM save_data.        <span style="color: #888888; font-style: italic;">"저장 처리</span>
-    <span style="color: #005cc5; font-weight: bold;">WHEN</span> <span style="color: #22863a;">'BACK'</span> OR <span style="color: #22863a;">'EXIT'</span>.
-      LEAVE <span style="color: #005cc5; font-weight: bold;">TO</span> SCREEN <span style="color: #22863a;">0</span>.        <span style="color: #888888; font-style: italic;">"화면 종료</span>
-  <span style="color: #005cc5; font-weight: bold;">ENDCASE</span>.
-  <span style="color: #005cc5; font-weight: bold;">CLEAR</span> ok_code.               <span style="color: #888888; font-style: italic;">"다음을 위해 비워줌</span>
-<span style="color: #005cc5; font-weight: bold;">ENDMODULE</span>.</code></pre>
+<span class="abap-token-keyword">MODULE</span> user_command_0100 INPUT.
+  <span class="abap-token-keyword">CASE</span> ok_code.
+    <span class="abap-token-keyword">WHEN</span> <span class="abap-token-string">'SAVE'</span>.
+      PERFORM save_data.        <span class="abap-token-comment">"저장 처리</span>
+    <span class="abap-token-keyword">WHEN</span> <span class="abap-token-string">'BACK'</span> OR <span class="abap-token-string">'EXIT'</span>.
+      LEAVE <span class="abap-token-keyword">TO</span> SCREEN <span class="abap-token-number">0</span>.        <span class="abap-token-comment">"화면 종료</span>
+  <span class="abap-token-keyword">ENDCASE</span>.
+  <span class="abap-token-keyword">CLEAR</span> ok_code.               <span class="abap-token-comment">"다음을 위해 비워줌</span>
+<span class="abap-token-keyword">ENDMODULE</span>.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

@@ -34,16 +34,16 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16
     </div>
-    <pre class="shiki abap-editor-code"><code>define root view entity ZI_Travel
-  as <span style="color: #005cc5; font-weight: bold;">select</span> <span style="color: #005cc5; font-weight: bold;">from</span> ztravel
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">define</span> root <span class="abap-token-keyword">view</span> <span class="abap-token-keyword">entity</span> ZI_Travel
+  <span class="abap-token-keyword">as</span> <span class="abap-token-keyword">select</span> <span class="abap-token-keyword">from</span> ztravel
 {
-  <span style="color: #005cc5; font-weight: bold;">key</span> travel_id,
+  <span class="abap-token-keyword">key</span> travel_id,
       agency_id,
       customer_id,
       begin_date,
       end_date,
       booking_fee,
-      @Semantics.amount.currencyCode: <span style="color: #22863a;">'CurrencyCode'</span>
+      @Semantics.amount.currencyCode: <span class="abap-token-string">'CurrencyCode'</span>
       total_price,
       currency_code,
       // 관리 필드(생성자/시각 등)

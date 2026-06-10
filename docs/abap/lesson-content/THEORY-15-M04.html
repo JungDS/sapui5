@@ -37,18 +37,18 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">DATA</span>: gt_fcat <span style="color: #005cc5; font-weight: bold;">TYPE</span> lvc_t_fcat,
-      gs_fcat <span style="color: #005cc5; font-weight: bold;">TYPE</span> lvc_s_fcat.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span>: gt_fcat <span class="abap-token-keyword">TYPE</span> lvc_t_fcat,
+      gs_fcat <span class="abap-token-keyword">TYPE</span> lvc_s_fcat.
 
-gs_fcat-fieldname = <span style="color: #22863a;">'CARRID'</span>.        <span style="color: #888888; font-style: italic;">"어느 필드인지</span>
-gs_fcat-coltext   = <span style="color: #22863a;">'항공사'</span>.         <span style="color: #888888; font-style: italic;">"컬럼 제목</span>
-gs_fcat-outputlen = <span style="color: #22863a;">10</span>.              <span style="color: #888888; font-style: italic;">"표시 너비</span>
-<span style="color: #005cc5; font-weight: bold;">APPEND</span> gs_fcat <span style="color: #005cc5; font-weight: bold;">TO</span> gt_fcat. <span style="color: #005cc5; font-weight: bold;">CLEAR</span> gs_fcat.
+gs_fcat-fieldname = <span class="abap-token-string">'CARRID'</span>.        <span class="abap-token-comment">"어느 필드인지</span>
+gs_fcat-coltext   = <span class="abap-token-string">'항공사'</span>.         <span class="abap-token-comment">"컬럼 제목</span>
+gs_fcat-outputlen = <span class="abap-token-number">10</span>.              <span class="abap-token-comment">"표시 너비</span>
+<span class="abap-token-keyword">APPEND</span> gs_fcat <span class="abap-token-keyword">TO</span> gt_fcat. <span class="abap-token-keyword">CLEAR</span> gs_fcat.
 
-gs_fcat-fieldname = <span style="color: #22863a;">'PRICE'</span>.
-gs_fcat-coltext   = <span style="color: #22863a;">'요금'</span>.
-gs_fcat-outputlen = <span style="color: #22863a;">15</span>.
-<span style="color: #005cc5; font-weight: bold;">APPEND</span> gs_fcat <span style="color: #005cc5; font-weight: bold;">TO</span> gt_fcat. <span style="color: #005cc5; font-weight: bold;">CLEAR</span> gs_fcat.</code></pre>
+gs_fcat-fieldname = <span class="abap-token-string">'PRICE'</span>.
+gs_fcat-coltext   = <span class="abap-token-string">'요금'</span>.
+gs_fcat-outputlen = <span class="abap-token-number">15</span>.
+<span class="abap-token-keyword">APPEND</span> gs_fcat <span class="abap-token-keyword">TO</span> gt_fcat. <span class="abap-token-keyword">CLEAR</span> gs_fcat.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

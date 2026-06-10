@@ -37,21 +37,21 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #888888; font-style: italic;">" 약속 정의 (구현은 없음)</span>
-INTERFACE zif_printer <span style="color: #005cc5; font-weight: bold;">PUBLIC</span>.
-  <span style="color: #005cc5; font-weight: bold;">METHODS</span> print.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" 약속 정의 (구현은 없음)</span>
+INTERFACE zif_printer <span class="abap-token-keyword">PUBLIC</span>.
+  <span class="abap-token-keyword">METHODS</span> print.
 ENDINTERFACE.
 
-<span style="color: #888888; font-style: italic;">" 약속을 지키는 클래스들</span>
-<span style="color: #005cc5; font-weight: bold;">CLASS</span> zcl_pdf DEFINITION <span style="color: #005cc5; font-weight: bold;">PUBLIC</span>.
-  <span style="color: #005cc5; font-weight: bold;">PUBLIC</span> <span style="color: #005cc5; font-weight: bold;">SECTION</span>.
-    INTERFACES zif_printer.        <span style="color: #888888; font-style: italic;">"이 약속을 따른다</span>
-<span style="color: #005cc5; font-weight: bold;">ENDCLASS</span>.
-<span style="color: #005cc5; font-weight: bold;">CLASS</span> zcl_pdf IMPLEMENTATION.
+<span class="abap-token-comment">" 약속을 지키는 클래스들</span>
+<span class="abap-token-keyword">CLASS</span> zcl_pdf DEFINITION <span class="abap-token-keyword">PUBLIC</span>.
+  <span class="abap-token-keyword">PUBLIC</span> <span class="abap-token-keyword">SECTION</span>.
+    <span class="abap-token-keyword">INTERFACES</span> zif_printer.        <span class="abap-token-comment">"이 약속을 따른다</span>
+<span class="abap-token-keyword">ENDCLASS</span>.
+<span class="abap-token-keyword">CLASS</span> zcl_pdf <span class="abap-token-keyword">IMPLEMENTATION</span>.
   METHOD zif_printer~print.
-    <span style="color: #888888; font-style: italic;">" PDF 방식으로 출력</span>
+    <span class="abap-token-comment">" PDF 방식으로 출력</span>
   ENDMETHOD.
-<span style="color: #005cc5; font-weight: bold;">ENDCLASS</span>.</code></pre>
+<span class="abap-token-keyword">ENDCLASS</span>.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -86,13 +86,13 @@ ENDINTERFACE.
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">DATA</span>: lo_printer <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #005cc5; font-weight: bold;">REF</span> <span style="color: #005cc5; font-weight: bold;">TO</span> zif_printer.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span>: lo_printer <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">REF</span> <span class="abap-token-keyword">TO</span> zif_printer.
 
-lo_printer = NEW zcl_pdf( ).
-lo_printer-&gt;print( ).      <span style="color: #888888; font-style: italic;">"PDF로 출력</span>
+lo_printer = <span class="abap-token-keyword">NEW</span> zcl_pdf( ).
+lo_printer-&gt;print( ).      <span class="abap-token-comment">"PDF로 출력</span>
 
-lo_printer = NEW zcl_excel( ).
-lo_printer-&gt;print( ).      <span style="color: #888888; font-style: italic;">"엑셀로 출력 (같은 호출, 다른 동작)</span></code></pre>
+lo_printer = <span class="abap-token-keyword">NEW</span> zcl_excel( ).
+lo_printer-&gt;print( ).      <span class="abap-token-comment">"엑셀로 출력 (같은 호출, 다른 동작)</span></code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

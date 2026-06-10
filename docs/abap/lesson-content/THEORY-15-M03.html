@@ -37,20 +37,20 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #888888; font-style: italic;">" 화면에 보여줄 구조 = 표의 컬럼들</span>
-<span style="color: #005cc5; font-weight: bold;">TYPES</span>: <span style="color: #005cc5; font-weight: bold;">BEGIN</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_flight,
-         carrid  <span style="color: #005cc5; font-weight: bold;">TYPE</span> s_carr_id,
-         connid  <span style="color: #005cc5; font-weight: bold;">TYPE</span> s_conn_id,
-         fldate  <span style="color: #005cc5; font-weight: bold;">TYPE</span> s_date,
-         price   <span style="color: #005cc5; font-weight: bold;">TYPE</span> s_price,
-       <span style="color: #005cc5; font-weight: bold;">END</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_flight.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" 화면에 보여줄 구조 = 표의 컬럼들</span>
+<span class="abap-token-keyword">TYPES</span>: <span class="abap-token-keyword">BEGIN</span> <span class="abap-token-keyword">OF</span> ty_flight,
+         carrid  <span class="abap-token-keyword">TYPE</span> s_carr_id,
+         connid  <span class="abap-token-keyword">TYPE</span> s_conn_id,
+         fldate  <span class="abap-token-keyword">TYPE</span> s_date,
+         price   <span class="abap-token-keyword">TYPE</span> s_price,
+       <span class="abap-token-keyword">END</span> <span class="abap-token-keyword">OF</span> ty_flight.
 
-<span style="color: #005cc5; font-weight: bold;">DATA</span> gt_outtab <span style="color: #005cc5; font-weight: bold;">TYPE</span> STANDARD <span style="color: #005cc5; font-weight: bold;">TABLE</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_flight.
+<span class="abap-token-keyword">DATA</span> gt_outtab <span class="abap-token-keyword">TYPE</span> STANDARD <span class="abap-token-keyword">TABLE</span> <span class="abap-token-keyword">OF</span> ty_flight.
 
-<span style="color: #005cc5; font-weight: bold;">START-OF-SELECTION</span>.
-  <span style="color: #005cc5; font-weight: bold;">SELECT</span> carrid, connid, fldate, price
-    <span style="color: #005cc5; font-weight: bold;">FROM</span> sflight
-    <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @gt_outtab.</code></pre>
+<span class="abap-token-keyword">START-OF-SELECTION</span>.
+  <span class="abap-token-keyword">SELECT</span> carrid, connid, fldate, price
+    <span class="abap-token-keyword">FROM</span> sflight
+    <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @gt_outtab.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

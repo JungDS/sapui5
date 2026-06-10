@@ -34,14 +34,14 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10
     </div>
-    <pre class="shiki abap-editor-code"><code>define view entity ZI_Flight
-  as <span style="color: #005cc5; font-weight: bold;">select</span> <span style="color: #005cc5; font-weight: bold;">from</span> sflight
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">define</span> <span class="abap-token-keyword">view</span> <span class="abap-token-keyword">entity</span> ZI_Flight
+  <span class="abap-token-keyword">as</span> <span class="abap-token-keyword">select</span> <span class="abap-token-keyword">from</span> sflight
 {
-  <span style="color: #005cc5; font-weight: bold;">key</span> carrid,
-      @EndUserText.label: <span style="color: #22863a;">'항공 요금'</span>
-      @Semantics.amount.currencyCode: <span style="color: #22863a;">'Currency'</span>   <span style="color: #888888; font-style: italic;">"금액임 + 통화 필드 지정</span>
+  <span class="abap-token-keyword">key</span> carrid,
+      @EndUserText.label: <span class="abap-token-string">'항공 요금'</span>
+      @Semantics.amount.currencyCode: <span class="abap-token-string">'Currency'</span>   <span class="abap-token-comment">"금액임 + 통화 필드 지정</span>
       price,
-      @Semantics.currencyCode: true                <span style="color: #888888; font-style: italic;">"이 필드가 통화 코드</span>
+      @Semantics.currencyCode: true                <span class="abap-token-comment">"이 필드가 통화 코드</span>
       currency
 }</code></pre>
   </div>
@@ -82,8 +82,8 @@
     <div class="abap-editor-line-numbers">
       1<br>2
     </div>
-    <pre class="shiki abap-editor-code"><code>@UI.lineItem: [{ position: <span style="color: #22863a;">10</span> }]   <span style="color: #888888; font-style: italic;">"목록에서 10번째 컬럼</span>
-@UI.identification: [{ position: <span style="color: #22863a;">10</span> }]</code></pre>
+    <pre class="shiki abap-editor-code"><code>@UI.lineItem: [{ position: <span class="abap-token-number">10</span> }]   <span class="abap-token-comment">"목록에서 10번째 컬럼</span>
+@UI.identification: [{ position: <span class="abap-token-number">10</span> }]</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

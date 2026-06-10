@@ -40,13 +40,13 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">AT</span> <span style="color: #005cc5; font-weight: bold;">SELECTION-SCREEN</span> OUTPUT.
-  <span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> SCREEN.
-    <span style="color: #005cc5; font-weight: bold;">IF</span> screen-name = <span style="color: #22863a;">'P_DETAIL'</span>.
-      screen-active = <span style="color: #22863a;">'0'</span>.        <span style="color: #888888; font-style: italic;">"이 칸을 숨김 (0=숨김, 1=표시)</span>
-      <span style="color: #005cc5; font-weight: bold;">MODIFY</span> SCREEN.              <span style="color: #888888; font-style: italic;">"변경을 실제 화면에 반영</span>
-    <span style="color: #005cc5; font-weight: bold;">ENDIF</span>.
-  <span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.</code></pre>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">AT</span> <span class="abap-token-keyword">SELECTION-SCREEN</span> OUTPUT.
+  <span class="abap-token-keyword">LOOP</span> <span class="abap-token-keyword">AT</span> SCREEN.
+    <span class="abap-token-keyword">IF</span> screen-name = <span class="abap-token-string">'P_DETAIL'</span>.
+      screen-active = <span class="abap-token-string">'0'</span>.        <span class="abap-token-comment">"이 칸을 숨김 (0=숨김, 1=표시)</span>
+      <span class="abap-token-keyword">MODIFY</span> SCREEN.              <span class="abap-token-comment">"변경을 실제 화면에 반영</span>
+    <span class="abap-token-keyword">ENDIF</span>.
+  <span class="abap-token-keyword">ENDLOOP</span>.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -79,16 +79,16 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">PARAMETERS</span>: p_a <span style="color: #005cc5; font-weight: bold;">TYPE</span> c MODIF ID grp,
-            p_b <span style="color: #005cc5; font-weight: bold;">TYPE</span> c MODIF ID grp.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">PARAMETERS</span>: p_a <span class="abap-token-keyword">TYPE</span> c MODIF ID grp,
+            p_b <span class="abap-token-keyword">TYPE</span> c MODIF ID grp.
 
-<span style="color: #005cc5; font-weight: bold;">AT</span> <span style="color: #005cc5; font-weight: bold;">SELECTION-SCREEN</span> OUTPUT.
-  <span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> SCREEN.
-    <span style="color: #005cc5; font-weight: bold;">IF</span> screen-group1 = <span style="color: #22863a;">'GRP'</span>.     <span style="color: #888888; font-style: italic;">"MODIF ID가 GRP인 칸 전부</span>
-      screen-active = <span style="color: #22863a;">'0'</span>.
-      <span style="color: #005cc5; font-weight: bold;">MODIFY</span> SCREEN.
-    <span style="color: #005cc5; font-weight: bold;">ENDIF</span>.
-  <span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.</code></pre>
+<span class="abap-token-keyword">AT</span> <span class="abap-token-keyword">SELECTION-SCREEN</span> OUTPUT.
+  <span class="abap-token-keyword">LOOP</span> <span class="abap-token-keyword">AT</span> SCREEN.
+    <span class="abap-token-keyword">IF</span> screen-group1 = <span class="abap-token-string">'GRP'</span>.     <span class="abap-token-comment">"MODIF ID가 GRP인 칸 전부</span>
+      screen-active = <span class="abap-token-string">'0'</span>.
+      <span class="abap-token-keyword">MODIFY</span> SCREEN.
+    <span class="abap-token-keyword">ENDIF</span>.
+  <span class="abap-token-keyword">ENDLOOP</span>.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

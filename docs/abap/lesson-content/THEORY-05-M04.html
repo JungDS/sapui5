@@ -54,22 +54,22 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zlocal_class_basic.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zlocal_class_basic.
 
-<span style="color: #005cc5; font-weight: bold;">CLASS</span> lcl_greeter DEFINITION.
-  <span style="color: #005cc5; font-weight: bold;">PUBLIC</span> <span style="color: #005cc5; font-weight: bold;">SECTION</span>.
-    <span style="color: #005cc5; font-weight: bold;">METHODS</span> say_hello <span style="color: #005cc5; font-weight: bold;">IMPORTING</span> iv_name <span style="color: #005cc5; font-weight: bold;">TYPE</span> string.
-<span style="color: #005cc5; font-weight: bold;">ENDCLASS</span>.
+<span class="abap-token-keyword">CLASS</span> lcl_greeter DEFINITION.
+  <span class="abap-token-keyword">PUBLIC</span> <span class="abap-token-keyword">SECTION</span>.
+    <span class="abap-token-keyword">METHODS</span> say_hello <span class="abap-token-keyword">IMPORTING</span> iv_name <span class="abap-token-keyword">TYPE</span> string.
+<span class="abap-token-keyword">ENDCLASS</span>.
 
-<span style="color: #005cc5; font-weight: bold;">CLASS</span> lcl_greeter IMPLEMENTATION.
+<span class="abap-token-keyword">CLASS</span> lcl_greeter <span class="abap-token-keyword">IMPLEMENTATION</span>.
   METHOD say_hello.
-    <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'안녕하세요,'</span>, iv_name.
+    <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'안녕하세요,'</span>, iv_name.
   ENDMETHOD.
-<span style="color: #005cc5; font-weight: bold;">ENDCLASS</span>.
+<span class="abap-token-keyword">ENDCLASS</span>.
 
-<span style="color: #005cc5; font-weight: bold;">START-OF-SELECTION</span>.
-  <span style="color: #005cc5; font-weight: bold;">DATA</span>(lo_greeter) = NEW lcl_greeter( ).
-  lo_greeter-&gt;say_hello( iv_name = <span style="color: #22863a;">'ABAP'</span> ).</code></pre>
+<span class="abap-token-keyword">START-OF-SELECTION</span>.
+  <span class="abap-token-keyword">DATA</span>(lo_greeter) = <span class="abap-token-keyword">NEW</span> lcl_greeter( ).
+  lo_greeter-&gt;say_hello( iv_name = <span class="abap-token-string">'ABAP'</span> ).</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -100,7 +100,7 @@
     <div class="abap-editor-line-numbers">
       1
     </div>
-    <pre class="shiki abap-editor-code"><code>lo_greeter-&gt;say_hello( iv_name = <span style="color: #22863a;">'ABAP'</span> ).</code></pre>
+    <pre class="shiki abap-editor-code"><code>lo_greeter-&gt;say_hello( iv_name = <span class="abap-token-string">'ABAP'</span> ).</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

@@ -37,16 +37,16 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">END-OF-SELECTION</span>.
-  <span style="color: #005cc5; font-weight: bold;">IF</span> gt_result <span style="color: #005cc5; font-weight: bold;">IS</span> <span style="color: #005cc5; font-weight: bold;">INITIAL</span>.
-    MESSAGE <span style="color: #22863a;">'조회된 데이터가 없습니다.'</span> <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #22863a;">'S'</span>.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">END-OF-SELECTION</span>.
+  <span class="abap-token-keyword">IF</span> gt_result <span class="abap-token-keyword">IS</span> <span class="abap-token-keyword">INITIAL</span>.
+    MESSAGE <span class="abap-token-string">'조회된 데이터가 없습니다.'</span> <span class="abap-token-keyword">TYPE</span> <span class="abap-token-string">'S'</span>.
     RETURN.
-  <span style="color: #005cc5; font-weight: bold;">ENDIF</span>.
+  <span class="abap-token-keyword">ENDIF</span>.
 
-  <span style="color: #888888; font-style: italic;">" 담아둔 결과를 ALV 등으로 출력</span>
+  <span class="abap-token-comment">" 담아둔 결과를 ALV 등으로 출력</span>
   cl_salv_table=&gt;factory(
-    <span style="color: #005cc5; font-weight: bold;">IMPORTING</span> r_salv_table = <span style="color: #005cc5; font-weight: bold;">DATA</span>(lo_alv)
-    <span style="color: #005cc5; font-weight: bold;">CHANGING</span>  t_table      = gt_result ).
+    <span class="abap-token-keyword">IMPORTING</span> r_salv_table = <span class="abap-token-keyword">DATA</span>(lo_alv)
+    <span class="abap-token-keyword">CHANGING</span>  t_table      = gt_result ).
   lo_alv-&gt;display( ).</code></pre>
   </div>
 </div>

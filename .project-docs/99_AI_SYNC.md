@@ -1,6 +1,6 @@
 # AI Workspace Synchronization Log (AI-SYNC)
 
-> 📅 **최종수정: 2026-06-10 00:50 KST**
+> 📅 **최종수정: 2026-06-10 13:34 KST**
 
 ## 목적 및 규칙 (Purpose & Rules)
 본 파일(`.project-docs/99_AI_SYNC.md`)은 여러 AI 모델(Codex, Antigravity, Claude 등)이 컨텍스트를 공유하고 작업을 이어가기 위한 공통 데이터베이스 역할을 합니다.
@@ -16,7 +16,7 @@
 
 ## 현재 상태 및 목표 (Current Status & Goals)
 - **현재 목표**: 🎉 **Track 1(THEORY-*) 137/137 작성 완료!** (THEORY-01~21 전부). 다음 목표는 **Track 2(PRACTICAL-* 13개 섹션)** 신규 작성.
-- **최근 진행(2026-06-10, Antigravity IDE)**: 네이비 ABAP Editor 디자인 리팩토링(CSS 클래스 공통화) 및 D2Coding 폰트 적용 완료. 로컬 캐시 우회 로직 추가. Codex에 대한 인계 프롬프트 완벽 재정비 완료.
+- **최근 진행(2026-06-10, Codex)**: Lesson 코드 하이라이트 인라인 스타일 2,390건을 `abap-token-*` CSS 클래스로 공통화하고, 포맷터를 Track 2(PRACTICAL-*)까지 처리하도록 보강. Lesson 본문 인라인 스타일 0건, 포맷터 멱등성 확인 완료.
 - **⚠️ 동시 작업 주의**: AI 작업 간 겹침 방지를 위해 섹션 단위 작업을 엄수.
 - **⚠️ 인계 핵심 문서**: 이어서 작업할 AI는 **[HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md)를 가장 먼저 정독**할 것. 작성 규칙·스타일 기준·복붙용 프롬프트가 모두 거기 있음.
 
@@ -24,7 +24,7 @@
 
 ## 미결 사항 (Pending Issues / Next Steps)
 - **Lesson 본문 양산**: Track 1 완료. 다음은 **Track 2(PRACTICAL-* 13개 섹션, 약 70개 Lesson)** 신규 작성. 같은 스타일(초심자·한눈에 정리·글로서리 패리티·추적 3종 동시 갱신·Chapter/Lesson 용어)을 그대로 적용한다. JSON의 `d.tracks[1]`에서 PRACTICAL 섹션/Lesson ID 추출.
-- **[완료] 신규 19~21 코드블록 서식 및 CSS 아키텍처 리팩토링**: Antigravity가 네이비 ABAP Editor 포맷터 개선을 통해 모든 인라인 스타일을 CSS 클래스로 분리함.
+- **[완료] 신규 19~21 코드블록 서식 및 CSS 아키텍처 리팩토링**: Antigravity가 네이비 ABAP Editor 포맷터 개선을 통해 에디터 외곽 인라인 스타일을 CSS 클래스로 분리했고, Codex가 코드 하이라이트 토큰까지 `abap-token-*` 클래스로 공통화함.
 - **[프로세스] 섹션 작성 후 추적 3종 동시 갱신**: 섹션 커밋 시 ① `HANDOFF_LESSON_CONTENT.md` 진행표 ② 본 파일(99_AI_SYNC) 작업이력/현황 ③ `changelogs/CHANGELOG_<날짜>.md`를 함께 갱신할 것(누락 주의).
 - **글로서리 완전 패리티**: Lesson에서 쓰는 주요 용어는 `reference/abap_glossary.json`에 반드시 함께 등록(일상 비유 포함). 미등록 용어는 툴팁이 안 뜸(깨진 링크).
 - (선택) Lesson 내 퀴즈·실습 코드 블록 등 상호작용 컴포넌트 고도화.
@@ -37,6 +37,20 @@
 ---
 
 ## 작업 이력 (Work Log)
+
+### [2026-06-10] Codex (GPT-5) — Lesson 코드 하이라이트 공통화 및 포맷터 보강
+- **작업 내용**:
+  - `assets/abap-lesson-viewer.css`에 `abap-token-keyword/string/number/comment` 토큰 클래스를 추가.
+  - `archive/_local/format_abap_code.mjs`가 `<span style="...">` 대신 토큰 클래스를 생성하도록 수정하고, Track 2 `PRACTICAL-*` 파일명도 처리하도록 패턴 확장.
+  - 포맷터를 전체 Lesson에 재실행하여 215개 코드 mockup의 하이라이트를 클래스 기반으로 재생성.
+  - `assets/abap-lesson-viewer.js`의 사이드바 고정 인라인 스타일과 Copy 버튼 직접 스타일 조작을 CSS 클래스 기반으로 정리.
+  - `docs/abap/lesson-viewer.html`의 lesson viewer CSS/JS 참조에 캐시 버전(`v=20260610-token3`) 부여.
+- **검증**:
+  - `node archive/_local/format_abap_code.mjs` 재실행 시 수정 0건(멱등성 확인).
+  - `docs/abap/lesson-content` 기준 인라인 스타일 0건, `<script>`/`<style>`/인라인 이벤트 0건.
+  - 글로서리 미정의 0건.
+  - 로컬 뷰어에서 `THEORY-02-M01`, `THEORY-20-M01` 코드 블록/토큰 렌더링 확인.
+- **다음 AI를 위한 메모**: Track 2 작성 시 코드 블록은 계속 순수 `<pre><code>`로 작성하고, 섹션 종료 후 개선된 포맷터를 돌리면 된다.
 
 ### [2026-06-08] Antigravity IDE (Gemini 3.1 Pro)
 - (기존 내용 생략)

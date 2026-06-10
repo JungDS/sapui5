@@ -59,7 +59,7 @@
     <div class="abap-editor-line-numbers">
       1
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">DATA</span> lo_alv <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #005cc5; font-weight: bold;">REF</span> <span style="color: #005cc5; font-weight: bold;">TO</span> cl_salv_table.</code></pre>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span> lo_alv <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">REF</span> <span class="abap-token-keyword">TO</span> cl_salv_table.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -94,9 +94,9 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> lt_students <span style="color: #005cc5; font-weight: bold;">INTO</span> ls_student.
-  <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / ls_student-id, ls_student-name, ls_student-score.
-<span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.</code></pre>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">LOOP</span> <span class="abap-token-keyword">AT</span> lt_students <span class="abap-token-keyword">INTO</span> ls_student.
+  <span class="abap-token-keyword">WRITE</span>: / ls_student-id, ls_student-name, ls_student-score.
+<span class="abap-token-keyword">ENDLOOP</span>.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -121,8 +121,8 @@
       1<br>2<br>3<br>4<br>5
     </div>
     <pre class="shiki abap-editor-code"><code>cl_salv_table=&gt;factory(
-  <span style="color: #005cc5; font-weight: bold;">IMPORTING</span> r_salv_table = lo_alv
-  <span style="color: #005cc5; font-weight: bold;">CHANGING</span>  t_table      = lt_students ).
+  <span class="abap-token-keyword">IMPORTING</span> r_salv_table = lo_alv
+  <span class="abap-token-keyword">CHANGING</span>  t_table      = lt_students ).
 
 lo_alv-&gt;display( ).</code></pre>
   </div>

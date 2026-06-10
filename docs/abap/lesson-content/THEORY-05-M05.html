@@ -43,13 +43,13 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">DATA</span> gv_text <span style="color: #005cc5; font-weight: bold;">TYPE</span> string.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span> gv_text <span class="abap-token-keyword">TYPE</span> string.
 
 gv_text = zcl_demo_text=&gt;build_greeting(
-  iv_name = <span style="color: #22863a;">'ABAP'</span>
+  iv_name = <span class="abap-token-string">'ABAP'</span>
 ).
 
-<span style="color: #005cc5; font-weight: bold;">WRITE</span> gv_text.</code></pre>
+<span class="abap-token-keyword">WRITE</span> gv_text.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -87,12 +87,12 @@ gv_text = zcl_demo_text=&gt;build_greeting(
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">DATA</span> lo_checker <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #005cc5; font-weight: bold;">REF</span> <span style="color: #005cc5; font-weight: bold;">TO</span> zcl_demo_checker.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span> lo_checker <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">REF</span> <span class="abap-token-keyword">TO</span> zcl_demo_checker.
 
-lo_checker = NEW zcl_demo_checker( ).
+lo_checker = <span class="abap-token-keyword">NEW</span> zcl_demo_checker( ).
 
 lo_checker-&gt;check_input(
-  iv_value = <span style="color: #22863a;">'KE'</span>
+  iv_value = <span class="abap-token-string">'KE'</span>
 ).</code></pre>
   </div>
 </div>

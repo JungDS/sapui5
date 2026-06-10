@@ -34,15 +34,15 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">DATA</span>(lo_layout) = lo_alv-&gt;get_layout( ).
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span>(lo_layout) = lo_alv-&gt;get_layout( ).
 
-<span style="color: #888888; font-style: italic;">" 변형(레이아웃) 저장 키: 보통 프로그램 ID 기준</span>
-<span style="color: #005cc5; font-weight: bold;">DATA</span>(ls_key) = <span style="color: #005cc5; font-weight: bold;">VALUE</span> salv_s_layout_key( <span style="color: #005cc5; font-weight: bold;">report</span> = sy-repid ).
+<span class="abap-token-comment">" 변형(레이아웃) 저장 키: 보통 프로그램 ID 기준</span>
+<span class="abap-token-keyword">DATA</span>(ls_key) = <span class="abap-token-keyword">VALUE</span> salv_s_layout_key( <span class="abap-token-keyword">report</span> = sy-repid ).
 lo_layout-&gt;set_key( ls_key ).
 
-<span style="color: #888888; font-style: italic;">" 저장 허용 범위 (THEORY-15의 I_SAVE와 동일 개념)</span>
+<span class="abap-token-comment">" 저장 허용 범위 (THEORY-15의 I_SAVE와 동일 개념)</span>
 lo_layout-&gt;set_save_restriction(
-  if_salv_c_layout=&gt;restrict_none ).   <span style="color: #888888; font-style: italic;">"사용자/공용 모두 허용</span></code></pre>
+  if_salv_c_layout=&gt;restrict_none ).   <span class="abap-token-comment">"사용자/공용 모두 허용</span></code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

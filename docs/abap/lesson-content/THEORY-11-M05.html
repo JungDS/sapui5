@@ -37,11 +37,11 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">SELECT</span> carrid, connid, fldate, price
-  <span style="color: #005cc5; font-weight: bold;">FROM</span> spfli
-  ORDER <span style="color: #005cc5; font-weight: bold;">BY</span> carrid <span style="color: #005cc5; font-weight: bold;">ASCENDING</span>,      <span style="color: #888888; font-style: italic;">"항공사 코드 오름차순,</span>
-           price  <span style="color: #005cc5; font-weight: bold;">DESCENDING</span>      <span style="color: #888888; font-style: italic;">"같은 항공사면 요금 내림차순</span>
-  <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lt_sorted).</code></pre>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">SELECT</span> carrid, connid, fldate, price
+  <span class="abap-token-keyword">FROM</span> spfli
+  ORDER <span class="abap-token-keyword">BY</span> carrid <span class="abap-token-keyword">ASCENDING</span>,      <span class="abap-token-comment">"항공사 코드 오름차순,</span>
+           price  <span class="abap-token-keyword">DESCENDING</span>      <span class="abap-token-comment">"같은 항공사면 요금 내림차순</span>
+  <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt_sorted).</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

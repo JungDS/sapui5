@@ -43,7 +43,7 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">DATA</span> lo_functions <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #005cc5; font-weight: bold;">REF</span> <span style="color: #005cc5; font-weight: bold;">TO</span> cl_salv_functions_list.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span> lo_functions <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">REF</span> <span class="abap-token-keyword">TO</span> cl_salv_functions_list.
 
 lo_functions = lo_alv-&gt;get_functions( ).
 lo_functions-&gt;set_all( abap_true ).</code></pre>
@@ -80,8 +80,8 @@ lo_functions-&gt;set_all( abap_true ).</code></pre>
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8
     </div>
     <pre class="shiki abap-editor-code"><code>cl_salv_table=&gt;factory(
-  <span style="color: #005cc5; font-weight: bold;">IMPORTING</span> r_salv_table = lo_alv
-  <span style="color: #005cc5; font-weight: bold;">CHANGING</span>  t_table      = lt_students ).
+  <span class="abap-token-keyword">IMPORTING</span> r_salv_table = lo_alv
+  <span class="abap-token-keyword">CHANGING</span>  t_table      = lt_students ).
 
 lo_functions = lo_alv-&gt;get_functions( ).
 lo_functions-&gt;set_all( abap_true ).
@@ -121,23 +121,23 @@ lo_alv-&gt;display( ).</code></pre>
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">DATA</span>: lo_alv       <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #005cc5; font-weight: bold;">REF</span> <span style="color: #005cc5; font-weight: bold;">TO</span> cl_salv_table,
-      lo_functions <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #005cc5; font-weight: bold;">REF</span> <span style="color: #005cc5; font-weight: bold;">TO</span> cl_salv_functions_list,
-      lx_msg       <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #005cc5; font-weight: bold;">REF</span> <span style="color: #005cc5; font-weight: bold;">TO</span> cx_salv_msg.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span>: lo_alv       <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">REF</span> <span class="abap-token-keyword">TO</span> cl_salv_table,
+      lo_functions <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">REF</span> <span class="abap-token-keyword">TO</span> cl_salv_functions_list,
+      lx_msg       <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">REF</span> <span class="abap-token-keyword">TO</span> cx_salv_msg.
 
-TRY.
+<span class="abap-token-keyword">TRY</span>.
     cl_salv_table=&gt;factory(
-      <span style="color: #005cc5; font-weight: bold;">IMPORTING</span> r_salv_table = lo_alv
-      <span style="color: #005cc5; font-weight: bold;">CHANGING</span>  t_table      = lt_students ).
+      <span class="abap-token-keyword">IMPORTING</span> r_salv_table = lo_alv
+      <span class="abap-token-keyword">CHANGING</span>  t_table      = lt_students ).
 
     lo_functions = lo_alv-&gt;get_functions( ).
     lo_functions-&gt;set_all( abap_true ).
 
     lo_alv-&gt;display( ).
 
-  CATCH cx_salv_msg <span style="color: #005cc5; font-weight: bold;">INTO</span> lx_msg.
-    MESSAGE lx_msg-&gt;get_text( ) <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #22863a;">'E'</span>.
-ENDTRY.</code></pre>
+  <span class="abap-token-keyword">CATCH</span> cx_salv_msg <span class="abap-token-keyword">INTO</span> lx_msg.
+    MESSAGE lx_msg-&gt;get_text( ) <span class="abap-token-keyword">TYPE</span> <span class="abap-token-string">'E'</span>.
+<span class="abap-token-keyword">ENDTRY</span>.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

@@ -34,13 +34,13 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">SELECT</span>
-   CONCAT( cityfrom, cityto )          AS route,        <span style="color: #888888; font-style: italic;">"이어 붙이기</span>
-   CONCAT_WITH_SPACE( cityfrom, cityto, <span style="color: #22863a;">1</span> ) AS route2,  <span style="color: #888888; font-style: italic;">"공백 끼워 붙이기</span>
-   UPPER( carrid )                     AS carrid_up,    <span style="color: #888888; font-style: italic;">"대문자</span>
-   LENGTH( connid )                    AS len           <span style="color: #888888; font-style: italic;">"길이</span>
-  <span style="color: #005cc5; font-weight: bold;">FROM</span> spfli
-  <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lt).</code></pre>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">SELECT</span>
+   CONCAT( cityfrom, cityto )          <span class="abap-token-keyword">AS</span> route,        <span class="abap-token-comment">"이어 붙이기</span>
+   CONCAT_WITH_SPACE( cityfrom, cityto, <span class="abap-token-number">1</span> ) <span class="abap-token-keyword">AS</span> route2,  <span class="abap-token-comment">"공백 끼워 붙이기</span>
+   UPPER( carrid )                     <span class="abap-token-keyword">AS</span> carrid_up,    <span class="abap-token-comment">"대문자</span>
+   LENGTH( connid )                    <span class="abap-token-keyword">AS</span> len           <span class="abap-token-comment">"길이</span>
+  <span class="abap-token-keyword">FROM</span> spfli
+  <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt).</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -70,11 +70,11 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">SELECT</span> carrid, fldate,
-   DATS_DAYS_BETWEEN( fldate, @sy-datum ) AS days_left,  <span style="color: #888888; font-style: italic;">"두 날짜 사이 일수</span>
-   DATS_IS_VALID( fldate )                AS is_valid    <span style="color: #888888; font-style: italic;">"유효한 날짜인가</span>
-  <span style="color: #005cc5; font-weight: bold;">FROM</span> sflight
-  <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lt).</code></pre>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">SELECT</span> carrid, fldate,
+   DATS_DAYS_BETWEEN( fldate, @sy-datum ) <span class="abap-token-keyword">AS</span> days_left,  <span class="abap-token-comment">"두 날짜 사이 일수</span>
+   DATS_IS_VALID( fldate )                <span class="abap-token-keyword">AS</span> is_valid    <span class="abap-token-comment">"유효한 날짜인가</span>
+  <span class="abap-token-keyword">FROM</span> sflight
+  <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt).</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

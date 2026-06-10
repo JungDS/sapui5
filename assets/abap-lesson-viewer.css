@@ -1,3 +1,4 @@
+/* ABAP Lesson Viewer UI | 최종수정 2026-06-10 13:17 KST | v1.2 */
 @import url('https://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css');
 
 .lesson-loading {
@@ -315,6 +316,16 @@
   color: #0056b3;
 }
 
+.lesson-current-chapter {
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+  color: #666;
+}
+
+.lesson-related-docs {
+  margin-top: 2rem;
+}
+
 /* === ABAP Navy Editor Mockup (Common Styles) === */
 .abap-editor-mockup {
   background-color: #f6f8fa;
@@ -378,6 +389,19 @@
   color: #ffffff;
 }
 
+.shiki-copy-button.is-copied {
+  color: #27c93f;
+  border-color: #27c93f;
+}
+
+.lesson-copy-buffer {
+  position: fixed;
+  top: 0;
+  left: -9999px;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .abap-editor-body {
   display: flex;
   background-color: #f6f8fa;
@@ -405,4 +429,19 @@
   font-size: 14px;
   line-height: 1.5;
   width: 100%;
+}
+
+.abap-token-keyword {
+  color: #005cc5;
+  font-weight: 700;
+}
+
+.abap-token-string,
+.abap-token-number {
+  color: #22863a;
+}
+
+.abap-token-comment {
+  color: #888888;
+  font-style: italic;
 }

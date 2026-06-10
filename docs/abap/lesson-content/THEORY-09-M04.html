@@ -40,10 +40,10 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">SELECT</span> <span style="color: #005cc5; font-weight: bold;">FROM</span> t005t
-  FIELDS land1, landx
-  <span style="color: #005cc5; font-weight: bold;">WHERE</span> spras = @sy-langu
-  <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lt_countries).</code></pre>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">SELECT</span> <span class="abap-token-keyword">FROM</span> t005t
+  <span class="abap-token-keyword">FIELDS</span> land1, landx
+  <span class="abap-token-keyword">WHERE</span> spras = @sy-langu
+  <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt_countries).</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -76,8 +76,8 @@
     <div class="abap-editor-line-numbers">
       1<br>2
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">DATA</span>(lv_count) = lines( lt_countries ).
-<span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'조회 건수:'</span>, lv_count.</code></pre>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span>(lv_count) = lines( lt_countries ).
+<span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'조회 건수:'</span>, lv_count.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -112,31 +112,31 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zsql_into_table.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zsql_into_table.
 
-<span style="color: #005cc5; font-weight: bold;">DATA</span>: lo_alv <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #005cc5; font-weight: bold;">REF</span> <span style="color: #005cc5; font-weight: bold;">TO</span> cl_salv_table,
-      lx_msg <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #005cc5; font-weight: bold;">REF</span> <span style="color: #005cc5; font-weight: bold;">TO</span> cx_salv_msg.
+<span class="abap-token-keyword">DATA</span>: lo_alv <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">REF</span> <span class="abap-token-keyword">TO</span> cl_salv_table,
+      lx_msg <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">REF</span> <span class="abap-token-keyword">TO</span> cx_salv_msg.
 
-<span style="color: #005cc5; font-weight: bold;">SELECT</span> <span style="color: #005cc5; font-weight: bold;">FROM</span> t005t
-  FIELDS land1, landx
-  <span style="color: #005cc5; font-weight: bold;">WHERE</span> spras = @sy-langu
-  <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lt_countries).
+<span class="abap-token-keyword">SELECT</span> <span class="abap-token-keyword">FROM</span> t005t
+  <span class="abap-token-keyword">FIELDS</span> land1, landx
+  <span class="abap-token-keyword">WHERE</span> spras = @sy-langu
+  <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt_countries).
 
-<span style="color: #005cc5; font-weight: bold;">IF</span> lt_countries <span style="color: #005cc5; font-weight: bold;">IS</span> <span style="color: #005cc5; font-weight: bold;">INITIAL</span>.
-  <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'조회 결과가 없습니다.'</span>.
+<span class="abap-token-keyword">IF</span> lt_countries <span class="abap-token-keyword">IS</span> <span class="abap-token-keyword">INITIAL</span>.
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'조회 결과가 없습니다.'</span>.
   RETURN.
-<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.
+<span class="abap-token-keyword">ENDIF</span>.
 
-TRY.
+<span class="abap-token-keyword">TRY</span>.
     cl_salv_table=&gt;factory(
-      <span style="color: #005cc5; font-weight: bold;">IMPORTING</span> r_salv_table = lo_alv
-      <span style="color: #005cc5; font-weight: bold;">CHANGING</span>  t_table      = lt_countries ).
+      <span class="abap-token-keyword">IMPORTING</span> r_salv_table = lo_alv
+      <span class="abap-token-keyword">CHANGING</span>  t_table      = lt_countries ).
 
     lo_alv-&gt;display( ).
 
-  CATCH cx_salv_msg <span style="color: #005cc5; font-weight: bold;">INTO</span> lx_msg.
-    MESSAGE lx_msg-&gt;get_text( ) <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #22863a;">'E'</span>.
-ENDTRY.</code></pre>
+  <span class="abap-token-keyword">CATCH</span> cx_salv_msg <span class="abap-token-keyword">INTO</span> lx_msg.
+    MESSAGE lx_msg-&gt;get_text( ) <span class="abap-token-keyword">TYPE</span> <span class="abap-token-string">'E'</span>.
+<span class="abap-token-keyword">ENDTRY</span>.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

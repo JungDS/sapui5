@@ -40,11 +40,11 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zdo_basic.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zdo_basic.
 
-<span style="color: #005cc5; font-weight: bold;">DO</span> <span style="color: #22863a;">5</span> TIMES.
-  <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / sy-index, <span style="color: #22863a;">'번째 실행'</span>.
-<span style="color: #005cc5; font-weight: bold;">ENDDO</span>.</code></pre>
+<span class="abap-token-keyword">DO</span> <span class="abap-token-number">5</span> TIMES.
+  <span class="abap-token-keyword">WRITE</span>: / sy-index, <span class="abap-token-string">'번째 실행'</span>.
+<span class="abap-token-keyword">ENDDO</span>.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -78,14 +78,14 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zwhile_basic.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zwhile_basic.
 
-<span style="color: #005cc5; font-weight: bold;">DATA</span> gv_count <span style="color: #005cc5; font-weight: bold;">TYPE</span> i <span style="color: #005cc5; font-weight: bold;">VALUE</span> <span style="color: #22863a;">0</span>.
+<span class="abap-token-keyword">DATA</span> gv_count <span class="abap-token-keyword">TYPE</span> i <span class="abap-token-keyword">VALUE</span> <span class="abap-token-number">0</span>.
 
-<span style="color: #005cc5; font-weight: bold;">WHILE</span> gv_count &lt; <span style="color: #22863a;">3</span>.
-  gv_count = gv_count + <span style="color: #22863a;">1</span>.
-  <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / gv_count, <span style="color: #22863a;">'회차'</span>.
-<span style="color: #005cc5; font-weight: bold;">ENDWHILE</span>.</code></pre>
+<span class="abap-token-keyword">WHILE</span> gv_count &lt; <span class="abap-token-number">3</span>.
+  gv_count = gv_count + <span class="abap-token-number">1</span>.
+  <span class="abap-token-keyword">WRITE</span>: / gv_count, <span class="abap-token-string">'회차'</span>.
+<span class="abap-token-keyword">ENDWHILE</span>.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -127,19 +127,19 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zloop_control.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zloop_control.
 
-<span style="color: #005cc5; font-weight: bold;">DO</span> <span style="color: #22863a;">5</span> TIMES.
-  <span style="color: #005cc5; font-weight: bold;">IF</span> sy-index = <span style="color: #22863a;">2</span>.
+<span class="abap-token-keyword">DO</span> <span class="abap-token-number">5</span> TIMES.
+  <span class="abap-token-keyword">IF</span> sy-index = <span class="abap-token-number">2</span>.
     CONTINUE.
-  <span style="color: #005cc5; font-weight: bold;">ENDIF</span>.
+  <span class="abap-token-keyword">ENDIF</span>.
 
-  <span style="color: #005cc5; font-weight: bold;">IF</span> sy-index = <span style="color: #22863a;">4</span>.
+  <span class="abap-token-keyword">IF</span> sy-index = <span class="abap-token-number">4</span>.
     EXIT.
-  <span style="color: #005cc5; font-weight: bold;">ENDIF</span>.
+  <span class="abap-token-keyword">ENDIF</span>.
 
-  <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / sy-index.
-<span style="color: #005cc5; font-weight: bold;">ENDDO</span>.</code></pre>
+  <span class="abap-token-keyword">WRITE</span>: / sy-index.
+<span class="abap-token-keyword">ENDDO</span>.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

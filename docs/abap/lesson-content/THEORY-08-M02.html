@@ -46,8 +46,8 @@
       1<br>2<br>3
     </div>
     <pre class="shiki abap-editor-code"><code>cl_salv_table=&gt;factory(
-  <span style="color: #005cc5; font-weight: bold;">IMPORTING</span> r_salv_table = lo_alv
-  <span style="color: #005cc5; font-weight: bold;">CHANGING</span>  t_table      = lt_students ).</code></pre>
+  <span class="abap-token-keyword">IMPORTING</span> r_salv_table = lo_alv
+  <span class="abap-token-keyword">CHANGING</span>  t_table      = lt_students ).</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -80,36 +80,36 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zsalv_factory_basic.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zsalv_factory_basic.
 
-<span style="color: #005cc5; font-weight: bold;">TYPES</span>: <span style="color: #005cc5; font-weight: bold;">BEGIN</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student,
-         id    <span style="color: #005cc5; font-weight: bold;">TYPE</span> char3,
-         name  <span style="color: #005cc5; font-weight: bold;">TYPE</span> char20,
-         score <span style="color: #005cc5; font-weight: bold;">TYPE</span> i,
-       <span style="color: #005cc5; font-weight: bold;">END</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student.
+<span class="abap-token-keyword">TYPES</span>: <span class="abap-token-keyword">BEGIN</span> <span class="abap-token-keyword">OF</span> ty_student,
+         id    <span class="abap-token-keyword">TYPE</span> char3,
+         name  <span class="abap-token-keyword">TYPE</span> char20,
+         score <span class="abap-token-keyword">TYPE</span> i,
+       <span class="abap-token-keyword">END</span> <span class="abap-token-keyword">OF</span> ty_student.
 
-<span style="color: #005cc5; font-weight: bold;">DATA</span>: lt_students <span style="color: #005cc5; font-weight: bold;">TYPE</span> STANDARD <span style="color: #005cc5; font-weight: bold;">TABLE</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student,
-      ls_student  <span style="color: #005cc5; font-weight: bold;">TYPE</span> ty_student,
-      lo_alv      <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #005cc5; font-weight: bold;">REF</span> <span style="color: #005cc5; font-weight: bold;">TO</span> cl_salv_table,
-      lx_msg      <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #005cc5; font-weight: bold;">REF</span> <span style="color: #005cc5; font-weight: bold;">TO</span> cx_salv_msg.
+<span class="abap-token-keyword">DATA</span>: lt_students <span class="abap-token-keyword">TYPE</span> STANDARD <span class="abap-token-keyword">TABLE</span> <span class="abap-token-keyword">OF</span> ty_student,
+      ls_student  <span class="abap-token-keyword">TYPE</span> ty_student,
+      lo_alv      <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">REF</span> <span class="abap-token-keyword">TO</span> cl_salv_table,
+      lx_msg      <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">REF</span> <span class="abap-token-keyword">TO</span> cx_salv_msg.
 
-ls_student-id = <span style="color: #22863a;">'A01'</span>. ls_student-name = <span style="color: #22863a;">'Mina'</span>. ls_student-score = <span style="color: #22863a;">90</span>.
-<span style="color: #005cc5; font-weight: bold;">APPEND</span> ls_student <span style="color: #005cc5; font-weight: bold;">TO</span> lt_students.
+ls_student-id = <span class="abap-token-string">'A01'</span>. ls_student-name = <span class="abap-token-string">'Mina'</span>. ls_student-score = <span class="abap-token-number">90</span>.
+<span class="abap-token-keyword">APPEND</span> ls_student <span class="abap-token-keyword">TO</span> lt_students.
 
-<span style="color: #005cc5; font-weight: bold;">CLEAR</span> ls_student.
-ls_student-id = <span style="color: #22863a;">'A02'</span>. ls_student-name = <span style="color: #22863a;">'Jun'</span>. ls_student-score = <span style="color: #22863a;">85</span>.
-<span style="color: #005cc5; font-weight: bold;">APPEND</span> ls_student <span style="color: #005cc5; font-weight: bold;">TO</span> lt_students.
+<span class="abap-token-keyword">CLEAR</span> ls_student.
+ls_student-id = <span class="abap-token-string">'A02'</span>. ls_student-name = <span class="abap-token-string">'Jun'</span>. ls_student-score = <span class="abap-token-number">85</span>.
+<span class="abap-token-keyword">APPEND</span> ls_student <span class="abap-token-keyword">TO</span> lt_students.
 
-TRY.
+<span class="abap-token-keyword">TRY</span>.
     cl_salv_table=&gt;factory(
-      <span style="color: #005cc5; font-weight: bold;">IMPORTING</span> r_salv_table = lo_alv
-      <span style="color: #005cc5; font-weight: bold;">CHANGING</span>  t_table      = lt_students ).
+      <span class="abap-token-keyword">IMPORTING</span> r_salv_table = lo_alv
+      <span class="abap-token-keyword">CHANGING</span>  t_table      = lt_students ).
 
     lo_alv-&gt;display( ).
 
-  CATCH cx_salv_msg <span style="color: #005cc5; font-weight: bold;">INTO</span> lx_msg.
-    MESSAGE lx_msg-&gt;get_text( ) <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #22863a;">'E'</span>.
-ENDTRY.</code></pre>
+  <span class="abap-token-keyword">CATCH</span> cx_salv_msg <span class="abap-token-keyword">INTO</span> lx_msg.
+    MESSAGE lx_msg-&gt;get_text( ) <span class="abap-token-keyword">TYPE</span> <span class="abap-token-string">'E'</span>.
+<span class="abap-token-keyword">ENDTRY</span>.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

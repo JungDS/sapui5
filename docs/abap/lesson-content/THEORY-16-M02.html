@@ -37,17 +37,17 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #888888; font-style: italic;">" 예전 방식</span>
-<span style="color: #005cc5; font-weight: bold;">DATA</span> ls_flight <span style="color: #005cc5; font-weight: bold;">TYPE</span> ty_flight.
-ls_flight-carrid = <span style="color: #22863a;">'LH'</span>.
-ls_flight-connid = <span style="color: #22863a;">'0400'</span>.
-ls_flight-price  = <span style="color: #22863a;">900</span>.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" 예전 방식</span>
+<span class="abap-token-keyword">DATA</span> ls_flight <span class="abap-token-keyword">TYPE</span> ty_flight.
+ls_flight-carrid = <span class="abap-token-string">'LH'</span>.
+ls_flight-connid = <span class="abap-token-string">'0400'</span>.
+ls_flight-price  = <span class="abap-token-number">900</span>.
 
-<span style="color: #888888; font-style: italic;">" 최신 방식</span>
-<span style="color: #005cc5; font-weight: bold;">DATA</span>(ls_flight) = <span style="color: #005cc5; font-weight: bold;">VALUE</span> ty_flight(
-  carrid = <span style="color: #22863a;">'LH'</span>
-  connid = <span style="color: #22863a;">'0400'</span>
-  price  = <span style="color: #22863a;">900</span> ).</code></pre>
+<span class="abap-token-comment">" 최신 방식</span>
+<span class="abap-token-keyword">DATA</span>(ls_flight) = <span class="abap-token-keyword">VALUE</span> ty_flight(
+  carrid = <span class="abap-token-string">'LH'</span>
+  connid = <span class="abap-token-string">'0400'</span>
+  price  = <span class="abap-token-number">900</span> ).</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -73,10 +73,10 @@ ls_flight-price  = <span style="color: #22863a;">900</span>.
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">DATA</span>(lt_flights) = <span style="color: #005cc5; font-weight: bold;">VALUE</span> ty_flights(
-  ( carrid = <span style="color: #22863a;">'LH'</span> connid = <span style="color: #22863a;">'0400'</span> price = <span style="color: #22863a;">900</span> )
-  ( carrid = <span style="color: #22863a;">'AA'</span> connid = <span style="color: #22863a;">'0017'</span> price = <span style="color: #22863a;">800</span> )
-  ( carrid = <span style="color: #22863a;">'UA'</span> connid = <span style="color: #22863a;">'0941'</span> price = <span style="color: #22863a;">750</span> ) ).</code></pre>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span>(lt_flights) = <span class="abap-token-keyword">VALUE</span> ty_flights(
+  ( carrid = <span class="abap-token-string">'LH'</span> connid = <span class="abap-token-string">'0400'</span> price = <span class="abap-token-number">900</span> )
+  ( carrid = <span class="abap-token-string">'AA'</span> connid = <span class="abap-token-string">'0017'</span> price = <span class="abap-token-number">800</span> )
+  ( carrid = <span class="abap-token-string">'UA'</span> connid = <span class="abap-token-string">'0941'</span> price = <span class="abap-token-number">750</span> ) ).</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

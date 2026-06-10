@@ -38,12 +38,12 @@
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10
     </div>
     <pre class="shiki abap-editor-code"><code>@AccessControl.authorizationCheck: #NOT_REQUIRED
-define view entity ZI_Flight
-  as <span style="color: #005cc5; font-weight: bold;">select</span> <span style="color: #005cc5; font-weight: bold;">from</span> sflight
+<span class="abap-token-keyword">define</span> <span class="abap-token-keyword">view</span> <span class="abap-token-keyword">entity</span> ZI_Flight
+  <span class="abap-token-keyword">as</span> <span class="abap-token-keyword">select</span> <span class="abap-token-keyword">from</span> sflight
 {
-  <span style="color: #005cc5; font-weight: bold;">key</span> carrid,
-  <span style="color: #005cc5; font-weight: bold;">key</span> connid,
-  <span style="color: #005cc5; font-weight: bold;">key</span> fldate,
+  <span class="abap-token-keyword">key</span> carrid,
+  <span class="abap-token-keyword">key</span> connid,
+  <span class="abap-token-keyword">key</span> fldate,
       price,
       currency
 }</code></pre>
@@ -87,9 +87,9 @@ define view entity ZI_Flight
     <div class="abap-editor-line-numbers">
       1<br>2<br>3
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">SELECT</span> * <span style="color: #005cc5; font-weight: bold;">FROM</span> zi_flight
-  <span style="color: #005cc5; font-weight: bold;">WHERE</span> carrid = @lv_carrid
-  <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lt).</code></pre>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">SELECT</span> * <span class="abap-token-keyword">FROM</span> zi_flight
+  <span class="abap-token-keyword">WHERE</span> carrid = @lv_carrid
+  <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt).</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

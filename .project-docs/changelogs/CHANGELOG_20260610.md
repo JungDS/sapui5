@@ -1,10 +1,11 @@
 # 개발 일지 - 2026-06-10
 
-> 📅 **최종수정: 2026-06-10 10:05 KST**
+> 📅 **최종수정: 2026-06-10 13:34 KST**
 
 ## 참여 AI
 - **Claude (Opus 4.8)**
 - **Antigravity IDE (Gemini 3.1 Pro)**
+- **Codex (GPT-5)**
 
 ## 작업 상세 내용
 
@@ -33,3 +34,15 @@
 - **CSS 아키텍처 리팩토링**: 137개 레슨 HTML에 하드코딩 되어 있던 인라인 스타일(`style="..."`)을 모두 제거하고, `assets/abap-lesson-viewer.css`에 공통 클래스로 추출. 전체 파일 덮어쓰기 완료.
 - **디자인 고도화**: D2Coding 웹폰트 적용 및 ABAP 텍스트 색상 최적화(#ffa03b).
 - **인계 프롬프트 교정**: Codex가 Track 1을 덮어쓰지 않도록 `HANDOFF_LESSON_CONTENT.md`의 프롬프트 타겟을 Track 2(PRACTICAL-*)로 전면 교체.
+
+### Codex (GPT-5) — Lesson 코드 하이라이트 토큰 공통화
+- `format_abap_code.mjs`가 인라인 `<span style="...">` 대신 `abap-token-keyword/string/number/comment` 클래스를 생성하도록 수정.
+- 포맷터 처리 대상을 `THEORY-*`뿐 아니라 Track 2 `PRACTICAL-*` 파일명까지 포함하도록 확장.
+- 215개 코드 mockup을 재생성해 Lesson 본문 `style=` 잔존을 0건으로 정리.
+- `abap-lesson-viewer.js`의 사이드바 고정 인라인 스타일과 Copy 버튼 직접 스타일 조작을 CSS 클래스 기반으로 정리하고, clipboard fallback을 추가.
+- `lesson-viewer.html`의 CSS/JS 참조에 캐시 버전(`v=20260610-token3`)을 부여해 브라우저가 새 asset을 확실히 로드하도록 조정.
+
+## Codex 고민했던 점 및 설계 이유
+- **생성물보다 생성기 우선**: 137개 Lesson을 직접 치환하면 다음 포맷터 실행 때 되돌아갈 수 있으므로, 먼저 포맷터를 고친 뒤 전체 Lesson을 재생성했다.
+- **Track 2 대비**: 다음 단계가 `PRACTICAL-*` 신규 작성이므로 파일명 패턴을 미리 확장해 같은 서식 파이프라인을 재사용할 수 있게 했다.
+- **캐시 문제**: Lesson Viewer asset 참조에 버전 쿼리가 없으면 로컬/Pages에서 이전 JS가 남을 수 있어, viewer HTML의 CSS/JS URL에 명시적 캐시 버전을 추가했다.

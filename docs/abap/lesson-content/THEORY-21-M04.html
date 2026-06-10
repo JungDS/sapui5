@@ -35,15 +35,15 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13
     </div>
-    <pre class="shiki abap-editor-code"><code>managed implementation in <span style="color: #005cc5; font-weight: bold;">class</span> zbp_i_travel unique;
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">managed</span> <span class="abap-token-keyword">implementation</span> in <span class="abap-token-keyword">class</span> zbp_i_travel <span class="abap-token-keyword">unique</span>;
 
-define behavior for ZI_Travel alias Travel
-persistent <span style="color: #005cc5; font-weight: bold;">table</span> ztravel
-lock master
+<span class="abap-token-keyword">define</span> behavior <span class="abap-token-keyword">for</span> ZI_Travel alias Travel
+<span class="abap-token-keyword">persistent</span> <span class="abap-token-keyword">table</span> ztravel
+<span class="abap-token-keyword">lock</span> master
 {
-  <span style="color: #005cc5; font-weight: bold;">create</span>;          // 생성 가능
+  <span class="abap-token-keyword">create</span>;          // 생성 가능
   update;          // 수정 가능
-  <span style="color: #005cc5; font-weight: bold;">delete</span>;          // 삭제 가능
+  <span class="abap-token-keyword">delete</span>;          // 삭제 가능
 
   field ( readonly ) travel_id;       // 키는 읽기 전용
   field ( mandatory ) agency_id;      // 필수 입력

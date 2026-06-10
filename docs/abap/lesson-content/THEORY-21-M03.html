@@ -34,15 +34,15 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12
     </div>
-    <pre class="shiki abap-editor-code"><code>define root view entity ZC_Travel
-  as projection on ZI_Travel
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">define</span> root <span class="abap-token-keyword">view</span> <span class="abap-token-keyword">entity</span> ZC_Travel
+  <span class="abap-token-keyword">as</span> projection <span class="abap-token-keyword">on</span> ZI_Travel
 {
-  <span style="color: #005cc5; font-weight: bold;">key</span> TravelId,
+  <span class="abap-token-keyword">key</span> TravelId,
       AgencyId,
       CustomerId,
       BeginDate,
       EndDate,
-      @Semantics.amount.currencyCode: <span style="color: #22863a;">'CurrencyCode'</span>
+      @Semantics.amount.currencyCode: <span class="abap-token-string">'CurrencyCode'</span>
       TotalPrice,
       CurrencyCode
 }</code></pre>

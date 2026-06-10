@@ -43,15 +43,15 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zparam_block.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zparam_block.
 
-<span style="color: #005cc5; font-weight: bold;">SELECTION-SCREEN</span> <span style="color: #005cc5; font-weight: bold;">BEGIN</span> <span style="color: #005cc5; font-weight: bold;">OF</span> BLOCK b1 <span style="color: #005cc5; font-weight: bold;">WITH</span> FRAME TITLE text-<span style="color: #22863a;">001</span>.
-  <span style="color: #005cc5; font-weight: bold;">PARAMETERS</span> p_carr <span style="color: #005cc5; font-weight: bold;">TYPE</span> c LENGTH <span style="color: #22863a;">3</span> DEFAULT <span style="color: #22863a;">'KE'</span>.
-  <span style="color: #005cc5; font-weight: bold;">PARAMETERS</span> p_days <span style="color: #005cc5; font-weight: bold;">TYPE</span> i DEFAULT <span style="color: #22863a;">7</span>.
-<span style="color: #005cc5; font-weight: bold;">SELECTION-SCREEN</span> <span style="color: #005cc5; font-weight: bold;">END</span> <span style="color: #005cc5; font-weight: bold;">OF</span> BLOCK b1.
+<span class="abap-token-keyword">SELECTION-SCREEN</span> <span class="abap-token-keyword">BEGIN</span> <span class="abap-token-keyword">OF</span> BLOCK b1 <span class="abap-token-keyword">WITH</span> FRAME TITLE text-<span class="abap-token-number">001</span>.
+  <span class="abap-token-keyword">PARAMETERS</span> p_carr <span class="abap-token-keyword">TYPE</span> c LENGTH <span class="abap-token-number">3</span> DEFAULT <span class="abap-token-string">'KE'</span>.
+  <span class="abap-token-keyword">PARAMETERS</span> p_days <span class="abap-token-keyword">TYPE</span> i DEFAULT <span class="abap-token-number">7</span>.
+<span class="abap-token-keyword">SELECTION-SCREEN</span> <span class="abap-token-keyword">END</span> <span class="abap-token-keyword">OF</span> BLOCK b1.
 
-<span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'항공사:'</span>, p_carr,
-       / <span style="color: #22863a;">'조회 일수:'</span>, p_days.</code></pre>
+<span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'항공사:'</span>, p_carr,
+       / <span class="abap-token-string">'조회 일수:'</span>, p_days.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -99,15 +99,15 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zselection_block.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zselection_block.
 
-<span style="color: #005cc5; font-weight: bold;">SELECTION-SCREEN</span> <span style="color: #005cc5; font-weight: bold;">BEGIN</span> <span style="color: #005cc5; font-weight: bold;">OF</span> BLOCK b_cond <span style="color: #005cc5; font-weight: bold;">WITH</span> FRAME TITLE text-<span style="color: #22863a;">001</span>.
-  <span style="color: #005cc5; font-weight: bold;">PARAMETERS</span> p_carr <span style="color: #005cc5; font-weight: bold;">TYPE</span> c LENGTH <span style="color: #22863a;">3</span> DEFAULT <span style="color: #22863a;">'KE'</span> OBLIGATORY.
-  <span style="color: #005cc5; font-weight: bold;">PARAMETERS</span> p_date <span style="color: #005cc5; font-weight: bold;">TYPE</span> d DEFAULT sy-datum.
-<span style="color: #005cc5; font-weight: bold;">SELECTION-SCREEN</span> <span style="color: #005cc5; font-weight: bold;">END</span> <span style="color: #005cc5; font-weight: bold;">OF</span> BLOCK b_cond.
+<span class="abap-token-keyword">SELECTION-SCREEN</span> <span class="abap-token-keyword">BEGIN</span> <span class="abap-token-keyword">OF</span> BLOCK b_cond <span class="abap-token-keyword">WITH</span> FRAME TITLE text-<span class="abap-token-number">001</span>.
+  <span class="abap-token-keyword">PARAMETERS</span> p_carr <span class="abap-token-keyword">TYPE</span> c LENGTH <span class="abap-token-number">3</span> DEFAULT <span class="abap-token-string">'KE'</span> OBLIGATORY.
+  <span class="abap-token-keyword">PARAMETERS</span> p_date <span class="abap-token-keyword">TYPE</span> d DEFAULT sy-datum.
+<span class="abap-token-keyword">SELECTION-SCREEN</span> <span class="abap-token-keyword">END</span> <span class="abap-token-keyword">OF</span> BLOCK b_cond.
 
-<span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'항공사:'</span>, p_carr,
-       / <span style="color: #22863a;">'기준일:'</span>, p_date.</code></pre>
+<span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'항공사:'</span>, p_carr,
+       / <span class="abap-token-string">'기준일:'</span>, p_date.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

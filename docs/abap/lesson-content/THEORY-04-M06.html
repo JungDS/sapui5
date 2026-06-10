@@ -75,15 +75,15 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zinput_check.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zinput_check.
 
-<span style="color: #005cc5; font-weight: bold;">PARAMETERS</span> p_days <span style="color: #005cc5; font-weight: bold;">TYPE</span> i DEFAULT <span style="color: #22863a;">7</span>.
+<span class="abap-token-keyword">PARAMETERS</span> p_days <span class="abap-token-keyword">TYPE</span> i DEFAULT <span class="abap-token-number">7</span>.
 
-<span style="color: #005cc5; font-weight: bold;">IF</span> p_days &gt; <span style="color: #22863a;">30</span>.
-  MESSAGE <span style="color: #22863a;">'조회 일수는 30일을 넘길 수 없습니다.'</span> <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #22863a;">'E'</span>.
-<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.
+<span class="abap-token-keyword">IF</span> p_days &gt; <span class="abap-token-number">30</span>.
+  MESSAGE <span class="abap-token-string">'조회 일수는 30일을 넘길 수 없습니다.'</span> <span class="abap-token-keyword">TYPE</span> <span class="abap-token-string">'E'</span>.
+<span class="abap-token-keyword">ENDIF</span>.
 
-<span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'조회 일수:'</span>, p_days.</code></pre>
+<span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'조회 일수:'</span>, p_days.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

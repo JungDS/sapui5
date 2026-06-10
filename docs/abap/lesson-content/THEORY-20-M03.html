@@ -34,15 +34,15 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10
     </div>
-    <pre class="shiki abap-editor-code"><code>define view entity ZI_Flight
-  as <span style="color: #005cc5; font-weight: bold;">select</span> <span style="color: #005cc5; font-weight: bold;">from</span> sflight
-  association [<span style="color: #22863a;">1</span>..<span style="color: #22863a;">1</span>] <span style="color: #005cc5; font-weight: bold;">to</span> ZI_Carrier as _Carrier
-    on $projection.carrid = _Carrier.carrid    <span style="color: #888888; font-style: italic;">"연결 조건</span>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">define</span> <span class="abap-token-keyword">view</span> <span class="abap-token-keyword">entity</span> ZI_Flight
+  <span class="abap-token-keyword">as</span> <span class="abap-token-keyword">select</span> <span class="abap-token-keyword">from</span> sflight
+  <span class="abap-token-keyword">association</span> [<span class="abap-token-number">1</span>..<span class="abap-token-number">1</span>] <span class="abap-token-keyword">to</span> ZI_Carrier <span class="abap-token-keyword">as</span> _Carrier
+    <span class="abap-token-keyword">on</span> $projection.carrid = _Carrier.carrid    <span class="abap-token-comment">"연결 조건</span>
 {
-  <span style="color: #005cc5; font-weight: bold;">key</span> carrid,
-  <span style="color: #005cc5; font-weight: bold;">key</span> connid,
+  <span class="abap-token-keyword">key</span> carrid,
+  <span class="abap-token-keyword">key</span> connid,
       price,
-      _Carrier                                  <span style="color: #888888; font-style: italic;">"관계 노출(이름만)</span>
+      _Carrier                                  <span class="abap-token-comment">"관계 노출(이름만)</span>
 }</code></pre>
   </div>
 </div>
@@ -83,12 +83,12 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7
     </div>
-    <pre class="shiki abap-editor-code"><code>define view entity ZC_Flight
-  as projection on ZI_Flight
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">define</span> <span class="abap-token-keyword">view</span> <span class="abap-token-keyword">entity</span> ZC_Flight
+  <span class="abap-token-keyword">as</span> projection <span class="abap-token-keyword">on</span> ZI_Flight
 {
-  <span style="color: #005cc5; font-weight: bold;">key</span> carrid,
+  <span class="abap-token-keyword">key</span> carrid,
       price,
-      _Carrier.carrname as CarrierName   <span style="color: #888888; font-style: italic;">"관계를 따라가 이름을 가져옴</span>
+      _Carrier.carrname <span class="abap-token-keyword">as</span> CarrierName   <span class="abap-token-comment">"관계를 따라가 이름을 가져옴</span>
 }</code></pre>
   </div>
 </div>

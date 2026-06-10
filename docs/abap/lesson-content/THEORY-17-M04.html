@@ -38,14 +38,14 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">SELECT</span> carrid, price,
-       <span style="color: #005cc5; font-weight: bold;">CASE</span> <span style="color: #005cc5; font-weight: bold;">WHEN</span> price &gt;= <span style="color: #22863a;">1000</span> THEN <span style="color: #22863a;">'HIGH'</span>
-            <span style="color: #005cc5; font-weight: bold;">WHEN</span> price &gt;= <span style="color: #22863a;">500</span>  THEN <span style="color: #22863a;">'MID'</span>
-            <span style="color: #005cc5; font-weight: bold;">ELSE</span> <span style="color: #22863a;">'LOW'</span>
-       <span style="color: #005cc5; font-weight: bold;">END</span> AS price_grade
-  <span style="color: #005cc5; font-weight: bold;">FROM</span> sflight
-  <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lt).
-<span style="color: #888888; font-style: italic;">"→ 요금에 따라 HIGH/MID/LOW 등급 컬럼이 함께 생성</span></code></pre>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">SELECT</span> carrid, price,
+       <span class="abap-token-keyword">CASE</span> <span class="abap-token-keyword">WHEN</span> price &gt;= <span class="abap-token-number">1000</span> THEN <span class="abap-token-string">'HIGH'</span>
+            <span class="abap-token-keyword">WHEN</span> price &gt;= <span class="abap-token-number">500</span>  THEN <span class="abap-token-string">'MID'</span>
+            <span class="abap-token-keyword">ELSE</span> <span class="abap-token-string">'LOW'</span>
+       <span class="abap-token-keyword">END</span> <span class="abap-token-keyword">AS</span> price_grade
+  <span class="abap-token-keyword">FROM</span> sflight
+  <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt).
+<span class="abap-token-comment">"→ 요금에 따라 HIGH/MID/LOW 등급 컬럼이 함께 생성</span></code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -72,7 +72,7 @@
     <div class="abap-editor-line-numbers">
       1
     </div>
-    <pre class="shiki abap-editor-code"><code>CAST( price AS CHAR( <span style="color: #22863a;">20</span> ) ) AS price_text</code></pre>
+    <pre class="shiki abap-editor-code"><code>CAST( price <span class="abap-token-keyword">AS</span> CHAR( <span class="abap-token-number">20</span> ) ) <span class="abap-token-keyword">AS</span> price_text</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -95,7 +95,7 @@
     <div class="abap-editor-line-numbers">
       1
     </div>
-    <pre class="shiki abap-editor-code"><code>COALESCE( b~bookid, <span style="color: #22863a;">0</span> ) AS bookid</code></pre>
+    <pre class="shiki abap-editor-code"><code>COALESCE( b~bookid, <span class="abap-token-number">0</span> ) <span class="abap-token-keyword">AS</span> bookid</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

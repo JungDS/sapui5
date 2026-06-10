@@ -104,20 +104,20 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zselect_options_multiple.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zselect_options_multiple.
 
-<span style="color: #005cc5; font-weight: bold;">DATA</span> gv_land1 <span style="color: #005cc5; font-weight: bold;">TYPE</span> t005t-land1.
+<span class="abap-token-keyword">DATA</span> gv_land1 <span class="abap-token-keyword">TYPE</span> t005t-land1.
 
-<span style="color: #005cc5; font-weight: bold;">SELECT-OPTIONS</span> s_land1 FOR gv_land1.
+<span class="abap-token-keyword">SELECT-OPTIONS</span> s_land1 <span class="abap-token-keyword">FOR</span> gv_land1.
 
-<span style="color: #005cc5; font-weight: bold;">START-OF-SELECTION</span>.
+<span class="abap-token-keyword">START-OF-SELECTION</span>.
 
-  <span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> s_land1 <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">DATA</span>(ls_range).
-    <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / ls_range-<span style="color: #005cc5; font-weight: bold;">sign</span>,
-             ls_range-<span style="color: #005cc5; font-weight: bold;">option</span>,
-             ls_range-<span style="color: #005cc5; font-weight: bold;">low</span>,
-             ls_range-<span style="color: #005cc5; font-weight: bold;">high</span>.
-  <span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.</code></pre>
+  <span class="abap-token-keyword">LOOP</span> <span class="abap-token-keyword">AT</span> s_land1 <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">DATA</span>(ls_range).
+    <span class="abap-token-keyword">WRITE</span>: / ls_range-<span class="abap-token-keyword">sign</span>,
+             ls_range-<span class="abap-token-keyword">option</span>,
+             ls_range-<span class="abap-token-keyword">low</span>,
+             ls_range-<span class="abap-token-keyword">high</span>.
+  <span class="abap-token-keyword">ENDLOOP</span>.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

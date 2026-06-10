@@ -55,12 +55,12 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">SELECT</span> s~carrid, s~connid, s~cityfrom, s~cityto,
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">SELECT</span> s~carrid, s~connid, s~cityfrom, s~cityto,
        c~carrname
-  <span style="color: #005cc5; font-weight: bold;">FROM</span> spfli AS s
-  INNER JOIN scarr AS c
-    ON s~carrid = c~carrid
-  <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lt_flights).</code></pre>
+  <span class="abap-token-keyword">FROM</span> spfli <span class="abap-token-keyword">AS</span> s
+  INNER JOIN scarr <span class="abap-token-keyword">AS</span> c
+    <span class="abap-token-keyword">ON</span> s~carrid = c~carrid
+  <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt_flights).</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

@@ -40,12 +40,12 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">READ</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> lt_students <span style="color: #005cc5; font-weight: bold;">INTO</span> ls_student <span style="color: #005cc5; font-weight: bold;">WITH</span> <span style="color: #005cc5; font-weight: bold;">KEY</span> id = <span style="color: #22863a;">'A02'</span>.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">READ</span> <span class="abap-token-keyword">TABLE</span> lt_students <span class="abap-token-keyword">INTO</span> ls_student <span class="abap-token-keyword">WITH</span> <span class="abap-token-keyword">KEY</span> id = <span class="abap-token-string">'A02'</span>.
 
-<span style="color: #005cc5; font-weight: bold;">IF</span> sy-subrc = <span style="color: #22863a;">0</span>.
-  ls_student-score = <span style="color: #22863a;">88</span>.
-  <span style="color: #005cc5; font-weight: bold;">MODIFY</span> lt_students <span style="color: #005cc5; font-weight: bold;">FROM</span> ls_student INDEX <span style="color: #22863a;">2</span>.
-<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code></pre>
+<span class="abap-token-keyword">IF</span> sy-subrc = <span class="abap-token-number">0</span>.
+  ls_student-score = <span class="abap-token-number">88</span>.
+  <span class="abap-token-keyword">MODIFY</span> lt_students <span class="abap-token-keyword">FROM</span> ls_student INDEX <span class="abap-token-number">2</span>.
+<span class="abap-token-keyword">ENDIF</span>.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -81,8 +81,8 @@
     <div class="abap-editor-line-numbers">
       1<br>2
     </div>
-    <pre class="shiki abap-editor-code"><code>ls_student-score = <span style="color: #22863a;">88</span>.
-<span style="color: #005cc5; font-weight: bold;">MODIFY</span> lt_students <span style="color: #005cc5; font-weight: bold;">FROM</span> ls_student INDEX <span style="color: #22863a;">2</span> TRANSPORTING score.</code></pre>
+    <pre class="shiki abap-editor-code"><code>ls_student-score = <span class="abap-token-number">88</span>.
+<span class="abap-token-keyword">MODIFY</span> lt_students <span class="abap-token-keyword">FROM</span> ls_student INDEX <span class="abap-token-number">2</span> TRANSPORTING score.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -117,33 +117,33 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zmodify_itab_basic.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zmodify_itab_basic.
 
-<span style="color: #005cc5; font-weight: bold;">TYPES</span>: <span style="color: #005cc5; font-weight: bold;">BEGIN</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student,
-         id    <span style="color: #005cc5; font-weight: bold;">TYPE</span> char3,
-         name  <span style="color: #005cc5; font-weight: bold;">TYPE</span> char20,
-         score <span style="color: #005cc5; font-weight: bold;">TYPE</span> i,
-       <span style="color: #005cc5; font-weight: bold;">END</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student.
+<span class="abap-token-keyword">TYPES</span>: <span class="abap-token-keyword">BEGIN</span> <span class="abap-token-keyword">OF</span> ty_student,
+         id    <span class="abap-token-keyword">TYPE</span> char3,
+         name  <span class="abap-token-keyword">TYPE</span> char20,
+         score <span class="abap-token-keyword">TYPE</span> i,
+       <span class="abap-token-keyword">END</span> <span class="abap-token-keyword">OF</span> ty_student.
 
-<span style="color: #005cc5; font-weight: bold;">DATA</span>: lt_students <span style="color: #005cc5; font-weight: bold;">TYPE</span> STANDARD <span style="color: #005cc5; font-weight: bold;">TABLE</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student,
-      ls_student  <span style="color: #005cc5; font-weight: bold;">TYPE</span> ty_student.
+<span class="abap-token-keyword">DATA</span>: lt_students <span class="abap-token-keyword">TYPE</span> STANDARD <span class="abap-token-keyword">TABLE</span> <span class="abap-token-keyword">OF</span> ty_student,
+      ls_student  <span class="abap-token-keyword">TYPE</span> ty_student.
 
-ls_student-id = <span style="color: #22863a;">'A01'</span>. ls_student-name = <span style="color: #22863a;">'Mina'</span>. ls_student-score = <span style="color: #22863a;">90</span>.
-<span style="color: #005cc5; font-weight: bold;">APPEND</span> ls_student <span style="color: #005cc5; font-weight: bold;">TO</span> lt_students.
+ls_student-id = <span class="abap-token-string">'A01'</span>. ls_student-name = <span class="abap-token-string">'Mina'</span>. ls_student-score = <span class="abap-token-number">90</span>.
+<span class="abap-token-keyword">APPEND</span> ls_student <span class="abap-token-keyword">TO</span> lt_students.
 
-<span style="color: #005cc5; font-weight: bold;">CLEAR</span> ls_student.
-ls_student-id = <span style="color: #22863a;">'A02'</span>. ls_student-name = <span style="color: #22863a;">'Jun'</span>. ls_student-score = <span style="color: #22863a;">85</span>.
-<span style="color: #005cc5; font-weight: bold;">APPEND</span> ls_student <span style="color: #005cc5; font-weight: bold;">TO</span> lt_students.
+<span class="abap-token-keyword">CLEAR</span> ls_student.
+ls_student-id = <span class="abap-token-string">'A02'</span>. ls_student-name = <span class="abap-token-string">'Jun'</span>. ls_student-score = <span class="abap-token-number">85</span>.
+<span class="abap-token-keyword">APPEND</span> ls_student <span class="abap-token-keyword">TO</span> lt_students.
 
-<span style="color: #005cc5; font-weight: bold;">READ</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> lt_students <span style="color: #005cc5; font-weight: bold;">INTO</span> ls_student <span style="color: #005cc5; font-weight: bold;">WITH</span> <span style="color: #005cc5; font-weight: bold;">KEY</span> id = <span style="color: #22863a;">'A02'</span>.
-<span style="color: #005cc5; font-weight: bold;">IF</span> sy-subrc = <span style="color: #22863a;">0</span>.
-  ls_student-score = <span style="color: #22863a;">88</span>.
-  <span style="color: #005cc5; font-weight: bold;">MODIFY</span> lt_students <span style="color: #005cc5; font-weight: bold;">FROM</span> ls_student INDEX <span style="color: #22863a;">2</span> TRANSPORTING score.
-<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.
+<span class="abap-token-keyword">READ</span> <span class="abap-token-keyword">TABLE</span> lt_students <span class="abap-token-keyword">INTO</span> ls_student <span class="abap-token-keyword">WITH</span> <span class="abap-token-keyword">KEY</span> id = <span class="abap-token-string">'A02'</span>.
+<span class="abap-token-keyword">IF</span> sy-subrc = <span class="abap-token-number">0</span>.
+  ls_student-score = <span class="abap-token-number">88</span>.
+  <span class="abap-token-keyword">MODIFY</span> lt_students <span class="abap-token-keyword">FROM</span> ls_student INDEX <span class="abap-token-number">2</span> TRANSPORTING score.
+<span class="abap-token-keyword">ENDIF</span>.
 
-<span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> lt_students <span style="color: #005cc5; font-weight: bold;">INTO</span> ls_student.
-  <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / ls_student-id, ls_student-name, ls_student-score.
-<span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.</code></pre>
+<span class="abap-token-keyword">LOOP</span> <span class="abap-token-keyword">AT</span> lt_students <span class="abap-token-keyword">INTO</span> ls_student.
+  <span class="abap-token-keyword">WRITE</span>: / ls_student-id, ls_student-name, ls_student-score.
+<span class="abap-token-keyword">ENDLOOP</span>.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

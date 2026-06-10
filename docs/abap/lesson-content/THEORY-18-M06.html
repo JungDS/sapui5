@@ -37,12 +37,12 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6
     </div>
-    <pre class="shiki abap-editor-code"><code>TRY.
-    <span style="color: #005cc5; font-weight: bold;">DATA</span>(lv_result) = <span style="color: #22863a;">10</span> / lv_divisor.   <span style="color: #888888; font-style: italic;">"0으로 나누면 오류</span>
-  CATCH cx_sy_zerodivide <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">DATA</span>(lx_err).
-    <span style="color: #888888; font-style: italic;">" 오류가 났을 때 할 일</span>
-    MESSAGE lx_err-&gt;get_text( ) <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #22863a;">'I'</span>.
-ENDTRY.</code></pre>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">TRY</span>.
+    <span class="abap-token-keyword">DATA</span>(lv_result) = <span class="abap-token-number">10</span> / lv_divisor.   <span class="abap-token-comment">"0으로 나누면 오류</span>
+  <span class="abap-token-keyword">CATCH</span> cx_sy_zerodivide <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">DATA</span>(lx_err).
+    <span class="abap-token-comment">" 오류가 났을 때 할 일</span>
+    MESSAGE lx_err-&gt;get_text( ) <span class="abap-token-keyword">TYPE</span> <span class="abap-token-string">'I'</span>.
+<span class="abap-token-keyword">ENDTRY</span>.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -83,9 +83,9 @@ ENDTRY.</code></pre>
       1<br>2<br>3<br>4<br>5<br>6
     </div>
     <pre class="shiki abap-editor-code"><code>METHOD withdraw.
-  <span style="color: #005cc5; font-weight: bold;">IF</span> iv_amount &gt; mv_balance.
-    RAISE EXCEPTION <span style="color: #005cc5; font-weight: bold;">TYPE</span> zcx_insufficient_fund.   <span style="color: #888888; font-style: italic;">"잔액 부족 예외 발생</span>
-  <span style="color: #005cc5; font-weight: bold;">ENDIF</span>.
+  <span class="abap-token-keyword">IF</span> iv_amount &gt; mv_balance.
+    <span class="abap-token-keyword">RAISE</span> <span class="abap-token-keyword">EXCEPTION</span> <span class="abap-token-keyword">TYPE</span> zcx_insufficient_fund.   <span class="abap-token-comment">"잔액 부족 예외 발생</span>
+  <span class="abap-token-keyword">ENDIF</span>.
   mv_balance = mv_balance - iv_amount.
 ENDMETHOD.</code></pre>
   </div>

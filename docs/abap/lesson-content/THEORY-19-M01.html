@@ -36,16 +36,16 @@
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13
     </div>
     <pre class="shiki abap-editor-code"><code>cl_salv_table=&gt;factory(
-  <span style="color: #005cc5; font-weight: bold;">IMPORTING</span> r_salv_table = <span style="color: #005cc5; font-weight: bold;">DATA</span>(lo_alv)
-  <span style="color: #005cc5; font-weight: bold;">CHANGING</span>  t_table      = gt_outtab ).
+  <span class="abap-token-keyword">IMPORTING</span> r_salv_table = <span class="abap-token-keyword">DATA</span>(lo_alv)
+  <span class="abap-token-keyword">CHANGING</span>  t_table      = gt_outtab ).
 
-<span style="color: #888888; font-style: italic;">" 정렬: 정렬 담당 객체를 받아 기준 추가</span>
-<span style="color: #005cc5; font-weight: bold;">DATA</span>(lo_sorts) = lo_alv-&gt;get_sorts( ).
-lo_sorts-&gt;add_sort( columnname = <span style="color: #22863a;">'CARRID'</span> ).
+<span class="abap-token-comment">" 정렬: 정렬 담당 객체를 받아 기준 추가</span>
+<span class="abap-token-keyword">DATA</span>(lo_sorts) = lo_alv-&gt;get_sorts( ).
+lo_sorts-&gt;add_sort( columnname = <span class="abap-token-string">'CARRID'</span> ).
 
-<span style="color: #888888; font-style: italic;">" 필터: 특정 값만 보이게</span>
-<span style="color: #005cc5; font-weight: bold;">DATA</span>(lo_filters) = lo_alv-&gt;get_filters( ).
-lo_filters-&gt;add_filter( columnname = <span style="color: #22863a;">'CARRID'</span> <span style="color: #005cc5; font-weight: bold;">low</span> = <span style="color: #22863a;">'LH'</span> ).
+<span class="abap-token-comment">" 필터: 특정 값만 보이게</span>
+<span class="abap-token-keyword">DATA</span>(lo_filters) = lo_alv-&gt;get_filters( ).
+lo_filters-&gt;add_filter( columnname = <span class="abap-token-string">'CARRID'</span> <span class="abap-token-keyword">low</span> = <span class="abap-token-string">'LH'</span> ).
 
 lo_alv-&gt;display( ).</code></pre>
   </div>
@@ -79,8 +79,8 @@ lo_alv-&gt;display( ).</code></pre>
     <div class="abap-editor-line-numbers">
       1<br>2
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">DATA</span>(lo_functions) = lo_alv-&gt;get_functions( ).
-lo_functions-&gt;set_all( abap_true ).   <span style="color: #888888; font-style: italic;">"표준 툴바 버튼 전부 활성화</span></code></pre>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span>(lo_functions) = lo_alv-&gt;get_functions( ).
+lo_functions-&gt;set_all( abap_true ).   <span class="abap-token-comment">"표준 툴바 버튼 전부 활성화</span></code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

@@ -40,13 +40,13 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7
     </div>
-    <pre class="shiki abap-editor-code"><code>AUTHORITY-CHECK <span style="color: #005cc5; font-weight: bold;">OBJECT</span> <span style="color: #22863a;">'F_BKPF_BUK'</span>
-  ID <span style="color: #22863a;">'BUKRS'</span> FIELD p_bukrs
-  ID <span style="color: #22863a;">'ACTVT'</span> FIELD <span style="color: #22863a;">'03'</span>.        <span style="color: #888888; font-style: italic;">"03 = 조회(Display)</span>
+    <pre class="shiki abap-editor-code"><code>AUTHORITY-CHECK <span class="abap-token-keyword">OBJECT</span> <span class="abap-token-string">'F_BKPF_BUK'</span>
+  ID <span class="abap-token-string">'BUKRS'</span> FIELD p_bukrs
+  ID <span class="abap-token-string">'ACTVT'</span> FIELD <span class="abap-token-string">'03'</span>.        <span class="abap-token-comment">"03 = 조회(Display)</span>
 
-<span style="color: #005cc5; font-weight: bold;">IF</span> sy-subrc &lt;&gt; <span style="color: #22863a;">0</span>.
-  MESSAGE <span style="color: #22863a;">'해당 회사코드를 조회할 권한이 없습니다.'</span> <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #22863a;">'E'</span>.
-<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code></pre>
+<span class="abap-token-keyword">IF</span> sy-subrc &lt;&gt; <span class="abap-token-number">0</span>.
+  MESSAGE <span class="abap-token-string">'해당 회사코드를 조회할 권한이 없습니다.'</span> <span class="abap-token-keyword">TYPE</span> <span class="abap-token-string">'E'</span>.
+<span class="abap-token-keyword">ENDIF</span>.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -79,12 +79,12 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">SELECT</span> SINGLE bukrs <span style="color: #005cc5; font-weight: bold;">FROM</span> t001
-  <span style="color: #005cc5; font-weight: bold;">INTO</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lv_dummy)
-  <span style="color: #005cc5; font-weight: bold;">WHERE</span> bukrs = @p_bukrs.
-<span style="color: #005cc5; font-weight: bold;">IF</span> sy-subrc &lt;&gt; <span style="color: #22863a;">0</span>.
-  MESSAGE <span style="color: #22863a;">'존재하지 않는 회사코드입니다.'</span> <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #22863a;">'E'</span>.
-<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code></pre>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">SELECT</span> SINGLE bukrs <span class="abap-token-keyword">FROM</span> t001
+  <span class="abap-token-keyword">INTO</span> @<span class="abap-token-keyword">DATA</span>(lv_dummy)
+  <span class="abap-token-keyword">WHERE</span> bukrs = @p_bukrs.
+<span class="abap-token-keyword">IF</span> sy-subrc &lt;&gt; <span class="abap-token-number">0</span>.
+  MESSAGE <span class="abap-token-string">'존재하지 않는 회사코드입니다.'</span> <span class="abap-token-keyword">TYPE</span> <span class="abap-token-string">'E'</span>.
+<span class="abap-token-keyword">ENDIF</span>.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

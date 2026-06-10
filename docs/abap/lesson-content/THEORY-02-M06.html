@@ -40,14 +40,14 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zstring_basic.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zstring_basic.
 
-<span style="color: #005cc5; font-weight: bold;">DATA</span> gv_name    <span style="color: #005cc5; font-weight: bold;">TYPE</span> string <span style="color: #005cc5; font-weight: bold;">VALUE</span> <span style="color: #22863a;">'ABAP'</span>.
-<span style="color: #005cc5; font-weight: bold;">DATA</span> gv_message <span style="color: #005cc5; font-weight: bold;">TYPE</span> string.
+<span class="abap-token-keyword">DATA</span> gv_name    <span class="abap-token-keyword">TYPE</span> string <span class="abap-token-keyword">VALUE</span> <span class="abap-token-string">'ABAP'</span>.
+<span class="abap-token-keyword">DATA</span> gv_message <span class="abap-token-keyword">TYPE</span> string.
 
-CONCATENATE <span style="color: #22863a;">'Hello'</span> gv_name <span style="color: #005cc5; font-weight: bold;">INTO</span> gv_message SEPARATED <span style="color: #005cc5; font-weight: bold;">BY</span> space.
+CONCATENATE <span class="abap-token-string">'Hello'</span> gv_name <span class="abap-token-keyword">INTO</span> gv_message SEPARATED <span class="abap-token-keyword">BY</span> space.
 
-<span style="color: #005cc5; font-weight: bold;">WRITE</span> gv_message.</code></pre>
+<span class="abap-token-keyword">WRITE</span> gv_message.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -81,10 +81,10 @@ CONCATENATE <span style="color: #22863a;">'Hello'</span> gv_name <span style="co
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zsystem_fields.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zsystem_fields.
 
-<span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'오늘 날짜:'</span>, sy-datum,
-       / <span style="color: #22863a;">'실행 사용자:'</span>, sy-uname.</code></pre>
+<span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'오늘 날짜:'</span>, sy-datum,
+       / <span class="abap-token-string">'실행 사용자:'</span>, sy-uname.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -119,17 +119,17 @@ CONCATENATE <span style="color: #22863a;">'Hello'</span> gv_name <span style="co
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zsubrc_basic.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zsubrc_basic.
 
-<span style="color: #005cc5; font-weight: bold;">DATA</span> gv_text <span style="color: #005cc5; font-weight: bold;">TYPE</span> string <span style="color: #005cc5; font-weight: bold;">VALUE</span> <span style="color: #22863a;">'Hello ABAP'</span>.
+<span class="abap-token-keyword">DATA</span> gv_text <span class="abap-token-keyword">TYPE</span> string <span class="abap-token-keyword">VALUE</span> <span class="abap-token-string">'Hello ABAP'</span>.
 
-FIND <span style="color: #22863a;">'ABAP'</span> IN gv_text.
+FIND <span class="abap-token-string">'ABAP'</span> IN gv_text.
 
-<span style="color: #005cc5; font-weight: bold;">IF</span> sy-subrc = <span style="color: #22863a;">0</span>.
-  <span style="color: #005cc5; font-weight: bold;">WRITE</span> <span style="color: #22863a;">'문자열을 찾았어요'</span>.
-<span style="color: #005cc5; font-weight: bold;">ELSE</span>.
-  <span style="color: #005cc5; font-weight: bold;">WRITE</span> <span style="color: #22863a;">'문자열을 찾지 못했어요'</span>.
-<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code></pre>
+<span class="abap-token-keyword">IF</span> sy-subrc = <span class="abap-token-number">0</span>.
+  <span class="abap-token-keyword">WRITE</span> <span class="abap-token-string">'문자열을 찾았어요'</span>.
+<span class="abap-token-keyword">ELSE</span>.
+  <span class="abap-token-keyword">WRITE</span> <span class="abap-token-string">'문자열을 찾지 못했어요'</span>.
+<span class="abap-token-keyword">ENDIF</span>.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

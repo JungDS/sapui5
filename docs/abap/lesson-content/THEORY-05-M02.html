@@ -43,15 +43,15 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zform_using.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zform_using.
 
-<span style="color: #005cc5; font-weight: bold;">PARAMETERS</span> p_name <span style="color: #005cc5; font-weight: bold;">TYPE</span> string DEFAULT <span style="color: #22863a;">'ABAP'</span>.
+<span class="abap-token-keyword">PARAMETERS</span> p_name <span class="abap-token-keyword">TYPE</span> string DEFAULT <span class="abap-token-string">'ABAP'</span>.
 
-PERFORM greet_user <span style="color: #005cc5; font-weight: bold;">USING</span> p_name.
+PERFORM greet_user <span class="abap-token-keyword">USING</span> p_name.
 
-<span style="color: #005cc5; font-weight: bold;">FORM</span> greet_user <span style="color: #005cc5; font-weight: bold;">USING</span> iv_name <span style="color: #005cc5; font-weight: bold;">TYPE</span> string.
-  <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'안녕하세요,'</span>, iv_name.
-<span style="color: #005cc5; font-weight: bold;">ENDFORM</span>.</code></pre>
+<span class="abap-token-keyword">FORM</span> greet_user <span class="abap-token-keyword">USING</span> iv_name <span class="abap-token-keyword">TYPE</span> string.
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'안녕하세요,'</span>, iv_name.
+<span class="abap-token-keyword">ENDFORM</span>.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -85,17 +85,17 @@ PERFORM greet_user <span style="color: #005cc5; font-weight: bold;">USING</span>
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zform_changing.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zform_changing.
 
-<span style="color: #005cc5; font-weight: bold;">DATA</span> gv_count <span style="color: #005cc5; font-weight: bold;">TYPE</span> i <span style="color: #005cc5; font-weight: bold;">VALUE</span> <span style="color: #22863a;">0</span>.
+<span class="abap-token-keyword">DATA</span> gv_count <span class="abap-token-keyword">TYPE</span> i <span class="abap-token-keyword">VALUE</span> <span class="abap-token-number">0</span>.
 
-PERFORM add_one <span style="color: #005cc5; font-weight: bold;">CHANGING</span> gv_count.
+PERFORM add_one <span class="abap-token-keyword">CHANGING</span> gv_count.
 
-<span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'결과:'</span>, gv_count.
+<span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'결과:'</span>, gv_count.
 
-<span style="color: #005cc5; font-weight: bold;">FORM</span> add_one <span style="color: #005cc5; font-weight: bold;">CHANGING</span> cv_count <span style="color: #005cc5; font-weight: bold;">TYPE</span> i.
-  cv_count = cv_count + <span style="color: #22863a;">1</span>.
-<span style="color: #005cc5; font-weight: bold;">ENDFORM</span>.</code></pre>
+<span class="abap-token-keyword">FORM</span> add_one <span class="abap-token-keyword">CHANGING</span> cv_count <span class="abap-token-keyword">TYPE</span> i.
+  cv_count = cv_count + <span class="abap-token-number">1</span>.
+<span class="abap-token-keyword">ENDFORM</span>.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -129,20 +129,20 @@ PERFORM add_one <span style="color: #005cc5; font-weight: bold;">CHANGING</span>
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14
     </div>
-    <pre class="shiki abap-editor-code"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zform_calc.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zform_calc.
 
-<span style="color: #005cc5; font-weight: bold;">DATA</span> gv_amount <span style="color: #005cc5; font-weight: bold;">TYPE</span> i <span style="color: #005cc5; font-weight: bold;">VALUE</span> <span style="color: #22863a;">100</span>.
-<span style="color: #005cc5; font-weight: bold;">DATA</span> gv_total  <span style="color: #005cc5; font-weight: bold;">TYPE</span> i.
+<span class="abap-token-keyword">DATA</span> gv_amount <span class="abap-token-keyword">TYPE</span> i <span class="abap-token-keyword">VALUE</span> <span class="abap-token-number">100</span>.
+<span class="abap-token-keyword">DATA</span> gv_total  <span class="abap-token-keyword">TYPE</span> i.
 
-PERFORM calc_total <span style="color: #005cc5; font-weight: bold;">USING</span> gv_amount <span style="color: #005cc5; font-weight: bold;">CHANGING</span> gv_total.
+PERFORM calc_total <span class="abap-token-keyword">USING</span> gv_amount <span class="abap-token-keyword">CHANGING</span> gv_total.
 
-<span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'원금:'</span>, gv_amount,
-       / <span style="color: #22863a;">'결과:'</span>, gv_total.
+<span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'원금:'</span>, gv_amount,
+       / <span class="abap-token-string">'결과:'</span>, gv_total.
 
-<span style="color: #005cc5; font-weight: bold;">FORM</span> calc_total <span style="color: #005cc5; font-weight: bold;">USING</span> iv_amount <span style="color: #005cc5; font-weight: bold;">TYPE</span> i
-                <span style="color: #005cc5; font-weight: bold;">CHANGING</span> cv_total <span style="color: #005cc5; font-weight: bold;">TYPE</span> i.
-  cv_total = iv_amount + <span style="color: #22863a;">10</span>.
-<span style="color: #005cc5; font-weight: bold;">ENDFORM</span>.</code></pre>
+<span class="abap-token-keyword">FORM</span> calc_total <span class="abap-token-keyword">USING</span> iv_amount <span class="abap-token-keyword">TYPE</span> i
+                <span class="abap-token-keyword">CHANGING</span> cv_total <span class="abap-token-keyword">TYPE</span> i.
+  cv_total = iv_amount + <span class="abap-token-number">10</span>.
+<span class="abap-token-keyword">ENDFORM</span>.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
