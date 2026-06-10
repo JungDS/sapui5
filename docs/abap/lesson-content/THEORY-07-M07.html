@@ -40,26 +40,26 @@
 <section class="lesson-section">
   <h2>3. Secondary Key 선언 맛보기 ✍️</h2>
   <!-- ABAP_MOCKUP_START -->
-<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #ffffff; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: 'D2Coding', Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
   <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
     <div style="display: flex; gap: 6px;">
       <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
       <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
       <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
     </div>
-    <div style="margin-left: auto; color: #ffffff; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
+    <div style="margin-left: auto; color: #ffa03b; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
     <div style="margin-left: 16px;">
       <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
     </div>
   </div>
-  <div class="abap-editor-body" style="display: flex; background-color: #ffffff;">
+  <div class="abap-editor-body" style="display: flex; background-color: #f6f8fa;">
     <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
       1<br>2<br>3<br>4
     </div>
-    <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">TYPES</span> tt_students <span style="color: #005cc5; font-weight: bold;">TYPE</span> STANDARD <span style="color: #005cc5; font-weight: bold;">TABLE</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student
+    <pre class="shiki" style="background-color: transparent; color: #333333; padding: 12px; margin: 0; border: none; overflow-x: auto; font-family: 'D2Coding', Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5; width: 100%;"><code><span style="color: #005cc5; font-weight: bold;">TYPES</span> tt_students <span style="color: #005cc5; font-weight: bold;">TYPE</span> STANDARD <span style="color: #005cc5; font-weight: bold;">TABLE</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student
   <span style="color: #005cc5; font-weight: bold;">WITH</span> NON-UNIQUE SORTED <span style="color: #005cc5; font-weight: bold;">KEY</span> score_key COMPONENTS score.
 
-<span style="color: #005cc5; font-weight: bold;">DATA</span> lt_students <span style="color: #005cc5; font-weight: bold;">TYPE</span> tt_students.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+<span style="color: #005cc5; font-weight: bold;">DATA</span> lt_students <span style="color: #005cc5; font-weight: bold;">TYPE</span> tt_students.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -67,24 +67,24 @@
     위 선언은 STANDARD TABLE이지만, <code>score_key</code>라는 보조 정렬 키를 함께 정의합니다. <code>score</code> 값이 같은 학생이 여러 명 있을 수 있으므로 <code>NON-UNIQUE</code>로 둡니다.
   </p>
   <!-- ABAP_MOCKUP_START -->
-<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #ffffff; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: 'D2Coding', Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
   <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
     <div style="display: flex; gap: 6px;">
       <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
       <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
       <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
     </div>
-    <div style="margin-left: auto; color: #ffffff; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
+    <div style="margin-left: auto; color: #ffa03b; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
     <div style="margin-left: 16px;">
       <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
     </div>
   </div>
-  <div class="abap-editor-body" style="display: flex; background-color: #ffffff;">
+  <div class="abap-editor-body" style="display: flex; background-color: #f6f8fa;">
     <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
       1<br>2
     </div>
-    <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">READ</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> lt_students <span style="color: #005cc5; font-weight: bold;">INTO</span> ls_student
-  <span style="color: #005cc5; font-weight: bold;">WITH</span> <span style="color: #005cc5; font-weight: bold;">KEY</span> score_key COMPONENTS score = <span style="color: #22863a;">90</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+    <pre class="shiki" style="background-color: transparent; color: #333333; padding: 12px; margin: 0; border: none; overflow-x: auto; font-family: 'D2Coding', Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5; width: 100%;"><code><span style="color: #005cc5; font-weight: bold;">READ</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> lt_students <span style="color: #005cc5; font-weight: bold;">INTO</span> ls_student
+  <span style="color: #005cc5; font-weight: bold;">WITH</span> <span style="color: #005cc5; font-weight: bold;">KEY</span> score_key COMPONENTS score = <span style="color: #22863a;">90</span>.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

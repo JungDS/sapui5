@@ -78,6 +78,37 @@ function highlightABAP(code) {
   return highlightedLines.join('\n');
 }
 
+function generateNavyEditor(rawCode) {
+  // Remove leading/trailing blank lines securely
+  let cleanCode = rawCode.replace(/^\s*[\r\n]/g, '').replace(/[\r\n]\s*$/g, '');
+  
+  const highlighted = highlightABAP(cleanCode);
+  const lines = cleanCode.split('\n');
+  const lineNumbersHtml = lines.map((_, i) => i + 1).join('<br>');
+  
+  return `<!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #d0d0d0; border-radius: 8px; overflow: hidden; margin: 16px 0; font-family: 'D2Coding', Consolas, Monaco, 'Courier New', monospace; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+  <div class="abap-editor-header" style="background-color: #343e6a; padding: 8px 12px; display: flex; align-items: center;">
+    <div style="display: flex; gap: 6px;">
+      <span style="width: 12px; height: 12px; background-color: #ff5f56; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #ffbd2e; border-radius: 50%; display: inline-block;"></span>
+      <span style="width: 12px; height: 12px; background-color: #27c93f; border-radius: 50%; display: inline-block;"></span>
+    </div>
+    <div style="margin-left: auto; color: #ffa03b; font-weight: bold; font-size: 12px; letter-spacing: 1px;">ABAP</div>
+    <div style="margin-left: 16px;">
+      <button class="shiki-copy-button" data-copied="false" style="background-color: transparent; border: 1px solid rgba(255,255,255,0.4); border-radius: 4px; padding: 2px 8px; font-size: 12px; cursor: pointer; color: rgba(255,255,255,0.8); transition: all 0.2s;">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body" style="display: flex; background-color: #f6f8fa;">
+    <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
+      ${lineNumbersHtml}
+    </div>
+    <pre class="shiki" style="background-color: transparent; color: #333333; padding: 12px; margin: 0; border: none; overflow-x: auto; font-family: 'D2Coding', Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5; width: 100%;"><code>${highlighted}</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->`;
+}
+
 let totalModified = 0;
 
 for (const file of files) {
@@ -85,21 +116,36 @@ for (const file of files) {
   let html = fs.readFileSync(filePath, 'utf-8');
   let originalHtml = html;
 
+  // 1. Un-wrap existing Navy Mockups back to raw <pre><code>
+  html = html.replace(/<!-- ABAP_MOCKUP_START -->[\s\S]*?<!-- ABAP_MOCKUP_END -->/gi, (match) => {
+    const codeMatch = match.match(/<code[^>]*>([\s\S]*?)<\/code>/i);
+    if (!codeMatch) return match;
+    let codeContent = codeMatch[1].replace(/<span[^>]*>/g, '').replace(/<\/span>/g, '');
+    codeContent = codeContent.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+    return `<pre><code>${codeContent}</code></pre>`;
+  });
+
+  // 2. Process ALL <pre> blocks (both un-wrapped ones and any plain ones like THEORY-19~21)
   html = html.replace(/<pre[^>]*>([\s\S]*?)<\/pre>/gi, (match, preContent) => {
+    // If it's already an ABAP_MOCKUP_START block (shouldn't happen because we un-wrapped, but just in case)
+    if (match.includes('ABAP_MOCKUP_START')) return match;
+
     const codeMatch = preContent.match(/<code[^>]*>([\s\S]*?)<\/code>/i);
     if (!codeMatch) return match;
     
     let codeContent = codeMatch[1];
     
-    // 이전 span 모두 초기화
+    // Strip spans (highlighting)
     let pureCode = codeContent.replace(/<span[^>]*>/g, '').replace(/<\/span>/g, '');
+    
+    // Strip buttons (in case it had a trailing copy button from a bad previous run)
+    pureCode = pureCode.replace(/<button[^>]*>[\s\S]*?<\/button>/gi, '');
+    
+    // Unescape HTML entities to get raw ABAP code
     pureCode = pureCode.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
     
-    // ABAP 하이라이트 적용
-    const highlighted = highlightABAP(pureCode);
-    
-    // 밝은 배경 적용
-    return `<pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code>${highlighted}</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>`;
+    // Generate the full Navy Editor Mockup
+    return generateNavyEditor(pureCode);
   });
 
   if (html !== originalHtml) {

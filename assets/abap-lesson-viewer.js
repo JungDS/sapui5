@@ -231,8 +231,8 @@
     var root = document.querySelector("[data-lesson-root]");
     if (!root) return;
 
-    var contentUrl = "lesson-content/" + lessonId + ".html";
-    fetch(contentUrl)
+    var contentUrl = "lesson-content/" + lessonId + ".html?v=" + new Date().getTime();
+    fetch(contentUrl, { cache: "no-store" })
       .then(function (response) {
         if (!response.ok) {
           if (response.status === 404) {
