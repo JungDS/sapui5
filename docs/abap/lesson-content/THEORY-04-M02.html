@@ -1,0 +1,119 @@
+<!-- lesson-content/THEORY-04-M02.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>지난 Lesson에서 <span class="glossary-term" data-glossary="ForeignKey">Foreign Key</span>와 <span class="glossary-term" data-glossary="CheckTable">Check Table</span>을 배웠습니다. 이번에는 <span class="glossary-term" data-glossary="Domain">Domain</span>에 적는 <span class="glossary-term" data-glossary="ValueTable">Value Table</span>이 실제 Foreign Key 검증과 어떻게 다른지 확실히 구분합니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 기준표 이름을 적었다고 검증이 끝난 걸까? 🤔</h2>
+  <p>
+    Foreign Key를 배우고 나면 초심자가 자주 하는 질문이 있습니다. “Domain에도 Value Table이라는 칸이 있던데, 거기에 기준표를 적으면 끝 아닌가요?” 아주 좋은 질문입니다.
+  </p>
+  <p>
+    결론부터 말하면 <strong>Value Table을 적는 것만으로는 실제 입력 검증이 완성되지 않습니다.</strong> Value Table은 Foreign Key를 만들 때 참고할 수 있는 기본 후보에 가깝고, 실제 관계와 검증은 테이블 필드에 Foreign Key를 설정해야 의미가 생깁니다.
+  </p>
+  <blockquote>
+    Value Table은 “이 Domain은 보통 이 기준표를 봐요”라는 힌트이고, Foreign Key는 “이 필드는 실제로 이 기준표를 검사해요”라는 연결입니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>2. Value Table은 Domain 레벨의 추천 기준표 📌</h2>
+  <p>
+    <span class="glossary-term" data-glossary="ValueTable">Value Table</span>은 Domain에 지정하는 기준 테이블입니다. 같은 Domain을 사용하는 여러 필드가 있을 때, “이 Domain의 값은 보통 이 테이블에서 관리한다”는 정보를 제공합니다.
+  </p>
+  <ul>
+    <li><strong>위치:</strong> Domain 설정 안에 존재합니다.</li>
+    <li><strong>역할:</strong> Foreign Key 제안이나 기본 후보로 쓰일 수 있습니다.</li>
+    <li><strong>한계:</strong> 이것만으로 모든 사용 필드에 검증이 자동 적용되는 것은 아닙니다.</li>
+  </ul>
+  <p>
+    일상으로 치면 Value Table은 “이 과목 참고서는 보통 이 책을 봅니다”라고 적어둔 안내 문구와 같습니다. 실제 시험 채점 기준이 되려면, 시험 문제와 그 참고서가 평가 기준으로 명확히 연결되어야 합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>3. Foreign Key는 Table Field 레벨의 실제 약속 🔗</h2>
+  <p>
+    Foreign Key는 특정 테이블 필드에 설정합니다. 예를 들어 <code>ZBOOKING-CARRID</code> 필드가 <code>ZCARRIER-CARRID</code>를 참조하도록 연결하는 것이 실제 Foreign Key입니다.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>차이를 한 줄로 비교</h4>
+      <ul>
+        <li><strong>Value Table:</strong> Domain에 붙은 기준표 힌트</li>
+        <li><strong>Foreign Key:</strong> 테이블 필드에 붙은 실제 검사 관계</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    그래서 같은 Domain을 쓰는 필드라도 어떤 테이블 필드에는 Foreign Key를 걸고, 어떤 필드에는 업무 의미상 다른 관계를 걸 수 있습니다. Domain은 재질의 공통 기준이고, Foreign Key는 실제 사용 위치의 관계입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 최소 예시로 다시 보기 🧪</h2>
+  <p>
+    항공사 코드 Domain <code>ZCARRID</code>가 있다고 해봅시다. 이 Domain의 Value Table에 <code>ZCARRIER</code>를 적을 수 있습니다.
+  </p>
+  <ul>
+    <li><strong>Domain:</strong> <code>ZCARRID</code>, 타입 <code>CHAR 3</code>, Value Table <code>ZCARRIER</code></li>
+    <li><strong>업무 테이블:</strong> <code>ZBOOKING-CARRID</code> 필드가 <code>ZCARRID</code> Domain을 간접 사용</li>
+    <li><strong>실제 검증:</strong> <code>ZBOOKING-CARRID</code>에 Foreign Key를 생성해 <code>ZCARRIER</code>와 매핑</li>
+  </ul>
+  <p>
+    여기서 핵심은 마지막 줄입니다. Value Table이 이미 적혀 있어도, 업무 테이블 필드에 Foreign Key를 실제로 설정해야 그 필드의 검증 관계가 분명해집니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
+  <ul>
+    <li>✅ <strong>정상 흐름:</strong> Domain에 Value Table이 있고, 테이블 필드에 Foreign Key도 생성되어 있습니다. 입력값이 Check Table에 있으면 통과합니다.</li>
+    <li>❌ <strong>오해 흐름:</strong> Domain에 Value Table만 적고 Foreign Key를 만들지 않았습니다. 개발자는 검증된다고 생각하지만 실제 필드 검증은 기대대로 동작하지 않을 수 있습니다.</li>
+    <li>❌ <strong>잘못된 기준표:</strong> Value Table 후보를 그대로 믿고 업무 의미가 다른 필드에 억지로 연결하면, 사용자가 올바른 값을 입력하지 못할 수 있습니다.</li>
+    <li>❌ <strong>표준 혼동:</strong> 표준 Domain에 적힌 Value Table을 고객사 커스텀 검증 규칙으로 착각하면 안 됩니다.</li>
+  </ul>
+  <blockquote>
+    Value Table은 출발점이고, Foreign Key는 실제 연결입니다. 둘을 같은 것으로 외우면 DDIC 관계에서 자주 길을 잃습니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>“Domain에 Value Table 있네요”에서 멈추지 마세요</h4>
+      <p>실무에서 입력 검증이나 F4 Help 문제를 볼 때는 Domain의 Value Table만 확인하면 부족합니다. 실제 테이블 필드에 Foreign Key가 있는지, Check Table과 필드 매핑이 맞는지, Data Element나 Search Help가 추가로 연결되어 있는지 함께 봐야 합니다.</p>
+    </div>
+  </div>
+  <p>
+    또한 Value Table을 무조건 채워야 하는 것도 아닙니다. 값 목록이 고정값으로 충분한지, 별도 기준표가 필요한지, 표준 객체를 재사용할 수 있는지 먼저 판단해야 합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li><strong>Value Table</strong>은 Domain에 지정하는 기준표 후보입니다.</li>
+        <li><strong>Foreign Key</strong>는 특정 테이블 필드에 설정하는 실제 검증 관계입니다.</li>
+        <li>Value Table만 있다고 입력 검증이 자동 완성되는 것은 아닙니다.</li>
+        <li>Foreign Key는 Check Table과 필드 매핑까지 맞아야 의미가 있습니다.</li>
+        <li>입력 도움말 문제를 볼 때는 Value Table, Foreign Key, Search Help 연결을 함께 확인합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    다음 Lesson <strong>Elementary Search Help</strong>에서는 사용자가 F4를 눌렀을 때 후보 목록을 보여주는 Search Help의 가장 기본 형태를 배웁니다.
+  </p>
+</section>

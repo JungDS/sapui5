@@ -1,0 +1,133 @@
+<!-- lesson-content/THEORY-19-M01.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>THEORY-08에서 만든 <span class="glossary-term" data-glossary="SALV">SALV</span> 표를, 코드로 <span class="glossary-term" data-glossary="SalvSort">정렬(Sort)</span>·<span class="glossary-term" data-glossary="SalvFilter">필터(Filter)</span>하고 툴바 버튼(<span class="glossary-term" data-glossary="SalvGetFunctions">Functions</span>)을 제어하는 법을 배웁니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 기본 표를 넘어 "제어"로 🎛️</h2>
+  <p>
+    THEORY-08에서 <code>CL_SALV_TABLE=&gt;FACTORY</code>로 표를 손쉽게 띄웠습니다. 그땐 "그냥 보여주기"에 집중했죠. 이번 Chapter는 그 표를 <strong>개발자가 코드로 세밀하게 제어</strong>하는 방법을 다룹니다.
+  </p>
+  <p>SALV는 제어할 항목마다 전용 객체를 돌려주는 메서드가 있습니다. "정렬은 정렬 담당자에게, 필터는 필터 담당자에게" 부탁하는 구조예요.</p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. 정렬과 필터를 코드로 ✍️</h2>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13
+    </div>
+    <pre class="shiki abap-editor-code"><code>cl_salv_table=&gt;factory(
+  <span class="abap-token-keyword">IMPORTING</span> r_salv_table = <span class="abap-token-keyword">DATA</span>(lo_alv)
+  <span class="abap-token-keyword">CHANGING</span>  t_table      = gt_outtab ).
+
+<span class="abap-token-comment">" 정렬: 정렬 담당 객체를 받아 기준 추가</span>
+<span class="abap-token-keyword">DATA</span>(lo_sorts) = lo_alv-&gt;get_sorts( ).
+lo_sorts-&gt;add_sort( columnname = <span class="abap-token-string">'CARRID'</span> ).
+
+<span class="abap-token-comment">" 필터: 특정 값만 보이게</span>
+<span class="abap-token-keyword">DATA</span>(lo_filters) = lo_alv-&gt;get_filters( ).
+lo_filters-&gt;add_filter( columnname = <span class="abap-token-string">'CARRID'</span> <span class="abap-token-keyword">low</span> = <span class="abap-token-string">'LH'</span> ).
+
+lo_alv-&gt;display( ).</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <ul>
+    <li><strong><span class="glossary-term" data-glossary="SalvSort">get_sorts( )</span>:</strong> 정렬 담당 객체. <code>add_sort</code>로 기준 컬럼을 추가합니다.</li>
+    <li><strong><span class="glossary-term" data-glossary="SalvFilter">get_filters( )</span>:</strong> 필터 담당 객체. 조건에 맞는 행만 표에 남깁니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 툴바 버튼(Functions) 켜기 🔘</h2>
+  <p>
+    SALV 위쪽 툴바(정렬·필터·엑셀 내보내기 등 버튼)는 기본적으로 꺼져 있을 수 있습니다. <span class="glossary-term" data-glossary="SalvGetFunctions">get_functions( )</span>로 한 번에 켭니다.
+  </p>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span>(lo_functions) = lo_alv-&gt;get_functions( ).
+lo_functions-&gt;set_all( abap_true ).   <span class="abap-token-comment">"표준 툴바 버튼 전부 활성화</span></code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>비유: 부서별 담당자</h4>
+      <p>SALV 객체는 회사 대표 같아요. "정렬해줘"는 정렬팀(get_sorts), "버튼 켜줘"는 총무팀(get_functions)에게 위임합니다. 대표가 다 하지 않고 담당 객체에 맡기는 구조죠.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <ul>
+    <li>✅ <strong>정상:</strong> display( ) <strong>전에</strong> 정렬·필터·Functions를 설정 → 표가 그 상태로 뜸.</li>
+    <li>❌ <strong>오류 1:</strong> display( ) 후에 설정 변경 → 이미 그려진 표라 반영 안 됨(설정은 display 전에).</li>
+    <li>❌ <strong>오류 2:</strong> 없는 컬럼명을 add_sort에 줌 → 예외. 컬럼명은 Field Catalog/구조 필드명과 일치해야 함.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>set_all( ) 툴바는 편하지만 과할 수 있다</h4>
+      <p><code>set_all( abap_true )</code>는 모든 표준 버튼을 켜 편리하지만, 사용자에게 불필요한 기능(삭제·편집 비슷한 것)까지 노출될 수 있습니다. 조회 전용 리포트라면 꼭 필요한 버튼만 개별로 켜는 것이 더 안전합니다. "켤 수 있다"와 "켜야 한다"는 다릅니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li>SALV는 제어 항목마다 <strong>담당 객체</strong>(get_sorts/get_filters/get_functions)를 돌려줍니다.</li>
+        <li><strong>정렬·필터·툴바</strong>를 <code>display( )</code> 전에 코드로 설정합니다.</li>
+        <li>컬럼명은 구조 필드명과 정확히 일치해야 합니다.</li>
+        <li>툴바는 필요한 만큼만 — 조회 전용은 과한 버튼을 피합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    표시 제어의 첫걸음을 뗐습니다. 다음 Lesson <strong>SALV Layout / Variant 심화</strong>에서 외형과 사용자 레이아웃 저장을 더 깊게 다룹니다.
+  </p>
+</section>

@@ -1,0 +1,89 @@
+<!-- lesson-content/THEORY-21-M08.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>지금까지 배운 모든 것이 돌아가는 현대 환경 <span class="glossary-term" data-glossary="ABAPCloud">ABAP Cloud</span>의 핵심 원칙과, 그 토대인 <span class="glossary-term" data-glossary="ReleasedAPI">Released API(공개 API)</span> 개념을 배웁니다. <strong>Track 1을 완성</strong>합니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 어디서 이 모든 게 돌아가나 ☁️</h2>
+  <p>
+    RAP로 데이터·동작·서비스·화면을 잇는 법을 배웠습니다. 그런데 이 현대적 개발은 <strong>아무 데서나</strong> 되는 게 아니라, <span class="glossary-term" data-glossary="ABAPCloud">ABAP Cloud</span>라는 정해진 규칙의 환경에서 돌아갑니다. 그 핵심 원칙을 마지막으로 정리합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. ABAP Cloud의 3원칙 🧭</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">🔗</div>
+    <div class="lesson-callout-content">
+      <h4>현대 ABAP의 기둥</h4>
+      <ul>
+        <li><strong>① Released API만 사용:</strong> SAP가 공식 공개(릴리즈)한 객체만 쓴다. 아무 표준 테이블·함수나 직접 못 쓴다.</li>
+        <li><strong>② Public 확장(Clean Core):</strong> 표준을 직접 수정하지 않고, 공개된 확장 지점으로만 확장한다.</li>
+        <li><strong>③ 현대 모델 우선:</strong> CDS·RAP·OO 중심. 옛 Dynpro·직접 SQL 대신.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>3. Released API와 Clean Core 🧼</h2>
+  <p>
+    <span class="glossary-term" data-glossary="ReleasedAPI">Released API</span>는 SAP가 "이건 안정적이니 마음껏 써도 된다"고 보증한 객체입니다. 릴리즈되지 않은 내부 객체는 SAP가 예고 없이 바꿀 수 있어, 그걸 쓰면 업그레이드 때 깨집니다.
+  </p>
+  <p>
+    이렇게 <strong>표준을 건드리지 않고 공개 통로로만 개발</strong>하는 원칙이 <span class="glossary-term" data-glossary="CleanCore">Clean Core</span>입니다. 그래야 SAP 업그레이드가 쉽고, 시스템이 깨끗하게 유지됩니다.
+  </p>
+  <blockquote>
+    비유하면, 남의 집(SAP 표준) 벽을 함부로 뚫지 않고 정해진 콘센트(Released API)에만 연결하는 거예요. 그래야 집주인이 리모델링(업그레이드)해도 내 가전이 안 망가집니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 그래서 우리가 배운 것이 이렇게 이어진다 🧩</h2>
+  <ul>
+    <li><strong>DDIC(01~04):</strong> 데이터 모델의 기초 → CDS의 토대.</li>
+    <li><strong>문법·Internal Table·SQL(02~17):</strong> 모든 로직의 재료.</li>
+    <li><strong>OO ABAP(18):</strong> RAP Behavior 구현의 언어.</li>
+    <li><strong>CDS(20):</strong> 현대 데이터 모델.</li>
+    <li><strong>RAP(21):</strong> 이 모두를 묶어 Fiori 앱으로.</li>
+  </ul>
+  <p>Track 1은 "ABAP의 과거(Classic)를 이해하고 현재(Cloud/RAP)로 잇는" 한 편의 여정이었습니다.</p>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>"옛것을 안다"와 "새것으로 짓는다"를 모두</h4>
+      <p>현장에는 여전히 Classic ABAP(Dynpro·직접 SQL)으로 된 시스템이 많아, 읽고 고칠 줄 알아야 합니다(그래서 Track 1이 둘 다 다뤘습니다). 동시에 신규는 ABAP Cloud 원칙(Released API·Clean Core·CDS/RAP)으로 지어야 미래에 안전합니다. "기존 자산은 이해하되, 새것은 현대 방식으로" — 이 균형 감각이 좋은 ABAP 개발자의 핵심입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 — 그리고 Track 1 완성 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">🎉</div>
+    <div class="lesson-callout-content">
+      <h4>Track 1 마무리 핵심</h4>
+      <ul>
+        <li><strong>ABAP Cloud 3원칙</strong>: Released API만 사용 · Clean Core 확장 · 현대 모델(CDS/RAP/OO) 우선.</li>
+        <li><strong>Released API</strong>는 SAP가 보증한 안정 객체, <strong>Clean Core</strong>는 표준을 건드리지 않는 개발 원칙.</li>
+        <li>DDIC→문법→ITAB→SQL→OO→CDS→RAP로 이어진 Track 1의 모든 조각이 여기서 합쳐집니다.</li>
+        <li>기존 자산은 이해하고, 신규는 현대 방식으로 — 균형이 핵심.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    🎉 <strong>축하합니다! ABAP Track 1(개발 이론, THEORY-01~21)을 모두 완주했습니다.</strong>
+    DDIC부터 RAP·ABAP Cloud까지, ABAP 개발의 큰 지도를 손에 넣었습니다.
+    다음 여정인 <strong>Track 2(PRACTICAL — 실무 응용: 트랜잭션 제어·Lock·OO 패턴·인터페이스·성능·RAP Capstone)</strong>에서,
+    이 이론을 실제 업무 시나리오로 단단히 다져 봅시다. 수고 많으셨습니다! 🚀
+  </p>
+</section>

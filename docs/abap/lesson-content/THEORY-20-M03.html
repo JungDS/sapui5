@@ -1,0 +1,136 @@
+<!-- lesson-content/THEORY-20-M03.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>View끼리 관계를 잇는 <span class="glossary-term" data-glossary="CdsAssociation">Association</span>을 배웁니다. JOIN과 무엇이 다른지, "필요할 때만 따라가는 똑똑한 연결"이라는 개념을 익힙니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: JOIN인데 더 똑똑한 것 🔗</h2>
+  <p>
+    THEORY-11에서 JOIN으로 테이블을 합쳤습니다. JOIN은 강력하지만, 항상 데이터를 미리 합쳐 읽습니다. CDS의 <span class="glossary-term" data-glossary="CdsAssociation">Association</span>은 "관계를 정의해 두되, <strong>실제로 필요할 때만</strong> 따라가는" 더 유연한 연결입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. Association 정의 ✍️</h2>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">define</span> <span class="abap-token-keyword">view</span> <span class="abap-token-keyword">entity</span> ZI_Flight
+  <span class="abap-token-keyword">as</span> <span class="abap-token-keyword">select</span> <span class="abap-token-keyword">from</span> sflight
+  <span class="abap-token-keyword">association</span> [<span class="abap-token-number">1</span>..<span class="abap-token-number">1</span>] <span class="abap-token-keyword">to</span> ZI_Carrier <span class="abap-token-keyword">as</span> _Carrier
+    <span class="abap-token-keyword">on</span> $projection.carrid = _Carrier.carrid    <span class="abap-token-comment">"연결 조건</span>
+{
+  <span class="abap-token-keyword">key</span> carrid,
+  <span class="abap-token-keyword">key</span> connid,
+      price,
+      _Carrier                                  <span class="abap-token-comment">"관계 노출(이름만)</span>
+}</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <ul>
+    <li><strong>association [1..1] to ... as _Carrier:</strong> "이 뷰는 항공사(_Carrier)와 관계가 있다"고 선언. <code>[1..1]</code>은 카디널리티(1:1).</li>
+    <li><strong>on:</strong> 연결 조건(JOIN의 ON과 비슷).</li>
+    <li><strong>_Carrier (필드 목록에):</strong> 관계를 밖으로 노출. 쓰는 쪽이 필요하면 따라갈 수 있게.</li>
+  </ul>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>비유: 전화번호부의 단축번호</h4>
+      <p>Association은 "항공사 정보로 가는 단축번호"를 등록해 두는 거예요. 평소엔 안 걸어도 되고, <strong>필요할 때만</strong> 그 번호로 전화(데이터 조회)하면 됩니다. JOIN은 항상 통화 연결, Association은 필요 시 연결인 셈이죠.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 관계 따라가기 (Path) 🧭</h2>
+  <p>
+    노출된 Association은 점(.)으로 따라가 다른 뷰의 필드를 가져올 수 있습니다.
+  </p>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6<br>7
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">define</span> <span class="abap-token-keyword">view</span> <span class="abap-token-keyword">entity</span> ZC_Flight
+  <span class="abap-token-keyword">as</span> projection <span class="abap-token-keyword">on</span> ZI_Flight
+{
+  <span class="abap-token-keyword">key</span> carrid,
+      price,
+      _Carrier.carrname <span class="abap-token-keyword">as</span> CarrierName   <span class="abap-token-comment">"관계를 따라가 이름을 가져옴</span>
+}</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <p>필요한 화면에서만 <code>_Carrier.carrname</code>처럼 따라가니, 불필요한 JOIN을 항상 짊어지지 않아도 됩니다.</p>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <ul>
+    <li>✅ <strong>정상:</strong> 관계를 한 번 정의 → 여러 곳에서 필요할 때만 path로 따라감.</li>
+    <li>❌ <strong>오류 1:</strong> 카디널리티(<code>[1..1]</code> / <code>[0..*]</code>)를 실제 데이터와 다르게 적음 → 결과 행 수가 의도와 어긋남.</li>
+    <li>❌ <strong>오류 2:</strong> Association을 노출만 하고 안 쓰면 부담은 없지만, 남용해 path를 깊게 체이닝하면 성능·가독성이 나빠질 수 있음.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>카디널리티는 "사실"대로 적으세요</h4>
+      <p>Association의 카디널리티(1:1인지 1:N인지)는 단순 표기가 아니라, DB가 최적화와 결과 행 수를 판단하는 근거입니다. 실제 관계와 다르게 적으면 데이터가 중복되거나 누락될 수 있습니다. "이 관계가 정말 1:1인가, 1:N인가?"를 데이터 모델(THEORY-04 Foreign Key)을 떠올리며 정확히 적으세요.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li><strong>Association</strong>은 View 간 관계를 정의하되 <strong>필요할 때만 따라가는</strong> 똑똑한 연결입니다.</li>
+        <li><code>association [card] to ... as _Name on ...</code>로 정의하고 필드 목록에 노출합니다.</li>
+        <li>점(.) path로 관계를 따라가 다른 뷰의 필드를 가져옵니다.</li>
+        <li>카디널리티는 실제 관계대로 정확히 적습니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    관계를 정의했으니, 이제 데이터에 "의미"를 입히는 법을 봅니다. 다음 Lesson <strong>Annotation과 의미 부여</strong>를 배웁니다.
+  </p>
+</section>

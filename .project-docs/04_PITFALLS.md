@@ -1,5 +1,7 @@
 # 04. 함정과 주의점
 
+> 📅 **최종수정: 2026-06-10 10:05 KST**
+
 ## 🔴 깨지기 쉬운 지점
 - **[P1] 상대경로 오산정** — `docs/**/*.html`는 `../../`로 asset을 참조해야 한다. 틀리면 셸 전체 미동작.
   (page-type별 경로 표 → [02](02_ARCHITECTURE.md))
@@ -33,9 +35,19 @@
   (커리큘럼 샘플 asset과 얽혀 다음 라운드로 보류). project-docs·data 파일명·prose의 "Stage 7"은 역사 기록으로 유지(→07).
   ⚠️ `03_CONVENTIONS` footer 의무화가 `.stage7-footer`를 **신규 도입**해 [07 결정 1]의 `.stage7-*` 제거 방향과 상충 — de-naming 라운드에서 footer 클래스도 함께 처리.
 
-- **[P11] Lesson 뷰어는 SSOT 미등록 템플릿** — `docs/abap/lesson-viewer.html`은 `shell.js` `DOCS`에 **없다**(`DOCS`에서 찾지 말 것).
-  라우팅은 `?lesson=<ID>` ↔ `docs/abap/lesson-content/<ID>.html` + 커리큘럼 JSON으로 자체 처리. 현재 콘텐츠 조각은 `THEORY-01-M01` **1개뿐**(나머지는 미작성).
+## 🔴 멀티 AI 동시 작업 (가장 크게 겪은 함정)
+- **[P11] 같은 브랜치를 두 AI가 동시 커밋 → 분기·충돌** — Claude·Codex·Antigravity(Gemini)가 같은 작업트리/브랜치(`feature/abap-lesson-content`)를 동시에 커밋·푸시하면서
+  **동일 커밋이 다른 해시로 중복**(예: THEORY-18이 `4cb7b45`와 `eb7c7fc`로 이중) 생성 → rebase 시 **~90개 Lesson 파일이 전부 충돌**한 사고가 있었음(2026-06-10).
+  - **원인**: `git add -A`로 타 AI의 미커밋 파일까지 휩쓸어 커밋, 서로 다른 베이스에서 같은 서식 작업을 중복 적용.
+  - **회피 규칙(→[03 §9](03_CONVENTIONS.md))**: ① **한 번에 한 AI만** 커밋·푸시 ② 작업 시작·푸시 직전 `git pull` ③ 내 파일만 명시적 `git add`(`-A` 금지) ④ 범위 분리(예: A=서식, B=신규 Lesson).
+  - **충돌 복구**: 서식 커밋을 cherry-pick으로 병합하면 대규모 충돌 → `reset --hard origin` + 문서 커밋만 cherry-pick + **멱등 포맷터 재실행**으로 결과물을 재생성하는 편이 안전.
+- **[P12] 신규 Lesson 코드블록 서식 누락 위험** — 다른 AI가 신규 레슨 작성 시 HTML 본문에는 순수 `<pre><code>`로만 작성해야 함. 작업 마지막에 네이비 ABAP Editor 멱등 포맷터(`tools/format-abap-code.mjs`)를 1회 돌려 서식을 통일해야 함.
+  - **CSS 리팩토링 완료**: 포맷터는 더 이상 인라인 스타일(`style="..."`)을 하드코딩하지 않고, `assets/abap-lesson-viewer.css`에 정의된 공통 클래스를 삽입함. 따라서 신규 레슨 파일에는 임의로 인라인 스타일을 주입하지 말 것.
+- **[P13] 로컬 Fetch 캐시 주의 (신규)** — 순수 HTML/JS 환경에서 `fetch()` API로 `lesson-content/*.html` 조각을 동적으로 불러올 때, 브라우저 로컬 캐시가 강력하게 작용하여 새로고침을 해도 옛날 파일이 보일 수 있음.
+  - `lesson-viewer.js` 등 동적 로딩 스크립트 작성 시 `fetch(url + '?v=' + Date.now())`와 같은 **Cache Buster** 파라미터를 붙이는 것을 권장함.
+
+- **[P14] Lesson 뷰어는 SSOT 미등록 템플릿** — `docs/abap/lesson-viewer.html`은 `shell.js` `DOCS`에 **없다**(`DOCS`에서 찾지 말 것).
+  라우팅은 `?lesson=<ID>` ↔ `docs/abap/lesson-content/<ID>.html` + 커리큘럼 JSON으로 자체 처리.
   새 Lesson 추가 시 HTML 뼈대 불필요 — `lesson-content/<JSON_ID>.html`에 순수 콘텐츠만 넣으면 뷰어가 조립.
 
-- **[P12] 신규 자산 헤더 규칙 미적용** — `abap-glossary.*`, `abap-lesson-viewer.*`는 `03 §6`의 주석 헤더(`| 최종수정 … | v…`)를 따르지 않는다.
-  asset 리네임/정리 라운드에서 헤더 부여 대상.
+- **[P15] 신규 자산 헤더 규칙 미적용 가능성** — 신규 `.css/.js/.mjs` 파일은 `03 §6`의 주석 헤더(`| 최종수정 … | v…`)를 따라야 한다. 기존 자산은 수정하는 시점에 헤더를 부여/갱신한다.

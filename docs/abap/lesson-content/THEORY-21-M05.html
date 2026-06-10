@@ -1,0 +1,118 @@
+<!-- lesson-content/THEORY-21-M05.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>Behavior Definition에서 "선언"한 동작의 실제 로직을 담는 <span class="glossary-term" data-glossary="BehaviorImplementation">Behavior Implementation(BIL)</span>을 배웁니다. 검증·계산 같은 커스텀 로직이 들어가는 자리를 익힙니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 선언했으니 이제 "구현" 🛠️</h2>
+  <p>
+    앞 Lesson의 BDEF는 "무엇을 할 수 있는가"를 <strong>선언</strong>했습니다. managed라면 표준 생성·수정·삭제·저장은 RAP가 자동으로 해줍니다. 하지만 "요금을 자동 계산", "날짜를 검증" 같은 <strong>업무 고유 로직</strong>은 우리가 직접 <span class="glossary-term" data-glossary="BehaviorImplementation">구현(BIL)</span>해야 합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. Behavior Pool 클래스 ✍️</h2>
+  <p>
+    BDEF에 적은 <code>implementation in class zbp_i_travel</code>가 바로 그 구현을 담는 <span class="glossary-term" data-glossary="BehaviorPool">Behavior Pool</span> 클래스입니다. 여기에 검증·결정·액션 메서드를 구현합니다(THEORY-18의 OO ABAP 지식이 여기서 쓰입니다).
+  </p>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">CLASS</span> lhc_travel DEFINITION INHERITING <span class="abap-token-keyword">FROM</span> cl_abap_behavior_handler.
+  <span class="abap-token-keyword">PRIVATE</span> <span class="abap-token-keyword">SECTION</span>.
+    <span class="abap-token-keyword">METHODS</span> validate_dates <span class="abap-token-keyword">FOR</span> <span class="abap-token-keyword">VALIDATE</span> <span class="abap-token-keyword">ON</span> <span class="abap-token-keyword">SAVE</span>
+      <span class="abap-token-keyword">IMPORTING</span> keys <span class="abap-token-keyword">FOR</span> Travel~validateDates.
+<span class="abap-token-keyword">ENDCLASS</span>.
+
+<span class="abap-token-keyword">CLASS</span> lhc_travel <span class="abap-token-keyword">IMPLEMENTATION</span>.
+  METHOD validate_dates.
+    <span class="abap-token-comment">" 키로 해당 건들을 읽어 검증</span>
+    <span class="abap-token-keyword">READ</span> ENTITIES <span class="abap-token-keyword">OF</span> zi_travel IN <span class="abap-token-keyword">LOCAL</span> <span class="abap-token-keyword">MODE</span>
+      <span class="abap-token-keyword">ENTITY</span> Travel <span class="abap-token-keyword">FIELDS</span> ( begin_date end_date ) <span class="abap-token-keyword">WITH</span> CORRESPONDING #( keys )
+      <span class="abap-token-keyword">RESULT</span> <span class="abap-token-keyword">DATA</span>(travels).
+
+    <span class="abap-token-keyword">LOOP</span> <span class="abap-token-keyword">AT</span> travels <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">DATA</span>(travel).
+      <span class="abap-token-keyword">IF</span> travel-end_date &lt; travel-begin_date.
+        <span class="abap-token-keyword">APPEND</span> <span class="abap-token-keyword">VALUE</span> #( %tky = travel-%tky ) <span class="abap-token-keyword">TO</span> <span class="abap-token-keyword">failed</span>-travel.
+        <span class="abap-token-comment">" 메시지도 함께 보고</span>
+      <span class="abap-token-keyword">ENDIF</span>.
+    <span class="abap-token-keyword">ENDLOOP</span>.
+  ENDMETHOD.
+<span class="abap-token-keyword">ENDCLASS</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+</section>
+
+<section class="lesson-section">
+  <h2>3. RAP의 작업 방식: 키로 읽고 결과 보고 🔁</h2>
+  <ul>
+    <li><strong>READ ENTITIES:</strong> 전달받은 키로 해당 건들을 RAP 방식으로 읽음(직접 SELECT 대신).</li>
+    <li><strong>failed / reported:</strong> 실패한 건과 메시지를 RAP에 "보고"하면, RAP가 알아서 저장을 막고 사용자에게 알림.</li>
+  </ul>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>비유: 품질 검사관</h4>
+      <p>구현 메서드는 생산 라인의 품질 검사관이에요. RAP가 "이 건들 검사해줘"라며 키를 넘기면, 검사관은 읽어보고 불량(failed)을 보고합니다. 합격/불합격 판정만 하고, 라인 정지(저장 차단)는 RAP가 처리하죠.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <ul>
+    <li>✅ <strong>정상:</strong> READ ENTITIES로 읽고, 검증 후 failed/reported로 보고 → RAP가 저장 통제.</li>
+    <li>❌ <strong>오류 1:</strong> 구현 안에서 직접 <code>SELECT</code>/<code>UPDATE</code>를 함 → RAP 트랜잭션 흐름과 충돌. READ/MODIFY ENTITIES를 써야 함.</li>
+    <li>❌ <strong>오류 2:</strong> 실패를 failed에 안 담음 → 잘못된 데이터가 그대로 저장됨.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>RAP 안에서는 "RAP 방식"으로</h4>
+      <p>Behavior 구현 안에서는 일반 Open SQL로 직접 DB를 건드리면 안 됩니다. 반드시 <strong>READ ENTITIES / MODIFY ENTITIES</strong> 같은 RAP 전용 구문을 써야 트랜잭션·잠금·버퍼가 올바르게 동작합니다. 처음엔 낯설지만, "RAP의 세계에서는 RAP의 언어로 말한다"고 생각하면 됩니다. 직접 SELECT/UPDATE 유혹을 참는 것이 핵심입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li><strong>Behavior Implementation(BIL)</strong>은 BDEF에서 선언한 동작의 실제 로직을 <strong>Behavior Pool</strong> 클래스에 구현합니다.</li>
+        <li>키로 <strong>READ ENTITIES</strong>해 읽고, 실패는 <strong>failed/reported</strong>로 보고합니다.</li>
+        <li>RAP 안에서는 직접 SELECT/UPDATE 대신 RAP 전용 구문을 씁니다.</li>
+        <li>THEORY-18의 OO ABAP 지식이 그대로 활용됩니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    동작을 구현했으니, 이 BO를 외부에 "서비스"로 노출할 차례입니다. 다음 Lesson <strong>Service Definition / Service Binding</strong>을 배웁니다.
+  </p>
+</section>

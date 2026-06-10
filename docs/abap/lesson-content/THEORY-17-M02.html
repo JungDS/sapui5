@@ -1,0 +1,131 @@
+<!-- lesson-content/THEORY-17-M02.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>ABAP 변수 앞에 붙이는 골뱅이(@), 즉 <span class="glossary-term" data-glossary="HostVariable">Host Variable</span>의 의미를 배웁니다. 변수뿐 아니라 계산식을 넣는 <span class="glossary-term" data-glossary="HostExpression">Host Expression</span>까지 익힙니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: @는 "이건 ABAP이야"라는 표시 🏷️</h2>
+  <p>
+    SELECT 문 안에는 두 세계가 섞입니다. <strong>DB 세계</strong>(테이블·컬럼)와 <strong>ABAP 세계</strong>(프로그램 변수)입니다. 둘을 섞어 쓰면 컴파일러가 "이 단어가 컬럼이야, 변수야?" 헷갈릴 수 있습니다.
+  </p>
+  <p>
+    그래서 Modern SQL은 ABAP 쪽 값 앞에 <span class="glossary-term" data-glossary="HostVariable">@</span>를 붙여 "이건 ABAP 변수다"라고 분명히 표시합니다. 이를 Host Variable이라고 합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. Host Variable 기본 ✍️</h2>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span>(lv_carrid) = <span class="abap-token-string">'LH'</span>.
+
+<span class="abap-token-keyword">SELECT</span> connid, price
+  <span class="abap-token-keyword">FROM</span> sflight
+  <span class="abap-token-keyword">WHERE</span> carrid = @lv_carrid        <span class="abap-token-comment">"@lv_carrid = ABAP 변수</span>
+  <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt).            <span class="abap-token-comment">"@DATA = ABAP 결과 그릇</span></code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <ul>
+    <li><strong><code>carrid</code> (@ 없음):</strong> DB 테이블의 컬럼.</li>
+    <li><strong><code>@lv_carrid</code> (@ 있음):</strong> ABAP 프로그램의 변수.</li>
+  </ul>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>비유: 두 나라 말이 섞인 문장</h4>
+      <p>한 문장에 한국어와 영어가 섞이면 헷갈리죠. @는 "지금부터 이 단어는 ABAP(우리 쪽) 말이야"라고 밑줄 그어주는 표시예요. 덕분에 오해가 없습니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>3. Host Expression — 계산식도 넣기 🧮</h2>
+  <p>
+    @ 다음에는 단순 변수뿐 아니라, 괄호로 묶은 <span class="glossary-term" data-glossary="HostExpression">계산식(Host Expression)</span>도 넣을 수 있습니다.
+  </p>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">SELECT</span> carrid, connid
+  <span class="abap-token-keyword">FROM</span> sflight
+  <span class="abap-token-keyword">WHERE</span> price &gt;= @( lv_base * <span class="abap-token-number">2</span> )    <span class="abap-token-comment">"ABAP 계산식을 바로 사용</span>
+  <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt).</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <p><code>@( ... )</code> 안에서 ABAP 식을 계산한 결과가 조건에 쓰입니다. 미리 변수를 만들 필요가 줄어듭니다.</p>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <ul>
+    <li>✅ <strong>정상:</strong> ABAP 값엔 @, DB 컬럼엔 @ 없이 → 컴파일러가 정확히 구분.</li>
+    <li>❌ <strong>오류 1:</strong> ABAP 변수에 @를 빠뜨림 → "그런 컬럼 없다"는 오류(변수를 컬럼으로 오해).</li>
+    <li>❌ <strong>오류 2:</strong> DB 컬럼에 @를 잘못 붙임 → 역시 오류. @는 ABAP 쪽에만.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>@는 선택이 아니라 필수입니다</h4>
+      <p>Modern SQL(콤마 스타일)에서는 ABAP 변수 앞 @가 <strong>의무</strong >입니다. "예전엔 안 붙여도 됐는데"라며 빠뜨리면 컴파일이 안 됩니다. 처음엔 번거롭게 느껴져도, @ 덕분에 코드를 읽는 사람이 DB와 ABAP를 한눈에 구분할 수 있어 실수가 줄어듭니다. 익숙해지면 오히려 편합니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li><strong>Host Variable(@변수)</strong>은 "이건 ABAP 값"이라는 표시입니다.</li>
+        <li>DB 컬럼엔 @ 없이, ABAP 값엔 @를 붙입니다.</li>
+        <li><strong>Host Expression @( 식 )</strong>으로 계산식도 바로 넣습니다.</li>
+        <li>Modern SQL에서 @는 선택이 아니라 필수입니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    @의 의미를 잡았으니, 결과를 받는 쪽도 봅니다. 다음 Lesson <strong>INTO TABLE @DATA(...) Inline Target</strong>에서 결과 그릇을 인라인으로 만드는 법을 정리합니다.
+  </p>
+</section>

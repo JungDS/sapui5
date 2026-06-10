@@ -1,5 +1,7 @@
 # 03. 규칙과 컨벤션
 
+> 📅 **최종수정: 2026-06-10 10:05 KST**
+
 ## 1) HTML 메타데이터 (body)
 운영 문서는 `body`에 메타데이터를 둔다. page-type에 따라 셸이 활성화된다.
 
@@ -97,7 +99,17 @@ archive의 목적별 정리:
 - 브랜치 → PR → 리뷰 → 머지. main 직접 수정 금지.
 - 제목·본문 한국어. 구조 변경 PR과 콘텐츠 PR은 분리.
 - `README.md`는 요약, 상세 이력은 PR 본문/`.project-docs`.
+- **AI 작업자 표기 의무**: 모든 AI Agent 커밋은 커밋 본문에 `AI-Author: <AI/모델명>` 또는 `Co-Authored-By: <AI/모델명>`을 남긴다. 기존 이력처럼 확인이 어려운 경우 PR 본문에서 "커밋 단위 확인 불가, 문서 Work Log 기준 추정"으로 표시한다.
 - **[신규] "최근 변경" 링크 backfill**: README "최근 변경" 표의 링크 칸은 작업 완료 시 우선 `로컬 작업`으로 적고,
   **그 브랜치가 PR로 머지되면 즉시 해당 행의 링크 칸을 PR URL로 교체(backfill)**한다.
   `로컬 작업`은 "아직 PR 전" 상태만을 뜻하며, 머지된 작업이 `로컬 작업`으로 남아 있으면 안 된다.
   과거 행의 PR 매핑은 `git log --merges --ancestry-path <commit>..main | tail -1`로 확정한다.
+
+## 9) [신규] ABAP Lesson 본문 양산 규칙
+ABAP 커리큘럼 Lesson 본문(`docs/abap/lesson-content/<ID>.html`) 작성 시 적용한다. 상세·진행표·복붙 프롬프트는 [HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md), 인계 허브는 [99_AI_SYNC.md](99_AI_SYNC.md).
+
+- **작성 스타일**: 완전 초심자 학습용 + 10·20대 캐주얼 톤. 구조는 `학습목표 콜아웃 → "지난 시간 연결" → 본문 섹션들 → "실무 주의(warn)" → "한눈에 정리"`. 화면 표기는 **Chapter/Lesson** 용어(JSON id는 키로 유지).
+- **글로서리 완전 패리티**: 본문 `data-glossary` 용어는 `reference/abap_glossary.json`에 반드시 함께 등록(title/desc/everyday_analogy/used_in_lessons/design_theme). 매 섹션 후 **미정의 0건 검증** 필수.
+- **코드블록 서식**: 작성은 표준 `<pre><code>`로 하고, 네이비 ABAP Editor 멱등 포맷터(`tools/format-abap-code.mjs`)를 돌려 서식을 통일한다(Shiki 하이라이팅 + Copy 버튼). 멱등이므로 재실행 안전.
+- **추적 3종 동시 갱신(섹션 커밋마다)**: ① `HANDOFF_LESSON_CONTENT.md` 진행표 ② `99_AI_SYNC.md` 현황/Work Log ③ `changelogs/CHANGELOG_<날짜>.md`. 현황만 갱신하고 Work Log를 빠뜨리지 말 것.
+- **멀티 AI 협업(중요, →[04 P11](04_PITFALLS.md))**: **한 번에 한 AI만** 커밋·푸시. 작업 시작 전 `git pull` 필수. `git add -A` 금지(내 파일만 명시적 add). **[필수] 로컬 작업 후 항상 `git commit` 및 `git push`까지 완료하여 다른 AI가 원격 저장소 기준으로 최신 상태를 볼 수 있도록 동기화해야 함.** 동시 작업 시 범위를 파일로 분리.

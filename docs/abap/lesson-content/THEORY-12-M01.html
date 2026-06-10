@@ -1,0 +1,108 @@
+<!-- lesson-content/THEORY-12-M01.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>코드 안에서 그때그때 쓰던 JOIN을, DDIC에 <strong>미리 만들어 두고 재사용</strong>하는 <span class="glossary-term" data-glossary="DatabaseView">Database View</span>를 배웁니다. 코드로 쓰는 <span class="glossary-term" data-glossary="SQLJoin">Open SQL JOIN</span>과 무엇이 같고 다른지 비교하는 것이 목표입니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 같은 JOIN을 매번 또 쓰는 게 번거롭다 🔁</h2>
+  <p>
+    앞 Chapter에서 우리는 <code>SPFLI</code>와 <code>SCARR</code>를 <span class="glossary-term" data-glossary="InnerJoin">INNER JOIN</span>으로 연결해 읽었습니다. 그런데 이 "항공편 + 항공사 이름" 조합을 여러 프로그램에서 똑같이 쓴다면, 매번 같은 JOIN 코드를 반복해서 적어야 합니다.
+  </p>
+  <p>
+    반복은 곧 실수와 유지보수 부담입니다. 그래서 SAP는 자주 쓰는 JOIN을 <strong>DDIC에 객체로 미리 정의</strong>해 두고, 마치 테이블 하나처럼 꺼내 쓰게 해줍니다. 이것이 <span class="glossary-term" data-glossary="DatabaseView">Database View</span>입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. Database View는 "미리 짜둔 JOIN" 🧩</h2>
+  <p>
+    <span class="glossary-term" data-glossary="DDICView">DDIC View</span> 중 가장 기본인 Database View는, 여러 테이블을 <strong>INNER JOIN으로 연결한 결과</strong>를 하나의 가상 테이블처럼 보여줍니다. 실제 데이터를 따로 저장하지는 않고, 조회할 때 원본 테이블에서 합쳐 보여줍니다.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>일상 비유: 자주 쓰는 레시피를 카드로 만들어 두기</h4>
+      <p>매번 재료(테이블)를 어떻게 섞을지 떠올리는 대신, "항공편+항공사 카드"를 한 장 만들어 두는 거예요. 다음부터는 그 카드만 꺼내면 합쳐진 결과가 바로 나옵니다.</p>
+    </div>
+  </div>
+  <p>한 번 만들어 두면 ABAP에서는 <code>SELECT ... FROM zv_flight_carr</code>처럼 <strong>테이블 이름 자리에 View 이름</strong>을 넣어 쓰면 끝입니다.</p>
+</section>
+
+<section class="lesson-section">
+  <h2>3. Open SQL JOIN과 비교 ✍️</h2>
+  <ul>
+    <li><strong>Open SQL JOIN:</strong> 코드 안에서 그때그때 정의. 상황마다 자유롭게 바꿀 수 있음(유연함).</li>
+    <li><strong>Database View:</strong> DDIC에 한 번 정의해 재사용. 여러 프로그램이 같은 정의를 공유(일관성).</li>
+  </ul>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" View를 테이블처럼 사용</span>
+<span class="abap-token-keyword">SELECT</span> carrid, connid, carrname
+  <span class="abap-token-keyword">FROM</span> zv_flight_carr      <span class="abap-token-comment">"← 미리 정의해 둔 Database View</span>
+  <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt).</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <blockquote>
+    "이 JOIN을 여러 곳에서 똑같이 쓴다" → Database View가 어울립니다. "이번만, 이 화면에서만 특수하게 합친다" → 코드 JOIN이 편합니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 정상 흐름과 한계 🔍</h2>
+  <ul>
+    <li>✅ <strong>정상:</strong> 연결 테이블들이 Foreign Key 등으로 잘 묶여 있으면, View가 INNER JOIN 결과를 안정적으로 보여줍니다.</li>
+    <li>❌ <strong>한계 1 — 읽기 전용:</strong> Database View로는 데이터를 <strong>수정/저장할 수 없습니다.</strong> 조회 전용입니다.</li>
+    <li>❌ <strong>한계 2 — INNER JOIN만:</strong> Classic Database View는 기본적으로 INNER 성격이라, 짝 없는 행을 살리는 OUTER 같은 유연함은 떨어집니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>요즘은 CDS View가 대세입니다</h4>
+      <p>Classic Database View는 오래된 시스템에서 여전히 보이지만, 최신 SAP(S/4HANA·ABAP Cloud)에서는 더 강력한 <strong>CDS View Entity</strong>로 대체되는 추세입니다. 지금은 "JOIN을 DDIC에 미리 정의해 재사용한다"는 개념을 잡는 것이 핵심이고, 이 개념은 나중에 CDS를 배울 때 그대로 이어집니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li><strong>Database View</strong>는 여러 테이블의 JOIN을 DDIC에 미리 정의해 테이블처럼 쓰는 객체입니다.</li>
+        <li>데이터를 따로 저장하지 않고, 조회 시 원본에서 합쳐 보여줍니다(읽기 전용).</li>
+        <li>여러 곳에서 같은 JOIN을 쓰면 View가, 일회성·특수 결합이면 코드 JOIN이 어울립니다.</li>
+        <li>최신 환경에서는 CDS View로 진화하지만, 핵심 개념은 동일합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    Database View가 "여러 테이블 합치기"였다면, 다음 Lesson <strong>Projection View 개념과 한계</strong>에서는 "한 테이블에서 필요한 칸만 골라 보여주는" 더 단순한 View를 배웁니다.
+  </p>
+</section>

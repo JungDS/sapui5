@@ -1,0 +1,140 @@
+<!-- lesson-content/THEORY-04-M06.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>Chapter 4의 마무리로 <span class="glossary-term" data-glossary="DDICValidation">DDIC Validation</span>과 프로그램 안의 <span class="glossary-term" data-glossary="InputCheck">Input Check</span> 역할을 나눠봅니다. 어디까지는 DDIC가 막아주고, 어디부터는 ABAP 코드와 <span class="glossary-term" data-glossary="MESSAGEStatement">MESSAGE</span>로 처리해야 하는지 초심자 기준으로 정리합니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: F4로 골랐는데도 검증이 더 필요할까? 🤔</h2>
+  <p>
+    이전 Lesson에서 PARAMETERS 입력칸이 DDIC Data Element와 Search Help를 통해 F4 Help를 얻을 수 있다고 배웠습니다. 그러면 이제 모든 입력 검증이 끝난 걸까요? 아쉽지만 그렇지는 않습니다.
+  </p>
+  <p>
+    DDIC는 데이터의 기술적 형태와 기본 관계를 매우 잘 관리합니다. 하지만 “이 사용자가 이 값을 처리할 수 있는가?”, “이 날짜가 회사 마감일 이후인가?”, “이 상태에서는 수정하면 안 되는가?” 같은 업무 판단은 프로그램 로직이 맡아야 할 때가 많습니다.
+  </p>
+  <blockquote>
+    DDIC는 공통 규칙을 지키는 문지기이고, 프로그램 검증은 상황별 업무 판단을 담당하는 안내자입니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>2. DDIC Validation이 잘하는 일 🧱</h2>
+  <p>
+    <span class="glossary-term" data-glossary="DDICValidation">DDIC Validation</span>은 DDIC에 정의된 타입, 고정값, 관계를 바탕으로 입력값의 기본 품질을 높입니다.
+  </p>
+  <ul>
+    <li><strong>타입과 길이:</strong> <code>CHAR 3</code>, 날짜, 숫자처럼 기술적으로 맞는 값을 유도합니다.</li>
+    <li><strong>Fixed Value:</strong> <code>Y</code>/<code>N</code>처럼 허용된 작은 목록만 받게 할 수 있습니다.</li>
+    <li><strong>Foreign Key:</strong> 기준표에 존재하는 값인지 확인하는 데 도움을 줍니다.</li>
+    <li><strong>Search Help:</strong> 사용자가 올바른 후보를 쉽게 고르게 도와줍니다.</li>
+  </ul>
+  <p>
+    이런 규칙은 여러 프로그램에서 공통으로 재사용되기 좋습니다. 그래서 DDIC에 둘 수 있는 기본 규칙은 DDIC에 두는 편이 유지보수에 유리합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>3. Program Input Check가 필요한 일 🧠</h2>
+  <p>
+    <span class="glossary-term" data-glossary="InputCheck">Input Check</span>는 프로그램의 업무 문맥에 맞춰 입력값을 확인하는 로직입니다. 같은 회사 코드라도 프로그램 목적에 따라 허용 여부가 달라질 수 있습니다.
+  </p>
+  <ul>
+    <li><strong>업무 기간:</strong> 조회 시작일이 종료일보다 늦으면 안 됩니다.</li>
+    <li><strong>권한:</strong> 사용자가 특정 회사 코드나 조직 데이터를 볼 수 있는지 확인해야 합니다.</li>
+    <li><strong>상태:</strong> 이미 마감된 문서는 수정할 수 없을 수 있습니다.</li>
+    <li><strong>조합 조건:</strong> 항공사 코드와 노선 코드가 서로 맞는 조합인지 확인해야 할 수 있습니다.</li>
+  </ul>
+  <p>
+    이런 규칙은 단순히 Domain이나 Foreign Key만으로 표현하기 어렵습니다. 그래서 ABAP 코드에서 조건문과 메시지를 사용해 확인합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>4. MESSAGE로 사용자에게 알려주기 📣</h2>
+  <p>
+    <span class="glossary-term" data-glossary="MESSAGEStatement">MESSAGE</span>는 사용자에게 오류, 경고, 정보 메시지를 보여주는 ABAP 문법입니다. 여기서는 가장 단순한 감각만 잡습니다.
+  </p>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zinput_check.
+
+<span class="abap-token-keyword">PARAMETERS</span> p_days <span class="abap-token-keyword">TYPE</span> i DEFAULT <span class="abap-token-number">7</span>.
+
+<span class="abap-token-keyword">IF</span> p_days &gt; <span class="abap-token-number">30</span>.
+  MESSAGE <span class="abap-token-string">'조회 일수는 30일을 넘길 수 없습니다.'</span> <span class="abap-token-keyword">TYPE</span> <span class="abap-token-string">'E'</span>.
+<span class="abap-token-keyword">ENDIF</span>.
+
+<span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'조회 일수:'</span>, p_days.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <p>
+    위 예제는 조회 일수가 30보다 크면 오류 메시지를 보여줍니다. 실제 Selection Screen 검증 이벤트인 <code>AT SELECTION-SCREEN</code>은 나중에 더 깊게 다룹니다. 지금은 “업무 조건을 코드로 확인하고 사용자에게 메시지를 줄 수 있다”는 감각만 가져가면 됩니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 역할 분리 예시: 어디에 둘까? 🔍</h2>
+  <ul>
+    <li>✅ <strong>DDIC에 두기 좋은 것:</strong> 항공사 코드는 3자리 문자, 사용 여부는 <code>Y/N</code>, 회사 코드는 회사 기준표에 있어야 함</li>
+    <li>✅ <strong>프로그램에 두기 좋은 것:</strong> 조회 기간은 최대 30일, 로그인 사용자는 특정 조직만 조회 가능, 마감된 데이터는 수정 금지</li>
+    <li>❌ <strong>나쁜 흐름:</strong> 모든 검증을 프로그램마다 복사해서 만들기. 공통 규칙이 흩어져 유지보수가 어려워집니다.</li>
+    <li>❌ <strong>반대 흐름:</strong> DDIC가 모든 업무 규칙을 해결해줄 것이라 기대하기. 상황별 판단은 코드가 필요합니다.</li>
+  </ul>
+  <blockquote>
+    좋은 설계는 “공통 규칙은 DDIC, 상황별 규칙은 프로그램”으로 책임을 나눕니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>DDIC 검증과 프로그램 검증을 서로 대체품처럼 보지 마세요</h4>
+      <p>DDIC 검증을 무시하면 같은 검사를 여러 프로그램에 중복 구현하게 됩니다. 반대로 프로그램 검증을 생략하면 권한, 기간, 상태 같은 업무 규칙을 놓칠 수 있습니다. 둘은 경쟁 관계가 아니라 역할이 다른 협업 관계입니다.</p>
+    </div>
+  </div>
+  <p>
+    또한 운영 환경에서는 메시지 문구도 사용자 경험의 일부입니다. “오류입니다”처럼 막연한 메시지보다, 무엇을 어떻게 고쳐야 하는지 알려주는 메시지가 훨씬 좋습니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>Chapter 4 마무리 핵심</h4>
+      <ul>
+        <li><strong>DDIC Validation</strong>은 타입, 길이, 고정값, Foreign Key, Search Help 같은 공통 규칙에 강합니다.</li>
+        <li><strong>Program Input Check</strong>는 기간, 권한, 상태, 조합 조건 같은 업무 문맥을 확인합니다.</li>
+        <li><strong>MESSAGE</strong>는 사용자에게 오류나 안내를 전달하는 ABAP 문법입니다.</li>
+        <li>공통 규칙은 DDIC에, 상황별 규칙은 프로그램에 두는 것이 유지보수에 좋습니다.</li>
+        <li>F4 Help와 DDIC 검증이 있어도 최종 업무 검증을 생략하면 안 됩니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    이제 DDIC 관계와 입력 도움말의 기본 그림을 잡았습니다. 다음 Chapter <strong>ABAP 모듈화 기초</strong>에서는 프로그램 안의 코드를 더 작고 읽기 좋은 단위로 나누는 방법을 배웁니다.
+  </p>
+</section>

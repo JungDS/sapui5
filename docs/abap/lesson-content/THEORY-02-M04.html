@@ -1,0 +1,168 @@
+<!-- lesson-content/THEORY-02-M04.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>지난 Lesson에서 값을 화면에 출력했습니다. 이번에는 값에 따라 다른 흐름을 선택하는 <span class="glossary-term" data-glossary="IFStatement">IF</span>, <span class="glossary-term" data-glossary="ELSEIFStatement">ELSEIF</span>, <span class="glossary-term" data-glossary="CASEStatement">CASE</span>, <span class="glossary-term" data-glossary="WHENStatement">WHEN</span>을 배웁니다. 조건 분기를 처음 보는 사람도 “프로그램의 갈림길”로 이해할 수 있게 정리합니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 출력은 같아도 상황은 다르다 🚦</h2>
+  <p>
+    이전 Lesson에서는 <code>WRITE</code>로 값을 그대로 출력했습니다. 하지만 실제 프로그램은 항상 같은 문장만 출력하지 않습니다. 점수가 90점 이상이면 “A”, 80점 이상이면 “B”, 그 외에는 “다시 도전”처럼 상황에 따라 다른 결과를 보여줘야 합니다.
+  </p>
+  <p>
+    이런 갈림길을 만드는 문법이 조건 분기입니다. ABAP에서는 대표적으로 <code>IF</code>와 <code>CASE</code>를 사용합니다.
+  </p>
+  <blockquote>
+    조건 분기는 프로그램에게 “이럴 땐 이 길로, 저럴 땐 저 길로 가자”라고 알려주는 표지판입니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>2. IF: 조건을 위에서부터 검사하기 🧭</h2>
+  <p>
+    <span class="glossary-term" data-glossary="IFStatement">IF</span>는 조건이 참인지 확인한 뒤, 참이면 해당 블록을 실행합니다. 여러 조건을 차례대로 검사할 때 <span class="glossary-term" data-glossary="ELSEIFStatement">ELSEIF</span>를 사용하고, 아무 조건도 맞지 않을 때 <code>ELSE</code>를 사용합니다.
+  </p>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zif_basic.
+
+<span class="abap-token-keyword">DATA</span> gv_score <span class="abap-token-keyword">TYPE</span> i <span class="abap-token-keyword">VALUE</span> <span class="abap-token-number">85</span>.
+
+<span class="abap-token-keyword">IF</span> gv_score &gt;= <span class="abap-token-number">90</span>.
+  <span class="abap-token-keyword">WRITE</span> <span class="abap-token-string">'A 등급'</span>.
+<span class="abap-token-keyword">ELSEIF</span> gv_score &gt;= <span class="abap-token-number">80</span>.
+  <span class="abap-token-keyword">WRITE</span> <span class="abap-token-string">'B 등급'</span>.
+<span class="abap-token-keyword">ELSE</span>.
+  <span class="abap-token-keyword">WRITE</span> <span class="abap-token-string">'다시 도전'</span>.
+<span class="abap-token-keyword">ENDIF</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <p>
+    ABAP에서는 조건 비교에 <code>=</code>, <code>&lt;&gt;</code>, <code>&gt;=</code>, <code>&lt;=</code> 같은 연산자를 사용합니다. 다른 언어처럼 <code>==</code>를 쓰지 않는다는 점도 기억해두세요.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>3. CASE와 WHEN: 하나의 값으로 갈래 나누기 🗂️</h2>
+  <p>
+    <span class="glossary-term" data-glossary="CASEStatement">CASE</span>는 하나의 값을 기준으로 여러 경우를 나눌 때 읽기 좋습니다. 각 경우는 <span class="glossary-term" data-glossary="WHENStatement">WHEN</span>으로 작성합니다.
+  </p>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zcase_basic.
+
+<span class="abap-token-keyword">DATA</span> gv_grade <span class="abap-token-keyword">TYPE</span> c LENGTH <span class="abap-token-number">1</span> <span class="abap-token-keyword">VALUE</span> <span class="abap-token-string">'B'</span>.
+
+<span class="abap-token-keyword">CASE</span> gv_grade.
+  <span class="abap-token-keyword">WHEN</span> <span class="abap-token-string">'A'</span>.
+    <span class="abap-token-keyword">WRITE</span> <span class="abap-token-string">'아주 좋아요'</span>.
+  <span class="abap-token-keyword">WHEN</span> <span class="abap-token-string">'B'</span>.
+    <span class="abap-token-keyword">WRITE</span> <span class="abap-token-string">'좋아요'</span>.
+  <span class="abap-token-keyword">WHEN</span> OTHERS.
+    <span class="abap-token-keyword">WRITE</span> <span class="abap-token-string">'확인이 필요해요'</span>.
+<span class="abap-token-keyword">ENDCASE</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <p>
+    IF가 다양한 조건식을 자유롭게 쓸 수 있는 갈림길이라면, CASE는 “이 값이 A냐, B냐, C냐”처럼 한 기준값을 여러 후보와 비교할 때 깔끔합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>4. IF와 CASE를 언제 고를까? 🤔</h2>
+  <ul>
+    <li><strong>IF가 편한 경우:</strong> 점수 범위, 날짜 비교, 여러 조건 조합처럼 조건식이 다양할 때 좋습니다.</li>
+    <li><strong>CASE가 편한 경우:</strong> 상태 코드, 등급, 메뉴 선택처럼 하나의 값이 어떤 후보인지 비교할 때 좋습니다.</li>
+    <li><strong>둘 다 가능한 경우:</strong> 팀에서 읽기 쉬운 쪽, 유지보수하기 쉬운 쪽을 선택합니다.</li>
+  </ul>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>초심자 선택 기준</h4>
+      <p>“조건이 문장처럼 다양하다”면 IF, “하나의 코드값을 여러 후보와 비교한다”면 CASE로 시작해보세요. 정답 하나를 외우기보다 읽기 쉬운 흐름을 고르는 감각이 중요합니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
+  <ul>
+    <li>✅ <strong>정상 흐름:</strong> <code>gv_score = 85</code>이면 첫 조건 <code>&gt;= 90</code>은 실패하고, 다음 조건 <code>&gt;= 80</code>이 성공해 B 등급이 출력됩니다.</li>
+    <li>❌ <strong>ENDIF 누락:</strong> <code>IF</code>를 열고 <code>ENDIF.</code>로 닫지 않으면 문법 오류가 납니다.</li>
+    <li>❌ <strong>ENDCASE 누락:</strong> <code>CASE</code>도 <code>ENDCASE.</code>로 닫아야 합니다.</li>
+    <li>❌ <strong>조건 순서 실수:</strong> <code>gv_score >= 80</code>을 먼저 쓰고 그 아래에 <code>gv_score >= 90</code>을 쓰면, 95점도 80점 조건에서 먼저 잡혀버립니다.</li>
+  </ul>
+  <p>
+    미니 실습으로 점수 값을 95, 85, 70으로 바꿔 실행해보세요. 어떤 조건이 잡히는지 Output List로 확인하면 조건 순서가 훨씬 잘 보입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>조건문은 업무 규칙을 숨기는 곳이 될 수 있습니다</h4>
+      <p>조건이 길어지고 중첩이 깊어지면 “왜 이 조건이 먼저인지”를 나중에 알기 어려워집니다. 단순히 실행되는 코드보다, 조건 순서와 예외 케이스가 읽히는지 확인하세요. 권한, 상태값, 오류 처리처럼 중요한 판단은 특히 주석이나 구조로 의도를 남기는 것이 좋습니다.</p>
+    </div>
+  </div>
+  <p>
+    이번 Lesson은 조건문의 첫 감각만 다룹니다. 복잡한 화면 이벤트나 데이터베이스 조회 조건은 이후 Section에서 더 깊게 다룹니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li><strong>IF</strong>는 조건이 참이면 해당 블록을 실행하는 갈림길입니다.</li>
+        <li><strong>ELSEIF</strong>는 다음 조건을 이어서 검사할 때 사용합니다.</li>
+        <li><strong>CASE / WHEN</strong>은 하나의 값이 어떤 후보인지 나눌 때 읽기 좋습니다.</li>
+        <li><code>IF</code>는 <code>ENDIF.</code>, <code>CASE</code>는 <code>ENDCASE.</code>로 닫습니다.</li>
+        <li>조건 순서가 결과를 바꿀 수 있으므로 큰 범위와 작은 범위의 위치를 조심합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    다음 Lesson <strong>DO / WHILE 반복 처리</strong>에서는 같은 일을 여러 번 반복하는 방법과 반복을 멈추거나 건너뛰는 방법을 배웁니다.
+  </p>
+</section>

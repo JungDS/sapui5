@@ -1,0 +1,113 @@
+<!-- lesson-content/THEORY-14-M07.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>화면 안에 표(ALV)·브라우저 같은 복잡한 부품을 끼워 넣는 자리인 <span class="glossary-term" data-glossary="CustomControl">Custom Control</span>과, 그 자리에 부품을 담는 <span class="glossary-term" data-glossary="GuiContainer">Container</span> 개념을 배웁니다. 다음 Chapter의 Grid ALV로 가는 다리를 놓습니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 기본 부품만으로는 부족하다 🧱</h2>
+  <p>
+    지금까지 배운 Input/Text/Button은 단순한 입력 폼에는 충분합니다. 하지만 "조회 결과를 표로 보여주기", "차트 그리기", "HTML 문서 띄우기" 같은 <strong>복잡한 부품</strong>은 이런 기본 요소로는 만들 수 없습니다.
+  </p>
+  <p>
+    그래서 Dynpro에는 화면 한 구역을 <strong>빈 자리로 비워두고</strong>, 거기에 강력한 부품(컨트롤)을 끼워 넣는 방식이 있습니다. 그 빈 자리가 <span class="glossary-term" data-glossary="CustomControl">Custom Control</span>입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. Custom Control = 화면 속 빈 자리 🪟</h2>
+  <p>
+    Screen Painter에서 화면에 <strong>Custom Control</strong> 영역을 그리고 이름(예: <code>CC_ALV</code>)을 줍니다. 이 자리는 비어 있고, 프로그램이 실행될 때 코드로 부품을 심습니다.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>비유: 액자 걸이 못</h4>
+      <p>벽에 못(Custom Control)을 박아두면, 거기에 그림(ALV)이든 거울(브라우저)이든 걸 수 있어요. 못 자체는 빈 자리일 뿐이고, 무엇을 걸지는 프로그램이 정합니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>3. Container가 부품을 담는다 ✍️</h2>
+  <p>
+    Custom Control 자리에 실제로 부품을 담으려면 <span class="glossary-term" data-glossary="GuiContainer">Container 객체</span>가 필요합니다. 대표적으로 <code>CL_GUI_CUSTOM_CONTAINER</code>를 만들어 화면의 Custom Control과 연결합니다.
+  </p>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span>: go_container <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">REF</span> <span class="abap-token-keyword">TO</span> cl_gui_custom_container,
+      go_alv       <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">REF</span> <span class="abap-token-keyword">TO</span> cl_gui_alv_grid.
+
+<span class="abap-token-comment">" PBO에서 (처음 한 번만)</span>
+<span class="abap-token-keyword">IF</span> go_container <span class="abap-token-keyword">IS</span> <span class="abap-token-keyword">INITIAL</span>.
+  <span class="abap-token-keyword">CREATE</span> <span class="abap-token-keyword">OBJECT</span> go_container
+    <span class="abap-token-keyword">EXPORTING</span> container_name = <span class="abap-token-string">'CC_ALV'</span>.   <span class="abap-token-comment">"화면의 Custom Control 이름</span>
+  <span class="abap-token-keyword">CREATE</span> <span class="abap-token-keyword">OBJECT</span> go_alv
+    <span class="abap-token-keyword">EXPORTING</span> i_parent = go_container.      <span class="abap-token-comment">"그 자리에 ALV를 담음</span>
+<span class="abap-token-keyword">ENDIF</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <ul>
+    <li><strong>Container:</strong> Custom Control 자리에 대응하는 ABAP 객체(그릇).</li>
+    <li><strong>부품:</strong> 그 그릇(<code>i_parent</code>)에 ALV Grid·HTML Viewer 등을 담습니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <ul>
+    <li>✅ <strong>정상:</strong> Custom Control(화면) ↔ Container(객체) ↔ 부품(ALV)이 연결되면, 화면 안에 표가 뜹니다.</li>
+    <li>❌ <strong>오류 1:</strong> Container를 PBO마다 새로 생성 → 객체가 중복 생성되어 깨짐. <code>IS INITIAL</code> 체크로 처음 한 번만 만듭니다.</li>
+    <li>❌ <strong>오류 2:</strong> 화면의 Custom Control 이름과 코드의 <code>container_name</code>이 다르면 부품이 안 붙습니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>객체는 한 번만 만들고 재사용하세요</h4>
+      <p>Container와 ALV 같은 GUI 객체는 무겁습니다. PBO가 실행될 때마다 새로 만들면 메모리 누수와 화면 깜빡임이 생깁니다. 반드시 "이미 만들었는지" 확인하고, 처음 한 번만 생성한 뒤 이후에는 데이터만 갱신(refresh)하는 것이 원칙입니다. 이 객체 다루기는 OO ABAP(THEORY-18)을 배우면 더 분명해집니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>THEORY-14 마무리 핵심</h4>
+      <ul>
+        <li>Dynpro는 <strong>Module Pool</strong> 안에서 <strong>PBO(준비)↔PAI(반응)</strong> 박자로 동작합니다.</li>
+        <li>기본 요소는 Input/Text/Button, 메뉴·툴바는 <strong>PF-STATUS</strong>, 제목은 <strong>TITLEBAR</strong>.</li>
+        <li>복잡한 부품은 <strong>Custom Control</strong>(빈 자리) + <strong>Container</strong>(그릇)로 끼워 넣습니다.</li>
+        <li>GUI 객체는 처음 한 번만 생성하고 재사용합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    Container에 담을 가장 대표적인 부품이 바로 <strong>표(Grid ALV)</strong>입니다. 다음 Chapter <strong>Grid ALV 기초</strong>에서, 이 Custom Control 위에 본격적인 데이터 표를 띄우는 법을 배웁니다.
+  </p>
+</section>

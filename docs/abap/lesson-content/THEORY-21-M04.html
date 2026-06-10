@@ -1,0 +1,113 @@
+<!-- lesson-content/THEORY-21-M04.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>데이터 모델에 "무엇을 할 수 있는가"(생성·수정·삭제 등)를 정의하는 <span class="glossary-term" data-glossary="BehaviorDefinition">Behavior Definition(BDEF)</span>을 배웁니다. 읽기 전용 모델이 트랜잭션 가능한 <span class="glossary-term" data-glossary="RapBusinessObject">Business Object</span>로 바뀌는 지점을 익힙니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 보기만 하던 모델에 "행동"을 ✍️</h2>
+  <p>
+    지금까지의 CDS(ZI_/ZC_)는 데이터를 <strong>보여주기</strong>만 했습니다. 이제 "이 데이터를 생성·수정·삭제할 수 있다"는 <strong>동작</strong>을 정의합니다. 그 정의서가 <span class="glossary-term" data-glossary="BehaviorDefinition">Behavior Definition(BDEF)</span>입니다.
+  </p>
+  <p>BDEF를 붙이는 순간, CDS 모델은 트랜잭션 가능한 <span class="glossary-term" data-glossary="RapBusinessObject">Business Object</span>가 됩니다.</p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. Behavior Definition 기본 ✍️</h2>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">managed</span> <span class="abap-token-keyword">implementation</span> in <span class="abap-token-keyword">class</span> zbp_i_travel <span class="abap-token-keyword">unique</span>;
+
+<span class="abap-token-keyword">define</span> behavior <span class="abap-token-keyword">for</span> ZI_Travel alias Travel
+<span class="abap-token-keyword">persistent</span> <span class="abap-token-keyword">table</span> ztravel
+<span class="abap-token-keyword">lock</span> master
+{
+  <span class="abap-token-keyword">create</span>;          // 생성 가능
+  update;          // 수정 가능
+  <span class="abap-token-keyword">delete</span>;          // 삭제 가능
+
+  field ( readonly ) travel_id;       // 키는 읽기 전용
+  field ( mandatory ) agency_id;      // 필수 입력
+}</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <ul>
+    <li><strong><span class="glossary-term" data-glossary="ManagedImplementation">managed</span>:</strong> 표준 저장 로직(생성·수정·삭제·저장)을 RAP가 자동 처리하는 방식. 초보자에게 가장 쉬움.</li>
+    <li><strong>create/update/delete:</strong> 허용할 표준 동작.</li>
+    <li><strong>field ( readonly / mandatory ):</strong> 필드별 입력 규칙.</li>
+  </ul>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>managed vs unmanaged</h4>
+      <p><strong>managed</strong>는 저장 로직을 RAP가 알아서 해줘서(자동 운전) 빠릅니다. <strong>unmanaged</strong>는 기존 저장 로직(레거시 함수 등)에 직접 연결할 때 씁니다(수동 운전). 신규 개발은 보통 managed로 시작합니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>3. lock과 authorization 한 줄 소개 🔐</h2>
+  <ul>
+    <li><strong>lock master:</strong> 동시에 같은 데이터를 고치지 못하게 잠금(THEORY의 Lock 개념). RAP가 자동 관리.</li>
+    <li><strong>authorization:</strong> 누가 이 동작을 할 수 있는지(권한). BDEF에 선언해 둘 수 있습니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <ul>
+    <li>✅ <strong>정상:</strong> BDEF로 create/update/delete + 필드 규칙 정의 → 트랜잭션 가능한 BO 완성.</li>
+    <li>❌ <strong>오류 1:</strong> 키 필드를 readonly로 안 막음 → 사용자가 키를 바꿔 데이터 정합성 붕괴.</li>
+    <li>❌ <strong>오류 2:</strong> managed인데 표준 흐름과 맞지 않는 특수 저장이 필요 → unmanaged나 추가 구현 검토.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>"무엇을 허용할지"를 명확히</h4>
+      <p>BDEF는 곧 "이 데이터로 할 수 있는 일의 목록"입니다. 필요 없는 동작(예: 삭제)을 무심코 열어두면 사용자가 데이터를 지울 수 있습니다. 필드 규칙(readonly/mandatory)도 데이터 정합성의 1차 방어선입니다. "이 업무에서 정말 허용해야 하는 동작·입력인가?"를 따져 최소한으로 여세요.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li><strong>Behavior Definition(BDEF)</strong>이 CDS 모델에 동작을 부여해 <strong>Business Object</strong>로 만듭니다.</li>
+        <li><strong>managed</strong>는 표준 저장을 RAP가 자동 처리(신규 권장).</li>
+        <li>create/update/delete와 field(readonly/mandatory)로 동작·입력을 통제합니다.</li>
+        <li>lock·authorization으로 동시성·권한도 선언합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    동작을 "선언"했으니, 그 동작의 세부 로직을 "구현"할 차례입니다. 다음 Lesson <strong>Behavior Implementation 기초</strong>를 배웁니다.
+  </p>
+</section>

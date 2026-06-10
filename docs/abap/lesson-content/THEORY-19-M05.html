@@ -1,0 +1,132 @@
+<!-- lesson-content/THEORY-19-M05.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>셀마다 편집 가능/비활성 같은 <span class="glossary-term" data-glossary="CellStyle">Cell Style(상태)</span>을 주는 법을 배웁니다. Cell Color와 똑같이 Deep Structure를 쓰되, 색상 대신 <span class="glossary-term" data-glossary="LVCTSTYL">LVC_T_STYL</span>을 품는 구조를 익힙니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 색이 아니라 "상태"를 칸마다 🎚️</h2>
+  <p>
+    앞 Lesson에서 셀에 색을 줬습니다. 비슷하게, 셀마다 <strong>"이 칸은 편집 가능, 저 칸은 잠금"</strong> 같은 상태를 줄 수도 있습니다. 예: 신규 행만 입력 가능, 기존 행은 읽기 전용.
+  </p>
+  <p>이것이 <span class="glossary-term" data-glossary="CellStyle">Cell Style</span>이고, 구조는 Cell Color와 판박이입니다(색상 테이블 → 스타일 테이블로 바뀔 뿐).</p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. 출력 구조에 스타일 테이블 품기 ✍️</h2>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">TYPES</span>: <span class="abap-token-keyword">BEGIN</span> <span class="abap-token-keyword">OF</span> ty_row,
+         carrid <span class="abap-token-keyword">TYPE</span> s_carr_id,
+         price  <span class="abap-token-keyword">TYPE</span> s_price,
+         cellstyles <span class="abap-token-keyword">TYPE</span> lvc_t_styl,   <span class="abap-token-comment">"★ 셀 스타일 정보(Deep Structure)</span>
+       <span class="abap-token-keyword">END</span> <span class="abap-token-keyword">OF</span> ty_row.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" 특정 셀을 편집 가능/불가로</span>
+<span class="abap-token-keyword">APPEND</span> <span class="abap-token-keyword">VALUE</span> lvc_s_styl(
+  fieldname = <span class="abap-token-string">'PRICE'</span>
+  style     = cl_gui_alv_grid=&gt;mc_style_enabled )   <span class="abap-token-comment">"편집 가능</span>
+  <span class="abap-token-keyword">TO</span> &lt;fs&gt;-cellstyles.
+
+<span class="abap-token-comment">" Layout에 스타일 필드 이름 알려주기</span>
+gs_layout-stylefname = <span class="abap-token-string">'CELLSTYLES'</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <ul>
+    <li><strong>style:</strong> <code>mc_style_enabled</code>(편집 가능) / <code>mc_style_disabled</code>(비활성) 등 상수.</li>
+    <li><strong><span class="glossary-term" data-glossary="StyleFname">stylefname</span>:</strong> Layout에 "셀 스타일 정보가 이 필드"라고 알려줌. (색상은 ctab_fname, 스타일은 stylefname — 둘은 별개!)</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 색상(ctab) vs 스타일(style) 비교 🔍</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">🔗</div>
+    <div class="lesson-callout-content">
+      <h4>헷갈리지 않게 짝 맞추기</h4>
+      <ul>
+        <li><strong>색:</strong> 구조 필드 <code>LVC_T_SCOL</code> ↔ Layout <code>ctab_fname</code></li>
+        <li><strong>상태:</strong> 구조 필드 <code>LVC_T_STYL</code> ↔ Layout <code>stylefname</code></li>
+      </ul>
+      <p>둘 다 Deep Structure지만 담는 테이블 타입과 Layout 연결 필드가 다릅니다. 한 행에 색·스타일을 동시에 줄 수도 있습니다(필드 2개 다 둠).</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <ul>
+    <li>✅ <strong>정상:</strong> 셀별 스타일 채우고 stylefname 연결 → 칸마다 편집/잠금이 정확히 적용.</li>
+    <li>❌ <strong>오류 1:</strong> 색상용 ctab_fname에 스타일 필드를 잘못 연결 → 동작 안 함(짝을 맞춰야 함).</li>
+    <li>❌ <strong>오류 2:</strong> 셀을 편집 가능으로 열었지만 변경값 처리(검증·저장) 로직이 없음 → 입력이 반영 안 됨(편집 처리는 PRACTICAL 트랙).</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>편집 가능 셀은 "그다음"이 더 중요</h4>
+      <p>Cell Style로 셀을 편집 가능하게 만드는 것은 시작일 뿐입니다. 사용자가 바꾼 값을 받아 검증하고 DB에 안전하게 반영하는 처리(DATA_CHANGED 이벤트, COMMIT/ROLLBACK)가 뒤따라야 합니다. 이는 실무 트랙(PRACTICAL)에서 본격적으로 다룹니다. 지금은 "셀 단위로 상태를 줄 수 있다"는 구조만 정확히 잡으세요.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li><strong>Cell Style</strong>은 셀마다 편집 가능/비활성 같은 상태를 줍니다.</li>
+        <li>출력 구조에 <strong>LVC_T_STYL</strong>을 품고(Deep Structure), Layout의 <strong>stylefname</strong>으로 연결합니다.</li>
+        <li>색은 ctab_fname, 스타일은 stylefname — <strong>짝을 정확히</strong> 맞춥니다.</li>
+        <li>편집 가능 셀은 변경값 검증·저장 처리가 뒤따라야 의미가 있습니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    행·컬럼·셀 색상과 셀 스타일을 모두 봤습니다. 다음 Lesson <strong>Row / Column / Cell Color 선택 기준</strong>에서 "언제 무엇을 쓸지"를 정리합니다.
+  </p>
+</section>

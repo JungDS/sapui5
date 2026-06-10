@@ -1,4 +1,4 @@
-// ABAP Curriculum Lesson Viewer
+// ABAP Curriculum Lesson Viewer | 최종수정 2026-06-10 13:17 KST | v1.2
 //
 // Reads `?lesson=THEORY-01-M01` from the URL, loads the curriculum JSON to find metadata,
 // and fetches the actual lesson content from `lesson-content/THEORY-01-M01.html`.
@@ -175,9 +175,9 @@
       }).join("");
 
       tocPanel.innerHTML = '<div class="stage7-side-heading">현재 Chapter</div>' +
-        '<div style="font-size:0.85rem; margin-bottom:1rem; color:#666;">' + escapeHtml(context.section.section_name) + '</div>' +
+        '<div class="lesson-current-chapter">' + escapeHtml(context.section.section_name) + '</div>' +
         '<nav class="stage7-local-toc secdetail-toc" aria-label="이 Chapter 안에서">' + tocLinks + "</nav>" +
-        '<div class="stage7-related-docs" style="margin-top:2rem;"><div class="stage7-side-heading">이동</div>' +
+        '<div class="stage7-related-docs lesson-related-docs"><div class="stage7-side-heading">이동</div>' +
         '<a href="' + backHref + '">↑ Chapter 요약으로 돌아가기</a></div>';
     }
 
@@ -217,13 +217,18 @@
       pathPanel.innerHTML = '<div class="stage7-path-panel">' +
         '<div class="stage7-progress-card">' +
           "<div><span>" + escapeHtml(trackName) + "</span><strong>" + completed + " / " + total + "</strong></div>" +
-          '<div class="stage7-progress-bar"><span style="width:' + progress + '%"></span></div>' +
+          '<div class="stage7-progress-bar"><span class="stage7-progress-fill"></span></div>' +
         "</div>" +
         '<div class="stage7-side-heading">Chapter 상세 보기</div>' +
-        '<p class="stage7-path-hint" style="font-size:0.85rem; color:#666; margin-bottom:1rem;">현재 Chapter는 강조되며, 다른 항목을 누르면 해당 상세 페이지로 이동합니다.</p>' +
+        '<p class="stage7-path-hint">현재 Chapter는 강조되며, 다른 항목을 누르면 해당 상세 페이지로 이동합니다.</p>' +
         '<div class="stage7-stepper-container"><div class="stage7-stepper-group">' +
           '<div class="stage7-stepper-group-items">' + cards + "</div>" +
         "</div></div></div>";
+
+      var progressFill = pathPanel.querySelector(".stage7-progress-fill");
+      if (progressFill) {
+        progressFill.style.width = progress + "%";
+      }
     }
   }
 
@@ -231,8 +236,8 @@
     var root = document.querySelector("[data-lesson-root]");
     if (!root) return;
 
-    var contentUrl = "lesson-content/" + lessonId + ".html";
-    fetch(contentUrl)
+    var contentUrl = "lesson-content/" + lessonId + ".html?v=" + new Date().getTime();
+    fetch(contentUrl, { cache: "no-store" })
       .then(function (response) {
         if (!response.ok) {
           if (response.status === 404) {
@@ -244,10 +249,65 @@
       })
       .then(function (html) {
         root.innerHTML = html;
+        setupCodeCopyButtons(root);
       })
       .catch(function (error) {
         renderError(error.message);
       });
+  }
+
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text);
+    }
+
+    return new Promise(function (resolve, reject) {
+      var textarea = document.createElement("textarea");
+      textarea.className = "lesson-copy-buffer";
+      textarea.value = text;
+      textarea.setAttribute("readonly", "readonly");
+      document.body.appendChild(textarea);
+      textarea.select();
+
+      try {
+        var copied = document.execCommand("copy");
+        document.body.removeChild(textarea);
+        copied ? resolve() : reject(new Error("Copy command was not accepted."));
+      } catch (error) {
+        document.body.removeChild(textarea);
+        reject(error);
+      }
+    });
+  }
+
+  function setupCodeCopyButtons(scope) {
+    var buttons = scope.querySelectorAll(".shiki-copy-button");
+    buttons.forEach(function (btn) {
+      if (btn.dataset.copyBound === "true") return;
+      btn.dataset.copyBound = "true";
+
+      btn.addEventListener("click", function () {
+        var wrapper = btn.closest(".shiki-copy-wrapper");
+        if (!wrapper) return;
+
+        var codeEl = wrapper.querySelector("code");
+        if (!codeEl) return;
+
+        var originalText = btn.dataset.originalText || btn.textContent;
+        btn.dataset.originalText = originalText;
+        btn.textContent = "✓ Copied!";
+        btn.classList.add("is-copied");
+
+        copyText(codeEl.innerText).catch(function (err) {
+          console.error("Failed to copy text: ", err);
+        }).finally(function () {
+          setTimeout(function () {
+            btn.textContent = originalText;
+            btn.classList.remove("is-copied");
+          }, 2000);
+        });
+      });
+    });
   }
 
   // Init

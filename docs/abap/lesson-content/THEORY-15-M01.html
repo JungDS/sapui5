@@ -1,0 +1,110 @@
+<!-- lesson-content/THEORY-15-M01.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>화면 안에 표(ALV)를 띄우기 위한 첫 단추, <span class="glossary-term" data-glossary="CLGUICUSTOMCONTAINER">CL_GUI_CUSTOM_CONTAINER</span> 객체를 만드는 법을 배웁니다. 화면의 <span class="glossary-term" data-glossary="CustomControl">Custom Control</span> 자리와 코드의 <span class="glossary-term" data-glossary="ContainerName">Container Name</span>이 어떻게 연결되는지 익힙니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 빈 자리에 표를 걸 차례 🖼️</h2>
+  <p>
+    앞 Chapter(THEORY-14)에서 화면에 <span class="glossary-term" data-glossary="CustomControl">Custom Control</span>이라는 "빈 자리(액자 걸이 못)"를 만들 수 있다고 했습니다. 이제 그 자리에 진짜 표를 거는 작업을 시작합니다.
+  </p>
+  <p>
+    표를 걸려면 먼저 그 빈 자리에 대응하는 <strong>그릇(Container)</strong> 객체가 필요합니다. 가장 많이 쓰는 그릇이 <span class="glossary-term" data-glossary="CLGUICUSTOMCONTAINER">CL_GUI_CUSTOM_CONTAINER</span>입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. Container를 만들어 화면과 연결 ✍️</h2>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6<br>7
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span>: go_container <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">REF</span> <span class="abap-token-keyword">TO</span> cl_gui_custom_container.
+
+<span class="abap-token-comment">" 화면(0100)의 PBO에서, 처음 한 번만</span>
+<span class="abap-token-keyword">IF</span> go_container <span class="abap-token-keyword">IS</span> <span class="abap-token-keyword">INITIAL</span>.
+  <span class="abap-token-keyword">CREATE</span> <span class="abap-token-keyword">OBJECT</span> go_container
+    <span class="abap-token-keyword">EXPORTING</span> container_name = <span class="abap-token-string">'CC_ALV'</span>.   <span class="abap-token-comment">"화면에 그린 Custom Control 이름</span>
+<span class="abap-token-keyword">ENDIF</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <ul>
+    <li><strong><span class="glossary-term" data-glossary="ContainerName">container_name</span>:</strong> Screen Painter에서 Custom Control에 준 이름과 <strong>정확히 같아야</strong> 합니다(예: <code>CC_ALV</code>).</li>
+    <li><strong>참조 변수:</strong> <code>go_container</code>는 이 그릇을 가리키는 손잡이입니다. 이후 ALV를 담을 때 이 손잡이를 넘깁니다.</li>
+  </ul>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>비유: 못과 액자 틀</h4>
+      <p>화면의 Custom Control이 "벽에 박은 못"이라면, CL_GUI_CUSTOM_CONTAINER는 그 못에 거는 "액자 틀"이에요. 틀까지 만들어야 그 안에 그림(ALV)을 넣을 수 있습니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 왜 "처음 한 번만" 만들까? 🔁</h2>
+  <p>
+    PBO는 화면이 갱신될 때마다 실행됩니다(THEORY-14-M04). 그런데 Container 같은 GUI 객체를 PBO마다 새로 만들면, 같은 못에 액자 틀을 자꾸 겹쳐 거는 셈이 되어 화면이 깨지거나 깜빡입니다.
+  </p>
+  <ul>
+    <li>✅ <strong>정상:</strong> <code>IS INITIAL</code>로 "아직 안 만들었나?" 확인 → 처음 한 번만 생성.</li>
+    <li>❌ <strong>오류:</strong> 매번 <code>CREATE OBJECT</code> → 객체 중복·메모리 낭비·화면 깜빡임.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <ul>
+    <li>✅ <strong>정상:</strong> 화면 Custom Control 이름 = 코드 container_name → 그릇이 그 자리에 정확히 자리잡음.</li>
+    <li>❌ <strong>이름 불일치:</strong> 화면에 <code>CC_ALV</code>인데 코드에 <code>CONT</code>라고 쓰면, 그릇이 붙을 자리를 못 찾아 오류가 납니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>객체는 전역 변수로 들고 재사용하세요</h4>
+      <p><code>go_container</code> 같은 GUI 객체 참조는 보통 프로그램 전역(또는 클래스 속성)으로 선언해, 화면이 살아있는 동안 계속 들고 있어야 합니다. 지역 변수로 만들면 PBO가 끝날 때 사라져 매번 다시 만들게 됩니다. "한 번 만들어 오래 들고 간다"가 GUI 객체의 기본 수명 관리입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li><strong>CL_GUI_CUSTOM_CONTAINER</strong>는 화면 Custom Control 자리에 대응하는 그릇 객체입니다.</li>
+        <li><strong>container_name</strong>은 화면의 Custom Control 이름과 정확히 일치해야 합니다.</li>
+        <li>PBO에서 <strong>IS INITIAL로 처음 한 번만</strong> 생성합니다.</li>
+        <li>객체 참조는 전역으로 들고 재사용합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    그릇을 만들었으니, 그 안에 담을 표 객체를 만들 차례입니다. 다음 Lesson <strong>CL_GUI_ALV_GRID 생성</strong>에서 ALV 그리드 객체를 만들어 Container에 담습니다.
+  </p>
+</section>

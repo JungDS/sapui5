@@ -1,0 +1,87 @@
+<!-- lesson-content/THEORY-14-M01.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>버튼·입력 칸이 있는 진짜 사용자 화면을 만드는 <span class="glossary-term" data-glossary="Dynpro">Dynpro</span> 프로그래밍의 큰 그림을 잡습니다. 이런 화면들을 담는 그릇인 <span class="glossary-term" data-glossary="ModulePool">Module Pool</span> 프로그램의 구조를 이해하는 것이 목표입니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 선택 화면을 넘어서 🪟</h2>
+  <p>
+    앞 Chapter의 리포트는 <strong>선택 화면(PARAMETERS, SELECT-OPTIONS)</strong> 하나로 입력을 받았습니다. 단순하고 빠르지만, 버튼을 여러 개 배치하거나 탭·표·복잡한 입력 폼을 만들기에는 한계가 있습니다.
+  </p>
+  <p>
+    그래서 SAP에는 자유롭게 디자인하는 화면 기술이 따로 있습니다. 그것이 <span class="glossary-term" data-glossary="Dynpro">Dynpro</span>(Dynamic Program의 줄임말, 우리말로 "다이내믹 프로그램 = 화면")입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. Dynpro와 Module Pool의 관계 🧱</h2>
+  <ul>
+    <li><strong>Dynpro(화면):</strong> 입력 칸·버튼 등을 배치한 <strong>한 장의 화면</strong>. 각 화면은 번호(예: <code>0100</code>)를 가집니다.</li>
+    <li><strong><span class="glossary-term" data-glossary="ModulePool">Module Pool</span>(모듈 풀):</strong> 이런 화면들과, 화면을 움직이는 ABAP 코드(모듈)를 <strong>한데 담는 프로그램</strong>입니다. 프로그램 타입은 <code>M</code>입니다.</li>
+  </ul>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>비유: 슬라이드 묶음과 발표 파일</h4>
+      <p>화면(Dynpro) 한 장 한 장이 슬라이드라면, Module Pool은 그 슬라이드들과 발표 스크립트를 모두 담은 발표 파일이에요. 화면만 있어서는 안 되고, 화면을 제어하는 코드가 함께 있어야 합니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 화면을 움직이는 두 박자: PBO와 PAI 🎵</h2>
+  <p>
+    Dynpro는 두 개의 핵심 순간으로 동작합니다. 리포트의 이벤트 흐름과 비슷한 리듬입니다.
+  </p>
+  <ul>
+    <li><strong><span class="glossary-term" data-glossary="PBO">PBO (Process Before Output)</span>:</strong> 화면을 <strong>보여주기 직전</strong>. 값을 채우고 화면을 꾸밉니다.</li>
+    <li><strong><span class="glossary-term" data-glossary="PAI">PAI (Process After Input)</span>:</strong> 사용자가 <strong>버튼을 누른 직후</strong>. 입력을 처리합니다.</li>
+  </ul>
+  <blockquote>
+    "화면 보여주기 전(PBO) → 사용자 행동 → 행동 처리(PAI)"의 반복. 이 두 박자가 Dynpro의 심장입니다. 각각은 다음 Lesson들에서 자세히 봅니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 어디서 만들까? 🔍</h2>
+  <ul>
+    <li><strong>SE80 / SE38:</strong> Module Pool 프로그램을 만들고 관리합니다.</li>
+    <li><strong>SE51(Screen Painter):</strong> 화면 레이아웃을 그립니다(다음 Lesson).</li>
+    <li><strong>Flow Logic:</strong> 각 화면에는 PBO/PAI를 부르는 짧은 흐름 코드가 붙습니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>요즘은 화면을 직접 그리는 일이 줄고 있습니다</h4>
+      <p>Dynpro는 SAP GUI 시대의 핵심 기술이지만, 최신 개발은 화면을 <strong>Fiori(UI5)</strong>로 만들고 백엔드는 RAP로 처리하는 방향입니다. 그래도 Dynpro를 배우는 이유는, 운영 중인 수많은 화면이 Dynpro로 되어 있고, "화면과 로직이 PBO/PAI로 주고받는다"는 개념이 모든 UI의 기본이기 때문입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li><strong>Dynpro</strong>는 입력 칸·버튼을 배치한 사용자 화면(한 장당 번호 보유)입니다.</li>
+        <li><strong>Module Pool</strong>(타입 M)은 화면들과 제어 코드를 담는 프로그램입니다.</li>
+        <li>화면은 <strong>PBO(보여주기 전)</strong> → 사용자 행동 → <strong>PAI(행동 처리)</strong>로 동작합니다.</li>
+        <li>현대는 Fiori로 옮겨가지만, 개념과 기존 자산 유지보수를 위해 꼭 필요합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    구조를 잡았으니, 화면을 실제로 만들어봅니다. 다음 Lesson <strong>Screen Number와 Screen Painter</strong>에서 화면 번호를 정하고 레이아웃을 그리는 도구를 배웁니다.
+  </p>
+</section>

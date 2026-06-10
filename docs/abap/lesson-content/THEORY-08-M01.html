@@ -1,0 +1,181 @@
+<!-- lesson-content/THEORY-08-M01.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>Chapter 6~07에서 Internal Table을 만들고 가공했습니다. 이번 Chapter에서는 그 데이터를 화면 표로 보기 좋게 보여주는 <span class="glossary-term" data-glossary="SALV">SALV</span>와 <span class="glossary-term" data-glossary="CLSALVTABLE">CL_SALV_TABLE</span>의 목적을 이해합니다. 단순 <span class="glossary-term" data-glossary="ListOutput">List Output</span>과 무엇이 다른지도 감을 잡습니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 Chapter 연결: 표를 만들었으면 보여줘야 한다 🧭</h2>
+  <p>
+    지금까지 우리는 Internal Table에 여러 줄 데이터를 담고, 수정하고, 삭제하고, 정렬하고, 검색했습니다. 그런데 프로그램이 아무리 데이터를 잘 가공해도 사용자가 결과를 보기 어렵다면 실무에서는 반쪽짜리입니다.
+  </p>
+  <p>
+    <code>WRITE</code>로도 출력할 수 있지만, 행과 열이 많은 데이터는 단순 줄 출력만으로 보기 불편합니다. 사용자는 보통 열 제목, 행 구분, 정렬 버튼, 엑셀 다운로드 같은 표 형태의 결과 화면을 기대합니다.
+  </p>
+  <blockquote>
+    SALV는 Internal Table 데이터를 “표 화면”으로 빠르게 보여주는 간단한 ALV 도구입니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>2. SALV는 무엇인가? 📊</h2>
+  <p>
+    <span class="glossary-term" data-glossary="SALV">SALV</span>는 Simple ALV 계열로, ABAP 프로그램에서 Internal Table 데이터를 표 형태로 표시할 때 많이 쓰는 방식입니다. 복잡한 편집 화면을 만드는 도구라기보다, 조회 결과를 빠르게 보여주는 데 초점이 있습니다.
+  </p>
+  <ul>
+    <li><strong>데이터 원천:</strong> ABAP 프로그램 안의 Internal Table</li>
+    <li><strong>표시 결과:</strong> 행과 열이 있는 ALV 화면</li>
+    <li><strong>장점:</strong> 짧은 코드로 기본 표 화면을 만들 수 있습니다.</li>
+    <li><strong>주의:</strong> 기본 SALV는 데이터 편집용 Grid가 아니라 조회용 표시 도구에 가깝습니다.</li>
+  </ul>
+  <p>
+    처음에는 “Internal Table을 사용자 친화적인 표로 보여주는 포장지”라고 생각하면 됩니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>3. CL_SALV_TABLE은 SALV 표 객체를 만드는 Class 🏛️</h2>
+  <p>
+    <span class="glossary-term" data-glossary="CLSALVTABLE">CL_SALV_TABLE</span>은 SALV 표 화면을 만들고 표시할 때 사용하는 대표 Class입니다. Chapter 5에서 Class와 Method를 맛봤기 때문에, 이제 이 문장이 조금 덜 낯설 것입니다.
+  </p>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span> lo_alv <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">REF</span> <span class="abap-token-keyword">TO</span> cl_salv_table.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <p>
+    위 코드는 SALV 표 객체를 가리킬 참조 변수 <code>lo_alv</code>를 선언합니다. 실제 객체 생성은 다음 Lesson에서 <code>factory</code> Method로 진행합니다.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>왜 Class가 나올까?</h4>
+      <p>SALV는 단순 문법 하나가 아니라 화면 표시 기능을 가진 객체입니다. 그래서 Class와 Method 호출 형태로 사용합니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>4. WRITE 출력과 SALV 출력의 느낌 차이 ✍️</h2>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">LOOP</span> <span class="abap-token-keyword">AT</span> lt_students <span class="abap-token-keyword">INTO</span> ls_student.
+  <span class="abap-token-keyword">WRITE</span>: / ls_student-id, ls_student-name, ls_student-score.
+<span class="abap-token-keyword">ENDLOOP</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <p>
+    위 코드는 List Output으로 한 줄씩 값을 찍습니다. 간단하지만 열 정렬, 사용자 기능, 표 형태 시각화가 부족합니다.
+  </p>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5
+    </div>
+    <pre class="shiki abap-editor-code"><code>cl_salv_table=&gt;factory(
+  <span class="abap-token-keyword">IMPORTING</span> r_salv_table = lo_alv
+  <span class="abap-token-keyword">CHANGING</span>  t_table      = lt_students ).
+
+lo_alv-&gt;display( ).</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <p>
+    SALV는 Internal Table 전체를 표 화면으로 넘기고, SALV 객체가 표시를 담당합니다. 지금은 문법을 외우기보다 “Internal Table을 SALV에게 맡기면 표 화면이 나온다”는 흐름을 잡으세요.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
+  <ul>
+    <li>✅ <strong>정상 흐름:</strong> Internal Table에 표시할 데이터가 있고, SALV 객체가 정상 생성되면 표 화면이 표시됩니다.</li>
+    <li>✅ <strong>빈 데이터:</strong> Internal Table이 비어 있어도 타입에 필드가 있으면 빈 표 형태로 표시될 수 있습니다.</li>
+    <li>❌ <strong>데이터 준비 누락:</strong> Internal Table에 줄을 넣지 않고 표시하면 사용자는 “결과가 없다”고 느낍니다.</li>
+    <li>❌ <strong>예외 처리 누락:</strong> SALV 객체 생성 중 문제가 생길 수 있으므로 예외 흐름을 확인해야 합니다.</li>
+  </ul>
+  <p>
+    미니 실습으로 기존 학생 Internal Table 예제를 떠올리고, WRITE 출력과 SALV 출력이 어떤 UX 차이를 만들지 말로 비교해보세요.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>SALV는 만능 화면 도구가 아닙니다</h4>
+      <p>SALV는 조회 결과를 빠르게 보여주기 좋지만, 복잡한 편집, 셀 색상/스타일, 이벤트 처리, Layout/Variant 심화는 별도 주제로 다뤄야 합니다. 이번 Chapter에서는 “보여주기 1차”에 집중합니다.</p>
+    </div>
+  </div>
+  <p>
+    고객사마다 SALV, Grid ALV, 커스텀 화면을 선택하는 기준이 다를 수 있습니다. 표준 동작과 프로젝트 관행을 구분해서 읽는 습관이 필요합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>SALV 첫 감각</h4>
+      <ul>
+        <li><strong>SALV</strong>는 Internal Table 데이터를 표 형태로 보여주는 간단한 ALV 도구입니다.</li>
+        <li><strong>CL_SALV_TABLE</strong>은 SALV 표 화면을 만들고 표시하는 대표 Class입니다.</li>
+        <li><strong>List Output</strong>은 WRITE 기반 줄 출력이고, SALV는 표 화면에 가깝습니다.</li>
+        <li>SALV는 조회용 표시에는 편하지만 복잡한 편집 화면의 만능 도구는 아닙니다.</li>
+        <li>이번 Chapter는 FACTORY로 만들고 DISPLAY로 보여주는 1차 범위에 집중합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    다음 Lesson <strong>FACTORY 메서드로 Internal Table 출력</strong>에서는 실제 SALV 객체를 생성하고 Internal Table을 화면에 띄웁니다.
+  </p>
+</section>

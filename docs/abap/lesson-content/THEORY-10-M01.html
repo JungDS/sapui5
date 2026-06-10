@@ -1,0 +1,159 @@
+<!-- lesson-content/THEORY-10-M01.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>Chapter 9에서는 한 값으로 WHERE 조건을 만들었습니다. 이번 Chapter에서는 여러 값과 범위를 표현하는 <span class="glossary-term" data-glossary="RangeTable">Range Table</span>을 배웁니다. Range Table 한 줄의 네 칸인 <span class="glossary-term" data-glossary="SIGNField">SIGN</span>, <span class="glossary-term" data-glossary="OPTIONField">OPTION</span>, <span class="glossary-term" data-glossary="LOWField">LOW</span>, <span class="glossary-term" data-glossary="HIGHField">HIGH</span>의 역할을 이해합니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 한 칸 입력만으로는 부족할 때가 있다 🧭</h2>
+  <p>
+    PARAMETERS는 한 값을 입력받기에 좋습니다. 예를 들어 국가 코드 하나, 회사 코드 하나, 날짜 하나처럼 딱 한 칸이면 충분한 경우가 있습니다.
+  </p>
+  <p>
+    하지만 실무 사용자는 “KR 또는 US”, “A부터 C까지”, “K로 시작하는 값”, “이 값은 제외”처럼 여러 조건을 넣고 싶어 합니다. 이때 ABAP은 Range Table 구조를 사용해 조건 묶음을 표현합니다.
+  </p>
+  <blockquote>
+    Range Table은 여러 선택 조건을 행 단위로 담는 조건표입니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>2. Range Table 한 줄은 네 칸으로 읽는다 🧩</h2>
+  <p>
+    Range Table의 각 행은 보통 다음 네 필드를 가집니다.
+  </p>
+  <ul>
+    <li><strong>SIGN:</strong> 포함할지 제외할지 정합니다. 대표 값은 <code>I</code>(Include), <code>E</code>(Exclude)입니다.</li>
+    <li><strong>OPTION:</strong> 비교 방식을 정합니다. 대표 값은 <code>EQ</code>, <code>BT</code>, <code>CP</code>입니다.</li>
+    <li><strong>LOW:</strong> 비교 기준의 시작 값 또는 단일 값입니다.</li>
+    <li><strong>HIGH:</strong> 범위 비교에서 끝 값을 담습니다. <code>BT</code>에서 주로 사용합니다.</li>
+  </ul>
+  <p>
+    한 줄을 말로 읽으면 “포함/제외 + 어떤 비교 + 시작값 + 끝값”입니다. 처음에는 이 네 칸만 눈에 익혀도 Range Table이 훨씬 덜 무섭습니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 예시로 말해보기 📋</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>SIGN</th>
+        <th>OPTION</th>
+        <th>LOW</th>
+        <th>HIGH</th>
+        <th>말로 읽기</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>I</code></td>
+        <td><code>EQ</code></td>
+        <td><code>KR</code></td>
+        <td></td>
+        <td>KR을 포함</td>
+      </tr>
+      <tr>
+        <td><code>I</code></td>
+        <td><code>BT</code></td>
+        <td><code>A</code></td>
+        <td><code>C</code></td>
+        <td>A부터 C까지 포함</td>
+      </tr>
+      <tr>
+        <td><code>E</code></td>
+        <td><code>EQ</code></td>
+        <td><code>KP</code></td>
+        <td></td>
+        <td>KP는 제외</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    Range Table은 여러 줄을 함께 해석합니다. 그래서 한 줄만 보는 것이 아니라, 조건표 전체가 어떤 선택 범위를 만드는지 보는 습관이 필요합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 최소 코드로 Range Table 만들기 ✍️</h2>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span> r_land1 <span class="abap-token-keyword">TYPE</span> RANGE <span class="abap-token-keyword">OF</span> t005t-land1.
+
+<span class="abap-token-keyword">APPEND</span> <span class="abap-token-keyword">VALUE</span> #( <span class="abap-token-keyword">sign</span> = <span class="abap-token-string">'I'</span> <span class="abap-token-keyword">option</span> = <span class="abap-token-string">'EQ'</span> <span class="abap-token-keyword">low</span> = <span class="abap-token-string">'KR'</span> ) <span class="abap-token-keyword">TO</span> r_land1.
+<span class="abap-token-keyword">APPEND</span> <span class="abap-token-keyword">VALUE</span> #( <span class="abap-token-keyword">sign</span> = <span class="abap-token-string">'I'</span> <span class="abap-token-keyword">option</span> = <span class="abap-token-string">'EQ'</span> <span class="abap-token-keyword">low</span> = <span class="abap-token-string">'US'</span> ) <span class="abap-token-keyword">TO</span> r_land1.
+<span class="abap-token-keyword">APPEND</span> <span class="abap-token-keyword">VALUE</span> #( <span class="abap-token-keyword">sign</span> = <span class="abap-token-string">'E'</span> <span class="abap-token-keyword">option</span> = <span class="abap-token-string">'EQ'</span> <span class="abap-token-keyword">low</span> = <span class="abap-token-string">'KP'</span> ) <span class="abap-token-keyword">TO</span> r_land1.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <p>
+    위 코드는 국가 코드용 Range Table을 직접 만든 예시입니다. <code>KR</code>과 <code>US</code>는 포함하고, <code>KP</code>는 제외하는 조건을 표현합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
+  <ul>
+    <li>✅ <strong>정상 흐름:</strong> SIGN, OPTION, LOW, HIGH가 맞게 채워지면 Range Table 조건으로 사용할 수 있습니다.</li>
+    <li>❌ <strong>SIGN 오타:</strong> <code>I</code>, <code>E</code>가 아닌 값을 넣으면 조건 해석이 실패할 수 있습니다.</li>
+    <li>❌ <strong>OPTION 오타:</strong> <code>EQ</code>, <code>BT</code>, <code>CP</code> 같은 유효 옵션을 정확히 써야 합니다.</li>
+    <li>❌ <strong>BT에 HIGH 누락:</strong> 범위 조건인데 끝값이 없으면 의미가 불완전합니다.</li>
+    <li>❌ <strong>Exclude 착각:</strong> 제외 조건은 전체 조건표와 함께 해석해야 합니다.</li>
+  </ul>
+  <p>
+    미니 실습으로 <code>BT</code> 조건을 하나 추가하고 LOW/HIGH를 바꿔보세요. “무엇부터 무엇까지”를 말로 설명할 수 있으면 성공입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>Range Table은 작은 조건 언어입니다</h4>
+      <p>Range Table은 단순 목록이 아니라 Include, Exclude, 단일값, 범위, 패턴을 함께 표현하는 조건 언어에 가깝습니다. 조건이 복잡해질수록 실제로 어떤 데이터가 선택되는지 테스트해야 합니다.</p>
+    </div>
+  </div>
+  <p>
+    고객사 화면에서는 Range Table을 직접 만들기보다 SELECT-OPTIONS 화면에서 사용자가 입력한 결과로 만나는 경우가 많습니다. 다음 Lesson에서 그 연결을 봅니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>Range Table 구조 핵심</h4>
+      <ul>
+        <li><strong>Range Table</strong>은 여러 선택 조건을 담는 조건표입니다.</li>
+        <li><strong>SIGN</strong>은 포함/제외, <strong>OPTION</strong>은 비교 방식을 뜻합니다.</li>
+        <li><strong>LOW</strong>는 시작값 또는 단일값, <strong>HIGH</strong>는 범위 끝값입니다.</li>
+        <li><code>I/E</code>와 <code>EQ/BT/CP</code> 조합을 말로 읽을 수 있어야 합니다.</li>
+        <li>복잡한 조건표는 반드시 실제 선택 결과를 확인해야 합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    다음 Lesson <strong>SELECT-OPTIONS 기본 문법</strong>에서는 이 Range Table 구조가 Selection Screen 입력 필드와 어떻게 연결되는지 배웁니다.
+  </p>
+</section>

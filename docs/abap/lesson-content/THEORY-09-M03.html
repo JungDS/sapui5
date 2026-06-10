@@ -1,0 +1,187 @@
+<!-- lesson-content/THEORY-09-M03.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>지난 Lesson에서는 WHERE 조건으로 여러 줄 결과를 좁혔습니다. 이번에는 <span class="glossary-term" data-glossary="SELECTSINGLEStatement">SELECT SINGLE</span>로 <span class="glossary-term" data-glossary="SingleRow">Single Row</span>를 조회하고, 결과를 <span class="glossary-term" data-glossary="SYSUBRC">SY-SUBRC</span>로 확인하는 흐름을 배웁니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 한 줄만 필요할 때가 있다 🧭</h2>
+  <p>
+    모든 조회가 여러 줄 목록을 만들기 위한 것은 아닙니다. 사용자가 입력한 국가 코드에 대한 국가명 한 줄만 필요하거나, 특정 고객 번호의 기본 정보 한 건만 확인하면 되는 경우가 있습니다.
+  </p>
+  <p>
+    이런 단건 조회에서 자주 만나는 문법이 <code>SELECT SINGLE</code>입니다. 이름 그대로 조건에 맞는 한 줄을 읽어옵니다.
+  </p>
+  <blockquote>
+    SELECT SINGLE은 “조건에 맞는 한 건을 읽어와서 구조 변수에 담아줘”라는 요청입니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>2. SELECT SINGLE 기본 구조 🔍</h2>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">SELECT</span> SINGLE <span class="abap-token-keyword">FROM</span> t005t
+  <span class="abap-token-keyword">FIELDS</span> land1, landx
+  <span class="abap-token-keyword">WHERE</span> spras = @sy-langu
+    AND land1 = @p_land1
+  <span class="abap-token-keyword">INTO</span> @<span class="abap-token-keyword">DATA</span>(ls_country).</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <p>
+    여러 줄을 받는 <code>INTO TABLE</code>과 달리, SELECT SINGLE은 한 줄 구조에 결과를 담습니다. 그래서 변수 이름도 <code>lt_</code>가 아니라 <code>ls_</code>처럼 한 줄 구조 느낌으로 읽으면 좋습니다.
+  </p>
+  <ul>
+    <li><strong>SELECT SINGLE:</strong> 한 줄만 조회합니다.</li>
+    <li><strong>INTO @DATA(ls_country):</strong> 결과 한 줄을 구조 변수에 담습니다.</li>
+    <li><strong>sy-subrc = 0:</strong> 조회 성공을 뜻합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 결과 확인은 바로 뒤에서 하기 🚦</h2>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">SELECT</span> SINGLE <span class="abap-token-keyword">FROM</span> t005t
+  <span class="abap-token-keyword">FIELDS</span> land1, landx
+  <span class="abap-token-keyword">WHERE</span> spras = @sy-langu
+    AND land1 = @p_land1
+  <span class="abap-token-keyword">INTO</span> @<span class="abap-token-keyword">DATA</span>(ls_country).
+
+<span class="abap-token-keyword">IF</span> sy-subrc = <span class="abap-token-number">0</span>.
+  <span class="abap-token-keyword">WRITE</span>: / ls_country-land1, ls_country-landx.
+<span class="abap-token-keyword">ELSE</span>.
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'해당 국가 텍스트를 찾지 못했습니다.'</span>.
+<span class="abap-token-keyword">ENDIF</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <p>
+    <span class="glossary-term" data-glossary="SYSUBRC">SY-SUBRC</span>는 직전 명령의 결과 상태를 알려주는 시스템 필드입니다. 다른 명령이 실행되면 값이 바뀔 수 있으므로, 확인하고 싶은 SELECT 바로 뒤에서 읽는 습관이 중요합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 전체 예제로 단건 조회하기 ✍️</h2>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zsql_select_single.
+
+<span class="abap-token-keyword">PARAMETERS</span> p_land1 <span class="abap-token-keyword">TYPE</span> t005t-land1 DEFAULT <span class="abap-token-string">'KR'</span>.
+
+<span class="abap-token-keyword">SELECT</span> SINGLE <span class="abap-token-keyword">FROM</span> t005t
+  <span class="abap-token-keyword">FIELDS</span> land1, landx
+  <span class="abap-token-keyword">WHERE</span> spras = @sy-langu
+    AND land1 = @p_land1
+  <span class="abap-token-keyword">INTO</span> @<span class="abap-token-keyword">DATA</span>(ls_country).
+
+<span class="abap-token-keyword">IF</span> sy-subrc = <span class="abap-token-number">0</span>.
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'국가 코드:'</span>, ls_country-land1.
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'국가명:'</span>,    ls_country-landx.
+<span class="abap-token-keyword">ELSE</span>.
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'조회 결과가 없습니다.'</span>.
+<span class="abap-token-keyword">ENDIF</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <p>
+    <code>p_land1</code>에 존재하는 국가 코드를 넣으면 성공 흐름으로, 존재하지 않는 코드를 넣으면 실패 흐름으로 갑니다. 이 성공/실패 분리가 단건 조회의 핵심입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
+  <ul>
+    <li>✅ <strong>정상 흐름:</strong> 조건에 맞는 한 줄이 있으면 구조 변수에 값이 담기고 <code>sy-subrc = 0</code>입니다.</li>
+    <li>❌ <strong>조회 실패:</strong> 조건에 맞는 줄이 없으면 <code>sy-subrc</code>가 0이 아니며 실패 메시지를 보여줘야 합니다.</li>
+    <li>❌ <strong>키 조건 부족:</strong> 여러 줄이 가능한 조건으로 SELECT SINGLE을 쓰면 어떤 한 줄인지 업무적으로 애매할 수 있습니다.</li>
+    <li>❌ <strong>SY-SUBRC 늦게 확인:</strong> SELECT 후 다른 문장이 실행되면 <code>sy-subrc</code> 값이 바뀔 수 있습니다.</li>
+  </ul>
+  <p>
+    미니 실습으로 <code>p_land1</code>에 존재하지 않을 만한 값을 넣어 실패 흐름을 확인해보세요. 성공보다 실패 메시지를 제대로 보는 것이 더 중요할 때도 많습니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>SELECT SINGLE은 “아무거나 하나”가 되면 위험합니다</h4>
+      <p>조건이 고유하지 않은데 SELECT SINGLE을 쓰면 업무적으로 어떤 한 줄을 가져오는지 애매해질 수 있습니다. 단건 조회는 가능한 한 키에 가까운 명확한 조건으로 작성해야 합니다.</p>
+    </div>
+  </div>
+  <p>
+    또한 SELECT SINGLE은 한 줄만 가져오므로 목록 출력에는 맞지 않습니다. 여러 줄 결과가 필요하면 INTO TABLE로 Result Set을 받아야 합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>SELECT SINGLE 핵심</h4>
+      <ul>
+        <li><strong>SELECT SINGLE</strong>은 조건에 맞는 한 줄을 조회합니다.</li>
+        <li><strong>Single Row</strong> 결과는 Internal Table이 아니라 구조 변수에 담습니다.</li>
+        <li><strong>SY-SUBRC</strong>로 조회 성공과 실패를 바로 확인합니다.</li>
+        <li>조건이 고유하지 않으면 어떤 한 줄인지 애매해질 수 있습니다.</li>
+        <li>목록이 필요하면 SELECT SINGLE이 아니라 INTO TABLE 조회를 사용합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    다음 Lesson <strong>INTO TABLE로 Internal Table 적재</strong>에서는 여러 줄 조회 결과를 Internal Table에 담는 방식을 더 정확히 다룹니다.
+  </p>
+</section>

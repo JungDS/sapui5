@@ -1,0 +1,120 @@
+<!-- lesson-content/THEORY-08-M05.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>Chapter 8의 마무리입니다. 이번 1차 범위에서 다룬 SALV 기본 표시와, 뒤로 미룰 <span class="glossary-term" data-glossary="SortDeferred">Sort Deferred</span>, <span class="glossary-term" data-glossary="LayoutDeferred">Layout Deferred</span>, <span class="glossary-term" data-glossary="VariantDeferred">Variant Deferred</span> 심화 항목을 분리합니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 어디까지 배웠고 어디서 멈출까? 🧭</h2>
+  <p>
+    이번 Chapter에서는 SALV를 처음 만났습니다. Internal Table 데이터를 준비하고, <code>CL_SALV_TABLE=&gt;FACTORY</code>로 SALV 객체를 만들고, 기본 기능을 켠 뒤, <code>DISPLAY</code>로 화면을 띄웠습니다.
+  </p>
+  <p>
+    그런데 ALV/SALV는 깊게 들어가면 매우 넓은 주제입니다. 정렬/필터/레이아웃/Variant/이벤트/셀 스타일 등 할 수 있는 일이 많습니다. 초심자 단계에서 전부 한 번에 배우면 핵심이 흐려집니다.
+  </p>
+  <blockquote>
+    이번 1차 목표는 “Internal Table을 SALV 표로 보여줄 수 있다”입니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>2. 이번 Chapter에서 확실히 가져갈 것 ✅</h2>
+  <ul>
+    <li><strong>SALV 목적:</strong> Internal Table 데이터를 표 형태로 보여줍니다.</li>
+    <li><strong>CL_SALV_TABLE:</strong> SALV 표 객체를 만들고 표시하는 대표 Class입니다.</li>
+    <li><strong>FACTORY:</strong> SALV 객체를 생성하고 표시할 테이블을 연결합니다.</li>
+    <li><strong>Functions Basic:</strong> 기본 기능 버튼을 켜는 첫 설정입니다.</li>
+    <li><strong>DISPLAY:</strong> 준비된 SALV 화면을 사용자에게 보여줍니다.</li>
+  </ul>
+  <p>
+    이 다섯 가지가 손에 익으면, 나중에 Open SQL로 조회한 데이터도 자연스럽게 SALV로 보여줄 수 있습니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 뒤로 미룰 심화 항목들 ⏳</h2>
+  <p>
+    <span class="glossary-term" data-glossary="SortDeferred">Sort Deferred</span>는 SALV 화면에서 정렬 기준을 더 세밀하게 제어하는 심화 주제입니다. 우리는 이미 Internal Table 자체를 SORT하는 법을 배웠지만, ALV 화면 설정으로 정렬을 제어하는 것은 나중 범위입니다.
+  </p>
+  <p>
+    <span class="glossary-term" data-glossary="LayoutDeferred">Layout Deferred</span>는 열 너비, 열 순서, 표시 이름, 숨김 같은 화면 구성을 다루는 주제입니다.
+  </p>
+  <p>
+    <span class="glossary-term" data-glossary="VariantDeferred">Variant Deferred</span>는 사용자가 저장한 레이아웃 변형을 불러오거나 저장하는 영역입니다. 현장에서는 중요하지만, 기본 SALV 표시를 먼저 익힌 뒤 다루는 것이 좋습니다.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>후속 위치</h4>
+      <p>Sort/Filter/Layout/Variant 심화와 ALV 표시 제어는 OO ABAP 이후 Chapter 19에서 더 넓게 다룹니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 지금 단계의 좋은 미니 리포트 기준 📋</h2>
+  <p>
+    이번 단계에서는 멋진 화면보다 안정적인 기본 흐름이 더 중요합니다. 좋은 SALV 1차 리포트는 다음 질문에 답할 수 있어야 합니다.
+  </p>
+  <ul>
+    <li>표시할 Internal Table 타입과 필드가 명확한가?</li>
+    <li>데이터를 채우거나 조회한 뒤 건수를 확인하는가?</li>
+    <li>빈 결과일 때 사용자에게 안내하는가?</li>
+    <li>FACTORY 예외를 처리하는가?</li>
+    <li>DISPLAY 전에 필요한 기본 설정을 끝냈는가?</li>
+  </ul>
+  <p>
+    이 기준을 만족하면, 아직 Layout/Variant가 없어도 학습용 1차 리포트로는 충분히 좋습니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
+  <ul>
+    <li>✅ <strong>정상 흐름:</strong> Internal Table 준비, FACTORY, 기본 Functions, DISPLAY 순서로 화면을 표시합니다.</li>
+    <li>✅ <strong>범위 관리:</strong> Sort/Filter/Layout/Variant 심화는 후속 Chapter로 미룹니다.</li>
+    <li>❌ <strong>심화 과확장:</strong> 첫 SALV 학습에서 모든 ALV 기능을 넣으려 하면 코드가 갑자기 어려워집니다.</li>
+    <li>❌ <strong>예쁜 화면 착각:</strong> 화면이 예쁘다고 데이터 검증과 권한 검토가 끝난 것은 아닙니다.</li>
+  </ul>
+  <p>
+    미니 실습으로 본인이 만든 SALV 예제에 “데이터 준비, FACTORY, Functions, DISPLAY, 예외 처리, 빈 결과 처리”가 있는지 체크해보세요.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>이번 범위는 조회용 SALV 기본 표시입니다</h4>
+      <p>사용자 편집, 복잡한 이벤트, Cell Color/Style, 저장 가능한 Layout Variant 같은 요구사항은 Grid ALV나 심화 SALV 제어가 필요할 수 있습니다. 요구사항을 듣고 도구를 고르는 습관이 중요합니다.</p>
+    </div>
+  </div>
+  <p>
+    또한 고객사 표준 템플릿이 있는 경우, 직접 SALV 코드를 새로 짜기보다 기존 Report 패턴을 따르는 것이 유지보수에 유리합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>Chapter 8 마무리 핵심</h4>
+      <ul>
+        <li>SALV 1차 범위는 Internal Table을 기본 표 화면으로 보여주는 것입니다.</li>
+        <li>핵심 흐름은 데이터 준비 → FACTORY → Functions 설정 → DISPLAY입니다.</li>
+        <li>빈 결과, 예외 처리, 데이터 품질 확인은 기본 표시에서도 중요합니다.</li>
+        <li>Sort/Filter/Layout/Variant 심화는 Chapter 19에서 더 정확히 다룹니다.</li>
+        <li>요구사항이 편집/이벤트/스타일 중심이면 SALV 기본 표시만으로 충분하지 않을 수 있습니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    다음 Chapter <strong>Open SQL 1차: 기본 조회</strong>에서는 데이터베이스에서 실제 데이터를 읽어 Internal Table에 담는 기본 조회 문법으로 넘어갑니다.
+  </p>
+</section>

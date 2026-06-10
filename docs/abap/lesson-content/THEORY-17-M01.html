@@ -1,0 +1,133 @@
+<!-- lesson-content/THEORY-17-M01.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>예전 문법(<span class="glossary-term" data-glossary="ClassicOpenSQL">Classic Open SQL</span>)과 최신 문법(<span class="glossary-term" data-glossary="ModernABAPSQL">Modern ABAP SQL</span>)이 무엇이 다른지 비교합니다. 콤마·골뱅이(@)·인라인이 왜 생겼는지 큰 그림을 잡는 것이 목표입니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 코드도 SQL도 현대화 🆕</h2>
+  <p>
+    앞 Chapter에서 ABAP 코드를 Modern 문법으로 짧고 깔끔하게 쓰는 법을 배웠습니다. 그 현대화 바람은 <strong>데이터베이스 조회(Open SQL)</strong>에도 똑같이 불었습니다.
+  </p>
+  <p>
+    그래서 같은 SELECT라도 옛 스타일과 새 스타일이 나뉩니다. 이번 Chapter는 그 새 스타일, <span class="glossary-term" data-glossary="ModernABAPSQL">Modern ABAP SQL</span>을 익힙니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. 한눈에 보는 Before / After ✍️</h2>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" Classic Open SQL (옛 스타일)</span>
+<span class="abap-token-keyword">DATA</span> lt <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">TABLE</span> <span class="abap-token-keyword">OF</span> sflight.
+<span class="abap-token-keyword">SELECT</span> carrid connid price          <span class="abap-token-comment">"필드 사이 콤마 없음</span>
+  <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> lt                     <span class="abap-token-comment">"@ 없음</span>
+  <span class="abap-token-keyword">FROM</span> sflight
+  <span class="abap-token-keyword">WHERE</span> carrid = lv_carrid.         <span class="abap-token-comment">"변수 앞 @ 없음</span></code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" Modern ABAP SQL (새 스타일)</span>
+<span class="abap-token-keyword">SELECT</span> carrid, connid, price        <span class="abap-token-comment">"필드 사이 콤마</span>
+  <span class="abap-token-keyword">FROM</span> sflight
+  <span class="abap-token-keyword">WHERE</span> carrid = @lv_carrid         <span class="abap-token-comment">"변수 앞 @ (Host Variable)</span>
+  <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt).             <span class="abap-token-comment">"@ + 인라인 선언</span></code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>달라진 3가지</h4>
+      <ul>
+        <li><strong>콤마(,):</strong> 필드 목록을 콤마로 구분.</li>
+        <li><strong>골뱅이(@):</strong> ABAP 변수 앞에 @를 붙임(Host Variable).</li>
+        <li><strong>인라인(@DATA):</strong> 결과 테이블을 그 자리에서 선언.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 왜 이렇게 바꿨을까? 🤔</h2>
+  <ul>
+    <li><strong>명확성:</strong> 콤마와 @ 덕분에 "어디까지가 DB 필드이고 어디부터가 ABAP 변수인지"가 분명해졌습니다.</li>
+    <li><strong>표현력:</strong> 새 문법은 CASE·CAST·문자열 함수 등 더 강력한 기능을 SELECT 안에서 쓸 수 있게 해줍니다(M04·M05).</li>
+    <li><strong>일관성:</strong> CDS·HANA 같은 현대 스택과 결을 맞춥니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <ul>
+    <li>✅ <strong>정상:</strong> 새 시스템(7.40+)에서는 Modern 스타일로 일관되게 작성.</li>
+    <li>❌ <strong>오류 1 — 혼용:</strong> 콤마를 쓰면서 변수 앞 @를 빠뜨리면 구문 오류. 새 스타일은 <strong>규칙을 한 세트로</strong> 지켜야 합니다.</li>
+    <li>❌ <strong>오류 2 — 구버전:</strong> 아주 오래된 시스템은 새 문법을 지원하지 않을 수 있습니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>한 SELECT 안에서 스타일을 섞지 마세요</h4>
+      <p>Modern SQL은 "콤마 + @"가 한 묶음입니다. 하나만 쓰고 하나는 빠뜨리면 컴파일러가 거부합니다. 기존 코드를 고칠 때는 그 SELECT 전체를 새 스타일로 통일하거나, 아예 옛 스타일로 두세요. 어중간하게 섞는 것이 가장 흔한 초보 실수입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li><strong>Modern ABAP SQL</strong>은 콤마·@·인라인이 추가된 최신 Open SQL입니다.</li>
+        <li>변화 3종: <strong>필드 콤마</strong>, <strong>변수 앞 @</strong>, <strong>@DATA 인라인</strong>.</li>
+        <li>명확성·표현력·현대 스택 일관성을 위해 도입됐습니다.</li>
+        <li>한 SELECT 안에서 옛/새 스타일을 섞지 않습니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    큰 그림을 잡았으니 하나씩 봅니다. 다음 Lesson <strong>@ Host Variable과 Host Expression</strong>에서 골뱅이(@)의 정확한 의미를 배웁니다.
+  </p>
+</section>

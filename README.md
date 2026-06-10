@@ -3,7 +3,7 @@
 SAP 개발자를 위한 HTML 학습자료 저장소입니다.
 
 - GitHub Pages: https://jungds.github.io/sapui5/
-- 운영 관리 문서 (2026-06-05 재구성):
+- 운영 관리 문서 (2026-06-10 갱신):
   - [문서 인덱스](.project-docs/00_INDEX.md)
   - [프로젝트 개요](.project-docs/01_OVERVIEW.md)
   - [아키텍처 · 폴더 · 셸](.project-docs/02_ARCHITECTURE.md)
@@ -12,6 +12,8 @@ SAP 개발자를 위한 HTML 학습자료 저장소입니다.
   - [인벤토리(asset/data/샘플)](.project-docs/05_INVENTORIES.md)
   - [ABAP 커리큘럼](.project-docs/06_ABAP_CURRICULUM.md)
   - [미결 결정 · 로드맵](.project-docs/07_DECISIONS_AND_ROADMAP.md)
+  - [개발 일지](.project-docs/08_DEV_DIARY.md) · [이미지 규칙](.project-docs/09_IMAGE_ASSETS_RULE.md)
+  - [AI 인계 허브(99_AI_SYNC)](.project-docs/99_AI_SYNC.md) · [Lesson 양산 인계서](.project-docs/HANDOFF_LESSON_CONTENT.md)
   - (구 00~10 문서는 `archive/project-docs/20260605/`에 보존)
 - 배포자: 정훈영
 
@@ -19,11 +21,12 @@ SAP 개발자를 위한 HTML 학습자료 저장소입니다.
 
 ## 현재 진행 상황
 
-- 현재 단계: Stage 7 완료 · ABAP 커리큘럼 운영본 안정화 이후 Lesson Single Viewer 아키텍처 구축
-- 현재 작업(2026-06-08): 개별 Lesson 학습용 **단일 뷰어 아키텍처** 도입 — `docs/abap/lesson-viewer.html` 템플릿 + `lesson-content/<ID>.html` 본문 조각 분리, `assets/abap-lesson-viewer.js/css`가 커리큘럼 JSON으로 이전/다음·목차를 동적 렌더. 용어 사전(Glossary) 독립화(`data-glossary` + `reference/abap_glossary.json`, 호버 툴팁/클릭 고정). **현재 콘텐츠 조각은 `THEORY-01-M01` 1개만 작성됨 — 나머지 Lesson 양산이 다음 과제**
-- 운영본(2026-06-05): ABAP 커리큘럼 운영본(`docs/roadmap/abap-curriculum.html`) 제작·안정화 완료. 본문 Scroll Spy, 전체화면 Lesson 유지, 패널 높이/내부 스크롤, reader 헤더/키워드 블록 정리 완료
-- 샘플 계보: codex/claude/antigravity 계열 디자인 샘플 ~30개가 `docs/roadmap`에 orphan으로 보존(archive 미실행)
-- 최종 수정: 2026-06-09 KST
+- 현재 단계: 🎉 **ABAP 커리큘럼 Track 1(THEORY-01~21) 137개 Lesson 본문 전부 작성 완료** (Lesson Single Viewer + `docs/abap/lesson-content/`)
+- 현재 작업: Track 1 완성 (모든 레슨 네이비 ABAP Editor 서식 통일 및 인라인 스타일 제거 CSS 리팩토링 완료). 다음 목표는 **Track 2(PRACTICAL-* 13섹션 ~70 Lesson)** 신규 작성. 글로서리 348개 용어 완전 패리티(미정의 0건)
+- 진행 방식: Lesson 본문은 `docs/abap/lesson-viewer.html?lesson=<ID>`로 조립. 작성 규칙/진행 현황은 [HANDOFF_LESSON_CONTENT](.project-docs/HANDOFF_LESSON_CONTENT.md), AI 인계 허브는 [99_AI_SYNC](.project-docs/99_AI_SYNC.md)
+- 참여 AI: Antigravity(Gemini) · Codex · Claude 협업 (동시 작업 충돌 회피 규칙 → [04 P11](.project-docs/04_PITFALLS.md))
+- 이전 작업: ABAP 커리큘럼 운영본(`docs/roadmap/abap-curriculum.html`), 사용자별 학습친화 스타일, 전체화면 Lesson 집중 모드, 용어 사전 시스템 통합
+- 최종 수정: 2026-06-10 18:30 KST
 
 ---
 
@@ -98,6 +101,9 @@ SAP 개발자를 위한 HTML 학습자료 저장소입니다.
 
 | 구분 | 문서 | 링크 |
 |---|---|---|
+| 완료 | 🎉 **ABAP Track 1 완성** — THEORY-01~21 **137개 Lesson 본문 전부 작성**(Lesson Single Viewer). 글로서리 348개 용어 완전 패리티(미정의 0건). THEORY-19~21 포함 137개 전체 파일에 네이비 Editor 서식 적용 및 인라인 스타일 분리(CSS 클래스 아키텍처 리팩토링) 완료. 다음은 Track 2(PRACTICAL-*) | https://github.com/JungDS/sapui5/pull/51 |
+| 완료 | `.project-docs` 전체 최신화 + 파일별 "최종수정" 일시 마커, 인계 문서 타겟(Track 2) 교정, changelogs 일자 분리(06-10) | 로컬 작업 |
+| 완료 | ABAP 커리큘럼 Lesson 양산 1차 (01~18) 및 Editor UI 개편 — THEORY-01~18 (총 116개 파일) 신규 작성 완료. 전체 Lesson 및 예제 코드 블록에 모던한 네이비 헤더(#343e6a) 기반 ABAP Editor 디자인 일괄 적용, Shiki 기반 코드 하이라이팅 및 복사 버튼(Copy) 애니메이션 적용, D2Coding 웹폰트 적용, 글로서리(용어 사전) 패리티 100% 동기화 | 로컬 작업 |
 | 완료 | ABAP 커리큘럼 reader 헤더 정리 — 전체화면 본문 상단을 `abc-panel-head` 기반으로 통일, 좌측 Chapter/Lesson/제목·우측 이전/다음/자세히 배치, `핵심 키워드`를 `abc-info-block` 디자인으로 변경, 운영 CSS/JS 캐시 버전(`v=20260605-readerhead1`) 적용 | https://github.com/JungDS/sapui5/pull/47 |
 | 완료 | ABAP 커리큘럼 전체화면 레이아웃 안정화 — 일반/전체화면 Track 메뉴 폭 410px 통일, 전체화면 Track/Lesson/본문 높이를 viewport 안으로 제한, 본문 내부 스크롤 전환, 운영 CSS 캐시 버전(`v=20260605-layout6`) 적용 | https://github.com/JungDS/sapui5/pull/47 |
 | 완료 | ABAP 커리큘럼 운영본 안정화 — 본문 스크롤 위치에 따라 학습 목차와 Lesson 선택 상태 자동 동기화, 전체화면 전환 시 현재 보고 있던 Lesson 유지, 운영 JS 캐시 버전(`v=20260605-scrollspy1`) 적용 | https://github.com/JungDS/sapui5/pull/47 |

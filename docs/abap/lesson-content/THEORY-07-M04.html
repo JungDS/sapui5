@@ -1,0 +1,199 @@
+<!-- lesson-content/THEORY-07-M04.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>지난 Lesson에서 SORT로 Internal Table을 정렬했습니다. 이번에는 정렬된 데이터를 전제로 <span class="glossary-term" data-glossary="BINARYSEARCHAddition">BINARY SEARCH</span>를 사용해 검색하는 흐름을 배웁니다. 핵심은 <span class="glossary-term" data-glossary="SortedData">Sorted Data</span>와 <span class="glossary-term" data-glossary="SYSUBRC">SY-SUBRC</span> 확인입니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 왜 정렬 다음에 BINARY SEARCH가 나올까? 🧭</h2>
+  <p>
+    READ TABLE은 Internal Table에서 원하는 한 줄을 찾는 문법입니다. 그런데 줄이 많아질수록 처음부터 하나씩 찾는 방식은 느려질 수 있습니다. 그래서 정렬된 데이터에서는 더 효율적인 검색 방식인 BINARY SEARCH를 사용할 수 있습니다.
+  </p>
+  <p>
+    BINARY SEARCH는 정렬된 목록에서 가운데를 기준으로 범위를 계속 반씩 줄여가며 찾는 방식입니다. 전화번호부가 이름순으로 정렬되어 있을 때 중간쯤을 펴고 앞쪽/뒤쪽을 판단하는 느낌과 비슷합니다.
+  </p>
+  <blockquote>
+    BINARY SEARCH는 빠를 수 있지만, 정렬이 맞지 않으면 결과를 믿기 어렵습니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>2. 기본 구조: SORT 후 READ TABLE 🔍</h2>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">SORT</span> lt_students <span class="abap-token-keyword">BY</span> id.
+
+<span class="abap-token-keyword">READ</span> <span class="abap-token-keyword">TABLE</span> lt_students <span class="abap-token-keyword">INTO</span> ls_student
+  <span class="abap-token-keyword">WITH</span> <span class="abap-token-keyword">KEY</span> id = <span class="abap-token-string">'A02'</span>
+  <span class="abap-token-keyword">BINARY</span> <span class="abap-token-keyword">SEARCH</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <p>
+    순서는 반드시 먼저 정렬, 그다음 검색입니다. 여기서는 <code>id</code> 기준으로 찾기 때문에 <code>id</code> 기준으로 정렬해둡니다.
+  </p>
+  <ul>
+    <li><strong>SORT lt_students BY id:</strong> 검색 기준과 맞는 정렬을 준비합니다.</li>
+    <li><strong>WITH KEY id = 'A02':</strong> 찾을 조건을 지정합니다.</li>
+    <li><strong>BINARY SEARCH:</strong> 정렬된 상태를 이용해 빠르게 찾습니다.</li>
+    <li><strong>sy-subrc:</strong> 검색 성공/실패를 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 전체 예제로 검색 흐름 보기 ✍️</h2>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zbinary_search_basic.
+
+<span class="abap-token-keyword">TYPES</span>: <span class="abap-token-keyword">BEGIN</span> <span class="abap-token-keyword">OF</span> ty_student,
+         id    <span class="abap-token-keyword">TYPE</span> char3,
+         name  <span class="abap-token-keyword">TYPE</span> char20,
+         score <span class="abap-token-keyword">TYPE</span> i,
+       <span class="abap-token-keyword">END</span> <span class="abap-token-keyword">OF</span> ty_student.
+
+<span class="abap-token-keyword">DATA</span>: lt_students <span class="abap-token-keyword">TYPE</span> STANDARD <span class="abap-token-keyword">TABLE</span> <span class="abap-token-keyword">OF</span> ty_student,
+      ls_student  <span class="abap-token-keyword">TYPE</span> ty_student.
+
+ls_student-id = <span class="abap-token-string">'A03'</span>. ls_student-name = <span class="abap-token-string">'Sora'</span>. ls_student-score = <span class="abap-token-number">95</span>.
+<span class="abap-token-keyword">APPEND</span> ls_student <span class="abap-token-keyword">TO</span> lt_students.
+
+<span class="abap-token-keyword">CLEAR</span> ls_student.
+ls_student-id = <span class="abap-token-string">'A01'</span>. ls_student-name = <span class="abap-token-string">'Mina'</span>. ls_student-score = <span class="abap-token-number">90</span>.
+<span class="abap-token-keyword">APPEND</span> ls_student <span class="abap-token-keyword">TO</span> lt_students.
+
+<span class="abap-token-keyword">CLEAR</span> ls_student.
+ls_student-id = <span class="abap-token-string">'A02'</span>. ls_student-name = <span class="abap-token-string">'Jun'</span>. ls_student-score = <span class="abap-token-number">85</span>.
+<span class="abap-token-keyword">APPEND</span> ls_student <span class="abap-token-keyword">TO</span> lt_students.
+
+<span class="abap-token-keyword">SORT</span> lt_students <span class="abap-token-keyword">BY</span> id.
+
+<span class="abap-token-keyword">READ</span> <span class="abap-token-keyword">TABLE</span> lt_students <span class="abap-token-keyword">INTO</span> ls_student <span class="abap-token-keyword">WITH</span> <span class="abap-token-keyword">KEY</span> id = <span class="abap-token-string">'A02'</span> <span class="abap-token-keyword">BINARY</span> <span class="abap-token-keyword">SEARCH</span>.
+<span class="abap-token-keyword">IF</span> sy-subrc = <span class="abap-token-number">0</span>.
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'검색 성공:'</span>, ls_student-id, ls_student-name.
+<span class="abap-token-keyword">ELSE</span>.
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'검색 실패'</span>.
+<span class="abap-token-keyword">ENDIF</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <p>
+    처음 APPEND 순서는 A03, A01, A02입니다. 하지만 검색 전에 <code>SORT lt_students BY id.</code>를 실행했기 때문에 BINARY SEARCH가 기대하는 정렬 상태가 됩니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 정렬 기준이 틀리면 왜 위험할까? ⚡</h2>
+  <p>
+    BINARY SEARCH는 “이미 올바르게 정렬되어 있다”는 전제 위에서 움직입니다. 그런데 <code>id</code>로 찾으면서 <code>score</code>로 정렬해두면, 검색 알고리즘이 잘못된 방향으로 범위를 줄일 수 있습니다.
+  </p>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">SORT</span> lt_students <span class="abap-token-keyword">BY</span> score.
+<span class="abap-token-keyword">READ</span> <span class="abap-token-keyword">TABLE</span> lt_students <span class="abap-token-keyword">INTO</span> ls_student <span class="abap-token-keyword">WITH</span> <span class="abap-token-keyword">KEY</span> id = <span class="abap-token-string">'A02'</span> <span class="abap-token-keyword">BINARY</span> <span class="abap-token-keyword">SEARCH</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <p>
+    위 코드는 문법상 보일 수는 있지만, 검색 기준과 정렬 기준이 맞지 않아 결과를 신뢰하기 어렵습니다. 초심자 단계에서는 “BINARY SEARCH 앞에는 같은 기준의 SORT가 있어야 한다”라고 강하게 기억해두세요.
+  </p>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>정렬이 안 맞으면 조용히 틀릴 수 있습니다</h4>
+      <p>문법 오류가 나지 않는다고 논리까지 맞는 것은 아닙니다. BINARY SEARCH의 가장 무서운 점은 “실행은 되는데 검색 결과가 틀릴 수 있다”는 점입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
+  <ul>
+    <li>✅ <strong>정상 흐름:</strong> 검색 키 기준으로 정렬한 뒤 BINARY SEARCH를 실행하고 <code>sy-subrc = 0</code>을 확인합니다.</li>
+    <li>❌ <strong>정렬 누락:</strong> SORT 없이 BINARY SEARCH를 쓰면 결과를 믿을 수 없습니다.</li>
+    <li>❌ <strong>기준 불일치:</strong> <code>score</code>로 정렬하고 <code>id</code>로 검색하면 논리 오류가 됩니다.</li>
+    <li>❌ <strong>검색 실패 미처리:</strong> <code>sy-subrc</code> 확인 없이 Work Area를 사용하면 잘못된 출력으로 이어질 수 있습니다.</li>
+  </ul>
+  <p>
+    미니 실습으로 SORT 기준을 일부러 <code>score</code>로 바꿔보고, 다시 <code>id</code>로 돌려보세요. BINARY SEARCH는 정렬 기준과 검색 기준이 한 팀이어야 한다는 감각을 잡는 것이 목표입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <p>
+    최신 ABAP에서는 SORTED TABLE, HASHED TABLE, 명시적 Table Key를 활용해 검색 의도를 더 분명히 표현할 수 있습니다. 기존 코드에서는 <code>READ TABLE ... BINARY SEARCH</code>를 많이 만나므로 읽을 수 있어야 하지만, 새 설계에서는 테이블 종류와 키를 먼저 검토하는 습관이 좋습니다.
+  </p>
+  <p>
+    특히 정렬 기준과 검색 기준이 코드상 멀리 떨어져 있으면 유지보수자가 실수하기 쉽습니다. BINARY SEARCH를 쓴다면 정렬 위치와 검색 위치를 함께 리뷰해야 합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>BINARY SEARCH 핵심</h4>
+      <ul>
+        <li><strong>BINARY SEARCH</strong>는 정렬된 데이터에서 범위를 줄여가며 찾는 방식입니다.</li>
+        <li>검색 키 기준으로 먼저 SORT한 뒤 사용해야 합니다.</li>
+        <li>정렬 기준과 검색 기준이 다르면 결과를 신뢰하기 어렵습니다.</li>
+        <li>READ TABLE 뒤에는 SY-SUBRC로 성공/실패를 확인합니다.</li>
+        <li>새 설계에서는 SORTED/HASHED TABLE이나 명시적 키도 함께 검토합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    다음 Lesson <strong>Sorted Table과 Hashed Table 기초</strong>에서는 검색 목적에 맞는 Internal Table 종류를 살펴봅니다.
+  </p>
+</section>

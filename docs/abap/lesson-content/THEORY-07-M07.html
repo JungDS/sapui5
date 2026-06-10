@@ -1,0 +1,159 @@
+<!-- lesson-content/THEORY-07-M07.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>지난 Lesson에서 Field Symbol로 원본 행에 접근하는 방법을 봤습니다. 이번에는 Internal Table의 검색 성능을 생각할 때 등장하는 <span class="glossary-term" data-glossary="SecondaryKey">Secondary Key</span>, <span class="glossary-term" data-glossary="TableKey">Table Key</span>, <span class="glossary-term" data-glossary="LookupPerformance">Lookup Performance</span>의 기본 감각을 잡습니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 검색 기준이 하나만 있는 것은 아니다 🧭</h2>
+  <p>
+    Internal Table에서 데이터를 찾을 때 항상 같은 필드로만 찾지는 않습니다. 학생 목록을 예로 들면 어떤 때는 <code>id</code>로 찾고, 어떤 때는 <code>score</code>로 찾고, 또 어떤 때는 <code>name</code>으로 찾을 수 있습니다.
+  </p>
+  <p>
+    테이블에 기본 키 하나만 있다고 생각하면 이런 다양한 검색 기준을 표현하기 어렵습니다. 그래서 ABAP Internal Table에는 추가 검색 기준인 Secondary Key를 정의할 수 있습니다.
+  </p>
+  <blockquote>
+    Secondary Key는 같은 Internal Table을 다른 기준으로 빠르게 찾기 위한 추가 색인표처럼 생각하면 됩니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>2. Table Key와 Secondary Key의 큰 그림 🗂️</h2>
+  <p>
+    <span class="glossary-term" data-glossary="TableKey">Table Key</span>는 Internal Table에서 행을 구분하거나 찾을 때 사용하는 필드 기준입니다. 테이블 종류에 따라 기본 키가 있고, 필요하면 Secondary Key를 추가할 수 있습니다.
+  </p>
+  <ul>
+    <li><strong>Primary Key:</strong> 테이블이 기본으로 가지는 대표 키입니다.</li>
+    <li><strong>Secondary Key:</strong> 추가로 정의하는 검색 기준입니다.</li>
+    <li><strong>Sorted Secondary Key:</strong> 특정 필드 기준으로 정렬된 검색 경로를 제공합니다.</li>
+    <li><strong>Hashed Secondary Key:</strong> 특정 키 기반 단건 검색에 유리한 검색 경로를 제공합니다.</li>
+  </ul>
+  <p>
+    초심자 단계에서는 “Internal Table에 검색용 길을 하나 더 만들어둘 수 있다” 정도로 이해하면 충분합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>3. Secondary Key 선언 맛보기 ✍️</h2>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">TYPES</span> tt_students <span class="abap-token-keyword">TYPE</span> STANDARD <span class="abap-token-keyword">TABLE</span> <span class="abap-token-keyword">OF</span> ty_student
+  <span class="abap-token-keyword">WITH</span> NON-<span class="abap-token-keyword">UNIQUE</span> SORTED <span class="abap-token-keyword">KEY</span> score_key COMPONENTS score.
+
+<span class="abap-token-keyword">DATA</span> lt_students <span class="abap-token-keyword">TYPE</span> tt_students.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <p>
+    위 선언은 STANDARD TABLE이지만, <code>score_key</code>라는 보조 정렬 키를 함께 정의합니다. <code>score</code> 값이 같은 학생이 여러 명 있을 수 있으므로 <code>NON-UNIQUE</code>로 둡니다.
+  </p>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">READ</span> <span class="abap-token-keyword">TABLE</span> lt_students <span class="abap-token-keyword">INTO</span> ls_student
+  <span class="abap-token-keyword">WITH</span> <span class="abap-token-keyword">KEY</span> score_key COMPONENTS score = <span class="abap-token-number">90</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <p>
+    이 코드는 <code>score_key</code>라는 Secondary Key를 사용해 점수가 90인 줄을 찾는 예시입니다. 실제 성능 이득은 데이터 양과 접근 패턴에 따라 달라집니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>4. Lookup Performance는 “찾는 비용”이다 ⚡</h2>
+  <p>
+    <span class="glossary-term" data-glossary="LookupPerformance">Lookup Performance</span>는 원하는 데이터를 찾는 데 드는 비용과 속도를 뜻합니다. 데이터가 10건일 때는 어떤 방식도 크게 차이 나지 않을 수 있습니다. 하지만 10만 건, 100만 건이 되면 검색 방식 차이가 체감됩니다.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>작은 데이터와 큰 데이터는 다르게 보입니다</h4>
+      <p>예제 3건에서는 LOOP로 찾아도 빠릅니다. 운영 데이터에서는 반복 검색이 누적되어 큰 성능 문제가 될 수 있으므로 키 설계를 함께 봐야 합니다.</p>
+    </div>
+  </div>
+  <p>
+    Secondary Key는 검색을 빠르게 할 수 있지만, 키를 유지하는 비용도 있습니다. 데이터를 자주 추가/삭제/변경한다면 키 관리 비용도 함께 생깁니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
+  <ul>
+    <li>✅ <strong>정상 흐름:</strong> 자주 검색하는 필드 기준으로 Secondary Key를 정의하고, READ TABLE에서 해당 키를 사용합니다.</li>
+    <li>✅ <strong>중복 허용:</strong> 같은 점수가 여러 명이면 <code>NON-UNIQUE</code> 키가 자연스럽습니다.</li>
+    <li>❌ <strong>키 이름 오타:</strong> 정의하지 않은 키 이름을 사용하면 문법 오류가 납니다.</li>
+    <li>❌ <strong>무분별한 키 추가:</strong> 모든 필드에 키를 만들면 관리 비용과 복잡도가 올라갑니다.</li>
+    <li>❌ <strong>작은 데이터 과최적화:</strong> 몇 건 안 되는 데이터에 복잡한 키를 붙이면 코드만 어려워질 수 있습니다.</li>
+  </ul>
+  <p>
+    미니 실습으로 <code>score_key</code> 이름을 바꿔 선언과 READ TABLE 쪽을 함께 수정해보세요. 키 이름이 선언과 사용에서 한 세트로 움직인다는 것을 확인합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>키는 “빠르게 해주는 마법”이 아니라 설계 계약입니다</h4>
+      <p>Secondary Key를 추가하면 검색 의도는 분명해질 수 있지만, 데이터 변경 시 키 유지 비용도 생깁니다. 어떤 필드로 얼마나 자주 찾는지 근거 없이 키를 늘리면 유지보수성이 떨어집니다.</p>
+    </div>
+  </div>
+  <p>
+    성능 문제는 코드 한 줄로 판단하기 어렵습니다. 데이터 건수, 반복 횟수, 테이블 종류, 키 정의, 실제 실행 경로를 함께 봐야 합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>키와 성능 핵심</h4>
+      <ul>
+        <li><strong>Table Key</strong>는 Internal Table에서 행을 찾는 기준입니다.</li>
+        <li><strong>Secondary Key</strong>는 추가 검색 기준을 정의하는 방법입니다.</li>
+        <li><strong>Lookup Performance</strong>는 데이터를 찾는 비용과 속도입니다.</li>
+        <li>키는 자주 검색하는 기준에 맞춰 신중하게 정의합니다.</li>
+        <li>성능 최적화는 데이터 규모와 접근 패턴을 함께 보고 판단합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    다음 Lesson <strong>Deep Structure 개념 소개</strong>에서는 구조 안에 문자열이나 Internal Table이 들어가는 더 깊은 데이터 모양을 살펴봅니다.
+  </p>
+</section>

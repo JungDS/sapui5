@@ -1,0 +1,117 @@
+<!-- lesson-content/THEORY-15-M06.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>사용자가 컬럼 배치·정렬·필터를 저장해 다시 불러 쓰는 <span class="glossary-term" data-glossary="LayoutVariant">Layout Variant</span>를 배웁니다. 변형을 저장 방식으로 제어하는 <span class="glossary-term" data-glossary="DISVARIANT">DISVARIANT</span>와 <span class="glossary-term" data-glossary="ISave">I_SAVE</span>를 익힙니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 사용자마다 보고 싶은 모양이 다르다 👥</h2>
+  <p>
+    같은 표라도 어떤 사용자는 요금 컬럼을 앞에 두고 정렬해서 보고 싶고, 다른 사용자는 날짜순으로 보고 싶을 수 있습니다. 매번 손으로 바꾸는 건 번거롭죠.
+  </p>
+  <p>
+    ALV는 사용자가 바꾼 컬럼 순서·너비·정렬·필터를 <strong>이름 붙여 저장</strong>하고, 다음에 그대로 불러올 수 있게 해줍니다. 이 저장본이 <span class="glossary-term" data-glossary="LayoutVariant">Layout Variant</span>(레이아웃 변형)입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. DISVARIANT와 I_SAVE ✍️</h2>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6<br>7
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span> gs_variant <span class="abap-token-keyword">TYPE</span> disvariant.
+
+gs_variant-<span class="abap-token-keyword">report</span> = sy-repid.   <span class="abap-token-comment">"이 프로그램 기준으로 변형 관리</span>
+
+<span class="abap-token-comment">" 표시 메서드에 함께 넘김 (다음 Lesson M07)</span>
+<span class="abap-token-comment">"   is_variant = gs_variant</span>
+<span class="abap-token-comment">"   i_save     = 'A'</span></code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <ul>
+    <li><strong><span class="glossary-term" data-glossary="DISVARIANT">DISVARIANT</span>:</strong> 변형 정보를 담는 구조. 보통 <code>report</code>에 프로그램 ID를 넣어 "어느 프로그램의 변형인지" 구분합니다.</li>
+    <li><strong><span class="glossary-term" data-glossary="ISave">i_save</span>:</strong> 저장 허용 범위를 정합니다.</li>
+  </ul>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>I_SAVE 값의 뜻</h4>
+      <ul>
+        <li><code>' '</code>(공백): 저장 불가(조회만).</li>
+        <li><code>'U'</code>: 사용자별(User-specific) 변형만.</li>
+        <li><code>'X'</code>: 공용(전체 공유) 변형만.</li>
+        <li><code>'A'</code>: 둘 다 허용(User + 공용).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 사용자 입장에서의 흐름 🔄</h2>
+  <ul>
+    <li>① 표에서 컬럼 순서·정렬을 바꾼다.</li>
+    <li>② 툴바의 "레이아웃 저장"으로 이름을 붙여 저장(예: <code>요금순</code>).</li>
+    <li>③ 다음에 같은 표를 열고 "레이아웃 불러오기"로 <code>요금순</code> 선택 → 그대로 복원.</li>
+  </ul>
+  <blockquote>
+    개발자는 변형을 "허용"만 해주면 되고, 실제 저장·관리는 사용자가 화면에서 합니다. 작은 설정 하나로 사용자 편의가 크게 올라갑니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <ul>
+    <li>✅ <strong>정상:</strong> DISVARIANT-report 지정 + i_save 적절히 설정 → 사용자가 변형을 저장·재사용.</li>
+    <li>❌ <strong>오류 1:</strong> i_save를 공백으로 두면 저장 버튼이 비활성 → "왜 저장이 안 되지?" 혼란.</li>
+    <li>❌ <strong>오류 2:</strong> report를 안 채우면 변형이 엉뚱한 기준으로 묶일 수 있습니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>공용 변형은 신중하게</h4>
+      <p><code>i_save = 'X'</code>(공용)는 모든 사용자에게 영향을 줍니다. 한 사람이 바꾼 공용 변형이 전체에 적용되어 혼란을 줄 수 있으니, 보통은 사용자별(<code>'U'</code>) 또는 둘 다(<code>'A'</code>)로 시작하고, 공용 변형은 운영 표준으로 합의된 경우에만 신중히 사용하세요.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li><strong>Layout Variant</strong>는 사용자가 컬럼 배치·정렬을 저장해 재사용하는 기능입니다.</li>
+        <li><strong>DISVARIANT</strong>의 report로 변형 기준을, <strong>I_SAVE</strong>로 저장 범위를 정합니다.</li>
+        <li>I_SAVE: ' '(불가)/'U'(사용자)/'X'(공용)/'A'(둘 다).</li>
+        <li>개발자는 "허용"만, 저장·관리는 사용자가 화면에서 합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    준비물(데이터·Field Catalog·Layout·Variant)이 다 모였습니다. 이제 이걸 한 번에 화면에 띄울 차례입니다. 다음 Lesson <strong>SET_TABLE_FOR_FIRST_DISPLAY</strong>에서 표를 처음 표시하는 핵심 메서드를 배웁니다.
+  </p>
+</section>

@@ -1,3 +1,6 @@
+/* ABAP Lesson Viewer UI | 최종수정 2026-06-10 13:17 KST | v1.2 */
+@import url('https://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css');
+
 .lesson-loading {
   text-align: center;
   padding: 4rem 1rem;
@@ -311,4 +314,134 @@
 
 .secdetail-toc a.active .toc-lesson-label {
   color: #0056b3;
+}
+
+.lesson-current-chapter {
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+  color: #666;
+}
+
+.lesson-related-docs {
+  margin-top: 2rem;
+}
+
+/* === ABAP Navy Editor Mockup (Common Styles) === */
+.abap-editor-mockup {
+  background-color: #f6f8fa;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 16px 0;
+  font-family: 'D2Coding', Consolas, Monaco, 'Courier New', monospace;
+  font-size: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.abap-editor-header {
+  background-color: #343e6a;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+}
+
+.abap-editor-mac-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.abap-editor-mac-btn {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.abap-editor-mac-btn.red { background-color: #ff5f56; }
+.abap-editor-mac-btn.yellow { background-color: #ffbd2e; }
+.abap-editor-mac-btn.green { background-color: #27c93f; }
+
+.abap-editor-title {
+  margin-left: auto;
+  color: #ffa03b;
+  font-weight: bold;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.abap-editor-actions {
+  margin-left: 16px;
+}
+
+.shiki-copy-button {
+  background-color: transparent;
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  color: rgba(255,255,255,0.8);
+  transition: all 0.2s;
+}
+
+.shiki-copy-button:hover {
+  background-color: rgba(255,255,255,0.1);
+  color: #ffffff;
+}
+
+.shiki-copy-button.is-copied {
+  color: #27c93f;
+  border-color: #27c93f;
+}
+
+.lesson-copy-buffer {
+  position: fixed;
+  top: 0;
+  left: -9999px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.abap-editor-body {
+  display: flex;
+  background-color: #f6f8fa;
+}
+
+.abap-editor-line-numbers {
+  background-color: #f0f0e1;
+  color: #888;
+  padding: 12px 8px;
+  text-align: right;
+  border-right: 1px solid #d0d0d0;
+  user-select: none;
+  min-width: 32px;
+  line-height: 1.5;
+}
+
+.abap-editor-code {
+  background-color: transparent;
+  color: #333333;
+  padding: 12px;
+  margin: 0;
+  border: none;
+  overflow-x: auto;
+  font-family: 'D2Coding', Consolas, Monaco, 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  width: 100%;
+}
+
+.abap-token-keyword {
+  color: #005cc5;
+  font-weight: 700;
+}
+
+.abap-token-string,
+.abap-token-number {
+  color: #22863a;
+}
+
+.abap-token-comment {
+  color: #888888;
+  font-style: italic;
 }

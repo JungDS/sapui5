@@ -1,0 +1,154 @@
+<!-- lesson-content/THEORY-07-M08.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>지난 Lesson에서 Internal Table의 키와 성능 관점을 살펴봤습니다. 이번에는 구조 안에 또 다른 테이블이나 긴 문자열이 들어가는 <span class="glossary-term" data-glossary="DeepStructure">Deep Structure</span>, <span class="glossary-term" data-glossary="NestedInternalTable">Nested Internal Table</span>, <span class="glossary-term" data-glossary="StringComponent">String Component</span> 개념을 소개합니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. Structure가 항상 납작한 것은 아니다 🧭</h2>
+  <p>
+    Chapter 1에서 Structure는 여러 필드를 묶은 한 줄 타입이라고 배웠습니다. 처음에는 <code>id</code>, <code>name</code>, <code>score</code>처럼 납작한 필드만 생각하면 됩니다.
+  </p>
+  <p>
+    하지만 실제 업무 데이터는 더 복잡합니다. 주문 한 건 안에 여러 품목 줄이 들어가거나, 설명 필드가 길이가 자유로운 문자열일 수 있습니다. 이런 경우 구조 안에 Internal Table이나 String 같은 깊은 컴포넌트가 들어갑니다.
+  </p>
+  <blockquote>
+    Deep Structure는 구조 안에 단순 값만 있는 것이 아니라, 문자열·내부 테이블 같은 깊은 데이터가 포함된 구조입니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>2. Flat Structure와 Deep Structure 비교 🧱</h2>
+  <p>
+    Flat Structure는 각 컴포넌트가 고정 길이 문자, 숫자, 날짜처럼 단순한 값으로 구성된 구조입니다. 반면 Deep Structure는 컴포넌트 중 하나 이상이 동적 길이 문자열, Internal Table, Reference처럼 내부에 더 깊은 구조를 가질 수 있습니다.
+  </p>
+  <ul>
+    <li><strong>Flat Structure:</strong> 학생 ID, 이름, 점수처럼 한 줄 안의 단순 칸들</li>
+    <li><strong>Deep Structure:</strong> 주문 헤더 안에 품목 목록 테이블이 들어 있는 구조</li>
+    <li><strong>String Component:</strong> 길이가 고정되지 않은 설명·메모 필드</li>
+    <li><strong>Nested Internal Table:</strong> 구조의 한 필드가 다시 여러 줄 표인 형태</li>
+  </ul>
+  <p>
+    초심자 단계에서는 “구조 안에 또 다른 표나 유동적인 데이터가 들어가면 Deep해진다”라고 기억하면 충분합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 주문과 품목 예제로 보기 ✍️</h2>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zdeep_structure_basic.
+
+<span class="abap-token-keyword">TYPES</span>: <span class="abap-token-keyword">BEGIN</span> <span class="abap-token-keyword">OF</span> ty_item,
+         product <span class="abap-token-keyword">TYPE</span> char20,
+         amount  <span class="abap-token-keyword">TYPE</span> i,
+       <span class="abap-token-keyword">END</span> <span class="abap-token-keyword">OF</span> ty_item.
+
+<span class="abap-token-keyword">TYPES</span> tt_items <span class="abap-token-keyword">TYPE</span> STANDARD <span class="abap-token-keyword">TABLE</span> <span class="abap-token-keyword">OF</span> ty_item <span class="abap-token-keyword">WITH</span> DEFAULT <span class="abap-token-keyword">KEY</span>.
+
+<span class="abap-token-keyword">TYPES</span>: <span class="abap-token-keyword">BEGIN</span> <span class="abap-token-keyword">OF</span> ty_order,
+         order_id <span class="abap-token-keyword">TYPE</span> char10,
+         note     <span class="abap-token-keyword">TYPE</span> string,
+         items    <span class="abap-token-keyword">TYPE</span> tt_items,
+       <span class="abap-token-keyword">END</span> <span class="abap-token-keyword">OF</span> ty_order.
+
+<span class="abap-token-keyword">DATA</span>: ls_order <span class="abap-token-keyword">TYPE</span> ty_order,
+      ls_item  <span class="abap-token-keyword">TYPE</span> ty_item.
+
+ls_order-order_id = <span class="abap-token-string">'O-100'</span>.
+ls_order-note = <span class="abap-token-string">'첫 주문 메모입니다.'</span>.
+
+ls_item-product = <span class="abap-token-string">'BOOK'</span>.
+ls_item-amount = <span class="abap-token-number">2</span>.
+<span class="abap-token-keyword">APPEND</span> ls_item <span class="abap-token-keyword">TO</span> ls_order-items.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <p>
+    <code>ty_order</code> 구조 안에는 <code>note TYPE string</code>과 <code>items TYPE tt_items</code>가 있습니다. <code>items</code>는 주문 한 건 안에 들어 있는 품목 목록 Internal Table입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>4. Deep Structure는 왜 필요할까? 📦</h2>
+  <p>
+    실제 업무 화면이나 API 데이터는 “헤더 1건 + 상세 여러 건” 모양이 많습니다. 주문 헤더와 주문 품목, 전표 헤더와 전표 라인, ALV의 행별 스타일 정보처럼 한 데이터 안에 하위 목록이 붙는 경우가 있습니다.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>이번 Lesson의 범위</h4>
+      <p>Deep Structure의 개념만 소개합니다. ALV 셀 색상/스타일처럼 복잡한 구현은 Chapter 19에서 더 정확히 다룹니다.</p>
+    </div>
+  </div>
+  <p>
+    Deep Structure는 데이터를 현실에 가깝게 표현할 수 있지만, 복사·초기화·출력·디버깅이 Flat Structure보다 복잡해질 수 있습니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
+  <ul>
+    <li>✅ <strong>정상 흐름:</strong> 구조 안의 Internal Table 컴포넌트에 <code>APPEND</code>로 하위 줄을 추가할 수 있습니다.</li>
+    <li>✅ <strong>문자열 사용:</strong> <code>string</code> 컴포넌트는 길이가 고정되지 않은 설명에 편리합니다.</li>
+    <li>❌ <strong>단순 WRITE 착각:</strong> Deep Structure 전체를 그대로 WRITE하기는 어렵습니다. 필요한 컴포넌트를 꺼내 출력해야 합니다.</li>
+    <li>❌ <strong>초기화 누락:</strong> 구조를 재사용할 때 내부 테이블 컴포넌트까지 비워졌는지 확인해야 합니다.</li>
+    <li>❌ <strong>과한 중첩:</strong> 너무 깊은 구조는 디버깅과 유지보수를 어렵게 만들 수 있습니다.</li>
+  </ul>
+  <p>
+    미니 실습으로 <code>ls_item</code>을 하나 더 만들어 <code>ls_order-items</code>에 APPEND해보세요. 디버거에서 주문 한 건 안에 품목 2줄이 들어 있는지 확인합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>Deep Structure는 편하지만 무거울 수 있습니다</h4>
+      <p>구조 안에 Internal Table이 들어가면 데이터 표현력은 좋아지지만, 복사 비용과 메모리 사용량도 커질 수 있습니다. 큰 Deep Structure를 반복해서 복사하는 코드는 성능에 영향을 줄 수 있습니다.</p>
+    </div>
+  </div>
+  <p>
+    Deep Structure는 강력한 모델링 도구입니다. 다만 처음부터 복잡하게 설계하기보다, 실제 업무 데이터의 부모-자식 관계가 분명할 때 사용하는 것이 좋습니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>Deep Structure 핵심</h4>
+      <ul>
+        <li><strong>Deep Structure</strong>는 구조 안에 문자열, Internal Table 같은 깊은 컴포넌트가 있는 구조입니다.</li>
+        <li><strong>Nested Internal Table</strong>은 구조 필드 안에 들어간 내부 테이블입니다.</li>
+        <li><strong>String Component</strong>는 길이가 유동적인 문자열 필드입니다.</li>
+        <li>헤더-아이템 관계 같은 업무 데이터 표현에 유용합니다.</li>
+        <li>복사, 초기화, 디버깅, 메모리 사용이 복잡해질 수 있어 주의합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    다음 Lesson <strong>CLEAR / REFRESH / FREE 메모리 정리</strong>에서는 Internal Table과 구조를 비우고 메모리를 정리하는 기본 문법을 배웁니다.
+  </p>
+</section>

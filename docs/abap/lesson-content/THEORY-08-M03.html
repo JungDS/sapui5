@@ -1,0 +1,194 @@
+<!-- lesson-content/THEORY-08-M03.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>지난 Lesson에서 FACTORY와 DISPLAY로 SALV 화면을 띄웠습니다. 이번에는 <span class="glossary-term" data-glossary="FunctionsBasic">Functions Basic</span>을 켜서 기본 기능 버튼을 표시하고, <span class="glossary-term" data-glossary="DISPLAYMethod">DISPLAY</span> 실행 전 설정 순서를 익힙니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 표 화면에는 기본 도구가 필요하다 🧭</h2>
+  <p>
+    사용자가 표를 보면 자연스럽게 몇 가지 기능을 기대합니다. 정렬하거나, 필터링하거나, 합계를 보거나, 엑셀로 내려받고 싶어 할 수 있습니다.
+  </p>
+  <p>
+    SALV는 이런 기본 기능을 제공할 수 있지만, 예제 코드에서는 기능 버튼을 명시적으로 켜는 흐름을 자주 봅니다. 이번 Lesson에서는 가장 기본적인 <code>get_functions( )</code>와 <code>set_all( )</code> 감각만 잡습니다.
+  </p>
+  <blockquote>
+    SALV 설정은 DISPLAY 전에 끝내야 합니다. 화면을 보여준 뒤가 아니라, 보여주기 전에 준비합니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>2. Functions 객체 가져오기 🧰</h2>
+  <p>
+    SALV의 기본 기능 버튼을 제어하려면 Functions 객체를 가져옵니다.
+  </p>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span> lo_functions <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">REF</span> <span class="abap-token-keyword">TO</span> cl_salv_functions_list.
+
+lo_functions = lo_alv-&gt;get_functions( ).
+lo_functions-&gt;set_all( abap_true ).</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <ul>
+    <li><code>get_functions( )</code>: SALV의 기능 버튼 설정 객체를 가져옵니다.</li>
+    <li><code>set_all( abap_true )</code>: 기본 기능을 전체 활성화합니다.</li>
+    <li><code>abap_true</code>: 참 값을 표현하는 ABAP 상수입니다.</li>
+  </ul>
+  <p>
+    지금은 각 버튼의 세부 기능을 외울 필요는 없습니다. “SALV 객체에서 기능 설정 객체를 꺼내고, 기본 기능을 켠다” 정도로 이해하세요.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 설정 순서: FACTORY → Functions → DISPLAY 🔁</h2>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8
+    </div>
+    <pre class="shiki abap-editor-code"><code>cl_salv_table=&gt;factory(
+  <span class="abap-token-keyword">IMPORTING</span> r_salv_table = lo_alv
+  <span class="abap-token-keyword">CHANGING</span>  t_table      = lt_students ).
+
+lo_functions = lo_alv-&gt;get_functions( ).
+lo_functions-&gt;set_all( abap_true ).
+
+lo_alv-&gt;display( ).</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <p>
+    핵심은 순서입니다. 먼저 FACTORY로 <code>lo_alv</code>가 만들어져야 Functions를 꺼낼 수 있습니다. 그리고 DISPLAY 전에 기능 설정을 끝내야 화면에 반영됩니다.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>요리 순서처럼 생각하기</h4>
+      <p>재료 준비(Internal Table), 접시 준비(FACTORY), 토핑 올리기(Functions 설정), 손님에게 내기(DISPLAY) 순서입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 전체 예제에 기본 기능 추가하기 ✍️</h2>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span>: lo_alv       <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">REF</span> <span class="abap-token-keyword">TO</span> cl_salv_table,
+      lo_functions <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">REF</span> <span class="abap-token-keyword">TO</span> cl_salv_functions_list,
+      lx_msg       <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">REF</span> <span class="abap-token-keyword">TO</span> cx_salv_msg.
+
+<span class="abap-token-keyword">TRY</span>.
+    cl_salv_table=&gt;factory(
+      <span class="abap-token-keyword">IMPORTING</span> r_salv_table = lo_alv
+      <span class="abap-token-keyword">CHANGING</span>  t_table      = lt_students ).
+
+    lo_functions = lo_alv-&gt;get_functions( ).
+    lo_functions-&gt;set_all( abap_true ).
+
+    lo_alv-&gt;display( ).
+
+  <span class="abap-token-keyword">CATCH</span> cx_salv_msg <span class="abap-token-keyword">INTO</span> lx_msg.
+    MESSAGE lx_msg-&gt;get_text( ) <span class="abap-token-keyword">TYPE</span> <span class="abap-token-string">'E'</span>.
+<span class="abap-token-keyword">ENDTRY</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <p>
+    이 조각은 Lesson 2 전체 예제의 SALV 부분에 붙여 사용할 수 있습니다. 실제 화면에서는 표 위쪽에 기본 기능 버튼들이 표시됩니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
+  <ul>
+    <li>✅ <strong>정상 흐름:</strong> FACTORY 성공 후 Functions를 가져오고, <code>set_all</code>로 기능을 켠 뒤 DISPLAY합니다.</li>
+    <li>❌ <strong>FACTORY 전 호출:</strong> <code>lo_alv</code>가 아직 준비되지 않았는데 <code>get_functions</code>를 호출하면 문제가 됩니다.</li>
+    <li>❌ <strong>DISPLAY 후 설정:</strong> 화면을 이미 표시한 뒤 기능을 설정하면 사용자가 기대한 화면과 다를 수 있습니다.</li>
+    <li>❌ <strong>심화 기능 착각:</strong> 기본 버튼을 켰다고 모든 레이아웃/Variant 설계가 끝난 것은 아닙니다.</li>
+  </ul>
+  <p>
+    미니 실습으로 <code>set_all( abap_true )</code> 줄을 빼고 실행한 화면과 넣고 실행한 화면을 비교해보세요. 화면 상단 기능 차이를 관찰하는 것이 목표입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>기본 기능 표시와 업무 기능 설계는 다릅니다</h4>
+      <p>SALV 기본 기능을 켜는 것은 사용자 편의의 시작일 뿐입니다. 특정 버튼을 숨기거나, Layout Variant를 관리하거나, 이벤트를 붙이는 일은 후속 심화 범위입니다.</p>
+    </div>
+  </div>
+  <p>
+    이번 단계에서는 “표를 보여주고 기본 기능을 켠다”까지만 정확히 익히면 됩니다. 복잡한 ALV 제어는 나중에 OO ABAP과 ALV 심화에서 다룹니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>기본 Function 핵심</h4>
+      <ul>
+        <li><strong>Functions Basic</strong>은 SALV 표의 기본 기능 버튼을 다루는 첫 단계입니다.</li>
+        <li><code>get_functions( )</code>로 기능 설정 객체를 가져옵니다.</li>
+        <li><code>set_all( abap_true )</code>로 기본 기능을 활성화할 수 있습니다.</li>
+        <li>순서는 FACTORY → Functions 설정 → DISPLAY입니다.</li>
+        <li>Layout/Variant/Event 심화는 이번 Chapter 범위를 넘깁니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    다음 Lesson <strong>Internal Table → SALV 미니 리포트</strong>에서는 데이터 준비부터 SALV 표시까지 하나의 작은 리포트로 연결합니다.
+  </p>
+</section>

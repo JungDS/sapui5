@@ -1,0 +1,94 @@
+<!-- lesson-content/THEORY-13-M01.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>ABAP 리포트 프로그램이 실행될 때 거치는 <span class="glossary-term" data-glossary="ReportEvent">이벤트</span>의 전체 흐름을 잡습니다. <span class="glossary-term" data-glossary="LoadOfProgram">LOAD-OF-PROGRAM</span> → <span class="glossary-term" data-glossary="INITIALIZATION">INITIALIZATION</span> → 선택 화면 → <span class="glossary-term" data-glossary="StartOfSelection">START-OF-SELECTION</span>으로 이어지는 큰 그림을 이해하는 것이 목표입니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 코드는 "위에서 아래로"가 아니다? 🔄</h2>
+  <p>
+    보통 프로그래밍을 처음 배우면 "코드는 위에서 아래로 차례차례 실행된다"고 생각합니다. 그런데 ABAP <strong>리포트 프로그램</strong>은 조금 다릅니다. SAP가 정해진 <strong>이벤트 순서</strong>에 따라 우리가 작성한 블록을 골라서 실행합니다.
+  </p>
+  <p>
+    이걸 모르면 "분명히 위에 적었는데 왜 나중에 실행되지?" 하고 혼란스럽습니다. 그래서 이번 Lesson에서는 먼저 <strong>전체 흐름의 지도</strong>를 그려봅니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. 리포트 이벤트의 큰 흐름 🗺️</h2>
+  <p>리포트가 실행되면 SAP는 대략 이런 순서로 이벤트를 부릅니다.</p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">🔗</div>
+    <div class="lesson-callout-content">
+      <h4>실행 순서</h4>
+      <ul>
+        <li><strong>① <span class="glossary-term" data-glossary="LoadOfProgram">LOAD-OF-PROGRAM</span>:</strong> 프로그램이 메모리에 처음 올라올 때 딱 한 번.</li>
+        <li><strong>② <span class="glossary-term" data-glossary="INITIALIZATION">INITIALIZATION</span>:</strong> 선택 화면이 뜨기 <em>전</em>, 기본값을 채울 때.</li>
+        <li><strong>③ AT SELECTION-SCREEN OUTPUT:</strong> 선택 화면을 그리기 직전(화면 꾸미기).</li>
+        <li><strong>④ (사용자가 값 입력 후 실행 ▶)</strong></li>
+        <li><strong>⑤ AT SELECTION-SCREEN:</strong> 입력값 검증.</li>
+        <li><strong>⑥ <span class="glossary-term" data-glossary="StartOfSelection">START-OF-SELECTION</span>:</strong> 본격 데이터 조회·처리(메인 로직).</li>
+        <li><strong>⑦ END-OF-SELECTION:</strong> 결과 출력 마무리.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 일상 비유로 흐름 외우기 🍳</h2>
+  <p>요리에 비유하면 이해가 빠릅니다.</p>
+  <ul>
+    <li><strong>LOAD-OF-PROGRAM:</strong> 주방에 들어와 불을 켠다(준비).</li>
+    <li><strong>INITIALIZATION:</strong> 주문서에 기본 메뉴를 미리 적어둔다(기본값).</li>
+    <li><strong>선택 화면:</strong> 손님이 주문서를 보고 원하는 걸 고른다.</li>
+    <li><strong>AT SELECTION-SCREEN:</strong> "그 메뉴는 재료가 없어요" 같은 확인(검증).</li>
+    <li><strong>START-OF-SELECTION:</strong> 실제로 요리를 한다(메인).</li>
+    <li><strong>END-OF-SELECTION:</strong> 접시에 담아 낸다(출력).</li>
+  </ul>
+  <blockquote>
+    핵심은 "사용자 입력(선택 화면)을 가운데 두고, 그 <strong>전</strong>에 준비하고 <strong>후</strong>에 처리한다"는 그림입니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 왜 이 순서가 중요할까 🔍</h2>
+  <ul>
+    <li>✅ <strong>기본값은 INITIALIZATION에:</strong> 화면이 뜨기 전이라 사용자가 보기 전에 채울 수 있습니다.</li>
+    <li>✅ <strong>조회는 START-OF-SELECTION에:</strong> 검증을 통과한 뒤라 안전합니다.</li>
+    <li>❌ <strong>자리를 헷갈리면:</strong> 기본값을 START-OF-SELECTION에 넣으면 이미 화면이 지나가 버려 적용이 안 되는 식의 버그가 납니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>"어디에 적느냐"가 곧 "언제 실행되느냐"</h4>
+      <p>ABAP 리포트에서는 코드의 위치가 아니라 <strong>어떤 이벤트 블록 안에 있느냐</strong>가 실행 시점을 결정합니다. 같은 한 줄도 INITIALIZATION에 있으면 화면 전, START-OF-SELECTION에 있으면 화면 후에 실행됩니다. 새 코드를 추가할 때는 "이건 화면 전인가 후인가?"를 먼저 생각하세요.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li>ABAP 리포트는 <strong>정해진 이벤트 순서</strong>로 블록을 실행합니다.</li>
+        <li>흐름: LOAD-OF-PROGRAM → INITIALIZATION → 선택 화면 → 검증 → START-OF-SELECTION → END-OF-SELECTION.</li>
+        <li>사용자 입력(선택 화면)을 기준으로 <strong>전(준비)</strong>과 <strong>후(처리)</strong>로 나뉩니다.</li>
+        <li>코드 위치가 아니라 <strong>이벤트 블록</strong>이 실행 시점을 정합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    이제 지도를 그렸으니, 각 이벤트를 하나씩 자세히 봅니다. 다음 Lesson <strong>INITIALIZATION 기본값 설정</strong>에서 화면이 뜨기 전 기본값을 채우는 법을 배웁니다.
+  </p>
+</section>

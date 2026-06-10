@@ -1,6 +1,8 @@
 # 05. 인벤토리 (증거 기반)
 
-2026-06-05 재분석 + **2026-06-09 lesson-viewer 반영** 시점의 실제 참조 검색 결과. 이후 변경 시 갱신한다.
+> 📅 **최종수정: 2026-06-10 13:34 KST**
+
+2026-06-05 재분석 기준 + **2026-06-09~10 Lesson 양산/뷰어/글로서리 반영분**을 갱신했다. 이후 변경 시 갱신한다.
 
 ## A. asset 의존 맵 (assets/*.css·js)
 비-archive HTML 기준 참조. **완전 미사용 asset은 0개**(모두 최소 1개 HTML이 참조).
@@ -10,6 +12,8 @@
 | `common.css` / `common.js` | 다수(사이트 전역) | 모든 운영 페이지 공통 |
 | `shell.css` / `shell.js` | 다수(셸 페이지 전역) | page-type 셸 + 문서 SSOT |
 | `home.css` | 1 | `index.html` 전용 |
+| `abap-lesson-viewer.css` / `.js` | 1 | `docs/abap/lesson-viewer.html` (Lesson 단일 뷰어 엔진) |
+| `abap-glossary.css` / `.js` | 1 | `docs/abap/lesson-viewer.html` (`data-glossary` 툴팁) |
 | `abap-curriculum.css` / `.js` | 1 | `docs/roadmap/abap-curriculum.html` 운영본 전용 |
 | `metro-process.css` / `.js` | 2 | `docs/module/erp-business-process-metro.html`, `docs/roadmap/abap-curriculum-v5-3-antigravity.html` |
 | `abap-curriculum-section-detail.*` | 1 | `docs/roadmap/abap-curriculum-section-detail.html` |
@@ -48,6 +52,7 @@
 |---|---|---|
 | `build-abap-curriculum.mjs` | **유지** | `reference/abap_curriculum_20260529_180000.json`로 커리큘럼 생성(활성 영역) |
 | `build-curriculum-samples.mjs` | **유지** | `reference/abap_curriculum_v5_3_...json`로 샘플 생성(활성 영역) |
+| `format-abap-code.mjs` | **유지** | Lesson 본문 코드 예제에 네이비 ABAP Editor/복사 버튼/토큰 클래스 서식을 적용하는 포맷터 |
 | `cleanse-docs.mjs` | → archive | 일회성 문서 클렌징(완료) |
 | `refactor-paths-and-links.mjs` | → archive | 일회성 경로/링크 리팩토링(완료) |
 | `stage7-update-abap-catalog-paths.mjs` | → archive | Stage 7 카탈로그 경로 갱신(완료) |
@@ -71,14 +76,26 @@
 ### orphan / 신규 (2026-06-08~)
 - `docs/roadmap/_abap-curriculum-gallery.html` — **어디서도 링크되지 않는 orphan**(임시 샘플 갤러리, 커밋 `b0256bb`). archive 또는 삭제 후보.
 - `docs/abap/lesson-viewer.html` — Lesson 단일 뷰어 템플릿(SSOT 미등록, [04 P11](04_PITFALLS.md)).
-- `docs/abap/lesson-content/THEORY-01-M01.html` — **현재 유일한 Lesson 콘텐츠 조각**(나머지 미작성).
+- `docs/abap/lesson-content/*.html` — Track 1 Lesson 콘텐츠 조각 137개(THEORY-01~21) 작성 완료. Track 2는 미작성.
 
 ## E. reference/ ABAP 커리큘럼 JSON
 
 | 파일 | 상태 | 비고 |
 |---|---|---|
-| `abap_curriculum_v5_4_20260605_000000.json` | **운영 유지** | 운영본 fetch 대상. `learning_friendly.handled_contents.ko` 추가 |
+| `abap_curriculum_v5_4_20260605_000000.json` | **운영 유지** | 운영본 + Lesson 뷰어 fetch 대상. `learning_friendly.handled_contents.ko` 포함 |
+| `abap_glossary.json` | **운영 유지** | Lesson 용어 툴팁 사전. **348개 용어**(THEORY-01~21 완전 패리티), `abap-glossary.js`가 fetch |
 | `abap_curriculum_v5_3_20260602_010000.json` | 유지 | 샘플/비교 원본, v5.4의 기반 |
-| `abap_curriculum_v5_3.md`, `TRACK1/` | 유지 | 커리큘럼 설계 참고자료 |
-| `abap_glossary.json` | **운영 유지** | Lesson 뷰어 용어 툴팁 원천(~35개 용어). `abap-glossary.js`가 fetch (2026-06-08 신규) |
 | `abap_curriculum_20260529_180000.json` | 유지 | `tools/build-abap-curriculum.mjs` 입력 원본 |
+| `abap_curriculum_v5_3.md`, `TRACK1/` | 유지 | 커리큘럼 설계 참고자료 |
+
+## F. docs/abap/lesson-content (Lesson 본문 조각)
+ABAP 커리큘럼 Track 1(THEORY-*) Lesson 본문. `lesson-viewer.html?lesson=<ID>`가 fetch하는 순수 조각(fragment) HTML.
+
+| 항목 | 현황 |
+|---|---|
+| 작성 완료 | **THEORY-01~21 = 137개** (Track 1 전체 완료) |
+| 남은 작업 | Track 1 기준 없음. 다음 작업은 Track 2(PRACTICAL-*) 신규 작성 |
+| 코드 서식 | 전 Lesson 코드블록에 네이비(#343e6a) ABAP Editor 목업 + Shiki 복사버튼 적용. 코드 토큰 하이라이트까지 `abap-token-*` CSS 클래스로 공통화 완료(본문 인라인 스타일 0건) |
+| 용어 | 본문 `data-glossary` ↔ `reference/abap_glossary.json` 348개 용어 완전 패리티(미정의 0건) |
+
+> 진행 현황 표·작성 규칙은 [HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md), 인계 허브는 [99_AI_SYNC.md](99_AI_SYNC.md).

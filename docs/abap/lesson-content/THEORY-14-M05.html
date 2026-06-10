@@ -1,0 +1,116 @@
+<!-- lesson-content/THEORY-14-M05.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>사용자가 버튼을 누르거나 Enter를 친 직후 실행되는 <span class="glossary-term" data-glossary="PAI">PAI(Process After Input)</span>를 배웁니다. 어떤 버튼을 눌렀는지 알려주는 <span class="glossary-term" data-glossary="OkCode">OK_CODE</span>를 읽어 동작을 분기하는 방법을 익힙니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 사용자가 행동했다 🖱️</h2>
+  <p>
+    PBO로 띄운 화면에서 사용자가 값을 입력하고 <strong>버튼을 눌렀습니다.</strong> 이제 프로그램이 그 행동에 반응해야 합니다. "저장 버튼이면 저장, 뒤로 버튼이면 이전 화면"처럼요.
+  </p>
+  <p>
+    이 반응을 처리하는 단계가 <span class="glossary-term" data-glossary="PAI">PAI(Process After Input)</span>입니다. 사용자의 행동 직후 실행됩니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. OK_CODE로 "무슨 버튼인지" 알기 ✍️</h2>
+  <p>
+    버튼을 누르면 그 버튼의 Function Code가 <span class="glossary-term" data-glossary="OkCode">OK_CODE</span>(화면에 연결된 특수 필드, 또는 <code>sy-ucomm</code>)로 전달됩니다. PAI에서 이 값을 보고 분기합니다.
+  </p>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12
+    </div>
+    <pre class="shiki abap-editor-code"><code>PROCESS AFTER INPUT.
+  <span class="abap-token-keyword">MODULE</span> user_command_0100.
+
+<span class="abap-token-keyword">MODULE</span> user_command_0100 INPUT.
+  <span class="abap-token-keyword">CASE</span> ok_code.
+    <span class="abap-token-keyword">WHEN</span> <span class="abap-token-string">'SAVE'</span>.
+      PERFORM save_data.        <span class="abap-token-comment">"저장 처리</span>
+    <span class="abap-token-keyword">WHEN</span> <span class="abap-token-string">'BACK'</span> OR <span class="abap-token-string">'EXIT'</span>.
+      LEAVE <span class="abap-token-keyword">TO</span> SCREEN <span class="abap-token-number">0</span>.        <span class="abap-token-comment">"화면 종료</span>
+  <span class="abap-token-keyword">ENDCASE</span>.
+  <span class="abap-token-keyword">CLEAR</span> ok_code.               <span class="abap-token-comment">"다음을 위해 비워줌</span>
+<span class="abap-token-keyword">ENDMODULE</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>OK_CODE는 꼭 CLEAR</h4>
+      <p>처리 후 <code>ok_code</code>를 비우지 않으면, 다음에 Enter만 쳐도 직전 버튼이 또 눌린 것처럼 동작할 수 있습니다. 처리 끝에 <code>CLEAR ok_code</code>를 습관처럼 넣으세요.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>3. 화면을 떠나는 방법 🚪</h2>
+  <ul>
+    <li><strong><code>LEAVE TO SCREEN 0</code>:</strong> 현재 화면을 닫고 호출한 곳으로 돌아갑니다(종료).</li>
+    <li><strong><code>LEAVE TO SCREEN 0200</code>:</strong> 다른 화면으로 이동합니다.</li>
+    <li><strong>아무것도 안 하면:</strong> 같은 화면이 유지되며 다시 PBO → 화면 표시가 반복됩니다.</li>
+  </ul>
+  <blockquote>
+    PBO(준비) ↔ PAI(반응)가 번갈아 도는 것이 Dynpro의 생명 주기입니다. 사용자가 종료를 누를 때까지 이 박자가 반복됩니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <ul>
+    <li>✅ <strong>정상:</strong> OK_CODE를 읽어 CASE로 분기 → 알맞은 동작 실행 → CLEAR.</li>
+    <li>❌ <strong>오류 1:</strong> CLEAR 누락 → 직전 명령이 반복 실행되는 유령 동작.</li>
+    <li>❌ <strong>오류 2:</strong> 입력 검증 없이 바로 저장 → 잘못된 데이터가 들어감. PAI에서 검증 후 저장합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>저장 전 검증과 트랜잭션을 기억하세요</h4>
+      <p>PAI의 저장 처리에서는 입력값 검증(존재·권한·형식)을 거친 뒤 DB에 반영해야 합니다. 그리고 DB 변경은 THEORY 이후 실무 트랙에서 배울 <strong>COMMIT/ROLLBACK</strong>으로 마무리해야 정합성이 지켜집니다. 지금은 "PAI에서 검증 후 처리한다"는 흐름만 확실히 잡으세요.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li><strong>PAI</strong>는 사용자가 버튼·Enter로 행동한 직후 실행됩니다.</li>
+        <li><strong>OK_CODE</strong>(또는 sy-ucomm)로 어떤 버튼인지 읽어 <code>CASE</code>로 분기합니다.</li>
+        <li>처리 후 <strong>CLEAR ok_code</strong>로 유령 동작을 막습니다.</li>
+        <li><strong>LEAVE TO SCREEN</strong>으로 화면을 종료·이동하며, PBO↔PAI가 반복됩니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    화면 동작의 양대 축(PBO/PAI)을 잡았습니다. 다음 Lesson <strong>PF-STATUS와 TITLEBAR</strong>에서 메뉴·툴바·제목을 만들어 화면을 더 완성도 있게 꾸밉니다.
+  </p>
+</section>

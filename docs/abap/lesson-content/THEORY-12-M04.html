@@ -1,0 +1,85 @@
+<!-- lesson-content/THEORY-12-M04.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>여러 테이블을 묶어 한 화면에서 <strong>입력·수정</strong>할 수 있게 해주는 <span class="glossary-term" data-glossary="MaintenanceView">Maintenance View</span>를 배웁니다. 이때 테이블들을 안전하게 묶어주는 <span class="glossary-term" data-glossary="ForeignKey">Foreign Key</span> 관계가 왜 중요한지 익힙니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 보기만 말고 "고치기"까지 ✏️</h2>
+  <p>
+    지금까지 배운 View들(Database/Projection/Help)은 모두 <strong>읽기 전용</strong>이었습니다. 데이터를 합치거나 솎아서 보여줄 뿐, 직접 수정하지는 못했죠.
+  </p>
+  <p>
+    그런데 설정 데이터(코드표, 매핑표 등)는 사용자가 화면에서 직접 추가·수정해야 할 때가 많습니다. 프로그램을 따로 만들지 않고도 표 형태로 데이터를 관리하게 해주는 것이 <span class="glossary-term" data-glossary="MaintenanceView">Maintenance View</span>입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. Maintenance View는 "편집 가능한 표 화면" 🗂️</h2>
+  <p>
+    Maintenance View는 하나 이상의 테이블을 묶어, 엑셀처럼 줄을 추가·수정·삭제할 수 있는 유지보수 화면을 위한 View입니다. 관리자가 코드값을 직접 손볼 수 있게 해줍니다.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>일상 비유: 공유 엑셀 시트</h4>
+      <p>개발자에게 매번 부탁하지 않고도, 담당자가 직접 코드표를 여닫으며 줄을 추가하는 공유 엑셀 같은 거예요. 단, 아무 값이나 못 넣게 규칙(Foreign Key)이 걸려 있죠.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>3. Foreign Key가 데이터를 지킨다 🔐</h2>
+  <p>
+    여러 테이블을 묶어 편집하게 하려면, 테이블들 사이의 관계가 분명해야 합니다. 이때 <span class="glossary-term" data-glossary="ForeignKey">Foreign Key</span>(THEORY-04에서 배운 그 개념)가 <span class="glossary-term" data-glossary="TableRelationship">테이블 관계</span>를 정의합니다.
+  </p>
+  <ul>
+    <li>✅ <strong>정상:</strong> Foreign Key가 "이 코드는 저 마스터 테이블에 있는 값만 허용"이라고 막아줍니다. 잘못된 값 입력이 차단됩니다.</li>
+    <li>❌ <strong>관계 없음:</strong> 관계가 모호하면 Maintenance View를 만들 때 "어떻게 묶을지 모르겠다"는 오류가 나거나, 엉뚱한 데이터가 들어갈 수 있습니다.</li>
+  </ul>
+  <blockquote>
+    그래서 Maintenance View는 Foreign Key 설계가 잘 되어 있을수록 안전하고 편리하게 동작합니다. 데이터 모델(THEORY-01·04)이 탄탄해야 화면도 튼튼한 셈이죠.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 정상 흐름과 주의 🔍</h2>
+  <ul>
+    <li>✅ <strong>정상:</strong> 관계가 분명한 테이블들을 묶어 유지보수 화면을 만들면, 담당자가 안전하게 코드표를 관리합니다.</li>
+    <li>❌ <strong>권한 주의:</strong> 편집 화면이므로 아무나 열면 위험합니다. 누가 무엇을 고칠 수 있는지 권한 관리가 필요합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>"누구나 수정 가능"은 위험합니다</h4>
+      <p>Maintenance View로 만든 화면은 데이터를 바로 바꿉니다. 운영 데이터에 연결된 표라면, 권한 그룹·변경 로그·전송(Transport) 관리를 함께 설계해야 합니다. 편하다고 아무 테이블에나 유지보수 화면을 열어두면, 검증 없이 데이터가 바뀌어 사고로 이어질 수 있습니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li><strong>Maintenance View</strong>는 데이터를 화면에서 직접 입력·수정하게 해주는 편집용 View입니다.</li>
+        <li><strong>Foreign Key</strong> 관계가 잘못된 값 입력을 막아 데이터를 지킵니다.</li>
+        <li>데이터 모델(관계 설계)이 탄탄할수록 유지보수 화면도 안전합니다.</li>
+        <li>편집 화면이므로 권한·변경관리를 반드시 함께 고려합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    그렇다면 이 유지보수 화면은 실제로 어떻게 만들고, 사용자는 어디서 열까요? 다음 Lesson <strong>Table Maintenance Generator / SM30</strong>에서 그 도구를 배웁니다.
+  </p>
+</section>

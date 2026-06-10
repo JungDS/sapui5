@@ -1,0 +1,171 @@
+<!-- lesson-content/THEORY-05-M05.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>지난 Lesson에서 프로그램 안의 Local Class를 만들었습니다. 이번에는 시스템 전체에서 재사용할 수 있는 <span class="glossary-term" data-glossary="GlobalClass">Global Class</span>를 호출하는 기초를 배웁니다. <span class="glossary-term" data-glossary="SE24Transaction">SE24</span>, <span class="glossary-term" data-glossary="StaticMethod">Static Method</span>, <span class="glossary-term" data-glossary="InstanceMethod">Instance Method</span>의 차이를 처음 보는 사람 기준으로 정리합니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 내 프로그램 안 Class에서 공용 Class로 🌐</h2>
+  <p>
+    Local Class는 현재 프로그램 안에서만 쓰기 좋습니다. 하지만 여러 프로그램이 같은 기능을 써야 한다면 어떻게 할까요? 매번 Local Class를 복사하면 유지보수가 힘들어집니다.
+  </p>
+  <p>
+    이럴 때 Global Class를 사용합니다. Global Class는 Repository Object로 관리되며, 여러 프로그램에서 이름으로 호출할 수 있습니다. 전통적으로 SAP GUI에서는 <span class="glossary-term" data-glossary="SE24Transaction">SE24</span>에서 Class Builder를 열어 확인하고 관리할 수 있습니다. ADT에서도 Class를 열고 편집할 수 있습니다.
+  </p>
+  <blockquote>
+    Global Class는 시스템 공용 도구 상자이고, Local Class는 현재 프로그램 안의 개인 도구 상자에 가깝습니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>2. Static Method: 객체 없이 바로 호출하기 ⚡</h2>
+  <p>
+    <span class="glossary-term" data-glossary="StaticMethod">Static Method</span>는 객체를 만들지 않고 Class 이름으로 바로 호출할 수 있는 Method입니다. 보통 상태를 오래 들고 있지 않는 계산, 변환, 유틸리티 기능에 어울립니다.
+  </p>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6<br>7
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span> gv_text <span class="abap-token-keyword">TYPE</span> string.
+
+gv_text = zcl_demo_text=&gt;build_greeting(
+  iv_name = <span class="abap-token-string">'ABAP'</span>
+).
+
+<span class="abap-token-keyword">WRITE</span> gv_text.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <p>
+    위 예제는 <code>ZCL_DEMO_TEXT</code>라는 커스텀 Global Class에 <code>BUILD_GREETING</code> Static Method가 있다고 가정한 코드입니다. <code>=&gt;</code> 기호는 Static Method나 Static Attribute에 접근할 때 사용합니다.
+  </p>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>Static은 “Class 이름으로 바로”</h4>
+      <p><code>zcl_demo_text=&gt;build_greeting( )</code>처럼 Class 이름 뒤에 <code>=&gt;</code>가 보이면 Static 호출이라고 먼저 감을 잡으면 됩니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>3. Instance Method: 객체를 만들고 호출하기 🧍</h2>
+  <p>
+    <span class="glossary-term" data-glossary="InstanceMethod">Instance Method</span>는 객체를 먼저 만든 뒤 호출하는 Method입니다. 객체마다 상태를 가질 수 있거나, 생성 과정을 거쳐야 하는 기능에 어울립니다.
+  </p>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6<br>7
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span> lo_checker <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">REF</span> <span class="abap-token-keyword">TO</span> zcl_demo_checker.
+
+lo_checker = <span class="abap-token-keyword">NEW</span> zcl_demo_checker( ).
+
+lo_checker-&gt;check_input(
+  iv_value = <span class="abap-token-string">'KE'</span>
+).</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <p>
+    여기서는 <code>NEW zcl_demo_checker( )</code>로 객체를 만들고, <code>lo_checker-&gt;check_input( )</code>으로 Instance Method를 호출합니다. <code>-&gt;</code> 기호는 객체 참조를 통해 Method를 호출할 때 사용합니다.
+  </p>
+  <blockquote>
+    Static은 Class 이름에 붙는 <code>=&gt;</code>, Instance는 객체 변수에 붙는 <code>-&gt;</code>로 첫 구분을 해보세요.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>4. SE24에서 무엇을 확인할까? 🔎</h2>
+  <p>
+    <span class="glossary-term" data-glossary="SE24Transaction">SE24</span>는 SAP GUI에서 Class Builder를 여는 전통적인 트랜잭션입니다. Global Class를 볼 때는 최소한 아래를 확인하면 좋습니다.
+  </p>
+  <ul>
+    <li><strong>Method 이름:</strong> 어떤 기능을 제공하는지 확인합니다.</li>
+    <li><strong>Static 여부:</strong> Class 이름으로 바로 부르는지, 객체 생성이 필요한지 확인합니다.</li>
+    <li><strong>파라미터:</strong> Importing, Exporting, Changing 값을 확인합니다.</li>
+    <li><strong>예외:</strong> 실패 상황을 어떻게 알려주는지 확인합니다.</li>
+    <li><strong>문서:</strong> 사용 목적과 주의사항을 확인합니다.</li>
+  </ul>
+  <p>
+    ADT를 사용하는 환경이라면 Class를 열어 Method 시그니처와 구현을 더 편하게 탐색할 수 있습니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
+  <ul>
+    <li>✅ <strong>Static 정상 흐름:</strong> Static Method는 <code>클래스명=&gt;메서드명( )</code>으로 호출합니다.</li>
+    <li>✅ <strong>Instance 정상 흐름:</strong> 객체를 생성한 뒤 <code>객체참조-&gt;메서드명( )</code>으로 호출합니다.</li>
+    <li>❌ <strong>호출 기호 오류:</strong> Instance Method를 <code>=&gt;</code>로 호출하거나 Static Method를 객체 없이 잘못 호출하면 오류가 납니다.</li>
+    <li>❌ <strong>객체 생성 누락:</strong> Instance Method는 참조 변수가 비어 있으면 호출할 수 없습니다.</li>
+    <li>❌ <strong>파라미터 누락:</strong> Method가 요구하는 필수 파라미터를 빠뜨리면 문법 오류가 납니다.</li>
+  </ul>
+  <p>
+    미니 실습에서는 SE24나 ADT에서 간단한 Global Class의 Method 목록을 열어보고, Static Method인지 Instance Method인지 먼저 구분해보세요. 코드를 치기 전 구조를 읽는 연습이 중요합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>표준 Class도 릴리스 상태와 사용 목적을 확인하세요</h4>
+      <p>표준 Global Class가 보인다고 해서 모든 프로젝트에서 자유롭게 써도 된다는 뜻은 아닙니다. 특히 ABAP Cloud나 Clean Core 기준에서는 Released API인지 확인해야 할 수 있습니다. 지금은 호출 문법을 배우는 단계지만, 실무에서는 사용 가능성과 안정성도 함께 봐야 합니다.</p>
+    </div>
+  </div>
+  <p>
+    또한 Global Class는 재사용 범위가 넓기 때문에 이름, 패키지, 공개 Method 설계가 중요합니다. 작은 실험 코드를 무심코 Global Class로 만들면 시스템 전체에 오래 남는 부채가 될 수 있습니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li><strong>Global Class</strong>는 여러 프로그램에서 재사용할 수 있는 Repository Object입니다.</li>
+        <li><strong>SE24</strong>는 SAP GUI에서 Global Class를 확인·관리하는 전통적인 트랜잭션입니다.</li>
+        <li><strong>Static Method</strong>는 <code>클래스명=&gt;메서드명( )</code>으로 객체 없이 호출합니다.</li>
+        <li><strong>Instance Method</strong>는 객체를 생성한 뒤 <code>객체참조-&gt;메서드명( )</code>으로 호출합니다.</li>
+        <li>실무에서는 표준 Class의 사용 가능성, 릴리스 상태, 파라미터, 예외를 함께 확인합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    다음 Lesson <strong>Subroutine / Function / Class 선택 기준</strong>에서는 지금까지 배운 모듈화 도구를 언제 어떤 기준으로 고를지 정리합니다.
+  </p>
+</section>

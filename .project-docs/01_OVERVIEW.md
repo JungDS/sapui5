@@ -1,5 +1,7 @@
 # 01. 프로젝트 개요
 
+> 📅 **최종수정: 2026-06-10 00:50 KST**
+
 ## 정체성
 - **SAP Developer Learning Library** — SAP 개발자(ABAP / UI5·Fiori)용 HTML 학습자료 저장소.
 - **정적 사이트**: 빌드 프레임워크 없이 순수 HTML + 공유 CSS/JS. GitHub Pages 배포.
@@ -12,15 +14,15 @@
 - 데이터: `data/*.json`(내비 카탈로그·이력), `reference/*.json`(커리큘럼 원천 데이터, 런타임 fetch)
 - 도구: `tools/*.mjs` (Node 생성 스크립트)
 
-## 현재 단계 (2026-06-09)
+## 현재 단계 (2026-06-10)
 - **Stage 7 셸 리팩토링은 완료.** 모든 운영 문서가 `docs/` 경로 + page-type 기반 셸을 사용.
 - **ABAP 커리큘럼 운영본** `docs/roadmap/abap-curriculum.html` 확정·안정화 완료(2026-06-05).
-- **최신 방향(2026-06-08)**: 개별 Lesson 학습용 **Single Viewer 아키텍처** 도입
-  (`docs/abap/lesson-viewer.html` + `lesson-content/` 조각 + `abap-lesson-viewer.*`/`abap-glossary.*`). → [06](06_ABAP_CURRICULUM.md)
+- **Lesson Single Viewer 아키텍처** 도입 완료: `docs/abap/lesson-viewer.html` + `lesson-content/` 조각 + `abap-lesson-viewer.*`/`abap-glossary.*`.
+- **Track 1(THEORY-*) Lesson 본문 137/137 작성 완료.** 네이비 ABAP Editor 서식, 코드 토큰 CSS 클래스 공통화, 글로서리 348개 용어 패리티(미정의 0건) 완료. (→ [06](06_ABAP_CURRICULUM.md))
 - **현재 미결 과제 3개:**
-  1. **Lesson 콘텐츠 양산** — 뷰어 구조는 완성, `lesson-content/`에 `THEORY-01-M01` **1개만** 존재(100+ 목표). (→ [06](06_ABAP_CURRICULUM.md))
-  2. **ABAP 커리큘럼 샘플 정리** — `docs/roadmap`에 codex/claude/antigravity orphan 샘플 ~30개 누적. archive 미실행. (→ [07](07_DECISIONS_AND_ROADMAP.md))
-  3. **폴더/자산 정리** — asset 파일명 간결화, `.stage7-*` 클래스 de-naming, 신규 자산 헤더 규칙 적용. (→ [07](07_DECISIONS_AND_ROADMAP.md))
+  1. **Track 1 최종 검수 및 PR 머지** — 이번 브랜치의 Lesson 본문·뷰어·글로서리·서식 검수 후 main 반영.
+  2. **Track 2(PRACTICAL-*) Lesson 콘텐츠 양산** — JSON `tracks[1]` 기준 신규 작성. (→ [06](06_ABAP_CURRICULUM.md))
+  3. **폴더/자산 정리** — 샘플 archive, asset 파일명 간결화, `.stage7-*` 클래스 de-naming, 신규 자산 헤더 규칙 적용. (→ [07](07_DECISIONS_AND_ROADMAP.md))
 
 ## 문서 규모
 - 내비게이션 SSOT(`assets/shell.js` `DOCS`)에는 운영본 + `preparing: true` 골격 문서가 함께 등재.

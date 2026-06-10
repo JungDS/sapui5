@@ -1,7 +1,23 @@
 # 06. ABAP 커리큘럼
 
+> 📅 **최종수정: 2026-06-10 13:34 KST**
+
 현재 가장 많은 변경이 발생하는 활성 영역. 다양한 디자인 샘플 비교 결과를 바탕으로 2026-06-05에
 운영본 `docs/roadmap/abap-curriculum.html`을 신규 작성했다. 구 샘플들은 비교/보존용으로 남겨 둔다.
+
+## ✅ Lesson 본문 양산 현황 (2026-06-09~10, 활성)
+Single Viewer(`docs/abap/lesson-viewer.html`) + 본문 조각(`docs/abap/lesson-content/<ID>.html`) 구조로 Track 1 Lesson 작성을 완료했다.
+
+- **진행: Track 1(THEORY-*) 137개 Lesson 전부 작성 완료. 다음 목표는 Track 2(PRACTICAL-*) 신규 작성.**
+  - 01 DDIC1 / 02 기본문법 / 03 PARAMETERS / 04 DDIC2 / 05 모듈화 / 06 Internal Table / 07 ITAB 응용 /
+    08 SALV / 09 OpenSQL1 / 10 SELECT-OPTIONS / 11 JOIN·집계 / 12 Classic View / 13 Report Event /
+    14 Dynpro / 15 Grid ALV / 16 Modern ABAP / 17 New OpenSQL / 18 OO ABAP /
+    19 ALV 표시제어 심화 / 20 CDS View Entity / 21 RAP·ABAP Cloud
+- **참여 AI**: Antigravity(뷰어/글로서리 아키텍처·THEORY-01~10 재보강·코드블록 Shiki/네이비 Editor 목업) +
+  Codex(THEORY-02~10) + Claude(THEORY-11~21).
+- **서식/아키텍처 정리**: 137개 Lesson 전체에 네이비 ABAP Editor 서식 적용, Shiki 복사 버튼 유지, 하드코딩 인라인 스타일을 `assets/abap-lesson-viewer.css` 공통 클래스로 분리 완료. 코드 하이라이트 토큰도 `abap-token-keyword/string/number/comment` 클래스로 재생성해 Lesson 본문 인라인 스타일 0건 상태.
+- **글로서리 완전 패리티**: 본문 `data-glossary` ↔ `reference/abap_glossary.json`(348개 용어, 미정의 0건).
+- **작성 규칙/진행표/복붙 프롬프트**: [HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md). 인계 허브: [99_AI_SYNC.md](99_AI_SYNC.md).
 
 ## 원천 데이터
 - 운영본 런타임 데이터: `reference/abap_curriculum_v5_4_20260605_000000.json`.

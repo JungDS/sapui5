@@ -1,0 +1,197 @@
+<!-- lesson-content/THEORY-07-M02.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>지난 Lesson에서 기존 행을 바꿨습니다. 이번에는 <span class="glossary-term" data-glossary="DELETEStatement">DELETE</span>로 Internal Table의 행을 삭제하고, <span class="glossary-term" data-glossary="WHEREClause">WHERE</span>와 <span class="glossary-term" data-glossary="INDEXAddition">INDEX</span>를 기준으로 삭제 대상을 다르게 지정하는 방법을 배웁니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 삭제는 “없애기”보다 “대상 고르기”가 중요하다 🧭</h2>
+  <p>
+    Internal Table을 다루다 보면 더 이상 필요 없는 줄을 제거해야 할 때가 있습니다. 예를 들어 점수가 80점 미만인 학생은 별도 목록에서 빼거나, 이미 처리한 주문은 작업 목록에서 제거할 수 있습니다.
+  </p>
+  <p>
+    이때 중요한 것은 DELETE라는 문법 자체보다 “어떤 기준으로 지울 것인가”입니다. 기준이 흐리면 필요한 데이터까지 사라질 수 있습니다.
+  </p>
+  <blockquote>
+    DELETE는 Internal Table에서 행을 제거하는 문법이고, WHERE와 INDEX는 삭제 대상을 고르는 방법입니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>2. INDEX로 한 줄 삭제하기 🧹</h2>
+  <p>
+    <span class="glossary-term" data-glossary="INDEXAddition">INDEX</span>를 사용하면 특정 위치의 한 줄을 삭제할 수 있습니다.
+  </p>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DELETE</span> lt_students INDEX <span class="abap-token-number">1</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <p>
+    위 코드는 현재 Internal Table의 1번째 줄을 삭제합니다. 삭제가 성공하면 이후 줄들이 앞으로 당겨집니다. 그래서 INDEX 기반 삭제를 여러 번 할 때는 순서 변화에 특히 조심해야 합니다.
+  </p>
+  <ul>
+    <li><strong>장점:</strong> 정확히 몇 번째 줄을 지울지 알고 있을 때 단순합니다.</li>
+    <li><strong>주의:</strong> 정렬이나 이전 삭제 이후에는 같은 데이터가 같은 위치에 없을 수 있습니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>3. WHERE로 조건에 맞는 줄 삭제하기 🔍</h2>
+  <p>
+    <span class="glossary-term" data-glossary="WHEREClause">WHERE</span>는 조건에 맞는 줄을 삭제할 때 사용합니다. 업무 기준이 필드 값으로 표현될 수 있다면 INDEX보다 읽기 쉬운 경우가 많습니다.
+  </p>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DELETE</span> lt_students <span class="abap-token-keyword">WHERE</span> score &lt; <span class="abap-token-number">80</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <p>
+    위 코드는 점수가 80 미만인 모든 학생 줄을 삭제합니다. 한 줄만 지우는 것이 아니라 조건에 맞는 여러 줄이 한 번에 삭제될 수 있다는 점을 꼭 기억하세요.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>INDEX와 WHERE의 감각 차이</h4>
+      <p>INDEX는 “몇 번째 줄”, WHERE는 “어떤 조건의 줄”입니다. 업무 코드에서는 보통 조건이 더 명확한 기준이 되는 경우가 많습니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 전체 예제로 낮은 점수 제거하기 ✍️</h2>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zdelete_itab_basic.
+
+<span class="abap-token-keyword">TYPES</span>: <span class="abap-token-keyword">BEGIN</span> <span class="abap-token-keyword">OF</span> ty_student,
+         id    <span class="abap-token-keyword">TYPE</span> char3,
+         name  <span class="abap-token-keyword">TYPE</span> char20,
+         score <span class="abap-token-keyword">TYPE</span> i,
+       <span class="abap-token-keyword">END</span> <span class="abap-token-keyword">OF</span> ty_student.
+
+<span class="abap-token-keyword">DATA</span>: lt_students <span class="abap-token-keyword">TYPE</span> STANDARD <span class="abap-token-keyword">TABLE</span> <span class="abap-token-keyword">OF</span> ty_student,
+      ls_student  <span class="abap-token-keyword">TYPE</span> ty_student.
+
+ls_student-id = <span class="abap-token-string">'A01'</span>. ls_student-name = <span class="abap-token-string">'Mina'</span>. ls_student-score = <span class="abap-token-number">90</span>.
+<span class="abap-token-keyword">APPEND</span> ls_student <span class="abap-token-keyword">TO</span> lt_students.
+
+<span class="abap-token-keyword">CLEAR</span> ls_student.
+ls_student-id = <span class="abap-token-string">'A02'</span>. ls_student-name = <span class="abap-token-string">'Jun'</span>. ls_student-score = <span class="abap-token-number">75</span>.
+<span class="abap-token-keyword">APPEND</span> ls_student <span class="abap-token-keyword">TO</span> lt_students.
+
+<span class="abap-token-keyword">CLEAR</span> ls_student.
+ls_student-id = <span class="abap-token-string">'A03'</span>. ls_student-name = <span class="abap-token-string">'Sora'</span>. ls_student-score = <span class="abap-token-number">85</span>.
+<span class="abap-token-keyword">APPEND</span> ls_student <span class="abap-token-keyword">TO</span> lt_students.
+
+<span class="abap-token-keyword">DELETE</span> lt_students <span class="abap-token-keyword">WHERE</span> score &lt; <span class="abap-token-number">80</span>.
+
+<span class="abap-token-keyword">LOOP</span> <span class="abap-token-keyword">AT</span> lt_students <span class="abap-token-keyword">INTO</span> ls_student.
+  <span class="abap-token-keyword">WRITE</span>: / ls_student-id, ls_student-name, ls_student-score.
+<span class="abap-token-keyword">ENDLOOP</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <p>
+    실행하면 75점인 Jun의 줄이 삭제되고, Mina와 Sora만 출력됩니다. 조건을 <code>score &lt; 90</code>으로 바꾸면 삭제되는 줄이 달라지는 것도 확인해보세요.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
+  <ul>
+    <li>✅ <strong>정상 흐름:</strong> 조건에 맞는 줄이 삭제되고, 이후 LOOP에서는 남은 줄만 출력됩니다.</li>
+    <li>✅ <strong>조건 미일치:</strong> WHERE 조건에 맞는 줄이 없으면 삭제되는 줄이 없습니다. 그 자체가 문법 오류는 아닙니다.</li>
+    <li>❌ <strong>INDEX 착각:</strong> 1번째 줄을 삭제하면 기존 2번째 줄이 새 1번째 줄이 됩니다.</li>
+    <li>❌ <strong>조건 과다:</strong> WHERE 조건을 넓게 쓰면 필요한 줄까지 한 번에 사라질 수 있습니다.</li>
+    <li>❌ <strong>LOOP 중 삭제:</strong> LOOP 안에서 같은 Internal Table을 삭제하면 반복 흐름이 헷갈릴 수 있어 조심해야 합니다.</li>
+  </ul>
+  <p>
+    미니 실습으로 삭제 전후의 줄 수를 WRITE로 출력해보세요. 삭제 기준이 실제로 몇 줄을 없앴는지 눈으로 확인하는 습관이 중요합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>삭제 전 조건을 작은 데이터로 먼저 확인하기</h4>
+      <p>DELETE WHERE는 조건에 맞는 여러 줄을 한 번에 제거할 수 있습니다. 운영 로직에서는 삭제 조건을 잘못 쓰면 결과 목록이 크게 달라질 수 있으니, 삭제 전 대상 건수를 확인하거나 디버거로 조건을 검증하는 습관이 필요합니다.</p>
+    </div>
+  </div>
+  <p>
+    Internal Table에서 삭제하는 것은 데이터베이스 삭제와 다릅니다. 하지만 이후 출력, 저장, 전송에 영향을 줄 수 있으므로 운영 안정성 관점에서는 여전히 신중해야 합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>행 삭제 핵심</h4>
+      <ul>
+        <li><strong>DELETE</strong>는 Internal Table에서 행을 제거합니다.</li>
+        <li><strong>INDEX</strong>는 특정 위치의 한 줄을 삭제합니다.</li>
+        <li><strong>WHERE</strong>는 조건에 맞는 여러 줄을 삭제할 수 있습니다.</li>
+        <li>INDEX 삭제 후에는 줄 위치가 앞으로 당겨질 수 있습니다.</li>
+        <li>DELETE WHERE는 조건이 넓으면 많은 줄이 사라지므로 대상 확인이 중요합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    다음 Lesson <strong>SORT와 정렬 기준</strong>에서는 Internal Table의 줄 순서를 바꾸는 방법을 배웁니다.
+  </p>
+</section>

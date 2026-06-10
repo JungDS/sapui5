@@ -1,0 +1,91 @@
+<!-- lesson-content/THEORY-12-M05.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>유지보수 화면을 자동으로 만들어주는 <span class="glossary-term" data-glossary="TMG">Table Maintenance Generator(TMG)</span>와, 그렇게 만든 화면을 사용자가 여는 트랜잭션 <span class="glossary-term" data-glossary="SM30">SM30</span>을 배웁니다. 코드 한 줄 없이 데이터 관리 화면을 얻는 흐름을 익힙니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 편집 화면을 직접 만들기는 번거롭다 🛠️</h2>
+  <p>
+    앞 Lesson에서 Maintenance View로 데이터를 편집할 수 있다고 했습니다. 그런데 그 편집 화면(입력 칸, 저장 버튼, 검증 로직…)을 일일이 손으로 만들면 시간이 많이 듭니다.
+  </p>
+  <p>
+    다행히 SAP는 테이블이나 View만 있으면 <strong>유지보수 화면을 자동 생성</strong>해 줍니다. 그 자동 생성기가 <span class="glossary-term" data-glossary="TMG">Table Maintenance Generator</span>, 줄여서 TMG입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. TMG는 "화면 자동 생성기" 🏭</h2>
+  <p>
+    TMG는 DDIC의 테이블이나 View를 바탕으로, 데이터를 추가·수정·삭제할 수 있는 <span class="glossary-term" data-glossary="MaintenanceDialog">유지보수 다이얼로그(Maintenance Dialog)</span>를 자동으로 찍어냅니다.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>설정 시 고르는 것들</h4>
+      <ul>
+        <li><strong>유지보수 화면 타입:</strong> 한 단계(One Step) 또는 두 단계(Two Step, 헤더+상세).</li>
+        <li><strong>Function Group / 화면 번호:</strong> 생성된 화면이 담길 그릇.</li>
+        <li><strong>권한 그룹:</strong> 누가 이 데이터를 고칠 수 있는지.</li>
+      </ul>
+    </div>
+  </div>
+  <p>이 몇 가지만 정하고 생성 버튼을 누르면, 입력·저장·삭제가 되는 화면이 뚝딱 만들어집니다.</p>
+</section>
+
+<section class="lesson-section">
+  <h2>3. SM30으로 열어서 사용 ✍️</h2>
+  <p>
+    이렇게 만든 유지보수 화면은 트랜잭션 <span class="glossary-term" data-glossary="SM30">SM30</span>에서 테이블/View 이름을 입력해 열 수 있습니다.
+  </p>
+  <ul>
+    <li>① <code>SM30</code> 실행 → 테이블/View 이름 입력 → <strong>Maintain</strong>.</li>
+    <li>② 표 형태로 데이터가 뜨고, 줄을 추가·수정·삭제한 뒤 저장.</li>
+    <li>③ 저장 시 Foreign Key 검증이 작동해 잘못된 값은 거부됩니다(앞 Lesson 내용).</li>
+  </ul>
+  <blockquote>
+    참고로 <code>SM31</code>은 구버전 트랜잭션이고, 보통 <code>SM30</code>을 사용합니다. 표준 설정 테이블도 대부분 이 방식으로 관리됩니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 정상 흐름과 주의 🔍</h2>
+  <ul>
+    <li>✅ <strong>정상:</strong> 코드 한 줄 없이 데이터 관리 화면을 얻고, 담당자가 SM30으로 직접 관리합니다.</li>
+    <li>❌ <strong>전송 누락:</strong> 생성된 TMG는 개발 객체이므로, 운영으로 옮기려면 Transport에 잘 담아야 합니다. 안 담으면 운영에서 화면이 안 열립니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>편하지만 "데이터 직접 수정"임을 잊지 마세요</h4>
+      <p>SM30은 검증 로직을 거치는 정식 화면이지만, 결국 테이블 데이터를 직접 바꿉니다. 권한 그룹을 제대로 걸지 않으면 아무나 설정값을 바꿀 수 있습니다. 또 변경 로그(Log changes)를 켜두면 누가 언제 무엇을 바꿨는지 추적할 수 있어, 운영 테이블이라면 권장됩니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li><strong>TMG</strong>는 테이블/View로부터 유지보수 화면을 자동 생성합니다.</li>
+        <li>생성된 화면은 <strong>SM30</strong>에서 이름을 입력해 열고 데이터를 관리합니다.</li>
+        <li>저장 시 Foreign Key 검증이 작동하고, 권한 그룹으로 접근을 제한합니다.</li>
+        <li>생성물은 Transport로 운영에 옮겨야 하고, 변경 로그를 권장합니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    이로써 Classic View 4종과 유지보수 도구를 모두 봤습니다. 마지막 Lesson <strong>Classic View와 CDS View Entity 비교 준비</strong>에서, 이 고전 방식들이 왜 현대의 CDS로 옮겨가는지 정리하며 다음 Chapter로 이어갑니다.
+  </p>
+</section>
