@@ -87,4 +87,4 @@ ABAP 커리큘럼 Lesson 본문(`docs/abap/lesson-content/<ID>.html`) 작성 시
 - **글로서리 완전 패리티**: 본문 `data-glossary` 용어는 `reference/abap_glossary.json`에 반드시 함께 등록(title/desc/everyday_analogy/used_in_lessons/design_theme). 매 섹션 후 **미정의 0건 검증** 필수.
 - **코드블록 서식**: 작성은 표준 `<pre><code>`로 하고, 네이비 ABAP Editor 멱등 포맷터(`archive/_local/format_abap_code.mjs`)를 돌려 서식을 통일한다(Shiki 하이라이팅 + Copy 버튼). 멱등이므로 재실행 안전.
 - **추적 3종 동시 갱신(섹션 커밋마다)**: ① `HANDOFF_LESSON_CONTENT.md` 진행표 ② `99_AI_SYNC.md` 현황/Work Log ③ `changelogs/CHANGELOG_<날짜>.md`. 현황만 갱신하고 Work Log를 빠뜨리지 말 것.
-- **멀티 AI 협업(중요, →[04 P11](04_PITFALLS.md))**: **한 번에 한 AI만** 커밋·푸시. 작업 시작·푸시 직전 `git pull`. `git add -A` 금지(내 파일만 명시적 add). 같은 브랜치 동시 작업 시 범위를 파일로 분리.
+- **멀티 AI 협업(중요, →[04 P11](04_PITFALLS.md))**: **한 번에 한 AI만** 커밋·푸시. 작업 시작 전 `git pull` 필수. `git add -A` 금지(내 파일만 명시적 add). **[필수] 로컬 작업 후 항상 `git commit` 및 `git push`까지 완료하여 다른 AI가 원격 저장소 기준으로 최신 상태를 볼 수 있도록 동기화해야 함.** 동시 작업 시 범위를 파일로 분리.
