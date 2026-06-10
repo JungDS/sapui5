@@ -1,0 +1,89 @@
+<!-- lesson-content/THEORY-21-M03.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>RAP의 화면용 소비층 <span class="glossary-term" data-glossary="ProjectionViewCDS">Projection View(ZC_)</span>를 설계하는 법을 배웁니다. Interface 위에 UI 주석을 입혀 Fiori 화면으로 이어지는 층을 익힙니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 기반 위에 "화면용 창" 🪟</h2>
+  <p>
+    앞에서 만든 <code>ZI_Travel</code>(데이터 기반)을 직접 화면에 노출하지 않습니다. 그 위에 <strong>화면/서비스용 투영</strong>인 <span class="glossary-term" data-glossary="ProjectionViewCDS">Projection View(ZC_)</span>를 둡니다. THEORY-20의 2계층 패턴을 RAP에서 그대로 씁니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. RAP용 ZC_ 설계 ✍️</h2>
+  <pre><code>define root view entity ZC_Travel
+  as projection on ZI_Travel
+{
+  key TravelId,
+      AgencyId,
+      CustomerId,
+      BeginDate,
+      EndDate,
+      @Semantics.amount.currencyCode: 'CurrencyCode'
+      TotalPrice,
+      CurrencyCode
+}</code></pre>
+  <ul>
+    <li><strong>as projection on:</strong> Interface View를 투영. 필요한 필드만 골라 노출.</li>
+    <li><strong>화면 관점:</strong> 사용자에게 보일 필드/이름을 여기서 결정(관리 필드 등은 숨김).</li>
+  </ul>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>ZI_는 안 바뀌고 ZC_만 화면별로</h4>
+      <p>같은 ZI_Travel을 바탕으로, 관리자용 ZC_와 고객용 ZC_를 따로 만들 수 있어요. 데이터 기반(ZI_)은 공유하고 화면 창(ZC_)만 다르게 — 재사용과 유연성을 동시에 얻습니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>3. UI 주석은 여기 또는 MDE에 🎨</h2>
+  <p>
+    화면 배치(<code>@UI.lineItem</code> 등)는 Projection View 또는 별도 <span class="glossary-term" data-glossary="MetadataExtension">MDE</span>(THEORY-20-M05)에 둡니다. 이 주석들이 Fiori Elements로 전달되어, 목록·폼 화면이 코드 거의 없이 생성됩니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <ul>
+    <li>✅ <strong>정상:</strong> ZI_(기반) → ZC_(투영) → UI 주석 → Fiori 화면 자동화.</li>
+    <li>❌ <strong>오류 1:</strong> ZC_에 무거운 JOIN·계산을 또 넣음 → 계층 책임 붕괴. 데이터 로직은 ZI_에.</li>
+    <li>❌ <strong>오류 2:</strong> ZC_와 ZI_의 루트 지정(root)이 어긋나면 Behavior 연결이 꼬임.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>Projection은 "노출 통제"의 자리</h4>
+      <p>Projection View는 "사용자에게 무엇을 보여줄지" 통제하는 곳입니다. 민감 필드(원가·내부 메모 등)를 실수로 노출하지 않도록 ZC_에서 필드를 의식적으로 골라야 합니다. ZI_에 다 있다고 ZC_에 그대로 올리지 말고, "이 화면에 정말 필요한가?"를 한 번 더 거르세요.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li>RAP의 <strong>Projection View(ZC_)</strong>는 Interface 위의 화면/서비스용 소비층입니다.</li>
+        <li><code>as projection on</code>으로 필요한 필드만 골라 노출합니다.</li>
+        <li>UI 주석(또는 MDE)이 Fiori 화면을 거의 자동 생성합니다.</li>
+        <li>민감 필드 노출 통제를 ZC_에서 신경 씁니다.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    데이터 모델(읽기) 2계층을 갖췄습니다. 이제 "쓰기(동작)"를 정의할 차례입니다. 다음 Lesson <strong>Behavior Definition 기초</strong>를 배웁니다.
+  </p>
+</section>

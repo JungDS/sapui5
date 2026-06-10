@@ -36,7 +36,7 @@
 | THEORY-18 | OO ABAP 기본 설계 | 7 | **M01~M07 작성 완료** (Claude) |
 | THEORY-19 | SALV / Grid ALV 표시 제어 심화 | 7 | **M01~M07 작성 완료** (Claude) |
 | THEORY-20 | CDS View Entity 기초 | 6 | **M01~M06 작성 완료** (Claude) |
-| THEORY-21 | RAP / ABAP Cloud 입문 | 8 | ⬜ |
+| THEORY-21 | RAP / ABAP Cloud 입문 | 8 | **M01~M08 작성 완료** (Claude) — 🎉 **Track 1 완성(137/137)** |
 
 > Track 2(PRACTICAL-*, 13개 섹션)는 Track 1을 마친 뒤 진행. 정확한 ID/이름은 JSON에서 추출(아래 §6 스크립트).
 

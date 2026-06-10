@@ -15,7 +15,7 @@
 ---
 
 ## 현재 상태 및 목표 (Current Status & Goals)
-- **현재 목표**: Track 1(THEORY-*) Lesson 본문 작성. 총 137개 중 **129개(THEORY-01~THEORY-20) 작성 완료. 8개 남음(THEORY-21)**.
+- **현재 목표**: 🎉 **Track 1(THEORY-*) 137/137 작성 완료!** (THEORY-01~21 전부). 다음 목표는 **Track 2(PRACTICAL-* 13개 섹션)** 신규 작성.
 - **최근 진행(2026-06-09, Claude Opus 4.8)**: Codex 미커밋 THEORY-10 보존 후 **THEORY-11~17 신규 작성**(JOIN과 집계 / Classic DDIC View / Report Event 심화 / Dynpro 기초 / Grid ALV 기초 / Modern ABAP Syntax / New Open SQL). Codex 톤·구조 계승. 글로서리 +111종(섹션별 완전 패리티), 매 섹션 미정의 0건 검증. 추적 3종 동시 갱신.
 - **⚠️ 동시 작업 주의**: Gemini(Antigravity)가 같은 작업트리에서 THEORY-01~10 고도화(Chapter/Lesson 명칭·Shiki 복사버튼) 병행 중. 콘텐츠 범위는 안 겹치나(나는 11~21) 공유 문서/`git add -A`로 인한 커밋 혼입 주의. 신규 Lesson도 Chapter/Lesson 용어 사용.
 - **⚠️ 인계 핵심 문서**: 이어서 작업할 AI는 **[HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md)를 가장 먼저 정독**할 것. 작성 규칙·스타일 기준·복붙용 프롬프트가 모두 거기 있음.
@@ -23,7 +23,7 @@
 ---
 
 ## 미결 사항 (Pending Issues / Next Steps)
-- **Lesson 본문 양산**: 다음은 **THEORY-21 (8개) — Track 1 마지막 섹션**. 현재 확정된 10·20대 초심자 친화적 스타일과 "한눈에 정리" 마무리 방식을 그대로 적용한다. Track 2(PRACTICAL-*)는 그 다음.
+- **Lesson 본문 양산**: Track 1 완료. 다음은 **Track 2(PRACTICAL-* 13개 섹션, 약 70개 Lesson)** 신규 작성. 같은 스타일(초심자·한눈에 정리·글로서리 패리티·추적 3종 동시 갱신·Chapter/Lesson 용어)을 그대로 적용한다. JSON의 `d.tracks[1]`에서 PRACTICAL 섹션/Lesson ID 추출.
 - **[조율] 신규 19~21 코드블록 서식**: Claude가 작성한 THEORY-19~21은 표준 `<pre><code>`로 작성됨. 완성 후 Antigravity의 네이비 ABAP Editor 멱등 포맷터(`archive/_local/format_abap_code.mjs`)를 한 번 돌려 서식 통일 필요.
 - **[프로세스] 섹션 작성 후 추적 3종 동시 갱신**: 섹션 커밋 시 ① `HANDOFF_LESSON_CONTENT.md` 진행표 ② 본 파일(99_AI_SYNC) 작업이력/현황 ③ `changelogs/CHANGELOG_<날짜>.md`를 함께 갱신할 것(누락 주의).
 - **글로서리 완전 패리티**: Lesson에서 쓰는 주요 용어는 `reference/abap_glossary.json`에 반드시 함께 등록(일상 비유 포함). 미등록 용어는 툴팁이 안 뜸(깨진 링크).
@@ -214,3 +214,11 @@
   - ⚠️ 코드블록 표준 `<pre><code>` → 네이비 Editor 포맷터 1회 적용 필요.
 - **수정 파일**: `docs/abap/lesson-content/THEORY-20-M01~M06.html`, `reference/abap_glossary.json`, `HANDOFF_LESSON_CONTENT.md`, `99_AI_SYNC.md`, `changelogs/CHANGELOG_20260609.md`
 - **다음 AI를 위한 메모**: 다음 섹션은 THEORY-21 `RAP / ABAP Cloud 입문`(M01~M08) — **Track 1 마지막 섹션**.
+
+### [2026-06-10] Claude (Opus 4.8) — THEORY-21 신규 🎉 Track 1 완성
+- **작업 내용**: THEORY-21 RAP / ABAP Cloud 입문(M01~M08) 신규 작성 → **Track 1(THEORY-01~21) 137개 전부 완성**.
+  - RAP 아키텍처 개요, Interface(ZI_)/Projection(ZC_) RAP 설계, Behavior Definition(managed)/Implementation(Behavior Pool), Service Definition/Binding, Validation/Determination/Action, ABAP Cloud·Released API·Clean Core. M08에서 Track 1 전체를 정리·축하.
+  - 글로서리 +16종(총 348). **전체 137개 Lesson 미정의 0건 최종 검증 완료.**
+  - ⚠️ THEORY-19~21 코드블록은 표준 `<pre><code>` → 네이비 Editor 포맷터 1회 적용 필요(THEORY-01~18은 적용됨).
+- **수정 파일**: `docs/abap/lesson-content/THEORY-21-M01~M08.html`, `reference/abap_glossary.json`, `HANDOFF_LESSON_CONTENT.md`, `99_AI_SYNC.md`, `changelogs/CHANGELOG_20260609.md`
+- **다음 AI를 위한 메모**: ① (서식) THEORY-19~21에 Antigravity 네이비 Editor 멱등 포맷터 1회 적용. ② (콘텐츠) **Track 2(PRACTICAL-* 13개 섹션 ~70 Lesson)** 신규 작성 시작. JSON `d.tracks[1]`에서 섹션/ID 추출, 동일 규칙 적용.

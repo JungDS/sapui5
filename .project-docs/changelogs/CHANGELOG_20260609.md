@@ -166,6 +166,7 @@
 - `THEORY-18`(OO ABAP 기본 설계, M01~M07): 클래스/객체, 속성·메서드·Visibility(캡슐화), 생성자, Static/Instance Method, 인터페이스/다형성, 예외 클래스(TRY...CATCH/RAISE), 상속/재정의.
 - `THEORY-19`(SALV / Grid ALV 표시 제어 심화, M01~M07, **2026-06-10**): SALV Sort/Filter/Functions, Layout/Variant, Grid Column 제어(no_out/key/edit/Edit Mask), Deep Structure 기반 Cell Color(LVC_T_SCOL/ctab_fname)·Cell Style(LVC_T_STYL/stylefname), Row/Column/Cell 색상 선택 기준, Stable Refresh. 글로서리 +15(총 319). 코드블록은 표준 pre/code(추후 네이비 Editor 포맷터 적용 예정).
 - `THEORY-20`(CDS View Entity 기초, M01~M06, **2026-06-10**): View Entity 기본 구조(DDL), Interface(ZI_)/Projection(ZC_) 2계층, Association, Annotation(@Semantics/@UI/@EndUserText), Metadata Extension, DCL/Access Control. 글로서리 +13(총 332). 코드블록 표준 pre/code(추후 포맷터 적용).
+- `THEORY-21`(RAP / ABAP Cloud 입문, M01~M08, **2026-06-10**) 🎉 **Track 1 완성(137/137)**: RAP 4단 구조, ZI_/ZC_ RAP 설계, Behavior Definition(managed)/Implementation(Behavior Pool), Service Definition/Binding, Validation/Determination/Action, ABAP Cloud·Released API·Clean Core. 글로서리 +16(총 348). **전체 137개 미정의 0건 최종 검증.** 다음은 Track 2(PRACTICAL-*).
 - 글로서리 용어를 섹션별로 완전 패리티로 추가(THEORY-11 18종, 12 13종, 13 15종, 14 14종, 총 +60). 매 섹션 미정의 0건 검증.
 - 기존 Codex 톤(지난 Lesson 연결 → 왜 필요한가 → 무엇인가 → 최소 예제 → 정상/오류 → 실무 주의 → 한눈에 정리)을 그대로 이어 일관성 유지.
 

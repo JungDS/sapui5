@@ -3379,5 +3379,168 @@
     ],
     "design_theme": "warn",
     "html_content": "<p>운영 데이터는 #CHECK로 검사를 기본 켜고 신중히 설계합니다.</p>"
+  },
+  "RAP": {
+    "title": "RAP (RESTful Application Programming Model)",
+    "desc": "CDS 데이터 모델 위에 동작·서비스·화면을 표준 방식으로 얹어 Fiori 업무 앱을 만드는 현대 SAP 개발 모델입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 조립식 주택 키트 같아요. 기초(CDS)·배관(Behavior)·전기(Service)·인테리어(Fiori)를 규격대로 끼우면 앱이 완성됩니다.",
+    "used_in_lessons": [
+      "THEORY-21-M01"
+    ],
+    "design_theme": "primary",
+    "html_content": "<p>4단 구조: CDS → Behavior → Service → Fiori.</p>"
+  },
+  "BehaviorDefinition": {
+    "title": "Behavior Definition (BDEF)",
+    "desc": "CDS 모델에 생성·수정·삭제 등 '무엇을 할 수 있는가'를 정의하는 RAP 객체입니다. 이를 붙이면 모델이 트랜잭션 가능한 Business Object가 됩니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 상품에 '환불 가능, 교환 가능' 같은 가능 동작 목록을 붙이는 것과 같아요.",
+    "used_in_lessons": [
+      "THEORY-21-M01",
+      "THEORY-21-M04"
+    ],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "ServiceDefinition": {
+    "title": "Service Definition",
+    "desc": "RAP에서 어떤 뷰(Projection)를 외부에 노출할지 정의하는 객체입니다. expose로 노출 목록을 정합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 가게에서 '무슨 상품을 팔지' 정하는 메뉴판 같은 거예요.",
+    "used_in_lessons": [
+      "THEORY-21-M01",
+      "THEORY-21-M06"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "RapBusinessObject": {
+    "title": "Business Object (BO)",
+    "desc": "CDS 데이터 모델 + Behavior로 이루어진, 트랜잭션 가능한 RAP의 핵심 단위입니다. 한 업무 객체(여행·주문 등)를 통째로 표현합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: '주문'이라는 업무 한 건을 데이터+동작까지 묶은 완성품이에요.",
+    "used_in_lessons": [
+      "THEORY-21-M02",
+      "THEORY-21-M04"
+    ],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "RootViewEntity": {
+    "title": "root view entity",
+    "desc": "RAP Business Object의 최상위(루트) CDS 뷰임을 표시하는 키워드입니다. 트랜잭션의 기준이 됩니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 건물의 '대표 출입구'를 지정하는 것과 같아요. 여기가 그 업무의 중심입니다.",
+    "used_in_lessons": [
+      "THEORY-21-M02"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "RapComposition": {
+    "title": "Composition",
+    "desc": "RAP에서 부모-자식 구조(여행 1건에 예약 여러 건)를 표현하는 강한 관계입니다. 자식의 생사가 부모에 묶입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 주문서(부모)와 그 주문의 품목들(자식) 관계예요. 주문이 사라지면 품목도 함께 사라지죠.",
+    "used_in_lessons": [
+      "THEORY-21-M02"
+    ],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "ManagedImplementation": {
+    "title": "managed",
+    "desc": "RAP에서 생성·수정·삭제·저장의 표준 로직을 프레임워크가 자동 처리하는 구현 방식입니다. 신규 개발에 가장 쉽습니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 자동 운전 모드예요. 기본 주행(표준 저장)은 차가 알아서 하고, 운전자는 특수 상황만 챙기면 됩니다.",
+    "used_in_lessons": [
+      "THEORY-21-M04"
+    ],
+    "design_theme": "code",
+    "html_content": "<p>기존 저장 로직에 연결할 땐 unmanaged를 씁니다.</p>"
+  },
+  "BehaviorImplementation": {
+    "title": "Behavior Implementation (BIL)",
+    "desc": "BDEF에서 선언한 동작의 실제 로직(검증·계산·액션)을 담는 구현입니다. Behavior Pool 클래스에 작성합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 가능 동작 목록(BDEF)에 적힌 '환불'을 실제로 처리하는 직원 매뉴얼이에요.",
+    "used_in_lessons": [
+      "THEORY-21-M05"
+    ],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "BehaviorPool": {
+    "title": "Behavior Pool",
+    "desc": "Behavior Implementation을 담는 ABAP 클래스입니다. 여기에 Validation/Determination/Action 메서드를 OO ABAP으로 구현합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 동작을 실제로 처리하는 직원들이 모인 사무실이에요.",
+    "used_in_lessons": [
+      "THEORY-21-M05"
+    ],
+    "design_theme": "code",
+    "html_content": "<p>안에서는 직접 SELECT가 아니라 READ/MODIFY ENTITIES를 씁니다.</p>"
+  },
+  "ServiceBinding": {
+    "title": "Service Binding",
+    "desc": "Service Definition을 어떤 프로토콜(OData V4 UI / V2 / Web API)로 외부에 열지 정하고 활성화(Publish)하는 객체입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 가게를 '어느 출입문(배달앱/매장)으로 손님을 받을지' 정하고 개점하는 거예요.",
+    "used_in_lessons": [
+      "THEORY-21-M06"
+    ],
+    "design_theme": "code",
+    "html_content": "<p>Publish해야 OData 서비스가 가동되고 Fiori 미리보기가 됩니다.</p>"
+  },
+  "RapValidation": {
+    "title": "Validation (RAP)",
+    "desc": "저장 전에 데이터가 규칙에 맞는지 확인하고, 틀리면 저장을 막는 RAP 동작입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 공항 보안검색 같아요. 통과해야(검증) 탑승(저장)할 수 있죠.",
+    "used_in_lessons": [
+      "THEORY-21-M07"
+    ],
+    "design_theme": "warn",
+    "html_content": "<p>검증은 '막기'만, 값 변경은 Determination이 담당합니다.</p>"
+  },
+  "RapDetermination": {
+    "title": "Determination (RAP)",
+    "desc": "특정 시점(생성·수정 등)에 값을 자동으로 채우거나 계산하는 RAP 동작입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 주문 시 '주문번호·일시'가 자동으로 찍히는 것과 같아요.",
+    "used_in_lessons": [
+      "THEORY-21-M07"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "RapAction": {
+    "title": "Action (RAP)",
+    "desc": "표준 CRUD 외의 사용자 동작(승인·취소 등)을 정의하는 RAP 동작입니다. 화면 버튼으로 노출됩니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 쇼핑몰의 '주문 취소', '리뷰 작성' 같은 추가 버튼이에요.",
+    "used_in_lessons": [
+      "THEORY-21-M07"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "ABAPCloud": {
+    "title": "ABAP Cloud",
+    "desc": "Released API만 사용, Clean Core 확장, CDS/RAP/OO 중심의 현대 ABAP 개발 환경·원칙입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 정해진 콘센트(공개 API)에만 연결하는 잘 정돈된 신축 건물 같아요. 미래 업그레이드에 안전합니다.",
+    "used_in_lessons": [
+      "THEORY-21-M08"
+    ],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "ReleasedAPI": {
+    "title": "Released API (공개 API)",
+    "desc": "SAP가 안정성을 보증해 공식 공개한 객체입니다. 릴리즈되지 않은 내부 객체는 예고 없이 바뀔 수 있어 사용하면 업그레이드 때 깨집니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 제조사가 보증한 '정품 부품'이에요. 비공식 부품은 다음 모델에서 안 맞을 수 있죠.",
+    "used_in_lessons": [
+      "THEORY-21-M08"
+    ],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "CleanCore": {
+    "title": "Clean Core",
+    "desc": "SAP 표준을 직접 수정하지 않고 공개된 확장 지점(Released API)으로만 개발하는 원칙입니다. 업그레이드를 쉽게 유지합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 남의 집 벽을 뚫지 않고 정해진 콘센트에만 연결하는 거예요. 집주인이 리모델링(업그레이드)해도 내 가전이 안 망가집니다.",
+    "used_in_lessons": [
+      "THEORY-21-M08"
+    ],
+    "design_theme": "warn",
+    "html_content": ""
   }
 }

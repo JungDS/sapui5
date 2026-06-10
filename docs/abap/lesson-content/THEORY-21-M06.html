@@ -1,0 +1,89 @@
+<!-- lesson-content/THEORY-21-M06.html -->
+
+<div class="lesson-callout tip">
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p>완성한 Business Object를 외부(Fiori 등)에 노출하는 <span class="glossary-term" data-glossary="ServiceDefinition">Service Definition</span>과 <span class="glossary-term" data-glossary="ServiceBinding">Service Binding</span>을 배웁니다. CDS·동작이 OData 서비스가 되어 화면과 연결되는 마지막 다리를 익힙니다.</p>
+  </div>
+</div>
+
+<section class="lesson-section">
+  <h2>1. 지난 시간 연결: 다 만들었으니 "내보내자" 📡</h2>
+  <p>
+    데이터 모델(ZI_/ZC_)·동작(BDEF/BIL)을 만들었습니다. 그런데 Fiori 화면이나 외부 시스템이 이걸 쓰려면, <strong>서비스로 노출</strong>해야 합니다. 그 노출 과정이 Service Definition + Service Binding입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>2. Service Definition: 무엇을 노출할지 ✍️</h2>
+  <pre><code>define service ZUI_Travel {
+  expose ZC_Travel as Travel;
+  // 필요하면 관련 뷰도 함께 노출
+  expose ZC_Agency as Agency;
+}</code></pre>
+  <ul>
+    <li><strong><span class="glossary-term" data-glossary="ServiceDefinition">define service</span>:</strong> "이 서비스로 어떤 뷰들을 내보낼지" 목록.</li>
+    <li><strong>expose ... as ...:</strong> 노출할 Projection View와 외부에서 부를 이름.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>3. Service Binding: 어떤 프로토콜로 🔌</h2>
+  <p>
+    <span class="glossary-term" data-glossary="ServiceBinding">Service Binding</span>은 그 서비스를 <strong>어떤 방식(프로토콜)</strong>으로 외부에 열지 정합니다.
+  </p>
+  <ul>
+    <li><strong>OData V4 - UI:</strong> Fiori Elements 화면용(가장 흔함).</li>
+    <li><strong>OData V2 - UI:</strong> 구버전 UI5 호환용.</li>
+    <li><strong>OData V4 - Web API:</strong> 시스템 간 연동용(화면 없는 API).</li>
+  </ul>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>비유: 가게 오픈과 간판</h4>
+      <p>Service Definition이 "무슨 상품을 팔지(메뉴)" 정하는 것이라면, Service Binding은 "어느 출입문으로 손님을 받을지(배달앱? 매장?)" 정하는 거예요. Binding을 활성화(Publish)하면 비로소 손님(Fiori)이 들어올 수 있습니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 활성화하면 화면 미리보기까지 🔍</h2>
+  <p>
+    Service Binding을 활성화(Publish)하면, ADT에서 바로 <strong>Fiori Elements 미리보기</strong>로 목록·상세 화면을 코드 없이 확인할 수 있습니다. CDS의 <code>@UI</code> 주석이 화면으로 그대로 그려지는 것을 눈으로 보게 됩니다.
+  </p>
+  <ul>
+    <li>✅ <strong>정상:</strong> Definition(메뉴) + Binding(출입문) 활성화 → OData 서비스 가동 + 화면 미리보기.</li>
+    <li>❌ <strong>오류:</strong> Binding을 활성화(Publish)하지 않음 → 서비스가 안 열려 화면이 데이터를 못 가져옴.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>노출 = 외부 공개, 신중히</h4>
+      <p>서비스로 노출하는 순간 그 데이터·동작이 외부에 열립니다. 어떤 Projection을 노출하는지(민감 필드 포함 여부), 어떤 권한이 걸려 있는지(BDEF authorization, CDS DCL)를 함께 점검하세요. 또 한 번 외부에 공개한 서비스의 구조를 함부로 바꾸면, 그걸 쓰는 화면·연동이 깨질 수 있으니 변경 관리가 중요합니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 한눈에 정리 🏁</h2>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-content">
+      <h4>오늘의 핵심만 딱 잡기</h4>
+      <ul>
+        <li><strong>Service Definition</strong>은 "무엇을(어떤 뷰를) 노출할지" 정합니다.</li>
+        <li><strong>Service Binding</strong>은 "어떤 프로토콜(OData V4 UI 등)로" 열지 정하고 Publish합니다.</li>
+        <li>활성화하면 OData 서비스가 가동되고 Fiori 미리보기가 됩니다.</li>
+        <li>노출은 외부 공개이므로 필드·권한·변경 관리를 신중히.</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    이제 앱의 뼈대가 완성됐습니다. 다음 Lesson <strong>Validation / Determination / Action 개요</strong>에서 업무 규칙을 더하는 RAP의 핵심 도구들을 봅니다.
+  </p>
+</section>
