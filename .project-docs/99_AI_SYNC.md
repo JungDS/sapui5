@@ -1,6 +1,6 @@
 # AI Workspace Synchronization Log (AI-SYNC)
 
-> 📅 **최종수정: 2026-06-10 18:57 KST**
+> 📅 **최종수정: 2026-06-11 KST**
 
 ## 목적 및 규칙 (Purpose & Rules)
 본 파일(`.project-docs/99_AI_SYNC.md`)은 여러 AI 모델(Codex, Antigravity, Claude 등)이 컨텍스트를 공유하고 작업을 이어가기 위한 공통 데이터베이스 역할을 합니다.
@@ -17,14 +17,14 @@
 
 ## 현재 상태 및 목표 (Current Status & Goals)
 - **현재 목표**: 🎉 **Track 1(THEORY-*) 137/137 작성 완료!** (THEORY-01~21 전부). 사용자의 새 목표에 따라 Track 1을 "고품질 교육용 웹페이지" 기준으로 재감사·보강하는 라운드를 준비 중. 기준 문서: [TRACK1_QUALITY_PLAN.md](TRACK1_QUALITY_PLAN.md). 병행 다음 목표는 **Track 2(PRACTICAL-* 13개 섹션)** 신규 작성.
-- **최근 진행(2026-06-10, Codex)**: `Chapter 1~2의 Lesson 1~6`을 Track 1 고품질화 기준으로 보강해 실습 과제, 완료 조건, 확인 퀴즈, 정답/해설, SAP 공식 링크를 추가. Lesson Viewer 렌더링 확인 완료.
+- **최근 진행(2026-06-11, Codex)**: `Chapter 1~3`을 Track 1 고품질화 기준으로 보강해 실습 과제, 완료 조건, 확인 퀴즈, 정답/해설, SAP 공식 링크를 추가. Chapter 3은 정적 검증 및 Lesson Viewer 렌더링 검증 완료. 파일럿 리뷰 결과는 [TRACK1_QUALITY_PLAN.md](TRACK1_QUALITY_PLAN.md)의 `Chapter 1~3 파일럿 리뷰 결과`에 반영.
 - **⚠️ 동시 작업 주의**: AI 작업 간 겹침 방지를 위해 섹션 단위 작업을 엄수.
 - **⚠️ 인계 핵심 문서**: 이어서 작업할 AI는 **[HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md)를 가장 먼저 정독**할 것. 작성 규칙·스타일 기준·복붙용 프롬프트가 모두 거기 있음.
 
 ---
 
 ## 미결 사항 (Pending Issues / Next Steps)
-- **Track 1 고품질화**: `Chapter 1~2의 Lesson 1~6` 기준 패턴 적용 완료. 나머지 Lesson은 설명·글로서리·실무 주의·요약 기반은 갖췄지만, 전 Lesson 공통의 퀴즈/정답/해설, 공식 링크, 실습 완료 조건은 아직 부족하다. 다음 우선순위는 Chapter 3 보강이다.
+- **Track 1 고품질화**: `Chapter 1~3` 기준 패턴 적용 완료. 나머지 Lesson은 설명·글로서리·실무 주의·요약 기반은 갖췄지만, 전 Lesson 공통의 퀴즈/정답/해설, 공식 링크, 실습 완료 조건은 아직 부족하다. 현재 턴은 사용자가 지정한 파일럿 범위인 `Chapter 1~3`과 계획 보완에서 멈췄다. 후속 후보는 최신성 위험이 큰 Chapter 20~21이지만, 다음 범위는 사용자 확인 후 진행한다.
 - **Lesson 본문 양산**: Track 1 완료. 다음은 **Track 2(PRACTICAL-* 13개 섹션, 약 70개 Lesson)** 신규 작성. 같은 스타일(초심자·한눈에 정리·글로서리 패리티·추적 3종 동시 갱신·Chapter/Lesson 용어)을 그대로 적용한다. JSON의 `d.tracks[1]`에서 PRACTICAL 섹션/Lesson ID 추출.
 - **[완료] 신규 19~21 코드블록 서식 및 CSS 아키텍처 리팩토링**: Antigravity가 네이비 ABAP Editor 포맷터 개선을 통해 에디터 외곽 인라인 스타일을 CSS 클래스로 분리했고, Codex가 코드 하이라이트 토큰까지 `abap-token-*` 클래스로 공통화함.
 - **[프로세스] 섹션 작성 후 추적 3종 동시 갱신**: 섹션 커밋 시 ① `HANDOFF_LESSON_CONTENT.md` 진행표 ② 본 파일(99_AI_SYNC) 작업이력/현황 ③ `changelogs/CHANGELOG_<날짜>.md`를 함께 갱신할 것(누락 주의).
@@ -39,6 +39,19 @@
 ---
 
 ## 작업 이력 (Work Log)
+
+### [2026-06-11] Codex (GPT-5) — Chapter 3의 Lesson 1~4 고품질화 패턴 확산
+- **작업 내용**:
+  - `Chapter 3의 Lesson 1~4`에 미니 실습, 완료 조건, SAP 공식 문서 링크, 확인 퀴즈, 정답/해설을 추가.
+  - 기존 PARAMETERS/Selection Screen 설명과 코드 예제는 유지하고, 학습 완결 요소만 끝부분에 좁게 보강.
+  - SAP Help Portal ABAP Keyword Documentation의 `PARAMETERS`, `SELECTION-SCREEN`, Output Statement 링크와 기존 SAP Learning 링크를 Lesson별 3개씩 연결.
+  - NotebookLM 노트 `ABAP Evolution and Messaging Channels Training Guide` 확인 결과, `SELECT-OPTIONS`, `AT SELECTION-SCREEN`, Variant는 Chapter 3의 PARAMETERS 기초 범위 밖 후속 주제로 분리하는 것이 적절하다고 판단.
+  - `TRACK1_QUALITY_PLAN.md`, `HANDOFF_LESSON_CONTENT.md`, 개발 일지/체인지로그를 Chapter 3 완료 및 Chapter 1~3 파일럿 리뷰 상태로 갱신.
+- **검증 메모**:
+  - Track 1 전체 `data-glossary` 미정의 0건, lesson-content 인라인 스타일 0건, `<script>`/`<style>`/인라인 이벤트 0건 확인.
+  - Chapter 3의 4개 Lesson 모두 완료 조건/퀴즈/공식 링크 3개/사용자 화면 내부 ID 미노출 조건 확인.
+  - Lesson Viewer에서 Chapter 3의 Lesson 1~4 렌더링을 확인.
+  - `node tools/format-abap-code.mjs`는 전체 파일 대상 실행 중 `THEORY-19-M01.html` 쓰기 권한 오류로 중단됐다. 이번 변경은 코드 블록을 추가하지 않았고 변경 파일 4개에는 plain `<pre><code>`가 없어 별도 서식 변경은 필요 없었다.
 
 ### [2026-06-10] Codex (GPT-5) — Chapter 2의 Lesson 1~6 고품질화 패턴 확산
 - **작업 내용**:

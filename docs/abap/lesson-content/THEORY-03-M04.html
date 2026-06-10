@@ -147,7 +147,53 @@
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 조건 입력을 블록으로 정리하기 🧪</h2>
+  <p>
+    이번 실습은 입력 필드가 늘어났을 때 Selection Screen을 읽기 좋게 묶는 연습입니다. 기능보다 화면 구조가 목적이므로, 복잡한 검증 로직은 넣지 않고 블록과 제목에 집중합니다.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li><code>SELECTION-SCREEN BEGIN OF BLOCK b1 WITH FRAME TITLE text-001.</code>로 기본 조건 블록을 만듭니다.</li>
+        <li>블록 안에 <code>p_carr</code>, <code>p_conn</code>, <code>p_date</code> 입력 필드를 배치합니다.</li>
+        <li><code>text-001</code>에 “조회 조건”처럼 사용자가 이해할 수 있는 제목을 지정합니다.</li>
+        <li>블록 없이 나열한 화면과 블록으로 묶은 화면 중 어느 쪽이 읽기 쉬운지 비교합니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> <span class="glossary-term" data-glossary="SelectionScreenBlock">Selection Screen Block</span>이 기능 검증 도구가 아니라 입력 화면을 묶어 읽기 쉽게 만드는 구조라는 점을 설명할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN.html" target="_blank" rel="noopener">SAP Help Portal: SELECTION-SCREEN</a> - <code>BEGIN OF BLOCK</code>, <code>FRAME</code>, <code>TITLE</code> 계열 문법의 공식 진입점입니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS.html" target="_blank" rel="noopener">SAP Help Portal: PARAMETERS</a> - 블록 안에 배치되는 단일 입력 필드의 기준 문법을 다시 확인합니다.</li>
+    <li><a href="https://learning.sap.com/courses/basic-abap-programming/developing-your-first-abap-program_ed4f33ed-ee5d-416c-bd91-a497e762f2cb" target="_blank" rel="noopener">SAP Learning: 첫 ABAP 애플리케이션 개발</a> - 기본 Report 실행과 출력 흐름을 함께 복습합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li><code>SELECTION-SCREEN BEGIN OF BLOCK</code>의 주된 목적은 무엇인가요?</li>
+    <li><code>FRAME TITLE</code>을 쓸 때 제목을 내부 변수명처럼 짓지 않는 것이 좋은 이유는 무엇인가요?</li>
+    <li>이번 Lesson에서 <code>SELECT-OPTIONS</code>와 <code>AT SELECTION-SCREEN</code>을 깊게 다루지 않는 이유는 무엇인가요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>Selection Screen의 입력 필드를 의미 있는 단위로 묶어 화면을 읽기 쉽게 만드는 것</strong>이 핵심 목적입니다.</li>
+      <li><strong>화면 제목은 사용자가 읽는 문구</strong>이기 때문입니다. “b1” 같은 내부 이름보다 “조회 조건”처럼 업무 의미가 드러나는 문구가 좋습니다.</li>
+      <li><strong>이번 Lesson은 화면 구조의 첫 맛보기 단계</strong>입니다. 범위 입력과 입력 이벤트 검증은 후속 Chapter에서 더 정확한 맥락으로 다룹니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

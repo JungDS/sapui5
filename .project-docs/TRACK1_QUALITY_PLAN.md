@@ -1,6 +1,6 @@
 # Track 1 Lesson 고품질화 계획
 
-> 📅 **최종수정: 2026-06-10 18:57 KST**
+> 📅 **최종수정: 2026-06-11 KST**
 
 이 문서는 Track 1(`THEORY-*`) 137개 Lesson을 "작성 완료" 상태에서 "고품질 교육용 웹페이지" 상태로 끌어올리기 위한 성공 기준과 실행 계획이다.
 기존 본문 양산 규칙은 [HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md)를 따르고, 본 문서는 그 다음 라운드의 품질 기준을 정의한다.
@@ -24,9 +24,9 @@
 | `data-glossary` 용어 태깅 | 137/137 | 용어 팝업 기반은 전 Lesson에 존재한다. |
 | `lesson-callout warn` | 137/137 | 실무 주의 콜아웃은 전 Lesson에 존재한다. |
 | 코드 블록 | 114/137 | 개념형 Lesson 23개는 코드 예시 또는 화면/설계 예시 보강 여부를 재판단해야 한다. |
-| 퀴즈/문제/정답/해설 관련 텍스트 | 약 39/137 | `Chapter 1~2의 Lesson 1~6`에 기준 패턴을 적용했으며, 나머지 Lesson으로 확산 필요. |
-| 실습/연습 관련 텍스트 | 약 57/137 | `Chapter 1~2의 Lesson 1~6`에 완료 조건 포함 실습을 추가했으며, 나머지 Lesson은 표준화 필요. |
-| 공식 링크 또는 외부 링크 `<a>` | 12/137 | `Chapter 1~2의 Lesson 1~6`에 SAP 공식 링크를 추가했으며, 나머지 Lesson으로 확산 필요. |
+| 퀴즈/문제/정답/해설 관련 텍스트 | 약 43/137 | `Chapter 1~3`에 기준 패턴을 적용했으며, 나머지 Lesson으로 확산 필요. |
+| 실습/연습 관련 텍스트 | 약 61/137 | `Chapter 1~3`에 완료 조건 포함 실습을 추가했으며, 나머지 Lesson은 표준화 필요. |
+| 공식 링크 또는 외부 링크 `<a>` | 16/137 | `Chapter 1~3`에 SAP 공식 링크를 추가했으며, 나머지 Lesson으로 확산 필요. |
 
 따라서 다음 라운드는 단순 분량 증가가 아니라, **Lesson별 학습 완결성**을 만드는 작업이다.
 
@@ -84,19 +84,30 @@ NotebookLM 질의 결과, 노트북은 대체로 다음 범위에 강하다.
 2. 해당 Chapter의 현재 Lesson 파일, JSON 지침, NotebookLM 관련 자료, 공식 링크 후보를 수집한다.
 3. 각 Lesson에 실습, 퀴즈/정답/해설, 공식 링크, 보충 설명이 필요한 지점을 표시한다.
 4. Lesson 본문을 보강하고, 필요한 글로서리 항목을 함께 갱신한다.
-5. `node tools/format-abap-code.mjs`를 실행해 코드 블록 서식을 통일한다.
+5. 코드 블록을 새로 만들거나 표준 `<pre><code>`가 남은 경우 `node tools/format-abap-code.mjs`를 실행해 코드 블록 서식을 통일한다. 단, 포맷터가 범위 밖 파일을 수정하거나 기존 후반 Lesson 권한 문제로 중단되면, 대상 Chapter 변경만 남기고 범위 밖 변경은 즉시 되돌린 뒤 검증 메모에 사유를 기록한다.
 6. 글로서리 미정의 0건, 인라인 스타일 0건, 내부 ID 노출 여부, 대표 Lesson 렌더링을 확인한다.
 7. `HANDOFF_LESSON_CONTENT.md`, `99_AI_SYNC.md`, `changelogs/CHANGELOG_<날짜>.md`를 함께 갱신한다.
 8. 최소 Chapter별 1개 커밋을 만들고 push한다. 변경량이 크면 Lesson 단위로 세분화한다.
 
 ## 6. 우선순위
 
-1. **Chapter 1~3**: 최신 기준과 가장 차이가 큰 초반 Lesson을 먼저 정비한다. `Chapter 1~2의 Lesson 1~6`은 요약, 실습, 퀴즈, 정답/해설, 공식 링크 기준 패턴 적용 완료.
-2. **Chapter 20~21**: CDS/RAP/ABAP Cloud는 최신성 위험이 높으므로 SAP 공식 링크와 버전 주의 문구를 우선 보강한다.
+1. **Chapter 1~3**: 최신 기준과 가장 차이가 큰 초반 Lesson을 먼저 정비한다. `Chapter 1~3`은 요약, 실습, 퀴즈, 정답/해설, 공식 링크 기준 패턴 적용 완료.
+2. **Chapter 20~21**: CDS/RAP/ABAP Cloud는 최신성 위험이 높으므로 후속 후보로 SAP 공식 링크와 버전 주의 문구를 우선 보강한다. 단, 사용자가 승인한 다음 범위가 확정되기 전에는 Chapter 1~3 파일럿 리뷰에서 멈춘다.
 3. **Chapter 11~19**: SQL, Dynpro, ALV, OO ABAP는 실습과 오개념 퀴즈를 강화한다.
 4. **Chapter 4~10**: DDIC, 모듈화, Internal Table, SALV, Selection Screen은 초심자 실습과 화면 흐름을 보강한다.
 
-## 7. 추가 주의사항
+## 7. Chapter 1~3 파일럿 리뷰 결과
+
+2026-06-11 기준으로 사용자가 지정한 우선 범위인 `Chapter 1~3`만 먼저 보강하고 검토했다.
+
+- **유효했던 패턴**: 기존 Lesson 본문을 무리하게 다시 쓰지 않고, 끝부분에 미니 실습, 완료 조건, 공식 링크, 확인 퀴즈, 정답/해설을 덧붙이는 방식이 안정적이었다. 이미 설명 흐름이 충분한 Lesson에는 전면 재작성보다 학습 완결 요소 보강이 적합하다.
+- **사전 감사 필수**: 다음 Chapter부터는 먼저 Lesson별 부족 요소를 표로 확인한다. 설명 자체가 부족한 Lesson만 본문을 확장하고, 이미 충분한 Lesson은 실습/퀴즈/링크/해설 중심으로 보강한다.
+- **공식 링크 원칙**: 문법 중심 Lesson은 SAP Help Portal ABAP Keyword Documentation을 우선하고, 초심자 학습 흐름에는 SAP Learning 링크를 함께 붙인다. 링크 텍스트에도 내부 ID를 노출하지 않는다.
+- **Chapter 3 범위 경계**: NotebookLM 확인 결과 `SELECT-OPTIONS`, `AT SELECTION-SCREEN`, Variant는 `PARAMETERS` 기초와 난도가 다르므로 Chapter 3에 과도하게 넣지 않고 후속 Chapter 또는 보충 페이지로 분리한다.
+- **포맷터 운영 규칙**: 포맷터는 전역 파일을 대상으로 동작할 수 있으므로 실행 후 `git diff --name-only`로 범위 밖 변경을 확인한다. 이번 파일럿처럼 코드 블록을 새로 만들지 않았고 대상 Chapter의 기존 코드 mockup이 유지되는 경우에는 정적 검증과 Lesson Viewer 렌더링 확인으로 커밋할 수 있다.
+- **다음 단계**: 현재 턴에서는 Chapter 1~3 파일럿과 계획 보완에서 멈춘다. 이후 Chapter는 이 리뷰를 반영해 사용자가 승인한 범위부터 진행한다.
+
+## 8. 추가 주의사항
 
 - `docs/abap/lesson-content/*.html`은 fragment이므로 `<html>`, `<head>`, `<script>`, 인라인 CSS를 넣지 않는다.
 - 새 CSS/JS가 필요할 때는 먼저 기존 `assets/abap-lesson-viewer.*` 확장 가능성을 검토한다.

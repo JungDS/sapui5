@@ -175,7 +175,53 @@
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 기본값과 필수값 체감하기 🧪</h2>
+  <p>
+    이번 실습에서는 같은 입력 필드에 <code>DEFAULT</code>와 <code>OBLIGATORY</code>를 붙였을 때 실행 흐름이 어떻게 달라지는지 비교합니다. 정상 실행과 오류 실행을 둘 다 남겨야 감각이 잡힙니다.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li><code>p_carr TYPE c LENGTH 3 DEFAULT 'KE' OBLIGATORY</code>를 선언합니다.</li>
+        <li><code>p_days TYPE i DEFAULT 7</code>를 추가하고 두 값을 <code>WRITE</code>로 출력합니다.</li>
+        <li>기본값 그대로 실행한 결과와 값을 바꿔 실행한 결과를 비교합니다.</li>
+        <li><code>p_carr</code> 값을 지운 뒤 실행해 필수 입력 오류가 나는지 확인합니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> <span class="glossary-term" data-glossary="DEFAULTOption">DEFAULT</span>는 추천 시작값이고, <span class="glossary-term" data-glossary="OBLIGATORYOption">OBLIGATORY</span>는 빈값 실행 방지라는 차이를 설명할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS.html" target="_blank" rel="noopener">SAP Help Portal: PARAMETERS</a> - <code>DEFAULT</code>, <code>OBLIGATORY</code> 같은 <code>PARAMETERS</code> 추가 옵션의 공식 위치를 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN.html" target="_blank" rel="noopener">SAP Help Portal: SELECTION-SCREEN</a> - 입력 화면 구성 문장과 Selection Screen 계열 문법을 함께 봅니다.</li>
+    <li><a href="https://learning.sap.com/courses/basic-abap-programming/debugging-an-abap-program_d070e545-efd5-4d87-8b75-20f18d7b7d3b" target="_blank" rel="noopener">SAP Learning: ABAP 디버깅</a> - 입력값이 프로그램 실행 흐름에 들어오는 시점을 디버깅 관점에서 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li><code>DEFAULT</code>가 들어간 값은 사용자가 실행 전에 바꿀 수 있나요?</li>
+    <li><code>OBLIGATORY</code>는 입력값이 실제 업무 마스터에 존재하는지까지 검증하나요?</li>
+    <li><code>DEFAULT</code>와 <code>OBLIGATORY</code>를 함께 쓰는 경우의 장점은 무엇인가요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>네.</strong> <code>DEFAULT</code>는 미리 채워주는 시작값일 뿐이고, 사용자는 실행 전에 값을 바꿀 수 있습니다.</li>
+      <li><strong>아니요.</strong> <code>OBLIGATORY</code>는 빈 값 실행을 막는 옵션입니다. 값의 업무적 존재 여부는 추가 검증이나 DDIC 관계로 확인해야 합니다.</li>
+      <li><strong>자주 쓰는 값을 미리 제안하면서도 사용자가 지운 채 실행하는 실수는 막을 수 있습니다.</strong> 단, 기본값이 운영 업무에 안전한지는 별도로 판단해야 합니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

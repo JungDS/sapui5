@@ -1,6 +1,6 @@
 # 인계 문서 — ABAP Lesson 본문 양산 (Track 1)
 
-> 📅 **최종수정: 2026-06-10 18:57 KST**
+> 📅 **최종수정: 2026-06-11 KST**
 
 > 이 문서는 ABAP 커리큘럼의 Lesson 본문(`docs/abap/lesson-content/<ID>.html`)을 이어서 작성할 AI를 위한 단일 인계서다.
 > **시작 전 이 문서를 끝까지 읽고**, `.project-docs/99_AI_SYNC.md`와 기존 작성본 `THEORY-01-M01.html`(기준 샘플)을 확인할 것.
@@ -18,7 +18,7 @@
 |---|---|---|---|
 | THEORY-01 | DDIC 1차: 기본 데이터 구조 | 6 (M01~M06) | **M01~M06 작성 완료** (M02~M06 Codex 재보강 완료) |
 | THEORY-02 | ABAP 기본 문법과 WRITE | 6 | **M01~M06 작성 완료** |
-| THEORY-03 | PARAMETERS Selection Screen | 4 | **M01~M04 작성 완료** |
+| THEORY-03 | PARAMETERS Selection Screen | 4 | **M01~M04 작성 완료** (Codex 고품질화 완료) |
 | THEORY-04 | DDIC 2차: 관계와 입력 도움말 | 6 | **M01~M06 작성 완료** |
 | THEORY-05 | ABAP 모듈화 기초 | 6 | **M01~M06 작성 완료** |
 | THEORY-06 | Internal Table 기초 | 6 | **M01~M06 작성 완료** |
@@ -40,7 +40,7 @@
 
 > Track 2(PRACTICAL-*, 13개 섹션)는 현재 진행 중. 정확한 ID/이름은 JSON의 `d.tracks[1]`에서 추출(아래 §6 스크립트 참조).
 >
-> **Track 1 고품질화 라운드 시작(2026-06-10 Codex):** `Chapter 1의 Lesson 1`에 실습 과제, 완료 조건, 확인 퀴즈, 정답/해설, SAP 공식 링크 3개를 추가해 후속 Lesson 보강 패턴을 만들었다. 이어 `Chapter 1의 Lesson 2~6`과 `Chapter 2의 Lesson 1~6`에도 같은 패턴을 적용해 Chapter 1~2 전체를 고품질화 기준으로 보강했다. 상세 기준은 [TRACK1_QUALITY_PLAN.md](TRACK1_QUALITY_PLAN.md).
+> **Track 1 고품질화 라운드(2026-06-10~11 Codex):** `Chapter 1의 Lesson 1`에 실습 과제, 완료 조건, 확인 퀴즈, 정답/해설, SAP 공식 링크 3개를 추가해 후속 Lesson 보강 패턴을 만들었다. 이어 `Chapter 1의 Lesson 2~6`, `Chapter 2의 Lesson 1~6`, `Chapter 3의 Lesson 1~4`에도 같은 패턴을 적용해 Chapter 1~3 전체를 고품질화 기준으로 보강했다. 사용자가 지정한 우선 범위는 여기까지이며, 후속 Chapter는 파일럿 리뷰를 반영해 범위를 다시 확정한 뒤 진행한다. 상세 기준은 [TRACK1_QUALITY_PLAN.md](TRACK1_QUALITY_PLAN.md).
 
 ---
 
