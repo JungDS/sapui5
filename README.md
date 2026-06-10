@@ -101,7 +101,7 @@ SAP 개발자를 위한 HTML 학습자료 저장소입니다.
 
 | 구분 | 문서 | 링크 |
 |---|---|---|
-| 완료 | 🎉 **ABAP Track 1 완성** — THEORY-01~21 **137개 Lesson 본문 전부 작성**(Lesson Single Viewer). 글로서리 348개 용어 완전 패리티(미정의 0건). THEORY-19~21 포함 137개 전체 파일에 네이비 Editor 서식 적용 및 인라인 스타일 분리(CSS 클래스 아키텍처 리팩토링) 완료. 다음은 Track 2(PRACTICAL-*) | PR 예정 |
+| 완료 | 🎉 **ABAP Track 1 완성** — THEORY-01~21 **137개 Lesson 본문 전부 작성**(Lesson Single Viewer). 글로서리 348개 용어 완전 패리티(미정의 0건). THEORY-19~21 포함 137개 전체 파일에 네이비 Editor 서식 적용 및 인라인 스타일 분리(CSS 클래스 아키텍처 리팩토링) 완료. 다음은 Track 2(PRACTICAL-*) | https://github.com/JungDS/sapui5/pull/51 |
 | 완료 | `.project-docs` 전체 최신화 + 파일별 "최종수정" 일시 마커, 인계 문서 타겟(Track 2) 교정, changelogs 일자 분리(06-10) | 로컬 작업 |
 | 완료 | ABAP 커리큘럼 Lesson 양산 1차 (01~18) 및 Editor UI 개편 — THEORY-01~18 (총 116개 파일) 신규 작성 완료. 전체 Lesson 및 예제 코드 블록에 모던한 네이비 헤더(#343e6a) 기반 ABAP Editor 디자인 일괄 적용, Shiki 기반 코드 하이라이팅 및 복사 버튼(Copy) 애니메이션 적용, D2Coding 웹폰트 적용, 글로서리(용어 사전) 패리티 100% 동기화 | 로컬 작업 |
 | 완료 | ABAP 커리큘럼 reader 헤더 정리 — 전체화면 본문 상단을 `abc-panel-head` 기반으로 통일, 좌측 Chapter/Lesson/제목·우측 이전/다음/자세히 배치, `핵심 키워드`를 `abc-info-block` 디자인으로 변경, 운영 CSS/JS 캐시 버전(`v=20260605-readerhead1`) 적용 | https://github.com/JungDS/sapui5/pull/47 |
