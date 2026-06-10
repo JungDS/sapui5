@@ -17,18 +17,18 @@
 
 <section class="lesson-section">
   <h2>2. RAP용 ZC_ 설계 ✍️</h2>
-  <pre><code>define root view entity ZC_Travel
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code>define root view entity ZC_Travel
   as projection on ZI_Travel
 {
-  key TravelId,
+  <span style="color: #005cc5; font-weight: bold;">key</span> TravelId,
       AgencyId,
       CustomerId,
       BeginDate,
       EndDate,
-      @Semantics.amount.currencyCode: 'CurrencyCode'
+      @Semantics.amount.currencyCode: <span style="color: #22863a;">'CurrencyCode'</span>
       TotalPrice,
       CurrencyCode
-}</code></pre>
+}</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><strong>as projection on:</strong> Interface View를 투영. 필요한 필드만 골라 노출.</li>
     <li><strong>화면 관점:</strong> 사용자에게 보일 필드/이름을 여기서 결정(관리 필드 등은 숨김).</li>

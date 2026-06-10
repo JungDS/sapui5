@@ -20,16 +20,16 @@
 
 <section class="lesson-section">
   <h2>2. 가장 단순한 CDS View Entity ✍️</h2>
-  <pre><code>@AccessControl.authorizationCheck: #NOT_REQUIRED
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code>@AccessControl.authorizationCheck: #NOT_REQUIRED
 define view entity ZI_Flight
-  as select from sflight
+  as <span style="color: #005cc5; font-weight: bold;">select</span> <span style="color: #005cc5; font-weight: bold;">from</span> sflight
 {
-  key carrid,
-  key connid,
-  key fldate,
+  <span style="color: #005cc5; font-weight: bold;">key</span> carrid,
+  <span style="color: #005cc5; font-weight: bold;">key</span> connid,
+  <span style="color: #005cc5; font-weight: bold;">key</span> fldate,
       price,
       currency
-}</code></pre>
+}</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><strong><span class="glossary-term" data-glossary="DefineViewEntity">define view entity</span>:</strong> CDS View를 선언하는 키워드(최신 문법). 이름은 보통 <code>ZI_</code>로 시작.</li>
     <li><strong>as select from:</strong> 원천 테이블/뷰. SQL의 SELECT와 비슷합니다.</li>
@@ -50,9 +50,9 @@ define view entity ZI_Flight
   <p>
     한 번 활성화하면 ABAP에서 일반 테이블처럼 SELECT할 수 있습니다.
   </p>
-  <pre><code>SELECT * FROM zi_flight
-  WHERE carrid = @lv_carrid
-  INTO TABLE @DATA(lt).</code></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">SELECT</span> * <span style="color: #005cc5; font-weight: bold;">FROM</span> zi_flight
+  <span style="color: #005cc5; font-weight: bold;">WHERE</span> carrid = @lv_carrid
+  <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lt).</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <p>JOIN·계산·집계를 CDS 안에 미리 정의해 두면, 쓰는 쪽은 이렇게 간단하게 읽기만 하면 됩니다(THEORY-17의 코드 푸시다운).</p>
 </section>
 

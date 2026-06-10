@@ -18,18 +18,18 @@
 
 <section class="lesson-section">
   <h2>2. MDE로 주석 분리 ✍️</h2>
-  <pre><code>" 본문 View는 데이터에 집중 (UI 주석 없음)
-" 별도 MDE 파일에서 화면 주석만 관리:
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #888888; font-style: italic;">" 본문 View는 데이터에 집중 (UI 주석 없음)</span>
+<span style="color: #888888; font-style: italic;">" 별도 MDE 파일에서 화면 주석만 관리:</span>
 @Metadata.layer: #CORE
-annotate entity ZC_Flight with
+annotate entity ZC_Flight <span style="color: #005cc5; font-weight: bold;">with</span>
 {
-  @UI.lineItem: [{ position: 10 }]
+  @UI.lineItem: [{ position: <span style="color: #22863a;">10</span> }]
   carrid;
 
-  @UI.lineItem: [{ position: 20 }]
-  @EndUserText.label: '요금'
+  @UI.lineItem: [{ position: <span style="color: #22863a;">20</span> }]
+  @EndUserText.label: <span style="color: #22863a;">'요금'</span>
   price;
-}</code></pre>
+}</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><strong>annotate entity ... with:</strong> 기존 View에 주석만 "덧붙이는" 별도 객체.</li>
     <li><strong><span class="glossary-term" data-glossary="MetadataLayer">@Metadata.layer</span>:</strong> 주석 적용 계층(#CORE, #INDUSTRY, #CUSTOMER…). 여러 층이 겹쳐도 우선순위로 정리됨.</li>

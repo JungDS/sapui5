@@ -40,7 +40,7 @@
     <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25<br>26<br>27<br>28<br>29<br>30<br>31<br>32<br>33<br>34<br>35<br>36<br>37<br>38<br>39<br>40
     </div>
-    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zsalv_mini_report.
+    <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zsalv_mini_report.
 
 <span style="color: #005cc5; font-weight: bold;">TYPES</span>: <span style="color: #005cc5; font-weight: bold;">BEGIN</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_student,
          id    <span style="color: #005cc5; font-weight: bold;">TYPE</span> char3,
@@ -79,7 +79,7 @@ TRY.
 
   CATCH cx_salv_msg <span style="color: #005cc5; font-weight: bold;">INTO</span> lx_msg.
     MESSAGE lx_msg-&gt;get_text( ) <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #22863a;">'E'</span>.
-ENDTRY.</code></pre>
+ENDTRY.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -125,10 +125,10 @@ ENDTRY.</code></pre>
     <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
       1<br>2<br>3<br>4
     </div>
-    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #005cc5; font-weight: bold;">IF</span> lt_students <span style="color: #005cc5; font-weight: bold;">IS</span> <span style="color: #005cc5; font-weight: bold;">INITIAL</span>.
+    <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">IF</span> lt_students <span style="color: #005cc5; font-weight: bold;">IS</span> <span style="color: #005cc5; font-weight: bold;">INITIAL</span>.
   MESSAGE <span style="color: #22863a;">'표시할 학생 데이터가 없습니다.'</span> <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #22863a;">'I'</span>.
   RETURN.
-<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code></pre>
+<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

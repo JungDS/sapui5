@@ -22,13 +22,13 @@
     <li><strong><span class="glossary-term" data-glossary="RapDetermination">Determination(결정/자동계산)</span>:</strong> 특정 시점에 값을 자동으로 채움. (예: 생성 시 상태='신규', 변경 시 총액 자동 합산).</li>
     <li><strong><span class="glossary-term" data-glossary="RapAction">Action(액션)</span>:</strong> 표준 CRUD 외의 사용자 동작. (예: '승인', '취소' 버튼). 화면 버튼으로 노출됨.</li>
   </ul>
-  <pre><code>define behavior for ZI_Travel alias Travel
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code>define behavior for ZI_Travel alias Travel
 {
   ...
   validation validateDates on save { field begin_date, end_date; }
-  determination setStatus on modify { create; }
-  action ( features : instance ) acceptTravel result [1] $self;
-}</code></pre>
+  determination setStatus on <span style="color: #005cc5; font-weight: bold;">modify</span> { <span style="color: #005cc5; font-weight: bold;">create</span>; }
+  action ( features : instance ) acceptTravel result [<span style="color: #22863a;">1</span>] $self;
+}</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
 </section>
 
 <section class="lesson-section">

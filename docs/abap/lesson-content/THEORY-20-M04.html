@@ -17,16 +17,16 @@
 
 <section class="lesson-section">
   <h2>2. 자주 쓰는 Annotation ✍️</h2>
-  <pre><code>define view entity ZI_Flight
-  as select from sflight
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code>define view entity ZI_Flight
+  as <span style="color: #005cc5; font-weight: bold;">select</span> <span style="color: #005cc5; font-weight: bold;">from</span> sflight
 {
-  key carrid,
-      @EndUserText.label: '항공 요금'
-      @Semantics.amount.currencyCode: 'Currency'   "금액임 + 통화 필드 지정
+  <span style="color: #005cc5; font-weight: bold;">key</span> carrid,
+      @EndUserText.label: <span style="color: #22863a;">'항공 요금'</span>
+      @Semantics.amount.currencyCode: <span style="color: #22863a;">'Currency'</span>   <span style="color: #888888; font-style: italic;">"금액임 + 통화 필드 지정</span>
       price,
-      @Semantics.currencyCode: true                "이 필드가 통화 코드
+      @Semantics.currencyCode: true                <span style="color: #888888; font-style: italic;">"이 필드가 통화 코드</span>
       currency
-}</code></pre>
+}</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><strong><span class="glossary-term" data-glossary="EndUserTextLabel">@EndUserText.label</span>:</strong> 화면에 보일 라벨(DDIC 라벨처럼).</li>
     <li><strong><span class="glossary-term" data-glossary="SemanticsAnnotation">@Semantics.amount/quantity</span>:</strong> "이 값은 금액/수량이고 통화/단위는 저 필드" 라고 알려줌 → 화면이 형식을 알아서 처리.</li>
@@ -45,8 +45,8 @@
   <p>
     Projection View(ZC_)에는 <code>@UI</code> 계열 주석으로 화면 배치까지 정할 수 있습니다(예: 목록 컬럼 순서, 폼 위치). 이 주석들이 OData·Fiori Elements로 전달되어 <strong>화면을 거의 코드 없이 자동 생성</strong>하게 해줍니다(THEORY-21·Fiori 트랙에서 심화).
   </p>
-  <pre><code>@UI.lineItem: [{ position: 10 }]   "목록에서 10번째 컬럼
-@UI.identification: [{ position: 10 }]</code></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code>@UI.lineItem: [{ position: <span style="color: #22863a;">10</span> }]   <span style="color: #888888; font-style: italic;">"목록에서 10번째 컬럼</span>
+@UI.identification: [{ position: <span style="color: #22863a;">10</span> }]</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
 </section>
 
 <section class="lesson-section">

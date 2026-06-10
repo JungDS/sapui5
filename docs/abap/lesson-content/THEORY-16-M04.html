@@ -34,11 +34,11 @@
     <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
       1<br>2<br>3<br>4<br>5
     </div>
-    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #888888; font-style: italic;">" 인덱스로 꺼내기</span>
+    <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #888888; font-style: italic;">" 인덱스로 꺼내기</span>
 <span style="color: #005cc5; font-weight: bold;">DATA</span>(ls_first) = lt_flights[ <span style="color: #22863a;">1</span> ].           <span style="color: #888888; font-style: italic;">"첫 번째 줄</span>
 
 <span style="color: #888888; font-style: italic;">" 키(조건)로 꺼내기</span>
-<span style="color: #005cc5; font-weight: bold;">DATA</span>(ls_lh) = lt_flights[ carrid = <span style="color: #22863a;">'LH'</span> ].  <span style="color: #888888; font-style: italic;">"carrid가 LH인 줄</span></code></pre>
+<span style="color: #005cc5; font-weight: bold;">DATA</span>(ls_lh) = lt_flights[ carrid = <span style="color: #22863a;">'LH'</span> ].  <span style="color: #888888; font-style: italic;">"carrid가 LH인 줄</span></code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -77,14 +77,14 @@
     <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8
     </div>
-    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #888888; font-style: italic;">" 안전하게: 없으면 빈 구조(OPTIONAL) 또는 기본값(DEFAULT)</span>
+    <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #888888; font-style: italic;">" 안전하게: 없으면 빈 구조(OPTIONAL) 또는 기본값(DEFAULT)</span>
 <span style="color: #005cc5; font-weight: bold;">DATA</span>(ls) = <span style="color: #005cc5; font-weight: bold;">VALUE</span> #( lt_flights[ carrid = <span style="color: #22863a;">'XX'</span> ] OPTIONAL ).
 <span style="color: #888888; font-style: italic;">"→ 못 찾아도 예외 없이 초기값 구조를 돌려줌</span>
 
 <span style="color: #888888; font-style: italic;">" 존재 여부만 확인</span>
 <span style="color: #005cc5; font-weight: bold;">IF</span> line_exists( lt_flights[ carrid = <span style="color: #22863a;">'LH'</span> ] ).
   ...
-<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code></pre>
+<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

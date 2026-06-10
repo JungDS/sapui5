@@ -40,10 +40,10 @@
     <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
       1<br>2<br>3<br>4
     </div>
-    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #005cc5; font-weight: bold;">SELECT</span> <span style="color: #005cc5; font-weight: bold;">FROM</span> t005t
+    <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">SELECT</span> <span style="color: #005cc5; font-weight: bold;">FROM</span> t005t
   FIELDS land1, landx
   <span style="color: #005cc5; font-weight: bold;">WHERE</span> spras = @sy-langu
-  <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lt_countries).</code></pre>
+  <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">TABLE</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lt_countries).</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -76,8 +76,8 @@
     <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
       1<br>2
     </div>
-    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #005cc5; font-weight: bold;">DATA</span>(lv_count) = lines( lt_countries ).
-<span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'조회 건수:'</span>, lv_count.</code></pre>
+    <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">DATA</span>(lv_count) = lines( lt_countries ).
+<span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'조회 건수:'</span>, lv_count.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -112,7 +112,7 @@
     <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>21<br>22<br>23<br>24<br>25
     </div>
-    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zsql_into_table.
+    <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zsql_into_table.
 
 <span style="color: #005cc5; font-weight: bold;">DATA</span>: lo_alv <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #005cc5; font-weight: bold;">REF</span> <span style="color: #005cc5; font-weight: bold;">TO</span> cl_salv_table,
       lx_msg <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #005cc5; font-weight: bold;">REF</span> <span style="color: #005cc5; font-weight: bold;">TO</span> cx_salv_msg.
@@ -136,7 +136,7 @@ TRY.
 
   CATCH cx_salv_msg <span style="color: #005cc5; font-weight: bold;">INTO</span> lx_msg.
     MESSAGE lx_msg-&gt;get_text( ) <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #22863a;">'E'</span>.
-ENDTRY.</code></pre>
+ENDTRY.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

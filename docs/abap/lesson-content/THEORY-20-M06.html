@@ -22,15 +22,15 @@
     <li><strong>DDL(앞서 배운 것):</strong> View의 구조·데이터를 정의.</li>
     <li><strong><span class="glossary-term" data-glossary="DCL">DCL</span>:</strong> 그 View를 조회할 때 <strong>행 단위로 자동 필터</strong>를 거는 권한 규칙.</li>
   </ul>
-  <pre><code>" CDS View에 권한 검사 켜기 (M01에서 본 헤더)
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #888888; font-style: italic;">" CDS View에 권한 검사 켜기 (M01에서 본 헤더)</span>
 @AccessControl.authorizationCheck: #CHECK
-define view entity ZI_Flight as select from sflight { ... }</code></pre>
-  <pre><code>" 별도 DCL: 사용자의 권한에 맞는 항공사 데이터만 보이게
+define view entity ZI_Flight as <span style="color: #005cc5; font-weight: bold;">select</span> <span style="color: #005cc5; font-weight: bold;">from</span> sflight { ... }</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #888888; font-style: italic;">" 별도 DCL: 사용자의 권한에 맞는 항공사 데이터만 보이게</span>
 @MappingRole: true
 define role ZI_Flight_Role {
-  grant select on ZI_Flight
-    where ( carrid ) = aspect pfcg_auth( S_CARRID, CARRID, ACTVT = '03' );
-}</code></pre>
+  grant <span style="color: #005cc5; font-weight: bold;">select</span> on ZI_Flight
+    <span style="color: #005cc5; font-weight: bold;">where</span> ( carrid ) = aspect pfcg_auth( S_CARRID, CARRID, ACTVT = <span style="color: #22863a;">'03'</span> );
+}</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <div class="lesson-callout">
     <div class="lesson-callout-icon">💡</div>
     <div class="lesson-callout-content">

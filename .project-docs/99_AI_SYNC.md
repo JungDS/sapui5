@@ -24,7 +24,7 @@
 
 ## 미결 사항 (Pending Issues / Next Steps)
 - **Lesson 본문 양산**: Track 1 완료. 다음은 **Track 2(PRACTICAL-* 13개 섹션, 약 70개 Lesson)** 신규 작성. 같은 스타일(초심자·한눈에 정리·글로서리 패리티·추적 3종 동시 갱신·Chapter/Lesson 용어)을 그대로 적용한다. JSON의 `d.tracks[1]`에서 PRACTICAL 섹션/Lesson ID 추출.
-- **[조율] 신규 19~21 코드블록 서식**: Claude가 작성한 THEORY-19~21은 표준 `<pre><code>`로 작성됨. 완성 후 Antigravity의 네이비 ABAP Editor 멱등 포맷터(`archive/_local/format_abap_code.mjs`)를 한 번 돌려 서식 통일 필요.
+- **[완료] 신규 19~21 코드블록 서식**: Antigravity가 네이비 ABAP Editor 멱등 포맷터(`archive/_local/format_abap_code.mjs`)를 돌려 서식 통일을 완료함.
 - **[프로세스] 섹션 작성 후 추적 3종 동시 갱신**: 섹션 커밋 시 ① `HANDOFF_LESSON_CONTENT.md` 진행표 ② 본 파일(99_AI_SYNC) 작업이력/현황 ③ `changelogs/CHANGELOG_<날짜>.md`를 함께 갱신할 것(누락 주의).
 - **글로서리 완전 패리티**: Lesson에서 쓰는 주요 용어는 `reference/abap_glossary.json`에 반드시 함께 등록(일상 비유 포함). 미등록 용어는 툴팁이 안 뜸(깨진 링크).
 - (선택) Lesson 내 퀴즈·실습 코드 블록 등 상호작용 컴포넌트 고도화.
@@ -220,5 +220,8 @@
   - RAP 아키텍처 개요, Interface(ZI_)/Projection(ZC_) RAP 설계, Behavior Definition(managed)/Implementation(Behavior Pool), Service Definition/Binding, Validation/Determination/Action, ABAP Cloud·Released API·Clean Core. M08에서 Track 1 전체를 정리·축하.
   - 글로서리 +16종(총 348). **전체 137개 Lesson 미정의 0건 최종 검증 완료.**
   - ⚠️ THEORY-19~21 코드블록은 표준 `<pre><code>` → 네이비 Editor 포맷터 1회 적용 필요(THEORY-01~18은 적용됨).
-- **수정 파일**: `docs/abap/lesson-content/THEORY-21-M01~M08.html`, `reference/abap_glossary.json`, `HANDOFF_LESSON_CONTENT.md`, `99_AI_SYNC.md`, `changelogs/CHANGELOG_20260609.md`
 - **다음 AI를 위한 메모**: ① (서식) THEORY-19~21에 Antigravity 네이비 Editor 멱등 포맷터 1회 적용. ② (콘텐츠) **Track 2(PRACTICAL-* 13개 섹션 ~70 Lesson)** 신규 작성 시작. JSON `d.tracks[1]`에서 섹션/ID 추출, 동일 규칙 적용.
+
+### [2026-06-10] Antigravity IDE (Gemini 3.1 Pro) — 네이비 Editor 서식 일괄 재적용 (THEORY-19~21 포함)
+- **작업 내용**: THEORY-19~21 신규 작성분에 누락되었던 네이비 ABAP Editor 코드 블록 서식(Shiki 복사 버튼 포함)을 멱등 포맷터(`archive/_local/format_abap_code.mjs`)를 통해 일괄 적용 완료. 전체 137개 파일 중 114개 파일이 재포맷되어 서식이 완벽하게 통일됨.
+- **다음 AI를 위한 메모**: Track 1(THEORY)의 모든 문서 작업 및 서식 통일이 완벽히 종료되었습니다. 이제 Track 2(PRACTICAL-* 13개 섹션) 작성을 시작할 수 있습니다.

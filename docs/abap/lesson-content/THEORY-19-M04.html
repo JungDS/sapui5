@@ -21,11 +21,11 @@
   <p>
     셀마다 다른 색을 주려면, 각 행이 "어느 칸을 무슨 색으로"라는 정보를 들고 있어야 합니다. 그래서 출력 구조 안에 <span class="glossary-term" data-glossary="LVCTSCOL">LVC_T_SCOL</span>(색상 정보 Internal Table)을 컬럼으로 넣습니다 — 이것이 Deep Structure입니다.
   </p>
-  <pre><code>TYPES: BEGIN OF ty_row,
-         carrid TYPE s_carr_id,
-         price  TYPE s_price,
-         cellcolors TYPE lvc_t_scol,   "★ 셀 색상 정보(테이블 in 구조)
-       END OF ty_row.</code></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">TYPES</span>: <span style="color: #005cc5; font-weight: bold;">BEGIN</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_row,
+         carrid <span style="color: #005cc5; font-weight: bold;">TYPE</span> s_carr_id,
+         price  <span style="color: #005cc5; font-weight: bold;">TYPE</span> s_price,
+         cellcolors <span style="color: #005cc5; font-weight: bold;">TYPE</span> lvc_t_scol,   <span style="color: #888888; font-style: italic;">"★ 셀 색상 정보(테이블 in 구조)</span>
+       <span style="color: #005cc5; font-weight: bold;">END</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_row.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <div class="lesson-callout">
     <div class="lesson-callout-icon">💡</div>
     <div class="lesson-callout-content">
@@ -37,18 +37,18 @@
 
 <section class="lesson-section">
   <h2>3. 색 채우고 Layout에 연결 🔗</h2>
-  <pre><code>" 조건에 맞는 행의 특정 셀에 색 지정
-LOOP AT gt_out ASSIGNING FIELD-SYMBOL(&lt;fs&gt;).
-  IF &lt;fs&gt;-price &gt; 1000.
-    APPEND VALUE lvc_s_scol(
-      fname = 'PRICE'                 "이 칸을
-      color = VALUE #( col = 6 ) )    "빨강(6) 계열로
-      TO &lt;fs&gt;-cellcolors.
-  ENDIF.
-ENDLOOP.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #888888; font-style: italic;">" 조건에 맞는 행의 특정 셀에 색 지정</span>
+<span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> gt_out <span style="color: #005cc5; font-weight: bold;">ASSIGNING</span> FIELD-SYMBOL(&lt;fs&gt;).
+  <span style="color: #005cc5; font-weight: bold;">IF</span> &lt;fs&gt;-price &gt; <span style="color: #22863a;">1000</span>.
+    <span style="color: #005cc5; font-weight: bold;">APPEND</span> <span style="color: #005cc5; font-weight: bold;">VALUE</span> lvc_s_scol(
+      fname = <span style="color: #22863a;">'PRICE'</span>                 <span style="color: #888888; font-style: italic;">"이 칸을</span>
+      color = <span style="color: #005cc5; font-weight: bold;">VALUE</span> #( col = <span style="color: #22863a;">6</span> ) )    <span style="color: #888888; font-style: italic;">"빨강(6) 계열로</span>
+      <span style="color: #005cc5; font-weight: bold;">TO</span> &lt;fs&gt;-cellcolors.
+  <span style="color: #005cc5; font-weight: bold;">ENDIF</span>.
+<span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.
 
-" Layout에 "색상 정보 필드 이름" 알려주기
-gs_layout-ctab_fname = 'CELLCOLORS'.</code></pre>
+<span style="color: #888888; font-style: italic;">" Layout에 "색상 정보 필드 이름" 알려주기</span>
+gs_layout-ctab_fname = <span style="color: #22863a;">'CELLCOLORS'</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><strong>fname:</strong> 색을 줄 컬럼 이름.</li>
     <li><strong>color-col:</strong> 색 번호(THEORY-15의 Cxyz 색 코드 체계).</li>

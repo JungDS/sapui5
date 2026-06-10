@@ -17,22 +17,22 @@
 
 <section class="lesson-section">
   <h2>2. RAP용 ZI_ 설계 포인트 ✍️</h2>
-  <pre><code>define root view entity ZI_Travel
-  as select from ztravel
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code>define root view entity ZI_Travel
+  as <span style="color: #005cc5; font-weight: bold;">select</span> <span style="color: #005cc5; font-weight: bold;">from</span> ztravel
 {
-  key travel_id,
+  <span style="color: #005cc5; font-weight: bold;">key</span> travel_id,
       agency_id,
       customer_id,
       begin_date,
       end_date,
       booking_fee,
-      @Semantics.amount.currencyCode: 'CurrencyCode'
+      @Semantics.amount.currencyCode: <span style="color: #22863a;">'CurrencyCode'</span>
       total_price,
       currency_code,
       // 관리 필드(생성자/시각 등)
       created_by,
       last_changed_at
-}</code></pre>
+}</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><strong><span class="glossary-term" data-glossary="RootViewEntity">root view entity</span>:</strong> RAP Business Object의 최상위(루트) 뷰임을 표시.</li>
     <li><strong>키 설계:</strong> 트랜잭션의 기준이 되는 키(예: travel_id)를 명확히.</li>

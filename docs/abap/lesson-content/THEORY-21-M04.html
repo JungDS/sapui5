@@ -18,19 +18,19 @@
 
 <section class="lesson-section">
   <h2>2. Behavior Definition 기본 ✍️</h2>
-  <pre><code>managed implementation in class zbp_i_travel unique;
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code>managed implementation in <span style="color: #005cc5; font-weight: bold;">class</span> zbp_i_travel unique;
 
 define behavior for ZI_Travel alias Travel
-persistent table ztravel
+persistent <span style="color: #005cc5; font-weight: bold;">table</span> ztravel
 lock master
 {
-  create;          // 생성 가능
+  <span style="color: #005cc5; font-weight: bold;">create</span>;          // 생성 가능
   update;          // 수정 가능
-  delete;          // 삭제 가능
+  <span style="color: #005cc5; font-weight: bold;">delete</span>;          // 삭제 가능
 
   field ( readonly ) travel_id;       // 키는 읽기 전용
   field ( mandatory ) agency_id;      // 필수 입력
-}</code></pre>
+}</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><strong><span class="glossary-term" data-glossary="ManagedImplementation">managed</span>:</strong> 표준 저장 로직(생성·수정·삭제·저장)을 RAP가 자동 처리하는 방식. 초보자에게 가장 쉬움.</li>
     <li><strong>create/update/delete:</strong> 허용할 표준 동작.</li>

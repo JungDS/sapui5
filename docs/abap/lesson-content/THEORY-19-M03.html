@@ -17,14 +17,14 @@
 
 <section class="lesson-section">
   <h2>2. 자주 쓰는 컬럼 제어 속성 ✍️</h2>
-  <pre><code>gs_fcat-fieldname = 'PRICE'.
-gs_fcat-coltext   = '요금'.
-gs_fcat-no_out    = 'X'.    "컬럼 숨김(데이터는 있되 화면에 안 보임)
-gs_fcat-key       = 'X'.    "키 컬럼(고정·강조)
-gs_fcat-edit      = 'X'.    "이 컬럼 편집 가능
-gs_fcat-just      = 'R'.    "정렬(R=우측, 숫자에 적합)
-gs_fcat-do_sum    = 'X'.    "하단 합계 표시
-APPEND gs_fcat TO gt_fcat.</code></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code>gs_fcat-fieldname = <span style="color: #22863a;">'PRICE'</span>.
+gs_fcat-coltext   = <span style="color: #22863a;">'요금'</span>.
+gs_fcat-no_out    = <span style="color: #22863a;">'X'</span>.    <span style="color: #888888; font-style: italic;">"컬럼 숨김(데이터는 있되 화면에 안 보임)</span>
+gs_fcat-<span style="color: #005cc5; font-weight: bold;">key</span>       = <span style="color: #22863a;">'X'</span>.    <span style="color: #888888; font-style: italic;">"키 컬럼(고정·강조)</span>
+gs_fcat-edit      = <span style="color: #22863a;">'X'</span>.    <span style="color: #888888; font-style: italic;">"이 컬럼 편집 가능</span>
+gs_fcat-just      = <span style="color: #22863a;">'R'</span>.    <span style="color: #888888; font-style: italic;">"정렬(R=우측, 숫자에 적합)</span>
+gs_fcat-do_sum    = <span style="color: #22863a;">'X'</span>.    <span style="color: #888888; font-style: italic;">"하단 합계 표시</span>
+<span style="color: #005cc5; font-weight: bold;">APPEND</span> gs_fcat <span style="color: #005cc5; font-weight: bold;">TO</span> gt_fcat.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><strong>no_out:</strong> 숨김(레이아웃에서 사용자가 다시 켤 수 있음).</li>
     <li><strong>key:</strong> 키 컬럼으로 표시(좌측 고정·강조).</li>

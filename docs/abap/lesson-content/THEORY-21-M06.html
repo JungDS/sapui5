@@ -17,11 +17,11 @@
 
 <section class="lesson-section">
   <h2>2. Service Definition: 무엇을 노출할지 ✍️</h2>
-  <pre><code>define service ZUI_Travel {
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code>define service ZUI_Travel {
   expose ZC_Travel as Travel;
   // 필요하면 관련 뷰도 함께 노출
   expose ZC_Agency as Agency;
-}</code></pre>
+}</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><strong><span class="glossary-term" data-glossary="ServiceDefinition">define service</span>:</strong> "이 서비스로 어떤 뷰들을 내보낼지" 목록.</li>
     <li><strong>expose ... as ...:</strong> 노출할 Projection View와 외부에서 부를 이름.</li>

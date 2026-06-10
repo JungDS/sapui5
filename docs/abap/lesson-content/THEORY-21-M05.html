@@ -20,27 +20,27 @@
   <p>
     BDEF에 적은 <code>implementation in class zbp_i_travel</code>가 바로 그 구현을 담는 <span class="glossary-term" data-glossary="BehaviorPool">Behavior Pool</span> 클래스입니다. 여기에 검증·결정·액션 메서드를 구현합니다(THEORY-18의 OO ABAP 지식이 여기서 쓰입니다).
   </p>
-  <pre><code>CLASS lhc_travel DEFINITION INHERITING FROM cl_abap_behavior_handler.
-  PRIVATE SECTION.
-    METHODS validate_dates FOR VALIDATE ON SAVE
-      IMPORTING keys FOR Travel~validateDates.
-ENDCLASS.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">CLASS</span> lhc_travel DEFINITION INHERITING <span style="color: #005cc5; font-weight: bold;">FROM</span> cl_abap_behavior_handler.
+  <span style="color: #005cc5; font-weight: bold;">PRIVATE</span> <span style="color: #005cc5; font-weight: bold;">SECTION</span>.
+    <span style="color: #005cc5; font-weight: bold;">METHODS</span> validate_dates FOR VALIDATE ON SAVE
+      <span style="color: #005cc5; font-weight: bold;">IMPORTING</span> keys FOR Travel~validateDates.
+<span style="color: #005cc5; font-weight: bold;">ENDCLASS</span>.
 
-CLASS lhc_travel IMPLEMENTATION.
+<span style="color: #005cc5; font-weight: bold;">CLASS</span> lhc_travel IMPLEMENTATION.
   METHOD validate_dates.
-    " 키로 해당 건들을 읽어 검증
-    READ ENTITIES OF zi_travel IN LOCAL MODE
-      ENTITY Travel FIELDS ( begin_date end_date ) WITH CORRESPONDING #( keys )
-      RESULT DATA(travels).
+    <span style="color: #888888; font-style: italic;">" 키로 해당 건들을 읽어 검증</span>
+    <span style="color: #005cc5; font-weight: bold;">READ</span> ENTITIES <span style="color: #005cc5; font-weight: bold;">OF</span> zi_travel IN LOCAL MODE
+      ENTITY Travel FIELDS ( begin_date end_date ) <span style="color: #005cc5; font-weight: bold;">WITH</span> CORRESPONDING #( keys )
+      RESULT <span style="color: #005cc5; font-weight: bold;">DATA</span>(travels).
 
-    LOOP AT travels INTO DATA(travel).
-      IF travel-end_date &lt; travel-begin_date.
-        APPEND VALUE #( %tky = travel-%tky ) TO failed-travel.
-        " 메시지도 함께 보고
-      ENDIF.
-    ENDLOOP.
+    <span style="color: #005cc5; font-weight: bold;">LOOP</span> <span style="color: #005cc5; font-weight: bold;">AT</span> travels <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">DATA</span>(travel).
+      <span style="color: #005cc5; font-weight: bold;">IF</span> travel-end_date &lt; travel-begin_date.
+        <span style="color: #005cc5; font-weight: bold;">APPEND</span> <span style="color: #005cc5; font-weight: bold;">VALUE</span> #( %tky = travel-%tky ) <span style="color: #005cc5; font-weight: bold;">TO</span> failed-travel.
+        <span style="color: #888888; font-style: italic;">" 메시지도 함께 보고</span>
+      <span style="color: #005cc5; font-weight: bold;">ENDIF</span>.
+    <span style="color: #005cc5; font-weight: bold;">ENDLOOP</span>.
   ENDMETHOD.
-ENDCLASS.</code></pre>
+<span style="color: #005cc5; font-weight: bold;">ENDCLASS</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
 </section>
 
 <section class="lesson-section">

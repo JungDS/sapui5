@@ -37,12 +37,12 @@
     <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
       1<br>2<br>3<br>4<br>5<br>6
     </div>
-    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code>TRY.
+    <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code>TRY.
     <span style="color: #005cc5; font-weight: bold;">DATA</span>(lv_result) = <span style="color: #22863a;">10</span> / lv_divisor.   <span style="color: #888888; font-style: italic;">"0으로 나누면 오류</span>
   CATCH cx_sy_zerodivide <span style="color: #005cc5; font-weight: bold;">INTO</span> <span style="color: #005cc5; font-weight: bold;">DATA</span>(lx_err).
     <span style="color: #888888; font-style: italic;">" 오류가 났을 때 할 일</span>
     MESSAGE lx_err-&gt;get_text( ) <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #22863a;">'I'</span>.
-ENDTRY.</code></pre>
+ENDTRY.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -82,12 +82,12 @@ ENDTRY.</code></pre>
     <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
       1<br>2<br>3<br>4<br>5<br>6
     </div>
-    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code>METHOD withdraw.
+    <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code>METHOD withdraw.
   <span style="color: #005cc5; font-weight: bold;">IF</span> iv_amount &gt; mv_balance.
     RAISE EXCEPTION <span style="color: #005cc5; font-weight: bold;">TYPE</span> zcx_insufficient_fund.   <span style="color: #888888; font-style: italic;">"잔액 부족 예외 발생</span>
   <span style="color: #005cc5; font-weight: bold;">ENDIF</span>.
   mv_balance = mv_balance - iv_amount.
-ENDMETHOD.</code></pre>
+ENDMETHOD.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

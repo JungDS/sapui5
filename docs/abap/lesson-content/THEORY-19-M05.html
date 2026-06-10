@@ -18,19 +18,19 @@
 
 <section class="lesson-section">
   <h2>2. 출력 구조에 스타일 테이블 품기 ✍️</h2>
-  <pre><code>TYPES: BEGIN OF ty_row,
-         carrid TYPE s_carr_id,
-         price  TYPE s_price,
-         cellstyles TYPE lvc_t_styl,   "★ 셀 스타일 정보(Deep Structure)
-       END OF ty_row.</code></pre>
-  <pre><code>" 특정 셀을 편집 가능/불가로
-APPEND VALUE lvc_s_styl(
-  fieldname = 'PRICE'
-  style     = cl_gui_alv_grid=>mc_style_enabled )   "편집 가능
-  TO &lt;fs&gt;-cellstyles.
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">TYPES</span>: <span style="color: #005cc5; font-weight: bold;">BEGIN</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_row,
+         carrid <span style="color: #005cc5; font-weight: bold;">TYPE</span> s_carr_id,
+         price  <span style="color: #005cc5; font-weight: bold;">TYPE</span> s_price,
+         cellstyles <span style="color: #005cc5; font-weight: bold;">TYPE</span> lvc_t_styl,   <span style="color: #888888; font-style: italic;">"★ 셀 스타일 정보(Deep Structure)</span>
+       <span style="color: #005cc5; font-weight: bold;">END</span> <span style="color: #005cc5; font-weight: bold;">OF</span> ty_row.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
+  <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #888888; font-style: italic;">" 특정 셀을 편집 가능/불가로</span>
+<span style="color: #005cc5; font-weight: bold;">APPEND</span> <span style="color: #005cc5; font-weight: bold;">VALUE</span> lvc_s_styl(
+  fieldname = <span style="color: #22863a;">'PRICE'</span>
+  style     = cl_gui_alv_grid=&gt;mc_style_enabled )   <span style="color: #888888; font-style: italic;">"편집 가능</span>
+  <span style="color: #005cc5; font-weight: bold;">TO</span> &lt;fs&gt;-cellstyles.
 
-" Layout에 스타일 필드 이름 알려주기
-gs_layout-stylefname = 'CELLSTYLES'.</code></pre>
+<span style="color: #888888; font-style: italic;">" Layout에 스타일 필드 이름 알려주기</span>
+gs_layout-stylefname = <span style="color: #22863a;">'CELLSTYLES'</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   <ul>
     <li><strong>style:</strong> <code>mc_style_enabled</code>(편집 가능) / <code>mc_style_disabled</code>(비활성) 등 상수.</li>
     <li><strong><span class="glossary-term" data-glossary="StyleFname">stylefname</span>:</strong> Layout에 "셀 스타일 정보가 이 필드"라고 알려줌. (색상은 ctab_fname, 스타일은 stylefname — 둘은 별개!)</li>

@@ -40,14 +40,14 @@
     <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8
     </div>
-    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zstring_basic.
+    <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zstring_basic.
 
 <span style="color: #005cc5; font-weight: bold;">DATA</span> gv_name    <span style="color: #005cc5; font-weight: bold;">TYPE</span> string <span style="color: #005cc5; font-weight: bold;">VALUE</span> <span style="color: #22863a;">'ABAP'</span>.
 <span style="color: #005cc5; font-weight: bold;">DATA</span> gv_message <span style="color: #005cc5; font-weight: bold;">TYPE</span> string.
 
-<span style="color: #005cc5; font-weight: bold;">CONCATENATE</span> <span style="color: #22863a;">'Hello'</span> gv_name <span style="color: #005cc5; font-weight: bold;">INTO</span> gv_message <span style="color: #005cc5; font-weight: bold;">SEPARATED</span> <span style="color: #005cc5; font-weight: bold;">BY</span> space.
+CONCATENATE <span style="color: #22863a;">'Hello'</span> gv_name <span style="color: #005cc5; font-weight: bold;">INTO</span> gv_message SEPARATED <span style="color: #005cc5; font-weight: bold;">BY</span> space.
 
-<span style="color: #005cc5; font-weight: bold;">WRITE</span> gv_message.</code></pre>
+<span style="color: #005cc5; font-weight: bold;">WRITE</span> gv_message.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -81,10 +81,10 @@
     <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
       1<br>2<br>3<br>4
     </div>
-    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zsystem_fields.
+    <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zsystem_fields.
 
 <span style="color: #005cc5; font-weight: bold;">WRITE</span>: / <span style="color: #22863a;">'오늘 날짜:'</span>, sy-datum,
-       / <span style="color: #22863a;">'실행 사용자:'</span>, sy-uname.</code></pre>
+       / <span style="color: #22863a;">'실행 사용자:'</span>, sy-uname.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -119,7 +119,7 @@
     <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11
     </div>
-    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zsubrc_basic.
+    <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">REPORT</span> zsubrc_basic.
 
 <span style="color: #005cc5; font-weight: bold;">DATA</span> gv_text <span style="color: #005cc5; font-weight: bold;">TYPE</span> string <span style="color: #005cc5; font-weight: bold;">VALUE</span> <span style="color: #22863a;">'Hello ABAP'</span>.
 
@@ -129,7 +129,7 @@ FIND <span style="color: #22863a;">'ABAP'</span> IN gv_text.
   <span style="color: #005cc5; font-weight: bold;">WRITE</span> <span style="color: #22863a;">'문자열을 찾았어요'</span>.
 <span style="color: #005cc5; font-weight: bold;">ELSE</span>.
   <span style="color: #005cc5; font-weight: bold;">WRITE</span> <span style="color: #22863a;">'문자열을 찾지 못했어요'</span>.
-<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code></pre>
+<span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->

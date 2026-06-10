@@ -37,13 +37,13 @@
     <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
       1<br>2<br>3<br>4<br>5<br>6<br>7
     </div>
-    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #005cc5; font-weight: bold;">PARAMETERS</span>: p_from <span style="color: #005cc5; font-weight: bold;">TYPE</span> sy-datum,
+    <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">PARAMETERS</span>: p_from <span style="color: #005cc5; font-weight: bold;">TYPE</span> sy-datum,
             p_to   <span style="color: #005cc5; font-weight: bold;">TYPE</span> sy-datum.
 
 <span style="color: #005cc5; font-weight: bold;">AT</span> <span style="color: #005cc5; font-weight: bold;">SELECTION-SCREEN</span>.
   <span style="color: #005cc5; font-weight: bold;">IF</span> p_to &lt; p_from.
     MESSAGE <span style="color: #22863a;">'종료일이 시작일보다 빠릅니다.'</span> <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #22863a;">'E'</span>.
-  <span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code></pre>
+  <span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -86,14 +86,14 @@
     <div class="line-numbers" style="background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right; border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8
     </div>
-    <pre style="margin: 0; padding: 12px; overflow-x: auto; background-color: #ffffff; color: #333; line-height: 1.5; flex: 1;"><code><span style="color: #005cc5; font-weight: bold;">AT</span> <span style="color: #005cc5; font-weight: bold;">SELECTION-SCREEN</span> ON p_bukrs.
+    <pre class="shiki shiki-copy-wrapper" style="background-color: #f6f8fa; border: 1px solid #e1e4e8; color: #333333; padding: 12px; border-radius: 6px; overflow-x: auto; font-family: Consolas, Monaco, 'Courier New', monospace; font-size: 14px; line-height: 1.5;"><code><span style="color: #005cc5; font-weight: bold;">AT</span> <span style="color: #005cc5; font-weight: bold;">SELECTION-SCREEN</span> ON p_bukrs.
   <span style="color: #888888; font-style: italic;">"p_bukrs(회사코드)가 실제 존재하는지 확인</span>
   <span style="color: #005cc5; font-weight: bold;">SELECT</span> SINGLE bukrs <span style="color: #005cc5; font-weight: bold;">FROM</span> t001
     <span style="color: #005cc5; font-weight: bold;">INTO</span> @<span style="color: #005cc5; font-weight: bold;">DATA</span>(lv_dummy)
     <span style="color: #005cc5; font-weight: bold;">WHERE</span> bukrs = @p_bukrs.
   <span style="color: #005cc5; font-weight: bold;">IF</span> sy-subrc &lt;&gt; <span style="color: #22863a;">0</span>.
     MESSAGE <span style="color: #22863a;">'존재하지 않는 회사코드입니다.'</span> <span style="color: #005cc5; font-weight: bold;">TYPE</span> <span style="color: #22863a;">'E'</span>.
-  <span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code></pre>
+  <span style="color: #005cc5; font-weight: bold;">ENDIF</span>.</code><button class="shiki-copy-button" data-copied="false">Copy</button></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
