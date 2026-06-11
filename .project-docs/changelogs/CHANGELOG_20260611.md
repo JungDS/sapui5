@@ -7,6 +7,15 @@
 
 ## 작업 상세 내용
 
+### Codex (GPT-5) — Track 1 사용자 피드백 보정 및 Internal Table 시각화
+- `Chapter 1의 Lesson 1` 제목에서 첫 Lesson에 맞지 않는 "지난 시간 연결" 표현을 사용자가 직접 수정한 상태로 커밋 범위에 포함했다.
+- `assets/abap-lesson-viewer.css`에서 `.abap-editor-code code`가 부모의 `D2Coding` 폰트를 상속하도록 보정하고, Internal Table 학습 시각 자료용 공통 CSS 클래스를 추가했다.
+- `tools/format-abap-code.mjs`의 ABAP 키워드 목록에 `LENGTH`, `TIMES`, `CONTINUE`, `EXIT`, `CONCATENATE`, `SEPARATED BY`, `FIND`, `IN`, `DEFAULT`, `OBLIGATORY`, `BEGIN OF BLOCK`, `END OF BLOCK`, `FRAME TITLE`, `PERFORM`, `OTHERS`, `METHOD`, `ENDMETHOD`, `STANDARD TABLE OF`, `INDEX`를 추가했다.
+- `Chapter 2의 Lesson 3`에서 SAP Learning의 ADT 콘솔 `out->write( )` 예제와 Classic ABAP Report의 `WRITE` 문이 다르다는 설명을 추가하고, 공식 링크를 SAP Help Portal `WRITE` 문서 중심으로 교체했다.
+- `Chapter 5의 Lesson 2`에서 `USING`, `CHANGING`, pass by reference, pass by value, pass by value and result를 분리해 설명하고, `VALUE(...)`가 `FORM`의 formal parameter 선언 쪽에 붙는다는 점을 예제로 보강했다.
+- `Chapter 5의 Lesson 4~5`에서 Class의 Attribute/Method, Static/Instance, Public/Protected/Private 설명을 보강하고, `zcl_demo_text`의 목적과 구조를 먼저 소개한 뒤 호출 예제로 이어지도록 순서를 조정했다.
+- `Chapter 6의 Lesson 1~6`에 `정훈영` 중심의 한국어 예제 이름을 적용하고, Internal Table의 빈 상태, Work Area, APPEND/INSERT 전후, LOOP 현재 행, READ TABLE 성공/실패, 미니 가공 흐름을 HTML/CSS 표와 흐름도로 추가했다.
+
 ### Codex (GPT-5) — Chapter 21의 Lesson 1~8 고품질화 패턴 확산
 - `docs/abap/lesson-content/THEORY-21-M01.html` ~ `THEORY-21-M08.html`에 미니 실습, 완료 조건, 공식 문서 링크, 확인 퀴즈, 정답/해설을 추가.
 - NotebookLM 노트 `ABAP Evolution and Messaging Channels Training Guide`에서 RAP Architecture, Interface/Projection View, BDEF, Behavior Pool, EML, Service Definition/Binding, Validation/Determination/Action, ABAP Cloud/Released API 근거 매트릭스를 받아 누락 위험을 확인했다.
@@ -41,3 +50,7 @@
 - **파일럿 후속 규칙**: Chapter 1~3을 먼저 끝낸 뒤 바로 다음 Chapter로 확산하지 않고, 부족 요소 사전 감사, 공식 링크 검증, 범위 밖 주제 분리, 포맷터 영향 확인을 계획 문서에 추가했다.
 - **Chapter 20 교차 검증 강화**: NotebookLM이 제안한 심화 포인트 중 릴리스·성능·권한과 관련된 내용은 단정하지 않고, SAP Help Portal 공식 링크로 확인 가능한 범위만 Lesson 본문에 반영했다.
 - **Chapter 21 최신성 관리**: RAP와 ABAP Cloud는 릴리즈별 차이가 크므로 NotebookLM의 초안 포인트를 그대로 쓰지 않고, SAP Help Portal/SAP Learning으로 확인 가능한 구조와 입문 수준의 책임 분리만 본문에 반영했다.
+- **사용자 피드백 반영 방식**: 사용자가 직접 고친 `Chapter 1의 Lesson 1` 제목은 보존하고, 이번 수정 커밋에 포함했다. AI가 만든 변경과 사용자 변경을 구분해 확인한 뒤 같은 목적의 커밋으로 묶었다.
+- **정확한 문법 위치 보정**: `USING VALUE(...)`는 호출문이 아니라 `FORM` formal parameter 선언 쪽의 표현이므로 예제에서 `PERFORM change_copy USING gv_name.`과 `FORM change_copy USING VALUE(iv_name) TYPE string.`의 위치 차이를 분리해 보여줬다.
+- **시각 자료 구현 선택**: Internal Table 이해 보강은 별도 이미지 파일보다 유지보수 가능한 HTML/CSS 표와 흐름도를 선택했다. Lesson fragment에는 인라인 스타일을 넣지 않고 공통 CSS만 확장했다.
+- **포맷터 범위 관리**: 키워드 목록은 전역으로 확장했지만, 전체 Lesson 재포맷으로 생긴 줄끝/재생성성 변경은 제외하고 요청 범위와 직접 검증한 Lesson 변경만 남겼다.

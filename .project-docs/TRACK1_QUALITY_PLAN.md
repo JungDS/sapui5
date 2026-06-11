@@ -116,7 +116,18 @@ NotebookLM 질의 결과, 노트북은 대체로 다음 범위에 강하다.
 - **표현 정리**: 사용자 화면에 보이는 Lesson 본문에서는 내부 ID를 제거하고 `Chapter 20의 Lesson 1`, `Chapter 21의 Lesson 8` 같은 표현으로 통일했다.
 - **다음 단계**: 후속 우선 후보는 `Chapter 11~19` 또는 `Chapter 4~10`이다. 특히 SQL, Dynpro, ALV, OO ABAP는 실습과 퀴즈의 교육 효과가 크므로 먼저 정적 감사 후 Chapter 단위로 진행한다.
 
-## 9. 추가 주의사항
+## 9. 사용자 피드백 보정 메모
+
+2026-06-11 사용자 피드백에 따라 `Chapter 1의 Lesson 1`, `Chapter 2의 Lesson 3`, `Chapter 5의 Lesson 2/4/5`, `Chapter 6의 Lesson 1~6`을 보정했다.
+
+- **첫 Lesson 연결 문구**: `Chapter 1의 Lesson 1`처럼 선행 Lesson이 없는 첫 Lesson에는 "지난 시간 연결" 표현을 쓰지 않는다.
+- **WRITE 링크 구분**: Classic ABAP Report의 `WRITE` 문을 설명할 때 ADT 콘솔 앱의 `out->write( )` 예제를 대표 링크로 쓰지 않는다. 필요하면 `IF_OO_ADT_CLASSRUN` 기반 콘솔 출력과 Classic `WRITE`의 차이를 명시한다.
+- **Subroutine 전달 방식**: `USING`/`CHANGING` 방향과 pass by reference/value/value-and-result를 분리해서 설명한다. `VALUE(...)`는 `PERFORM` 호출문이 아니라 `FORM`의 formal parameter 선언 쪽에 붙는다는 점을 예제로 보여준다.
+- **Class 입문 순서**: Class를 처음 소개하는 Lesson에서는 Attribute/Method, Static/Instance, Public/Protected/Private를 먼저 설명하고, Event/Interface는 존재만 소개한 뒤 후속 OO ABAP Chapter로 넘긴다.
+- **Internal Table 시각화**: Internal Table 입문 Lesson은 텍스트만으로 설명하지 말고 빈 테이블, Work Area, APPEND/INSERT 전후, LOOP 현재 행, READ TABLE 성공/실패를 표·흐름도 같은 HTML/CSS 시각 자료로 보여준다.
+- **포맷터 범위 관리**: ABAP 키워드 사전은 전역으로 확장하되, 포맷터 실행 후 줄끝 변경이나 범위 밖 재생성이 생기면 요청 범위와 직접 검증한 변경만 남긴다.
+
+## 10. 추가 주의사항
 
 - `docs/abap/lesson-content/*.html`은 fragment이므로 `<html>`, `<head>`, `<script>`, 인라인 CSS를 넣지 않는다.
 - 새 CSS/JS가 필요할 때는 먼저 기존 `assets/abap-lesson-viewer.*` 확장 가능성을 검토한다.

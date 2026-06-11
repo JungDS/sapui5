@@ -64,24 +64,24 @@
          score <span class="abap-token-keyword">TYPE</span> i,
        <span class="abap-token-keyword">END</span> <span class="abap-token-keyword">OF</span> ty_student.
 
-<span class="abap-token-keyword">DATA</span>: lt_students  <span class="abap-token-keyword">TYPE</span> STANDARD <span class="abap-token-keyword">TABLE</span> <span class="abap-token-keyword">OF</span> ty_student,
+<span class="abap-token-keyword">DATA</span>: lt_students  <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">STANDARD TABLE OF</span> ty_student,
       ls_student   <span class="abap-token-keyword">TYPE</span> ty_student,
       lv_high_cnt  <span class="abap-token-keyword">TYPE</span> i.
 
 ls_student-id = <span class="abap-token-string">'A01'</span>.
-ls_student-name = <span class="abap-token-string">'Mina'</span>.
+ls_student-name = <span class="abap-token-string">'정훈영'</span>.
 ls_student-score = <span class="abap-token-number">90</span>.
 <span class="abap-token-keyword">APPEND</span> ls_student <span class="abap-token-keyword">TO</span> lt_students.
 
 <span class="abap-token-keyword">CLEAR</span> ls_student.
 ls_student-id = <span class="abap-token-string">'A02'</span>.
-ls_student-name = <span class="abap-token-string">'Jun'</span>.
+ls_student-name = <span class="abap-token-string">'홍길동'</span>.
 ls_student-score = <span class="abap-token-number">85</span>.
 <span class="abap-token-keyword">APPEND</span> ls_student <span class="abap-token-keyword">TO</span> lt_students.
 
 <span class="abap-token-keyword">CLEAR</span> ls_student.
 ls_student-id = <span class="abap-token-string">'A03'</span>.
-ls_student-name = <span class="abap-token-string">'Sora'</span>.
+ls_student-name = <span class="abap-token-string">'심청'</span>.
 ls_student-score = <span class="abap-token-number">95</span>.
 <span class="abap-token-keyword">APPEND</span> ls_student <span class="abap-token-keyword">TO</span> lt_students.
 
@@ -110,6 +110,42 @@ ls_student-score = <span class="abap-token-number">95</span>.
   <p>
     코드가 길어 보일 수 있지만 흐름은 단순합니다. 표를 만들고, 줄을 넣고, 전체를 돌며 계산하고, 한 줄을 검색해 결과를 출력합니다.
   </p>
+  <div class="itab-visual">
+    <p class="itab-visual-title">미니 데이터 가공 전체 흐름</p>
+    <div class="itab-flow">
+      <div class="itab-flow-step">
+        <strong>1. Line Type 선언</strong>
+        <span>id, name, score 칸을 가진 한 줄 모양 정의</span>
+      </div>
+      <div class="itab-flow-step">
+        <strong>2. APPEND 3회</strong>
+        <span>정훈영, 홍길동, 심청을 lt_students에 추가</span>
+      </div>
+      <div class="itab-flow-step">
+        <strong>3. LOOP AT</strong>
+        <span>각 줄을 ls_student로 읽으며 출력</span>
+      </div>
+      <div class="itab-flow-step">
+        <strong>4. 조건 계산</strong>
+        <span>score가 90 이상이면 lv_high_cnt 증가</span>
+      </div>
+      <div class="itab-flow-step">
+        <strong>5. READ TABLE</strong>
+        <span>A02를 찾아 sy-subrc로 성공/실패 분기</span>
+      </div>
+    </div>
+    <table class="itab-table">
+      <thead>
+        <tr><th>id</th><th>name</th><th>score</th><th>LOOP 처리 결과</th></tr>
+      </thead>
+      <tbody>
+        <tr class="itab-current-row"><td>A01</td><td>정훈영</td><td>90</td><td>우수 학생 수 +1</td></tr>
+        <tr><td>A02</td><td>홍길동</td><td>85</td><td>목록 출력만 수행</td></tr>
+        <tr class="itab-current-row"><td>A03</td><td>심청</td><td>95</td><td>우수 학생 수 +1</td></tr>
+      </tbody>
+    </table>
+    <p class="itab-note">최종적으로 90점 이상 학생 수는 2명이고, READ TABLE id = 'A02'는 홍길동 행을 찾습니다.</p>
+  </div>
 </section>
 
 <section class="lesson-section">
@@ -131,7 +167,7 @@ ls_student-score = <span class="abap-token-number">95</span>.
   <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
   <ul>
     <li>✅ <strong>정상 흐름:</strong> 학생 3줄이 추가되고, LOOP가 3번 돌며, 90점 이상 학생 수가 2로 출력됩니다.</li>
-    <li>✅ <strong>검색 성공:</strong> <code>A02</code>가 있으므로 <code>sy-subrc = 0</code>이 되고 Jun의 점수가 출력됩니다.</li>
+    <li>✅ <strong>검색 성공:</strong> <code>A02</code>가 있으므로 <code>sy-subrc = 0</code>이 되고 홍길동의 점수가 출력됩니다.</li>
     <li>❌ <strong>검색 실패:</strong> 검색 ID를 <code>A99</code>로 바꾸면 실패 메시지가 출력됩니다.</li>
     <li>❌ <strong>APPEND 누락:</strong> 한 학생의 APPEND를 지우면 LOOP 출력 줄 수와 우수 학생 수가 달라집니다.</li>
     <li>❌ <strong>CLEAR 누락:</strong> Work Area를 일부 필드만 다시 채우는 코드에서는 이전 값이 섞일 수 있습니다.</li>

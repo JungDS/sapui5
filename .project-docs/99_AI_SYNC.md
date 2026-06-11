@@ -17,7 +17,7 @@
 
 ## 현재 상태 및 목표 (Current Status & Goals)
 - **현재 목표**: 🎉 **Track 1(THEORY-*) 137/137 작성 완료!** (THEORY-01~21 전부). 사용자의 새 목표에 따라 Track 1을 "고품질 교육용 웹페이지" 기준으로 재감사·보강하는 라운드를 준비 중. 기준 문서: [TRACK1_QUALITY_PLAN.md](TRACK1_QUALITY_PLAN.md). 병행 다음 목표는 **Track 2(PRACTICAL-* 13개 섹션)** 신규 작성.
-- **최근 진행(2026-06-11, Codex)**: `Chapter 20~21`을 Track 1 고품질화 기준으로 보강해 실습 과제, 완료 조건, 확인 퀴즈, 정답/해설, SAP 공식 링크를 추가. NotebookLM, 로컬 reference, SAP 공식 문서를 교차 검증해 CDS View Entity/VDM/Association/Annotation/MDE/DCL, RAP BO/BDEF/EML/Service Binding/Validation/Determination/Action/ABAP Cloud 누락 위험을 보정.
+- **최근 진행(2026-06-11, Codex)**: 사용자 피드백에 따라 `Chapter 1의 Lesson 1`, `Chapter 2의 Lesson 3`, `Chapter 5의 Lesson 2/4/5`, `Chapter 6의 Lesson 1~6`을 보정. 코드 예제 D2Coding 상속, ABAP 키워드 포맷터 확장, Classic `WRITE`와 ADT `out->write( )` 구분, Subroutine 전달 방식, Class 입문 설명, Internal Table 시각 자료를 보강.
 - **⚠️ 동시 작업 주의**: AI 작업 간 겹침 방지를 위해 섹션 단위 작업을 엄수.
 - **⚠️ 인계 핵심 문서**: 이어서 작업할 AI는 **[HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md)를 가장 먼저 정독**할 것. 작성 규칙·스타일 기준·복붙용 프롬프트가 모두 거기 있음.
 
@@ -39,6 +39,18 @@
 ---
 
 ## 작업 이력 (Work Log)
+
+### [2026-06-11] Codex (GPT-5) — Track 1 사용자 피드백 보정 및 Internal Table 시각화
+- **작업 내용**:
+  - `Chapter 1의 Lesson 1`에 사용자가 직접 수정한 첫 Lesson 제목 보정을 커밋 범위에 포함.
+  - `.abap-editor-code code`가 부모의 `D2Coding` 폰트를 상속하도록 CSS를 보정하고, ABAP 코드 포맷터 키워드 목록을 확장.
+  - `Chapter 2의 Lesson 3` 공식 링크를 Classic `WRITE` 공식 문서 중심으로 교체하고, ADT `IF_OO_ADT_CLASSRUN`의 `out->write( )`와 다르다는 설명을 추가.
+  - `Chapter 5의 Lesson 2`에 pass by reference/value/value-and-result와 FORM formal parameter의 `VALUE(...)` 위치를 보강.
+  - `Chapter 5의 Lesson 4~5`에 Class Attribute/Method, Static/Instance, Visibility, `zcl_demo_text` 구조 설명과 공식 링크를 보강.
+  - `Chapter 6의 Lesson 1~6`에 `정훈영` 중심 예제 데이터와 Internal Table 상태/흐름 HTML/CSS 시각 자료를 추가.
+- **검증 메모**:
+  - 대상 Lesson fragment의 `<script>`, `<style>`, 인라인 `style=`, 인라인 이벤트, plain `<pre><code>` 잔여 0건을 확인.
+  - 포맷터 전역 재실행으로 생긴 범위 밖 줄끝/재생성 변경은 커밋에서 제외하고, 요청 범위 변경만 남겼다.
 
 ### [2026-06-11] Codex (GPT-5) — Chapter 21의 Lesson 1~8 고품질화 패턴 확산
 - **작업 내용**:

@@ -79,11 +79,11 @@
          name <span class="abap-token-keyword">TYPE</span> char20,
        <span class="abap-token-keyword">END</span> <span class="abap-token-keyword">OF</span> ty_student.
 
-<span class="abap-token-keyword">DATA</span>: lt_students <span class="abap-token-keyword">TYPE</span> STANDARD <span class="abap-token-keyword">TABLE</span> <span class="abap-token-keyword">OF</span> ty_student,
+<span class="abap-token-keyword">DATA</span>: lt_students <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">STANDARD TABLE OF</span> ty_student,
       ls_student  <span class="abap-token-keyword">TYPE</span> ty_student.
 
 ls_student-id = <span class="abap-token-string">'A01'</span>.
-ls_student-name = <span class="abap-token-string">'Mina'</span>.
+ls_student-name = <span class="abap-token-string">'정훈영'</span>.
 <span class="abap-token-keyword">APPEND</span> ls_student <span class="abap-token-keyword">TO</span> lt_students.
 
 <span class="abap-token-keyword">LOOP</span> <span class="abap-token-keyword">AT</span> lt_students <span class="abap-token-keyword">INTO</span> ls_student.
@@ -95,6 +95,49 @@ ls_student-name = <span class="abap-token-string">'Mina'</span>.
   <p>
     지금은 문법을 완벽히 외우지 않아도 됩니다. 큰 흐름만 먼저 보세요. 한 줄 모양을 정하고, 여러 줄을 담을 표를 만들고, 한 줄을 넣은 뒤, 반복해서 출력합니다.
   </p>
+  <div class="itab-visual">
+    <p class="itab-visual-title">Internal Table 상태 변화</p>
+    <div class="itab-state-grid">
+      <div class="itab-state">
+        <span class="itab-state-label">1. 선언 직후 lt_students</span>
+        <div class="itab-empty">아직 행이 없습니다</div>
+      </div>
+      <div class="itab-state">
+        <span class="itab-state-label">2. Work Area 채움</span>
+        <table class="itab-table">
+          <thead>
+            <tr><th>id</th><th>name</th></tr>
+          </thead>
+          <tbody>
+            <tr class="itab-highlight-row"><td>A01</td><td>정훈영</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="itab-state">
+        <span class="itab-state-label">3. APPEND 후 lt_students</span>
+        <table class="itab-table">
+          <thead>
+            <tr><th>순번</th><th>id</th><th>name</th></tr>
+          </thead>
+          <tbody>
+            <tr class="itab-current-row"><td>1</td><td>A01</td><td>정훈영</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="itab-state">
+        <span class="itab-state-label">4. LOOP 현재 행</span>
+        <table class="itab-table">
+          <thead>
+            <tr><th>ls_student-id</th><th>ls_student-name</th></tr>
+          </thead>
+          <tbody>
+            <tr class="itab-current-row"><td>A01</td><td>정훈영</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="itab-note">APPEND는 Work Area의 현재 값을 Internal Table 끝에 한 줄로 복사합니다. LOOP는 그 표를 한 줄씩 Work Area로 다시 읽어옵니다.</p>
+  </div>
   <ul>
     <li><code>ty_student</code>: 한 줄이 어떤 칸으로 구성되는지 정합니다.</li>
     <li><code>lt_students</code>: 여러 학생 줄을 담는 Internal Table입니다.</li>

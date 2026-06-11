@@ -88,17 +88,17 @@
          score <span class="abap-token-keyword">TYPE</span> i,
        <span class="abap-token-keyword">END</span> <span class="abap-token-keyword">OF</span> ty_student.
 
-<span class="abap-token-keyword">DATA</span>: lt_students <span class="abap-token-keyword">TYPE</span> STANDARD <span class="abap-token-keyword">TABLE</span> <span class="abap-token-keyword">OF</span> ty_student,
+<span class="abap-token-keyword">DATA</span>: lt_students <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">STANDARD TABLE OF</span> ty_student,
       ls_student  <span class="abap-token-keyword">TYPE</span> ty_student.
 
 ls_student-id = <span class="abap-token-string">'A01'</span>.
-ls_student-name = <span class="abap-token-string">'Mina'</span>.
+ls_student-name = <span class="abap-token-string">'정훈영'</span>.
 ls_student-score = <span class="abap-token-number">90</span>.
 <span class="abap-token-keyword">APPEND</span> ls_student <span class="abap-token-keyword">TO</span> lt_students.
 
 <span class="abap-token-keyword">CLEAR</span> ls_student.
 ls_student-id = <span class="abap-token-string">'A02'</span>.
-ls_student-name = <span class="abap-token-string">'Jun'</span>.
+ls_student-name = <span class="abap-token-string">'홍길동'</span>.
 ls_student-score = <span class="abap-token-number">85</span>.
 <span class="abap-token-keyword">APPEND</span> ls_student <span class="abap-token-keyword">TO</span> lt_students.
 
@@ -115,6 +115,40 @@ ls_student-score = <span class="abap-token-number">85</span>.
   <p>
     여기서는 <code>A02</code>가 있으므로 성공 흐름으로 갑니다. 조건을 <code>A99</code>로 바꿔 실행하면 실패 흐름으로 가고, <code>ELSE</code> 메시지가 출력됩니다.
   </p>
+  <div class="itab-visual">
+    <p class="itab-visual-title">READ TABLE 성공과 실패 비교</p>
+    <div class="itab-state-grid">
+      <div class="itab-state">
+        <span class="itab-state-label">검색 전 lt_students</span>
+        <table class="itab-table">
+          <thead><tr><th>id</th><th>name</th><th>score</th></tr></thead>
+          <tbody>
+            <tr><td>A01</td><td>정훈영</td><td>90</td></tr>
+            <tr><td>A02</td><td>홍길동</td><td>85</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="itab-state">
+        <span class="itab-state-label">WITH KEY id = 'A02'</span>
+        <table class="itab-table">
+          <tbody>
+            <tr><th>sy-subrc</th><td><span class="itab-badge success">0 성공</span></td></tr>
+            <tr><th>ls_student</th><td>A02 / 홍길동 / 85</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="itab-state">
+        <span class="itab-state-label">WITH KEY id = 'A99'</span>
+        <table class="itab-table">
+          <tbody>
+            <tr><th>sy-subrc</th><td><span class="itab-badge fail">0 아님</span></td></tr>
+            <tr><th>처리</th><td>실패 메시지 또는 대체 흐름</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="itab-note">READ TABLE 뒤에는 Work Area 값을 바로 믿지 말고, 먼저 sy-subrc로 성공 여부를 확인합니다.</p>
+  </div>
 </section>
 
 <section class="lesson-section">
