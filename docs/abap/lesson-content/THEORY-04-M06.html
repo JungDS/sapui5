@@ -103,6 +103,38 @@
   <blockquote>
     좋은 설계는 “공통 규칙은 DDIC, 상황별 규칙은 프로그램”으로 책임을 나눕니다.
   </blockquote>
+  <div class="viz-visual">
+    <p class="viz-visual-title">검증 책임 나누기 — 같은 입력값, 두 개의 관문</p>
+    <div class="viz-compare">
+      <div class="viz-compare-before">
+        <span class="viz-compare-label">1차 관문: DDIC Validation (공통 규칙)</span>
+        <div class="viz-compare-body">
+          <table class="viz-table">
+            <tbody>
+              <tr><td>타입/길이</td><td><code>CHAR 3</code>, 날짜, 숫자 형태</td></tr>
+              <tr><td>Fixed Value</td><td><code>Y</code>/<code>N</code>만 허용</td></tr>
+              <tr><td>Foreign Key</td><td>기준표에 있는 값인가</td></tr>
+              <tr><td>강점</td><td><span class="viz-badge">여러 프로그램에서 재사용</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="viz-compare-after">
+        <span class="viz-compare-label">2차 관문: Program Input Check (업무 문맥)</span>
+        <div class="viz-compare-body">
+          <table class="viz-table">
+            <tbody>
+              <tr><td>기간</td><td>시작일 ≤ 종료일, 최대 30일</td></tr>
+              <tr><td>권한</td><td>이 사용자가 볼 수 있는 조직인가</td></tr>
+              <tr><td>상태/조합</td><td>마감 문서 수정 금지, 코드 조합 확인</td></tr>
+              <tr><td>강점</td><td><span class="viz-badge">상황별 업무 판단 가능</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="viz-note">입력값은 DDIC의 공통 관문을 먼저 지나고, 프로그램의 업무 관문에서 한 번 더 확인됩니다. 한쪽이 다른 쪽을 대신하지 못합니다.</p>
+  </div>
 </section>
 
 <section class="lesson-section">
@@ -117,10 +149,56 @@
   <p>
     또한 운영 환경에서는 메시지 문구도 사용자 경험의 일부입니다. “오류입니다”처럼 막연한 메시지보다, 무엇을 어떻게 고쳐야 하는지 알려주는 메시지가 훨씬 좋습니다.
   </p>
+  <p>
+    그리고 DDIC 기반 검증은 화면 입력 경로에서 동작한다는 점을 기억하세요. 배치 인터페이스나 프로그램 내부의 직접 INSERT처럼 화면을 거치지 않는 경로에서는 DDIC 검증이 자동으로 막아주지 않으므로, 그런 로직에는 프로그램 검증을 반드시 넣어야 합니다.
+  </p>
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 검증 배치도 그리기 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>위 예제 <code>zinput_check</code>를 만들어 실행하고, <code>p_days</code>에 31을 넣었을 때 오류 메시지가 뜨는지 확인합니다.</li>
+        <li>기준 일수를 30에서 14로 바꾸고 동작 차이를 확인합니다.</li>
+        <li>다음 네 가지 규칙을 DDIC와 프로그램 중 어디에 둘지 분류합니다: ① 통화 코드는 3자리 ② 조회 기간 최대 30일 ③ 사용 여부는 Y/N만 ④ 마감된 전표 수정 금지</li>
+        <li>오류 메시지 문구를 “무엇을 어떻게 고쳐야 하는지” 알 수 있게 직접 다듬어봅니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> ①③은 DDIC, ②④는 프로그램 검증으로 분류하고 그 이유를 설명할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMESSAGE.html" target="_blank" rel="noopener">SAP Help Portal: MESSAGE</a> - MESSAGE 문장의 공식 문법과 메시지 타입을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFOREIGN_KEY_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Foreign Key</a> - DDIC가 담당하는 관계 기반 검증의 공식 정의를 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS.html" target="_blank" rel="noopener">SAP Help Portal: PARAMETERS</a> - 입력칸 선언과 검증 흐름의 출발점을 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>“조회 시작일이 종료일보다 늦으면 안 된다”는 규칙은 DDIC와 프로그램 중 어디에 두는 것이 적합한가요?</li>
+    <li>DDIC 검증(Foreign Key 등)을 잘 설정했다면 배치 인터페이스 코드에서는 검증을 생략해도 될까요?</li>
+    <li><code>MESSAGE '...' TYPE 'E'</code>에서 <code>'E'</code>는 무엇을 의미하나요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>프로그램 검증</strong>입니다. 두 입력값의 조합 조건은 Domain이나 Foreign Key만으로 표현하기 어렵습니다.</li>
+      <li><strong>아니요.</strong> DDIC 검증은 주로 화면 입력 단계에서 동작하므로, 화면을 거치지 않는 경로에는 프로그램 검증을 별도로 넣어야 합니다.</li>
+      <li><strong>Error(오류) 타입</strong>입니다. 사용자에게 오류로 표시되고 진행이 중단되는 메시지 유형입니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

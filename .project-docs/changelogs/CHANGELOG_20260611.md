@@ -66,6 +66,12 @@
 - `tools/format-abap-code.mjs` 키워드에 `LEFT/RIGHT OUTER JOIN`, `INNER JOIN`, `GROUP BY`, `ORDER BY`, `HAVING`, `AND`, `OR`, `SINGLE`, 집계 함수 등 SQL 계열을 보강하고 전체 재실행(77개 파일 하이라이트 개선, 2차 실행 0건으로 멱등성 확인).
 - NotebookLM MCP(`notebooklm-mcp` v2.0.0, 비공식)를 사용자 스코프에 등록하고 Google 인증·노트북(`ABAP Evolution and Messaging Channels Training Guide`) 등록·실질의 검증까지 완료. 이후 Chapter 패스는 NotebookLM 질의 → SAP 공식 문서 교차 검증 흐름으로 진행.
 
+### Claude (Fable 5) — Chapter 4의 Lesson 1~6 고품질화+시각화 통합 패스
+- NotebookLM에 Chapter 4 주제를 질의해 BC430 기반 오개념/시각화 아이디어/실무 주의점을 수집하고, SAP Help Portal 공식 링크 7종을 실존 검증 후 Lesson별 3개씩 연결.
+- `Chapter 4의 Lesson 1~6`에 미니 실습(완료 조건 포함), 확인 퀴즈/정답/해설을 추가하고 한눈에 정리 섹션 번호를 재정렬.
+- 시각 자료 6종 추가: FK 검증 관계도, 1:N 카디널리티 그리드, Value Table vs FK 전/후 비교, F4 동작 5단계 플로우, F4 탐색 우선순위 폭포수, DDIC vs 프로그램 검증 책임 비교 — 신규 `viz-*` 클래스 첫 실전 적용.
+- 교차 검증된 심화 사실 반영: DDIC Foreign Key는 DB 물리 제약이 아니라 화면 입력 단계의 논리 검증이라는 점, Search Help Export 파라미터 누락 시 값 미반환, Check Table만으로도 F4 후보가 생성되는 메커니즘.
+
 ## Claude 고민했던 점 및 설계 이유
 - **별칭 방식 선택**: itab-* 전면 리네이밍 대신 CSS 셀렉터 병기를 택해 Chapter 6 기존 HTML을 건드리지 않고 신규 작업의 의미(범용 viz-*)만 명확히 했다.
 - **viz-compare 색상 설계**: before(연한 적색 헤더)/after(연한 녹색 헤더)로 전/후 방향을 색으로 직관화하되, 기존 팔레트(#fff0f0/#e8f8ef 계열) 안에서만 선택해 시각 일관성을 유지했다.

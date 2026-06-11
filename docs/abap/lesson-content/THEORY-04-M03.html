@@ -56,6 +56,42 @@
   <p>
     여기서 중요한 것은 후보 목록이 갑자기 마법처럼 생기는 것이 아니라, 어떤 테이블이나 뷰를 읽어 만들어진다는 점입니다. 출처가 잘못되면 F4 목록도 잘못됩니다.
   </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">F4를 눌렀을 때 일어나는 일</p>
+    <div class="viz-flow">
+      <div class="viz-flow-step">
+        <strong>1. F4 입력</strong>
+        <span>사용자가 입력칸에서 F4를 누름</span>
+      </div>
+      <div class="viz-flow-step">
+        <strong>2. Search Help 호출</strong>
+        <span>필드에 연결된 <code>ZSH_CARRIER</code> 동작</span>
+      </div>
+      <div class="viz-flow-step">
+        <strong>3. 후보 조회</strong>
+        <span>Selection Method <code>ZCARRIER</code>에서 읽기</span>
+      </div>
+      <div class="viz-flow-step">
+        <strong>4. 목록 표시</strong>
+        <span>코드와 이름을 팝업으로 보여줌</span>
+      </div>
+      <div class="viz-flow-step">
+        <strong>5. 값 반환</strong>
+        <span>선택한 <code>CARRID</code>가 입력칸으로</span>
+      </div>
+    </div>
+    <table class="viz-table">
+      <thead>
+        <tr><th>CARRID</th><th>CARRNAME</th><th>사용자 동작</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>AA</td><td>아메리칸항공</td><td></td></tr>
+        <tr class="viz-current-row"><td>KE</td><td>대한항공</td><td>더블클릭 → 입력칸에 <code>KE</code> 반환</td></tr>
+        <tr><td>LH</td><td>루프트한자</td><td></td></tr>
+      </tbody>
+    </table>
+    <p class="viz-note">팝업 목록에는 코드와 이름이 함께 보이지만, 입력칸으로 돌아가는 값은 반환 필드로 지정한 <code>CARRID</code>입니다.</p>
+  </div>
 </section>
 
 <section class="lesson-section">
@@ -99,12 +135,55 @@
     </div>
   </div>
   <p>
-    또한 표준 SAP 객체에 이미 좋은 Search Help가 연결되어 있다면 새로 만들기 전에 재사용 가능성을 먼저 확인하세요. 커스텀 Search Help는 표준으로 해결되지 않을 때 신중하게 만듭니다.
+    또한 표준 SAP 객체에 이미 좋은 Search Help가 연결되어 있다면 새로 만들기 전에 재사용 가능성을 먼저 확인하세요. 커스텀 Search Help는 표준으로 해결되지 않을 때 신중하게 만듭니다. 후보 데이터가 많은 경우에는 사용자가 조건을 먼저 입력한 뒤 조회하도록 Dialog 동작을 “값 제한이 있는 다이얼로그”로 설정하는 방법도 함께 검토합니다.
   </p>
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 항공사 F4 흐름 설계하기 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>위 5단계 플로우를 가리고, F4를 눌렀을 때 일어나는 일을 순서대로 직접 적어봅니다.</li>
+        <li>Search Help <code>ZSH_CARRIER</code>의 Selection Method, 목록 표시 필드, 반환 필드를 표로 정리합니다.</li>
+        <li>“사용자가 이름(대한항공)을 더블클릭했는데 입력칸에 코드(KE)가 들어가는” 이유를 반환 필드 개념으로 설명합니다.</li>
+        <li>후보가 10만 건인 기준표라면 어떤 설정을 고민해야 할지 한 줄로 적어봅니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> “Search Help = 후보 목록 설계도, Selection Method = 후보 출처, 반환 필드 = 입력칸으로 돌아갈 값”을 구분해 말할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSEARCH_HELP_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Search Help</a> - Search Help의 공식 정의와 종류를 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINPUT_HELP_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Input Help</a> - F4 입력 도움말(Input Help)의 큰 개념을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDATA_ELEMENT_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: DDIC Data Element</a> - Search Help가 Data Element를 통해 필드와 연결되는 고리를 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>Search Help의 후보 목록은 어디에서 읽어오나요?</li>
+    <li>F4 목록에 보이는 값이면 사용자가 업무적으로 항상 사용할 수 있는 값일까요?</li>
+    <li>사용자가 팝업에서 행을 선택했는데 입력칸에 엉뚱한 값이 들어간다면 어떤 설정을 의심해야 하나요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>Selection Method로 지정한 테이블이나 뷰</strong>에서 읽어옵니다. 출처가 잘못되면 목록도 잘못됩니다.</li>
+      <li><strong>아니요.</strong> F4는 입력 편의 기능입니다. 권한, 기간, 상태 같은 업무 조건은 별도 검증이 필요합니다.</li>
+      <li><strong>반환(Export) 필드 설정</strong>입니다. 목록에 보여줄 필드와 입력칸으로 돌려줄 필드를 구분해 매핑해야 합니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

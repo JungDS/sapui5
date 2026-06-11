@@ -38,6 +38,49 @@
       <p><code>ZSH_CARRIER_ALL</code>이라는 Collective Search Help 안에 “코드로 검색”, “이름으로 검색”, “국가로 검색” Elementary Search Help를 묶을 수 있습니다.</p>
     </div>
   </div>
+  <div class="viz-visual">
+    <p class="viz-visual-title">Collective는 메뉴판, Elementary가 실제 검색 방법</p>
+    <div class="viz-state-grid">
+      <div class="viz-state">
+        <span class="viz-state-label">Collective: ZSH_CARRIER_ALL</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td>탭 1</td><td>코드로 검색</td></tr>
+            <tr><td>탭 2</td><td>이름으로 검색</td></tr>
+            <tr><td>탭 3</td><td>국가로 검색</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-state">
+        <span class="viz-state-label">Elementary 1: 코드로 검색</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td>출처</td><td><code>ZCARRIER</code></td></tr>
+            <tr><td>조건</td><td><code>CARRID</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-state">
+        <span class="viz-state-label">Elementary 2: 이름으로 검색</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td>출처</td><td><code>ZCARRIER</code></td></tr>
+            <tr><td>조건</td><td><code>CARRNAME</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-state">
+        <span class="viz-state-label">Elementary 3: 국가로 검색</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td>출처</td><td><code>ZCARRIER</code></td></tr>
+            <tr><td>조건</td><td><code>COUNTRY</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="viz-note">Collective Search Help는 직접 데이터를 읽지 않습니다. F4 팝업에서 탭으로 보이는 각 검색 방법(Elementary)이 실제 후보 조회를 담당합니다.</p>
+  </div>
 </section>
 
 <section class="lesson-section">
@@ -96,12 +139,55 @@
     </div>
   </div>
   <p>
-    또한 Search Help Parameter 매핑은 작은 설정 같아 보여도 입력값 품질에 직접 영향을 줍니다. 후보 목록에 보여줄 값과 최종 입력칸으로 반환할 값을 구분해서 확인해야 합니다.
+    또한 Search Help Parameter 매핑은 작은 설정 같아 보여도 입력값 품질에 직접 영향을 줍니다. 후보 목록에 보여줄 값과 최종 입력칸으로 반환할 값을 구분해서 확인해야 합니다. 특히 사용자가 팝업에서 행을 선택했는데 입력칸에 값이 돌아오지 않는 문제는, 반환해야 할 파라미터의 <strong>Export 설정 누락</strong>이 원인인 경우가 많습니다.
   </p>
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 검색 메뉴판 구성하기 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>위 구조도를 가리고 Collective와 Elementary의 관계를 그림으로 직접 그려봅니다.</li>
+        <li>“우리 회사 거래처 찾기” F4를 설계한다면 어떤 검색 방법 2~3개를 탭으로 넣을지 적어봅니다.</li>
+        <li>각 검색 방법에서 입력칸으로 돌아가야 할 공통 반환 값(예: 거래처 코드)을 정합니다.</li>
+        <li>검색 방법을 5개 이상 넣었을 때 사용자 입장에서 생기는 문제를 한 줄로 적어봅니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> “Collective는 직접 데이터를 읽지 않고 Elementary에게 위임한다”를 구조도와 함께 설명할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSEARCH_HELP_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Search Help</a> - Elementary/Collective를 포함한 Search Help의 공식 정의를 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINPUT_HELP_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Input Help</a> - F4 입력 도움말 전체 메커니즘에서 Search Help의 위치를 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCHECK_TABLE_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Check Table</a> - Search Help 없이도 Check Table로 F4 후보가 만들어지는 경우를 비교합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>Collective Search Help는 후보 데이터를 직접 읽어올까요?</li>
+    <li>F4 팝업에서 행을 더블클릭했는데 입력칸에 값이 들어오지 않는다면 무엇부터 확인해야 하나요?</li>
+    <li>검색 방법(Elementary)은 많이 묶을수록 좋은 설계일까요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>아니요.</strong> Collective는 여러 Elementary Search Help를 묶는 상위 메뉴판이고, 실제 후보 조회는 각 <strong>Elementary의 Selection Method</strong>가 담당합니다.</li>
+      <li><strong>Search Help Parameter의 Export(반환) 설정</strong>입니다. 반환할 필드가 Export로 지정되어야 선택값이 입력칸으로 돌아옵니다.</li>
+      <li><strong>아니요.</strong> 검색 방법이 너무 많으면 사용자가 어떤 탭을 써야 할지 헷갈리고 유지보수도 어려워집니다. 실제 사용자 검색 패턴 기준으로 최소한만 넣습니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

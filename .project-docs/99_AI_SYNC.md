@@ -41,6 +41,17 @@
 
 ## 작업 이력 (Work Log)
 
+### [2026-06-11] Claude (Fable 5) — Chapter 4의 Lesson 1~6 고품질화+시각화 통합 패스
+- **작업 내용**:
+  - NotebookLM(`ABAP Evolution and Messaging Channels Training Guide`)에 Chapter 4 주제(FK/Check Table/Cardinality/Value Table/Search Help/F4)를 질의하고, BC430 기반 초심자 오개념·시각화 구조·실무 주의점을 수집. SAP Help Portal ABAP Keyword Documentation 공식 링크 7종(Foreign Key/Check Table/Value Table/Search Help/Input Help/Data Element/MESSAGE)을 WebFetch로 실존 검증 후 사용.
+  - `Chapter 4의 Lesson 1~6`에 미니 실습+완료 조건, SAP 공식 링크 3개씩, 확인 퀴즈/정답/해설을 추가(Chapter 1~3 확정 패턴).
+  - 시각 자료 추가: Lesson 1(FK 검증 관계도 + 1:N 카디널리티 상태 그리드), Lesson 2(Value Table vs FK 전/후 비교), Lesson 3(F4 5단계 플로우 + 후보 목록 선택 표), Lesson 4(Collective/Elementary 구조 그리드), Lesson 5(선언 방식 비교 + F4 탐색 우선순위 폭포수 플로우), Lesson 6(DDIC vs 프로그램 검증 책임 비교).
+  - NotebookLM 근거 중 교차 검증된 사실 반영: DDIC FK는 DB 물리 제약이 아닌 Application Server 논리 검증(배치/직접 INSERT는 우회 가능), F4 탐색 우선순위(화면 로직→Search Help→Check Table→Data Element→Fixed Value), Search Help Export 파라미터 누락 시 값 미반환, 대량 후보 Search Help의 값 제한 다이얼로그.
+- **검증 메모**:
+  - Chapter 4 인라인 style/script 0건, 사용자 화면 내부 ID 노출 0건, Track 1 글로서리 미정의 0건, 포맷터 재실행 0건(멱등).
+  - 로컬 뷰어에서 THEORY-04-M01(관계도/배지/퀴즈/링크 3개)과 THEORY-04-M05(viz-compare 2열, 플로우 5단계) 렌더링 및 모바일(375px)에서 비교 그리드 1열 축소 확인.
+- **다음 AI를 위한 메모**: 다음은 Chapter 5(모듈화) 통합 패스. 호출 스택 플로우와 pass by reference/value 전/후 비교가 핵심 시각화 후보. Chapter 5의 Lesson 2/4/5는 Codex가 이미 일부 보강했으므로 중복 추가 주의.
+
 ### [2026-06-11] Claude (Fable 5) — Track 1 시각화 확산 Phase 0 (기반 정비) + NotebookLM MCP 연결
 - **작업 내용**:
   - 시각화 현황 감사: itab-* 시각 자료가 Chapter 6에 집중(91건), 129/137개 Lesson은 텍스트+코드만 있음을 확인하고, 시각화 확산 + 고품질화 통합 플랜을 사용자 승인 하에 수립.
