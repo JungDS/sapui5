@@ -156,6 +156,36 @@ gv_text = lo_text-&gt;build_personal_greeting(
   <blockquote>
     Static은 Class 이름에 붙는 <code>=&gt;</code>, Instance는 객체 변수에 붙는 <code>-&gt;</code>로 첫 구분을 해보세요.
   </blockquote>
+  <div class="viz-visual">
+    <p class="viz-visual-title">Static vs Instance — 호출 모양 비교</p>
+    <div class="viz-compare">
+      <div class="viz-compare-before">
+        <span class="viz-compare-label">Static Method (=&gt;)</span>
+        <div class="viz-compare-body">
+          <table class="viz-table">
+            <tbody>
+              <tr><td>준비물</td><td>없음 — 객체 생성 불필요</td></tr>
+              <tr><td>호출</td><td><code>zcl_demo_text=&gt;build_greeting( ... )</code></td></tr>
+              <tr><td>어울림</td><td>상태가 필요 없는 공용 도구 기능</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="viz-compare-after">
+        <span class="viz-compare-label">Instance Method (-&gt;)</span>
+        <div class="viz-compare-body">
+          <table class="viz-table">
+            <tbody>
+              <tr><td>준비물</td><td><code>NEW zcl_demo_text( )</code>로 객체 생성</td></tr>
+              <tr><td>호출</td><td><code>lo_text-&gt;build_personal_greeting( ... )</code></td></tr>
+              <tr><td>어울림</td><td>객체마다 다른 상태(<code>mv_prefix</code> 등)를 쓰는 기능</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="viz-note">화살표 하나로 구분됩니다. Class 이름 뒤의 <code>=&gt;</code>는 Static, 객체 참조 변수 뒤의 <code>-&gt;</code>는 Instance 호출입니다.</p>
+  </div>
 </section>
 
 <section class="lesson-section">
@@ -204,7 +234,24 @@ gv_text = lo_text-&gt;build_personal_greeting(
 </section>
 
 <section class="lesson-section">
-  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <h2>8. 미니 실습: 화살표 구분 훈련 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>SE24 또는 ADT에서 아무 표준 Global Class 하나를 열어 Method 목록을 봅니다.</li>
+        <li>각 Method가 Static인지 Instance인지 표시를 보고 구분해 3개 이상 적어봅니다.</li>
+        <li>그중 하나를 골라 호출 코드가 <code>=&gt;</code>와 <code>-&gt;</code> 중 무엇을 쓰게 될지 적어봅니다.</li>
+        <li>Importing/Exporting 파라미터와 예외 목록도 함께 기록합니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> 코드를 실행하지 않고도 Method 시그니처만 보고 호출 모양(<code>=&gt;</code>/<code>-&gt;</code>, 필요한 파라미터)을 적을 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 공식 문서로 더 확인하기 🔗</h2>
   <ul>
     <li><a href="https://learning.sap.com/courses/basic-abap-programming/defining-and-calling-methods_bc2d0d2a-d7f4-41bf-84f2-65de61c408ed" target="_blank" rel="noopener">SAP Learning: Method 정의와 호출</a> — Instance Method와 Static Method의 기본 차이를 학습합니다.</li>
     <li><a href="https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENCLASS_METHODS.html" target="_blank" rel="noopener">SAP Help Portal: Class Methods</a> — Class Method와 Instance Method의 공식 개념을 확인합니다.</li>
@@ -213,7 +260,24 @@ gv_text = lo_text-&gt;build_personal_greeting(
 </section>
 
 <section class="lesson-section">
-  <h2>9. 한눈에 정리 🏁</h2>
+  <h2>10. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li><code>zcl_demo_text=&gt;build_greeting( )</code>은 Static과 Instance 중 어떤 호출인가요? 근거는?</li>
+    <li>Instance Method를 호출하기 전에 반드시 해야 하는 일은 무엇인가요?</li>
+    <li>표준 Global Class가 시스템에 보이기만 하면 어떤 프로젝트에서든 자유롭게 호출해도 될까요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>Static 호출</strong>입니다. Class 이름 뒤에 <code>=&gt;</code>가 붙으면 객체 생성 없이 호출하는 Static Method입니다.</li>
+      <li><strong><code>NEW</code> 등으로 객체를 생성해 참조 변수에 담는 일</strong>입니다. 참조가 비어 있는 상태에서 <code>-&gt;</code> 호출을 하면 오류가 납니다.</li>
+      <li><strong>아니요.</strong> 릴리스 상태와 사용 목적을 확인해야 합니다. 특히 ABAP Cloud/Clean Core 기준에서는 Released API인지가 중요합니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>11. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

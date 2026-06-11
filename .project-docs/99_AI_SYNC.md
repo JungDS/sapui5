@@ -41,6 +41,16 @@
 
 ## 작업 이력 (Work Log)
 
+### [2026-06-11] Claude (Fable 5) — Chapter 5의 Lesson 1~6 고품질화+시각화 통합 패스
+- **작업 내용**:
+  - NotebookLM 세션 재사용 질의로 BC400 기반 모듈화 오개념(USING 기본 참조 전달, FM 예외 미처리 시 런타임 오류, Local Class 외부 접근 불가, value-and-result의 정상 종료 조건, 신규 개발 Class 우선/Subroutine Obsolete)을 수집하고 표준 동작과 교차 검증.
+  - `Chapter 5의 Lesson 1~6`에 미니 실습+완료 조건, 확인 퀴즈/정답/해설을 추가. 링크가 없던 Lesson 1/3/6에는 검증된 SAP Help 링크 3개씩 추가(PERFORM/CALL FUNCTION/Function Module/Class 등), Lesson 2/4/5는 기존 Codex 링크 유지.
+  - 시각 자료 추가: Lesson 1(PERFORM 호출→점프→복귀 플로우+출력 순서 표), Lesson 2(참조 vs 값 전달 전/후 비교), Lesson 3(호출자⇄CALL FUNCTION⇄FM 데이터 방향 관계도), Lesson 4(DEFINITION 메뉴판/IMPLEMENTATION 주방 그리드), Lesson 5(Static `=>` vs Instance `->` 비교), Lesson 6(모듈화 도구 3종 비교표+선택 결정 플로우).
+- **검증 메모**:
+  - Chapter 5 인라인 style/script 0건, 내부 ID 노출 0건, 글로서리 미정의 0건, 포맷터 재실행 0건(멱등).
+  - 로컬 뷰어에서 THEORY-05-M06(비교표/플로우/배지/실습/퀴즈/링크 3개) 렌더링 확인.
+- **다음 AI를 위한 메모**: 다음은 Chapter 6 시각화 보강 미니 패스(기존 itab-* 시각 자료 유지, 퀴즈/링크/실습만 추가) 또는 Chapter 7 통합 패스. Chapter 7은 SORT/DELETE/MODIFY 전/후 비교(viz-compare)가 핵심.
+
 ### [2026-06-11] Claude (Fable 5) — Chapter 4의 Lesson 1~6 고품질화+시각화 통합 패스
 - **작업 내용**:
   - NotebookLM(`ABAP Evolution and Messaging Channels Training Guide`)에 Chapter 4 주제(FK/Check Table/Cardinality/Value Table/Search Help/F4)를 질의하고, BC430 기반 초심자 오개념·시각화 구조·실무 주의점을 수집. SAP Help Portal ABAP Keyword Documentation 공식 링크 7종(Foreign Key/Check Table/Value Table/Search Help/Input Help/Data Element/MESSAGE)을 WebFetch로 실존 검증 후 사용.

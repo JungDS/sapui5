@@ -72,6 +72,11 @@
 - 시각 자료 6종 추가: FK 검증 관계도, 1:N 카디널리티 그리드, Value Table vs FK 전/후 비교, F4 동작 5단계 플로우, F4 탐색 우선순위 폭포수, DDIC vs 프로그램 검증 책임 비교 — 신규 `viz-*` 클래스 첫 실전 적용.
 - 교차 검증된 심화 사실 반영: DDIC Foreign Key는 DB 물리 제약이 아니라 화면 입력 단계의 논리 검증이라는 점, Search Help Export 파라미터 누락 시 값 미반환, Check Table만으로도 F4 후보가 생성되는 메커니즘.
 
+### Claude (Fable 5) — Chapter 5의 Lesson 1~6 고품질화+시각화 통합 패스
+- NotebookLM 질의(BC400 모듈화)로 오개념 5종을 수집·교차 검증해 퀴즈로 반영: USING 기본 참조 전달, FM 예외 미처리 시 런타임 오류, Local Class 외부 접근 불가, Pass by Value and Result의 정상 종료 조건, 신규 개발 Class 우선 원칙.
+- 전 Lesson에 미니 실습/완료 조건/퀴즈/해설을 추가하고, 링크 미보유 Lesson(1/3/6)에 검증된 SAP Help 링크를 연결.
+- 시각 자료 6종: PERFORM 호출/복귀 플로우, 참조 vs 값 전달 전/후 비교, CALL FUNCTION 데이터 방향 관계도, DEFINITION/IMPLEMENTATION 메뉴판·주방 그리드, Static vs Instance 호출 비교, 모듈화 도구 3종 비교표+결정 플로우.
+
 ## Claude 고민했던 점 및 설계 이유
 - **별칭 방식 선택**: itab-* 전면 리네이밍 대신 CSS 셀렉터 병기를 택해 Chapter 6 기존 HTML을 건드리지 않고 신규 작업의 의미(범용 viz-*)만 명확히 했다.
 - **viz-compare 색상 설계**: before(연한 적색 헤더)/after(연한 녹색 헤더)로 전/후 방향을 색으로 직관화하되, 기존 팔레트(#fff0f0/#e8f8ef 계열) 안에서만 선택해 시각 일관성을 유지했다.

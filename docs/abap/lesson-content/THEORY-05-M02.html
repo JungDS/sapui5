@@ -107,6 +107,36 @@
   <p>
     즉 호출문은 그대로 <code>PERFORM change_copy USING gv_name.</code>처럼 쓰고, 복사본을 받을지는 <code>FORM change_copy USING VALUE(iv_name) TYPE string.</code>처럼 받는 쪽에서 결정합니다.
   </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">FORM 안에서 iv_name = '홍길동'으로 바꾸면 원본은?</p>
+    <div class="viz-compare">
+      <div class="viz-compare-before">
+        <span class="viz-compare-label">USING iv_name (기본 = 참조 전달)</span>
+        <div class="viz-compare-body">
+          <table class="viz-table">
+            <tbody>
+              <tr><td>전달 방식</td><td>원본 메모리를 그대로 가리킴</td></tr>
+              <tr><td>FORM 내부</td><td><code>iv_name = '홍길동'</code></td></tr>
+              <tr class="viz-highlight-row"><td>호출 후 <code>gv_name</code></td><td><strong>홍길동</strong> — 원본이 바뀜!</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="viz-compare-after">
+        <span class="viz-compare-label">USING VALUE(iv_name) (값 전달)</span>
+        <div class="viz-compare-body">
+          <table class="viz-table">
+            <tbody>
+              <tr><td>전달 방식</td><td>복사본을 만들어 FORM에 전달</td></tr>
+              <tr><td>FORM 내부</td><td><code>iv_name = '홍길동'</code> (복사본만 변경)</td></tr>
+              <tr><td>호출 후 <code>gv_name</code></td><td><strong>정훈영</strong> — 원본 유지</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="viz-note">참조 전달은 원본에 레이저처럼 직접 연결되고, 값 전달은 복사기를 거친 사본으로 일합니다. 사본을 아무리 고쳐도 원본은 안전합니다.</p>
+  </div>
   <!-- ABAP_MOCKUP_START -->
 <div class="abap-editor-mockup shiki-copy-wrapper">
   <div class="abap-editor-header">
@@ -255,7 +285,24 @@
 </section>
 
 <section class="lesson-section">
-  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <h2>8. 미니 실습: 원본이 바뀌는 순간 잡아내기 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>숫자 두 개를 USING으로 받고 합계를 CHANGING으로 돌려주는 <code>calc_sum</code> FORM을 만듭니다.</li>
+        <li><code>USING iv_name</code>(참조)과 <code>USING VALUE(iv_name)</code>(값) 두 버전의 FORM에서 각각 값을 바꿔보고, 호출 후 원본 변수 값을 출력해 비교합니다.</li>
+        <li>PERFORM의 파라미터 순서를 일부러 바꿔 넘기고 어떤 일이 생기는지 관찰합니다.</li>
+        <li>위 비교표와 같은 결과가 나오는지 확인하고, 결과를 한 줄씩 기록합니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> 참조 전달과 값 전달의 결과 차이를 실행 결과(원본 변수 출력)로 직접 확인하면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 공식 문서로 더 확인하기 🔗</h2>
   <ul>
     <li><a href="https://help.sap.com/doc/abapdocu_751_index_htm/7.51/en-us/abapform.htm" target="_blank" rel="noopener">SAP Help Portal: FORM</a> — USING/CHANGING과 값 전달 방식의 공식 설명을 확인합니다.</li>
     <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPROCEDURE_PARAM_ABEXA.html" target="_blank" rel="noopener">SAP Help Portal: Parameter Passing 예제</a> — 값 전달과 참조 전달 차이를 예제로 확인합니다.</li>
@@ -264,7 +311,24 @@
 </section>
 
 <section class="lesson-section">
-  <h2>9. 한눈에 정리 🏁</h2>
+  <h2>10. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li><code>USING</code>으로 받은 파라미터는 FORM 안에서 바꿔도 원본에 영향이 없을까요?</li>
+    <li><code>VALUE(...)</code>는 PERFORM 호출문과 FORM 선언 중 어느 쪽에 적나요?</li>
+    <li><code>CHANGING VALUE(cv_x)</code>(Pass by Value and Result)로 처리하던 중 FORM이 오류로 비정상 종료되면 원본은 어떻게 될까요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>영향이 있을 수 있습니다.</strong> <code>USING</code>의 기본은 참조 전달이라 내부 변경이 원본에 반영됩니다. 원본 보호가 필요하면 <code>USING VALUE(...)</code>를 씁니다.</li>
+      <li><strong>FORM 선언(formal parameter) 쪽</strong>입니다. 호출문은 <code>PERFORM change_copy USING gv_name.</code> 그대로 두고, 받는 쪽에서 <code>FORM change_copy USING VALUE(iv_name)...</code>으로 결정합니다.</li>
+      <li><strong>원본은 바뀌지 않습니다.</strong> 복사본으로 처리하다가 <strong>정상 종료 시에만</strong> 결과가 원본으로 복사되기 때문에, 중간 탈출 시 원본이 보호됩니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>11. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">
