@@ -24,9 +24,9 @@
 | `data-glossary` 용어 태깅 | 137/137 | 용어 팝업 기반은 전 Lesson에 존재한다. |
 | `lesson-callout warn` | 137/137 | 실무 주의 콜아웃은 전 Lesson에 존재한다. |
 | 코드 블록 | 114/137 | 개념형 Lesson 23개는 코드 예시 또는 화면/설계 예시 보강 여부를 재판단해야 한다. |
-| 퀴즈/문제/정답/해설 관련 텍스트 | 약 49/137 | `Chapter 1~3`, `Chapter 20`에 기준 패턴을 적용했으며, 나머지 Lesson으로 확산 필요. |
-| 실습/연습 관련 텍스트 | 약 67/137 | `Chapter 1~3`, `Chapter 20`에 완료 조건 포함 실습을 추가했으며, 나머지 Lesson은 표준화 필요. |
-| 공식 링크 또는 외부 링크 `<a>` | 22/137 | `Chapter 1~3`, `Chapter 20`에 SAP 공식 링크를 추가했으며, 나머지 Lesson으로 확산 필요. |
+| 퀴즈/문제/정답/해설 관련 텍스트 | 약 57/137 | `Chapter 1~3`, `Chapter 20~21`에 기준 패턴을 적용했으며, 나머지 Lesson으로 확산 필요. |
+| 실습/연습 관련 텍스트 | 약 75/137 | `Chapter 1~3`, `Chapter 20~21`에 완료 조건 포함 실습을 추가했으며, 나머지 Lesson은 표준화 필요. |
+| 공식 링크 또는 외부 링크 `<a>` | 30/137 | `Chapter 1~3`, `Chapter 20~21`에 SAP 공식 링크를 추가했으며, 나머지 Lesson으로 확산 필요. |
 
 따라서 다음 라운드는 단순 분량 증가가 아니라, **Lesson별 학습 완결성**을 만드는 작업이다.
 
@@ -56,8 +56,8 @@ NotebookLM 질의 결과, 노트북은 대체로 다음 범위에 강하다.
 | DDIC, Classic ABAP 문법, Internal Table, Open SQL, Classic Report/ALV | 충분 | SAP 교육 PDF를 바탕으로 예제·실습·오개념 퀴즈를 확장한다. |
 | Modern ABAP, Advanced ITAB, Gateway/OData | 충분 | 최신 문법 비교와 실습 흐름을 만들되, Track 1 범위 밖 Gateway 내용은 보충 링크 또는 Track 2 후보로 분리한다. |
 | CDS, VDM, DCL | 충분 | Chapter 20의 공식 링크와 성능·권한 주의사항 보강 완료. |
-| RAP Business Object, BDEF, Validation/Determination/Action | 보통 | Chapter 21은 실무 코드 패턴을 보강하되 최신 SAP RAP 문서로 재검증한다. |
-| ABAP Cloud, Clean Core, Released API | 부족 | Chapter 21의 공식 SAP 링크와 버전/환경 주의 문구를 최우선 보강한다. |
+| RAP Business Object, BDEF, Validation/Determination/Action | 보통 | Chapter 21의 공식 링크와 strict mode, EML, Service Binding, Validation/Determination/Action 주의사항 보강 완료. |
+| ABAP Cloud, Clean Core, Released API | 부족 | Chapter 21의 공식 SAP 링크와 버전/환경 주의 문구 보강 완료. 후속 Chapter 작업 시 최신성 위험 주제는 같은 방식으로 재검증한다. |
 
 주의: NotebookLM의 장문 질의 응답에서는 Dynpro, Report Event, ALV/SALV/Grid ALV 세부 코드 커버리지가 부족하다는 신호도 있었다. 따라서 각 Chapter 작업 시에는 노트북 답변을 그대로 신뢰하지 말고, 실제 소스 제목과 공식 문서 후보를 함께 대조한다.
 
@@ -92,7 +92,7 @@ NotebookLM 질의 결과, 노트북은 대체로 다음 범위에 강하다.
 ## 6. 우선순위
 
 1. **Chapter 1~3**: 최신 기준과 가장 차이가 큰 초반 Lesson을 먼저 정비한다. `Chapter 1~3`은 요약, 실습, 퀴즈, 정답/해설, 공식 링크 기준 패턴 적용 완료.
-2. **Chapter 20~21**: CDS/RAP/ABAP Cloud는 최신성 위험이 높으므로 후속 후보로 SAP 공식 링크와 버전 주의 문구를 우선 보강한다. `Chapter 20`은 완료했으며, 같은 검증 방식으로 `Chapter 21`을 이어서 진행한다.
+2. **Chapter 20~21**: CDS/RAP/ABAP Cloud는 최신성 위험이 높으므로 SAP 공식 링크와 버전 주의 문구를 우선 보강했다. `Chapter 20~21`은 NotebookLM, 로컬 reference, SAP 공식 문서 교차 검증 후 완료.
 3. **Chapter 11~19**: SQL, Dynpro, ALV, OO ABAP는 실습과 오개념 퀴즈를 강화한다.
 4. **Chapter 4~10**: DDIC, 모듈화, Internal Table, SALV, Selection Screen은 초심자 실습과 화면 흐름을 보강한다.
 
@@ -107,7 +107,16 @@ NotebookLM 질의 결과, 노트북은 대체로 다음 범위에 강하다.
 - **포맷터 운영 규칙**: 포맷터는 전역 파일을 대상으로 동작할 수 있으므로 실행 후 `git diff --name-only`로 범위 밖 변경을 확인한다. 이번 파일럿처럼 코드 블록을 새로 만들지 않았고 대상 Chapter의 기존 코드 mockup이 유지되는 경우에는 정적 검증과 Lesson Viewer 렌더링 확인으로 커밋할 수 있다.
 - **다음 단계**: 현재 턴에서는 Chapter 1~3 파일럿과 계획 보완에서 멈춘다. 이후 Chapter는 이 리뷰를 반영해 사용자가 승인한 범위부터 진행한다.
 
-## 8. 추가 주의사항
+## 8. Chapter 20~21 리뷰 결과
+
+2026-06-11 기준으로 사용자가 지정한 우선 범위인 `Chapter 20~21`도 같은 패턴으로 보강했다.
+
+- **CDS/RAP 최신성 재검증**: NotebookLM에서 받은 누락 위험 포인트는 모두 SAP Help Portal, SAP Learning, ABAP Keyword Documentation의 공식 문서 후보와 대조했다. 공식 근거가 불명확한 표현은 단정하지 않고 시스템 릴리즈와 프로젝트 기준 확인 문구로 제한했다.
+- **고급 주제의 초심자화**: View Entity, VDM 계층, DCL, RAP BO, BDEF, EML, Service Definition/Binding, Validation/Determination/Action, ABAP Cloud/Released API를 실습 과제와 오개념 퀴즈로 재구성했다.
+- **표현 정리**: 사용자 화면에 보이는 Lesson 본문에서는 내부 ID를 제거하고 `Chapter 20의 Lesson 1`, `Chapter 21의 Lesson 8` 같은 표현으로 통일했다.
+- **다음 단계**: 후속 우선 후보는 `Chapter 11~19` 또는 `Chapter 4~10`이다. 특히 SQL, Dynpro, ALV, OO ABAP는 실습과 퀴즈의 교육 효과가 크므로 먼저 정적 감사 후 Chapter 단위로 진행한다.
+
+## 9. 추가 주의사항
 
 - `docs/abap/lesson-content/*.html`은 fragment이므로 `<html>`, `<head>`, `<script>`, 인라인 CSS를 넣지 않는다.
 - 새 CSS/JS가 필요할 때는 먼저 기존 `assets/abap-lesson-viewer.*` 확장 가능성을 검토한다.

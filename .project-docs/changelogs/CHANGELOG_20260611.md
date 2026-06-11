@@ -7,6 +7,15 @@
 
 ## 작업 상세 내용
 
+### Codex (GPT-5) — Chapter 21의 Lesson 1~8 고품질화 패턴 확산
+- `docs/abap/lesson-content/THEORY-21-M01.html` ~ `THEORY-21-M08.html`에 미니 실습, 완료 조건, 공식 문서 링크, 확인 퀴즈, 정답/해설을 추가.
+- NotebookLM 노트 `ABAP Evolution and Messaging Channels Training Guide`에서 RAP Architecture, Interface/Projection View, BDEF, Behavior Pool, EML, Service Definition/Binding, Validation/Determination/Action, ABAP Cloud/Released API 근거 매트릭스를 받아 누락 위험을 확인했다.
+- NotebookLM 결과는 전체로 간주하지 않고 SAP Help Portal, SAP Learning의 공식 문서 후보로 재검증했다.
+- Managed RAP, `strict ( 2 )`, EML의 `FAILED/REPORTED/MAPPED`, Service Definition과 Service Binding의 책임 차이, Validation과 Determination의 차이, Public API와 Released API의 차이처럼 초심자 오해가 큰 지점을 실습과 퀴즈에 반영했다.
+- Chapter 20~21 사용자 화면 본문에 남아 있던 내부 ID 표현을 `Chapter N의 Lesson M` 형식으로 정리했다.
+- `TRACK1_QUALITY_PLAN.md`, `HANDOFF_LESSON_CONTENT.md`, `99_AI_SYNC.md`를 Chapter 21 완료 상태로 갱신했다.
+- 정적 검증 결과 Chapter 21의 8개 Lesson 모두 실습/퀴즈/details/공식 링크 3개/내부 ID 미노출 조건을 만족했다.
+
 ### Codex (GPT-5) — Chapter 20의 Lesson 1~6 고품질화 패턴 확산
 - `docs/abap/lesson-content/THEORY-20-M01.html` ~ `THEORY-20-M06.html`에 미니 실습, 완료 조건, 공식 문서 링크, 확인 퀴즈, 정답/해설을 추가.
 - NotebookLM 노트 `ABAP Evolution and Messaging Channels Training Guide`에서 CDS View Entity, VDM 계층, Association, Annotation, Metadata Extension, DCL 근거 매트릭스를 받아 누락 위험을 확인했다.
@@ -31,3 +40,4 @@
 - **포맷터 제한**: `node tools/format-abap-code.mjs`는 전체 파일 대상 실행 중 `THEORY-19-M01.html` 쓰기 권한 오류로 중단됐다. 이번 변경은 코드 블록을 새로 만들지 않았고 Chapter 3 파일의 코드 mockup 형식이 이미 유지되어, 정적 검증으로 범위를 확인했다.
 - **파일럿 후속 규칙**: Chapter 1~3을 먼저 끝낸 뒤 바로 다음 Chapter로 확산하지 않고, 부족 요소 사전 감사, 공식 링크 검증, 범위 밖 주제 분리, 포맷터 영향 확인을 계획 문서에 추가했다.
 - **Chapter 20 교차 검증 강화**: NotebookLM이 제안한 심화 포인트 중 릴리스·성능·권한과 관련된 내용은 단정하지 않고, SAP Help Portal 공식 링크로 확인 가능한 범위만 Lesson 본문에 반영했다.
+- **Chapter 21 최신성 관리**: RAP와 ABAP Cloud는 릴리즈별 차이가 크므로 NotebookLM의 초안 포인트를 그대로 쓰지 않고, SAP Help Portal/SAP Learning으로 확인 가능한 구조와 입문 수준의 책임 분리만 본문에 반영했다.

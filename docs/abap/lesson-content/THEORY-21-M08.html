@@ -67,7 +67,52 @@
 </section>
 
 <section class="lesson-section">
-  <h2>6. 한눈에 정리 — 그리고 Track 1 완성 🏁</h2>
+  <h2>6. 미니 실습: Released API 검토표 만들기 🧪</h2>
+  <p>
+    이번 실습은 “문법적으로 된다”와 “ABAP Cloud에서 사용해도 된다”를 구분하는 연습입니다.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>표준 테이블 직접 조회, SAP가 공개한 CDS View 사용, 공개 API 호출을 각각 위험도 순서로 나눕니다.</li>
+        <li>ADT에서 객체의 API release 상태를 확인해야 하는 이유를 적습니다.</li>
+        <li><span class="glossary-term" data-glossary="CleanCore">Clean Core</span>가 “개발 금지”가 아니라 “공개된 통로로 확장”이라는 점을 예로 설명합니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> <span class="glossary-term" data-glossary="ABAPCloud">ABAP Cloud</span>에서는 <span class="glossary-term" data-glossary="ReleasedAPI">Released API</span> 여부를 먼저 확인해야 한다고 설명할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/docs/abap-cloud/developer-guide-from-classic-abap-to-abap-cloud/what-is-abap-cloud?locale=en-US&amp;state=PRODUCTION&amp;version=sap_cross_product_abap" target="_blank" rel="noopener">SAP Help Portal: What is ABAP Cloud?</a> - ABAP Cloud 개발 모델의 공식 개요를 확인합니다.</li>
+    <li><a href="https://help.sap.com/docs/abap-cloud/abap-development-tools-user-guide/finding-released-apis-and-deprecated-objects" target="_blank" rel="noopener">SAP Help Portal: Finding Released APIs</a> - ADT에서 Released API와 Deprecated Object를 찾는 방법을 확인합니다.</li>
+    <li><a href="https://learning.sap.com/courses/practicing-clean-core-extensibility-for-sap-s-4hana-cloud/exploring-released-apis_d80ce197-097e-4e7b-8696-b960738089c7" target="_blank" rel="noopener">SAP Learning: Exploring Released APIs</a> - Clean Core 관점에서 Released API를 사용하는 이유를 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>Public 메서드와 Released API는 같은 뜻인가요?</li>
+    <li>ABAP Cloud에서 표준 데이터를 쓰고 싶을 때 먼저 찾아야 할 것은 무엇인가요?</li>
+    <li>Clean Core를 지키면 어떤 장기적 이점이 있나요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>같은 뜻이 아닙니다.</strong> Public은 접근 제어자이고, Released API는 외부 소비자가 안정적으로 사용해도 된다고 공개 상태가 명시된 API입니다.</li>
+      <li><strong>SAP가 공개한 Released CDS View, Class, Business Object, OData API 같은 공식 통로</strong>를 먼저 찾습니다.</li>
+      <li><strong>업그레이드 안정성과 유지보수성</strong>이 좋아집니다. 표준을 직접 건드리지 않아 변경 충돌을 줄일 수 있습니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 한눈에 정리 — 그리고 Track 1 완성 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">🎉</div>
     <div class="lesson-callout-content">
@@ -81,7 +126,7 @@
     </div>
   </div>
   <p>
-    🎉 <strong>축하합니다! ABAP Track 1(개발 이론, THEORY-01~21)을 모두 완주했습니다.</strong>
+    🎉 <strong>축하합니다! ABAP Track 1의 Chapter 1~21을 모두 완주했습니다.</strong>
     DDIC부터 RAP·ABAP Cloud까지, ABAP 개발의 큰 지도를 손에 넣었습니다.
     다음 여정인 <strong>Track 2(PRACTICAL — 실무 응용: 트랜잭션 제어·Lock·OO 패턴·인터페이스·성능·RAP Capstone)</strong>에서,
     이 이론을 실제 업무 시나리오로 단단히 다져 봅시다. 수고 많으셨습니다! 🚀

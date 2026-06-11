@@ -11,7 +11,7 @@
 <section class="lesson-section">
   <h2>1. 지난 시간 연결: 데이터를 넘어 "업무 앱"으로 🚀</h2>
   <p>
-    THEORY-20에서 CDS로 데이터를 <strong>읽는</strong> 모델을 만들었습니다. 하지만 진짜 업무 앱은 데이터를 <strong>생성·수정·삭제</strong>하고, 화면(Fiori)으로 사용자와 상호작용해야 합니다.
+    Chapter 20에서 CDS로 데이터를 <strong>읽는</strong> 모델을 만들었습니다. 하지만 진짜 업무 앱은 데이터를 <strong>생성·수정·삭제</strong>하고, 화면(Fiori)으로 사용자와 상호작용해야 합니다.
   </p>
   <p>
     이 전체를 표준화된 방식으로 묶은 것이 <span class="glossary-term" data-glossary="RAP">RAP</span>입니다. CDS 위에 트랜잭션 동작과 서비스를 얹어, Fiori 앱까지 한 번에 잇는 개발 모델이에요.
@@ -25,14 +25,14 @@
     <div class="lesson-callout-content">
       <h4>아래에서 위로 쌓는 흐름</h4>
       <ul>
-        <li><strong>① 데이터 모델 (CDS):</strong> Interface View(ZI_) + Projection View(ZC_). THEORY-20에서 배운 것.</li>
+        <li><strong>① 데이터 모델 (CDS):</strong> Interface View(ZI_) + Projection View(ZC_). Chapter 20에서 배운 것.</li>
         <li><strong>② 동작 (<span class="glossary-term" data-glossary="BehaviorDefinition">Behavior Definition</span>):</strong> 생성·수정·삭제, 검증·액션 등 "무엇을 할 수 있는가".</li>
         <li><strong>③ 서비스 (<span class="glossary-term" data-glossary="ServiceDefinition">Service Definition/Binding</span>):</strong> 모델을 OData 서비스로 외부에 노출.</li>
         <li><strong>④ 화면 (Fiori Elements):</strong> 서비스를 소비해 화면 자동 생성.</li>
       </ul>
     </div>
   </div>
-  <p>THEORY-01~20에서 쌓은 DDIC·OO·CDS 지식이 여기서 전부 합쳐집니다.</p>
+  <p>Chapter 1~20에서 쌓은 DDIC·OO·CDS 지식이 여기서 전부 합쳐집니다.</p>
 </section>
 
 <section class="lesson-section">
@@ -40,7 +40,7 @@
   <ul>
     <li>✅ <strong>표준화:</strong> 생성·수정 같은 흔한 동작을 매번 새로 짜지 않고 정해진 틀로.</li>
     <li>✅ <strong>적은 코드:</strong> 화면(Fiori Elements)은 CDS 주석으로 거의 자동 생성.</li>
-    <li>✅ <strong>클라우드 준비:</strong> ABAP Cloud·S/4HANA의 공식 권장 모델(THEORY-21-M08).</li>
+    <li>✅ <strong>클라우드 준비:</strong> ABAP Cloud·S/4HANA의 공식 권장 모델(Chapter 21의 Lesson 8에서 마무리).</li>
   </ul>
   <blockquote>
     비유하면 RAP는 "조립식 주택 키트"예요. 기초(CDS)·배관(Behavior)·전기(Service)·인테리어(Fiori)를 표준 규격으로 끼우면 집(업무 앱)이 빠르게 완성됩니다.
@@ -50,11 +50,11 @@
 <section class="lesson-section">
   <h2>4. 이번 Chapter의 여정 🗺️</h2>
   <ul>
-    <li>M02~M03: 데이터 모델(ZI_/ZC_) 설계 복습·심화.</li>
-    <li>M04~M05: Behavior Definition/Implementation(동작 정의·구현).</li>
-    <li>M06: Service Definition/Binding(서비스 노출).</li>
-    <li>M07: Validation/Determination/Action(업무 규칙).</li>
-    <li>M08: ABAP Cloud와 Released API 원칙(마무리).</li>
+    <li>Lesson 2~3: 데이터 모델(ZI_/ZC_) 설계 복습·심화.</li>
+    <li>Lesson 4~5: Behavior Definition/Implementation(동작 정의·구현).</li>
+    <li>Lesson 6: Service Definition/Binding(서비스 노출).</li>
+    <li>Lesson 7: Validation/Determination/Action(업무 규칙).</li>
+    <li>Lesson 8: ABAP Cloud와 Released API 원칙(마무리).</li>
   </ul>
 </section>
 
@@ -70,7 +70,52 @@
 </section>
 
 <section class="lesson-section">
-  <h2>6. 한눈에 정리 🏁</h2>
+  <h2>6. 미니 실습: RAP 전체 지도 그리기 🧪</h2>
+  <p>
+    이번 실습은 코드를 먼저 쓰기보다 RAP의 층을 눈으로 분리하는 데 목적이 있습니다. 각 객체가 무엇을 맡는지 한 장짜리 지도로 정리해보세요.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>CDS 데이터 모델, <span class="glossary-term" data-glossary="BehaviorDefinition">Behavior Definition</span>, Service Definition/Binding, Fiori Elements를 아래에서 위로 배치합니다.</li>
+        <li>Managed Scenario에서 프레임워크가 대신 처리하는 일을 2개 적습니다.</li>
+        <li>Unmanaged Scenario와 Draft, 고급 트랜잭션 제어는 왜 입문 Lesson의 범위 밖인지 적습니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> RAP가 SEGW 대체 문법 하나가 아니라 데이터, 동작, 서비스, 화면을 잇는 아키텍처라는 점을 설명할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/docs/ABAP_PLATFORM_NEW/fc4c71aa50014fd1b43721701471913d/289477a81eec4d4e84c0302fb6835035.html" target="_blank" rel="noopener">SAP Help Portal: ABAP RESTful Application Programming Model</a> - RAP의 공식 개요와 적용 범위를 확인합니다.</li>
+    <li><a href="https://learning.sap.com/courses/building-transactional-apps-with-the-abap-restful-application-programming-model/exploring-the-concept-and-architecture-of-rap" target="_blank" rel="noopener">SAP Learning: Understanding RAP</a> - RAP 구성요소와 개발 흐름을 학습 과정으로 확인합니다.</li>
+    <li><a href="https://help.sap.com/docs/abap-cloud/abap-rap/business-object-implementation-types" target="_blank" rel="noopener">SAP Help Portal: BO Implementation Types</a> - Managed와 Unmanaged 같은 Business Object 구현 유형을 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>RAP를 단순히 OData 서비스 생성 도구로만 보면 어떤 점을 놓치나요?</li>
+    <li>Managed Scenario에서 “managed”라는 말은 무엇을 뜻하나요?</li>
+    <li>이번 Lesson에서 Draft와 Unmanaged 구현을 깊게 다루지 않는 이유는 무엇인가요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>데이터 모델, 트랜잭션 동작, 서비스 노출, UI 소비까지 이어지는 전체 아키텍처</strong>라는 점을 놓칩니다.</li>
+      <li><strong>기본 CRUD와 저장 흐름의 많은 부분을 RAP 프레임워크가 관리</strong>한다는 뜻입니다.</li>
+      <li><strong>입문 단계에서는 전체 지도가 먼저 필요</strong>하기 때문입니다. Draft와 Unmanaged는 트랜잭션 흐름과 기존 코드 연계가 깊어 후속 실습에서 다루는 편이 안전합니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">
