@@ -11,7 +11,7 @@
 <section class="lesson-section">
   <h2>1. 지난 시간 연결: 데이터를 잘 만들었는데, 보안은? 🔐</h2>
   <p>
-    지금까지 CDS로 데이터를 합치고(Association) 의미를 입혔습니다(Annotation). 그런데 한 가지가 남았습니다. "<strong>이 데이터를 이 사용자가 봐도 되는가?</strong>" THEORY-13에서 리포트에 AUTHORITY-CHECK를 걸었듯, CDS에도 권한 장치가 있습니다.
+    지금까지 CDS로 데이터를 합치고(Association) 의미를 입혔습니다(Annotation). 그런데 한 가지가 남았습니다. "<strong>이 데이터를 이 사용자가 봐도 되는가?</strong>" Chapter 13에서 리포트에 AUTHORITY-CHECK를 걸었듯, CDS에도 권한 장치가 있습니다.
   </p>
   <p>그것이 <span class="glossary-term" data-glossary="DCL">DCL</span>로 정의하는 <span class="glossary-term" data-glossary="AccessControl">Access Control</span>입니다.</p>
 </section>
@@ -39,7 +39,7 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" CDS View에 권한 검사 켜기 (M01에서 본 헤더)</span>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" CDS View에 권한 검사 켜기 (이번 Chapter의 첫 Lesson에서 본 헤더)</span>
 @AccessControl.authorizationCheck: #CHECK
 <span class="abap-token-keyword">define</span> <span class="abap-token-keyword">view</span> <span class="abap-token-keyword">entity</span> ZI_Flight <span class="abap-token-keyword">as</span> <span class="abap-token-keyword">select</span> <span class="abap-token-keyword">from</span> sflight { ... }</code></pre>
   </div>
@@ -83,7 +83,7 @@
 <section class="lesson-section">
   <h2>3. 자동으로 걸리는 행 필터 🔍</h2>
   <p>
-    DCL이 걸린 CDS를 SELECT하면, SAP가 <strong>로그인한 사용자의 권한에 맞는 행만</strong> 자동으로 돌려줍니다. THEORY-01의 MANDT(클라이언트 자동 분리)와 비슷한 느낌으로, 권한 기준의 자동 필터가 한 겹 더 얹히는 것입니다.
+    DCL이 걸린 CDS를 SELECT하면, SAP가 <strong>로그인한 사용자의 권한에 맞는 행만</strong> 자동으로 돌려줍니다. Chapter 1의 MANDT(클라이언트 자동 분리)와 비슷한 느낌으로, 권한 기준의 자동 필터가 한 겹 더 얹히는 것입니다.
   </p>
 </section>
 
@@ -157,7 +157,7 @@
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">
-      <h4>THEORY-20 마무리 핵심</h4>
+      <h4>Chapter 20 마무리 핵심</h4>
       <ul>
         <li>CDS: <strong>View Entity(DDL) → Interface/Projection 2계층 → Association → Annotation → MDE → DCL</strong>.</li>
         <li><strong>DCL/Access Control</strong>은 조회 시 권한에 맞는 행만 자동 필터합니다.</li>
