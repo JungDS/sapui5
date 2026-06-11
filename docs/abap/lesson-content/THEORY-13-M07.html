@@ -42,7 +42,7 @@
     </div>
     <pre class="shiki abap-editor-code"><code>AUTHORITY-CHECK <span class="abap-token-keyword">OBJECT</span> <span class="abap-token-string">'F_BKPF_BUK'</span>
   ID <span class="abap-token-string">'BUKRS'</span> FIELD p_bukrs
-  ID <span class="abap-token-string">'ACTVT'</span> FIELD <span class="abap-token-string">'03'</span>.        <span class="abap-token-comment">"03 = 조회(Display)</span>
+  ID <span class="abap-token-string">'ACTVT'</span> FIELD <span class="abap-token-string">'03'</span>.        <span class="abap-token-comment">"03 = 조회(Display)</span>
 
 <span class="abap-token-keyword">IF</span> sy-subrc &lt;&gt; <span class="abap-token-number">0</span>.
   MESSAGE <span class="abap-token-string">'해당 회사코드를 조회할 권한이 없습니다.'</span> <span class="abap-token-keyword">TYPE</span> <span class="abap-token-string">'E'</span>.
@@ -79,7 +79,7 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">SELECT</span> SINGLE bukrs <span class="abap-token-keyword">FROM</span> t001
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">SELECT</span> <span class="abap-token-keyword">SINGLE</span> bukrs <span class="abap-token-keyword">FROM</span> t001
   <span class="abap-token-keyword">INTO</span> @<span class="abap-token-keyword">DATA</span>(lv_dummy)
   <span class="abap-token-keyword">WHERE</span> bukrs = @p_bukrs.
 <span class="abap-token-keyword">IF</span> sy-subrc &lt;&gt; <span class="abap-token-number">0</span>.

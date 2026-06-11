@@ -45,7 +45,7 @@
 <span class="abap-token-keyword">DATA</span> gv_name    <span class="abap-token-keyword">TYPE</span> string <span class="abap-token-keyword">VALUE</span> <span class="abap-token-string">'ABAP'</span>.
 <span class="abap-token-keyword">DATA</span> gv_message <span class="abap-token-keyword">TYPE</span> string.
 
-CONCATENATE <span class="abap-token-string">'Hello'</span> gv_name <span class="abap-token-keyword">INTO</span> gv_message SEPARATED <span class="abap-token-keyword">BY</span> space.
+<span class="abap-token-keyword">CONCATENATE</span> <span class="abap-token-string">'Hello'</span> gv_name <span class="abap-token-keyword">INTO</span> gv_message <span class="abap-token-keyword">SEPARATED BY</span> space.
 
 <span class="abap-token-keyword">WRITE</span> gv_message.</code></pre>
   </div>
@@ -123,7 +123,7 @@ CONCATENATE <span class="abap-token-string">'Hello'</span> gv_name <span class="
 
 <span class="abap-token-keyword">DATA</span> gv_text <span class="abap-token-keyword">TYPE</span> string <span class="abap-token-keyword">VALUE</span> <span class="abap-token-string">'Hello ABAP'</span>.
 
-FIND <span class="abap-token-string">'ABAP'</span> IN gv_text.
+<span class="abap-token-keyword">FIND</span> <span class="abap-token-string">'ABAP'</span> <span class="abap-token-keyword">IN</span> gv_text.
 
 <span class="abap-token-keyword">IF</span> sy-subrc = <span class="abap-token-number">0</span>.
   <span class="abap-token-keyword">WRITE</span> <span class="abap-token-string">'문자열을 찾았어요'</span>.

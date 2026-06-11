@@ -41,10 +41,10 @@
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9
     </div>
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">LOOP</span> <span class="abap-token-keyword">AT</span> lt_orders <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">DATA</span>(ls_order).
-  <span class="abap-token-keyword">SELECT</span> SINGLE <span class="abap-token-keyword">FROM</span> t005t
+  <span class="abap-token-keyword">SELECT</span> <span class="abap-token-keyword">SINGLE</span> <span class="abap-token-keyword">FROM</span> t005t
     <span class="abap-token-keyword">FIELDS</span> landx
     <span class="abap-token-keyword">WHERE</span> spras = @sy-langu
-      AND land1 = @ls_order-land1
+      <span class="abap-token-keyword">AND</span> land1 = @ls_order-land1
     <span class="abap-token-keyword">INTO</span> @<span class="abap-token-keyword">DATA</span>(lv_country_name).
 
   <span class="abap-token-keyword">WRITE</span>: / ls_order-order_id, lv_country_name.

@@ -87,8 +87,8 @@
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8
     </div>
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">AT</span> <span class="abap-token-keyword">SELECTION-SCREEN</span> <span class="abap-token-keyword">ON</span> p_bukrs.
-  <span class="abap-token-comment">"p_bukrs(회사코드)가 실제 존재하는지 확인</span>
-  <span class="abap-token-keyword">SELECT</span> SINGLE bukrs <span class="abap-token-keyword">FROM</span> t001
+  <span class="abap-token-comment">"p_bukrs(회사코드)가 실제 존재하는지 확인</span>
+  <span class="abap-token-keyword">SELECT</span> <span class="abap-token-keyword">SINGLE</span> bukrs <span class="abap-token-keyword">FROM</span> t001
     <span class="abap-token-keyword">INTO</span> @<span class="abap-token-keyword">DATA</span>(lv_dummy)
     <span class="abap-token-keyword">WHERE</span> bukrs = @p_bukrs.
   <span class="abap-token-keyword">IF</span> sy-subrc &lt;&gt; <span class="abap-token-number">0</span>.

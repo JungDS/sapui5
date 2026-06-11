@@ -41,7 +41,7 @@
   <span class="abap-token-keyword">SELECT</span> carrid, connid, fldate, price
     <span class="abap-token-keyword">FROM</span> sflight
     <span class="abap-token-keyword">WHERE</span> carrid = @p_carrid
-      AND fldate IN @s_date        <span class="abap-token-comment">"검증된 입력값 사용</span>
+      <span class="abap-token-keyword">AND</span> fldate <span class="abap-token-keyword">IN</span> @s_date        <span class="abap-token-comment">"검증된 입력값 사용</span>
     <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @gt_result.
 
   <span class="abap-token-comment">" 필요하면 추가 가공 (계산, 매핑 등)</span></code></pre>

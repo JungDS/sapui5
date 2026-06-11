@@ -120,6 +120,87 @@
 ```
 - CSS 클래스는 `assets/abap-lesson-viewer.css`/`abap-glossary.css`에 정의됨. 새 클래스를 임의로 만들지 말고 기존 것 재사용.
 
+### 시각화 패턴 카탈로그 (전 Lesson 공통 — 2026-06-11 도입)
+
+> 시각화는 코드 예제 설명 전용이 아니다. **데이터 상태 변화 / 요소 간 관계 / 처리 흐름 / 전·후 차이** 중 하나에 해당하는 설명이면 본문 어디든 시각 자료를 넣는다 (Lesson당 최소 1개, 보통 1~3개).
+> 신규 작업은 `viz-*` 클래스를 사용한다. `itab-*`는 Chapter 6에서 시작된 동일 스타일의 기존 별칭(호환 유지)이다.
+
+**적용 판단 체크리스트** — 아래 중 하나라도 "예"면 시각화한다:
+- [ ] 한 대상의 **상태가 단계별로 변하는가**? → ① 상태 변화 그리드
+- [ ] 둘 이상의 **요소가 관계/순서로 연결되는가**? → ② 관계도 or ⑤ 프로세스 플로우
+- [ ] 반복/이벤트의 **현재 위치를 추적해야 하는가**? → ③ 포인터 추적
+- [ ] **성공/실패(분기) 결과가 갈리는가**? → ④ 성공/실패 비교
+- [ ] 명령 실행 **전과 후의 데이터/코드가 달라지는가**? → ⑥ 전/후 비교
+- [ ] **계층/아키텍처 구조**(3-Tier, VDM, RAP 등)인가? → ⑦ 인라인 SVG
+
+```html
+<!-- ① 상태 변화 그리드: 선언→채움→추가→읽기 등 단계별 스냅샷 -->
+<div class="viz-visual">
+  <p class="viz-visual-title">제목</p>
+  <div class="viz-state-grid">
+    <div class="viz-state">
+      <span class="viz-state-label">1. 단계명</span>
+      <table class="viz-table">
+        <thead><tr><th>필드</th></tr></thead>
+        <tbody><tr class="viz-highlight-row"><td>값</td></tr></tbody>
+      </table>
+      <!-- 빈 상태는: <div class="viz-empty">아직 행이 없습니다</div> -->
+    </div>
+  </div>
+  <p class="viz-note">하단 설명</p>
+</div>
+
+<!-- ② 관계도: A → B → C (Domain→Data Element→Field, FK→Check Table 등) -->
+<div class="viz-relation">
+  <div class="viz-concept"><span class="viz-concept-label">A</span>...</div>
+  <div class="viz-arrow">→</div>
+  <div class="viz-concept"><span class="viz-concept-label">B</span>...</div>
+  <div class="viz-arrow">→</div>
+  <div class="viz-concept"><span class="viz-concept-label">C</span>...</div>
+</div>
+
+<!-- ③ 포인터 추적: 현재 처리 행 강조 -->
+<tr class="viz-current-row"><td>...</td></tr>
+
+<!-- ④ 성공/실패 비교 배지 -->
+<span class="viz-badge success">sy-subrc = 0</span>
+<span class="viz-badge fail">sy-subrc = 4</span>
+
+<!-- ⑤ 프로세스 플로우: 이벤트/처리 순서 -->
+<div class="viz-flow">
+  <div class="viz-flow-step"><strong>1. 단계</strong><span>설명</span></div>
+  <div class="viz-flow-step"><strong>2. 단계</strong><span>설명</span></div>
+</div>
+
+<!-- ⑥ 전/후 비교: SORT/DELETE/MODIFY, Classic vs Modern -->
+<div class="viz-compare">
+  <div class="viz-compare-before">
+    <span class="viz-compare-label">실행 전 (또는 Classic)</span>
+    <div class="viz-compare-body"><table class="viz-table">...</table></div>
+  </div>
+  <div class="viz-compare-after">
+    <span class="viz-compare-label">실행 후 (또는 Modern)</span>
+    <div class="viz-compare-body"><table class="viz-table">...</table></div>
+  </div>
+</div>
+
+<!-- ⑦ 인라인 SVG 다이어그램: 계층/아키텍처 (viz-visual 안에 중첩) -->
+<div class="viz-svg">
+  <svg viewBox="0 0 640 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="다이어그램 설명">
+    <!-- 정적 도형/텍스트만. <script>·애니메이션 금지 -->
+  </svg>
+</div>
+```
+
+**SVG 작성 규칙**:
+- `<script>`, 이벤트 핸들러, 외부 참조 금지 — 정적 마크업만.
+- 색상은 표준 팔레트 hex를 직접 사용: 주(#0056b3/#eef5ff), 성공(#00a884/#e8f8ef), 실패(#9b2530/#fff0f0), 강조(#fff7db), 제목(#12365f), 본문 회색(#56657a), 테두리(#d7e1ee).
+- 한글 텍스트 허용. `font-family`는 지정하지 않거나 `inherit`(뷰어 폰트 상속).
+- `viewBox` 필수, 고정 width/height 금지 (`viz-svg`가 반응형 처리).
+- 접근성: `role="img"` + `aria-label`로 그림 내용 한 줄 설명.
+
+**인터랙션이 필요한 경우**: 조각 파일에 단독 `<script>`를 넣지 말고 `assets/abap-lesson-viewer.js`에 공통 스크립트로 추가한다(클래스/data-속성 기반 위임). 단독 스크립트는 공통화가 불가능한 예외에만 허용.
+
 ### 글로서리 항목 스키마 (`reference/abap_glossary.json`)
 ```json
 "키": {

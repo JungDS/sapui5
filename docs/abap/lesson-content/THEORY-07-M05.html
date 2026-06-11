@@ -43,7 +43,7 @@
     <div class="abap-editor-line-numbers">
       1<br>2
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span> lt_sorted <span class="abap-token-keyword">TYPE</span> SORTED <span class="abap-token-keyword">TABLE</span> <span class="abap-token-keyword">OF</span> ty_student
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span> lt_sorted <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">SORTED TABLE OF</span> ty_student
   <span class="abap-token-keyword">WITH</span> <span class="abap-token-keyword">UNIQUE</span> <span class="abap-token-keyword">KEY</span> id.</code></pre>
   </div>
 </div>
@@ -79,7 +79,7 @@
     <div class="abap-editor-line-numbers">
       1<br>2
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span> lt_hashed <span class="abap-token-keyword">TYPE</span> HASHED <span class="abap-token-keyword">TABLE</span> <span class="abap-token-keyword">OF</span> ty_student
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span> lt_hashed <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">HASHED TABLE OF</span> ty_student
   <span class="abap-token-keyword">WITH</span> <span class="abap-token-keyword">UNIQUE</span> <span class="abap-token-keyword">KEY</span> id.</code></pre>
   </div>
 </div>
@@ -120,7 +120,7 @@
          score <span class="abap-token-keyword">TYPE</span> i,
        <span class="abap-token-keyword">END</span> <span class="abap-token-keyword">OF</span> ty_student.
 
-<span class="abap-token-keyword">DATA</span>: lt_sorted <span class="abap-token-keyword">TYPE</span> SORTED <span class="abap-token-keyword">TABLE</span> <span class="abap-token-keyword">OF</span> ty_student <span class="abap-token-keyword">WITH</span> <span class="abap-token-keyword">UNIQUE</span> <span class="abap-token-keyword">KEY</span> id,
+<span class="abap-token-keyword">DATA</span>: lt_sorted <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">SORTED TABLE OF</span> ty_student <span class="abap-token-keyword">WITH</span> <span class="abap-token-keyword">UNIQUE</span> <span class="abap-token-keyword">KEY</span> id,
       ls_student <span class="abap-token-keyword">TYPE</span> ty_student.
 
 ls_student-id = <span class="abap-token-string">'A01'</span>.

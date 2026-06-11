@@ -37,7 +37,7 @@
     <div class="abap-editor-line-numbers">
       1<br>2
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" 출력 테이블(gt_outtab) 내용을 바꾼 뒤</span>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" 출력 테이블(gt_outtab) 내용을 바꾼 뒤</span>
 go_grid-&gt;refresh_table_display( ).</code></pre>
   </div>
 </div>
@@ -70,8 +70,8 @@ go_grid-&gt;refresh_table_display( ).</code></pre>
       1<br>2<br>3<br>4<br>5<br>6
     </div>
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span> gs_stable <span class="abap-token-keyword">TYPE</span> lvc_s_stbl.
-gs_stable-row = <span class="abap-token-string">'X'</span>.   <span class="abap-token-comment">"행 위치 유지</span>
-gs_stable-col = <span class="abap-token-string">'X'</span>.   <span class="abap-token-comment">"열 위치 유지</span>
+gs_stable-row = <span class="abap-token-string">'X'</span>.   <span class="abap-token-comment">"행 위치 유지</span>
+gs_stable-col = <span class="abap-token-string">'X'</span>.   <span class="abap-token-comment">"열 위치 유지</span>
 
 go_grid-&gt;refresh_table_display(
   <span class="abap-token-keyword">EXPORTING</span> is_stable = gs_stable ).</code></pre>

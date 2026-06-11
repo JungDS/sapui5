@@ -77,7 +77,7 @@
     </div>
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zinput_check.
 
-<span class="abap-token-keyword">PARAMETERS</span> p_days <span class="abap-token-keyword">TYPE</span> i DEFAULT <span class="abap-token-number">7</span>.
+<span class="abap-token-keyword">PARAMETERS</span> p_days <span class="abap-token-keyword">TYPE</span> i <span class="abap-token-keyword">DEFAULT</span> <span class="abap-token-number">7</span>.
 
 <span class="abap-token-keyword">IF</span> p_days &gt; <span class="abap-token-number">30</span>.
   MESSAGE <span class="abap-token-string">'조회 일수는 30일을 넘길 수 없습니다.'</span> <span class="abap-token-keyword">TYPE</span> <span class="abap-token-string">'E'</span>.

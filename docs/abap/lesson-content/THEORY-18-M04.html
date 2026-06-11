@@ -40,9 +40,9 @@
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">CLASS</span> zcl_calc DEFINITION <span class="abap-token-keyword">PUBLIC</span>.
   <span class="abap-token-keyword">PUBLIC</span> <span class="abap-token-keyword">SECTION</span>.
     <span class="abap-token-keyword">METHODS</span> add <span class="abap-token-keyword">IMPORTING</span> iv_a <span class="abap-token-keyword">TYPE</span> i iv_b <span class="abap-token-keyword">TYPE</span> i
-                RETURNING <span class="abap-token-keyword">VALUE</span>(rv) <span class="abap-token-keyword">TYPE</span> i.          <span class="abap-token-comment">"인스턴스 메서드</span>
-    <span class="abap-token-keyword">CLASS</span>-<span class="abap-token-keyword">METHODS</span> add_static <span class="abap-token-keyword">IMPORTING</span> iv_a <span class="abap-token-keyword">TYPE</span> i iv_b <span class="abap-token-keyword">TYPE</span> i
-                RETURNING <span class="abap-token-keyword">VALUE</span>(rv) <span class="abap-token-keyword">TYPE</span> i.          <span class="abap-token-comment">"스태틱 메서드</span>
+                <span class="abap-token-keyword">RETURNING</span> <span class="abap-token-keyword">VALUE</span>(rv) <span class="abap-token-keyword">TYPE</span> i.          <span class="abap-token-comment">"인스턴스 메서드</span>
+    <span class="abap-token-keyword">CLASS-METHODS</span> add_static <span class="abap-token-keyword">IMPORTING</span> iv_a <span class="abap-token-keyword">TYPE</span> i iv_b <span class="abap-token-keyword">TYPE</span> i
+                <span class="abap-token-keyword">RETURNING</span> <span class="abap-token-keyword">VALUE</span>(rv) <span class="abap-token-keyword">TYPE</span> i.          <span class="abap-token-comment">"스태틱 메서드</span>
 <span class="abap-token-keyword">ENDCLASS</span>.</code></pre>
   </div>
 </div>
@@ -64,11 +64,11 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" 인스턴스: 객체를 만들어 호출 (-&gt;)</span>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" 인스턴스: 객체를 만들어 호출 (-&gt;)</span>
 <span class="abap-token-keyword">DATA</span>(lo) = <span class="abap-token-keyword">NEW</span> zcl_calc( ).
 <span class="abap-token-keyword">DATA</span>(r1) = lo-&gt;add( iv_a = <span class="abap-token-number">1</span> iv_b = <span class="abap-token-number">2</span> ).
 
-<span class="abap-token-comment">" 스태틱: 클래스 이름으로 바로 호출 (=&gt;)</span>
+<span class="abap-token-comment">" 스태틱: 클래스 이름으로 바로 호출 (=&gt;)</span>
 <span class="abap-token-keyword">DATA</span>(r2) = zcl_calc=&gt;add_static( iv_a = <span class="abap-token-number">1</span> iv_b = <span class="abap-token-number">2</span> ).</code></pre>
   </div>
 </div>

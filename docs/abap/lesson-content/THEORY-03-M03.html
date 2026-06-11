@@ -58,7 +58,7 @@
     </div>
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zparam_output.
 
-<span class="abap-token-keyword">PARAMETERS</span> p_name <span class="abap-token-keyword">TYPE</span> string DEFAULT <span class="abap-token-string">'ABAP'</span> OBLIGATORY.
+<span class="abap-token-keyword">PARAMETERS</span> p_name <span class="abap-token-keyword">TYPE</span> string <span class="abap-token-keyword">DEFAULT</span> <span class="abap-token-string">'ABAP'</span> <span class="abap-token-keyword">OBLIGATORY</span>.
 
 <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'안녕하세요,'</span>, p_name,
        / <span class="abap-token-string">'ABAP 학습을 시작합니다!'</span>.</code></pre>
@@ -101,8 +101,8 @@
     </div>
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zparam_summary.
 
-<span class="abap-token-keyword">PARAMETERS</span> p_carr <span class="abap-token-keyword">TYPE</span> c LENGTH <span class="abap-token-number">3</span> DEFAULT <span class="abap-token-string">'KE'</span> OBLIGATORY.
-<span class="abap-token-keyword">PARAMETERS</span> p_days <span class="abap-token-keyword">TYPE</span> i DEFAULT <span class="abap-token-number">7</span>.
+<span class="abap-token-keyword">PARAMETERS</span> p_carr <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> <span class="abap-token-number">3</span> <span class="abap-token-keyword">DEFAULT</span> <span class="abap-token-string">'KE'</span> <span class="abap-token-keyword">OBLIGATORY</span>.
+<span class="abap-token-keyword">PARAMETERS</span> p_days <span class="abap-token-keyword">TYPE</span> i <span class="abap-token-keyword">DEFAULT</span> <span class="abap-token-number">7</span>.
 
 <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'항공사 코드:'</span>, p_carr,
        / <span class="abap-token-string">'조회 일수:'</span>, p_days,

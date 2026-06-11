@@ -42,8 +42,8 @@
     </div>
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zdo_basic.
 
-<span class="abap-token-keyword">DO</span> <span class="abap-token-number">5</span> TIMES.
-  <span class="abap-token-keyword">WRITE</span>: / sy-index, <span class="abap-token-string">'번째 실행'</span>.
+<span class="abap-token-keyword">DO</span> <span class="abap-token-number">5</span> <span class="abap-token-keyword">TIMES</span>.
+  <span class="abap-token-keyword">WRITE</span>: / sy-<span class="abap-token-keyword">index</span>, <span class="abap-token-string">'번째 실행'</span>.
 <span class="abap-token-keyword">ENDDO</span>.</code></pre>
   </div>
 </div>
@@ -129,16 +129,16 @@
     </div>
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zloop_control.
 
-<span class="abap-token-keyword">DO</span> <span class="abap-token-number">5</span> TIMES.
-  <span class="abap-token-keyword">IF</span> sy-index = <span class="abap-token-number">2</span>.
-    CONTINUE.
+<span class="abap-token-keyword">DO</span> <span class="abap-token-number">5</span> <span class="abap-token-keyword">TIMES</span>.
+  <span class="abap-token-keyword">IF</span> sy-<span class="abap-token-keyword">index</span> = <span class="abap-token-number">2</span>.
+    <span class="abap-token-keyword">CONTINUE</span>.
   <span class="abap-token-keyword">ENDIF</span>.
 
-  <span class="abap-token-keyword">IF</span> sy-index = <span class="abap-token-number">4</span>.
-    EXIT.
+  <span class="abap-token-keyword">IF</span> sy-<span class="abap-token-keyword">index</span> = <span class="abap-token-number">4</span>.
+    <span class="abap-token-keyword">EXIT</span>.
   <span class="abap-token-keyword">ENDIF</span>.
 
-  <span class="abap-token-keyword">WRITE</span>: / sy-index.
+  <span class="abap-token-keyword">WRITE</span>: / sy-<span class="abap-token-keyword">index</span>.
 <span class="abap-token-keyword">ENDDO</span>.</code></pre>
   </div>
 </div>

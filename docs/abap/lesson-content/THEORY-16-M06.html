@@ -34,14 +34,14 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" Before (옛 스타일)</span>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" Before (옛 스타일)</span>
 <span class="abap-token-keyword">DATA</span>: lt_out  <span class="abap-token-keyword">TYPE</span> ty_flights,
       ls_out  <span class="abap-token-keyword">TYPE</span> ty_flight,
       lv_text <span class="abap-token-keyword">TYPE</span> string.
 <span class="abap-token-keyword">SELECT</span> carrid connid price <span class="abap-token-keyword">FROM</span> sflight <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> lt_out.
 <span class="abap-token-keyword">READ</span> <span class="abap-token-keyword">TABLE</span> lt_out <span class="abap-token-keyword">INTO</span> ls_out <span class="abap-token-keyword">WITH</span> <span class="abap-token-keyword">KEY</span> carrid = <span class="abap-token-string">'LH'</span>.
 <span class="abap-token-keyword">IF</span> sy-subrc = <span class="abap-token-number">0</span>.
-  CONCATENATE <span class="abap-token-string">'요금:'</span> ls_out-price <span class="abap-token-keyword">INTO</span> lv_text SEPARATED <span class="abap-token-keyword">BY</span> space.
+  <span class="abap-token-keyword">CONCATENATE</span> <span class="abap-token-string">'요금:'</span> ls_out-price <span class="abap-token-keyword">INTO</span> lv_text <span class="abap-token-keyword">SEPARATED BY</span> space.
 <span class="abap-token-keyword">ENDIF</span>.</code></pre>
   </div>
 </div>
@@ -63,7 +63,7 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" After (Modern)</span>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" After (Modern)</span>
 <span class="abap-token-keyword">SELECT</span> carrid, connid, price <span class="abap-token-keyword">FROM</span> sflight <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt_out).
 <span class="abap-token-keyword">IF</span> line_exists( lt_out[ carrid = <span class="abap-token-string">'LH'</span> ] ).
   <span class="abap-token-keyword">DATA</span>(lv_text) = |요금: { lt_out[ carrid = <span class="abap-token-string">'LH'</span> ]-price NUMBER = USER }|.

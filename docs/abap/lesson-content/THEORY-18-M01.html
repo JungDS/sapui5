@@ -55,16 +55,16 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">CLASS</span> zcl_flight DEFINITION   <span class="abap-token-comment">"선언부: 무엇을 가질지</span>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">CLASS</span> zcl_flight DEFINITION   <span class="abap-token-comment">"선언부: 무엇을 가질지</span>
   <span class="abap-token-keyword">PUBLIC</span>.
   <span class="abap-token-keyword">PUBLIC</span> <span class="abap-token-keyword">SECTION</span>.
-    <span class="abap-token-keyword">METHODS</span> get_price RETURNING <span class="abap-token-keyword">VALUE</span>(rv_price) <span class="abap-token-keyword">TYPE</span> s_price.
+    <span class="abap-token-keyword">METHODS</span> get_price <span class="abap-token-keyword">RETURNING</span> <span class="abap-token-keyword">VALUE</span>(rv_price) <span class="abap-token-keyword">TYPE</span> s_price.
 <span class="abap-token-keyword">ENDCLASS</span>.
 
-<span class="abap-token-keyword">CLASS</span> zcl_flight <span class="abap-token-keyword">IMPLEMENTATION</span>.   <span class="abap-token-comment">"구현부: 어떻게 동작할지</span>
-  METHOD get_price.
+<span class="abap-token-keyword">CLASS</span> zcl_flight <span class="abap-token-keyword">IMPLEMENTATION</span>.   <span class="abap-token-comment">"구현부: 어떻게 동작할지</span>
+  <span class="abap-token-keyword">METHOD</span> get_price.
     rv_price = <span class="abap-token-number">900</span>.
-  ENDMETHOD.
+  <span class="abap-token-keyword">ENDMETHOD</span>.
 <span class="abap-token-keyword">ENDCLASS</span>.</code></pre>
   </div>
 </div>
@@ -94,7 +94,7 @@
     <div class="abap-editor-line-numbers">
       1<br>2
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span>(lo_flight) = <span class="abap-token-keyword">NEW</span> zcl_flight( ).   <span class="abap-token-comment">"객체 생성 (NEW)</span>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span>(lo_flight) = <span class="abap-token-keyword">NEW</span> zcl_flight( ).   <span class="abap-token-comment">"객체 생성 (NEW)</span>
 <span class="abap-token-keyword">DATA</span>(lv_price)  = lo_flight-&gt;get_price( ).  <span class="abap-token-comment">"메서드 호출 (-&gt;)</span></code></pre>
   </div>
 </div>

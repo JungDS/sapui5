@@ -45,10 +45,10 @@
     </div>
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zparam_block.
 
-<span class="abap-token-keyword">SELECTION-SCREEN</span> <span class="abap-token-keyword">BEGIN</span> <span class="abap-token-keyword">OF</span> BLOCK b1 <span class="abap-token-keyword">WITH</span> FRAME TITLE text-<span class="abap-token-number">001</span>.
-  <span class="abap-token-keyword">PARAMETERS</span> p_carr <span class="abap-token-keyword">TYPE</span> c LENGTH <span class="abap-token-number">3</span> DEFAULT <span class="abap-token-string">'KE'</span>.
-  <span class="abap-token-keyword">PARAMETERS</span> p_days <span class="abap-token-keyword">TYPE</span> i DEFAULT <span class="abap-token-number">7</span>.
-<span class="abap-token-keyword">SELECTION-SCREEN</span> <span class="abap-token-keyword">END</span> <span class="abap-token-keyword">OF</span> BLOCK b1.
+<span class="abap-token-keyword">SELECTION-SCREEN</span> <span class="abap-token-keyword">BEGIN OF BLOCK</span> b1 <span class="abap-token-keyword">WITH</span> <span class="abap-token-keyword">FRAME TITLE</span> text-<span class="abap-token-number">001</span>.
+  <span class="abap-token-keyword">PARAMETERS</span> p_carr <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> <span class="abap-token-number">3</span> <span class="abap-token-keyword">DEFAULT</span> <span class="abap-token-string">'KE'</span>.
+  <span class="abap-token-keyword">PARAMETERS</span> p_days <span class="abap-token-keyword">TYPE</span> i <span class="abap-token-keyword">DEFAULT</span> <span class="abap-token-number">7</span>.
+<span class="abap-token-keyword">SELECTION-SCREEN</span> <span class="abap-token-keyword">END OF BLOCK</span> b1.
 
 <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'항공사:'</span>, p_carr,
        / <span class="abap-token-string">'조회 일수:'</span>, p_days.</code></pre>
@@ -101,10 +101,10 @@
     </div>
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zselection_block.
 
-<span class="abap-token-keyword">SELECTION-SCREEN</span> <span class="abap-token-keyword">BEGIN</span> <span class="abap-token-keyword">OF</span> BLOCK b_cond <span class="abap-token-keyword">WITH</span> FRAME TITLE text-<span class="abap-token-number">001</span>.
-  <span class="abap-token-keyword">PARAMETERS</span> p_carr <span class="abap-token-keyword">TYPE</span> c LENGTH <span class="abap-token-number">3</span> DEFAULT <span class="abap-token-string">'KE'</span> OBLIGATORY.
-  <span class="abap-token-keyword">PARAMETERS</span> p_date <span class="abap-token-keyword">TYPE</span> d DEFAULT sy-datum.
-<span class="abap-token-keyword">SELECTION-SCREEN</span> <span class="abap-token-keyword">END</span> <span class="abap-token-keyword">OF</span> BLOCK b_cond.
+<span class="abap-token-keyword">SELECTION-SCREEN</span> <span class="abap-token-keyword">BEGIN OF BLOCK</span> b_cond <span class="abap-token-keyword">WITH</span> <span class="abap-token-keyword">FRAME TITLE</span> text-<span class="abap-token-number">001</span>.
+  <span class="abap-token-keyword">PARAMETERS</span> p_carr <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> <span class="abap-token-number">3</span> <span class="abap-token-keyword">DEFAULT</span> <span class="abap-token-string">'KE'</span> <span class="abap-token-keyword">OBLIGATORY</span>.
+  <span class="abap-token-keyword">PARAMETERS</span> p_date <span class="abap-token-keyword">TYPE</span> d <span class="abap-token-keyword">DEFAULT</span> sy-datum.
+<span class="abap-token-keyword">SELECTION-SCREEN</span> <span class="abap-token-keyword">END OF BLOCK</span> b_cond.
 
 <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'항공사:'</span>, p_carr,
        / <span class="abap-token-string">'기준일:'</span>, p_date.</code></pre>

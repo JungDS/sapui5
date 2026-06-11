@@ -44,10 +44,10 @@
 <span class="abap-token-keyword">ENDCLASS</span>.
 
 <span class="abap-token-keyword">CLASS</span> lhc_travel <span class="abap-token-keyword">IMPLEMENTATION</span>.
-  METHOD validate_dates.
+  <span class="abap-token-keyword">METHOD</span> validate_dates.
     <span class="abap-token-comment">" 키로 해당 건들을 읽어 검증</span>
-    <span class="abap-token-keyword">READ</span> ENTITIES <span class="abap-token-keyword">OF</span> zi_travel IN <span class="abap-token-keyword">LOCAL</span> <span class="abap-token-keyword">MODE</span>
-      <span class="abap-token-keyword">ENTITY</span> Travel <span class="abap-token-keyword">FIELDS</span> ( begin_date end_date ) <span class="abap-token-keyword">WITH</span> CORRESPONDING #( keys )
+    <span class="abap-token-keyword">READ</span> ENTITIES <span class="abap-token-keyword">OF</span> zi_travel <span class="abap-token-keyword">IN</span> <span class="abap-token-keyword">LOCAL</span> <span class="abap-token-keyword">MODE</span>
+      <span class="abap-token-keyword">ENTITY</span> Travel <span class="abap-token-keyword">FIELDS</span> ( begin_date end_date ) <span class="abap-token-keyword">WITH</span> <span class="abap-token-keyword">CORRESPONDING</span> #( keys )
       <span class="abap-token-keyword">RESULT</span> <span class="abap-token-keyword">DATA</span>(travels).
 
     <span class="abap-token-keyword">LOOP</span> <span class="abap-token-keyword">AT</span> travels <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">DATA</span>(travel).
@@ -56,7 +56,7 @@
         <span class="abap-token-comment">" 메시지도 함께 보고</span>
       <span class="abap-token-keyword">ENDIF</span>.
     <span class="abap-token-keyword">ENDLOOP</span>.
-  ENDMETHOD.
+  <span class="abap-token-keyword">ENDMETHOD</span>.
 <span class="abap-token-keyword">ENDCLASS</span>.</code></pre>
   </div>
 </div>

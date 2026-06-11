@@ -58,10 +58,10 @@
       1<br>2<br>3<br>4<br>5<br>6<br>7
     </div>
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">SELECT</span> carrid,
-       COUNT(*) <span class="abap-token-keyword">AS</span> cnt,
-       SUM( loccuram ) <span class="abap-token-keyword">AS</span> total
+       <span class="abap-token-keyword">COUNT</span>(*) <span class="abap-token-keyword">AS</span> cnt,
+       <span class="abap-token-keyword">SUM</span>( loccuram ) <span class="abap-token-keyword">AS</span> total
   <span class="abap-token-keyword">FROM</span> sbook
-  GROUP <span class="abap-token-keyword">BY</span> carrid
+  <span class="abap-token-keyword">GROUP BY</span> carrid
   <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt_summary).
 <span class="abap-token-comment">"→ 항공사(carrid)별로 예약 건수(cnt)와 매출 합계(total)가 한 줄씩</span></code></pre>
   </div>

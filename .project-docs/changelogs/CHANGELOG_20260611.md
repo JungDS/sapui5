@@ -4,6 +4,7 @@
 
 ## 참여 AI
 - **Codex (GPT-5)**
+- **Claude (Fable 5)**
 
 ## 작업 상세 내용
 
@@ -54,3 +55,18 @@
 - **정확한 문법 위치 보정**: `USING VALUE(...)`는 호출문이 아니라 `FORM` formal parameter 선언 쪽의 표현이므로 예제에서 `PERFORM change_copy USING gv_name.`과 `FORM change_copy USING VALUE(iv_name) TYPE string.`의 위치 차이를 분리해 보여줬다.
 - **시각 자료 구현 선택**: Internal Table 이해 보강은 별도 이미지 파일보다 유지보수 가능한 HTML/CSS 표와 흐름도를 선택했다. Lesson fragment에는 인라인 스타일을 넣지 않고 공통 CSS만 확장했다.
 - **포맷터 범위 관리**: 키워드 목록은 전역으로 확장했지만, 전체 Lesson 재포맷으로 생긴 줄끝/재생성성 변경은 제외하고 요청 범위와 직접 검증한 Lesson 변경만 남겼다.
+
+---
+
+### Claude (Fable 5) — Track 1 시각화 확산 기반 정비 (Phase 0)
+- 사용자 요구(시각화를 코드 예제 설명에 국한하지 말고 모든 설명 과정에 확산)에 따라 Track 1 시각화 현황을 감사: Chapter 6에만 itab-* 시각 자료가 집중되어 있고 129/137개 Lesson은 텍스트+코드만 있는 상태를 확인.
+- `assets/abap-lesson-viewer.css`의 모든 `itab-*` 셀렉터에 범용 `viz-*` 별칭을 병기하고, 전/후 비교용 `viz-compare(-before/-after/-label/-body)`와 인라인 SVG 래퍼 `viz-svg`를 신규 추가. `lesson-viewer.html` CSS 캐시 버스터를 `v=20260611-viz1`로 갱신.
+- `TRACK1_QUALITY_PLAN.md` 완료 기준에 11번 "시각 자료" 항목을 추가하고, `HANDOFF_LESSON_CONTENT.md`에 시각화 패턴 카탈로그 7종(상태 변화 그리드, 관계도, 포인터 추적, 성공/실패 비교, 프로세스 플로우, 전/후 비교, 인라인 SVG)과 적용 판단 체크리스트, SVG 작성 규칙을 문서화.
+- `Chapter 10의 Lesson 1/4/5`에 남아 있던 스타일 미적용 일반 `<table>` 6건을 `viz-visual` + `viz-table`로 정리하고, Include/Exclude 표에는 success/fail 배지를 적용.
+- `tools/format-abap-code.mjs` 키워드에 `LEFT/RIGHT OUTER JOIN`, `INNER JOIN`, `GROUP BY`, `ORDER BY`, `HAVING`, `AND`, `OR`, `SINGLE`, 집계 함수 등 SQL 계열을 보강하고 전체 재실행(77개 파일 하이라이트 개선, 2차 실행 0건으로 멱등성 확인).
+- NotebookLM MCP(`notebooklm-mcp` v2.0.0, 비공식)를 사용자 스코프에 등록하고 Google 인증·노트북(`ABAP Evolution and Messaging Channels Training Guide`) 등록·실질의 검증까지 완료. 이후 Chapter 패스는 NotebookLM 질의 → SAP 공식 문서 교차 검증 흐름으로 진행.
+
+## Claude 고민했던 점 및 설계 이유
+- **별칭 방식 선택**: itab-* 전면 리네이밍 대신 CSS 셀렉터 병기를 택해 Chapter 6 기존 HTML을 건드리지 않고 신규 작업의 의미(범용 viz-*)만 명확히 했다.
+- **viz-compare 색상 설계**: before(연한 적색 헤더)/after(연한 녹색 헤더)로 전/후 방향을 색으로 직관화하되, 기존 팔레트(#fff0f0/#e8f8ef 계열) 안에서만 선택해 시각 일관성을 유지했다.
+- **포맷터 변경 범위**: 키워드 보강으로 77개 파일이 갱신됐지만 diff가 토큰 span 추가뿐임을 스팟체크로 확인하고 멱등성(2차 실행 0건)을 검증한 뒤 커밋 범위에 포함했다.

@@ -47,7 +47,7 @@
 <span class="abap-token-keyword">SELECT</span> <span class="abap-token-keyword">FROM</span> t005t
   <span class="abap-token-keyword">FIELDS</span> land1, landx
   <span class="abap-token-keyword">WHERE</span> spras = @sy-langu
-    AND land1 IN @s_land1
+    <span class="abap-token-keyword">AND</span> land1 <span class="abap-token-keyword">IN</span> @s_land1
   <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt_countries).</code></pre>
   </div>
 </div>
@@ -92,7 +92,7 @@
   <span class="abap-token-keyword">SELECT</span> <span class="abap-token-keyword">FROM</span> t005t
     <span class="abap-token-keyword">FIELDS</span> land1, landx
     <span class="abap-token-keyword">WHERE</span> spras = @sy-langu
-      AND land1 IN @s_land1
+      <span class="abap-token-keyword">AND</span> land1 <span class="abap-token-keyword">IN</span> @s_land1
     <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt_countries).
 
   <span class="abap-token-keyword">IF</span> lt_countries <span class="abap-token-keyword">IS</span> <span class="abap-token-keyword">INITIAL</span>.

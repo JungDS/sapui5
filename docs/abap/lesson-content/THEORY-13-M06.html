@@ -43,7 +43,7 @@
     RETURN.
   <span class="abap-token-keyword">ENDIF</span>.
 
-  <span class="abap-token-comment">" 담아둔 결과를 ALV 등으로 출력</span>
+  <span class="abap-token-comment">" 담아둔 결과를 ALV 등으로 출력</span>
   cl_salv_table=&gt;factory(
     <span class="abap-token-keyword">IMPORTING</span> r_salv_table = <span class="abap-token-keyword">DATA</span>(lo_alv)
     <span class="abap-token-keyword">CHANGING</span>  t_table      = gt_result ).

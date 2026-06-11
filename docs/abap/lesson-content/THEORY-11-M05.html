@@ -39,8 +39,8 @@
     </div>
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">SELECT</span> carrid, connid, fldate, price
   <span class="abap-token-keyword">FROM</span> spfli
-  ORDER <span class="abap-token-keyword">BY</span> carrid <span class="abap-token-keyword">ASCENDING</span>,      <span class="abap-token-comment">"항공사 코드 오름차순,</span>
-           price  <span class="abap-token-keyword">DESCENDING</span>      <span class="abap-token-comment">"같은 항공사면 요금 내림차순</span>
+  <span class="abap-token-keyword">ORDER BY</span> carrid <span class="abap-token-keyword">ASCENDING</span>,      <span class="abap-token-comment">"항공사 코드 오름차순,</span>
+           price  <span class="abap-token-keyword">DESCENDING</span>      <span class="abap-token-comment">"같은 항공사면 요금 내림차순</span>
   <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt_sorted).</code></pre>
   </div>
 </div>

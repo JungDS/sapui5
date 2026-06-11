@@ -42,7 +42,7 @@
     </div>
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zparam_default.
 
-<span class="abap-token-keyword">PARAMETERS</span> p_carr <span class="abap-token-keyword">TYPE</span> c LENGTH <span class="abap-token-number">3</span> DEFAULT <span class="abap-token-string">'KE'</span>.
+<span class="abap-token-keyword">PARAMETERS</span> p_carr <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> <span class="abap-token-number">3</span> <span class="abap-token-keyword">DEFAULT</span> <span class="abap-token-string">'KE'</span>.
 
 <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'항공사 코드:'</span>, p_carr.</code></pre>
   </div>
@@ -80,7 +80,7 @@
     </div>
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zparam_required.
 
-<span class="abap-token-keyword">PARAMETERS</span> p_carr <span class="abap-token-keyword">TYPE</span> c LENGTH <span class="abap-token-number">3</span> OBLIGATORY.
+<span class="abap-token-keyword">PARAMETERS</span> p_carr <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> <span class="abap-token-number">3</span> <span class="abap-token-keyword">OBLIGATORY</span>.
 
 <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'항공사 코드:'</span>, p_carr.</code></pre>
   </div>
@@ -141,8 +141,8 @@
     </div>
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zparam_options.
 
-<span class="abap-token-keyword">PARAMETERS</span> p_carr <span class="abap-token-keyword">TYPE</span> c LENGTH <span class="abap-token-number">3</span> DEFAULT <span class="abap-token-string">'KE'</span> OBLIGATORY.
-<span class="abap-token-keyword">PARAMETERS</span> p_days <span class="abap-token-keyword">TYPE</span> i DEFAULT <span class="abap-token-number">7</span>.
+<span class="abap-token-keyword">PARAMETERS</span> p_carr <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> <span class="abap-token-number">3</span> <span class="abap-token-keyword">DEFAULT</span> <span class="abap-token-string">'KE'</span> <span class="abap-token-keyword">OBLIGATORY</span>.
+<span class="abap-token-keyword">PARAMETERS</span> p_days <span class="abap-token-keyword">TYPE</span> i <span class="abap-token-keyword">DEFAULT</span> <span class="abap-token-number">7</span>.
 
 <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'항공사:'</span>, p_carr,
        / <span class="abap-token-string">'조회 일수:'</span>, p_days.</code></pre>

@@ -40,12 +40,12 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">PARAMETERS</span> p_land1 <span class="abap-token-keyword">TYPE</span> t005t-land1 DEFAULT <span class="abap-token-string">'KR'</span>.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">PARAMETERS</span> p_land1 <span class="abap-token-keyword">TYPE</span> t005t-land1 <span class="abap-token-keyword">DEFAULT</span> <span class="abap-token-string">'KR'</span>.
 
 <span class="abap-token-keyword">SELECT</span> <span class="abap-token-keyword">FROM</span> t005t
   <span class="abap-token-keyword">FIELDS</span> land1, landx
   <span class="abap-token-keyword">WHERE</span> spras = @sy-langu
-    AND land1 = @p_land1
+    <span class="abap-token-keyword">AND</span> land1 = @p_land1
   <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt_countries).</code></pre>
   </div>
 </div>
@@ -98,12 +98,12 @@
     </div>
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zsql_where_host.
 
-<span class="abap-token-keyword">PARAMETERS</span> p_land1 <span class="abap-token-keyword">TYPE</span> t005t-land1 DEFAULT <span class="abap-token-string">'KR'</span>.
+<span class="abap-token-keyword">PARAMETERS</span> p_land1 <span class="abap-token-keyword">TYPE</span> t005t-land1 <span class="abap-token-keyword">DEFAULT</span> <span class="abap-token-string">'KR'</span>.
 
 <span class="abap-token-keyword">SELECT</span> <span class="abap-token-keyword">FROM</span> t005t
   <span class="abap-token-keyword">FIELDS</span> land1, landx
   <span class="abap-token-keyword">WHERE</span> spras = @sy-langu
-    AND land1 = @p_land1
+    <span class="abap-token-keyword">AND</span> land1 = @p_land1
   <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt_countries).
 
 <span class="abap-token-keyword">IF</span> lt_countries <span class="abap-token-keyword">IS</span> <span class="abap-token-keyword">INITIAL</span>.

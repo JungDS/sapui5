@@ -23,7 +23,9 @@
   <p>
     <span class="glossary-term" data-glossary="EQOption">EQ</span>는 Equal, 즉 같다는 뜻입니다. LOW에 적은 값과 정확히 같은 값을 선택합니다.
   </p>
-  <table>
+  <div class="viz-visual">
+  <p class="viz-visual-title">EQ 조건 예시</p>
+  <table class="viz-table">
     <thead>
       <tr>
         <th>SIGN</th>
@@ -41,6 +43,7 @@
       </tr>
     </tbody>
   </table>
+  </div>
   <p>
     단일값 입력은 대부분 내부적으로 <code>OPTION = 'EQ'</code>로 표현됩니다.
   </p>
@@ -51,7 +54,9 @@
   <p>
     <span class="glossary-term" data-glossary="BTOption">BT</span>는 Between, 즉 LOW부터 HIGH까지의 범위를 뜻합니다.
   </p>
-  <table>
+  <div class="viz-visual">
+  <p class="viz-visual-title">BT 조건 예시</p>
+  <table class="viz-table">
     <thead>
       <tr>
         <th>SIGN</th>
@@ -71,6 +76,7 @@
       </tr>
     </tbody>
   </table>
+  </div>
   <p>
     BT에서는 HIGH가 중요합니다. 시작값만 있고 끝값이 없으면 범위 조건의 의미가 흐려집니다.
   </p>
@@ -81,7 +87,9 @@
   <p>
     <span class="glossary-term" data-glossary="CPOption">CP</span>는 Contains Pattern입니다. 문자 패턴과 맞는 값을 고를 때 사용합니다. Selection Option에서 <code>*</code>는 여러 글자, <code>+</code>는 한 글자 패턴처럼 쓰입니다.
   </p>
-  <table>
+  <div class="viz-visual">
+  <p class="viz-visual-title">CP 조건 예시</p>
+  <table class="viz-table">
     <thead>
       <tr>
         <th>SIGN</th>
@@ -99,6 +107,7 @@
       </tr>
     </tbody>
   </table>
+  </div>
   <p>
     CP는 편하지만 조건이 넓어지기 쉽습니다. 특히 큰 테이블에서 앞부분이 넓은 패턴을 쓰면 성능에 영향을 줄 수 있습니다.
   </p>

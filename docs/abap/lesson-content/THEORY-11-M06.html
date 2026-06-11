@@ -37,10 +37,10 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" lt_orders 에 들고 있는 주문번호들로 상세를 조회</span>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" lt_orders 에 들고 있는 주문번호들로 상세를 조회</span>
 <span class="abap-token-keyword">SELECT</span> vbeln, posnr, matnr
   <span class="abap-token-keyword">FROM</span> vbap
-  <span class="abap-token-keyword">FOR</span> ALL ENTRIES IN @lt_orders
+  <span class="abap-token-keyword">FOR</span> ALL ENTRIES <span class="abap-token-keyword">IN</span> @lt_orders
   <span class="abap-token-keyword">WHERE</span> vbeln = @lt_orders-vbeln
   <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt_items).</code></pre>
   </div>
@@ -78,8 +78,8 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">IF</span> lt_orders <span class="abap-token-keyword">IS</span> <span class="abap-token-keyword">NOT</span> <span class="abap-token-keyword">INITIAL</span>.        <span class="abap-token-comment">"← 이 한 줄이 사고를 막는다</span>
-  <span class="abap-token-keyword">SELECT</span> ... <span class="abap-token-keyword">FOR</span> ALL ENTRIES IN @lt_orders ...
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">IF</span> lt_orders <span class="abap-token-keyword">IS</span> <span class="abap-token-keyword">NOT</span> <span class="abap-token-keyword">INITIAL</span>.        <span class="abap-token-comment">"← 이 한 줄이 사고를 막는다</span>
+  <span class="abap-token-keyword">SELECT</span> ... <span class="abap-token-keyword">FOR</span> ALL ENTRIES <span class="abap-token-keyword">IN</span> @lt_orders ...
 <span class="abap-token-keyword">ENDIF</span>.</code></pre>
   </div>
 </div>

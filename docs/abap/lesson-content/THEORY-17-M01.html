@@ -37,10 +37,10 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" Classic Open SQL (옛 스타일)</span>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" Classic Open SQL (옛 스타일)</span>
 <span class="abap-token-keyword">DATA</span> lt <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">TABLE</span> <span class="abap-token-keyword">OF</span> sflight.
-<span class="abap-token-keyword">SELECT</span> carrid connid price          <span class="abap-token-comment">"필드 사이 콤마 없음</span>
-  <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> lt                     <span class="abap-token-comment">"@ 없음</span>
+<span class="abap-token-keyword">SELECT</span> carrid connid price          <span class="abap-token-comment">"필드 사이 콤마 없음</span>
+  <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> lt                     <span class="abap-token-comment">"@ 없음</span>
   <span class="abap-token-keyword">FROM</span> sflight
   <span class="abap-token-keyword">WHERE</span> carrid = lv_carrid.         <span class="abap-token-comment">"변수 앞 @ 없음</span></code></pre>
   </div>
@@ -63,10 +63,10 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" Modern ABAP SQL (새 스타일)</span>
-<span class="abap-token-keyword">SELECT</span> carrid, connid, price        <span class="abap-token-comment">"필드 사이 콤마</span>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" Modern ABAP SQL (새 스타일)</span>
+<span class="abap-token-keyword">SELECT</span> carrid, connid, price        <span class="abap-token-comment">"필드 사이 콤마</span>
   <span class="abap-token-keyword">FROM</span> sflight
-  <span class="abap-token-keyword">WHERE</span> carrid = @lv_carrid         <span class="abap-token-comment">"변수 앞 @ (Host Variable)</span>
+  <span class="abap-token-keyword">WHERE</span> carrid = @lv_carrid         <span class="abap-token-comment">"변수 앞 @ (Host Variable)</span>
   <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt).             <span class="abap-token-comment">"@ + 인라인 선언</span></code></pre>
   </div>
 </div>

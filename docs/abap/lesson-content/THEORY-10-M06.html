@@ -118,7 +118,7 @@
 <span class="abap-token-keyword">SELECT</span> <span class="abap-token-keyword">FROM</span> t005t
   <span class="abap-token-keyword">FIELDS</span> land1, landx
   <span class="abap-token-keyword">WHERE</span> spras = @sy-langu
-    AND land1 IN @r_land1
+    <span class="abap-token-keyword">AND</span> land1 <span class="abap-token-keyword">IN</span> @r_land1
   <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt_countries).
 
 <span class="abap-token-keyword">LOOP</span> <span class="abap-token-keyword">AT</span> lt_countries <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">DATA</span>(ls_country).

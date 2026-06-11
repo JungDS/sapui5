@@ -43,8 +43,8 @@
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">AT</span> <span class="abap-token-keyword">SELECTION-SCREEN</span> OUTPUT.
   <span class="abap-token-keyword">LOOP</span> <span class="abap-token-keyword">AT</span> SCREEN.
     <span class="abap-token-keyword">IF</span> screen-name = <span class="abap-token-string">'P_DETAIL'</span>.
-      screen-active = <span class="abap-token-string">'0'</span>.        <span class="abap-token-comment">"이 칸을 숨김 (0=숨김, 1=표시)</span>
-      <span class="abap-token-keyword">MODIFY</span> SCREEN.              <span class="abap-token-comment">"변경을 실제 화면에 반영</span>
+      screen-active = <span class="abap-token-string">'0'</span>.        <span class="abap-token-comment">"이 칸을 숨김 (0=숨김, 1=표시)</span>
+      <span class="abap-token-keyword">MODIFY</span> SCREEN.              <span class="abap-token-comment">"변경을 실제 화면에 반영</span>
     <span class="abap-token-keyword">ENDIF</span>.
   <span class="abap-token-keyword">ENDLOOP</span>.</code></pre>
   </div>
@@ -84,7 +84,7 @@
 
 <span class="abap-token-keyword">AT</span> <span class="abap-token-keyword">SELECTION-SCREEN</span> OUTPUT.
   <span class="abap-token-keyword">LOOP</span> <span class="abap-token-keyword">AT</span> SCREEN.
-    <span class="abap-token-keyword">IF</span> screen-group1 = <span class="abap-token-string">'GRP'</span>.     <span class="abap-token-comment">"MODIF ID가 GRP인 칸 전부</span>
+    <span class="abap-token-keyword">IF</span> screen-group1 = <span class="abap-token-string">'GRP'</span>.     <span class="abap-token-comment">"MODIF ID가 GRP인 칸 전부</span>
       screen-active = <span class="abap-token-string">'0'</span>.
       <span class="abap-token-keyword">MODIFY</span> SCREEN.
     <span class="abap-token-keyword">ENDIF</span>.

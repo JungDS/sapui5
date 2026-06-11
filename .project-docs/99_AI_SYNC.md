@@ -17,7 +17,8 @@
 
 ## 현재 상태 및 목표 (Current Status & Goals)
 - **현재 목표**: 🎉 **Track 1(THEORY-*) 137/137 작성 완료!** (THEORY-01~21 전부). 사용자의 새 목표에 따라 Track 1을 "고품질 교육용 웹페이지" 기준으로 재감사·보강하는 라운드를 준비 중. 기준 문서: [TRACK1_QUALITY_PLAN.md](TRACK1_QUALITY_PLAN.md). 병행 다음 목표는 **Track 2(PRACTICAL-* 13개 섹션)** 신규 작성.
-- **최근 진행(2026-06-11, Codex)**: 사용자 피드백에 따라 `Chapter 1의 Lesson 1`, `Chapter 2의 Lesson 3`, `Chapter 5의 Lesson 2/4/5`, `Chapter 6의 Lesson 1~6`을 보정. 코드 예제 D2Coding 상속, ABAP 키워드 포맷터 확장, Classic `WRITE`와 ADT `out->write( )` 구분, Subroutine 전달 방식, Class 입문 설명, Internal Table 시각 자료를 보강.
+- **최근 진행(2026-06-11, Claude)**: 사용자 승인 플랜에 따라 **Track 1 시각화 확산 + 고품질화 통합 라운드** 시작. Phase 0(기반 정비) 완료 — `viz-*` 범용 CSS 별칭/`viz-compare`/`viz-svg` 신설, 시각화 패턴 카탈로그 7종을 HANDOFF에 표준화, Chapter 10 일반 표 정리, 포맷터 SQL 키워드 보강(77개 파일 하이라이트 개선). **NotebookLM MCP 연결 완료**(notebooklm-mcp v2.0.0, 노트북 `ABAP Evolution and Messaging Channels Training Guide` 등록·질의 검증). 이후 Chapter 4→19 통합 패스, 마지막에 Chapter 1~3/6/20~21 시각화 보강 미니 패스 예정.
+- **이전 진행(2026-06-11, Codex)**: 사용자 피드백에 따라 `Chapter 1의 Lesson 1`, `Chapter 2의 Lesson 3`, `Chapter 5의 Lesson 2/4/5`, `Chapter 6의 Lesson 1~6`을 보정. 코드 예제 D2Coding 상속, ABAP 키워드 포맷터 확장, Classic `WRITE`와 ADT `out->write( )` 구분, Subroutine 전달 방식, Class 입문 설명, Internal Table 시각 자료를 보강.
 - **⚠️ 동시 작업 주의**: AI 작업 간 겹침 방지를 위해 섹션 단위 작업을 엄수.
 - **⚠️ 인계 핵심 문서**: 이어서 작업할 AI는 **[HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md)를 가장 먼저 정독**할 것. 작성 규칙·스타일 기준·복붙용 프롬프트가 모두 거기 있음.
 
@@ -39,6 +40,20 @@
 ---
 
 ## 작업 이력 (Work Log)
+
+### [2026-06-11] Claude (Fable 5) — Track 1 시각화 확산 Phase 0 (기반 정비) + NotebookLM MCP 연결
+- **작업 내용**:
+  - 시각화 현황 감사: itab-* 시각 자료가 Chapter 6에 집중(91건), 129/137개 Lesson은 텍스트+코드만 있음을 확인하고, 시각화 확산 + 고품질화 통합 플랜을 사용자 승인 하에 수립.
+  - `assets/abap-lesson-viewer.css`의 모든 `itab-*` 셀렉터에 범용 `viz-*` 별칭 병기, 전/후 비교 `viz-compare`와 인라인 SVG 래퍼 `viz-svg` 신규 추가, 캐시 버스터 `v=20260611-viz1` 갱신.
+  - `TRACK1_QUALITY_PLAN.md` 완료 기준 11번 "시각 자료" 추가, `HANDOFF_LESSON_CONTENT.md`에 시각화 패턴 카탈로그 7종 + 적용 판단 체크리스트 + SVG 작성 규칙 문서화.
+  - `Chapter 10의 Lesson 1/4/5`의 스타일 미적용 `<table>` 6건을 `viz-visual`+`viz-table`로 정리(Include/Exclude에 success/fail 배지).
+  - `tools/format-abap-code.mjs`에 SQL 키워드(`LEFT OUTER JOIN`, `INNER JOIN`, `GROUP BY`, `AND` 등) 보강 후 전체 재실행 — 77개 파일 하이라이트 개선.
+  - **NotebookLM MCP 연결**: `notebooklm-mcp` v2.0.0을 `~/.claude.json` 사용자 스코프에 등록, Google 인증 완료, 노트북 `ABAP Evolution and Messaging Channels Training Guide`(ID: abap-evolution-and-messaging-c) 등록·실질의 검증 완료. 이후 Chapter 패스는 NotebookLM 질의 → SAP 공식 문서 교차 검증으로 진행.
+- **검증 메모**:
+  - 포맷터 2차 실행 0건(멱등성), diff는 토큰 span 추가만 확인.
+  - lesson-content 인라인 `style=` 0건, `<script>`/인라인 이벤트 0건, plain `<pre><code>` 0건.
+  - 로컬 뷰어에서 THEORY-10-M04(viz-visual/viz-table/viz-badge 렌더링)와 THEORY-11-M02(`LEFT OUTER JOIN`/`AND` 키워드 하이라이트) 확인.
+- **다음 AI를 위한 메모**: 신규 시각화는 `viz-*` 클래스를 사용할 것(itab-*는 Chapter 6 호환용). 시각화 마크업 샘플과 판단 체크리스트는 HANDOFF의 "시각화 패턴 카탈로그" 참조. 다음은 Chapter 4부터 고품질화+시각화 통합 패스.
 
 ### [2026-06-11] Codex (GPT-5) — Track 1 사용자 피드백 보정 및 Internal Table 시각화
 - **작업 내용**:

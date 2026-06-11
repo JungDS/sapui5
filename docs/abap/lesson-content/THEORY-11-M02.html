@@ -62,9 +62,9 @@
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">SELECT</span> f~carrid, f~connid,
        b~bookid
   <span class="abap-token-keyword">FROM</span> spfli <span class="abap-token-keyword">AS</span> f
-  LEFT OUTER JOIN sbook <span class="abap-token-keyword">AS</span> b
+  <span class="abap-token-keyword">LEFT OUTER JOIN</span> sbook <span class="abap-token-keyword">AS</span> b
     <span class="abap-token-keyword">ON</span> f~carrid = b~carrid
-   AND f~connid = b~connid
+   <span class="abap-token-keyword">AND</span> f~connid = b~connid
   <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt_result).
 <span class="abap-token-comment">"→ 예약(sbook)이 없는 항공편도 결과에 남고, bookid 자리는 초기값(공백/0)으로 채워짐</span></code></pre>
   </div>

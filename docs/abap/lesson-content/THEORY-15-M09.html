@@ -40,7 +40,7 @@
     </div>
     <pre class="shiki abap-editor-code"><code>gs_fcat-fieldname = <span class="abap-token-string">'PRICE'</span>.
 gs_fcat-coltext   = <span class="abap-token-string">'요금'</span>.
-gs_fcat-emphasize = <span class="abap-token-string">'C610'</span>.   <span class="abap-token-comment">"색상 코드 (C + 색번호 + 강도 + 반전)</span>
+gs_fcat-emphasize = <span class="abap-token-string">'C610'</span>.   <span class="abap-token-comment">"색상 코드 (C + 색번호 + 강도 + 반전)</span>
 <span class="abap-token-keyword">APPEND</span> gs_fcat <span class="abap-token-keyword">TO</span> gt_fcat.</code></pre>
   </div>
 </div>
@@ -81,20 +81,20 @@ gs_fcat-emphasize = <span class="abap-token-string">'C610'</span>.   <span class
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" 1) 출력 구조에 색상 필드 추가</span>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" 1) 출력 구조에 색상 필드 추가</span>
 <span class="abap-token-keyword">TYPES</span>: <span class="abap-token-keyword">BEGIN</span> <span class="abap-token-keyword">OF</span> ty_row,
          ...,
-         rowcolor <span class="abap-token-keyword">TYPE</span> char4,   <span class="abap-token-comment">"행 색상 코드</span>
+         rowcolor <span class="abap-token-keyword">TYPE</span> char4,   <span class="abap-token-comment">"행 색상 코드</span>
        <span class="abap-token-keyword">END</span> <span class="abap-token-keyword">OF</span> ty_row.
 
-<span class="abap-token-comment">" 2) 조건에 따라 색 채우기</span>
+<span class="abap-token-comment">" 2) 조건에 따라 색 채우기</span>
 <span class="abap-token-keyword">LOOP</span> <span class="abap-token-keyword">AT</span> gt_outtab <span class="abap-token-keyword">ASSIGNING</span> FIELD-SYMBOL(&lt;fs&gt;).
   <span class="abap-token-keyword">IF</span> &lt;fs&gt;-price &gt; <span class="abap-token-number">1000</span>.
-    &lt;fs&gt;-rowcolor = <span class="abap-token-string">'C610'</span>.   <span class="abap-token-comment">"비싼 항공편은 빨갛게</span>
+    &lt;fs&gt;-rowcolor = <span class="abap-token-string">'C610'</span>.   <span class="abap-token-comment">"비싼 항공편은 빨갛게</span>
   <span class="abap-token-keyword">ENDIF</span>.
 <span class="abap-token-keyword">ENDLOOP</span>.
 
-<span class="abap-token-comment">" 3) Layout에 연결</span>
+<span class="abap-token-comment">" 3) Layout에 연결</span>
 gs_layout-info_fname = <span class="abap-token-string">'ROWCOLOR'</span>.</code></pre>
   </div>
 </div>

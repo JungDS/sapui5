@@ -86,14 +86,14 @@
     </div>
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zcase_basic.
 
-<span class="abap-token-keyword">DATA</span> gv_grade <span class="abap-token-keyword">TYPE</span> c LENGTH <span class="abap-token-number">1</span> <span class="abap-token-keyword">VALUE</span> <span class="abap-token-string">'B'</span>.
+<span class="abap-token-keyword">DATA</span> gv_grade <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> <span class="abap-token-number">1</span> <span class="abap-token-keyword">VALUE</span> <span class="abap-token-string">'B'</span>.
 
 <span class="abap-token-keyword">CASE</span> gv_grade.
   <span class="abap-token-keyword">WHEN</span> <span class="abap-token-string">'A'</span>.
     <span class="abap-token-keyword">WRITE</span> <span class="abap-token-string">'아주 좋아요'</span>.
   <span class="abap-token-keyword">WHEN</span> <span class="abap-token-string">'B'</span>.
     <span class="abap-token-keyword">WRITE</span> <span class="abap-token-string">'좋아요'</span>.
-  <span class="abap-token-keyword">WHEN</span> OTHERS.
+  <span class="abap-token-keyword">WHEN</span> <span class="abap-token-keyword">OTHERS</span>.
     <span class="abap-token-keyword">WRITE</span> <span class="abap-token-string">'확인이 필요해요'</span>.
 <span class="abap-token-keyword">ENDCASE</span>.</code></pre>
   </div>

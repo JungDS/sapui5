@@ -58,7 +58,7 @@
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">SELECT</span> s~carrid, s~connid, s~cityfrom, s~cityto,
        c~carrname
   <span class="abap-token-keyword">FROM</span> spfli <span class="abap-token-keyword">AS</span> s
-  INNER JOIN scarr <span class="abap-token-keyword">AS</span> c
+  <span class="abap-token-keyword">INNER JOIN</span> scarr <span class="abap-token-keyword">AS</span> c
     <span class="abap-token-keyword">ON</span> s~carrid = c~carrid
   <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt_flights).</code></pre>
   </div>
