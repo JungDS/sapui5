@@ -117,7 +117,52 @@
 </section>
 
 <section class="lesson-section">
-  <h2>6. 한눈에 정리 🏁</h2>
+  <h2>6. 미니 실습: Association 경로 읽기 🧪</h2>
+  <p>
+    이번 실습은 Association을 JOIN 대체 문법처럼 외우지 않고, “관계를 이름으로 노출하고 필요한 순간 따라간다”는 감각을 잡는 데 목적이 있습니다.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>예제 Association에서 대상 View, 별칭, ON 조건, <span class="glossary-term" data-glossary="Cardinality">Cardinality</span>를 각각 표시합니다.</li>
+        <li><code>_Carrier.Name</code> 같은 path expression을 보고, 어느 관계를 따라 어떤 필드를 읽는지 말로 풀어씁니다.</li>
+        <li>실제 데이터가 1:N인데 1:1처럼 Cardinality를 적으면 어떤 문제가 생길지 적습니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> Association이 항상 즉시 JOIN되는 것이 아니라, 사용 위치와 경로 표현에 따라 의미가 달라진다는 점을 설명할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENCDS_ASSOC_JOIN_V2.html" target="_blank" rel="noopener">SAP Help Portal: Associations and Joins</a> - CDS View Entity에서 Association과 Join이 생성되는 사용 사례를 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENCDS_PATH_EXPRESSION_V2.html" target="_blank" rel="noopener">SAP Help Portal: CDS Path Expressions</a> - Association 경로 표현의 공식 의미를 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENABAP_SQL_PATH.html" target="_blank" rel="noopener">SAP Help Portal: SQL Path Expressions</a> - ABAP SQL에서 Association 경로를 사용할 때의 Cardinality 영향을 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>Association과 일반 JOIN을 초심자 관점에서 어떻게 구분하면 좋을까요?</li>
+    <li>Cardinality를 실제 데이터 관계와 다르게 쓰면 왜 위험한가요?</li>
+    <li><code>_Carrier.Name</code> 같은 표현에서 밑줄로 시작하는 이름은 보통 무엇을 뜻하나요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>JOIN은 지금 결합해 결과를 만들고, Association은 따라갈 수 있는 관계를 모델에 노출</strong>한다고 이해하면 좋습니다.</li>
+      <li><strong>문법 검사, 최적화, 결과 해석에 잘못된 힌트를 줄 수 있습니다.</strong> Cardinality는 장식이 아니라 관계 계약에 가깝습니다.</li>
+      <li><strong>Association 별칭</strong>입니다. 그 관계를 따라 대상 엔티티의 필드를 path expression으로 읽을 수 있습니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

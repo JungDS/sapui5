@@ -24,9 +24,9 @@
 | `data-glossary` 용어 태깅 | 137/137 | 용어 팝업 기반은 전 Lesson에 존재한다. |
 | `lesson-callout warn` | 137/137 | 실무 주의 콜아웃은 전 Lesson에 존재한다. |
 | 코드 블록 | 114/137 | 개념형 Lesson 23개는 코드 예시 또는 화면/설계 예시 보강 여부를 재판단해야 한다. |
-| 퀴즈/문제/정답/해설 관련 텍스트 | 약 43/137 | `Chapter 1~3`에 기준 패턴을 적용했으며, 나머지 Lesson으로 확산 필요. |
-| 실습/연습 관련 텍스트 | 약 61/137 | `Chapter 1~3`에 완료 조건 포함 실습을 추가했으며, 나머지 Lesson은 표준화 필요. |
-| 공식 링크 또는 외부 링크 `<a>` | 16/137 | `Chapter 1~3`에 SAP 공식 링크를 추가했으며, 나머지 Lesson으로 확산 필요. |
+| 퀴즈/문제/정답/해설 관련 텍스트 | 약 49/137 | `Chapter 1~3`, `Chapter 20`에 기준 패턴을 적용했으며, 나머지 Lesson으로 확산 필요. |
+| 실습/연습 관련 텍스트 | 약 67/137 | `Chapter 1~3`, `Chapter 20`에 완료 조건 포함 실습을 추가했으며, 나머지 Lesson은 표준화 필요. |
+| 공식 링크 또는 외부 링크 `<a>` | 22/137 | `Chapter 1~3`, `Chapter 20`에 SAP 공식 링크를 추가했으며, 나머지 Lesson으로 확산 필요. |
 
 따라서 다음 라운드는 단순 분량 증가가 아니라, **Lesson별 학습 완결성**을 만드는 작업이다.
 
@@ -55,7 +55,7 @@ NotebookLM 질의 결과, 노트북은 대체로 다음 범위에 강하다.
 |---|---|---|
 | DDIC, Classic ABAP 문법, Internal Table, Open SQL, Classic Report/ALV | 충분 | SAP 교육 PDF를 바탕으로 예제·실습·오개념 퀴즈를 확장한다. |
 | Modern ABAP, Advanced ITAB, Gateway/OData | 충분 | 최신 문법 비교와 실습 흐름을 만들되, Track 1 범위 밖 Gateway 내용은 보충 링크 또는 Track 2 후보로 분리한다. |
-| CDS, VDM, DCL | 충분 | Chapter 20의 공식 링크와 성능·권한 주의사항을 강화한다. |
+| CDS, VDM, DCL | 충분 | Chapter 20의 공식 링크와 성능·권한 주의사항 보강 완료. |
 | RAP Business Object, BDEF, Validation/Determination/Action | 보통 | Chapter 21은 실무 코드 패턴을 보강하되 최신 SAP RAP 문서로 재검증한다. |
 | ABAP Cloud, Clean Core, Released API | 부족 | Chapter 21의 공식 SAP 링크와 버전/환경 주의 문구를 최우선 보강한다. |
 
@@ -92,7 +92,7 @@ NotebookLM 질의 결과, 노트북은 대체로 다음 범위에 강하다.
 ## 6. 우선순위
 
 1. **Chapter 1~3**: 최신 기준과 가장 차이가 큰 초반 Lesson을 먼저 정비한다. `Chapter 1~3`은 요약, 실습, 퀴즈, 정답/해설, 공식 링크 기준 패턴 적용 완료.
-2. **Chapter 20~21**: CDS/RAP/ABAP Cloud는 최신성 위험이 높으므로 후속 후보로 SAP 공식 링크와 버전 주의 문구를 우선 보강한다. 단, 사용자가 승인한 다음 범위가 확정되기 전에는 Chapter 1~3 파일럿 리뷰에서 멈춘다.
+2. **Chapter 20~21**: CDS/RAP/ABAP Cloud는 최신성 위험이 높으므로 후속 후보로 SAP 공식 링크와 버전 주의 문구를 우선 보강한다. `Chapter 20`은 완료했으며, 같은 검증 방식으로 `Chapter 21`을 이어서 진행한다.
 3. **Chapter 11~19**: SQL, Dynpro, ALV, OO ABAP는 실습과 오개념 퀴즈를 강화한다.
 4. **Chapter 4~10**: DDIC, 모듈화, Internal Table, SALV, Selection Screen은 초심자 실습과 화면 흐름을 보강한다.
 

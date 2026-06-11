@@ -35,12 +35,12 @@
 | THEORY-17 | New Open SQL / Modern ABAP SQL | 7 | **M01~M07 작성 완료** (Claude) |
 | THEORY-18 | OO ABAP 기본 설계 | 7 | **M01~M07 작성 완료** (Claude) |
 | THEORY-19 | SALV / Grid ALV 표시 제어 심화 | 7 | **M01~M07 작성 완료** (Claude) |
-| THEORY-20 | CDS View Entity 기초 | 6 | **M01~M06 작성 완료** (Claude) |
+| THEORY-20 | CDS View Entity 기초 | 6 | **M01~M06 작성 완료** (Codex 고품질화 완료) |
 | THEORY-21 | RAP / ABAP Cloud 입문 | 8 | **M01~M08 작성 완료** (Claude) — 🎉 **Track 1 완성(137/137)** |
 
 > Track 2(PRACTICAL-*, 13개 섹션)는 현재 진행 중. 정확한 ID/이름은 JSON의 `d.tracks[1]`에서 추출(아래 §6 스크립트 참조).
 >
-> **Track 1 고품질화 라운드(2026-06-10~11 Codex):** `Chapter 1의 Lesson 1`에 실습 과제, 완료 조건, 확인 퀴즈, 정답/해설, SAP 공식 링크 3개를 추가해 후속 Lesson 보강 패턴을 만들었다. 이어 `Chapter 1의 Lesson 2~6`, `Chapter 2의 Lesson 1~6`, `Chapter 3의 Lesson 1~4`에도 같은 패턴을 적용해 Chapter 1~3 전체를 고품질화 기준으로 보강했다. 사용자가 지정한 우선 범위는 여기까지이며, 후속 Chapter는 파일럿 리뷰를 반영해 범위를 다시 확정한 뒤 진행한다. 상세 기준은 [TRACK1_QUALITY_PLAN.md](TRACK1_QUALITY_PLAN.md).
+> **Track 1 고품질화 라운드(2026-06-10~11 Codex):** `Chapter 1의 Lesson 1`에 실습 과제, 완료 조건, 확인 퀴즈, 정답/해설, SAP 공식 링크 3개를 추가해 후속 Lesson 보강 패턴을 만들었다. 이어 `Chapter 1의 Lesson 2~6`, `Chapter 2의 Lesson 1~6`, `Chapter 3의 Lesson 1~4`, `Chapter 20의 Lesson 1~6`에도 같은 패턴을 적용했다. `Chapter 20`은 NotebookLM, 로컬 reference, SAP 공식 문서를 교차 검증해 CDS View Entity, Association, Annotation, Metadata Extension, DCL 보강을 완료했다. 상세 기준은 [TRACK1_QUALITY_PLAN.md](TRACK1_QUALITY_PLAN.md).
 
 ---
 

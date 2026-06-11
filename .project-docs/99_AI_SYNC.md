@@ -17,14 +17,14 @@
 
 ## 현재 상태 및 목표 (Current Status & Goals)
 - **현재 목표**: 🎉 **Track 1(THEORY-*) 137/137 작성 완료!** (THEORY-01~21 전부). 사용자의 새 목표에 따라 Track 1을 "고품질 교육용 웹페이지" 기준으로 재감사·보강하는 라운드를 준비 중. 기준 문서: [TRACK1_QUALITY_PLAN.md](TRACK1_QUALITY_PLAN.md). 병행 다음 목표는 **Track 2(PRACTICAL-* 13개 섹션)** 신규 작성.
-- **최근 진행(2026-06-11, Codex)**: `Chapter 1~3`을 Track 1 고품질화 기준으로 보강해 실습 과제, 완료 조건, 확인 퀴즈, 정답/해설, SAP 공식 링크를 추가. Chapter 3은 정적 검증 및 Lesson Viewer 렌더링 검증 완료. 파일럿 리뷰 결과는 [TRACK1_QUALITY_PLAN.md](TRACK1_QUALITY_PLAN.md)의 `Chapter 1~3 파일럿 리뷰 결과`에 반영.
+- **최근 진행(2026-06-11, Codex)**: `Chapter 20`을 Track 1 고품질화 기준으로 보강해 실습 과제, 완료 조건, 확인 퀴즈, 정답/해설, SAP 공식 링크를 추가. NotebookLM, 로컬 reference, SAP 공식 문서를 교차 검증해 CDS View Entity/VDM/Association/Annotation/MDE/DCL 누락 위험을 보정.
 - **⚠️ 동시 작업 주의**: AI 작업 간 겹침 방지를 위해 섹션 단위 작업을 엄수.
 - **⚠️ 인계 핵심 문서**: 이어서 작업할 AI는 **[HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md)를 가장 먼저 정독**할 것. 작성 규칙·스타일 기준·복붙용 프롬프트가 모두 거기 있음.
 
 ---
 
 ## 미결 사항 (Pending Issues / Next Steps)
-- **Track 1 고품질화**: `Chapter 1~3` 기준 패턴 적용 완료. 나머지 Lesson은 설명·글로서리·실무 주의·요약 기반은 갖췄지만, 전 Lesson 공통의 퀴즈/정답/해설, 공식 링크, 실습 완료 조건은 아직 부족하다. 현재 턴은 사용자가 지정한 파일럿 범위인 `Chapter 1~3`과 계획 보완에서 멈췄다. 후속 후보는 최신성 위험이 큰 Chapter 20~21이지만, 다음 범위는 사용자 확인 후 진행한다.
+- **Track 1 고품질화**: `Chapter 1~3`, `Chapter 20` 기준 패턴 적용 완료. 나머지 Lesson은 설명·글로서리·실무 주의·요약 기반은 갖췄지만, 전 Lesson 공통의 퀴즈/정답/해설, 공식 링크, 실습 완료 조건은 아직 부족하다. 다음 진행 범위는 `Chapter 21`이며 RAP/ABAP Cloud/Released API는 공식 SAP 문서로 최신성 재검증 필수.
 - **Lesson 본문 양산**: Track 1 완료. 다음은 **Track 2(PRACTICAL-* 13개 섹션, 약 70개 Lesson)** 신규 작성. 같은 스타일(초심자·한눈에 정리·글로서리 패리티·추적 3종 동시 갱신·Chapter/Lesson 용어)을 그대로 적용한다. JSON의 `d.tracks[1]`에서 PRACTICAL 섹션/Lesson ID 추출.
 - **[완료] 신규 19~21 코드블록 서식 및 CSS 아키텍처 리팩토링**: Antigravity가 네이비 ABAP Editor 포맷터 개선을 통해 에디터 외곽 인라인 스타일을 CSS 클래스로 분리했고, Codex가 코드 하이라이트 토큰까지 `abap-token-*` 클래스로 공통화함.
 - **[프로세스] 섹션 작성 후 추적 3종 동시 갱신**: 섹션 커밋 시 ① `HANDOFF_LESSON_CONTENT.md` 진행표 ② 본 파일(99_AI_SYNC) 작업이력/현황 ③ `changelogs/CHANGELOG_<날짜>.md`를 함께 갱신할 것(누락 주의).
@@ -39,6 +39,16 @@
 ---
 
 ## 작업 이력 (Work Log)
+
+### [2026-06-11] Codex (GPT-5) — Chapter 20의 Lesson 1~6 고품질화 패턴 확산
+- **작업 내용**:
+  - `Chapter 20의 Lesson 1~6`에 미니 실습, 완료 조건, SAP 공식 문서 링크, 확인 퀴즈, 정답/해설을 추가.
+  - NotebookLM 노트 `ABAP Evolution and Messaging Channels Training Guide`의 CDS/VDM/DCL 근거 매트릭스를 참고하되, View Entity, Association/path expression, Annotation, Metadata Extension, DCL은 SAP Help Portal ABAP Keyword Documentation과 SAP Help Portal 문서로 교차 검증.
+  - `@AbapCatalog.sqlViewName`, VDM 계층 책임, Cardinality, `@Metadata.allowExtensions`, `DEFINE ROLE` 등 초심자 오해가 큰 지점을 실습과 퀴즈로 보강.
+  - `TRACK1_QUALITY_PLAN.md`, `HANDOFF_LESSON_CONTENT.md`, 개발 일지/체인지로그를 Chapter 20 완료 상태로 갱신.
+- **검증 메모**:
+  - Chapter 20의 6개 Lesson 모두 완료 조건/퀴즈/공식 링크 3개/사용자 화면 내부 ID 미노출 조건 확인.
+  - 이번 변경은 새 plain `<pre><code>` 블록을 만들지 않았고 기존 ABAP editor mockup을 유지했다.
 
 ### [2026-06-11] Codex (GPT-5) — Chapter 3의 Lesson 1~4 고품질화 패턴 확산
 - **작업 내용**:
