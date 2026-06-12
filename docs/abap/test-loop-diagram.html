@@ -140,7 +140,7 @@
     filter: drop-shadow(0px 3px 0px rgba(15, 23, 42, 0.08)) !important;
   }
 
-  /* 2. 글자 굵기 및 크기 정밀 제어 (제목: 크게 15px + 굵게, 설명: 보통 굵기, 색상 검정색 통일) */
+  /* 2. 글자 굵기 및 크기 정밀 제어 (제목: 16px + 굵게, 설명: 보통 굵기, 색상 검정색 통일) */
   .custom-final-spec svg .node .label {
     font-weight: normal !important; /* 기본 설명 글씨 굵기 */
     color: #1e293b !important;      /* 검정색 글씨 통일 */
@@ -148,6 +148,39 @@
   .custom-final-spec svg .node .label b, .custom-final-spec svg .node .label strong {
     font-weight: 800 !important;   /* 제목 부분 굵게 강조 */
     font-size: 16px !important;    /* 노드 제목 크기 확대 (기존 15px -> 16px) */
+    display: inline-block !important;
+    margin-bottom: 4px !important;
+  }
+  .custom-final-spec svg .node .label .node-content-wrapper {
+    display: block !important;
+    padding: 14px 24px !important; /* 상하 14px, 좌우 24px의 안정적인 여백 */
+    box-sizing: border-box !important;
+    text-align: center !important;
+  }
+  .custom-final-spec svg .node .label .node-badge {
+    display: inline-block !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    padding: 3px 10px !important;
+    border-radius: 99px !important;
+    margin-bottom: 8px !important;
+    line-height: 1.2 !important;
+    text-align: center !important;
+  }
+  .custom-final-spec svg .node .label .badge-p1 { background: #ffe4e6 !important; color: #e11d48 !important; }
+  .custom-final-spec svg .node .label .badge-p2 { background: #fef9c3 !important; color: #a16207 !important; }
+  .custom-final-spec svg .node .label .badge-p3 { background: #dbeafe !important; color: #1d4ed8 !important; }
+  .custom-final-spec svg .node .label .badge-p4 { background: #fce7f3 !important; color: #be185d !important; }
+  .custom-final-spec svg .node .label .badge-p5 { background: #dcfce7 !important; color: #15803d !important; }
+  .custom-final-spec svg .node .label .badge-p6 { background: #ffedd5 !important; color: #c2410c !important; }
+
+  .custom-final-spec svg .node .label .node-desc {
+    font-size: 13px !important;
+    font-weight: normal !important;
+    color: #64748b !important;
+    margin-top: 6px !important;
+    line-height: 1.4 !important;
+    display: block !important;
   }
 
   /* 3. 복귀 순환선 위 라벨 스타일링 (렌더링배경인 #f8fafc와 일치시켜 단절선 효과 연출) */
@@ -218,12 +251,12 @@
     <div class="render-box custom-final-spec">
       <div class="mermaid">
       flowchart TD
-        LOP("<b>1. LOAD-OF-PROGRAM</b><br>(주방 오픈)")
-        INIT("<b>2. INITIALIZATION</b><br>(추천 메뉴판 작성)")
-        Screen["<b>3. Selection Screen</b><br>(메뉴 주문 대기)"]
-        ASS("<b>4. AT SELECTION-SCREEN</b><br>(주문 수량 및 재료 확인)")
-        SOS("<b>5. START-OF-SELECTION</b><br>(본격적인 조리 시작)")
-        EOS("<b>6. END-OF-SELECTION</b><br>(플레이팅 서빙)")
+        LOP("<div class='node-content-wrapper'><div class='node-badge badge-p1'>1단계</div><br><b>LOAD-OF-PROGRAM</b><br><div class='node-desc'>프로그램 로드 및 초기 준비 (주방 오픈)</div></div>")
+        INIT("<div class='node-content-wrapper'><div class='node-badge badge-p2'>2단계</div><br><b>INITIALIZATION</b><br><div class='node-desc'>화면 기본값 설정 (추천 메뉴판 작성)</div></div>")
+        Screen["<div class='node-content-wrapper'><div class='node-badge badge-p3'>3단계</div><br><b>Selection Screen</b><br><div class='node-desc'>사용자 입력 선택 화면 노출 (메뉴 주문 대기)</div></div>"]
+        ASS("<div class='node-content-wrapper'><div class='node-badge badge-p4'>4단계</div><br><b>AT SELECTION-SCREEN</b><br><div class='node-desc'>입력값 유효성 검증 (주문 수량 및 재료 확인)</div></div>")
+        SOS("<div class='node-content-wrapper'><div class='node-badge badge-p5'>5단계</div><br><b>START-OF-SELECTION</b><br><div class='node-desc'>데이터 조회 및 메인 로직 실행 (본격 조리 시작)</div></div>")
+        EOS("<div class='node-content-wrapper'><div class='node-badge badge-p6'>6단계</div><br><b>END-OF-SELECTION</b><br><div class='node-desc'>결과 출력 및 후처리 (접시에 예쁘게 서빙)</div></div>")
 
         LOP --> INIT
         INIT --> Screen

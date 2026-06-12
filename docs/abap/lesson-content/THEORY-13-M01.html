@@ -4,58 +4,458 @@
   <div class="lesson-callout-icon">🎯</div>
   <div class="lesson-callout-content">
     <h4>학습 목표</h4>
-    <p>ABAP 리포트 프로그램이 실행될 때 거치는 <span class="glossary-term" data-glossary="ReportEvent">이벤트</span>의 전체 흐름을 잡습니다. <span class="glossary-term" data-glossary="LoadOfProgram">LOAD-OF-PROGRAM</span> → <span class="glossary-term" data-glossary="INITIALIZATION">INITIALIZATION</span> → 선택 화면 → <span class="glossary-term" data-glossary="StartOfSelection">START-OF-SELECTION</span>으로 이어지는 전체 생명주기 지도를 그리는 것이 목표입니다.</p>
+    <p>ABAP 리포트 프로그램이 실행될 때 거치는 <span class="glossary-term" data-glossary="ReportEvent">이벤트</span>의 전체 흐름을 잡습니다. <span
+        class="glossary-term" data-glossary="LoadOfProgram">LOAD-OF-PROGRAM</span> → <span class="glossary-term"
+        data-glossary="INITIALIZATION">INITIALIZATION</span> → 선택 화면 → <span class="glossary-term"
+        data-glossary="StartOfSelection">START-OF-SELECTION</span>으로 이어지는 전체 생명주기 지도를 그리는 것이 목표입니다.</p>
   </div>
 </div>
 
 <section class="lesson-section">
   <h2>1. 지난 시간 연결: 코드는 "위에서 아래로"가 아니다? 🔄</h2>
   <p>
-    일반적인 프로그래밍 언어를 처음 배울 때는 "코드는 무조건 위에서 아래로 차례차례 실행된다"고 배웁니다. 하지만 ABAP의 <strong>리포트 프로그램(Executable Program)</strong>은 설계 철학이 완전히 다릅니다.
+    일반적인 프로그래밍 언어를 처음 배울 때는 "코드는 무조건 위에서 아래로 차례차례 실행된다"고 배울지 모르지만, ABAP의 <strong>리포트 프로그램(Executable Program)</strong>은
+    설계 철학이 완전히 다릅니다.
   </p>
   <p>
-    우리가 소스 코드를 아무리 엉망인 순서로 배치하더라도, SAP 런타임 시스템이 정해진 <strong>이벤트 순서(Lifecycle Event)</strong>에 따라 우리가 작성한 코드 블록들을 콕콕 집어다가 정해진 스케줄대로 실행시킵니다.
+    우리가 소스 코드를 아무리 엉망인 순서로 배치하더라도, SAP 런타임 시스템이 정해진 <strong>이벤트 순서(Lifecycle Event)</strong>에 따라 우리가 작성한 코드 블록들을 콕콕 집어다가
+    정해진 스케줄대로 실행시킵니다.
   </p>
   <p>
-    이 개념을 확실히 모르면, <em>"분명 코드 맨 위에 변수 초기값을 적어놨는데 왜 화면이 뜬 다음에 적용되지?"</em> 혹은 <em>"왜 데이터베이스 조회가 엉뚱한 시점에 일어나서 덤프가 나지?"</em> 하는 혼란에 빠지게 됩니다. 리포트 개발을 시작하기 전, 전체 이벤트 지도를 명확히 머리에 그려봅시다!
+    이 개념을 확실히 모르면, <em>"분명 코드 맨 위에 변수 초기값을 적어놨는데 왜 화면이 뜬 다음에 적용되지?"</em> 혹은 <em>"왜 데이터베이스 조회가 엉뚱한 시점에 일어나서 덤프가 나지?"</em>
+    하는 혼란에 빠지게 됩니다. 리포트 개발을 시작하기 전, 전체 이벤트 지도를 명확히 그려봅시다!
   </p>
 </section>
 
 <section class="lesson-section">
   <h2>2. 리포트 이벤트 라이프사이클 시각화 🗺️</h2>
-  <p>
-    리포트 프로그램이 처음 호출되어 데이터베이스 결과 화면을 출력하기까지 거치는 전체 단계를 Mermaid 다이어그램을 활용해 시각화해 보겠습니다.
-  </p>
-  
-  <div class="viz-visual">
-    <p class="viz-visual-title">ABAP 리포트 이벤트 실행 순서 및 흐름도</p>
-    
-    <div class="mermaid">
-      flowchart TD
-        LOP("<b>1. LOAD-OF-PROGRAM</b><br>(주방 오픈)")
-        INIT("<b>2. INITIALIZATION</b><br>(추천 메뉴판 작성)")
-        Screen["<b>3. Selection Screen</b><br>(메뉴 주문 대기)"]
-        ASS("<b>4. AT SELECTION-SCREEN</b><br>(주문 수량 및 재료 확인)")
-        SOS("<b>5. START-OF-SELECTION</b><br>(본격적인 조리 시작)")
-        EOS("<b>6. END-OF-SELECTION</b><br>(플레이팅 서빙)")
+  <p class="viz-note">각 탭을 누르면 1단계의 메인 실행 흐름부터 시작해서 5단계 전체 생명주기까지, 코드가 점진적으로 확장되고 구조화되는 과정을 좌우 대조 화면으로 확인해볼 수 있습니다.</p>
 
-        LOP --> INIT
-        INIT --> Screen
-        Screen --> ASS
-        ASS -->|검증 실패 시 복귀| Screen
-        ASS -->|검증 성공| SOS
-        SOS --> EOS
+  <div class="viz-visual event-tabs-container">
+    <p class="viz-visual-title">ABAP 리포트 이벤트 실행 순서 및 흐름도 (점진적 빌드업)</p>
 
-        %% 흰색 배경 + 진한 컬러 테두리 매핑 (글씨색 검정으로 내부 style 오버라이드)
-        style LOP fill:#ffffff,stroke:#fb7185,color:#1e293b
-        style INIT fill:#ffffff,stroke:#eab308,color:#1e293b
-        style Screen fill:#ffffff,stroke:#3b82f6,color:#1e293b
-        style ASS fill:#ffffff,stroke:#f472b6,color:#1e293b
-        style SOS fill:#ffffff,stroke:#22c55e,color:#1e293b
-        style EOS fill:#ffffff,stroke:#fb923c,color:#1e293b
+    <div class="event-tab-buttons">
+      <button class="tab-btn active" data-tab="tab-level1">1단계: 이벤트 구문 생략 (암묵적 실행)</button>
+      <button class="tab-btn" data-tab="tab-level2">2단계: 화면 초기화 추가 (INITIALIZATION)</button>
+      <button class="tab-btn" data-tab="tab-level3">3단계: 자동 로드 & 마감 추가 (메모리/출력)</button>
+      <button class="tab-btn" data-tab="tab-level4">4단계: 선택 화면 & 입력 검증 추가</button>
+      <button class="tab-btn" data-tab="tab-level5">5단계: 전체 생명주기 완성 (최종 구조)</button>
     </div>
-    
-    <p class="viz-note">선택 화면(Selection Screen)이 나타나는 시점을 기준으로 <strong>화면 이전(준비 및 설정)</strong>과 <strong>화면 이후(검증 및 실행)</strong>로 로직이 나뉩니다.</p>
+
+    <div class="tabs-content">
+      <!-- 탭 1: 이벤트 구문 생략 (암묵적 실행) -->
+      <div class="event-tab-panel active" id="tab-level1">
+        <div class="tab-split-container">
+          <div class="tab-split-left">
+            <div class="mermaid">
+              flowchart TD
+              Start([Program Starts])
+              SOS("<div class='node-content-wrapper'>
+                <div class='node-badge badge-p6'>1단계 · 로직</div><br><b>START-OF-SELECTION (생략됨)</b><br>
+                <div class='node-desc'>이벤트 블록 선언이 없어도 컴파일러가 암묵적으로 자동 실행하는 메인 로직</div>
+              </div>")
+              Ends([Program Ends])
+
+              Start --> SOS
+              SOS --> Ends
+
+              style Start fill:#f1f5f9,stroke:#64748b,color:#0f172a
+              style SOS fill:#ffffff,stroke:#22c55e,color:#1e293b
+              style Ends fill:#f1f5f9,stroke:#64748b,color:#0f172a
+            </div>
+          </div>
+          <div class="tab-split-right">
+            <div class="abap-editor-mockup">
+              <div class="abap-editor-header">
+                <div class="abap-editor-mac-buttons">
+                  <span class="abap-editor-mac-btn red"></span>
+                  <span class="abap-editor-mac-btn yellow"></span>
+                  <span class="abap-editor-mac-btn green"></span>
+                </div>
+                <div class="abap-editor-title">ZREPORT_STEP1</div>
+              </div>
+              <div class="abap-editor-body">
+                <pre
+                  class="abap-editor-code"><span class="abap-token-keyword">REPORT</span> zreport_step1.
+
+<span class="abap-token-comment">* 1단계: 이벤트 구문(START-OF-SELECTION 등)을 아예 선언하지 않아도</span>
+<span class="abap-token-comment">* 적혀 있는 일반 로직 구문들은 암묵적으로 START-OF-SELECTION으로 해석되어 실행됩니다.</span>
+<span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'START-OF-SELECTION 구문 없이 실행 (메인 로직)'</span>.</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 탭 2: 화면 초기화 추가 (INITIALIZATION) -->
+      <div class="event-tab-panel" id="tab-level2">
+        <div class="tab-split-container">
+          <div class="tab-split-left">
+            <div class="mermaid">
+              flowchart TD
+              Start([Program Starts])
+              INIT("<div class='node-content-wrapper'>
+                <div class='node-badge badge-p2'>1단계 · 로직</div><br><b>INITIALIZATION</b><br>
+                <div class='node-desc'>메인 로직 실행 전 데이터 및 변수 초기값 설정</div>
+              </div>")
+              SOS("<div class='node-content-wrapper'>
+                <div class='node-badge badge-p6'>2단계 · 로직</div><br><b>START-OF-SELECTION</b><br>
+                <div class='node-desc'>데이터베이스 조회 및 메인 비즈니스 로직 실행</div>
+              </div>")
+              Ends([Program Ends])
+
+              Start --> INIT
+              INIT --> SOS
+              SOS --> Ends
+
+              style Start fill:#f1f5f9,stroke:#64748b,color:#0f172a
+              style INIT fill:#ffffff,stroke:#eab308,color:#1e293b
+              style SOS fill:#ffffff,stroke:#22c55e,color:#1e293b
+              style Ends fill:#f1f5f9,stroke:#64748b,color:#0f172a
+            </div>
+          </div>
+          <div class="tab-split-right">
+            <div class="abap-editor-mockup">
+              <div class="abap-editor-header">
+                <div class="abap-editor-mac-buttons">
+                  <span class="abap-editor-mac-btn red"></span>
+                  <span class="abap-editor-mac-btn yellow"></span>
+                  <span class="abap-editor-mac-btn green"></span>
+                </div>
+                <div class="abap-editor-title">ZREPORT_STEP2</div>
+              </div>
+              <div class="abap-editor-body">
+                <pre
+                  class="abap-editor-code"><span class="abap-token-keyword">REPORT</span> zreport_step2.
+
+<span class="abap-token-comment">* 1단계: 메인 로직이 수행되기 전 먼저 호출되어 기본값을 적재</span>
+<span class="abap-token-keyword">INITIALIZATION.</span>
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'INITIALIZATION 실행 (기본값 설정)'</span>.
+
+<span class="abap-token-comment">* 2단계: 메인 비즈니스 로직 실행 (이제 명시적으로 선언)</span>
+<span class="abap-token-keyword">START-OF-SELECTION.</span>
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'START-OF-SELECTION 실행'</span>.</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 탭 3: 자동 로드 & 마감 추가 (메모리/출력) -->
+      <div class="event-tab-panel" id="tab-level3">
+        <div class="tab-split-container">
+          <div class="tab-split-left">
+            <div class="mermaid">
+              flowchart TD
+              Start([Program Starts])
+              LOP("<div class='node-content-wrapper'>
+                <div class='node-badge badge-p1'>1단계 · 로직</div><br><b>LOAD-OF-PROGRAM</b><br>
+                <div class='node-desc'>프로그램 메모리 로드 및 초기화 수행</div>
+              </div>")
+              INIT("<div class='node-content-wrapper'>
+                <div class='node-badge badge-p2'>2단계 · 로직</div><br><b>INITIALIZATION</b><br>
+                <div class='node-desc'>변수 및 데이터 기본값 설정</div>
+              </div>")
+              SOS("<div class='node-content-wrapper'>
+                <div class='node-badge badge-p6'>3단계 · 로직</div><br><b>START-OF-SELECTION</b><br>
+                <div class='node-desc'>데이터베이스 조회 및 메인 비즈니스 로직 실행</div>
+              </div>")
+              EOS("<div class='node-content-wrapper'>
+                <div class='node-badge badge-p7'>4단계 · 로직</div><br><b>END-OF-SELECTION</b><br>
+                <div class='node-desc'>결과 데이터 출력 및 최종 마감 처리</div>
+              </div>")
+              Ends([Program Ends])
+
+              Start --> LOP
+              LOP --> INIT
+              INIT --> SOS
+              SOS --> EOS
+              EOS --> Ends
+
+              style Start fill:#f1f5f9,stroke:#64748b,color:#0f172a
+              style LOP fill:#ffffff,stroke:#fb7185,color:#1e293b
+              style INIT fill:#ffffff,stroke:#eab308,color:#1e293b
+              style SOS fill:#ffffff,stroke:#22c55e,color:#1e293b
+              style EOS fill:#ffffff,stroke:#fb923c,color:#1e293b
+              style Ends fill:#f1f5f9,stroke:#64748b,color:#0f172a
+            </div>
+          </div>
+          <div class="tab-split-right">
+            <div class="abap-editor-mockup">
+              <div class="abap-editor-header">
+                <div class="abap-editor-mac-buttons">
+                  <span class="abap-editor-mac-btn red"></span>
+                  <span class="abap-editor-mac-btn yellow"></span>
+                  <span class="abap-editor-mac-btn green"></span>
+                </div>
+                <div class="abap-editor-title">ZREPORT_STEP3</div>
+              </div>
+              <div class="abap-editor-body">
+                <pre
+                  class="abap-editor-code"><span class="abap-token-keyword">REPORT</span> zreport_step3.
+
+<span class="abap-token-comment">* 1단계: 프로그램이 메모리에 적재될 때 자동으로 1회 수행</span>
+<span class="abap-token-keyword">LOAD-OF-PROGRAM.</span>
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'LOAD-OF-PROGRAM 실행'</span>.
+
+<span class="abap-token-comment">* 2단계: 화면/로직 동작 전 기본 세팅</span>
+<span class="abap-token-keyword">INITIALIZATION.</span>
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'INITIALIZATION 실행'</span>.
+
+<span class="abap-token-comment">* 3단계: 메인 로직 수행</span>
+<span class="abap-token-keyword">START-OF-SELECTION.</span>
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'START-OF-SELECTION 실행'</span>.
+
+<span class="abap-token-comment">* 4단계: 출력이 완료되고 화면을 표시하기 전 마감 처리</span>
+<span class="abap-token-keyword">END-OF-SELECTION.</span>
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'END-OF-SELECTION 실행'</span>.</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 탭 4: 선택 화면 & 입력 검증 추가 -->
+      <div class="event-tab-panel" id="tab-level4">
+        <div class="tab-split-container">
+          <div class="tab-split-left">
+            <div class="mermaid">
+              flowchart TD
+              Start([Program Starts])
+              LOP("<div class='node-content-wrapper'>
+                <div class='node-badge badge-p1'>1단계 · 로직</div><br><b>LOAD-OF-PROGRAM</b><br>
+                <div class='node-desc'>프로그램 메모리 로드 및 초기화 수행</div>
+              </div>")
+              INIT("<div class='node-content-wrapper'>
+                <div class='node-badge badge-p2'>2단계 · 로직</div><br><b>INITIALIZATION</b><br>
+                <div class='node-desc'>선택 화면 기본값 설정</div>
+              </div>")
+              Screen["<div class='node-content-wrapper'>
+                <div class='node-badge badge-screen'>3단계 · 화면 출력</div><br><b>Selection Screen</b><br>
+                <div class='node-desc'>⏳ 로직 실행 일시중단 및 사용자 입력 대기</div>
+              </div>"]
+              ASS("<div class='node-content-wrapper'>
+                <div class='node-badge badge-p5'>4단계 · 로직</div><br><b>AT SELECTION-SCREEN</b><br>
+                <div class='node-desc'>사용자 입력값 유효성 검증 수행</div>
+              </div>")
+              SOS("<div class='node-content-wrapper'>
+                <div class='node-badge badge-p6'>5단계 · 로직</div><br><b>START-OF-SELECTION</b><br>
+                <div class='node-desc'>데이터베이스 조회 및 메인 비즈니스 로직 실행</div>
+              </div>")
+              EOS("<div class='node-content-wrapper'>
+                <div class='node-badge badge-p7'>6단계 · 로직</div><br><b>END-OF-SELECTION</b><br>
+                <div class='node-desc'>결과 데이터 출력 및 최종 마감 처리</div>
+              </div>")
+              Ends([Program Ends])
+
+              Start --> LOP
+              LOP --> INIT
+              INIT --> Screen
+              Screen -->|"사용자 입력 발생"| ASS
+              ASS -.->|"에러 발생 시<br>(선택화면 복귀)"| Screen
+              ASS -->|"에러 없음 + F8 실행"| SOS
+              ASS -.->|"에러 없음 + F8 제외 입력"| Screen
+              SOS --> EOS
+              EOS --> Ends
+
+
+              style Start fill:#f1f5f9,stroke:#64748b,color:#0f172a
+              style LOP fill:#ffffff,stroke:#fb7185,color:#1e293b
+              style INIT fill:#ffffff,stroke:#eab308,color:#1e293b
+              style Screen fill:#f0f9ff,stroke:#0284c7,stroke-width:4px,color:#0f172a
+              style ASS fill:#ffffff,stroke:#f472b6,color:#1e293b
+              style SOS fill:#ffffff,stroke:#22c55e,color:#1e293b
+              style EOS fill:#ffffff,stroke:#fb923c,color:#1e293b
+              style Ends fill:#f1f5f9,stroke:#64748b,color:#0f172a
+            </div>
+          </div>
+          <div class="tab-split-right">
+            <div class="abap-editor-mockup">
+              <div class="abap-editor-header">
+                <div class="abap-editor-mac-buttons">
+                  <span class="abap-editor-mac-btn red"></span>
+                  <span class="abap-editor-mac-btn yellow"></span>
+                  <span class="abap-editor-mac-btn green"></span>
+                </div>
+                <div class="abap-editor-title">ZREPORT_STEP4</div>
+              </div>
+              <div class="abap-editor-body">
+                <pre class="abap-editor-code"><span class="abap-token-keyword">REPORT</span> zreport_step4.
+
+<span class="abap-token-keyword">PARAMETERS</span> p_year <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> 4.
+
+<span class="abap-token-keyword">LOAD-OF-PROGRAM.</span>
+  <span class="abap-token-comment">" 1단계: 프로그램 메모리 탑재</span>
+
+<span class="abap-token-keyword">INITIALIZATION.</span>
+  <span class="abap-token-comment">" 2단계: 화면 표시 전 기본값 설정</span>
+  p_year = '2026'.
+
+<span class="abap-token-comment">* 3단계: Selection Screen 화면 출력 및 사용자 액션 대기</span>
+
+<span class="abap-token-keyword">AT SELECTION-SCREEN.</span>
+  <span class="abap-token-comment">" 4단계: 사용자가 값을 입력하고 실행했을 때 유효성 검증</span>
+  <span class="abap-token-keyword">IF</span> p_year <span class="abap-token-keyword">IS INITIAL</span>.
+    <span class="abap-token-keyword">MESSAGE</span> '연도를 입력해 주세요.' <span class="abap-token-keyword">TYPE</span> 'E'.
+  <span class="abap-token-keyword">ENDIF</span>.
+
+<span class="abap-token-keyword">START-OF-SELECTION.</span>
+  <span class="abap-token-comment">" 5단계: 메인 DB 조회 쿼리 수행</span>
+  <span class="abap-token-keyword">WRITE</span>: / 'START-OF-SELECTION 실행'.
+
+<span class="abap-token-keyword">END-OF-SELECTION.</span>
+  <span class="abap-token-comment">" 6단계: 데이터 출력 마감</span>
+  <span class="abap-token-keyword">WRITE</span>: / 'END-OF-SELECTION 실행'.</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 탭 5: 전체 생명주기 완성 (최종 구조) -->
+      <div class="event-tab-panel" id="tab-level5">
+        <div class="tab-split-container">
+          <div class="tab-split-left">
+            <div class="mermaid">
+              flowchart TD
+              Start([Program Starts])
+              LOP("<div class='node-content-wrapper'>
+                <div class='node-badge badge-p1'>1단계 · 로직</div><br><b>LOAD-OF-PROGRAM</b><br>
+                <div class='node-desc'>프로그램 메모리 로드 및 초기화 수행</div>
+              </div>")
+              INIT("<div class='node-content-wrapper'>
+                <div class='node-badge badge-p2'>2단계 · 로직</div><br><b>INITIALIZATION</b><br>
+                <div class='node-desc'>선택 화면 기본값 설정</div>
+              </div>")
+              ASO("<div class='node-content-wrapper'>
+                <div class='node-badge badge-p3'>3단계 · 로직</div><br><b>AT SELECTION-SCREEN OUTPUT</b><br>
+                <div class='node-desc'>선택 화면 표시 전 속성 및 레이아웃 제어</div>
+              </div>")
+              Screen["<div class='node-content-wrapper'>
+                <div class='node-badge badge-screen'>4단계 · 화면 출력</div><br><b>Selection Screen</b><br>
+                <div class='node-desc'>⏳ 로직 실행 일시중단 및 사용자 입력 대기</div>
+              </div>"]
+              ASS("<div class='node-content-wrapper'>
+                <div class='node-badge badge-p5'>5단계 · 로직</div><br><b>AT SELECTION-SCREEN</b><br>
+                <div class='node-desc'>사용자 입력값 유효성 검증 수행</div>
+              </div>")
+              SOS("<div class='node-content-wrapper'>
+                <div class='node-badge badge-p6'>6단계 · 로직</div><br><b>START-OF-SELECTION</b><br>
+                <div class='node-desc'>데이터베이스 조회 및 메인 비즈니스 로직 실행</div>
+              </div>")
+              EOS("<div class='node-content-wrapper'>
+                <div class='node-badge badge-p7'>7단계 · 로직</div><br><b>END-OF-SELECTION</b><br>
+                <div class='node-desc'>결과 데이터 출력 및 최종 마감 처리</div>
+              </div>")
+              Ends([Program Ends])
+
+              Start --> LOP
+              LOP --> INIT
+              INIT --> ASO
+              ASO --> Screen
+              Screen -->|"사용자 입력 발생"| ASS
+              ASS -.->|"에러 발생 시<br>(선택화면 복귀)"| Screen
+              ASS -->|"에러 없음 + F8 실행"| SOS
+              ASS -.->|"에러 없음 + F8 제외 입력<br>(OUTPUT 복귀)"| ASO
+              SOS --> EOS
+              EOS --> Ends
+
+              style Start fill:#f1f5f9,stroke:#64748b,color:#0f172a
+              style LOP fill:#ffffff,stroke:#fb7185,color:#1e293b
+              style INIT fill:#ffffff,stroke:#eab308,color:#1e293b
+              style ASO fill:#ffffff,stroke:#a855f7,color:#1e293b
+              style Screen fill:#f0f9ff,stroke:#0284c7,stroke-width:4px,color:#0f172a
+              style ASS fill:#ffffff,stroke:#f472b6,color:#1e293b
+              style SOS fill:#ffffff,stroke:#22c55e,color:#1e293b
+              style EOS fill:#ffffff,stroke:#fb923c,color:#1e293b
+              style Ends fill:#f1f5f9,stroke:#64748b,color:#0f172a
+            </div>
+          </div>
+          <div class="tab-split-right">
+            <div class="abap-editor-mockup">
+              <div class="abap-editor-header">
+                <div class="abap-editor-mac-buttons">
+                  <span class="abap-editor-mac-btn red"></span>
+                  <span class="abap-editor-mac-btn yellow"></span>
+                  <span class="abap-editor-mac-btn green"></span>
+                </div>
+                <div class="abap-editor-title">ZREPORT_FULL_DEMO</div>
+              </div>
+              <div class="abap-editor-body">
+                <pre class="abap-editor-code"><span class="abap-token-keyword">REPORT</span> zreport_full_demo.
+
+<span class="abap-token-comment">* 선택 화면 입력 필드 정의 (이것이 선언되면 3,4,5단계가 작동합니다)</span>
+<span class="abap-token-keyword">PARAMETERS</span> p_year <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> 4.
+
+<span class="abap-token-keyword">LOAD-OF-PROGRAM.</span>
+  <span class="abap-token-comment">" 1단계: 프로그램 메모리 탑재 초기 준비</span>
+
+<span class="abap-token-keyword">INITIALIZATION.</span>
+  <span class="abap-token-comment">" 2단계: 화면이 보이기 전에 연도 기본값을 세팅</span>
+  p_year = '2026'.
+
+<span class="abap-token-keyword">AT SELECTION-SCREEN OUTPUT.</span>
+  <span class="abap-token-comment">" 3단계: 화면이 사용자 눈에 표시되기 직전 속성 변경</span>
+
+<span class="abap-token-comment">* 4단계: Selection Screen 화면 출력 및 사용자 액션 대기 (로직 일시정지)</span>
+
+<span class="abap-token-keyword">AT SELECTION-SCREEN.</span>
+  <span class="abap-token-comment">" 5단계: 사용자가 값을 입력하고 실행했을 때 입력 오류 검증</span>
+  <span class="abap-token-keyword">IF</span> p_year <span class="abap-token-keyword">IS INITIAL</span>.
+    <span class="abap-token-keyword">MESSAGE</span> '연도 입력은 필수입니다!' <span class="abap-token-keyword">TYPE</span> 'E'.
+  <span class="abap-token-keyword">ENDIF</span>.
+
+<span class="abap-token-keyword">START-OF-SELECTION.</span>
+  <span class="abap-token-comment">" 6단계: 검증 통과 후 실행(F8) 시 메인 DB 조회 쿼리 수행</span>
+  <span class="abap-token-keyword">SELECT</span> * <span class="abap-token-keyword">FROM</span> zemp <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> gt_data <span class="abap-token-keyword">WHERE</span> gyear = p_year.
+
+<span class="abap-token-keyword">END-OF-SELECTION.</span>
+  <span class="abap-token-comment">" 7단계: 데이터를 다 가공한 뒤 최종 화면 서빙 마감</span>
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'조회 프로세스 완료'</span>.</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5단계: 가상 Selection Screen 샌드박스 위젯 (밝은 테마) -->
+  <div class="viz-visual"
+    style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 24px; margin-top: 24px;">
+    <p class="viz-visual-title" style="margin-top: 0; color: #1e293b; font-size: 1.15rem;">🎮 가상 SAP GUI 실행 시뮬레이터
+      (Selection Screen Sandbox)</p>
+    <p style="font-size: 0.95rem; margin-bottom: 20px; color: #334155; line-height: 1.6;">
+      사원 번호(숫자 4자리)와 기준년도를 입력한 뒤 <strong>실행 (F8)</strong>을 클릭해 보세요. SAP 엔진이 백그라운드에서 이벤트 생명주기(INITIALIZATION → AT
+      SELECTION-SCREEN → START-OF-SELECTION → END-OF-SELECTION)에 따라 실시간으로 동작을 제어하며 로그를 기록하고, 가상 DB(ALV Grid)를 조회하는 과정을
+      직접 눈으로 확인할 수 있습니다. 사원 번호를 비운 채 실행하여 <code>AT SELECTION-SCREEN</code>의 검증 에러를 유도해 보세요!
+    </p>
+
+    <div class="interactive-sap-sandbox">
+      <div class="sap-gui-header">
+        <div class="sap-tcode-bar">
+          T-Code: <span class="tcode-val">SE38 (ZREPORT_EVENT_DEMO)</span>
+        </div>
+      </div>
+      <div class="sap-gui-title-bar">
+        사원 정보 통합 조회 프로그램 (Selection Screen)
+      </div>
+      <div class="sap-selection-screen">
+        <div class="sap-field-row">
+          <label>조회 기준년도 (P_YEAR)</label>
+          <input type="text" class="sap-input" id="sb-year" value="2026" maxlength="4" style="width: 100px;" />
+        </div>
+        <div class="sap-field-row">
+          <label>조회 사원번호 (S_EMPNO)</label>
+          <input type="text" class="sap-input" id="sb-emp-no" placeholder="1000, 2000, 3000, 4000 중 입력" maxlength="4"
+            style="width: 180px;" />
+        </div>
+        <button class="sap-btn-execute">실행 (F8)</button>
+      </div>
+      <div class="sap-result-log">
+        <div style="color: #94a3b8; font-style: italic;">실행(F8) 버튼을 누르면 SAP 내부 이벤트 실행 흐름이 여기에 로그로 출력됩니다...</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -64,21 +464,53 @@
   <p>이 복잡한 영문 이벤트명들은 요리사의 주방 프로세스에 비유하면 아주 직관적으로 머리에 들어옵니다.</p>
   <ul>
     <li><strong>LOAD-OF-PROGRAM (주방 오픈):</strong> 주방에 출근해 불을 켜고 앞치마를 맵니다. 프로그램이 메모리에 적재되어 준비되는 순간입니다.</li>
-    <li><strong>INITIALIZATION (주문서 초기화):</strong> 손님이 오기 전에 오늘 추천 메뉴판에 '정훈영 추천 파스타'라고 디폴트 값을 미리 적어놓는 단계입니다. (화면 기본값 세팅)</li>
-    <li><strong>Selection Screen (주문 대기):</strong> 손님(사용자)이 메뉴판(선택 화면)을 훑어보고 원하는 옵션을 클릭합니다.</li>
-    <li><strong>AT SELECTION-SCREEN (주문 검증):</strong> 손님이 "파스타 100인분 주세요"라고 주문했을 때, 요리사가 "죄송합니다, 저희 재료가 부족해요"라며 주문을 거부하는 단계입니다. (입력값 유효성 검증)</li>
-    <li><strong>START-OF-SELECTION (조리 시작):</strong> 주문이 최종 통과되면 주방에서 가스불을 켜고 본격적으로 요리를 조리하기 시작합니다. (메인 DB 데이터 조회 및 가공)</li>
+    <li><strong>INITIALIZATION (주문서 초기화):</strong> 손님이 오기 전에 오늘 추천 메뉴판에 '정훈영 추천 파스타'라고 디폴트 값을 미리 적어놓는 단계입니다. (화면 기본값 세팅)
+    </li>
+    <li><strong>Selection Screen (주문 대기 및 입력):</strong> 손님(사용자)이 메뉴판(선택 화면)을 훑어보고 원하는 옵션을 입력하거나 버튼을 클릭하는 등의 행동을 합니다.
+      사용자의 입력이나 행동이 일어나면 <strong>무조건 주문 검증(4단계)으로 이동</strong>합니다.</li>
+    <li><strong>AT SELECTION-SCREEN (주문 검증):</strong> 손님이 주문 입력을 보냈을 때 요리사가 재료 수량이나 주문 적합성을 검증하는 단계입니다. 검증에 실패하거나 손님이 최종
+      조리 요청이 아닌 메뉴 변경/단순 입력(Enter)만 한 경우에는 다시 메뉴판 주문 대기(3단계) 상태로 복귀하고, 검증에 성공하고 손님이 최종 '실행(F8)'을 한 경우에만 조리가 시작됩니다.</li>
+    <li><strong>START-OF-SELECTION (조리 시작):</strong> 주문 검증이 완료되고 최종 실행(F8)이 입력된 경우에만 주방에서 본격적으로 요리를 조리하기 시작합니다. (메인 DB
+      데이터 조회 및 가공)</li>
     <li><strong>END-OF-SELECTION (플레이팅):</strong> 조리가 완료된 음식을 예쁜 그릇에 담아 테이블에 서빙합니다. (데이터 출력 화면 노출)</li>
   </ul>
 </section>
 
 <section class="lesson-section">
-  <h2>4. 정상 흐름과 실무 적용 🔍</h2>
-  <ul>
-    <li>✅ <strong>기본값 처리는 무조건 INITIALIZATION:</strong> 프로그램이 실행되고 화면이 사용자 눈에 띄기 전에 작동하므로, 필드에 미리 오늘 날짜나 특정 부서 코드 등의 기본값을 안전하게 채워넣을 수 있습니다.</li>
-    <li>✅ <strong>비즈니스 로직은 START-OF-SELECTION:</strong> 입력값 검증이 모두 끝난 시점에 비로소 메인 쿼리(SELECT)를 날리므로, 잘못된 값으로 DB에 무거운 쿼리가 들어가는 비효율을 완벽히 방지합니다.</li>
-    <li>❌ <strong>이벤트 블록 혼동 오류:</strong> 만약 초기값 설정 로직을 실수로 START-OF-SELECTION에 적어버리면, 사용자가 화면에서 값을 직접 고치고 실행(F8)할 때마다 초기값으로 다시 덮어써 버리는 버그가 나게 됩니다.</li>
-  </ul>
+  <h2>4. 정상 흐름과 실무 적용: 이벤트 혼동 방지 🔍</h2>
+  <p>
+    기본값 세팅을 잘못된 이벤트 블록에 코딩할 경우 발생하는 대표적인 <strong>실무 버그</strong>와 올바른 선언 방식을 비교해 봅시다. 각 코드 라인에 마우스를 올려 매핑되는 관계와 상세 해설을
+    확인해 보세요.
+  </p>
+
+  <div class="interactive-diff-mapper">
+    <div class="diff-header-bar">
+      <div class="diff-header-title">💻 실무 코드 비교 분석기 (Hover Mapping)</div>
+    </div>
+    <div class="diff-container">
+      <div class="diff-pane bad-code">
+        <h4>❌ Bad Practice (버그 유발)</h4>
+        <pre><code><span class="diff-highlight" data-diff-target="err-param" data-explain-title="화면 입력 파라미터 선언" data-explain-desc="조회 조건 화면에서 사용자가 직접 입력할 수 있는 4자리 연도 파라미터 필드를 선언합니다.">PARAMETERS p_year TYPE c LENGTH 4.</span>
+
+<span class="diff-highlight" data-diff-target="err-block" data-explain-title="잘못된 이벤트 블록 사용" data-explain-desc="START-OF-SELECTION은 사용자가 조회(F8)를 누른 직후에 실행되는 메인 로직 블록입니다. 여기에 기본값 세팅을 넣는 실수를 자주 범합니다.">START-OF-SELECTION.</span>
+<span class="diff-highlight" data-diff-target="err-logic" data-explain-title="매 실행마다 값 덮어쓰기 버그" data-explain-desc="사용자가 조회 화면에서 연도를 수정하고 실행(F8)을 누를 때마다 이 로직이 수행되어, 사용자가 수정한 값을 강제로 기본값인 '2026'으로 매번 덮어써 버리게 됩니다.">  p_year = '2026'.</span>
+<span class="diff-highlight" data-diff-target="err-select" data-explain-title="조회 쿼리 수행" data-explain-desc="덮어쓰기 버그로 인해 p_year는 항상 '2026'이 되므로, 사용자가 화면에 어떤 값을 입력해 조회했든 무조건 '2026'년 데이터만 조회하게 됩니다.">  <span class="abap-token-keyword">SELECT</span> * <span class="abap-token-keyword">FROM</span> zemp <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> gt_data <span class="abap-token-keyword">WHERE</span> gyear = p_year.</span></code></pre>
+      </div>
+      <div class="diff-pane good-code">
+        <h4>✅ Good Practice (권장 구조)</h4>
+        <pre><code><span class="diff-highlight" data-diff-source="err-param" data-explain-title="화면 입력 파라미터 선언" data-explain-desc="조회 조건 화면에서 사용자가 직접 입력할 수 있는 4자리 연도 파라미터 필드를 선언합니다.">PARAMETERS p_year TYPE c LENGTH 4.</span>
+
+<span class="diff-highlight" data-diff-source="err-block" data-explain-title="올바른 초기값 시점 설정" data-explain-desc="INITIALIZATION은 화면이 사용자에게 로드되기 전 딱 한 번만 수행되는 이벤트입니다. 여기에 기본값을 할당해야 안전합니다.">INITIALIZATION.</span>
+<span class="diff-highlight" data-diff-source="err-logic" data-explain-title="안전한 기본값 세팅" data-explain-desc="선택 화면 로드 전에 값을 '2026'으로 단 한 번 채우므로, 화면에는 '2026'이 기본값으로 노출되며 사용자가 값을 다른 연도로 바꾸어 실행(F8)해도 덮어쓰지 않고 변경된 값을 그대로 사용합니다.">  p_year = '2026'.</span>
+
+<span class="abap-token-keyword">START-OF-SELECTION.</span>
+<span class="diff-highlight" data-diff-source="err-select" data-explain-title="의도한 연도 조회 성공" data-explain-desc="사용자가 화면에서 수정한 연도 값이 덮어쓰여지지 않고 안전하게 보존되어, SELECT 쿼리의 WHERE 조건에 올바르게 적용되어 정상 조회됩니다.">  <span class="abap-token-keyword">SELECT</span> * <span class="abap-token-keyword">FROM</span> zemp <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> gt_data <span class="abap-token-keyword">WHERE</span> gyear = p_year.</span></code></pre>
+      </div>
+    </div>
+    <div class="diff-explanation">
+      <span class="placeholder">양쪽 코드의 하이라이트 라인에 마우스를 올리면 각 라인의 비교 설명이 여기에 표시됩니다.</span>
+    </div>
+  </div>
 </section>
 
 <section class="lesson-section">
@@ -87,7 +519,9 @@
     <div class="lesson-callout-icon">⚠️</div>
     <div class="lesson-callout-content">
       <h4>"어디에 쓰느냐"가 아니라 "어떤 블록에 쓰느냐"가 생명입니다</h4>
-      <p>ABAP 컴파일러는 소스 코드의 물리적인 윗줄, 아랫줄 위치를 보고 순서를 판단하지 않습니다. <code>INITIALIZATION</code> 키워드가 코드 가장 밑바닥에 적혀 있더라도, <code>START-OF-SELECTION</code>보다 무조건 먼저 실행됩니다. 따라서 가독성을 위해 코드 구조는 반드시 실행 생명주기 순서대로 정렬해 주는 것이 협업의 기초적인 매너입니다.</p>
+      <p>ABAP 컴파일러는 소스 코드의 물리적인 윗줄, 아랫줄 위치를 보고 순서를 판단하지 않습니다. <code>INITIALIZATION</code> 키워드가 코드 가장 밑바닥에 적혀 있더라도,
+        <code>START-OF-SELECTION</code>보다 무조건 먼저 실행됩니다. 따라서 가독성을 위해 코드 구조는 반드시 실행 생명주기 순서대로 정렬해 주는 것이 협업의 기초적인 매너입니다.
+      </p>
     </div>
   </div>
 </section>
@@ -99,96 +533,209 @@
     <div class="lesson-callout-content">
       <h4>실습 과제: 정훈영 사원과 함께 이벤트 호출 순서 증명하기</h4>
       <p>
-        신입 사원 <strong>정훈영 사원</strong>은 ABAP 코드의 작성 순서와 상관없이 SAP 엔진이 이벤트를 정해진 약속대로 실행한다는 사실을 증명하기 위해 테스트용 추적 리포트를 설계하고자 합니다.
+        신입 사원 <strong>정훈영 사원</strong>은 ABAP 코드의 작성 순서와 상관없이 SAP 엔진이 이벤트를 정해진 약속대로 실행한다는 사실을 증명하기 위해 테스트용 추적 리포트를 설계하고자
+        합니다.
       </p>
-      <ol>
-        <li><strong>SE38</strong>에 접속하여 <code>ZREPORT_EVENT_DEMO</code> 프로그램을 생성합니다.</li>
-        <li>다음과 같이 <strong>이벤트 순서를 고의로 거꾸로 섞어서</strong> 코딩한 후 활성화시킵니다:</li>
-      </ol>
-      <!-- ABAP_MOCKUP_START -->
-<div class="abap-editor-mockup shiki-copy-wrapper">
-  <div class="abap-editor-header">
-    <div class="abap-editor-mac-buttons">
-      <span class="abap-editor-mac-btn red"></span>
-      <span class="abap-editor-mac-btn yellow"></span>
-      <span class="abap-editor-mac-btn green"></span>
-    </div>
-    <div class="abap-editor-title">ABAP</div>
-    <div class="abap-editor-actions">
-      <button class="shiki-copy-button" data-copied="false">Copy</button>
     </div>
   </div>
-  <div class="abap-editor-body">
-    <div class="abap-editor-line-numbers">
-      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10
+
+  <p style="font-size: 0.95rem; margin-top: 24px; color: #475569;">
+    <strong>💡 1단계: 코드 키워드 클릭 투어 (아코디언 가이드)</strong><br>
+    아래 소스 코드에서 점선으로 된 <span class="code-tour-anchor" data-tour-id="tour-sos">이벤트 구문</span>을 클릭해 보세요. 코드 내부에서 해당하는 이벤트의
+    자세한 설명이 아코디언 방식으로 바로 열립니다.
+  </p>
+
+  <!-- 아코디언 가이드 코드 투어 뷰어 (줄 번호 영역 포함) -->
+  <div class="code-tour-container abap-editor-mockup shiki-copy-wrapper">
+    <div class="abap-editor-header">
+      <div class="abap-editor-mac-buttons">
+        <span class="abap-editor-mac-btn red"></span>
+        <span class="abap-editor-mac-btn yellow"></span>
+        <span class="abap-editor-mac-btn green"></span>
+      </div>
+      <div class="abap-editor-title">ZREPORT_EVENT_DEMO (Interactive Guide)</div>
+      <div class="abap-editor-actions">
+        <button class="shiki-copy-button" data-copied="false">Copy</button>
+      </div>
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zreport_event_demo.
-
-<span class="abap-token-keyword">START-OF-SELECTION</span>.
-  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'[3] START-OF-SELECTION 실행 (메인 로직)'</span>.
-
-<span class="abap-token-keyword">END-OF-SELECTION</span>.
-  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'[4] END-OF-SELECTION 실행 (출력 마감)'</span>.
-
-<span class="abap-token-keyword">INITIALIZATION</span>.
-  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'[1] INITIALIZATION 실행 (초기화)'</span>.</code></pre>
-  </div>
-</div>
-<!-- ABAP_MOCKUP_END -->
-      <ol start="3">
-        <li>프로그램을 <strong>F8</strong>로 실행합니다.</li>
-        <li>화면에 출력된 텍스트 결과를 확인하여 아래 순서대로 정확히 찍혔는지 검증합니다:
-          <table class="viz-table">
-            <thead>
-              <tr>
-                <th>출력 순서</th>
-                <th>출력 텍스트</th>
-                <th>설명</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="viz-highlight-row">
-                <td>1</td>
-                <td>[1] INITIALIZATION 실행 (초기화)</td>
-                <td>코드 맨 밑에 적었지만 가장 먼저 실행됨 ✅</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>[3] START-OF-SELECTION 실행 (메인 로직)</td>
-                <td>이벤트 라이프사이클에 따라 중간에 실행됨 ✅</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>[4] END-OF-SELECTION 실행 (출력 마감)</td>
-                <td>출력의 마지막 단계로 정상 마감됨 ✅</td>
-              </tr>
-            </tbody>
-          </table>
-        </li>
-      </ol>
-      <p><strong>완료 조건:</strong> 소스 코드 배치와 상관없이 INITIALIZATION -> START-OF-SELECTION -> END-OF-SELECTION 순서로 화면에 텍스트가 정상 출력되는 라이프사이클 원리를 이해하면 성공입니다.</p>
+    <div class="abap-editor-body">
+      <div class="abap-editor-body-lines">
+        <!-- 1라인 -->
+        <div class="editor-line">
+          <span class="editor-line-number">1</span>
+          <div class="editor-line-content">
+            <code><span class="abap-token-keyword">REPORT</span> zreport_event_demo.</code>
+          </div>
+        </div>
+        <!-- 2라인 (빈 줄) -->
+        <div class="editor-line">
+          <span class="editor-line-number">2</span>
+          <div class="editor-line-content"><code></code></div>
+        </div>
+        <!-- 3라인 (START-OF-SELECTION 구문 및 아코디언) -->
+        <div class="editor-line">
+          <span class="editor-line-number">3</span>
+          <div class="editor-line-content">
+            <code><span class="code-tour-anchor" data-tour-id="tour-sos">START-OF-SELECTION.</span> <span class="tour-icon">🔍</span></code>
+            <div class="code-tour-accordion" id="tour-sos">
+              <div class="accordion-content"><strong>[3순위 실행] START-OF-SELECTION Block</strong>
+                <p>데이터베이스에서 데이터를 SELECT로 조회하고 가공하는 핵심 요리 블록입니다. 비즈니스 로직은 안전하게 이 블록 안에 선언해야 합니다.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 4라인 (빈 줄) -->
+        <div class="editor-line">
+          <span class="editor-line-number">4</span>
+          <div class="editor-line-content"><code></code></div>
+        </div>
+        <!-- 5라인 (START-OF-SELECTION WRITE문) -->
+        <div class="editor-line">
+          <span class="editor-line-number">5</span>
+          <div class="editor-line-content">
+            <code>  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'[3] START-OF-SELECTION 실행 (메인 로직)'</span>.</code>
+          </div>
+        </div>
+        <!-- 6라인 (END-OF-SELECTION 구문 및 아코디언) -->
+        <div class="editor-line">
+          <span class="editor-line-number">6</span>
+          <div class="editor-line-content">
+            <code><span class="code-tour-anchor" data-tour-id="tour-eos">END-OF-SELECTION.</span> <span class="tour-icon">🔍</span></code>
+            <div class="code-tour-accordion" id="tour-eos">
+              <div class="accordion-content"><strong>[4순위 실행] END-OF-SELECTION Block</strong>
+                <p>모든 데이터 조회 및 연산이 종료되고 결과를 출력하기 직전에 최종 수행되는 마감 블록입니다. 마무리 플레이팅 처리를 담당합니다.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 7라인 (빈 줄) -->
+        <div class="editor-line">
+          <span class="editor-line-number">7</span>
+          <div class="editor-line-content"><code></code></div>
+        </div>
+        <!-- 8라인 (END-OF-SELECTION WRITE문) -->
+        <div class="editor-line">
+          <span class="editor-line-number">8</span>
+          <div class="editor-line-content">
+            <code>  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'[4] END-OF-SELECTION 실행 (출력 마감)'</span>.</code>
+          </div>
+        </div>
+        <!-- 9라인 (INITIALIZATION 구문 및 아코디언) -->
+        <div class="editor-line">
+          <span class="editor-line-number">9</span>
+          <div class="editor-line-content">
+            <code><span class="code-tour-anchor" data-tour-id="tour-init">INITIALIZATION.</span> <span class="tour-icon">🔍</span></code>
+            <div class="code-tour-accordion" id="tour-init">
+              <div class="accordion-content"><strong>[1순위 실행] INITIALIZATION Block</strong>
+                <p>프로그램이 구동된 후 가장 먼저(선택 화면이 출력되기 전에) 호출되는 초기화 블록입니다. 코드 가장 하단에 작성되어 있지만, 전체 실행 흐름 중 1단계로 실행됩니다!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 10라인 (INITIALIZATION WRITE문) -->
+        <div class="editor-line">
+          <span class="editor-line-number">10</span>
+          <div class="editor-line-content">
+            <code>  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'[1] INITIALIZATION 실행 (초기화)'</span>.</code>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+
+  <p style="font-size: 0.95rem; margin-top: 28px; color: #475569;">
+    <strong>💡 2단계: 가상 ABAP 디버깅 실행기 (Step-Debugger Simulator)</strong><br>
+    <strong>디버그 시작</strong> 버튼을 누르고 <strong>Next Step (F6)</strong>을 누르며 SAP 내부 엔진이 실제 소스 코드를 어떤 순서로 추적하는지 확인해 보세요.
+  </p>
+
+  <!-- 가상 디버거 위젯 -->
+  <div class="interactive-debugger">
+    <div class="debugger-code-panel">
+      <pre><code><span class="db-line" data-line="1">REPORT zreport_event_demo.</span><span class="db-line" data-line="2"></span><span class="db-line" data-line="3">START-OF-SELECTION.</span><span class="db-line" data-line="4"> WRITE: / '[3] START-OF-SELECTION 실행 (메인 로직)'.</span><span class="db-line" data-line="5"></span><span class="db-line" data-line="6">END-OF-SELECTION.</span><span class="db-line" data-line="7"> WRITE: / '[4] END-OF-SELECTION 실행 (출력 마감)'.</span><span class="db-line" data-line="8"></span><span class="db-line" data-line="9">INITIALIZATION.</span><span class="db-line" data-line="10"> WRITE: / '[1] INITIALIZATION 실행 (초기화)'.</span></code></pre>
+    </div>
+    <div class="debugger-monitor-panel">
+      <div class="monitor-header">⚙️ ABAP Debugger Monitor</div>
+      <div class="monitor-controls">
+        <button class="debugger-btn btn-dbg-start">디버그 시작</button>
+        <button class="debugger-btn btn-dbg-next" disabled>Next Step (F6)</button>
+      </div>
+      <div class="monitor-state-card">
+        <div class="monitor-val-row">
+          <span class="monitor-val-label">현재 호출 이벤트</span>
+          <span class="monitor-val-value val-event">-</span>
+        </div>
+      </div>
+      <div style="font-size: 0.75rem; color: #475569; margin-top: 12px; font-weight: bold; text-transform: uppercase;">
+        출력 스트림 (Console Output)</div>
+      <div class="monitor-console-output">디버깅이 대기 중입니다. [디버그 시작]을 눌러 테스트를 수행하세요.</div>
+    </div>
+  </div>
+
+  <p style="margin-top: 20px;">
+    코드가 거꾸로 배치되어 있어도, SAP 엔진은 <strong>INITIALIZATION (1단계) → START-OF-SELECTION (3단계) → END-OF-SELECTION (4단계)</strong>
+    순서대로 정확히 점프하며 실행하는 것을 관찰할 수 있습니다.
+  </p>
 </section>
 
 <section class="lesson-section">
   <h2>7. 공식 문서로 더 확인하기 🔗</h2>
   <ul>
-    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENREPORT_EVENTS.html" target="_blank" rel="noopener">SAP Help Portal: Executable Program Events</a> - Executable 리포트 프로그램의 전체 실행 생명주기 사양을 확인합니다.</li>
-    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINITIALIZATION.html" target="_blank" rel="noopener">SAP Help Portal: INITIALIZATION Event Block</a> - 화면이 렌더링되기 직전 값을 초기화하는 구문의 상세 선언 법을 확인합니다.</li>
-    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSTART-OF-SELECTION.html" target="_blank" rel="noopener">SAP Help Portal: START-OF-SELECTION Block</a> - 쿼리 및 메인 로직이 실행되기 전 세션 상태를 결정하는 규칙을 학습합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENREPORT_EVENTS.html" target="_blank"
+        rel="noopener">SAP Help Portal: Executable Program Events</a> - Executable 리포트 프로그램의 전체 실행 생명주기 사양을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINITIALIZATION.html"
+        target="_blank" rel="noopener">SAP Help Portal: INITIALIZATION Event Block</a> - 화면이 렌더링되기 직전 값을 초기화하는 구문의 상세 선언
+      법을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSTART-OF-SELECTION.html"
+        target="_blank" rel="noopener">SAP Help Portal: START-OF-SELECTION Block</a> - 쿼리 및 메인 로직이 실행되기 전 세션 상태를 결정하는
+      규칙을 학습합니다.</li>
   </ul>
 </section>
 
 <section class="lesson-section">
-  <h2>8. 확인 퀴즈와 정답/해설 ✅</h2>
+  <h2>8. 도전 실전 퀴즈: 이벤트 순서 맞추기 🧩</h2>
+  <p>
+    아래의 흩어져 있는 ABAP 이벤트 블록들을 <strong>가장 먼저 실행되는 순서(1단계)</strong>부터 <strong>마지막에 실행되는 순서(4단계)</strong>까지 알맞은 상자에 드래그 앤
+    드롭으로 올려 완성해 보세요! (배치된 카드를 다시 클릭하면 아래로 회수됩니다.)
+  </p>
+
+  <div class="interactive-puzzle-quiz">
+    <div class="puzzle-question">Q. 프로그램 호출 시점부터 최종 출력까지, ABAP 리포트의 전체 생명주기 순서를 채우시오.</div>
+    <div class="puzzle-drop-zones">
+      <div class="drop-zone" data-expected="LOAD-OF-PROGRAM">
+        <span class="zone-label">1단계 (프로그램 메모리 로드)</span>
+      </div>
+      <div class="drop-zone" data-expected="INITIALIZATION">
+        <span class="zone-label">2단계 (화면 초기화 및 준비)</span>
+      </div>
+      <div class="drop-zone" data-expected="START-OF-SELECTION">
+        <span class="zone-label">3단계 (메인 비즈니스 쿼리)</span>
+      </div>
+      <div class="drop-zone" data-expected="END-OF-SELECTION">
+        <span class="zone-label">4단계 (서빙 및 출력 마감)</span>
+      </div>
+    </div>
+
+    <div style="font-size: 0.75rem; color: #64748b; font-weight: bold; margin-bottom: 8px; text-transform: uppercase;">
+      드래그할 이벤트 블록 카드</div>
+    <div class="puzzle-drag-items">
+      <div class="drag-item" draggable="true" id="SOS">START-OF-SELECTION</div>
+      <div class="drag-item" draggable="true" id="INIT">INITIALIZATION</div>
+      <div class="drag-item" draggable="true" id="LOP">LOAD-OF-PROGRAM</div>
+      <div class="drag-item" draggable="true" id="EOS">END-OF-SELECTION</div>
+    </div>
+    <div class="puzzle-feedback"></div>
+  </div>
+
+  <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 32px 0;">
+
+  <h2>9. 단답형 확인 퀴즈 🔍</h2>
   <ol>
     <li>ABAP 리포트 프로그램에서 소스 코드상의 작성 위치가 아닌, 실행 시점을 결정해 주는 고유의 블록 단위를 무엇이라고 부르나요?</li>
     <li>리포트가 실행될 때 선택 화면(Selection Screen)이 로드되기 **전**에 작동하여 디폴트 입력값을 필드에 적재해 주는 이벤트는 무엇인가요?</li>
     <li>손님이 식당에 100인분 요리를 주문할 때 재료 수량을 검증하는 것과 같이, 사용자가 화면에 입력한 값이 유효한지 검사하는 이벤트는 무엇인가요?</li>
   </ol>
   <details>
-    <summary>정답/해설 보기</summary>
+    <summary>단답형 정답/해설 보기</summary>
     <ol>
       <li><strong>이벤트 블록 (Event Block)입니다.</strong></li>
       <li><strong>INITIALIZATION 이벤트입니다.</strong></li>
@@ -198,7 +745,7 @@
 </section>
 
 <section class="lesson-section">
-  <h2>9. 한눈에 정리 🏁</h2>
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">
@@ -212,6 +759,7 @@
     </div>
   </div>
   <p>
-    전체적인 이벤트 흐름의 기본 뼈대를 세웠습니다. 다음 Lesson인 <strong>INITIALIZATION 기본값 설정</strong>에서는 선택 화면이 나타나기 전에 날짜나 사용자 부서 코드 등의 기본값을 화면에 실제로 적재해 보는 코드를 실습해 보겠습니다!
+    전체적인 이벤트 흐름의 기본 뼈대를 세웠습니다. 다음 Lesson인 <strong>INITIALIZATION 기본값 설정</strong>에서는 선택 화면이 나타나기 전에 날짜나 사용자 부서 코드 등의 기본값을
+    화면에 실제로 적재해 보는 코드를 실습해 보겠습니다!
   </p>
 </section>
