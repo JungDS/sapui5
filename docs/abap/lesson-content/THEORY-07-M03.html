@@ -168,6 +168,38 @@ ls_student-id = <span class="abap-token-string">'A03'</span>. ls_student-name = 
   <p>
     실행하면 95점인 Sora가 먼저 출력되고, 그 다음 Mina, Jun 순서로 출력됩니다. APPEND한 순서와 출력 순서가 달라졌다면 SORT가 적용된 것입니다.
   </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">SORT lt_students BY score DESCENDING 실행 전과 후</p>
+    <div class="viz-compare">
+      <div class="viz-compare-before">
+        <span class="viz-compare-label">실행 전 (APPEND한 순서)</span>
+        <div class="viz-compare-body">
+          <table class="viz-table">
+            <thead><tr><th>순번</th><th>id</th><th>name</th><th>score</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>A01</td><td>Mina</td><td>90</td></tr>
+              <tr><td>2</td><td>A02</td><td>Jun</td><td>85</td></tr>
+              <tr><td>3</td><td>A03</td><td>Sora</td><td>95</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="viz-compare-after">
+        <span class="viz-compare-label">실행 후 (점수 내림차순)</span>
+        <div class="viz-compare-body">
+          <table class="viz-table">
+            <thead><tr><th>순번</th><th>id</th><th>name</th><th>score</th></tr></thead>
+            <tbody>
+              <tr class="viz-current-row"><td>1</td><td>A03</td><td>Sora</td><td>95</td></tr>
+              <tr><td>2</td><td>A01</td><td>Mina</td><td>90</td></tr>
+              <tr><td>3</td><td>A02</td><td>Jun</td><td>85</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="viz-note">데이터 내용은 그대로지만 줄의 순서(그리고 각 줄의 INDEX)가 완전히 바뀌었습니다. SORT 후에는 “3번째 줄”의 의미가 이전과 다릅니다.</p>
+  </div>
 </section>
 
 <section class="lesson-section">
@@ -199,7 +231,50 @@ ls_student-id = <span class="abap-token-string">'A03'</span>. ls_student-name = 
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 정렬 기준 바꿔보기 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>예제 <code>zsort_itab_basic</code>을 실행해 점수 내림차순 출력(Sora→Mina→Jun)을 확인합니다.</li>
+        <li><code>SORT lt_students BY score ASCENDING.</code>으로 바꿔 오름차순 결과를 비교합니다.</li>
+        <li><code>SORT lt_students BY name.</code>으로 이름 기준 정렬도 실행해봅니다.</li>
+        <li>같은 점수(90)를 가진 학생을 한 명 더 추가하고, <code>SORT ... BY score DESCENDING name.</code>처럼 두 번째 기준을 줘서 동점자 순서를 통제해봅니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> 정렬 기준을 바꿀 때마다 출력 순서가 어떻게 달라지는지 예측한 뒤 실행 결과로 맞히면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSORT_ITAB.html" target="_blank" rel="noopener">SAP Help Portal: SORT itab</a> - SORT 문장의 공식 문법과 정렬 옵션을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB.html" target="_blank" rel="noopener">SAP Help Portal: LOOP AT itab</a> - 정렬 결과를 확인하는 반복 출력 문법을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSORTED_TABLE_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Sorted Table</a> - 매번 SORT하는 대신 항상 정렬 상태를 유지하는 테이블 종류를 미리 봅니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>SORT를 실행하면 줄의 데이터 내용도 바뀌나요?</li>
+    <li>정렬 방향을 지정하지 않으면 기본은 오름차순일까요, 내림차순일까요?</li>
+    <li>SORT 후에 “2번째 줄”을 INDEX로 접근하는 코드는 왜 다시 점검해야 하나요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>아니요.</strong> 줄의 내용은 그대로이고 순서만 재배치됩니다. 다만 각 줄의 INDEX는 바뀝니다.</li>
+      <li><strong>오름차순(ASCENDING)</strong>이 기본입니다. 내림차순이 필요하면 DESCENDING을 명시합니다.</li>
+      <li><strong>정렬 전과 후의 INDEX가 다르기 때문</strong>입니다. 정렬 전 2번째였던 줄이 정렬 후 다른 위치로 이동할 수 있으므로, INDEX 의존 코드는 정렬 시점과 함께 봐야 합니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

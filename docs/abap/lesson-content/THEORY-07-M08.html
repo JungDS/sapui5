@@ -86,6 +86,32 @@ ls_item-amount = <span class="abap-token-number">2</span>.
   <p>
     <code>ty_order</code> 구조 안에는 <code>note TYPE string</code>과 <code>items TYPE tt_items</code>가 있습니다. <code>items</code>는 주문 한 건 안에 들어 있는 품목 목록 Internal Table입니다.
   </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">셀 안에 표가 들어 있다 — ls_order의 실제 모습</p>
+    <div class="viz-state-grid">
+      <div class="viz-state">
+        <span class="viz-state-label">ls_order (Deep Structure 한 건)</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td>order_id</td><td>O-100</td></tr>
+            <tr><td>note</td><td>첫 주문 메모입니다.</td></tr>
+            <tr class="viz-highlight-row"><td>items</td><td>📦 그 자체가 또 하나의 표 →</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-state">
+        <span class="viz-state-label">ls_order-items (셀 속의 Internal Table)</span>
+        <table class="viz-table">
+          <thead><tr><th>product</th><th>amount</th></tr></thead>
+          <tbody>
+            <tr><td>BOOK</td><td>2</td></tr>
+            <tr class="viz-empty"><td colspan="2">APPEND할수록 이 안에서 줄이 늘어남</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="viz-note">Flat Structure는 모든 칸이 단순 값이지만, Deep Structure는 <code>items</code>처럼 칸 하나가 통째로 또 다른 표(또는 string 같은 가변 길이 데이터)입니다. 마트료시카 인형처럼 “열어보면 또 구조가 나오는” 모양입니다.</p>
+  </div>
 </section>
 
 <section class="lesson-section">
@@ -134,7 +160,50 @@ ls_item-amount = <span class="abap-token-number">2</span>.
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 주문 안에 품목 채우기 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>예제 <code>zdeep_structure_basic</code>을 완성해 주문 <code>O-100</code>에 품목 BOOK 외 2개를 더 APPEND합니다.</li>
+        <li><code>LOOP AT ls_order-items INTO ls_item.</code>으로 품목 목록을 출력합니다.</li>
+        <li>주문을 여러 건 담는 <code>lt_orders TYPE STANDARD TABLE OF ty_order</code>를 선언하고, 주문 2건(각각 품목 포함)을 담아봅니다.</li>
+        <li>바깥 LOOP(주문)와 안쪽 LOOP(품목)를 중첩해 “주문 → 품목들” 형태로 출력합니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> 중첩 LOOP로 헤더 1건 + 상세 N건 구조를 출력하고, 어느 변수가 어느 계층을 가리키는지 설명할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDEEP_STRUCTURE_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Deep Structure</a> - Deep Structure의 공식 정의를 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES.html" target="_blank" rel="noopener">SAP Help Portal: TYPES</a> - 구조 안에 테이블 타입을 넣는 선언 문법을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINTERNAL_TABLE_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Internal Table</a> - 셀 안에 들어가는 Internal Table의 정의를 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>Flat Structure와 Deep Structure를 가르는 기준은 무엇인가요?</li>
+    <li><code>ls_order-items</code>에 품목을 추가하는 문장은 무엇인가요?</li>
+    <li>Deep Structure가 편리한데도 “복사 비용”을 조심하라는 이유는 무엇인가요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>구성 요소에 단순 값만 있는지(Flat), 내부 테이블이나 string처럼 가변 길이 데이터가 들어 있는지(Deep)</strong>입니다.</li>
+      <li><strong><code>APPEND ls_item TO ls_order-items.</code></strong>처럼 구조의 테이블 필드를 경로로 지정해 APPEND합니다.</li>
+      <li><strong>한 건을 복사할 때 안에 든 테이블 전체가 함께 복사될 수 있기 때문</strong>입니다. 품목이 수천 줄인 주문을 복사하면 보기보다 큰 메모리·시간 비용이 듭니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

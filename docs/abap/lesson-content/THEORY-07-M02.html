@@ -146,6 +146,37 @@ ls_student-id = <span class="abap-token-string">'A03'</span>. ls_student-name = 
   <p>
     실행하면 75점인 Jun의 줄이 삭제되고, Mina와 Sora만 출력됩니다. 조건을 <code>score &lt; 90</code>으로 바꾸면 삭제되는 줄이 달라지는 것도 확인해보세요.
   </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">DELETE lt_students WHERE score &lt; 80 실행 전과 후</p>
+    <div class="viz-compare">
+      <div class="viz-compare-before">
+        <span class="viz-compare-label">실행 전 (3줄)</span>
+        <div class="viz-compare-body">
+          <table class="viz-table">
+            <thead><tr><th>순번</th><th>id</th><th>name</th><th>score</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>A01</td><td>Mina</td><td>90</td></tr>
+              <tr class="viz-highlight-row"><td>2</td><td>A02</td><td>Jun</td><td>75 ← 조건 해당</td></tr>
+              <tr><td>3</td><td>A03</td><td>Sora</td><td>85</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="viz-compare-after">
+        <span class="viz-compare-label">실행 후 (2줄)</span>
+        <div class="viz-compare-body">
+          <table class="viz-table">
+            <thead><tr><th>순번</th><th>id</th><th>name</th><th>score</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>A01</td><td>Mina</td><td>90</td></tr>
+              <tr><td>2</td><td>A03</td><td>Sora</td><td>85</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="viz-note">Jun의 줄이 사라지면서 Sora의 순번이 3에서 2로 당겨졌습니다. 삭제 후에는 INDEX가 다시 매겨진다는 점이 다음 작업(INDEX 기반 접근)에 영향을 줍니다.</p>
+  </div>
 </section>
 
 <section class="lesson-section">
@@ -177,7 +208,50 @@ ls_student-id = <span class="abap-token-string">'A03'</span>. ls_student-name = 
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 조건 삭제 감각 잡기 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>예제 <code>zdelete_itab_basic</code>을 실행해 Jun만 삭제되는지 확인합니다.</li>
+        <li>조건을 <code>score &lt; 90</code>으로 바꾸고 남는 줄이 어떻게 달라지는지 확인합니다.</li>
+        <li><code>DELETE lt_students INDEX 1.</code>을 추가로 실행하고, 삭제 후 순번이 당겨지는 것을 LOOP 출력으로 확인합니다.</li>
+        <li>같은 학생 줄을 두 번 APPEND한 뒤 <code>SORT</code> → <code>DELETE ADJACENT DUPLICATES FROM lt_students COMPARING id.</code>를 실행해보고, SORT 없이 실행하면 어떻게 되는지도 비교합니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> “ADJACENT DUPLICATES는 위아래로 붙어 있는 중복만 지우므로 SORT가 먼저 필요하다”를 실험으로 확인하면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDELETE_ITAB.html" target="_blank" rel="noopener">SAP Help Portal: DELETE itab</a> - Internal Table 줄 삭제의 공식 문법(INDEX/WHERE/ADJACENT DUPLICATES)을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSORT_ITAB.html" target="_blank" rel="noopener">SAP Help Portal: SORT itab</a> - 중복 제거 전 정렬에 쓰는 SORT 문법을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINTERNAL_TABLE_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Internal Table</a> - Internal Table의 공식 정의를 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li><code>DELETE ... WHERE</code>로 줄이 삭제되면 뒤 줄들의 INDEX는 어떻게 되나요?</li>
+    <li><code>DELETE ADJACENT DUPLICATES</code>는 테이블 안의 모든 중복을 한 번에 지워줄까요?</li>
+    <li>조건에 맞는 줄이 하나도 없어서 아무것도 삭제되지 않으면 <code>sy-subrc</code>는 어떻게 될까요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>앞으로 당겨져 다시 매겨집니다.</strong> 그래서 삭제 후 INDEX 기반 접근은 의미가 달라질 수 있습니다.</li>
+      <li><strong>아니요.</strong> 물리적으로 위아래 “인접한” 중복만 지웁니다. 흩어진 중복을 모으려면 먼저 기준 키로 SORT해야 합니다.</li>
+      <li><strong>0이 아닌 값(4)</strong>이 됩니다. 삭제된 줄이 없다는 뜻이므로, 필요하면 이 값으로 후속 처리를 분기합니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

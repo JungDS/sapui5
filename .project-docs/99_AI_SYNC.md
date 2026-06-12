@@ -41,6 +41,16 @@
 
 ## 작업 이력 (Work Log)
 
+### [2026-06-12] Claude (Fable 5) — Chapter 7의 Lesson 1~9 고품질화+시각화 통합 패스
+- **작업 내용**:
+  - NotebookLM 세션 질의(BC400/BC401 ITAB 응용)로 오개념 7종을 수집·교차 검증: BINARY SEARCH는 정렬을 대신하지 않으며 어기면 덤프 없이 잘못된 결과, ADJACENT DUPLICATES는 인접 중복만 제거(SORT 선행), ASSIGNING은 원본 직접 변경이라 MODIFY 불필요, HASHED는 INDEX 불가, CLEAR/REFRESH는 메모리 미반환(FREE만 반환), TRANSPORTING 생략 시 행 전체 덮어쓰기, Secondary Key는 읽기 이득 vs 쓰기 비용 거래.
+  - `Chapter 7의 Lesson 1~9` 전체에 미니 실습+완료 조건, 검증된 SAP Help 링크 3개씩(MODIFY/DELETE/SORT itab, FIELD-SYMBOLS, Sorted/Hashed Table, Secondary Table Key, Deep Structure, CLEAR/FREE 등 10종 WebFetch 검증), 확인 퀴즈/정답/해설 추가.
+  - 시각 자료 9종 추가: L1 MODIFY TRANSPORTING 전/후, L2 DELETE WHERE 전/후(순번 재계산 강조), L3 SORT 전/후, L4 이진 탐색 절반 줄이기 단계 그리드+순차 탐색 비교, L5 테이블 3종 보관 방식 그리드+기능 비교표, L6 INTO 복사 vs ASSIGNING 직접 참조 비교, L7 Secondary Key 이득/비용 비교, L8 Deep Structure 중첩 구조도(셀 속의 표), L9 CLEAR/REFRESH/FREE 3종 그리드.
+- **검증 메모**:
+  - Chapter 7 인라인 style/script 0건, 내부 ID 노출 0건, 글로서리 미정의 0건, 포맷터 재실행 0건(멱등), 9개 Lesson 모두 퀴즈/실습/viz-visual 존재 확인.
+  - 로컬 뷰어에서 THEORY-07-M04(이진 탐색 그리드/배지/퀴즈/링크 3개) 렌더링 확인.
+- **다음 AI를 위한 메모**: 다음은 Chapter 8(SALV, 5개 Lesson) 통합 패스. itab→SALV 출력 변환 플로우가 핵심 시각화. 이후 Chapter 9(Open SQL 기초)는 DB 테이블→WHERE 필터→결과셋 상태 그리드.
+
 ### [2026-06-11] Claude (Fable 5) — Chapter 6의 Lesson 1~6 고품질화 미니 패스
 - **작업 내용**:
   - Codex가 추가한 itab-* 시각 자료는 그대로 유지하고, 빠져 있던 학습 완결 요소(미니 실습+완료 조건, SAP 공식 링크 3개, 확인 퀴즈/정답/해설)만 6개 Lesson에 추가.

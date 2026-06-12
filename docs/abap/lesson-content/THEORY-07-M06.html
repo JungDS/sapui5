@@ -110,6 +110,38 @@ ls_student-id = <span class="abap-token-string">'A02'</span>. ls_student-name = 
   <p>
     실행하면 두 학생의 점수가 각각 1점씩 올라간 상태로 출력됩니다. 첫 번째 LOOP에서 Field Symbol로 원본 행을 직접 바꿨기 때문입니다.
   </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">INTO는 복사기, ASSIGNING은 레이저 포인터</p>
+    <div class="viz-compare">
+      <div class="viz-compare-before">
+        <span class="viz-compare-label">LOOP ... INTO ls_student (복사)</span>
+        <div class="viz-compare-body">
+          <table class="viz-table">
+            <tbody>
+              <tr><td>동작</td><td>현재 줄을 Work Area로 <strong>복사</strong></td></tr>
+              <tr><td><code>ls_student-score + 1</code></td><td>복사본만 바뀜</td></tr>
+              <tr><td>원본 반영</td><td><span class="viz-badge">MODIFY 한 번 더 필요</span></td></tr>
+              <tr><td>비용</td><td>줄마다 복사 발생 (큰 행이면 부담)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="viz-compare-after">
+        <span class="viz-compare-label">LOOP ... ASSIGNING &lt;fs_student&gt; (직접 참조)</span>
+        <div class="viz-compare-body">
+          <table class="viz-table">
+            <tbody>
+              <tr><td>동작</td><td>현재 줄의 <strong>원본 위치를 직접 가리킴</strong></td></tr>
+              <tr><td><code>&lt;fs_student&gt;-score + 1</code></td><td>원본이 즉시 바뀜</td></tr>
+              <tr><td>원본 반영</td><td><span class="viz-badge success">MODIFY 불필요 (쓰면 오히려 오류)</span></td></tr>
+              <tr><td>비용</td><td>복사 없음 — 대량 데이터에 유리</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="viz-note">복사본(INTO)을 고치면 원본에 다시 밀어 넣어야 하지만, 레이저 포인터(ASSIGNING)가 가리키는 곳을 고치면 그 자리가 곧 원본입니다. 강력한 만큼 “읽기만 할 코드인가?”를 먼저 확인해야 합니다.</p>
+  </div>
 </section>
 
 <section class="lesson-section">
@@ -154,7 +186,50 @@ ls_student-id = <span class="abap-token-string">'A02'</span>. ls_student-name = 
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 복사와 직접 참조 비교하기 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>예제 <code>zfield_symbol_basic</code>을 실행해 모든 학생 점수가 1점씩 오르는지 확인합니다.</li>
+        <li>첫 LOOP를 <code>INTO ls_student</code>로 바꾸고 같은 덧셈을 한 뒤, 점수가 오르지 <strong>않는</strong> 것을 확인합니다(복사본만 변경).</li>
+        <li>INTO 버전에서 점수를 반영하려면 무엇이 더 필요한지(MODIFY) 코드로 완성해봅니다.</li>
+        <li>ASSIGNING 버전에서 MODIFY를 추가하면 어떤 일이 생기는지도 확인해봅니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> 같은 로직을 INTO/ASSIGNING 두 방식으로 작성해보고 “언제 MODIFY가 필요하고 언제 불필요한지”를 설명할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPFIELD-SYMBOLS.html" target="_blank" rel="noopener">SAP Help Portal: FIELD-SYMBOLS</a> - Field Symbol 선언의 공식 문법을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB.html" target="_blank" rel="noopener">SAP Help Portal: LOOP AT itab</a> - ASSIGNING 옵션을 포함한 LOOP 문법을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMODIFY_ITAB.html" target="_blank" rel="noopener">SAP Help Portal: MODIFY itab</a> - INTO 방식에서 원본 반영에 쓰는 MODIFY를 비교합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li><code>LOOP ... ASSIGNING &lt;fs&gt;</code> 안에서 <code>&lt;fs&gt;</code>의 필드를 바꾼 뒤, 원본 반영을 위해 MODIFY를 또 호출해야 할까요?</li>
+    <li>대량 데이터 LOOP에서 ASSIGNING이 INTO보다 유리한 이유는 무엇인가요?</li>
+    <li>할당되지 않은 Field Symbol에 접근하면 어떻게 되나요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>아니요.</strong> Field Symbol은 원본 행을 직접 가리키므로 변경 즉시 원본에 반영됩니다. MODIFY를 또 쓰면 오히려 문법 오류나 불필요한 코드가 됩니다.</li>
+      <li><strong>줄마다 발생하는 복사 비용이 없기 때문</strong>입니다. INTO는 매 반복마다 행 전체를 Work Area로 복사하지만, ASSIGNING은 위치만 가리킵니다.</li>
+      <li><strong>런타임 오류가 날 수 있습니다.</strong> LOOP ASSIGNING처럼 할당이 보장되는 범위에서 쓰거나, <code>IF &lt;fs&gt; IS ASSIGNED.</code>로 확인 후 사용합니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">
