@@ -4,83 +4,312 @@
   <div class="lesson-callout-icon">🎯</div>
   <div class="lesson-callout-content">
     <h4>학습 목표</h4>
-    <p>지금까지 배운 <span class="glossary-term" data-glossary="ClassicView">Classic View</span>들이 왜 현대의 <span class="glossary-term" data-glossary="CDSViewEntity">CDS View Entity</span>로 옮겨가는지(<span class="glossary-term" data-glossary="Modernization">현대화</span>) 큰 그림으로 정리합니다. 다음 Chapter로 넘어가기 전 "고전 → 현대"의 다리를 놓는 것이 목표입니다.</p>
+    <p>지금까지 배운 <span class="glossary-term" data-glossary="ClassicView">Classic View</span>들의 한계를 명확히 짚어보고, 현대 SAP 아키텍처의 중심인 <span class="glossary-term" data-glossary="CDSViewEntity">CDS View Entity</span>로의 전환 방향성(<span class="glossary-term" data-glossary="Modernization">현대화</span>)을 배웁니다. 다음 Chapter로 넘어가기 전 고전과 현대의 데이터 모델링의 큰 그림을 맞춥니다.</p>
   </div>
 </div>
 
 <section class="lesson-section">
-  <h2>1. 지난 시간 연결: View가 너무 여러 종류였다 🤯</h2>
+  <h2>1. 지난 시간 연결: 왜 이렇게 뷰의 종류가 많았을까? 🤯</h2>
   <p>
-    이번 Chapter에서 우리는 Database View(합치기), Projection View(솎기), Help View(F4 목록), Maintenance View(편집)를 배웠습니다. 각각 역할이 다르고, 만드는 화면도 따로였죠.
+    이번 Chapter 12를 공부하면서 우리는 무려 4가지나 되는 고전 뷰(Classic View)들을 섭렵했습니다:
+  </p>
+  <ul>
+    <li><strong>Database View:</strong> 테이블 여러 개 합치기(INNER JOIN)</li>
+    <li><strong>Projection View:</strong> 필요한 필드만 골라서 솎아내기</li>
+    <li><strong>Help View:</strong> F4 입력 도움말에 줄 리스트 공급하기</li>
+    <li><strong>Maintenance View:</strong> 엑셀처럼 여러 테이블 데이터 편집하기</li>
+  </ul>
+  <p>
+    학습하면서 <em>"아니, 그냥 테이블 엮어서 조회하고 편집하고 도움말 띄우는 걸 굳이 4개 객체로 찢어서 관리해야 하나?"</em> 하는 의문이 들었을 것입니다. 
   </p>
   <p>
-    초보자 입장에서는 "왜 이렇게 종류가 많지?"라는 생각이 듭니다. 사실 SAP도 같은 고민을 했고, 그 답으로 나온 것이 <strong>하나의 강력한 모델로 통합</strong>한 <span class="glossary-term" data-glossary="CDSViewEntity">CDS View Entity</span>입니다.
+    실제로 SAP도 똑같은 고민을 거쳤고, 그 결과 탄생한 현대 SAP 개발의 핵심 기술이 바로 모든 기능을 코드로 하나에 때려 넣은 <strong>CDS View Entity</strong>입니다.
   </p>
 </section>
 
 <section class="lesson-section">
-  <h2>2. Classic View의 한계 🧱</h2>
-  <ul>
-    <li><strong>흩어진 종류:</strong> 용도마다 다른 View를 만들어야 합니다.</li>
-    <li><strong>제한된 표현력:</strong> 복잡한 계산·조건·의미 부여가 어렵습니다.</li>
-    <li><strong>GUI 종속:</strong> 주로 SAP GUI(SE11) 기반이라, 최신 클라우드·Fiori 흐름과는 결이 다릅니다.</li>
-  </ul>
+  <h2>2. Classic View의 한계: 왜 변화가 필요했는가? 🧱</h2>
+  <p>
+    고전 4대 뷰는 수십 년간 SAP 시스템의 중추적인 역할을 해왔지만, 현대적인 비즈니스 요구사항을 처리하기에는 다음과 같은 한계에 봉착했습니다.
+  </p>
+  
+  <div class="viz-visual">
+    <p class="viz-visual-title">Classic View 4종의 치명적인 한계점</p>
+    <table class="viz-table">
+      <thead>
+        <tr>
+          <th>한계 항목</th>
+          <th>고전 방식 (Classic View)의 문제점</th>
+          <th>비즈니스에 미치는 영향</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>객체의 파편화</strong></td>
+          <td>조회용, 도움말용, 수정용 뷰를 각각 SE11에서 따로 생성하고 관리해야 합니다.</td>
+          <td>동일한 테이블 관계 정보를 여러 뷰에 중복 정의하게 되어 변경 시 관리 비용이 증가합니다.</td>
+        </tr>
+        <tr>
+          <td><strong>표현력의 한계</strong></td>
+          <td>단순 JOIN이나 필드 제한 외에, 계산식, CASE 문 분기, 집계 연산(SUM, AVG) 등이 불가능합니다.</td>
+          <td>단순 가공을 위해서도 반드시 ABAP 프로그램 단에서 LOOP를 돌며 수동 코딩을 추가해야 합니다.</td>
+        </tr>
+        <tr>
+          <td><strong>GUI 종속 및 확장 실패</strong></td>
+          <td>주로 SAP GUI 화면 전용으로 최적화되어 설계되었습니다.</td>
+          <td>최신 웹 환경(SAP Fiori)이나 모바일, 외부 클라우드 시스템에 OData 서비스로 직접 확장하기 어렵습니다.</td>
+        </tr>
+        <tr>
+          <td><strong>성능 최적화 부재</strong></td>
+          <td>전통적인 RDBMS 기반으로 설계되어 대용량 데이터를 가져올 때 병목이 생깁니다.</td>
+          <td>SAP HANA DB의 인메모리 파워를 100% 이끌어내지 못하고 WAS(애플리케이션 서버)에 부하가 집중됩니다.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>3. CDS View Entity: 현대 SAP 데이터 모델의 구원자 🌟</h2>
+  <p>
+    <span class="glossary-term" data-glossary="CDSViewEntity">CDS View Entity</span>는 데이터베이스 레벨에서 SQL을 기반으로 고성능 데이터 모델을 정의하는 차세대 뷰 구조입니다. Classic View 4종의 역할을 완벽하게 통합하고 확장합니다.
+  </p>
+  
   <div class="lesson-callout">
     <div class="lesson-callout-icon">💡</div>
     <div class="lesson-callout-content">
-      <h4>비유: 따로 노는 앱 여러 개 vs 올인원 앱</h4>
-      <p>지도 앱, 길찾기 앱, 맛집 앱을 따로 깔던 시절에서, 하나의 앱이 다 해주는 시대로 바뀐 것과 비슷해요. CDS는 합치기·계산·의미·권한·도움말을 한 곳에서 표현합니다.</p>
+      <h4>비유: 여러 개의 전용 장비 vs 최신 올인원 스마트폰</h4>
+      <p>예전에는 삐삐(Help View), MP3(Projection View), 내비게이션(Database View), 전자수첩(Maintenance View)을 주머니에 주렁주렁 들고 다녔다면, 이제는 고성능 스마트폰(CDS View Entity) 하나가 이 모든 기능을 부드럽고 완벽하게 수행하는 것과 같아요!</p>
+    </div>
+  </div>
+
+  <h3>CDS View Entity가 제공하는 혁신적인 3대 강점</h3>
+  <ul>
+    <li>✅ <strong>SQL 기반 텍스트 코딩:</strong> 마우스 클릭 노가다 대신 이클립스 ADT에서 익숙한 SQL DDL 코드로 뷰를 코딩합니다. Git과 같은 최신 형상 관리 시스템과의 호환성이 극대화됩니다.</li>
+    <li>✅ <strong>Annotation (어노테이션) 메타데이터:</strong> 코드 상단에 <code>@UI.lineItem</code> 또는 <code>@Search.defaultSearchElement</code>와 같은 어노테이션을 달아두면, SAP Fiori 웹 화면 레이아웃 설정과 Search Help 검색 기능까지 뷰 코드 자체에서 제어할 수 있습니다.</li>
+    <li>✅ <strong>Association (연관 관계)의 도입:</strong> 일반 JOIN처럼 무조건 데이터를 합치지 않고, 사용자가 화면에서 해당 텍스트를 클릭하거나 상세 정보를 펼칠 때에만 런타임에 동적으로 JOIN을 수행하여 시스템 성능을 엄청나게 절약합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>4. Classic View ↔ CDS View Entity 아키텍처 구조 비교 🗺️</h2>
+  <p>
+    파편화된 기존 고전 뷰 아키텍처와, 통합된 CDS View Entity가 데이터베이스에서 웹 프레젠테이션 레이어까지 관통하는 현대 아키텍처의 차이를 시각적으로 확인해 봅시다.
+  </p>
+  
+  <div class="viz-visual">
+    <p class="viz-visual-title">데이터 모델 아키텍처 패러다임 시프트</p>
+    <div class="viz-svg">
+      <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg">
+        <!-- Background grid/styles -->
+        <rect width="800" height="320" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+        
+        <!-- Left Side: Classic (Red/Yellow theme) -->
+        <rect x="20" y="20" width="350" height="280" rx="8" fill="#fff5f5" stroke="#fca5a5" stroke-dasharray="4" stroke-width="2"/>
+        <text x="195" y="45" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#991b1b" text-anchor="middle">고전 방식 (Classic View)</text>
+        
+        <!-- Database View Box -->
+        <rect x="40" y="70" width="140" height="40" rx="4" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/>
+        <text x="110" y="94" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#991b1b" text-anchor="middle">Database View (조회)</text>
+        
+        <!-- Projection View Box -->
+        <rect x="40" y="125" width="140" height="40" rx="4" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/>
+        <text x="110" y="149" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#991b1b" text-anchor="middle">Projection View (필터)</text>
+
+        <!-- Help View Box -->
+        <rect x="40" y="180" width="140" height="40" rx="4" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/>
+        <text x="110" y="204" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#991b1b" text-anchor="middle">Help View (F4 도움말)</text>
+
+        <!-- Maintenance View Box -->
+        <rect x="40" y="235" width="140" height="40" rx="4" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/>
+        <text x="110" y="259" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#991b1b" text-anchor="middle">Maintenance View (수정)</text>
+
+        <!-- SAP GUI Line -->
+        <path d="M 180 90 L 220 90 L 220 255 L 180 255" stroke="#f87171" stroke-width="2" fill="none"/>
+        
+        <rect x="235" y="125" width="110" height="70" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+        <text x="290" y="155" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#78350f" text-anchor="middle">SAP GUI 화면</text>
+        <text x="290" y="175" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#92400e" text-anchor="middle">(SE11 / SM30 전용)</text>
+
+        <!-- Center Divider -->
+        <line x1="400" y1="20" x2="400" y2="300" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="5"/>
+
+        <!-- Right Side: Modern CDS (Green/Blue theme) -->
+        <rect x="430" y="20" width="350" height="280" rx="8" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="2"/>
+        <text x="605" y="45" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#065f46" text-anchor="middle">현대 아키텍처 (CDS View Entity)</text>
+
+        <!-- The Big CDS Box -->
+        <rect x="460" y="70" width="290" height="90" rx="8" fill="#d1fae5" stroke="#10b981" stroke-width="2"/>
+        <text x="605" y="95" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#065f46" text-anchor="middle">CDS View Entity</text>
+        <text x="605" y="120" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#047857" text-anchor="middle">SQL 조인 + Association 관계</text>
+        <text x="605" y="140" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#047857" text-anchor="middle">@UI Annotation 메타데이터 내장</text>
+
+        <!-- Flow Line from CDS to Web -->
+        <path d="M 605 160 L 605 200" stroke="#34d399" stroke-width="3" fill="none"/>
+        <polygon points="600,200 605,210 610,200" fill="#34d399"/>
+
+        <!-- Modern Web Fiori Screen -->
+        <rect x="490" y="210" width="230" height="75" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+        <text x="605" y="235" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#1e3a8a" text-anchor="middle">Modern Web (SAP Fiori / Web API)</text>
+        <text x="605" y="255" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#1e40af" text-anchor="middle">OData &amp; RAP 아키텍처 자동 바인딩</text>
+        <text x="605" y="270" font-family="'Segoe UI', Roboto, sans-serif" font-size="9" fill="#1d4ed8" text-anchor="middle">모바일, 태블릿, PC 멀티 스크린 대응 📱</text>
+      </svg>
     </div>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>3. CDS View Entity가 가져온 변화 ✍️</h2>
+  <h2>5. 정상 흐름과 실무 적용 방향성 🔍</h2>
   <ul>
-    <li>✅ <strong>코드로 정의:</strong> 화면 클릭이 아니라 텍스트(소스 코드)로 View를 정의해, 버전 관리·이관이 쉽습니다.</li>
-    <li>✅ <strong>풍부한 표현:</strong> JOIN·계산·CASE·집계는 물론, <strong>Association</strong>(관계)과 <strong>Annotation</strong>(의미 부여)까지 한 곳에서.</li>
-    <li>✅ <strong>현대 스택 연결:</strong> OData·Fiori·RAP로 자연스럽게 이어집니다(THEORY-20·21).</li>
-    <li>✅ <strong>코드 푸시다운:</strong> 계산을 DB(HANA)에서 처리해 성능에 유리합니다.</li>
-  </ul>
-  <blockquote>
-    한 줄 요약: Classic View가 "용도별 도구 모음"이라면, CDS View Entity는 "현대적 통합 데이터 모델 언어"입니다.
-  </blockquote>
-</section>
-
-<section class="lesson-section">
-  <h2>4. 그래도 Classic을 배우는 이유 🔍</h2>
-  <ul>
-    <li>✅ <strong>유지보수 현장:</strong> 운영 중인 수많은 기존 시스템은 여전히 Classic View로 가득합니다. 읽고 고칠 줄 알아야 합니다.</li>
-    <li>✅ <strong>개념의 뿌리:</strong> JOIN·필드 제한·F4·유지보수 같은 개념은 CDS에서도 그대로 쓰입니다. 이름과 도구만 바뀝니다.</li>
+    <li>✅ <strong>신규 개발 표준:</strong> S/4HANA 이상의 최신 시스템에서는 가상 데이터 모델(VDM)에 근거하여 모든 신규 조회용 뷰를 <strong>CDS View Entity</strong>로 설계하는 것이 표준 권장사항입니다.</li>
+    <li>✅ <strong>기존 자산의 존중:</strong> 비록 고전 뷰가 노후화되었다 하더라도, 기존 레거시 프로그램과 스탠다드 로직에서 튼튼하게 작동하고 있다면 무리하게 변환하기보다 영향도를 파악하며 부분적으로 현대화를 적용해야 합니다.</li>
+    <li>❌ <strong>버전 확인 필수:</strong> CDS View Entity는 SAP NetWeaver 7.50 이상, 특히 S/4HANA 데이터베이스(HANA DB) 환경에서 그 파워가 극대화됩니다. 구버전 ECC 시스템에서는 문법 및 기능 지원 범위가 좁으므로 반드시 로컬 시스템 버전을 선행 점검해야 합니다.</li>
   </ul>
 </section>
 
 <section class="lesson-section">
-  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <h2>6. 실무에서 조심할 점: "코드 푸시다운"에 숨겨진 함정 🚨</h2>
   <div class="lesson-callout warn">
     <div class="lesson-callout-icon">⚠️</div>
     <div class="lesson-callout-content">
-      <h4>"무조건 CDS"도, "무조건 Classic"도 아닙니다</h4>
-      <p>신규 개발은 CDS가 기본이지만, 기존 Classic 자산을 무리하게 한꺼번에 갈아엎으면 위험합니다. 시스템 버전(ECC인지 S/4HANA인지), 팀 표준, 영향 범위를 보고 판단합니다. 지금 단계에서는 "둘의 관계와 방향"을 이해하는 것으로 충분합니다.</p>
+      <h4>모든 연산을 DB로 내리는 것만이 정답은 아닙니다!</h4>
+      <p>CDS View의 가장 큰 장점 중 하나는 연산 로직을 데이터베이스 단에서 빠르게 처리하고 결과만 받아오는 <strong>코드 푸시다운(Code Pushdown)</strong> 기술입니다. 그러나 다음과 같은 오류를 방지해야 합니다:</p>
+      <ul>
+        <li><strong>과도한 문자열 가공:</strong> 문자열 파싱, 결합, 포맷팅 등은 DB보다 Application Server(WAS) 메모리에서 가공하는 것이 오히려 더 효율적인 경우가 많습니다.</li>
+        <li><strong>복잡한 비즈니스 정책:</strong> 수시로 바뀌는 비즈니스 예외 규정이나 분기 로직을 전부 CDS SQL 코드(CASE WHEN 등)로 단단하게 굳혀버리면, 나중에 화면 기획이나 정책이 바뀌었을 때 SQL 전체를 뜯어고쳐야 하는 유지보수 헬게이트가 열릴 수 있습니다.</li>
+      </ul>
+      <p>따라서, 대용량 필터링과 원천 데이터 집계는 DB(CDS)에 밀어 넣고, 미세한 문자열 렌더링이나 비즈니스 의사결정은 ABAP 로직에서 처리하도록 역할을 적절히 배분하는 지혜가 필요합니다.</p>
     </div>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>6. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: CDS View Entity 가상 설계 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제: 정훈영 사원의 부서 정보 CDS 모델링 기획</h4>
+      <p>
+        <strong>정훈영 사원</strong>은 인사 정보를 웹 브라우저(Fiori) 화면에 출력하기 위해, 기존에 만들어 둔 <code>ZDEPT</code>(부서 마스터) 테이블과 <code>ZDEPTT</code>(언어 설명) 테이블을 엮어 하나의 현대식 CDS View Entity로 전환하는 설계를 가상으로 구현해 보려 합니다.
+      </p>
+      <ol>
+        <li>이클립스 ADT에서 새 <strong>Data Definition</strong>을 생성하고 이름은 <code>ZDEMO_CDS_DEPT</code>로 선언합니다.</li>
+        <li>소스 코드 에디터에서 다음과 같이 테이블 관계(Association)와 필드 매핑 DDL을 타이핑합니다:</li>
+      </ol>
+      <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18
+    </div>
+    <pre class="shiki abap-editor-code"><code>@AbapCatalog.viewEnhancementCategory: [#NONE]
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: <span class="abap-token-string">'정훈영 사원의 부서 정보 현대화 CDS'</span>
+@Metadata.ignorePropagatedAnnotations: true
+
+<span class="abap-token-keyword">define</span> <span class="abap-token-keyword">view</span> <span class="abap-token-keyword">entity</span> ZDEMO_CDS_DEPT
+  <span class="abap-token-keyword">as</span> <span class="abap-token-keyword">select</span> <span class="abap-token-keyword">from</span> ZDEPT
+  <span class="abap-token-keyword">association</span> [<span class="abap-token-number">1</span>..*] <span class="abap-token-keyword">to</span> ZDEPTT <span class="abap-token-keyword">as</span> _Text <span class="abap-token-keyword">on</span> $projection.deptid = _Text.deptid
+{
+  @UI.lineItem: [{ position: <span class="abap-token-number">10</span> }]
+  <span class="abap-token-keyword">key</span> deptid,
+  
+  @UI.lineItem: [{ position: <span class="abap-token-number">20</span> }]
+  budget,
+  
+  @UI.lineItem: [{ position: <span class="abap-token-number">30</span> }]
+  _Text.deptname
+}</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+      <ol start="3">
+        <li><strong>F3</strong>을 눌러 문법 오류가 없는지 파악하고, <strong>Ctrl + F3</strong>을 눌러 활성화를 시킵니다.</li>
+        <li>그 후 <strong>F8</strong>을 눌러 데이터 미리보기(Data Preview) 화면을 열어 봅니다.</li>
+        <li>아래와 같이 정훈영 사원이 입력한 부서코드와 부서설명이 런타임에 동적으로 Association되어 표에 잘 조인되어 뿌려지는지 확인합니다:
+          <table class="viz-table">
+            <thead>
+              <tr>
+                <th>DEPTID (부서코드)</th>
+                <th>BUDGET (예산)</th>
+                <th>DEPTNAME (부서명)</th>
+                <th>실제 Join 작동 시점</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="viz-highlight-row">
+                <td>D01</td>
+                <td>50,000,000</td>
+                <td>개발팀</td>
+                <td>조회 요청 시 동적 결합 (정훈영 관리 ✅)</td>
+              </tr>
+              <tr>
+                <td>D02</td>
+                <td>30,000,000</td>
+                <td>영업팀</td>
+                <td>조회 요청 시 동적 결합 (홍길동 관리)</td>
+              </tr>
+            </tbody>
+          </table>
+        </li>
+      </ol>
+      <p><strong>완료 조건:</strong> DDL 코드로 CDS View Entity를 작성하고, Annotation and Association을 통해 기존 Database View와 Help View의 역할이 하나로 통합된 데이터 미리보기를 수행할 수 있으면 합격입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_CDS_ENTITIES.html" target="_blank" rel="noopener">SAP Help Portal: ABAP CDS Entities</a> - 현대 SAP 아키텍처 내에서 CDS View Entity의 공식 스펙과 데이터 모델링 규격을 심도 있게 배웁니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCDS_ASSOCIATIONS.html" target="_blank" rel="noopener">SAP Help Portal: CDS Associations</a> - 일반 JOIN 대비 런타임 성능을 획기적으로 올려주는 CDS Association의 동적 Join 매커니즘과 선언 규격을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCDS_ANNOTATIONS.html" target="_blank" rel="noopener">SAP Help Portal: CDS Annotations Reference</a> - `@UI`나 `@Search` 등 UI 프레젠테이션 및 시맨틱스 정의를 위한 메타데이터 어노테이션 사용법을 배웁니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>Classic View 4종(Database/Projection/Help/Maintenance)과 달리 CDS View Entity는 어떤 방식으로 데이터 모델을 선언하나요?</li>
+    <li>CDS View Entity에서 일반 SQL JOIN 방식 대신 사용하며, 데이터가 화면에 표시되거나 요청될 때 필요한 경우에만 런타임에 결합을 수행하는 동적 관계 설계 방식을 무엇이라고 하나요?</li>
+    <li>CDS View Entity 코드 상단이나 필드 위에 `@` 기호를 붙여 비즈니스적 설명, 검색 속성, 혹은 SAP Fiori UI 레이아웃 화면 표시 방법을 명시해 주는 메타데이터를 무엇이라고 부르나요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>이클립스 ADT 환경에서 텍스트 기반 소스 코드로 SQL DDL 문법을 사용해 선언합니다.</strong> 이를 통해 객체 파편화를 막고 코드로써 버전 관리가 가능해집니다.</li>
+      <li><strong>Association (연관 관계)입니다.</strong> 이를 이용하면 정적 JOIN에 비해 데이터베이스 쿼리 성능이 획기적으로 개선됩니다.</li>
+      <li><strong>Annotation (어노테이션)입니다.</strong> 어노테이션을 통해 데이터 모델 자체가 프레젠테이션 레이어(UI)에 힌트를 주어 화면 배치를 주도할 수 있게 됩니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">
-      <h4>THEORY-12 마무리 핵심</h4>
+      <h4>Chapter 12 최종 요약 및 현대화 핵심</h4>
       <ul>
-        <li>Classic View는 <strong>Database(합치기)·Projection(솎기)·Help(F4)·Maintenance(편집)</strong>로 용도가 나뉩니다.</li>
-        <li><strong>TMG/SM30</strong>으로 유지보수 화면을 자동 생성·관리합니다.</li>
-        <li>현대 SAP는 이 역할들을 <strong>CDS View Entity</strong> 하나로 통합·확장합니다.</li>
-        <li>개념(JOIN·필드 제한·F4·유지보수)은 그대로 이어지므로, Classic 학습은 헛되지 않습니다.</li>
+        <li><strong>Classic View</strong>는 Database, Projection, Help, Maintenance 4가지로 쪼개져 관리의 파편화 문제가 존재했습니다.</li>
+        <li><strong>CDS View Entity</strong>는 고전 4종 뷰의 조회, 필터링, 도움말 기능 등을 하나의 모델로 스마트하게 <strong>통합</strong>합니다.</li>
+        <li><strong>SQL 기반의 코딩</strong>, 성능을 보존하는 <strong>Association</strong>, UI 배치를 제어하는 <strong>Annotation</strong>이 CDS의 3대 무기입니다.</li>
+        <li>신규 현대화 개발의 중심은 CDS이지만, 레거시 시스템 유지보수를 위해 고전 뷰의 작동 원리를 파악하는 것은 필수입니다.</li>
       </ul>
     </div>
   </div>
   <p>
-    데이터 모델과 View를 충분히 다졌습니다. 다음 Chapter <strong>ABAP Report Event와 Selection Screen 심화</strong>에서는, 프로그램이 실행될 때 거치는 <strong>이벤트 흐름</strong>을 배우며 본격적인 리포트 프로그래밍으로 들어갑니다.
+    축하합니다! 이로써 데이터 모델과 뷰의 핵심 장대 터널을 무사히 빠져나왔습니다. 다음 Chapter 13 <strong>ABAP Report Event와 Selection Screen 심화</strong>부터는, 프로그램이 구동되는 시점별 라이프사이클 이벤트와 화면 제어 로직을 다루며 리포트 개발자의 실전 영역으로 본격 진입합니다. 다음 단계를 향해 힘차게 나아가 봅시다! 🚀
   </p>
 </section>

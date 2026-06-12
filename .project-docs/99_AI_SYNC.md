@@ -17,7 +17,7 @@
 
 ## 현재 상태 및 목표 (Current Status & Goals)
 - **현재 목표**: 🎉 **Track 1(THEORY-*) 137/137 작성 완료!** (THEORY-01~21 전부). 사용자의 새 목표에 따라 Track 1을 "고품질 교육용 웹페이지" 기준으로 재감사·보강하는 라운드를 진행 중. 기준 문서: [TRACK1_QUALITY_PLAN.md](TRACK1_QUALITY_PLAN.md). 병행 다음 목표는 **Track 2(PRACTICAL-* 13개 섹션)** 신규 작성.
-- **최근 진행(2026-06-12, Antigravity)**: **Chapter 10 (Range Table) M03~M06** 남은 레슨 고품질화 및 예제 이름 규칙(정훈영 주인공 규칙) 적용 완료. **Chapter 11 (JOIN과 집계) M01~M07** 고품질화 마무리 및 Chapter 10 & 11 통합 정적 분석 검증 완료. 로컬 웹 서버(localhost:8080) 구동 확인 완료.
+- **최근 진행(2026-06-12, Antigravity)**: **Chapter 10~12 (Range Table, JOIN, Classic View)** 고품질화 완료 및 예제 이름 규칙(정훈영 주인공 규칙) 적용 완료. TMG/SM30 및 Classic/CDS 비교 아키텍처 SVG 흐름 시각화 보강 완료. `abap_glossary.json` 누락 용어 5종 패치 완료. **THEORY-13-M01의 이벤트 라이프사이클 다이어그램을 roadmap.html의 CSS 트리 구조로 개선 교체 완료**. 로컬 웹 서버(localhost:8080) 구동 확인 완료.
 - **최근 진행(2026-06-11, Claude)**: 사용자 승인 플랜에 따라 **Track 1 시각화 확산 + 고품질화 통합 라운드** 시작. Phase 0(기반 정비) 완료 — `viz-*` 범용 CSS 별칭/`viz-compare`/`viz-svg` 신설, 시각화 패턴 카탈로그 7종을 HANDOFF에 표준화, Chapter 10 일반 표 정리, 포맷터 SQL 키워드 보강(77개 파일 하이라이트 개선). **NotebookLM MCP 연결 완료**(notebooklm-mcp v2.0.0, 노트북 `ABAP Evolution and Messaging Channels Training Guide` 등록·질의 검증). 이후 Chapter 4→19 통합 패스, 마지막에 Chapter 1~3/6/20~21 시각화 보강 미니 패스 예정.
 - **이전 진행(2026-06-11, Codex)**: 사용자 피드백에 따라 `Chapter 1의 Lesson 1`, `Chapter 2의 Lesson 3`, `Chapter 5의 Lesson 2/4/5`, `Chapter 6의 Lesson 1~6`을 보정. 코드 예제 D2Coding 상속, ABAP 키워드 포맷터 확장, Classic `WRITE`와 ADT `out->write( )` 구분, Subroutine 전달 방식, Class 입문 설명, Internal Table 시각 자료를 보강.
 - **⚠️ 동시 작업 주의**: AI 작업 간 겹침 방지를 위해 섹션 단위 작업을 엄수.
@@ -41,6 +41,25 @@
 ---
 
 ## 작업 이력 (Work Log)
+
+### [2026-06-12] Antigravity IDE (Gemini 3.5 Flash) — THEORY-13-M01 다이어그램 디자인 개선
+- **작업 내용**:
+  - `Chapter 13의 THEORY-13-M01`에 시범 적용되어 있던 Mermaid.js 다이어그램을 `roadmap.html`에 사용된 트리 다이어그램 스타일(`.roadmap-tree`, `.tree-node`, `.connector-line` 등 CSS 활용)로 전면 교체했습니다.
+  - 인라인 스타일 금지 규칙을 엄격히 준수하기 위해 `data-phase` 속성을 통해 색상을 매핑하였으며, 6단계 이벤트 실행 흐름과 검증 실패 루프 힌트를 직관적으로 구조화했습니다.
+  - `tools/format-abap-code.mjs` 포맷터 및 `tools/build-abap-curriculum.mjs` 빌드 스크립트를 재수행하여 검증 완료했습니다.
+- **검증 메모**:
+  - 인라인 style 속성 없음, 정적 분석 오류 없음.
+
+### [2026-06-12] Antigravity IDE (Gemini 3.5 Flash) — Chapter 12 고품질화+시각화 통합 패스 및 마무리
+- **작업 내용**:
+  - `Chapter 12 (THEORY-12-M01~M06)` 6개 레슨 고품질화, 미니 실습, 퀴즈, 공식 링크 3개 및 `정훈영` 이름 규칙 적용 완료.
+  - M01~M04 이전 고품질화 반영분 포함, M05 및 M06 신규 고품질화 및 전수 정적 분석 검사(인라인 스타일 제거, 내부 ID 비노출, 글로서리 누락 방지) 완료.
+  - 시각 자료 추가: M05 TMG ↔ SM30 화면 빌드 및 실행 데이터 바인딩 아키텍처 흐름도 SVG, M06 Classic View ↔ CDS View Entity 현대화 패러다임 시프트 아키텍처 구조도 SVG.
+  - 글로서리 패치: `reference/abap_glossary.json`에 TMG, SM30, MaintenanceDialog, ClassicView, CDSViewEntity 등 누락되었던 5대 핵심 용어 신규 정의 및 매핑 적용 완료.
+  - `tools/format-abap-code.mjs` 포맷터 실행을 통해 THEORY-12 내의 ABAP 코드 블록들 Navy Editor 테마 및 구문 하이라이트 정상 적용 완료.
+- **검증 메모**:
+  - Chapter 12 인라인 style/script 0건, 내부 ID 노출 0건, 글로서리 미정의 0건.
+- **다음 AI를 위한 메모**: 다음은 Chapter 13(Report Event와 Selection Screen 심화, 7개 레슨) 고품질화 + 시각화 패스. 이벤트 생명주기 흐름도 시각화 및 퀴즈/실습 추가가 핵심.
 
 ### [2026-06-12] Antigravity IDE (Gemini 3.5 Flash) — Chapter 10 & 11 고품질화+시각화 통합 패스 및 마무리
 - **작업 내용**:

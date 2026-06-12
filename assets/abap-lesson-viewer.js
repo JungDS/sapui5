@@ -250,6 +250,20 @@
       .then(function (html) {
         root.innerHTML = html;
         setupCodeCopyButtons(root);
+        if (window.mermaid) {
+          try {
+            window.mermaid.initialize({
+              startOnLoad: false,
+              theme: 'neutral',
+              securityLevel: 'loose'
+            });
+            window.mermaid.run({
+              nodes: root.querySelectorAll('.mermaid')
+            });
+          } catch (e) {
+            console.error("Failed to run Mermaid: ", e);
+          }
+        }
       })
       .catch(function (error) {
         renderError(error.message);

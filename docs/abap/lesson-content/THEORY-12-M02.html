@@ -66,36 +66,118 @@
 </section>
 
 <section class="lesson-section">
-  <h2>4. 한계 분명히 알기 🔍</h2>
+<section class="lesson-section">
+  <h2>4. Projection View의 필드 솎아내기 시각화 🗺️</h2>
+  <p>
+    원본 테이블 `ZEMPLOYEE`(수많은 기술/관리용 필드가 섞여 있음)에서 사용자가 명함용 필수 필드(사원번호, 이름, 전화번호)만 솎아내어 Projection View `ZV_EMP_MINI`를 구성하는 구조를 시각화해 보겠습니다.
+  </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">ZEMPLOYEE (원본 테이블) ➔ ZV_EMP_MINI (Projection View) 매핑</p>
+    <div class="viz-compare">
+      <div class="viz-compare-before">
+        <span class="viz-compare-label">1. ZEMPLOYEE (전체 필드)</span>
+        <table class="viz-table">
+          <thead><tr><th>필드명</th><th>설명</th><th>상태</th></tr></thead>
+          <tbody>
+            <tr class="viz-highlight-row"><td><strong>EMPID</strong></td><td>사원ID (Key)</td><td>선택 ✅</td></tr>
+            <tr class="viz-highlight-row"><td><strong>EMPNAME</strong></td><td>사원명</td><td>선택 ✅</td></tr>
+            <tr><td>DEPTID</td><td>부서코드</td><td>제외 ❌</td></tr>
+            <tr class="viz-highlight-row"><td><strong>TEL</strong></td><td>전화번호</td><td>선택 ✅</td></tr>
+            <tr><td>HIREDATE</td><td>입사일자</td><td>제외 ❌</td></tr>
+            <tr><td>SALARY</td><td>연봉 (민감 정보)</td><td>제외 ❌</td></tr>
+            <tr><td>CHANGED_BY</td><td>최종변경자</td><td>제외 ❌</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-compare-after">
+        <span class="viz-compare-label">2. ZV_EMP_MINI (Projection View)</span>
+        <table class="viz-table">
+          <thead><tr><th>EMPID</th><th>EMPNAME</th><th>TEL</th></tr></thead>
+          <tbody>
+            <tr><td>E001</td><td>정훈영</td><td>010-1111-2222</td></tr>
+            <tr><td>E002</td><td>홍길동</td><td>010-3333-4444</td></tr>
+          </tbody>
+        </table>
+        <p class="viz-note">민감한 급여 정보나 불필요한 시스템 관리 필드는 감추고, 필요한 필드만 콤팩트하게 노출합니다.</p>
+      </div>
+    </div>
+    <p class="viz-note">Database View와 달리 Projection View는 물리 데이터베이스 레벨에 View 객체를 생성하지 않고, ABAP 런타임 단계에서 SQL을 변환하여 데이터를 걸러내 줍니다.</p>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 한계와 독특한 기능 분명히 알기 🔍</h2>
   <ul>
-    <li>❌ <strong>JOIN 불가:</strong> 단 하나의 테이블만 바탕으로 합니다. 다른 테이블과 합치려면 Database View(또는 CDS)를 써야 합니다.</li>
-    <li>❌ <strong>계산·가공 제한:</strong> 필드를 고를 뿐, 복잡한 계산이나 변형은 어렵습니다.</li>
-    <li>📌 정리하면 Projection View는 "<strong>한 테이블 + 칸 솎아내기</strong>"라는 아주 좁고 단순한 역할에 특화돼 있습니다.</li>
+    <li>❌ <strong>JOIN 완전 불가:</strong> 오직 단 하나의 기본 테이블만 바라볼 수 있습니다. 여러 테이블을 엮어 필드를 구성하려면 Database View를 사용해야 합니다.</li>
+    <li>❌ <strong>가공/계산 필드 추가 불가:</strong> 필드 순서를 바꾸거나 솎아내는 것 외에, 필드 값을 연산(예: 연봉 * 1.1)하거나 가공하여 새로운 가상 필드를 만들 수 없습니다.</li>
+    <li>✅ <strong>수정 및 쓰기 지원 (Write-Enabled):</strong> 데이터베이스 뷰와 다르게, Projection View는 **데이터 삽입(INSERT) 및 변경(UPDATE/DELETE)이 가능**합니다! 단, 뷰에 기본 테이블의 **모든 Key 필드가 반드시 포함**되어 있어야만 데이터 쓰기 규칙을 충족합니다.</li>
   </ul>
 </section>
 
 <section class="lesson-section">
-  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <h2>6. 실무에서 조심할 점 🚨</h2>
   <div class="lesson-callout warn">
     <div class="lesson-callout-icon">⚠️</div>
     <div class="lesson-callout-content">
-      <h4>역할을 헷갈리지 마세요</h4>
-      <p>"여러 테이블 합치기 = Database View", "한 테이블 칸 솎기 = Projection View". 둘을 섞어 기억하면 설계가 꼬입니다. 또 최신 환경에서는 이런 단순 Classic View들도 대부분 <strong>CDS View</strong>로 표현하는 추세이니, 지금은 "View마다 역할이 다르다"는 큰 그림을 잡아두세요.</p>
+      <h4>모든 Key 필드가 포함되지 않으면 쓰기 런타임 에러가 발생합니다</h4>
+      <p>Projection View를 통해 데이터를 업데이트할 때, 기본 테이블의 Key 필드가 하나라도 뷰에서 빠져 있다면 런타임에 어떤 레코드를 갱신해야 할지 식별할 수 없어 오류가 발생합니다. 데이터를 직접 수정할 목적의 Projection View라면 반드시 Key 필드 구성을 꼼꼼하게 설계 단계에서 확보해야 합니다.</p>
     </div>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>6. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: Projection View 조회 및 데이터 쓰기 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>표준 테이블 `SPFLI`(항공편)를 솎아내어 만든 표준 Projection View <code>SPFLIP</code>의 구조를 ADT 사전에서 확인해 봅니다.</li>
+        <li>Projection View <code>SPFLIP</code>에서 제공하는 필드 목록이 원본 테이블 `SPFLI`에 비해 어떻게 단순화되었는지 비교합니다.</li>
+        <li>기본 키인 <code>CARRID</code>와 <code>CONNID</code>가 포함된 가상의 사원 Projection View에 <code>INSERT</code> 구문을 작성해 보며, 뷰를 통해서도 원본 테이블로 데이터 쓰기가 직접 전송되는 원리를 이해합니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> Projection View의 쓰기 가능 조건(모든 Key 필드 포함)을 파악하고 조회 코드를 정상 구현하면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENVIEWS_PROJ_VIEWS.html" target="_blank" rel="noopener">SAP Help Portal: Projection Views</a> - ABAP Dictionary에서 정의하는 Projection View의 스펙과 제한 조건을 파악합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINSERT_TEXT_TABLE.html" target="_blank" rel="noopener">SAP Help Portal: Write Access to Projection Views</a> - 뷰를 통해 기본 테이블에 값을 기록할 때 충족해야 하는 키 설계 규칙을 학습합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECT.html" target="_blank" rel="noopener">SAP Help Portal: SELECT from View</a> - Projection View를 조회(Read)하는 쿼리 문법의 표준 사양을 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>Database View와 달리, Projection View를 사용할 때 데이터를 직접 수정(INSERT/UPDATE)하는 것이 가능한가요?</li>
+    <li>Projection View에서 2개 이상의 테이블을 결합(JOIN)하여 뷰를 생성할 수 있나요?</li>
+    <li>Projection View를 통해 기본 테이블에 데이터를 쓰기(Write)할 때 뷰에 반드시 포함되어 있어야 하는 필드 군은 무엇인가요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>네, 가능합니다.</strong> Database View는 조회(Read-Only)만 되지만, Projection View는 쓰기 및 갱신 처리가 지원됩니다.</li>
+      <li><strong>아니요. 불가능합니다.</strong> Projection View는 단일 테이블(Single Table)의 필드 수직 제한만 지원하므로 JOIN 기능을 쓸 수 없습니다.</li>
+      <li><strong>기본 테이블의 모든 Key 필드가 반드시 포함되어 있어야 합니다.</strong> Key 필드가 누락되면 데이터의 식별이 불가능하여 수정 작업 수행 시 오류가 납니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">
-      <h4>오늘의 핵심만 딱 잡기</h4>
+      <h4>Projection View 핵심 요약</h4>
       <ul>
-        <li><strong>Projection View</strong>는 한 테이블에서 필요한 필드만 골라 보여줍니다.</li>
-        <li>JOIN을 하지 않으며, 칸을 솎아 단순하게 만드는 것이 목적입니다.</li>
-        <li>원본 필드가 늘어도 View를 쓰는 코드는 영향을 덜 받습니다.</li>
-        <li>합치기는 Database View, 솎기는 Projection View로 역할이 다릅니다.</li>
+        <li><strong>Projection View</strong>는 단일 테이블의 필요한 필드들만 수직으로 솎아내어 심플하게 관리하는 DDIC 구조입니다.</li>
+        <li>복수 테이블 JOIN이나 필드 값의 연산/가공은 지원되지 않습니다.</li>
+        <li><strong>쓰기 작업(CUD)을 완벽히 지원</strong>하지만, 기본 테이블의 모든 Key 필드를 포함해야만 런타임 에러가 나지 않습니다.</li>
+        <li>현대적인 SAP Cloud 환경에서는 CDS View 등을 통해 필드를 솎아내어 API로 제공하는 아키텍처가 중심이 되고 있습니다.</li>
       </ul>
     </div>
   </div>

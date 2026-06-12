@@ -137,15 +137,35 @@
     <div class="viz-compare">
       <div class="viz-compare-before">
         <span class="viz-compare-label">1. ABAP 명령 수행 단계</span>
-        <pre class="shiki abap-editor-code"><code>DATA r_empid TYPE RANGE OF zemployee-empid.
+        <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span> r_empid <span class="abap-token-keyword">TYPE</span> RANGE <span class="abap-token-keyword">OF</span> zemployee-empid.
 
-APPEND VALUE #( sign = 'I'
-                option = 'EQ'
-                low = 'E001' ) TO r_empid.
+<span class="abap-token-keyword">APPEND</span> <span class="abap-token-keyword">VALUE</span> #( <span class="abap-token-keyword">sign</span> = <span class="abap-token-string">'I'</span>
+                <span class="abap-token-keyword">option</span> = <span class="abap-token-string">'EQ'</span>
+                <span class="abap-token-keyword">low</span> = <span class="abap-token-string">'E001'</span> ) <span class="abap-token-keyword">TO</span> r_empid.
 
-APPEND VALUE #( sign = 'I'
-                option = 'EQ'
-                low = 'E003' ) TO r_empid.</code></pre>
+<span class="abap-token-keyword">APPEND</span> <span class="abap-token-keyword">VALUE</span> #( <span class="abap-token-keyword">sign</span> = <span class="abap-token-string">'I'</span>
+                <span class="abap-token-keyword">option</span> = <span class="abap-token-string">'EQ'</span>
+                <span class="abap-token-keyword">low</span> = <span class="abap-token-string">'E003'</span> ) <span class="abap-token-keyword">TO</span> r_empid.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
       </div>
       <div class="viz-compare-after">
         <span class="viz-compare-label">2. r_empid 내부 메모리 상태 (Internal Table)</span>

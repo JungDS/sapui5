@@ -4,62 +4,80 @@
   <div class="lesson-callout-icon">🎯</div>
   <div class="lesson-callout-content">
     <h4>학습 목표</h4>
-    <p>ABAP 리포트 프로그램이 실행될 때 거치는 <span class="glossary-term" data-glossary="ReportEvent">이벤트</span>의 전체 흐름을 잡습니다. <span class="glossary-term" data-glossary="LoadOfProgram">LOAD-OF-PROGRAM</span> → <span class="glossary-term" data-glossary="INITIALIZATION">INITIALIZATION</span> → 선택 화면 → <span class="glossary-term" data-glossary="StartOfSelection">START-OF-SELECTION</span>으로 이어지는 큰 그림을 이해하는 것이 목표입니다.</p>
+    <p>ABAP 리포트 프로그램이 실행될 때 거치는 <span class="glossary-term" data-glossary="ReportEvent">이벤트</span>의 전체 흐름을 잡습니다. <span class="glossary-term" data-glossary="LoadOfProgram">LOAD-OF-PROGRAM</span> → <span class="glossary-term" data-glossary="INITIALIZATION">INITIALIZATION</span> → 선택 화면 → <span class="glossary-term" data-glossary="StartOfSelection">START-OF-SELECTION</span>으로 이어지는 전체 생명주기 지도를 그리는 것이 목표입니다.</p>
   </div>
 </div>
 
 <section class="lesson-section">
   <h2>1. 지난 시간 연결: 코드는 "위에서 아래로"가 아니다? 🔄</h2>
   <p>
-    보통 프로그래밍을 처음 배우면 "코드는 위에서 아래로 차례차례 실행된다"고 생각합니다. 그런데 ABAP <strong>리포트 프로그램</strong>은 조금 다릅니다. SAP가 정해진 <strong>이벤트 순서</strong>에 따라 우리가 작성한 블록을 골라서 실행합니다.
+    일반적인 프로그래밍 언어를 처음 배울 때는 "코드는 무조건 위에서 아래로 차례차례 실행된다"고 배웁니다. 하지만 ABAP의 <strong>리포트 프로그램(Executable Program)</strong>은 설계 철학이 완전히 다릅니다.
   </p>
   <p>
-    이걸 모르면 "분명히 위에 적었는데 왜 나중에 실행되지?" 하고 혼란스럽습니다. 그래서 이번 Lesson에서는 먼저 <strong>전체 흐름의 지도</strong>를 그려봅니다.
+    우리가 소스 코드를 아무리 엉망인 순서로 배치하더라도, SAP 런타임 시스템이 정해진 <strong>이벤트 순서(Lifecycle Event)</strong>에 따라 우리가 작성한 코드 블록들을 콕콕 집어다가 정해진 스케줄대로 실행시킵니다.
+  </p>
+  <p>
+    이 개념을 확실히 모르면, <em>"분명 코드 맨 위에 변수 초기값을 적어놨는데 왜 화면이 뜬 다음에 적용되지?"</em> 혹은 <em>"왜 데이터베이스 조회가 엉뚱한 시점에 일어나서 덤프가 나지?"</em> 하는 혼란에 빠지게 됩니다. 리포트 개발을 시작하기 전, 전체 이벤트 지도를 명확히 머리에 그려봅시다!
   </p>
 </section>
 
 <section class="lesson-section">
-  <h2>2. 리포트 이벤트의 큰 흐름 🗺️</h2>
-  <p>리포트가 실행되면 SAP는 대략 이런 순서로 이벤트를 부릅니다.</p>
-  <div class="lesson-callout">
-    <div class="lesson-callout-icon">🔗</div>
-    <div class="lesson-callout-content">
-      <h4>실행 순서</h4>
-      <ul>
-        <li><strong>① <span class="glossary-term" data-glossary="LoadOfProgram">LOAD-OF-PROGRAM</span>:</strong> 프로그램이 메모리에 처음 올라올 때 딱 한 번.</li>
-        <li><strong>② <span class="glossary-term" data-glossary="INITIALIZATION">INITIALIZATION</span>:</strong> 선택 화면이 뜨기 <em>전</em>, 기본값을 채울 때.</li>
-        <li><strong>③ AT SELECTION-SCREEN OUTPUT:</strong> 선택 화면을 그리기 직전(화면 꾸미기).</li>
-        <li><strong>④ (사용자가 값 입력 후 실행 ▶)</strong></li>
-        <li><strong>⑤ AT SELECTION-SCREEN:</strong> 입력값 검증.</li>
-        <li><strong>⑥ <span class="glossary-term" data-glossary="StartOfSelection">START-OF-SELECTION</span>:</strong> 본격 데이터 조회·처리(메인 로직).</li>
-        <li><strong>⑦ END-OF-SELECTION:</strong> 결과 출력 마무리.</li>
-      </ul>
+  <h2>2. 리포트 이벤트 라이프사이클 시각화 🗺️</h2>
+  <p>
+    리포트 프로그램이 처음 호출되어 데이터베이스 결과 화면을 출력하기까지 거치는 전체 단계를 Mermaid 다이어그램을 활용해 시각화해 보겠습니다.
+  </p>
+  
+  <div class="viz-visual">
+    <p class="viz-visual-title">ABAP 리포트 이벤트 실행 순서 및 흐름도</p>
+    
+    <div class="mermaid">
+      flowchart TD
+        LOP("<b>1. LOAD-OF-PROGRAM</b><br>(주방 오픈)")
+        INIT("<b>2. INITIALIZATION</b><br>(추천 메뉴판 작성)")
+        Screen["<b>3. Selection Screen</b><br>(메뉴 주문 대기)"]
+        ASS("<b>4. AT SELECTION-SCREEN</b><br>(주문 수량 및 재료 확인)")
+        SOS("<b>5. START-OF-SELECTION</b><br>(본격적인 조리 시작)")
+        EOS("<b>6. END-OF-SELECTION</b><br>(플레이팅 서빙)")
+
+        LOP --> INIT
+        INIT --> Screen
+        Screen --> ASS
+        ASS -->|검증 실패 시 복귀| Screen
+        ASS -->|검증 성공| SOS
+        SOS --> EOS
+
+        %% 흰색 배경 + 진한 컬러 테두리 매핑 (글씨색 검정으로 내부 style 오버라이드)
+        style LOP fill:#ffffff,stroke:#fb7185,color:#1e293b
+        style INIT fill:#ffffff,stroke:#eab308,color:#1e293b
+        style Screen fill:#ffffff,stroke:#3b82f6,color:#1e293b
+        style ASS fill:#ffffff,stroke:#f472b6,color:#1e293b
+        style SOS fill:#ffffff,stroke:#22c55e,color:#1e293b
+        style EOS fill:#ffffff,stroke:#fb923c,color:#1e293b
     </div>
+    
+    <p class="viz-note">선택 화면(Selection Screen)이 나타나는 시점을 기준으로 <strong>화면 이전(준비 및 설정)</strong>과 <strong>화면 이후(검증 및 실행)</strong>로 로직이 나뉩니다.</p>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>3. 일상 비유로 흐름 외우기 🍳</h2>
-  <p>요리에 비유하면 이해가 빠릅니다.</p>
+  <h2>3. 일상 비유로 흐름 외우기: 요리사 정훈영 사원의 하루 🍳</h2>
+  <p>이 복잡한 영문 이벤트명들은 요리사의 주방 프로세스에 비유하면 아주 직관적으로 머리에 들어옵니다.</p>
   <ul>
-    <li><strong>LOAD-OF-PROGRAM:</strong> 주방에 들어와 불을 켠다(준비).</li>
-    <li><strong>INITIALIZATION:</strong> 주문서에 기본 메뉴를 미리 적어둔다(기본값).</li>
-    <li><strong>선택 화면:</strong> 손님이 주문서를 보고 원하는 걸 고른다.</li>
-    <li><strong>AT SELECTION-SCREEN:</strong> "그 메뉴는 재료가 없어요" 같은 확인(검증).</li>
-    <li><strong>START-OF-SELECTION:</strong> 실제로 요리를 한다(메인).</li>
-    <li><strong>END-OF-SELECTION:</strong> 접시에 담아 낸다(출력).</li>
+    <li><strong>LOAD-OF-PROGRAM (주방 오픈):</strong> 주방에 출근해 불을 켜고 앞치마를 맵니다. 프로그램이 메모리에 적재되어 준비되는 순간입니다.</li>
+    <li><strong>INITIALIZATION (주문서 초기화):</strong> 손님이 오기 전에 오늘 추천 메뉴판에 '정훈영 추천 파스타'라고 디폴트 값을 미리 적어놓는 단계입니다. (화면 기본값 세팅)</li>
+    <li><strong>Selection Screen (주문 대기):</strong> 손님(사용자)이 메뉴판(선택 화면)을 훑어보고 원하는 옵션을 클릭합니다.</li>
+    <li><strong>AT SELECTION-SCREEN (주문 검증):</strong> 손님이 "파스타 100인분 주세요"라고 주문했을 때, 요리사가 "죄송합니다, 저희 재료가 부족해요"라며 주문을 거부하는 단계입니다. (입력값 유효성 검증)</li>
+    <li><strong>START-OF-SELECTION (조리 시작):</strong> 주문이 최종 통과되면 주방에서 가스불을 켜고 본격적으로 요리를 조리하기 시작합니다. (메인 DB 데이터 조회 및 가공)</li>
+    <li><strong>END-OF-SELECTION (플레이팅):</strong> 조리가 완료된 음식을 예쁜 그릇에 담아 테이블에 서빙합니다. (데이터 출력 화면 노출)</li>
   </ul>
-  <blockquote>
-    핵심은 "사용자 입력(선택 화면)을 가운데 두고, 그 <strong>전</strong>에 준비하고 <strong>후</strong>에 처리한다"는 그림입니다.
-  </blockquote>
 </section>
 
 <section class="lesson-section">
-  <h2>4. 왜 이 순서가 중요할까 🔍</h2>
+  <h2>4. 정상 흐름과 실무 적용 🔍</h2>
   <ul>
-    <li>✅ <strong>기본값은 INITIALIZATION에:</strong> 화면이 뜨기 전이라 사용자가 보기 전에 채울 수 있습니다.</li>
-    <li>✅ <strong>조회는 START-OF-SELECTION에:</strong> 검증을 통과한 뒤라 안전합니다.</li>
-    <li>❌ <strong>자리를 헷갈리면:</strong> 기본값을 START-OF-SELECTION에 넣으면 이미 화면이 지나가 버려 적용이 안 되는 식의 버그가 납니다.</li>
+    <li>✅ <strong>기본값 처리는 무조건 INITIALIZATION:</strong> 프로그램이 실행되고 화면이 사용자 눈에 띄기 전에 작동하므로, 필드에 미리 오늘 날짜나 특정 부서 코드 등의 기본값을 안전하게 채워넣을 수 있습니다.</li>
+    <li>✅ <strong>비즈니스 로직은 START-OF-SELECTION:</strong> 입력값 검증이 모두 끝난 시점에 비로소 메인 쿼리(SELECT)를 날리므로, 잘못된 값으로 DB에 무거운 쿼리가 들어가는 비효율을 완벽히 방지합니다.</li>
+    <li>❌ <strong>이벤트 블록 혼동 오류:</strong> 만약 초기값 설정 로직을 실수로 START-OF-SELECTION에 적어버리면, 사용자가 화면에서 값을 직접 고치고 실행(F8)할 때마다 초기값으로 다시 덮어써 버리는 버그가 나게 됩니다.</li>
   </ul>
 </section>
 
@@ -68,27 +86,132 @@
   <div class="lesson-callout warn">
     <div class="lesson-callout-icon">⚠️</div>
     <div class="lesson-callout-content">
-      <h4>"어디에 적느냐"가 곧 "언제 실행되느냐"</h4>
-      <p>ABAP 리포트에서는 코드의 위치가 아니라 <strong>어떤 이벤트 블록 안에 있느냐</strong>가 실행 시점을 결정합니다. 같은 한 줄도 INITIALIZATION에 있으면 화면 전, START-OF-SELECTION에 있으면 화면 후에 실행됩니다. 새 코드를 추가할 때는 "이건 화면 전인가 후인가?"를 먼저 생각하세요.</p>
+      <h4>"어디에 쓰느냐"가 아니라 "어떤 블록에 쓰느냐"가 생명입니다</h4>
+      <p>ABAP 컴파일러는 소스 코드의 물리적인 윗줄, 아랫줄 위치를 보고 순서를 판단하지 않습니다. <code>INITIALIZATION</code> 키워드가 코드 가장 밑바닥에 적혀 있더라도, <code>START-OF-SELECTION</code>보다 무조건 먼저 실행됩니다. 따라서 가독성을 위해 코드 구조는 반드시 실행 생명주기 순서대로 정렬해 주는 것이 협업의 기초적인 매너입니다.</p>
     </div>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>6. 한눈에 정리 🏁</h2>
+  <h2>6. 미니 실습: 이벤트 실행 순서 추적기 구현 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제: 정훈영 사원과 함께 이벤트 호출 순서 증명하기</h4>
+      <p>
+        신입 사원 <strong>정훈영 사원</strong>은 ABAP 코드의 작성 순서와 상관없이 SAP 엔진이 이벤트를 정해진 약속대로 실행한다는 사실을 증명하기 위해 테스트용 추적 리포트를 설계하고자 합니다.
+      </p>
+      <ol>
+        <li><strong>SE38</strong>에 접속하여 <code>ZREPORT_EVENT_DEMO</code> 프로그램을 생성합니다.</li>
+        <li>다음과 같이 <strong>이벤트 순서를 고의로 거꾸로 섞어서</strong> 코딩한 후 활성화시킵니다:</li>
+      </ol>
+      <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zreport_event_demo.
+
+<span class="abap-token-keyword">START-OF-SELECTION</span>.
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'[3] START-OF-SELECTION 실행 (메인 로직)'</span>.
+
+<span class="abap-token-keyword">END-OF-SELECTION</span>.
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'[4] END-OF-SELECTION 실행 (출력 마감)'</span>.
+
+<span class="abap-token-keyword">INITIALIZATION</span>.
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'[1] INITIALIZATION 실행 (초기화)'</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+      <ol start="3">
+        <li>프로그램을 <strong>F8</strong>로 실행합니다.</li>
+        <li>화면에 출력된 텍스트 결과를 확인하여 아래 순서대로 정확히 찍혔는지 검증합니다:
+          <table class="viz-table">
+            <thead>
+              <tr>
+                <th>출력 순서</th>
+                <th>출력 텍스트</th>
+                <th>설명</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="viz-highlight-row">
+                <td>1</td>
+                <td>[1] INITIALIZATION 실행 (초기화)</td>
+                <td>코드 맨 밑에 적었지만 가장 먼저 실행됨 ✅</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>[3] START-OF-SELECTION 실행 (메인 로직)</td>
+                <td>이벤트 라이프사이클에 따라 중간에 실행됨 ✅</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>[4] END-OF-SELECTION 실행 (출력 마감)</td>
+                <td>출력의 마지막 단계로 정상 마감됨 ✅</td>
+              </tr>
+            </tbody>
+          </table>
+        </li>
+      </ol>
+      <p><strong>완료 조건:</strong> 소스 코드 배치와 상관없이 INITIALIZATION -> START-OF-SELECTION -> END-OF-SELECTION 순서로 화면에 텍스트가 정상 출력되는 라이프사이클 원리를 이해하면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENREPORT_EVENTS.html" target="_blank" rel="noopener">SAP Help Portal: Executable Program Events</a> - Executable 리포트 프로그램의 전체 실행 생명주기 사양을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINITIALIZATION.html" target="_blank" rel="noopener">SAP Help Portal: INITIALIZATION Event Block</a> - 화면이 렌더링되기 직전 값을 초기화하는 구문의 상세 선언 법을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSTART-OF-SELECTION.html" target="_blank" rel="noopener">SAP Help Portal: START-OF-SELECTION Block</a> - 쿼리 및 메인 로직이 실행되기 전 세션 상태를 결정하는 규칙을 학습합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>ABAP 리포트 프로그램에서 소스 코드상의 작성 위치가 아닌, 실행 시점을 결정해 주는 고유의 블록 단위를 무엇이라고 부르나요?</li>
+    <li>리포트가 실행될 때 선택 화면(Selection Screen)이 로드되기 **전**에 작동하여 디폴트 입력값을 필드에 적재해 주는 이벤트는 무엇인가요?</li>
+    <li>손님이 식당에 100인분 요리를 주문할 때 재료 수량을 검증하는 것과 같이, 사용자가 화면에 입력한 값이 유효한지 검사하는 이벤트는 무엇인가요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>이벤트 블록 (Event Block)입니다.</strong></li>
+      <li><strong>INITIALIZATION 이벤트입니다.</strong></li>
+      <li><strong>AT SELECTION-SCREEN 이벤트입니다.</strong> 이를 통해 잘못된 데이터를 걸러내고 에러를 화면에 즉각 표시할 수 있습니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">
-      <h4>오늘의 핵심만 딱 잡기</h4>
+      <h4>이벤트 기초 핵심 요약</h4>
       <ul>
-        <li>ABAP 리포트는 <strong>정해진 이벤트 순서</strong>로 블록을 실행합니다.</li>
-        <li>흐름: LOAD-OF-PROGRAM → INITIALIZATION → 선택 화면 → 검증 → START-OF-SELECTION → END-OF-SELECTION.</li>
-        <li>사용자 입력(선택 화면)을 기준으로 <strong>전(준비)</strong>과 <strong>후(처리)</strong>로 나뉩니다.</li>
-        <li>코드 위치가 아니라 <strong>이벤트 블록</strong>이 실행 시점을 정합니다.</li>
+        <li>ABAP 리포트는 작성 순서가 아닌 <strong>정해진 약속(이벤트 라이프사이클)</strong>에 의해 움직입니다.</li>
+        <li><strong>INITIALIZATION</strong>은 화면이 로드되기 전 기본값을 세팅하는 준비 단계입니다.</li>
+        <li><strong>AT SELECTION-SCREEN</strong>은 입력된 값의 적합성을 체크하는 검증 필터입니다.</li>
+        <li><strong>START-OF-SELECTION</strong>은 데이터베이스 조회(SELECT) 등 핵심 계산을 수행하는 요리 단계입니다.</li>
       </ul>
     </div>
   </div>
   <p>
-    이제 지도를 그렸으니, 각 이벤트를 하나씩 자세히 봅니다. 다음 Lesson <strong>INITIALIZATION 기본값 설정</strong>에서 화면이 뜨기 전 기본값을 채우는 법을 배웁니다.
+    전체적인 이벤트 흐름의 기본 뼈대를 세웠습니다. 다음 Lesson인 <strong>INITIALIZATION 기본값 설정</strong>에서는 선택 화면이 나타나기 전에 날짜나 사용자 부서 코드 등의 기본값을 화면에 실제로 적재해 보는 코드를 실습해 보겠습니다!
   </p>
 </section>

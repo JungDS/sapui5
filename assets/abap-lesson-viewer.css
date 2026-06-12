@@ -716,3 +716,61 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ========================================================
+   Mermaid 다이어그램 커스텀 스타일 (ABAP 리포트 이벤트 흐름도용)
+   ======================================================== */
+.viz-visual svg .edgePath .path {
+  stroke: #1e293b !important;
+  stroke-width: 2.5px !important;
+}
+.viz-visual svg .marker {
+  fill: #1e293b !important;
+  stroke: #1e293b !important;
+  stroke-width: 1px !important;
+}
+
+/* 1. 노드 공통 흰색 배경 + 두꺼운(3.2px) 컬러 외곽선 + 부드러운 하단 입체그림자 */
+.viz-visual svg .node rect {
+  rx: 15px !important;
+  ry: 15px !important;
+  stroke-width: 3.2px !important;
+  filter: drop-shadow(0px 3px 0px rgba(15, 23, 42, 0.08)) !important;
+}
+.viz-visual svg .node polygon {
+  stroke-width: 3.2px !important;
+  filter: drop-shadow(0px 3px 0px rgba(15, 23, 42, 0.08)) !important;
+}
+
+/* 2. 글자 굵기 및 크기 정밀 제어 (제목: 16px + 굵게, 설명: 보통 굵기, 색상 검정색 통일) */
+.viz-visual svg .node .label {
+  font-weight: normal !important;
+  color: #1e293b !important;
+}
+.viz-visual svg .node .label b, 
+.viz-visual svg .node .label strong {
+  font-weight: 800 !important;
+  font-size: 16px !important; /* 노드 제목 크기 확대 */
+}
+
+/* 3. 복귀 순환선 위 라벨 스타일링 (렌더링배경인 #f8fbff와 일치시켜 단절선 효과 연출) */
+.viz-visual svg .edgeLabel rect {
+  fill: #f8fbff !important;           /* .viz-visual 배경과 싱크 */
+  stroke: none !important;
+  stroke-width: 0px !important;
+  rx: 5px !important;
+  ry: 5px !important;
+}
+
+.viz-visual svg .edgeLabel foreignObject,
+.viz-visual svg .edgeLabel div,
+.viz-visual svg .edgeLabel span {
+  background-color: #f8fbff !important; /* .viz-visual 배경과 싱크 */
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 5px !important;
+  padding: 3px 8px !important;
+  display: inline-block !important;
+  color: #1e293b !important;
+  font-weight: 700 !important;
+}

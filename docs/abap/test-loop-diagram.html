@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>이벤트 다이어그램 최종 승인 대기 대시보드</title>
+<link rel="stylesheet" href="../../assets/common.css" />
+<link rel="stylesheet" href="../../assets/shell.css" />
+
+<!-- Mermaid.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    securityLevel: 'loose',
+    flowchart: {
+      nodeSpacing: 80,
+      rankSpacing: 60,
+      useMaxWidth: false
+    },
+    themeVariables: {
+      fontFamily: 'Inter, "Noto Sans KR", sans-serif',
+      fontSize: '13px',
+      lineColor: '#1e293b'
+    }
+  });
+</script>
+
+<style>
+  body {
+    padding: 40px;
+    background: #f1f5f9;
+    font-family: 'Inter', 'Noto Sans KR', sans-serif;
+  }
+  .page-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  .page-header h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 12px;
+  }
+  .page-header p {
+    color: #64748b;
+    font-size: 1.05rem;
+  }
+
+  /* 2열 비교 레이아웃 */
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 35px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .full-width-card {
+    grid-column: span 2;
+  }
+
+  .design-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+    border: 1px solid var(--stage7-line);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-header {
+    margin-bottom: 15px;
+    border-bottom: 2px solid #f1f5f9;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .card-badge {
+    font-size: 0.78rem;
+    font-weight: 850;
+    padding: 3px 8px;
+    border-radius: 99px;
+  }
+  .card-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+  }
+  .card-desc {
+    font-size: 0.85rem;
+    color: #64748b;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  .render-box {
+    background: #f8fafc;
+    border-radius: 14px;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px dashed #cbd5e1;
+    overflow-x: auto;
+    flex-grow: 1;
+    min-height: 400px;
+  }
+
+  /* ========================================================
+     ★ 공통 뼈대 테마 변수 (화살표 굵기 2.5px 고정)
+     ======================================================== */
+  svg .edgePath .path {
+    stroke: #1e293b !important;
+    stroke-width: 2.5px !important;
+  }
+  svg .marker {
+    fill: #1e293b !important;
+    stroke: #1e293b !important;
+    stroke-width: 1px !important;
+  }
+
+  /* ========================================================
+     ★ 시안 A: [최종 매칭 시안] 시안 4 스펙 고도화 버전
+     ======================================================== */
+  
+  /* 1. 노드 공통 흰색 배경 + 두꺼운(3.2px) 컬러 외곽선 + 부드러운 하단 입체그림자 */
+  .custom-final-spec svg .node rect {
+    rx: 15px !important;
+    ry: 15px !important;
+    stroke-width: 3.2px !important;
+    filter: drop-shadow(0px 3px 0px rgba(15, 23, 42, 0.08)) !important;
+  }
+  .custom-final-spec svg .node polygon {
+    stroke-width: 3.2px !important;
+    filter: drop-shadow(0px 3px 0px rgba(15, 23, 42, 0.08)) !important;
+  }
+
+  /* 2. 글자 굵기 및 크기 정밀 제어 (제목: 크게 15px + 굵게, 설명: 보통 굵기, 색상 검정색 통일) */
+  .custom-final-spec svg .node .label {
+    font-weight: normal !important; /* 기본 설명 글씨 굵기 */
+    color: #1e293b !important;      /* 검정색 글씨 통일 */
+  }
+  .custom-final-spec svg .node .label b, .custom-final-spec svg .node .label strong {
+    font-weight: 800 !important;   /* 제목 부분 굵게 강조 */
+    font-size: 16px !important;    /* 노드 제목 크기 확대 (기존 15px -> 16px) */
+  }
+
+  /* 3. 복귀 순환선 위 라벨 스타일링 (렌더링배경인 #f8fafc와 일치시켜 단절선 효과 연출) */
+  .custom-final-spec svg .edgeLabel rect {
+    fill: #f8fafc !important;           /* 렌더링 박스 배경과 싱크 */
+    stroke: none !important;           /* 외곽선 아예 없음 */
+    stroke-width: 0px !important;
+    rx: 5px !important;
+    ry: 5px !important;
+  }
+  
+  /* HTML 텍스트 노드 방식일 때의 꼬임 방지 오버라이딩 */
+  .custom-final-spec svg .edgeLabel foreignObject,
+  .custom-final-spec svg .edgeLabel div,
+  .custom-final-spec svg .edgeLabel span {
+    background-color: #f8fafc !important; /* 렌더링 박스 배경과 싱크 */
+    border: none !important;           /* 테두리 완전히 제거 */
+    box-shadow: none !important;       /* 그림자 제거 */
+    border-radius: 5px !important;
+    padding: 3px 8px !important;
+    display: inline-block !important;
+    color: #1e293b !important;
+    font-weight: 700 !important;
+  }
+
+  /* ========================================================
+     ★ 시안 B: 오리지널 Neo-Brutalism (배경 채움형 + 2.5px 블랙 아웃라인)
+     ======================================================== */
+  .neo-brutalism-filled svg .node rect {
+    stroke: #1e293b !important;
+    stroke-width: 2.5px !important;
+    rx: 15px !important;
+    ry: 15px !important;
+    filter: drop-shadow(0px 3px 0px rgba(15, 23, 42, 0.15)) !important;
+  }
+  .neo-brutalism-filled svg .node .label {
+    font-weight: 800 !important;
+    color: #1e293b !important;
+  }
+  .neo-brutalism-filled svg .edgeLabel rect {
+    fill: #ffffff !important;
+    stroke: #1e293b !important;
+    stroke-width: 1.5px !important;
+    rx: 4px !important;
+    ry: 4px !important;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>이벤트 다이어그램 최종 승인 대기 대시보드</h1>
+  <p>요청하신 상세 지침(제목 폰트 크기를 16px로 추가 확대, 볼드화, 글씨색 검정 통일, 라벨 배경색 싱크)이 반영된 <strong>최종 완성형 시안 A</strong>입니다.</p>
+</div>
+
+<div class="comparison-grid">
+
+  <!-- 최종 매칭 시안: 시안 4 세부 고도화 버전 -->
+  <div class="design-card full-width-card">
+    <div class="card-header">
+      <h2 class="card-title">시안 A: 최종 고도화 시안 (시안 4 기준 튜닝형 - 제목 폰트 확대)</h2>
+      <span class="card-badge" style="background:#ecfdf5;color:#047857;">최종 승인 대기</span>
+    </div>
+    <p class="card-desc">
+      흰색 노드 배경과 3.2px 컬러 아웃라인 바탕 위에 <strong>제목(볼드 + 16px)과 설명(보통 굵기 + 13px)</strong>의 폰트 대비를 한 단계 더 높였습니다.
+    </p>
+    <div class="render-box custom-final-spec">
+      <div class="mermaid">
+      flowchart TD
+        LOP("<b>1. LOAD-OF-PROGRAM</b><br>(주방 오픈)")
+        INIT("<b>2. INITIALIZATION</b><br>(추천 메뉴판 작성)")
+        Screen["<b>3. Selection Screen</b><br>(메뉴 주문 대기)"]
+        ASS("<b>4. AT SELECTION-SCREEN</b><br>(주문 수량 및 재료 확인)")
+        SOS("<b>5. START-OF-SELECTION</b><br>(본격적인 조리 시작)")
+        EOS("<b>6. END-OF-SELECTION</b><br>(플레이팅 서빙)")
+
+        LOP --> INIT
+        INIT --> Screen
+        Screen --> ASS
+        ASS -->|검증 실패 시 복귀| Screen
+        ASS -->|검증 성공| SOS
+        SOS --> EOS
+
+        %% 흰색 배경 + 진한 컬러 테두리 매핑 (글씨색 검정으로 내부 style 오버라이드)
+        style LOP fill:#ffffff,stroke:#fb7185,color:#1e293b
+        style INIT fill:#ffffff,stroke:#eab308,color:#1e293b
+        style Screen fill:#ffffff,stroke:#3b82f6,color:#1e293b
+        style ASS fill:#ffffff,stroke:#f472b6,color:#1e293b
+        style SOS fill:#ffffff,stroke:#22c55e,color:#1e293b
+        style EOS fill:#ffffff,stroke:#fb923c,color:#1e293b
+      </div>
+    </div>
+  </div>
+
+  <!-- 비교 기준 시안: 오리지널 Neo-Brutalism (채움형) -->
+  <div class="design-card">
+    <div class="card-header">
+      <h2 class="card-title">시안 B: 오리지널 Neo-Brutalism (배경 채움형)</h2>
+      <span class="card-badge" style="background:#f1f5f9;color:#475569;">비교용</span>
+    </div>
+    <p class="card-desc">
+      다채롭고 선명한 파스텔 원색 배경 채움과 2.5px의 굵은 검은색 테두리를 대조한 형태입니다. 색상 인지력이 매우 뛰어납니다.
+    </p>
+    <div class="render-box neo-brutalism-filled">
+      <div class="mermaid">
+      flowchart TD
+        LOP("1. LOAD-OF-PROGRAM <br> (주방 오픈)")
+        INIT("2. INITIALIZATION <br> (추천 메뉴판 작성)")
+        Screen["3. Selection Screen <br> (메뉴 주문 대기)"]
+        ASS("4. AT SELECTION-SCREEN <br> (주문 수량 및 재료 확인)")
+        SOS("5. START-OF-SELECTION <br> (본격적인 조리 시작)")
+        EOS("6. END-OF-SELECTION <br> (플레이팅 서빙)")
+
+        LOP --> INIT
+        INIT --> Screen
+        Screen --> ASS
+        ASS -->|검증 실패 시 복귀| Screen
+        ASS -->|검증 성공| SOS
+        SOS --> EOS
+
+        %% 디자인 색상 매핑
+        style LOP fill:#fecdd3,color:#1e293b
+        style INIT fill:#fef08a,color:#1e293b
+        style Screen fill:#dbeafe,color:#1e293b
+        style ASS fill:#ffe4e6,color:#1e293b
+        style SOS fill:#bbf7d0,color:#1e293b
+        style EOS fill:#fed7aa,color:#1e293b
+      </div>
+    </div>
+  </div>
+
+  <!-- 참고 시안: 이전 시안 4 (기본형) -->
+  <div class="design-card">
+    <div class="card-header">
+      <h2 class="card-title">시안 C: 이전 시안 4 (흰색 배경 & 3.2px 컬러 아웃라인)</h2>
+      <span class="card-badge" style="background:#f1f5f9;color:#475569;">이전 버전</span>
+    </div>
+    <p class="card-desc">
+      세부 굵기 제어가 들어가기 전, 외곽선 및 글씨 색상이 톤다운된 고유 컬러로 단일 매치되어 있던 이전 버전의 시안 4입니다.
+    </p>
+    <div class="render-box white-bg-colored-outline" style="border-width:1.5px; border-style:solid; border-color:#cbd5e1;">
+      <div class="mermaid">
+      flowchart TD
+        LOP("1. LOAD-OF-PROGRAM <br> (주방 오픈)")
+        INIT("2. INITIALIZATION <br> (추천 메뉴판 작성)")
+        Screen["3. Selection Screen <br> (메뉴 주문 대기)"]
+        ASS("4. AT SELECTION-SCREEN <br> (주문 수량 및 재료 확인)")
+        SOS("5. START-OF-SELECTION <br> (본격적인 조리 시작)")
+        EOS("6. END-OF-SELECTION <br> (플레이팅 서빙)")
+
+        LOP --> INIT
+        INIT --> Screen
+        Screen --> ASS
+        ASS -->|검증 실패 시 복귀| Screen
+        ASS -->|검증 성공| SOS
+        SOS --> EOS
+
+        %% 이전 고유 컬러 매핑
+        style LOP fill:#ffffff,stroke:#fb7185,color:#be123c
+        style INIT fill:#ffffff,stroke:#eab308,color:#a16207
+        style Screen fill:#ffffff,stroke:#3b82f6,color:#1d4ed8
+        style ASS fill:#ffffff,stroke:#f472b6,color:#be185d
+        style SOS fill:#ffffff,stroke:#22c55e,color:#15803d
+        style EOS fill:#ffffff,stroke:#fb923c,color:#c2410c
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

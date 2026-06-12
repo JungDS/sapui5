@@ -69,40 +69,159 @@
 </section>
 
 <section class="lesson-section">
-  <h2>4. 정상 흐름과 한계 🔍</h2>
+  <h2>4. SQL JOIN vs Database View 매커니즘 비교 시각화 🗺️</h2>
+  <p>
+    ABAP 프로그램에서 직접 JOIN을 수행할 때와, DB에 미리 만들어진 Database View 객체를 통해 조회할 때의 아키텍처 및 데이터 흐름의 차이를 살펴보겠습니다.
+  </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">Open SQL JOIN vs Database View 처리 방식 비교</p>
+    <div class="viz-compare">
+      <div class="viz-compare-before">
+        <span class="viz-compare-label">방법 A — Open SQL JOIN (프로그램 내 정의)</span>
+        <div class="viz-compare-body">
+          <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">SELECT</span> a~empid, b~deptname
+  <span class="abap-token-keyword">FROM</span> zemployee <span class="abap-token-keyword">AS</span> a
+  <span class="abap-token-keyword">INNER JOIN</span> zdept <span class="abap-token-keyword">AS</span> b
+    <span class="abap-token-keyword">ON</span> a~deptid = b~deptid</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+          <div class="viz-flow">
+            <div class="viz-flow-step"><strong>1. 프로그램 실행</strong><span>쿼리문 내의 JOIN 구조를 런타임에 해석하여 DB로 요청</span></div>
+            <div class="viz-flow-step"><strong>2. DB 처리</strong><span>두 테이블을 결합 연산하여 결과를 반환</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="viz-compare-after">
+        <span class="viz-compare-label">방법 B — Database View (DDIC 사전 정의)</span>
+        <div class="viz-compare-body">
+          <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">SELECT</span> empid, deptname
+  <span class="abap-token-keyword">FROM</span> zv_emp_dept  <span class="abap-token-comment">"← DB View</span></code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+          <div class="viz-flow">
+            <div class="viz-flow-step"><strong>1. 프로그램 실행</strong><span>가상 테이블인 뷰 ZV_EMP_DEPT에 단순 조회 요청</span></div>
+            <div class="viz-flow-step"><strong>2. DB 처리</strong><span>이미 정의된 뷰 스키마에 따라 내부적으로 JOIN 처리 후 즉시 반환</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="viz-note">Database View는 DB 사전(Dictionary) 레벨에 물리적인 View 객체로 생성되므로, 여러 프로그램이 동일한 JOIN 구조를 재사용할 때 압도적으로 안전하고 일관된 데이터를 보장합니다.</p>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 한계 🔍</h2>
   <ul>
-    <li>✅ <strong>정상:</strong> 연결 테이블들이 Foreign Key 등으로 잘 묶여 있으면, View가 INNER JOIN 결과를 안정적으로 보여줍니다.</li>
-    <li>❌ <strong>한계 1 — 읽기 전용:</strong> Database View로는 데이터를 <strong>수정/저장할 수 없습니다.</strong> 조회 전용입니다.</li>
-    <li>❌ <strong>한계 2 — INNER JOIN만:</strong> Classic Database View는 기본적으로 INNER 성격이라, 짝 없는 행을 살리는 OUTER 같은 유연함은 떨어집니다.</li>
+    <li>✅ <strong>정상 흐름:</strong> 사원 테이블(`ZEMPLOYEE`)과 부서 테이블(`ZDEPARTMENT`)이 부서 코드(`DEPTID`)로 Foreign Key가 맺어져 있다면, 이를 기반으로 Database View를 손쉽게 생성하여 `정훈영(개발팀)`, `홍길동(영업팀)` 같은 짝이 맞는 INNER JOIN 결과 데이터를 테이블 조회하듯 가져올 수 있습니다.</li>
+    <li>❌ <strong>한계 1 — 읽기 전용 (Read-Only):</strong> Database View는 결합 데이터이므로 **수정(INSERT/UPDATE/DELETE)이 원천적으로 불가능**하며 오직 SELECT 조회만 가능합니다.</li>
+    <li>❌ <strong>한계 2 — INNER JOIN 한정:</strong> Classic Database View는 구조적으로 `INNER JOIN` 성격만 지원합니다. 짝이 없는 데이터(예: 부서가 없는 사원)까지 조회 결과에 남겨야 하는 `LEFT OUTER JOIN`과 같은 유연한 처리는 불가능합니다.</li>
   </ul>
 </section>
 
 <section class="lesson-section">
-  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <h2>6. 실무에서 조심할 점 🚨</h2>
   <div class="lesson-callout warn">
     <div class="lesson-callout-icon">⚠️</div>
     <div class="lesson-callout-content">
-      <h4>요즘은 CDS View가 대세입니다</h4>
-      <p>Classic Database View는 오래된 시스템에서 여전히 보이지만, 최신 SAP(S/4HANA·ABAP Cloud)에서는 더 강력한 <strong>CDS View Entity</strong>로 대체되는 추세입니다. 지금은 "JOIN을 DDIC에 미리 정의해 재사용한다"는 개념을 잡는 것이 핵심이고, 이 개념은 나중에 CDS를 배울 때 그대로 이어집니다.</p>
+      <h4>Database View의 버퍼링 설정을 조심하세요</h4>
+      <p>Database View는 일반 테이블처럼 **버퍼링(Buffering)**을 설정해 성능을 높일 수 있습니다. 하지만 뷰를 구성하는 기본 테이블 중 단 하나라도 데이터가 자주 바뀌거나 버퍼링이 맞지 않게 설계되어 있다면, 뷰 조회 시 최신 데이터가 누락되는 동기화 버그가 발생할 수 있습니다. 성능 최적화가 꼭 필요한 읽기 전용 코드 테이블 뷰에만 신중하게 적용해야 합니다.</p>
     </div>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>6. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: Database View 조회 프로그램 작성 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>표준 테이블인 항공편(`SPFLI`)과 항공사(`SCARR`)를 합친 표준 Database View인 <code>SPFLIV</code>를 탐색기로 확인합니다.</li>
+        <li>뷰 <code>SPFLIV</code>를 일반 투명 테이블처럼 사용하여 항공사 이름(`CARRNAME`)과 연결된 데이터를 한 번에 가져오는 SELECT 쿼리문을 작성하고 실행해 봅니다.</li>
+        <li>직접 작성한 SELECT 구문이 이전 레슨에서 직접 INNER JOIN을 구현했던 코드와 비교하여 얼마나 더 직관적이고 단순해졌는지 체감해 봅니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> Database View를 FROM 절에 할당하여 다중 테이블 데이터를 JOIN 없이 단순 조회를 통해 출력할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENVIEWS_DB_VIEWS.html" target="_blank" rel="noopener">SAP Help Portal: Database Views</a> - ABAP DDIC에서 정의하는 Database View의 공식적인 기술 사양과 설계 규칙을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECT.html" target="_blank" rel="noopener">SAP Help Portal: SELECT Statement</a> - Database View를 SELECT 문장에서 일반 데이터 테이블처럼 바인딩하는 방법을 파악합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENBUFFERING_OF_VIEWS.html" target="_blank" rel="noopener">SAP Help Portal: Buffering of Views</a> - 뷰의 데이터를 애플리케이션 서버 버퍼 메모리에 적재하여 조회 성능을 높일 때의 기술적 규칙을 학습합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>Database View는 내부적으로 어떤 JOIN 방식(INNER vs OUTER)으로 데이터를 연결하나요?</li>
+    <li>Database View에 <code>INSERT</code>나 <code>UPDATE</code> 구문을 실행하여 원본 테이블의 데이터를 수정할 수 있나요?</li>
+    <li>실무에서 자주 쓰이는 JOIN 쿼리를 Open SQL로 매번 짜는 대신 Database View로 등록했을 때 얻는 가장 큰 설계적 이점은 무엇인가요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>기본적으로 INNER JOIN으로 동작합니다.</strong> 따라서 양쪽 테이블에 매칭되는 키 값이 모두 존재하는 온전한 짝 데이터만 최종 결과로 출력됩니다.</li>
+      <li><strong>아니요. 불가능합니다.</strong> Database View는 가상의 읽기 전용 객체이므로 원본 데이터를 뷰를 통해 변경할 수 없으며 오직 SELECT 조회만 가능합니다.</li>
+      <li><strong>데이터 접근 구조의 '단일 진실 공급원(SSOT)'과 일관성 유지입니다.</strong> 한 번 정의된 뷰를 여러 프로그램이 공유하여 사용하므로, JOIN 조건 오타로 인한 버그를 원천 차단하고 중앙 집중식으로 결합 규칙을 편리하게 관리할 수 있습니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">
-      <h4>오늘의 핵심만 딱 잡기</h4>
+      <h4>Database View 핵심 요약</h4>
       <ul>
-        <li><strong>Database View</strong>는 여러 테이블의 JOIN을 DDIC에 미리 정의해 테이블처럼 쓰는 객체입니다.</li>
-        <li>데이터를 따로 저장하지 않고, 조회 시 원본에서 합쳐 보여줍니다(읽기 전용).</li>
-        <li>여러 곳에서 같은 JOIN을 쓰면 View가, 일회성·특수 결합이면 코드 JOIN이 어울립니다.</li>
-        <li>최신 환경에서는 CDS View로 진화하지만, 핵심 개념은 동일합니다.</li>
+        <li><strong>Database View</strong>는 여러 테이블의 INNER JOIN을 DDIC 상에 뷰 객체로 미리 정의해 두고 테이블처럼 조회하는 가상 구조입니다.</li>
+        <li>뷰 내부에는 실제 데이터가 저장되지 않으며, 런타임 조회 시점에 실시간으로 결합 처리가 일어납니다.</li>
+        <li>조회만 가능하고 수정은 불가능하며, 버퍼링 설정 시 기본 테이블들의 버퍼 동기화 특성을 신중하게 따져야 합니다.</li>
+        <li>최신 S/4HANA 및 ABAP Cloud 환경에서는 더욱 고성능의 <strong>CDS View Entity</strong>로 진화하여 사용됩니다.</li>
       </ul>
     </div>
   </div>
   <p>
-    Database View가 "여러 테이블 합치기"였다면, 다음 Lesson <strong>Projection View 개념과 한계</strong>에서는 "한 테이블에서 필요한 칸만 골라 보여주는" 더 단순한 View를 배웁니다.
+    Database View가 "여러 테이블 합치기"였다면, 다음 Lesson <strong>Projection View 개념과 한계</strong>에서는 "한 테이블에서 필요한 칸만 골라 보여주는" 더 단순한 구조의 뷰를 배웁니다.
   </p>
 </section>
