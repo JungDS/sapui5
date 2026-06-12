@@ -23,7 +23,7 @@
 | THEORY-05 | ABAP 모듈화 기초 | 6 | **M01~M06 작성 완료** (Claude 고품질화+시각화 완료) |
 | THEORY-06 | Internal Table 기초 | 6 | **M01~M06 작성 완료** (Codex 시각화 + Claude 고품질화 완료) |
 | THEORY-07 | Internal Table 응용 / Deep Structure | 9 | **M01~M09 작성 완료** (Claude 고품질화+시각화 완료) |
-| THEORY-08 | Simple ALV / SALV 1차 | 5 | **M01~M05 작성 완료** |
+| THEORY-08 | Simple ALV / SALV 1차 | 5 | **M01~M05 작성 완료** (Claude 고품질화+시각화 완료) |
 | THEORY-09 | Open SQL 1차: 기본 조회 | 6 | **M01~M06 작성 완료** |
 | THEORY-10 | SELECT-OPTIONS와 Range Table | 6 | **M01~M06 작성 완료** |
 | THEORY-11 | Open SQL 2차: JOIN과 집계 | 7 | **M01~M07 작성 완료** (Claude) |
@@ -42,7 +42,7 @@
 >
 > **Track 1 고품질화 라운드(2026-06-10~11 Codex):** `Chapter 1의 Lesson 1`에 실습 과제, 완료 조건, 확인 퀴즈, 정답/해설, SAP 공식 링크 3개를 추가해 후속 Lesson 보강 패턴을 만들었다. 이어 `Chapter 1의 Lesson 2~6`, `Chapter 2의 Lesson 1~6`, `Chapter 3의 Lesson 1~4`, `Chapter 20의 Lesson 1~6`, `Chapter 21의 Lesson 1~8`에도 같은 패턴을 적용했다. `Chapter 20~21`은 NotebookLM, 로컬 reference, SAP 공식 문서를 교차 검증해 CDS View Entity, Association, Annotation, Metadata Extension, DCL, RAP BO, BDEF, EML, Service Binding, ABAP Cloud/Released API 보강을 완료했다. 상세 기준은 [TRACK1_QUALITY_PLAN.md](TRACK1_QUALITY_PLAN.md).
 >
-> **시각화 확산 라운드(2026-06-11~ Claude):** 고품질화에 시각화(`viz-*` 패턴 카탈로그, 본 문서 §5 참조)를 통합해 Chapter 단위로 진행한다. `Chapter 4의 Lesson 1~6` 완료(FK 관계도, 1:N 카디널리티, Value Table vs FK 비교, F4 플로우, F4 탐색 우선순위 폭포수, 검증 책임 비교). `Chapter 5의 Lesson 1~6` 완료(PERFORM 호출/복귀 플로우, 참조 vs 값 전달 전/후 비교, CALL FUNCTION 데이터 방향 관계도, DEFINITION/IMPLEMENTATION 그리드, Static vs Instance 비교, 모듈화 도구 3종 비교+결정 플로우). `Chapter 6의 Lesson 1~6` 미니 패스 완료(기존 Codex 시각 자료 유지, 미니 실습/공식 링크/퀴즈만 추가). `Chapter 7의 Lesson 1~9` 완료(MODIFY TRANSPORTING·DELETE WHERE·SORT 전/후 비교, 이진 탐색 단계 그리드, 테이블 3종 비교, INTO vs ASSIGNING 비교, Secondary Key 거래 비교, Deep Structure 중첩 구조도, CLEAR/REFRESH/FREE 3종 그리드). NotebookLM 질의 → SAP 공식 문서 교차 검증 흐름을 따른다.
+> **시각화 확산 라운드(2026-06-11~ Claude):** 고품질화에 시각화(`viz-*` 패턴 카탈로그, 본 문서 §5 참조)를 통합해 Chapter 단위로 진행한다. `Chapter 4의 Lesson 1~6` 완료(FK 관계도, 1:N 카디널리티, Value Table vs FK 비교, F4 플로우, F4 탐색 우선순위 폭포수, 검증 책임 비교). `Chapter 5의 Lesson 1~6` 완료(PERFORM 호출/복귀 플로우, 참조 vs 값 전달 전/후 비교, CALL FUNCTION 데이터 방향 관계도, DEFINITION/IMPLEMENTATION 그리드, Static vs Instance 비교, 모듈화 도구 3종 비교+결정 플로우). `Chapter 6의 Lesson 1~6` 미니 패스 완료(기존 Codex 시각 자료 유지, 미니 실습/공식 링크/퀴즈만 추가). `Chapter 7의 Lesson 1~9` 완료(MODIFY TRANSPORTING·DELETE WHERE·SORT 전/후 비교, 이진 탐색 단계 그리드, 테이블 3종 비교, INTO vs ASSIGNING 비교, Secondary Key 거래 비교, Deep Structure 중첩 구조도, CLEAR/REFRESH/FREE 3종 그리드). `Chapter 8의 Lesson 1~5` 완료(WRITE vs SALV 비교, 공장·리모컨 FACTORY 플로우, set_all 전/후 툴바 비교, 미니 리포트 6단계 플로우, 1차 범위 vs 심화 비교). NotebookLM 질의 → SAP 공식 문서 교차 검증 흐름을 따른다.
 
 ---
 

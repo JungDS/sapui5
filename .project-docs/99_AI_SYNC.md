@@ -41,6 +41,16 @@
 
 ## 작업 이력 (Work Log)
 
+### [2026-06-12] Claude (Fable 5) — Chapter 8의 Lesson 1~5 고품질화+시각화 통합 패스
+- **작업 내용**:
+  - NotebookLM 세션 질의(SALV/CL_SALV_TABLE)로 오개념 5종을 수집·교차 검증: FACTORY는 화면/Container 없이 전체 화면 ALV 생성, 툴바는 get_functions+set_all로 명시적으로 켜야 함, 필드 카탈로그는 자동 구성, SALV는 조회 전용(편집은 Grid ALV), SALV/Grid ALV는 GUI 종속이라 ABAP Cloud 미사용.
+  - `Chapter 8의 Lesson 1~5`에 미니 실습+완료 조건, 검증된 공식 링크 3개씩(SAP Learning Basic ABAP Programming, TRY, Class, Internal Table, Output Statement, MESSAGE, SORT itab), 확인 퀴즈/정답/해설 추가.
+  - 시각 자료 5종 추가: L1 WRITE vs SALV 화면 책임 비교, L2 공장·리모컨 5단계 플로우(FACTORY는 생성, display는 송출), L3 set_all 전/후 툴바 비교, L4 미니 리포트 6단계 플로우(빈 데이터 분기 포함), L5 1차 범위 vs 심화 범위 비교.
+- **검증 메모**:
+  - Chapter 8 인라인 style/script 0건, 내부 ID 노출 0건, 글로서리 미정의 0건, 포맷터 재실행 0건(멱등), 5개 Lesson 모두 퀴즈/실습/viz 존재 확인.
+  - 로컬 뷰어에서 THEORY-08-M03(전/후 비교/퀴즈/실습/링크 3개) 렌더링 확인.
+- **다음 AI를 위한 메모**: 다음은 Chapter 9(Open SQL 기초, 6개 Lesson). DB 테이블→WHERE 필터→결과셋 상태 그리드와 SELECT SINGLE 1행 강조가 핵심 시각화. SELECT in LOOP 안티패턴은 Chapter 7 질의에서 받은 FOR ALL ENTRIES/단일 SQL 근거 재활용 가능.
+
 ### [2026-06-12] Claude (Fable 5) — Chapter 7의 Lesson 1~9 고품질화+시각화 통합 패스
 - **작업 내용**:
   - NotebookLM 세션 질의(BC400/BC401 ITAB 응용)로 오개념 7종을 수집·교차 검증: BINARY SEARCH는 정렬을 대신하지 않으며 어기면 덤프 없이 잘못된 결과, ADJACENT DUPLICATES는 인접 중복만 제거(SORT 선행), ASSIGNING은 원본 직접 변경이라 MODIFY 불필요, HASHED는 INDEX 불가, CLEAR/REFRESH는 메모리 미반환(FREE만 반환), TRANSPORTING 생략 시 행 전체 덮어쓰기, Secondary Key는 읽기 이득 vs 쓰기 비용 거래.

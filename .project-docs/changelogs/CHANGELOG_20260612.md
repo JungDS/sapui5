@@ -12,6 +12,11 @@
 - 9개 Lesson 전체에 미니 실습(완료 조건 포함), SAP Help Portal 공식 링크 3개씩, 확인 퀴즈/정답/해설을 추가. 링크 10종(MODIFY/DELETE/SORT itab, READ TABLE, FIELD-SYMBOLS, Sorted/Hashed Table, Secondary Table Key, Deep Structure, CLEAR, FREE)은 WebFetch로 실존 검증.
 - 시각 자료 9종(`viz-*`) 추가: MODIFY TRANSPORTING 전/후, DELETE WHERE 전/후(순번 재계산), SORT 전/후, 이진 탐색 절반 줄이기 단계 그리드, 테이블 3종 비교 그리드+기능표, INTO vs ASSIGNING 비교, Secondary Key 거래 비교, Deep Structure 중첩 구조도, CLEAR/REFRESH/FREE 3종 그리드.
 
+### Claude (Fable 5) — Chapter 8의 Lesson 1~5 고품질화+시각화 통합 패스
+- NotebookLM 질의(SALV)로 오개념 5종을 교차 검증해 퀴즈로 반영: FACTORY의 화면 불필요, 툴바 명시적 활성화(set_all), 필드 카탈로그 자동화, 조회 전용 설계(편집은 Grid ALV), GUI 종속 기술의 ABAP Cloud 비사용.
+- 5개 Lesson에 미니 실습/완료 조건/공식 링크 3개/퀴즈·해설 추가.
+- 시각 자료 5종: WRITE vs SALV 비교, 공장·리모컨 FACTORY 플로우, set_all 전/후 툴바 비교, 미니 리포트 6단계 플로우, 1차 범위 vs 심화 비교.
+
 ## Claude 고민했던 점 및 설계 이유
 - **전/후 비교 패턴의 집중 활용**: Chapter 7은 “명령 실행 전과 후의 표 상태”가 본질인 주제(MODIFY/DELETE/SORT)가 많아, Phase 0에서 신설한 `viz-compare`를 표준 패턴으로 일관 적용했다. 각 비교표는 해당 Lesson 코드 예제의 실제 데이터(Mina/Jun/Sora)를 그대로 사용해 코드와 그림이 1:1로 대응되게 했다.
 - **이진 탐색 시각화 규모**: Lesson 예제는 3건이라 탐색 단계가 드러나지 않아, 7건짜리 개념 예시(A01~A07)로 “절반 버리기” 과정을 보여주고 순차 탐색과 비교했다. 본문 코드와 분리된 개념 그림임을 제목에 명시했다.

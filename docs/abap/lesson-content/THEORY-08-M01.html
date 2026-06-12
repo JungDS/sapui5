@@ -131,6 +131,38 @@ lo_alv-&gt;display( ).</code></pre>
   <p>
     SALV는 Internal Table 전체를 표 화면으로 넘기고, SALV 객체가 표시를 담당합니다. 지금은 문법을 외우기보다 “Internal Table을 SALV에게 맡기면 표 화면이 나온다”는 흐름을 잡으세요.
   </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">같은 데이터, 다른 화면 — WRITE vs SALV</p>
+    <div class="viz-compare">
+      <div class="viz-compare-before">
+        <span class="viz-compare-label">WRITE (List Output)</span>
+        <div class="viz-compare-body">
+          <table class="viz-table">
+            <tbody>
+              <tr><td>화면 모양</td><td>고정폭 글자를 한 줄씩 찍은 목록</td></tr>
+              <tr><td>코드 부담</td><td>줄/칸 배치를 개발자가 직접 관리</td></tr>
+              <tr><td>사용자 기능</td><td><span class="viz-badge fail">정렬·필터·엑셀 없음</span></td></tr>
+              <tr><td>어울림</td><td>학습, 간단 로그/확인용</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="viz-compare-after">
+        <span class="viz-compare-label">SALV (표 화면)</span>
+        <div class="viz-compare-body">
+          <table class="viz-table">
+            <tbody>
+              <tr><td>화면 모양</td><td>열이 정렬된 격자무늬 표</td></tr>
+              <tr><td>코드 부담</td><td>Internal Table을 넘기면 표는 SALV가 책임</td></tr>
+              <tr><td>사용자 기능</td><td><span class="viz-badge success">정렬·필터 등 표준 기능 연결 가능</span></td></tr>
+              <tr><td>어울림</td><td>업무 조회 리포트</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="viz-note">데이터(lt_students)는 같습니다. 누가 화면 표시를 책임지느냐 — 개발자의 WRITE 반복문이냐, SALV 객체냐 — 가 달라질 뿐입니다.</p>
+  </div>
 </section>
 
 <section class="lesson-section">
@@ -161,7 +193,50 @@ lo_alv-&gt;display( ).</code></pre>
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 두 출력 방식 비교 체험 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>Chapter 6의 학생 Internal Table 예제를 가져와 WRITE LOOP로 출력해봅니다.</li>
+        <li>같은 테이블을 <code>cl_salv_table=&gt;factory( ... )</code> + <code>display( )</code>로 표 화면에 띄워봅니다.</li>
+        <li>두 화면을 캡처하거나 메모해, 열 정렬·머리글·전체 인상 차이를 3가지 적어봅니다.</li>
+        <li>“화면 표시 책임이 누구에게 있는가?”를 기준으로 두 방식을 한 문장씩 정리합니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> 같은 데이터로 두 가지 화면을 직접 띄워보고, SALV가 어떤 일을 대신해주는지 설명할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://learning.sap.com/courses/basic-abap-programming" target="_blank" rel="noopener">SAP Learning: Basic ABAP Programming</a> - SALV를 포함한 ABAP 기초 과정을 무료로 학습합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENOUTPUT_STATEMENT_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Output Statement</a> - WRITE 기반 List Output의 공식 범주를 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINTERNAL_TABLE_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Internal Table</a> - SALV에 넘기는 Internal Table의 공식 정의를 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>SALV로 전체 화면 표를 띄우려면 Dynpro 화면과 Custom Container를 먼저 만들어야 할까요?</li>
+    <li>SALV는 사용자가 셀을 직접 수정하는 편집 화면에도 가장 적합한 도구일까요?</li>
+    <li>WRITE 출력과 비교했을 때 SALV가 개발자 대신 책임져주는 것은 무엇인가요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>아니요.</strong> <code>cl_salv_table=&gt;factory</code>를 호출하면 화면 설계 없이도 전체 화면 표가 만들어집니다. 화면+Container가 필수인 것은 Grid ALV(CL_GUI_ALV_GRID) 방식입니다.</li>
+      <li><strong>아니요.</strong> SALV는 조회(Read-only) 표시에 최적화된 도구입니다. 셀 편집이 중심인 화면은 Grid ALV 등 다른 선택이 표준입니다.</li>
+      <li><strong>표 화면의 구성과 표시</strong>입니다. 열 배치, 머리글, 격자 표시를 SALV 객체가 맡고, 개발자는 데이터(Internal Table)만 준비합니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">
