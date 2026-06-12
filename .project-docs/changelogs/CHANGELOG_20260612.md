@@ -17,6 +17,11 @@
 - 5개 Lesson에 미니 실습/완료 조건/공식 링크 3개/퀴즈·해설 추가.
 - 시각 자료 5종: WRITE vs SALV 비교, 공장·리모컨 FACTORY 플로우, set_all 전/후 툴바 비교, 미니 리포트 6단계 플로우, 1차 범위 vs 심화 비교.
 
+### Claude (Fable 5) — Chapter 9의 Lesson 1~6 고품질화+시각화 통합 패스
+- NotebookLM 질의(ABAP SQL)로 오개념 5종을 교차 검증해 퀴즈로 반영: @ Host Variable 필수, SELECT SINGLE의 비결정성, INTO/INTO TABLE 구분, SELECT in LOOP 왕복 비용, 빈 결과=sy-subrc 4(덤프 아님).
+- 6개 Lesson에 미니 실습/완료 조건/공식 링크 3개/퀴즈·해설 추가(SELECT, SELECT SINGLE, ABAP SQL, Host Variable 링크 신규 검증).
+- 시각 자료 6종: 물류센터 SELECT 플로우+FIELDS 발췌 그리드, WHERE 3단계 필터 그리드, 키 완전/부분 비교, INTO 그릇 비교, Target 선언 비교, 왕복 횟수 비교.
+
 ## Claude 고민했던 점 및 설계 이유
 - **전/후 비교 패턴의 집중 활용**: Chapter 7은 “명령 실행 전과 후의 표 상태”가 본질인 주제(MODIFY/DELETE/SORT)가 많아, Phase 0에서 신설한 `viz-compare`를 표준 패턴으로 일관 적용했다. 각 비교표는 해당 Lesson 코드 예제의 실제 데이터(Mina/Jun/Sora)를 그대로 사용해 코드와 그림이 1:1로 대응되게 했다.
 - **이진 탐색 시각화 규모**: Lesson 예제는 3건이라 탐색 단계가 드러나지 않아, 7건짜리 개념 예시(A01~A07)로 “절반 버리기” 과정을 보여주고 순차 탐색과 비교했다. 본문 코드와 분리된 개념 그림임을 제목에 명시했다.

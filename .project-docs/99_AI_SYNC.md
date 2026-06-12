@@ -41,6 +41,16 @@
 
 ## 작업 이력 (Work Log)
 
+### [2026-06-12] Claude (Fable 5) — Chapter 9의 Lesson 1~6 고품질화+시각화 통합 패스
+- **작업 내용**:
+  - NotebookLM 세션 질의(ABAP SQL 기초)로 오개념 5종을 수집·교차 검증: Strict Mode에서 Host Variable @ 필수, SELECT SINGLE은 키 부족 시 “아무 1건”(결정적 1건은 ORDER BY + UP TO 1 ROWS), INTO와 INTO TABLE의 그릇 차이, SELECT in LOOP 안티패턴(왕복 비용), 빈 결과는 덤프가 아니라 sy-subrc=4(조용한 버그 위험).
+  - `Chapter 9의 Lesson 1~6`에 미니 실습+완료 조건, 검증된 공식 링크 3개씩(SELECT/SELECT SINGLE/ABAP SQL/Host Variable 등 신규 4종 WebFetch 검증), 확인 퀴즈/정답/해설 추가.
+  - 시각 자료 6종 추가: L1 물류센터 4단계 플로우(FROM→FIELDS→배송→INTO)+DB/결과셋 발췌 그리드, L2 WHERE 필터 3단계 상태 그리드(조건 통과마다 줄 감소), L3 SELECT SINGLE 키 완전/부분 지정 비교, L4 INTO vs INTO TABLE 그릇 비교, L5 inline vs 명시적 Target 비교, L6 SELECT in LOOP 왕복 10,000번 vs 1번 비교.
+- **검증 메모**:
+  - Chapter 9 인라인 style/script 0건, 내부 ID 노출 0건, 글로서리 미정의 0건, 포맷터 재실행 0건(멱등), 6개 Lesson 모두 퀴즈/실습/viz 존재 확인.
+  - 로컬 뷰어에서 THEORY-09-M02(필터 그리드/퀴즈/실습/링크 3개) 렌더링 확인.
+- **다음 AI를 위한 메모**: 다음은 Chapter 10(Range Table) 미니 패스 — Phase 0에서 표는 이미 viz 클래스로 정리됨, Include/Exclude 해석 시각화와 퀴즈/실습/링크 추가가 남음. 이후 Chapter 11(JOIN)은 두 테이블→JOIN 결과 표가 핵심.
+
 ### [2026-06-12] Claude (Fable 5) — Chapter 8의 Lesson 1~5 고품질화+시각화 통합 패스
 - **작업 내용**:
   - NotebookLM 세션 질의(SALV/CL_SALV_TABLE)로 오개념 5종을 수집·교차 검증: FACTORY는 화면/Container 없이 전체 화면 ALV 생성, 툴바는 get_functions+set_all로 명시적으로 켜야 함, 필드 카탈로그는 자동 구성, SALV는 조회 전용(편집은 Grid ALV), SALV/Grid ALV는 GUI 종속이라 ABAP Cloud 미사용.
