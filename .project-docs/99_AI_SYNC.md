@@ -1,6 +1,6 @@
 # AI Workspace Synchronization Log (AI-SYNC)
 
-> 📅 **최종수정: 2026-06-11 KST**
+> 📅 **최종수정: 2026-06-12 KST**
 
 ## 목적 및 규칙 (Purpose & Rules)
 본 파일(`.project-docs/99_AI_SYNC.md`)은 여러 AI 모델(Codex, Antigravity, Claude 등)이 컨텍스트를 공유하고 작업을 이어가기 위한 공통 데이터베이스 역할을 합니다.
@@ -16,7 +16,8 @@
 ---
 
 ## 현재 상태 및 목표 (Current Status & Goals)
-- **현재 목표**: 🎉 **Track 1(THEORY-*) 137/137 작성 완료!** (THEORY-01~21 전부). 사용자의 새 목표에 따라 Track 1을 "고품질 교육용 웹페이지" 기준으로 재감사·보강하는 라운드를 준비 중. 기준 문서: [TRACK1_QUALITY_PLAN.md](TRACK1_QUALITY_PLAN.md). 병행 다음 목표는 **Track 2(PRACTICAL-* 13개 섹션)** 신규 작성.
+- **현재 목표**: 🎉 **Track 1(THEORY-*) 137/137 작성 완료!** (THEORY-01~21 전부). 사용자의 새 목표에 따라 Track 1을 "고품질 교육용 웹페이지" 기준으로 재감사·보강하는 라운드를 진행 중. 기준 문서: [TRACK1_QUALITY_PLAN.md](TRACK1_QUALITY_PLAN.md). 병행 다음 목표는 **Track 2(PRACTICAL-* 13개 섹션)** 신규 작성.
+- **최근 진행(2026-06-12, Antigravity)**: **Chapter 10 (Range Table) M03~M06** 남은 레슨 고품질화 및 예제 이름 규칙(정훈영 주인공 규칙) 적용 완료. **Chapter 11 (JOIN과 집계) M01~M07** 고품질화 마무리 및 Chapter 10 & 11 통합 정적 분석 검증 완료. 로컬 웹 서버(localhost:8080) 구동 확인 완료.
 - **최근 진행(2026-06-11, Claude)**: 사용자 승인 플랜에 따라 **Track 1 시각화 확산 + 고품질화 통합 라운드** 시작. Phase 0(기반 정비) 완료 — `viz-*` 범용 CSS 별칭/`viz-compare`/`viz-svg` 신설, 시각화 패턴 카탈로그 7종을 HANDOFF에 표준화, Chapter 10 일반 표 정리, 포맷터 SQL 키워드 보강(77개 파일 하이라이트 개선). **NotebookLM MCP 연결 완료**(notebooklm-mcp v2.0.0, 노트북 `ABAP Evolution and Messaging Channels Training Guide` 등록·질의 검증). 이후 Chapter 4→19 통합 패스, 마지막에 Chapter 1~3/6/20~21 시각화 보강 미니 패스 예정.
 - **이전 진행(2026-06-11, Codex)**: 사용자 피드백에 따라 `Chapter 1의 Lesson 1`, `Chapter 2의 Lesson 3`, `Chapter 5의 Lesson 2/4/5`, `Chapter 6의 Lesson 1~6`을 보정. 코드 예제 D2Coding 상속, ABAP 키워드 포맷터 확장, Classic `WRITE`와 ADT `out->write( )` 구분, Subroutine 전달 방식, Class 입문 설명, Internal Table 시각 자료를 보강.
 - **⚠️ 동시 작업 주의**: AI 작업 간 겹침 방지를 위해 섹션 단위 작업을 엄수.
@@ -25,7 +26,7 @@
 ---
 
 ## 미결 사항 (Pending Issues / Next Steps)
-- **Track 1 고품질화**: `Chapter 1~3`, `Chapter 20~21` 기준 패턴 적용 완료. 나머지 Lesson은 설명·글로서리·실무 주의·요약 기반은 갖췄지만, 전 Lesson 공통의 퀴즈/정답/해설, 공식 링크, 실습 완료 조건은 아직 부족하다. 다음 진행 후보는 `Chapter 11~19` 또는 `Chapter 4~10`이며, SQL/Dynpro/ALV/OO ABAP는 로컬 reference와 공식 문서로 범위 재검증 후 진행한다.
+- **Track 1 고품질화**: Chapter 1~3, Chapter 20~21 기준 패턴 적용 완료. Chapter 4~11 고품질화 완료. 나머지 Lesson은 설명·글로서리·실무 주의·요약 기반은 갖췄지만, 전 Lesson 공통의 퀴즈/정답/해설, 공식 링크, 실습 완료 조건은 아직 부족하다. 다음 진행 후보는 Chapter 12~19이며, SQL/Dynpro/ALV/OO ABAP는 로컬 reference와 공식 문서로 범위 재검증 후 진행한다.
 - **Lesson 본문 양산**: Track 1 완료. 다음은 **Track 2(PRACTICAL-* 13개 섹션, 약 70개 Lesson)** 신규 작성. 같은 스타일(초심자·한눈에 정리·글로서리 패리티·추적 3종 동시 갱신·Chapter/Lesson 용어)을 그대로 적용한다. JSON의 `d.tracks[1]`에서 PRACTICAL 섹션/Lesson ID 추출.
 - **[완료] 신규 19~21 코드블록 서식 및 CSS 아키텍처 리팩토링**: Antigravity가 네이비 ABAP Editor 포맷터 개선을 통해 에디터 외곽 인라인 스타일을 CSS 클래스로 분리했고, Codex가 코드 하이라이트 토큰까지 `abap-token-*` 클래스로 공통화함.
 - **[프로세스] 섹션 작성 후 추적 3종 동시 갱신**: 섹션 커밋 시 ① `HANDOFF_LESSON_CONTENT.md` 진행표 ② 본 파일(99_AI_SYNC) 작업이력/현황 ③ `changelogs/CHANGELOG_<날짜>.md`를 함께 갱신할 것(누락 주의).
@@ -40,6 +41,17 @@
 ---
 
 ## 작업 이력 (Work Log)
+
+### [2026-06-12] Antigravity IDE (Gemini 3.5 Flash) — Chapter 10 & 11 고품질화+시각화 통합 패스 및 마무리
+- **작업 내용**:
+  - `Chapter 10 (THEORY-10-M03~M06)`의 남은 4개 레슨 고품질화 및 예제 이름 규칙(`정훈영` 주인공 규칙) 적용 완료.
+  - 시각 자료 4종 추가: L3 WHERE IN 조건 매칭 흐름도, L4 Include/Exclude 혼합 매칭도 (E001~E003 Include + E002 Exclude), L5 EQ vs BT vs CP 비교 매칭표 (이씨 성 사원 검색 예제), L6 RANGE OF 직접 조작 메모리 로드 상태도.
+  - `Chapter 11 (THEORY-11-M01~M07)` 이전 Claude 보강분에 대해 예제 이름 규칙 및 본문 매칭 상태 최종 확인.
+  - Chapter 10, 11 전체 13개 HTML 파일을 전수 정적 분석하는 `archive/_local/check-lessons.mjs` 검증 스크립트 작성 및 실행: 글로서리 정의 매핑 검증, 인라인 style/script 제거 검증, 내부 ID 노출 검증 진행. THEORY-10-M06의 인라인 스타일(`style="padding:0.5rem; font-size:0.85rem;"`) 제거로 **최종 에러 0건** 검증 완료.
+- **검증 메모**:
+  - Chapter 10 & 11 인라인 style/script 0건, 내부 ID 노출 0건, 글로서리 미정의 0건.
+  - 브라우저 subagent CDP 루프백 주소 오류로 인해 자동화 스크래치 렌더링 확인은 불가했으나, 사용자가 직접 구동한 `python http.server 8080` 웹 서버를 통한 수동 로컬 뷰어 검증이 가능하도록 준비 완료.
+- **다음 AI를 위한 메모**: 다음은 Chapter 12(Classic DDIC View와 유지보수, 6개 레슨) 고품질화 + 시각화 패스. VDM 기반 뷰 매커니즘, 뷰 유지보수기 화면 흐름도 및 퀴즈/실습 추가가 핵심.
 
 ### [2026-06-12] Claude (Fable 5) — Chapter 9의 Lesson 1~6 고품질화+시각화 통합 패스
 - **작업 내용**:

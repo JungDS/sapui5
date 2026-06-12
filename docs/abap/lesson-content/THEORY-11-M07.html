@@ -19,29 +19,23 @@
 </section>
 
 <section class="lesson-section">
-  <h2>2. 세 가지 방법, 한 줄 요약 🗂️</h2>
-  <ul>
-    <li><strong>JOIN:</strong> DB 테이블끼리 키로 연결해 한 번에 읽기. DB가 다 처리.</li>
-    <li><strong>FOR ALL ENTRIES:</strong> 이미 ABAP에 들고 있는 목록 기준으로 DB 조회.</li>
-    <li><strong>ABAP 처리:</strong> 각 테이블을 따로 읽어 와서 ABAP <code>LOOP</code>/<code>READ TABLE</code>로 합치고 가공.</li>
-  </ul>
-  <div class="lesson-callout">
-    <div class="lesson-callout-icon">🔗</div>
-    <div class="lesson-callout-content">
-      <h4>큰 원칙: "되도록 DB에서, 데이터는 적게"</h4>
-      <p>현대 ABAP의 기본 정신은 <strong>코드 푸시다운</strong>입니다. 합치고 거르고 계산하는 일은 가능하면 DB에게 시키고, ABAP으로는 <strong>꼭 필요한 결과만 적게</strong> 가져오는 것이 좋습니다. (이 흐름은 THEORY-17, CDS에서 더 깊어집니다.)</p>
-    </div>
+  <h2>3. 세 가지 방법 비교표 — 정훈영의 선택 가이드 🗂️</h2>
+  <div class="viz-visual">
+    <p class="viz-visual-title">JOIN vs FOR ALL ENTRIES vs ABAP 처리 — 언제 무엇을 쓸까</p>
+    <table class="viz-table">
+      <thead>
+        <tr><th>비교 항목</th><th>JOIN</th><th>FOR ALL ENTRIES</th><th>ABAP 처리</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>연결 대상</td><td>DB 테이블끼리</td><td>ABAP 내부 테이블 기준</td><td>각 테이블 따로 읽어 ABAP에서 합산</td></tr>
+        <tr><td>처리 위치</td><td>DB 서버</td><td>DB 서버(일부)</td><td>ABAP 서버</td></tr>
+        <tr><td>적합한 경우</td><td>키/인덱스로 깔끔히 연결</td><td>화면 선택 목록 등 이미 들고 있는 목록</td><td>복잡한 가공·분기 로직</td></tr>
+        <tr><td>주의 사항</td><td>ON 조건 누락 시 카티전 곱</td><td>빈 테이블 체크 필수, 중복 제거 주의</td><td>LOOP 안 SELECT 안티패턴 금지</td></tr>
+        <tr><td>성능 기본 원칙</td><td><span class="viz-badge success">코드 푸시다운 ✔</span></td><td><span class="viz-badge success">중간 ✔</span></td><td><span class="viz-badge fail">데이터 많으면 느릴 수 있음</span></td></tr>
+      </tbody>
+    </table>
+    <p class="viz-note">정훈영이 매출 리포트를 만들 때: 테이블 두 개를 키로 연결하면 JOIN, 화면에서 고른 고객(홍길동·아이유) 목록으로 조회하면 FAE, DB로 못 표현하는 계산이 필요하면 ABAP 처리.</p>
   </div>
-</section>
-
-<section class="lesson-section">
-  <h2>3. 선택 기준 가이드 ✍️</h2>
-  <ul>
-    <li>✅ <strong>JOIN이 좋을 때:</strong> 연결할 대상이 모두 DB 테이블이고, 키/인덱스로 깔끔히 연결되며, 한 번에 합쳐 읽는 게 자연스러울 때.</li>
-    <li>✅ <strong>FAE가 좋을 때:</strong> 연결 기준이 이미 ABAP 내부 테이블에 있을 때(화면 선택 목록 등). 단 빈 테이블·중복 함정 주의.</li>
-    <li>✅ <strong>ABAP 처리가 좋을 때:</strong> DB로 표현하기 복잡한 가공·분기 로직이 섞일 때, 또는 데이터가 이미 메모리에 충분히 작게 올라와 있을 때.</li>
-    <li>❌ <strong>피해야 할 것:</strong> <code>SELECT</code>를 <code>LOOP</code> 안에서 반복 호출(THEORY-09에서 본 안티패턴). 같은 일을 JOIN/FAE 한 번으로 바꿀 수 있는지 먼저 보세요.</li>
-  </ul>
 </section>
 
 <section class="lesson-section">
@@ -64,11 +58,54 @@
 </section>
 
 <section class="lesson-section">
-  <h2>6. 한눈에 정리 🏁</h2>
+  <h2>6. 미니 실습: 시나리오별 방법 고르기 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>정훈영이 "직원(ZEMPLOYEE)과 부서(ZDEPARTMENT)를 한 번에 보여주는 리포트"를 만들어야 합니다. JOIN, FAE, ABAP 처리 중 어느 것이 가장 적합한지 이유와 함께 적어봅니다.</li>
+        <li>아이유가 화면에서 고른 주문 번호 30개를 기준으로 주문 상세를 조회해야 합니다. 어느 방법이 적합한가요?</li>
+        <li>유재석이 내부 테이블 2개를 받아서 ABAP에서 복잡한 비율 계산을 해야 합니다. 어느 방법이 적합한가요?</li>
+        <li>LOOP 안에서 SELECT를 10,000번 반복하는 코드를 발견했습니다. JOIN 또는 FAE로 리팩터링하는 방법을 간단히 스케치해봅니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> 시나리오 4개를 보고 JOIN/FAE/ABAP 처리 중 적합한 방법을 이유와 함께 말할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECT_JOIN.html" target="_blank" rel="noopener">SAP Help Portal: SELECT … JOIN</a> — JOIN 방법의 공식 문법과 성능 고려사항을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECT_FOR_ALL_ENTRIES.html" target="_blank" rel="noopener">SAP Help Portal: FOR ALL ENTRIES</a> — FAE 방법의 공식 문법과 주의사항을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENOPEN_SQL_ALTERNATIVES.html" target="_blank" rel="noopener">SAP Help Portal: Open SQL 대안 비교</a> — 조회 방법 선택 가이드를 공식 문서에서 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>정훈영이 "DB 테이블 VBAK(주문 헤더)와 VBAP(주문 상세)를 연결해 한 번에 보고 싶다"면 어느 방법이 가장 자연스럽나요?</li>
+    <li>LOOP 안에서 SELECT를 반복하는 코드의 문제점은 무엇이며, 어떻게 해결할 수 있나요?</li>
+    <li>현대 ABAP의 "코드 푸시다운(Code Pushdown)" 원칙은 무엇인가요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>JOIN이 가장 자연스럽습니다.</strong> VBAK과 VBAP는 모두 DB 테이블이고, VBELN 키로 깔끔하게 연결됩니다. 두 DB 테이블을 키로 연결할 때는 JOIN이 기본 선택입니다.</li>
+      <li><strong>DB 왕복 횟수가 폭발적으로 늘어납니다.</strong> 예를 들어 ITAB에 10,000개 행이 있으면 SELECT가 10,000번 실행됩니다. JOIN으로 바꾸면 DB 조회 1번, FAE로 바꾸면 최적화된 한 번의 조회로 줄일 수 있습니다.</li>
+      <li><strong>처리와 계산을 ABAP보다 DB에서 하라는 원칙입니다.</strong> 합치고 거르고 계산하는 일은 가능하면 DB(또는 CDS)에서 처리하고, ABAP으로는 꼭 필요한 결과만 적게 가져오는 것이 성능과 확장성 측면에서 유리합니다. 이 개념은 CDS View(Chapter 20)에서 더 깊어집니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">
-      <h4>THEORY-11 마무리 핵심</h4>
+      <h4>Chapter 11 마무리 핵심</h4>
       <ul>
         <li><strong>JOIN</strong>은 DB 테이블끼리, <strong>FAE</strong>는 ABAP 목록 기준, <strong>ABAP 처리</strong>는 복잡한 가공에.</li>
         <li>큰 원칙: <strong>계산·결합은 DB에서, ABAP으로는 적게</strong> 가져온다(코드 푸시다운).</li>
