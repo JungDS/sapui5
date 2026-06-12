@@ -77,6 +77,11 @@
 - 전 Lesson에 미니 실습/완료 조건/퀴즈/해설을 추가하고, 링크 미보유 Lesson(1/3/6)에 검증된 SAP Help 링크를 연결.
 - 시각 자료 6종: PERFORM 호출/복귀 플로우, 참조 vs 값 전달 전/후 비교, CALL FUNCTION 데이터 방향 관계도, DEFINITION/IMPLEMENTATION 메뉴판·주방 그리드, Static vs Instance 호출 비교, 모듈화 도구 3종 비교표+결정 플로우.
 
+### Claude (Fable 5) — Chapter 6의 Lesson 1~6 고품질화 미니 패스
+- Codex의 itab-* 시각 자료를 보존하며 미니 실습/완료 조건/공식 링크 3개/퀴즈·해설만 좁게 추가(시각화 중복 방지).
+- 공식 링크 7종(Internal Table/Work Area/TYPES/APPEND/INSERT itab/LOOP AT itab/READ TABLE)을 실존 검증 후 Lesson별 3개씩 연결.
+- 오개념 퀴즈: 임시 메모리/동적 확장, TYPES=설계도, INSERT INDEX, 빈 테이블 LOOP 0회, INTO 복사 원리, 검색 실패 시 Work Area 잔존값.
+
 ## Claude 고민했던 점 및 설계 이유
 - **별칭 방식 선택**: itab-* 전면 리네이밍 대신 CSS 셀렉터 병기를 택해 Chapter 6 기존 HTML을 건드리지 않고 신규 작업의 의미(범용 viz-*)만 명확히 했다.
 - **viz-compare 색상 설계**: before(연한 적색 헤더)/after(연한 녹색 헤더)로 전/후 방향을 색으로 직관화하되, 기존 팔레트(#fff0f0/#e8f8ef 계열) 안에서만 선택해 시각 일관성을 유지했다.

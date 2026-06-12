@@ -41,6 +41,17 @@
 
 ## 작업 이력 (Work Log)
 
+### [2026-06-11] Claude (Fable 5) — Chapter 6의 Lesson 1~6 고품질화 미니 패스
+- **작업 내용**:
+  - Codex가 추가한 itab-* 시각 자료는 그대로 유지하고, 빠져 있던 학습 완결 요소(미니 실습+완료 조건, SAP 공식 링크 3개, 확인 퀴즈/정답/해설)만 6개 Lesson에 추가.
+  - NotebookLM 스모크 테스트 답변(Internal Table 시각화 3대 포인트: DB/메모리 분리·동적 확장, Line Type/Key/Table Kind, 생명주기)을 퀴즈 근거로 활용하고 표준 동작과 교차 검증.
+  - 공식 링크는 ABAP Keyword Documentation의 Internal Table/Work Area/TYPES/APPEND/INSERT itab/LOOP AT itab/READ TABLE 문서를 WebFetch로 실존 검증 후 사용.
+  - 퀴즈는 오개념 중심: ITAB 영구 저장 아님, TYPES는 설계도일 뿐, APPEND 위치/INSERT INDEX, 빈 테이블 LOOP는 오류 아님, INTO는 복사라 원본 불변, 검색 실패 후 Work Area 잔존값 위험 등.
+- **검증 메모**:
+  - Chapter 6 인라인 style/script 0건, 내부 ID 노출 0건, 글로서리 미정의 0건, 포맷터 재실행 0건(멱등), 6개 Lesson 모두 퀴즈/실습 존재 확인.
+  - 로컬 뷰어에서 THEORY-06-M05(실습/퀴즈/링크 3개/기존 시각 자료) 렌더링 확인.
+- **다음 AI를 위한 메모**: 다음은 Chapter 7(ITAB 응용, 9개 Lesson) 통합 패스. SORT/DELETE/MODIFY 전/후 비교(viz-compare), BINARY SEARCH 탐색 포인터, Deep Structure 중첩 구조가 핵심 시각화.
+
 ### [2026-06-11] Claude (Fable 5) — Chapter 5의 Lesson 1~6 고품질화+시각화 통합 패스
 - **작업 내용**:
   - NotebookLM 세션 재사용 질의로 BC400 기반 모듈화 오개념(USING 기본 참조 전달, FM 예외 미처리 시 런타임 오류, Local Class 외부 접근 불가, value-and-result의 정상 종료 조건, 신규 개발 Class 우선/Subroutine Obsolete)을 수집하고 표준 동작과 교차 검증.

@@ -175,7 +175,50 @@ ls_student-name = <span class="abap-token-string">'정훈영'</span>.
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 첫 Internal Table 굴려보기 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>예제 <code>zinternal_table_intro</code>를 만들어 실행하고, 학생 1명이 출력되는지 확인합니다.</li>
+        <li>학생을 2명 더 추가(<code>CLEAR</code> → 값 채우기 → <code>APPEND</code>)해 3줄이 출력되게 만듭니다.</li>
+        <li>일부러 <code>APPEND</code> 한 줄을 주석 처리하고 출력 줄 수가 어떻게 바뀌는지 확인합니다.</li>
+        <li>위 “상태 변화” 그림의 1~4단계를 자신의 코드 줄 번호와 짝지어 적어봅니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> Output List에 3줄이 나오고, “Work Area에 채운 값이 APPEND 순간 표로 복사된다”를 설명할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINTERNAL_TABLE_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Internal Table</a> - Internal Table의 공식 정의를 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENWORK_AREA_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Work Area</a> - 한 줄 작업 공간인 Work Area의 공식 정의를 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPAPPEND.html" target="_blank" rel="noopener">SAP Help Portal: APPEND</a> - 줄을 추가하는 APPEND 문장의 공식 문법을 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>프로그램이 끝난 뒤에도 Internal Table의 데이터는 남아 있을까요?</li>
+    <li>Transparent Table과 Internal Table의 가장 큰 차이는 무엇인가요?</li>
+    <li>Internal Table의 크기는 선언할 때 미리 고정해야 할까요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>남지 않습니다.</strong> Internal Table은 프로그램 실행 중에만 Runtime Memory에 존재하는 임시 표입니다.</li>
+      <li><strong>저장 위치와 수명</strong>입니다. Transparent Table은 데이터베이스의 영구 저장소이고, Internal Table은 실행 중 메모리에서 쓰는 작업 공간입니다.</li>
+      <li><strong>아니요.</strong> Internal Table은 줄이 추가될 때마다 메모리가 동적으로 늘어납니다. 다만 그래서 더더욱 필요한 만큼만 담는 습관이 중요합니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

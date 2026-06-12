@@ -218,7 +218,50 @@ ls_student-score = <span class="abap-token-number">85</span>.
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 조건을 바꿔가며 전체 읽기 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>학생 3명(점수 포함)을 담은 Internal Table을 만들고 LOOP로 전체를 출력합니다.</li>
+        <li><code>score &gt;= 90</code>인 학생만 출력하도록 IF 조건을 넣고, 출력 줄 수 변화를 확인합니다.</li>
+        <li>LOOP 앞에 <code>CLEAR lt_students.</code>를 넣어 빈 테이블로 만든 뒤, LOOP 본문이 한 번도 실행되지 않는 것을 확인합니다.</li>
+        <li>LOOP가 돌 때마다 Work Area에 어떤 학생이 들어 있는지, 위 “현재 행” 그림과 짝지어 말로 설명합니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> “LOOP는 한 줄씩 Work Area로 복사해 읽고, 빈 테이블이면 본문이 0번 실행된다”를 실행 결과로 확인하면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB.html" target="_blank" rel="noopener">SAP Help Portal: LOOP AT itab</a> - LOOP AT 문장의 공식 문법과 추가 옵션을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENWORK_AREA_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Work Area</a> - LOOP가 현재 줄을 복사해 담는 Work Area의 정의를 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINTERNAL_TABLE_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Internal Table</a> - Internal Table의 공식 정의를 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>Internal Table이 비어 있을 때 <code>LOOP AT</code>을 실행하면 오류가 날까요?</li>
+    <li><code>LOOP AT ... INTO ls_student</code>에서 LOOP 안에서 <code>ls_student</code> 값을 바꾸면 Internal Table 원본도 바뀔까요?</li>
+    <li>LOOP 안에서 SELECT를 반복 호출하면 왜 위험한가요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>아니요.</strong> 본문이 한 번도 실행되지 않을 뿐 오류는 아닙니다. “데이터가 없는 상태”와 “프로그램 오류”를 구분해야 합니다.</li>
+      <li><strong>바뀌지 않습니다.</strong> <code>INTO</code>는 현재 줄을 Work Area로 <strong>복사</strong>하는 방식입니다. 원본 줄을 바꾸려면 MODIFY 같은 별도 문법이 필요합니다.</li>
+      <li><strong>반복 횟수만큼 데이터베이스 호출 비용이 쌓이기 때문</strong>입니다. 1,000줄이면 SELECT가 1,000번 실행되어 성능이 급격히 나빠집니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

@@ -218,7 +218,50 @@ ls_student-score = <span class="abap-token-number">85</span>.
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 성공과 실패를 모두 만나보기 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>학생 3명을 담은 Internal Table에서 <code>READ TABLE ... WITH KEY id = 'A02'</code>로 검색하고, 성공 시 이름을 출력합니다.</li>
+        <li>검색 ID를 <code>A99</code>로 바꿔 실행하고, <code>sy-subrc</code> 값을 직접 출력해 0이 아님을 확인합니다.</li>
+        <li>실패 시 “해당 학생 없음” 메시지가 나오도록 IF 분기를 완성합니다.</li>
+        <li>READ TABLE 앞의 <code>CLEAR ls_student.</code>를 일부러 빼고, 검색 실패 후 Work Area에 이전 값이 남아 있는 문제를 관찰합니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> 성공/실패 두 흐름이 서로 다른 메시지로 출력되고, “실패 시 Work Area를 그대로 믿으면 안 되는 이유”를 설명할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREAD_TABLE.html" target="_blank" rel="noopener">SAP Help Portal: READ TABLE</a> - READ TABLE 문장의 공식 문법과 검색 방식을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_ITAB.html" target="_blank" rel="noopener">SAP Help Portal: LOOP AT itab</a> - 전체 반복(LOOP)과 한 줄 검색(READ)의 쓰임 차이를 비교합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINTERNAL_TABLE_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Internal Table</a> - Internal Table의 키와 종류 개념을 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>READ TABLE이 조건에 맞는 줄을 찾지 못하면 <code>sy-subrc</code>는 어떻게 될까요?</li>
+    <li>검색 실패 직후 Work Area에는 무엇이 들어 있을까요?</li>
+    <li>전체 학생을 출력할 때와 특정 학생 한 명을 찾을 때, 각각 어떤 문장이 적합한가요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>0이 아닌 값(보통 4)</strong>이 됩니다. 0이면 성공, 0이 아니면 실패 흐름으로 분리해 처리합니다.</li>
+      <li><strong>이전에 들어 있던 값이 그대로 남아 있을 수 있습니다.</strong> 그래서 검색 전에 CLEAR하거나, 실패 시 Work Area를 사용하지 않아야 합니다.</li>
+      <li><strong>전체 출력은 LOOP AT, 한 줄 검색은 READ TABLE</strong>이 적합합니다. 목적(전체 반복 vs 단건 조회)에 따라 문장을 고릅니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">
