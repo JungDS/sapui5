@@ -1,164 +1,370 @@
-<!-- lesson-content/THEORY-01-M06.html -->
+<!-- lesson-content/THEORY-01-M06.html | 최종수정 2026-06-16 01:43 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
   <div class="lesson-callout-content">
     <h4>학습 목표</h4>
-    <p>지난 Lesson에서 만든 <span class="glossary-term" data-glossary="TransparentTable">Transparent Table</span>을 실제로 활성화하기 위해 필요한 <span class="glossary-term" data-glossary="TechnicalSettings">Technical Settings</span>를 배웁니다. <span class="glossary-term" data-glossary="DataClass">Data Class</span>, <span class="glossary-term" data-glossary="SizeCategory">Size Category</span>, <span class="glossary-term" data-glossary="Buffering">Buffering</span>을 처음 보는 사람도 이해할 수 있게 풀고, <span class="glossary-term" data-glossary="DataBrowser">Data Browser</span>로 <span class="glossary-term" data-glossary="TestData">Test Data</span>를 확인하는 흐름까지 마무리합니다.</p>
+    <p>이번 Lesson에서는 지난 시간의 <span class="glossary-term" data-glossary="TransparentTable">Transparent Table</span>을 실제로 활성화하기 전 확인하는 <span class="glossary-term" data-glossary="TechnicalSettings">Technical Settings</span>를 배웁니다. <span class="glossary-term" data-glossary="DataClass">Data Class</span>, <span class="glossary-term" data-glossary="SizeCategory">Size Category</span>, <span class="glossary-term" data-glossary="Buffering">Buffering</span>을 운영 힌트로 이해하고, <span class="glossary-term" data-glossary="DataBrowser">Data Browser</span>와 ADT Data Preview로 <span class="glossary-term" data-glossary="TestData">Test Data</span>를 확인하는 흐름까지 닫습니다.</p>
   </div>
 </div>
 
 <section class="lesson-section">
-  <h2>1. 지난 시간 연결: 설계도만으로는 창고가 지어지지 않는다 🏗️</h2>
+  <h2>1. Technical Settings는 필드 뜻을 정하지 않는다</h2>
   <p>
-    이전 Lesson에서 우리는 Transparent Table의 필드와 Key Field, MANDT까지 배웠습니다. 이제 테이블 모양은 꽤 그럴듯합니다. 하지만 여기서 활성화를 누르면 시스템이 추가 정보를 요구할 수 있습니다. “이 테이블을 실제 데이터베이스의 어떤 성격으로 관리할까요?”라는 질문입니다.
+    Transparent Table은 필드 목록과 Key만으로 끝나지 않습니다. 실제 데이터베이스에 만들어지는 저장 대상이므로, 시스템은 “이 테이블을 어떤 물리 특성으로 만들고 접근할 것인가?”라는 정보를 더 필요로 합니다. 이 묶음이 Technical Settings입니다.
   </p>
   <p>
-    테이블은 단순히 칸 목록만 있다고 완성되지 않습니다. 실제 DB에 만들어지는 객체이기 때문에 저장 영역, 예상 크기, 캐시 여부 같은 운영 설정이 필요합니다. 이 마지막 설정 묶음이 <span class="glossary-term" data-glossary="TechnicalSettings">Technical Settings</span>입니다.
+    SAP Learning은 Technical Table Settings를 테이블과 별도로 활성화하고 전송할 수 있는 개발 객체로 설명합니다. 이 설정은 물리 DB 테이블의 속성과 ABAP SQL 접근 방식에 영향을 줍니다. 단, 어떤 설정이 실제 DB에 전달되는지는 사용하는 데이터베이스에 따라 달라집니다.
   </p>
   <blockquote>
-    Technical Settings는 테이블의 “물리적 운영 방식”을 알려주는 체크리스트입니다.
+    필드의 업무 의미는 Data Element 쪽에서 잡고, Technical Settings는 저장과 접근의 운영 힌트를 잡습니다.
   </blockquote>
 </section>
 
 <section class="lesson-section">
-  <h2>2. Data Class: 어떤 종류의 데이터를 담는 창고인가? 🗂️</h2>
+  <h2>2. 설정 네 칸을 한 화면에 놓고 보기</h2>
   <p>
-    <span class="glossary-term" data-glossary="DataClass">Data Class</span>는 테이블이 담을 데이터의 성격을 정합니다. 쉽게 말해 “이 창고는 어떤 물건을 주로 보관하나요?”에 답하는 칸입니다.
+    초급 단계에서는 모든 옵션을 외우기보다, 각 칸이 어떤 질문에 답하는지 먼저 잡는 편이 낫습니다.
   </p>
-  <ul>
-    <li><code>APPL0</code>: 마스터 데이터 성격입니다. 고객, 자재, 공급업체처럼 기준 정보에 가깝습니다.</li>
-    <li><code>APPL1</code>: 트랜잭션 데이터 성격입니다. 주문, 전표, 예약처럼 업무가 발생할 때 계속 쌓이는 데이터입니다.</li>
-    <li><code>APPL2</code>: 조직이나 커스터마이징 성격의 데이터에 쓰이는 경우가 있습니다.</li>
-  </ul>
-  <p>
-    초보 단계에서는 값 이름을 모두 외우려고 애쓰기보다, “DB 관리자가 데이터 성격에 맞게 저장 영역과 운영 정책을 잡을 수 있도록 힌트를 주는 설정”이라고 이해하면 충분합니다. 실제 프로젝트에서는 회사 기준과 Basis/DB 운영 기준을 따릅니다.
-  </p>
-</section>
-
-<section class="lesson-section">
-  <h2>3. Size Category: 얼마나 커질 창고인지 미리 말하기 📏</h2>
-  <p>
-    <span class="glossary-term" data-glossary="SizeCategory">Size Category</span>는 테이블에 앞으로 데이터가 어느 정도 쌓일지 시스템에 알려주는 설정입니다. 개발자가 “처음엔 작지만 나중에 수백만 건까지 갈 수 있어요”라고 말해주는 힌트에 가깝습니다.
-  </p>
-  <ul>
-    <li><strong>작은 코드성 테이블:</strong> 데이터가 몇십 건 또는 몇백 건이면 낮은 범주를 선택할 수 있습니다.</li>
-    <li><strong>거래 이력 테이블:</strong> 매일 계속 쌓이는 데이터라면 더 큰 범주를 고려합니다.</li>
-    <li><strong>불확실한 경우:</strong> 혼자 추측하지 말고 선배 개발자나 Basis 기준을 확인합니다.</li>
-  </ul>
-  <div class="lesson-callout">
-    <div class="lesson-callout-icon">💡</div>
-    <div class="lesson-callout-content">
-      <h4>학습지 느낌으로 기억하기</h4>
-      <p>Size Category는 “책장을 하나 살지, 창고형 랙을 살지” 미리 정하는 것과 비슷합니다. 지금 당장 비어 있어도, 앞으로 얼마나 쌓일지 생각해야 합니다.</p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">Technical Settings 판단 그리드</p>
+    <div class="viz-state-grid">
+      <div class="viz-state">
+        <span class="viz-state-label">Data Class</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td>데이터 성격</td></tr>
+            <tr><td><code>APPL0</code> master, <code>APPL1</code> transaction, <code>APPL2</code> organizational/customizing</td></tr>
+            <tr><td>SAP HANA에서는 주로 문서 힌트로 이해</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-state">
+        <span class="viz-state-label">Size Category</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td>예상 row 규모</td></tr>
+            <tr><td>0부터 9까지 범주로 초기 저장 공간 크기에 영향</td></tr>
+            <tr><td>너무 작거나 큰 선택을 피함</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-state">
+        <span class="viz-state-label">Buffering</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td>애플리케이션 서버 버퍼 사용 여부</td></tr>
+            <tr><td>작고 자주 읽으며 잘 변하지 않는 데이터에 후보</td></tr>
+            <tr><td>최신성이 중요한 데이터에는 위험</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-state">
+        <span class="viz-state-label">Data Changes</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td>변경 로그 여부</td></tr>
+            <tr><td>ABAP SQL 변경을 로그 테이블에 남기는 옵션</td></tr>
+            <tr><td>중요하지만 드물게 바뀌는 테이블에만 신중히 검토</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+    <p class="viz-note">M06에서는 Data Class, Size Category, Buffering을 중심으로 배우고, 변경 로그는 “무조건 켜는 감사 기능이 아니다” 정도만 기억합니다.</p>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>4. Buffering: 자주 읽는 작은 데이터를 빠르게 보기 ⚡</h2>
+  <h2>3. Data Class는 데이터의 성격표다</h2>
   <p>
-    <span class="glossary-term" data-glossary="Buffering">Buffering</span>은 테이블 데이터를 애플리케이션 서버 메모리에 올려두고 빠르게 읽는 설정입니다. 데이터베이스까지 매번 다녀오는 대신, 자주 쓰는 작은 정보를 가까운 곳에 복사해두는 느낌입니다.
+    <span class="glossary-term" data-glossary="DataClass">Data Class</span>는 테이블이 담는 데이터의 성격을 나타냅니다. 예전 DB에서는 물리 tablespace 선택에 직접 연결되었고, SAP HANA에서는 SAP Learning 설명처럼 효과가 없지만 여전히 필수 입력값이자 문서 정보로 남습니다.
   </p>
-  <p>
-    하지만 Buffering은 무조건 켠다고 좋은 기능이 아닙니다. 데이터가 자주 바뀌는 테이블을 버퍼링하면 최신 데이터가 바로 반영되지 않는 것처럼 보일 수 있고, 운영 정책과 충돌할 수도 있습니다.
-  </p>
-  <ul>
-    <li>✅ <strong>어울리는 후보:</strong> 국가 코드, 고정 코드, 작은 설정 테이블처럼 작고 자주 읽고 거의 변하지 않는 데이터</li>
-    <li>❌ <strong>위험한 후보:</strong> 주문, 재고, 전표처럼 자주 바뀌고 최신성이 중요한 데이터</li>
-  </ul>
-  <blockquote>
-    초심자 기준에서는 Buffering을 직접 판단하기보다, “성능과 최신성 사이의 선택”이라는 감각을 먼저 잡으면 됩니다.
-  </blockquote>
+  <div class="viz-visual">
+    <p class="viz-visual-title">세 가지 대표 Data Class</p>
+    <table class="viz-table">
+      <thead>
+        <tr>
+          <th>값</th>
+          <th>성격</th>
+          <th>초급 판단 예</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>APPL0</code></td>
+          <td>Master data</td>
+          <td>고객, 자재, 직원처럼 기준이 되는 데이터</td>
+        </tr>
+        <tr>
+          <td><code>APPL1</code></td>
+          <td>Transaction data</td>
+          <td>주문, 전표, 재고 이동처럼 업무가 생길 때 계속 쌓이는 데이터</td>
+        </tr>
+        <tr>
+          <td><code>APPL2</code></td>
+          <td>Organizational/customizing data</td>
+          <td>회사 설정, 국가 코드, 조직 기준처럼 상대적으로 드물게 바뀌는 데이터</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <details class="foldable">
+    <summary>HANA에서는 의미가 없다면 아무거나 골라도 될까?</summary>
+    <p>아닙니다. 실제 물리 효과가 제한되더라도 설계 문서와 운영 기준으로 남습니다. 프로젝트 표준, Basis 기준, 교육 시스템의 지시값을 우선 따르세요.</p>
+  </details>
 </section>
 
 <section class="lesson-section">
-  <h2>5. 활성화 후 Data Browser로 눈으로 확인하기 🔎</h2>
+  <h2>4. Size Category는 예상 데이터 양을 말한다</h2>
   <p>
-    Technical Settings까지 채우고 활성화가 성공하면, 테이블은 실제로 사용할 준비가 됩니다. 이제 “정말 테이블이 생겼나?”, “데이터가 들어가면 어떻게 보이나?”를 확인해야 합니다. 이때 쓰는 도구가 <span class="glossary-term" data-glossary="DataBrowser">Data Browser</span>입니다.
+    <span class="glossary-term" data-glossary="SizeCategory">Size Category</span>는 테이블이 앞으로 어느 정도 커질지 알려주는 값입니다. SAP 공식 문서는 Size Category가 초기 저장 공간과 관련되고, 값 도움말에 예상 record 범주가 연결된다고 설명합니다.
   </p>
-  <ul>
-    <li><strong>SAP GUI:</strong> 전통적으로 <code>SE16</code> 또는 <code>SE16N</code>에서 테이블 데이터를 조회합니다.</li>
-    <li><strong>ADT:</strong> 테이블을 열고 Data Preview 기능을 사용해 데이터를 표 형태로 확인합니다.</li>
-  </ul>
-  <div class="lesson-callout tip">
-    <div class="lesson-callout-icon">🧪</div>
-    <div class="lesson-callout-content">
-      <h4>미니 실습 흐름</h4>
-      <ol>
-        <li>개발 환경에서 방금 만든 테이블을 활성화합니다.</li>
-        <li>Data Browser 또는 ADT Data Preview로 테이블을 엽니다.</li>
-        <li>허용된 방식으로 <span class="glossary-term" data-glossary="TestData">Test Data</span> 한 줄을 입력하거나, 별도 테스트 프로그램으로 데이터를 넣습니다.</li>
-        <li>같은 Key Field 조합으로 한 줄을 더 넣으려 할 때 중복 오류가 나는지 확인합니다.</li>
-      </ol>
-      <p><strong>완료 조건:</strong> Technical Settings 값, 테스트 데이터 1건, 중복 키 오류 확인 결과를 각각 한 줄씩 기록하면 성공입니다.</p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">크기 판단 예시</p>
+    <table class="viz-table">
+      <thead>
+        <tr>
+          <th>테이블 성격</th>
+          <th>예상 규모</th>
+          <th>판단 방향</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>소규모 코드 테이블</td>
+          <td>수십에서 수백 건</td>
+          <td><span class="viz-badge success">낮은 범주 후보</span></td>
+        </tr>
+        <tr>
+          <td>마스터 테이블</td>
+          <td>수천에서 수십만 건</td>
+          <td><span class="viz-badge success">값 도움말과 요구사항 확인</span></td>
+        </tr>
+        <tr>
+          <td>거래 이력 테이블</td>
+          <td>기간이 길수록 계속 증가</td>
+          <td><span class="viz-badge fail">작게 찍지 말고 운영 기준 확인</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="viz-note">숫자 자체를 암기하지 말고, 값 도움말과 프로젝트 기준으로 예상 row 범주를 고른다는 흐름을 익힙니다.</p>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>5. Buffering은 성능과 최신성 사이의 선택이다</h2>
+  <p>
+    <span class="glossary-term" data-glossary="Buffering">Buffering</span>은 테이블 데이터를 애플리케이션 서버의 table buffer에서 읽을 수 있게 하는 설정입니다. SAP Learning은 활성 버퍼링이 있는 테이블을 ABAP SQL로 접근할 때 table buffer가 암묵적으로 사용된다고 설명합니다.
+  </p>
+  <p>
+    그래서 버퍼링은 “빠르게 읽고 싶으니 항상 켠다”가 아닙니다. 데이터가 자주 바뀌거나 최신성이 중요한 테이블에서는 오히려 위험합니다.
+  </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">버퍼링 후보 비교</p>
+    <div class="viz-compare">
+      <div class="viz-compare-after">
+        <span class="viz-compare-label">어울리는 후보</span>
+        <div class="viz-compare-body">
+          <ul>
+            <li>작고 자주 읽는 기준 데이터</li>
+            <li>변경이 드문 customizing성 데이터</li>
+            <li>잠깐의 반영 지연이 업무 위험을 만들지 않는 데이터</li>
+          </ul>
+        </div>
+      </div>
+      <div class="viz-compare-before">
+        <span class="viz-compare-label">피해야 할 후보</span>
+        <div class="viz-compare-body">
+          <ul>
+            <li>주문, 재고, 전표처럼 자주 바뀌는 transaction data</li>
+            <li>항상 최신 상태를 읽어야 하는 테이블</li>
+            <li>변경량이 커서 버퍼 무효화 비용이 큰 데이터</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
-  <p>
-    여기서 “오류가 난다”는 것은 무조건 나쁜 일이 아닙니다. 같은 키로 두 줄이 들어가지 못하게 막는다면, 지난 Lesson에서 설계한 Key Field가 제대로 일하고 있다는 뜻입니다.
-  </p>
+  <details class="foldable">
+    <summary>Buffering을 켜면 SELECT 문을 다 바꿔야 할까?</summary>
+    <p>아닙니다. 활성 버퍼링 테이블을 ABAP SQL로 읽을 때는 DB 인터페이스가 table buffer 사용을 처리합니다. 개발자는 “이 테이블이 버퍼링 대상인지”를 설계 단계에서 신중히 판단해야 합니다.</p>
+  </details>
 </section>
 
 <section class="lesson-section">
-  <h2>6. 운영 SE16N 직접 수정은 왜 금기일까? 🚨</h2>
+  <h2>6. 활성화 순서는 별도 객체라는 점 때문에 헷갈린다</h2>
   <p>
-    개발 환경에서 테스트 데이터를 넣어보는 것과 운영 환경에서 실제 업무 데이터를 직접 수정하는 것은 완전히 다른 이야기입니다. 운영 시스템은 실제 회사 업무가 돌아가는 곳입니다. Data Browser로 데이터를 직접 바꾸면 프로그램이 원래 수행해야 하는 검증 로직을 우회할 수 있습니다.
+    ADT 기준으로 Technical Table Settings는 테이블 정의의 부속 화면처럼 보이지만, SAP Learning은 별도로 활성화하고 전송할 수 있는 개발 객체라고 설명합니다. 그래서 실습에서는 테이블 정의와 technical settings를 모두 활성화하는 습관이 필요합니다.
   </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">Transparent Table 마무리 흐름</p>
+    <div class="viz-flow">
+      <div class="viz-flow-step"><strong>1. Field List</strong><span>필드, Key Field, <span class="glossary-term" data-glossary="MANDT">MANDT</span> 여부를 정한다.</span></div>
+      <div class="viz-flow-step"><strong>2. Technical Settings</strong><span>Data Class, Size Category, Buffering, 변경 로그를 확인한다.</span></div>
+      <div class="viz-flow-step"><strong>3. Activate Settings</strong><span>technical settings 객체를 먼저 또는 함께 활성화한다.</span></div>
+      <div class="viz-flow-step"><strong>4. Activate Table</strong><span><span class="glossary-term" data-glossary="Activation">Activation</span> 성공 후 ABAP SQL 접근 대상이 된다.</span></div>
+      <div class="viz-flow-step"><strong>5. Preview Data</strong><span>Data Browser나 ADT Data Preview로 테스트 데이터를 확인한다.</span></div>
+    </div>
+  </div>
   <div class="lesson-callout warn">
     <div class="lesson-callout-icon">⚠️</div>
     <div class="lesson-callout-content">
-      <h4>운영 데이터는 정식 화면과 프로그램을 통해 바꿉니다</h4>
-      <p>SE16N 같은 도구로 운영 데이터를 직접 수정하면 권한 체크, 상태 체크, 후속 문서 생성, 변경 이력 기록 같은 중요한 절차가 빠질 수 있습니다. 겉보기에는 한 칸만 고친 것 같아도, SAP 업무 데이터의 연결 관계가 깨질 수 있습니다.</p>
+      <h4>기본값을 믿고 지나가지 않습니다</h4>
+      <p>새 테이블 생성 시 editor가 흔한 기본값을 제안할 수 있습니다. 그래도 SAP Learning의 권고처럼 기본값이 내 테이블에 맞는지 반드시 확인하고 필요하면 바꿔야 합니다.</p>
     </div>
   </div>
-  <ul>
-    <li>✅ <strong>개발/테스트 환경:</strong> 학습과 검증 목적으로 제한적으로 테스트 데이터를 넣고 확인할 수 있습니다.</li>
-    <li>❌ <strong>운영 환경:</strong> 직접 테이블 수정이 아니라, 승인된 트랜잭션·프로그램·마이그레이션 절차를 사용합니다.</li>
-  </ul>
 </section>
 
 <section class="lesson-section">
-  <h2>7. 공식 문서로 더 확인하기 🔗</h2>
-  <ul>
-    <li><a href="https://learning.sap.com/courses/building-data-models-with-the-abap-dictionary-and-abap-core-data-services/creating-database-tables_ebc1477d-96ed-414b-82d4-4171da43f4a6" target="_blank" rel="noopener">SAP Learning: Database Tables 생성</a> — Technical Settings가 테이블 생성 흐름에서 어떤 위치인지 확인합니다.</li>
-    <li><a href="https://help.sap.com/docs/SAP_NETWEAVER_731_BW_ABAP/ec1c9c8191b74de98feb94001a95dd76/cf21eab8446011d189700000e8322d00.html?locale=en-US" target="_blank" rel="noopener">SAP Help Portal: Technical Settings</a> — Data Class, Size Category, Buffering 같은 설정의 의미를 공식 도움말로 확인합니다.</li>
-    <li><a href="https://help.sap.com/docs/SAP_NETWEAVER_731_BW_ABAP/ec1c9c8191b74de98feb94001a95dd76/cf21eadf446011d189700000e8322d00.html" target="_blank" rel="noopener">SAP Help Portal: Buffering Permission</a> — Buffering을 허용할지 말지 판단하는 기본 설정을 확인합니다.</li>
-  </ul>
+  <h2>7. Data Browser와 ADT Data Preview로 눈으로 확인한다</h2>
+  <p>
+    <span class="glossary-term" data-glossary="DataBrowser">Data Browser</span>는 ABAP 프로그램을 직접 만들지 않고 테이블 데이터를 확인하는 도구입니다. SAP GUI에서는 전통적으로 SE16, SE16N 같은 트랜잭션을 떠올리고, ADT에서는 테이블이나 view의 Data Preview로 결과를 봅니다.
+  </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">조회 도구의 역할 구분</p>
+    <table class="viz-table">
+      <thead>
+        <tr>
+          <th>도구</th>
+          <th>초급 사용 목적</th>
+          <th>주의</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>SE16</td>
+          <td>테이블 row 조회</td>
+          <td>권한과 시스템 정책을 따른다.</td>
+        </tr>
+        <tr>
+          <td>SE16N</td>
+          <td>조회 조건을 넣고 표 형태로 확인</td>
+          <td>운영 직접 수정 경로로 쓰지 않는다.</td>
+        </tr>
+        <tr>
+          <td>ADT Data Preview</td>
+          <td>개발 객체에서 바로 result set 확인</td>
+          <td>대량 데이터 탐색 도구처럼 남용하지 않는다.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <details class="foldable">
+    <summary>Client-dependent 테이블에서는 무엇을 먼저 볼까?</summary>
+    <p><span class="glossary-term" data-glossary="ClientDependent">Client-dependent</span> 테이블이라면 <code>MANDT</code> 기준으로 현재 로그인 client의 데이터가 보이는지 확인합니다. 다른 client의 데이터와 섞어 이해하면 실습 결과를 잘못 판단할 수 있습니다.</p>
+  </details>
 </section>
 
 <section class="lesson-section">
-  <h2>8. 확인 퀴즈와 정답/해설 ✅</h2>
+  <h2>8. Test Data와 운영 데이터의 경계를 긋는다</h2>
+  <p>
+    개발 환경에서 <span class="glossary-term" data-glossary="TestData">Test Data</span> 한 줄을 넣고 Key 중복 오류를 확인하는 것은 좋은 학습입니다. 하지만 운영 시스템의 실제 데이터를 Data Browser에서 직접 고치는 것은 전혀 다른 문제입니다.
+  </p>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">🚫</div>
+    <div class="lesson-callout-content">
+      <h4>운영 데이터는 정식 경로로 바꿉니다</h4>
+      <p>Data Browser 직접 수정은 권한 체크, 상태 체크, 후속 문서 생성, 변경 이력, application logic을 우회할 수 있습니다. 운영에서는 승인된 트랜잭션, 프로그램, 마이그레이션 절차를 사용합니다.</p>
+    </div>
+  </div>
+  <div class="viz-visual">
+    <p class="viz-visual-title">허용 범위 감각</p>
+    <table class="viz-table">
+      <thead>
+        <tr>
+          <th>상황</th>
+          <th>판단</th>
+          <th>이유</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>교육 client에서 내가 만든 Z 테이블에 테스트 row 입력</td>
+          <td><span class="viz-badge success">학습 범위</span></td>
+          <td>테이블 설계와 Key 동작을 확인하기 위한 제한된 데이터입니다.</td>
+        </tr>
+        <tr>
+          <td>개발 서버에서 승인된 테스트 프로그램으로 sample data 생성</td>
+          <td><span class="viz-badge success">권장</span></td>
+          <td>재현 가능한 방식으로 데이터를 넣고 지울 수 있습니다.</td>
+        </tr>
+        <tr>
+          <td>운영 client에서 SE16N으로 업무 테이블 직접 수정</td>
+          <td><span class="viz-badge fail">금지</span></td>
+          <td>업무 검증과 변경 절차를 우회해 데이터 정합성을 깨뜨릴 수 있습니다.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 미니 실습: Technical Settings 결정표 작성</h2>
+  <p>
+    지난 Lesson에서 만든 항공편 일정 테이블을 기준으로 아래 순서대로 판단해 보세요. 실제 시스템이 없어도 설계표를 완성할 수 있습니다.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">🧪</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>테이블이 master data, transaction data, customizing data 중 어디에 가까운지 적습니다.</li>
+        <li>예상 row 수를 낮음, 중간, 높음 중 하나로 잡고 Size Category 값 도움말에서 고를 범위를 적습니다.</li>
+        <li>Buffering을 허용할지 말지 판단하고, “읽기 빈도”와 “변경 빈도”를 근거로 씁니다.</li>
+        <li>technical settings와 table definition을 활성화한 뒤 Data Browser 또는 ADT Data Preview로 테스트 row를 확인합니다.</li>
+        <li>같은 Key 조합의 row를 다시 넣으면 어떤 오류가 기대되는지 설명합니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> Data Class, Size Category, Buffering 판단 근거와 테스트 데이터 확인 결과를 각각 한 줄씩 기록하면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 공식 문서로 더 확인하기</h2>
+  <p>
+    이번 Lesson은 NotebookLM의 BC430 기반 요약과 아래 SAP 공식 자료를 교차 확인해 재구성했습니다. 특히 HANA에서 Data Class의 물리 효과를 과장하지 않고, Buffering과 Data Changes는 운영 기준에 맞춰 신중히 다루도록 범위를 좁혔습니다.
+  </p>
+  <div class="link-list">
+    <a href="https://learning.sap.com/courses/building-data-models-with-the-abap-dictionary-and-abap-core-data-services/creating-database-tables_ebc1477d-96ed-414b-82d4-4171da43f4a6" target="_blank" rel="noopener">SAP Learning: Creating Database Tables<span>Technical Table Settings, Data Class, Size Category, Buffering, Data Changes, 활성화 실습 흐름을 확인합니다.</span></a>
+    <a href="https://help.sap.com/docs/SAP_NETWEAVER_731_BW_ABAP/ec1c9c8191b74de98feb94001a95dd76/cf21eab8446011d189700000e8322d00.html?locale=en-US" target="_blank" rel="noopener">SAP Help Portal: Technical Settings<span>Data class, size category, buffering permission, buffering type, logging의 고전적 정의를 확인합니다.</span></a>
+    <a href="https://help.sap.com/docs/abap-cloud/abap-development-tools-user-guide/accessing-data-preview" target="_blank" rel="noopener">SAP Help Portal: Accessing Data Preview<span>ADT에서 database table이나 view의 Data Preview를 여는 흐름을 확인합니다.</span></a>
+    <a href="https://help.sap.com/docs/SAP_NETWEAVER_750/bd833c8355f34e96a6e83096b38bf192/d18019cd454211d189710000e8322d00.html" target="_blank" rel="noopener">SAP Help Portal: The Data Browser<span>ABAP 프로그램 없이 table entries를 조회하는 Data Browser의 역할을 확인합니다.</span></a>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>11. 확인 퀴즈</h2>
   <ol>
-    <li>Technical Settings는 필드의 업무 의미를 정하는 설정일까요, 테이블의 물리적 운영 방식을 정하는 설정일까요?</li>
-    <li>Buffering은 주문·재고·전표처럼 자주 바뀌는 테이블에 항상 켜는 것이 좋을까요?</li>
-    <li>개발 환경에서 같은 키로 테스트 데이터를 두 번 넣었을 때 오류가 나면 무조건 실패일까요?</li>
+    <li>Technical Settings는 필드의 업무 의미를 정하는 설정인가요, 물리 DB 테이블과 접근 특성을 정하는 설정인가요?</li>
+    <li>SAP HANA에서 Data Class는 물리 tablespace 선택에 강하게 영향을 준다고 말해도 될까요?</li>
+    <li>Buffering은 주문, 재고, 전표처럼 자주 바뀌는 테이블에 항상 켜는 것이 좋을까요?</li>
+    <li>개발 환경의 Test Data 입력과 운영 데이터 직접 수정은 같은 수준의 작업인가요?</li>
   </ol>
-  <details>
+  <details class="foldable">
     <summary>정답/해설 보기</summary>
     <ol>
-      <li><strong>테이블의 물리적 운영 방식</strong>을 정하는 설정입니다. 필드 의미는 Data Element 쪽에서 다룹니다.</li>
-      <li><strong>아니요.</strong> NotebookLM의 BC430 기반 요약과 SAP Help의 Buffering 설명 모두, Buffering은 작고 자주 읽으며 변경이 적은 데이터에 신중히 쓰는 설정이라는 점을 강조합니다.</li>
-      <li><strong>아니요.</strong> 같은 키를 막는 오류라면 Key Field가 중복을 제대로 막고 있다는 신호일 수 있습니다.</li>
+      <li><strong>물리 DB 테이블과 접근 특성</strong>을 정하는 설정입니다. 필드 의미는 Data Element 쪽에서 다룹니다.</li>
+      <li><strong>아니요.</strong> SAP Learning은 Data Class가 SAP HANA에서는 효과가 없지만 필수값과 문서 정보로 남는다고 설명합니다.</li>
+      <li><strong>아니요.</strong> Buffering은 작고 자주 읽으며 변경이 드문 데이터에 신중히 검토합니다.</li>
+      <li><strong>아니요.</strong> 운영 데이터는 승인된 트랜잭션, 프로그램, 마이그레이션 절차로 변경해야 합니다.</li>
     </ol>
   </details>
 </section>
 
 <section class="lesson-section">
-  <h2>9. 한눈에 정리 🏁</h2>
+  <h2>12. Chapter 1 한눈에 정리</h2>
+  <div class="recap-grid">
+    <div class="recap-card"><strong>Domain</strong>타입, 길이, 값 범위 같은 기술 기반을 잡습니다.</div>
+    <div class="recap-card"><strong>Data Element</strong>필드 의미, 라벨, F1 도움말처럼 사용자에게 보이는 의미를 붙입니다.</div>
+    <div class="recap-card"><strong>Structure</strong>한 줄 데이터 모양을 재사용 가능한 타입으로 정의합니다.</div>
+    <div class="recap-card"><strong>Transparent Table</strong>Key와 필드 목록을 가진 실제 DB 저장 대상을 만듭니다.</div>
+    <div class="recap-card"><strong>Technical Settings</strong>데이터 성격, 예상 크기, 버퍼링, 변경 로그 같은 운영 힌트를 확인합니다.</div>
+    <div class="recap-card"><strong>Data Browser</strong>활성화된 테이블의 데이터를 조회하고 테스트 결과를 확인합니다.</div>
+  </div>
   <div class="lesson-callout tip">
-    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-icon">➡️</div>
     <div class="lesson-callout-content">
-      <h4>DDIC 1차 마무리 핵심</h4>
-      <ul>
-        <li><strong>Technical Settings</strong>는 Transparent Table의 물리적 운영 방식을 정합니다.</li>
-        <li><strong>Data Class</strong>는 데이터 성격, <strong>Size Category</strong>는 예상 데이터 규모를 나타냅니다.</li>
-        <li><strong>Buffering</strong>은 작은 기준 데이터를 빠르게 읽게 도와주지만, 최신성이 중요한 데이터에는 조심해야 합니다.</li>
-        <li><strong>Data Browser</strong>는 테이블 안의 실제 데이터를 확인하는 도구입니다.</li>
-        <li>운영 시스템에서 SE16N으로 데이터를 직접 수정하는 것은 업무 로직을 우회할 수 있어 금기입니다.</li>
-      </ul>
+      <h4>다음 Chapter 예고</h4>
+      <p>Chapter 1에서는 DDIC의 기본 조립 순서를 닫았습니다. Chapter 2에서는 ABAP 프로그램을 만들고 <code>WRITE</code> 출력으로 값을 직접 확인하는 단계로 넘어갑니다.</p>
     </div>
   </div>
-  <p>
-    여기까지 Domain → Data Element → Structure → Transparent Table → Technical Settings까지 DDIC 1차 조립 흐름을 한 바퀴 돌았습니다. 다음 Chapter <strong>ABAP 기본 문법과 WRITE 출력</strong>에서는 이제 이 데이터 정의를 바탕으로 ABAP 프로그램을 직접 실행하고 화면에 값을 출력해보는 단계로 넘어갑니다.
-  </p>
 </section>
