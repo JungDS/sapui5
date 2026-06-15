@@ -1,6 +1,6 @@
 # 프로젝트 개발 일지 (Development Diary)
 
-> 📅 **최종수정: 2026-06-12 KST**
+> 📅 **최종수정: 2026-06-15 KST**
 
 이곳은 AI 에이전트와 사용자가 함께 작업하며 고민했던 흔적, 설계 결정 과정, 그리고 매일매일의 세세한 개발 내역을 일기처럼 남기는 공간입니다.
 
@@ -12,6 +12,7 @@
 ---
 
 ## 📅 일자별 기록 목록
+- [2026-06-15 (Codex — Chapter 13 고품질화+시각화 통합 패스)](changelogs/CHANGELOG_20260615.md)
 - [2026-06-12 (Claude — Chapter 7 고품질화+시각화 통합 패스)](changelogs/CHANGELOG_20260612.md)
 - [2026-06-11 (Codex/Claude — Track 1 피드백 보정, Chapter 3·20~21 고품질화, 시각화 확산 Phase 0 및 Chapter 4~6)](changelogs/CHANGELOG_20260611.md)
 - [2026-06-09 (운영 분석 문서 동기화 — Lesson Viewer 아키텍처 반영, 코드 변경 없음)](changelogs/CHANGELOG_20260609.md)

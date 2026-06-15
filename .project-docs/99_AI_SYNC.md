@@ -1,6 +1,6 @@
 # AI Workspace Synchronization Log (AI-SYNC)
 
-> 📅 **최종수정: 2026-06-12 KST**
+> 📅 **최종수정: 2026-06-15 KST**
 
 ## 목적 및 규칙 (Purpose & Rules)
 본 파일(`.project-docs/99_AI_SYNC.md`)은 여러 AI 모델(Codex, Antigravity, Claude 등)이 컨텍스트를 공유하고 작업을 이어가기 위한 공통 데이터베이스 역할을 합니다.
@@ -17,6 +17,7 @@
 
 ## 현재 상태 및 목표 (Current Status & Goals)
 - **현재 목표**: 🎉 **Track 1(THEORY-*) 137/137 작성 완료!** (THEORY-01~21 전부). 사용자의 새 목표에 따라 Track 1을 "고품질 교육용 웹페이지" 기준으로 재감사·보강하는 라운드를 진행 중. 기준 문서: [TRACK1_QUALITY_PLAN.md](TRACK1_QUALITY_PLAN.md). 병행 다음 목표는 **Track 2(PRACTICAL-* 13개 섹션)** 신규 작성.
+- **최근 진행(2026-06-15, Codex)**: 사용량 제한으로 중단된 자동화 재시작 후 메모리와 저장소 계획을 대조해 다음 실제 미완료 범위를 `Chapter 13`으로 확정. `Chapter 13의 Lesson 1~7`에 미니 실습, 완료 조건, SAP 공식 링크, 확인 퀴즈/정답 해설, 시각 자료를 보강했고, `THEORY-13-M01`의 남은 인라인 스타일을 공통 CSS 클래스로 이동 및 중간 폭 화면에서 우측 내비와 탭 위젯이 겹치지 않도록 보정했다.
 - **최근 진행(2026-06-12, Antigravity)**: **Chapter 10~12 (Range Table, JOIN, Classic View)** 고품질화 완료 및 예제 이름 규칙(정훈영 주인공 규칙) 적용 완료. TMG/SM30 및 Classic/CDS 비교 아키텍처 SVG 흐름 시각화 보강 완료. `abap_glossary.json` 누락 용어 5종 패치 완료. **THEORY-13-M01의 이벤트 라이프사이클 다이어그램을 roadmap.html의 CSS 트리 구조로 개선 교체 완료**. 로컬 웹 서버(localhost:8080) 구동 확인 완료.
 - **최근 진행(2026-06-11, Claude)**: 사용자 승인 플랜에 따라 **Track 1 시각화 확산 + 고품질화 통합 라운드** 시작. Phase 0(기반 정비) 완료 — `viz-*` 범용 CSS 별칭/`viz-compare`/`viz-svg` 신설, 시각화 패턴 카탈로그 7종을 HANDOFF에 표준화, Chapter 10 일반 표 정리, 포맷터 SQL 키워드 보강(77개 파일 하이라이트 개선). **NotebookLM MCP 연결 완료**(notebooklm-mcp v2.0.0, 노트북 `ABAP Evolution and Messaging Channels Training Guide` 등록·질의 검증). 이후 Chapter 4→19 통합 패스, 마지막에 Chapter 1~3/6/20~21 시각화 보강 미니 패스 예정.
 - **이전 진행(2026-06-11, Codex)**: 사용자 피드백에 따라 `Chapter 1의 Lesson 1`, `Chapter 2의 Lesson 3`, `Chapter 5의 Lesson 2/4/5`, `Chapter 6의 Lesson 1~6`을 보정. 코드 예제 D2Coding 상속, ABAP 키워드 포맷터 확장, Classic `WRITE`와 ADT `out->write( )` 구분, Subroutine 전달 방식, Class 입문 설명, Internal Table 시각 자료를 보강.
@@ -26,7 +27,7 @@
 ---
 
 ## 미결 사항 (Pending Issues / Next Steps)
-- **Track 1 고품질화**: Chapter 1~3, Chapter 20~21 기준 패턴 적용 완료. Chapter 4~11 고품질화 완료. 나머지 Lesson은 설명·글로서리·실무 주의·요약 기반은 갖췄지만, 전 Lesson 공통의 퀴즈/정답/해설, 공식 링크, 실습 완료 조건은 아직 부족하다. 다음 진행 후보는 Chapter 12~19이며, SQL/Dynpro/ALV/OO ABAP는 로컬 reference와 공식 문서로 범위 재검증 후 진행한다.
+- **Track 1 고품질화**: Chapter 1~13, Chapter 20~21 기준 패턴 적용 완료. 나머지 Chapter 14~19는 설명·글로서리·실무 주의·요약 기반은 갖췄지만, 전 Lesson 공통의 퀴즈/정답/해설, 공식 링크, 실습 완료 조건과 시각 자료가 아직 부족하다. 다음 진행 후보는 Chapter 14(Dynpro 기초)이며, 이후 Chapter 15~19(ALV/Modern ABAP/Open SQL/OO ABAP/표시 제어)는 로컬 reference와 공식 문서로 범위 재검증 후 진행한다.
 - **Lesson 본문 양산**: Track 1 완료. 다음은 **Track 2(PRACTICAL-* 13개 섹션, 약 70개 Lesson)** 신규 작성. 같은 스타일(초심자·한눈에 정리·글로서리 패리티·추적 3종 동시 갱신·Chapter/Lesson 용어)을 그대로 적용한다. JSON의 `d.tracks[1]`에서 PRACTICAL 섹션/Lesson ID 추출.
 - **[완료] 신규 19~21 코드블록 서식 및 CSS 아키텍처 리팩토링**: Antigravity가 네이비 ABAP Editor 포맷터 개선을 통해 에디터 외곽 인라인 스타일을 CSS 클래스로 분리했고, Codex가 코드 하이라이트 토큰까지 `abap-token-*` 클래스로 공통화함.
 - **[프로세스] 섹션 작성 후 추적 3종 동시 갱신**: 섹션 커밋 시 ① `HANDOFF_LESSON_CONTENT.md` 진행표 ② 본 파일(99_AI_SYNC) 작업이력/현황 ③ `changelogs/CHANGELOG_<날짜>.md`를 함께 갱신할 것(누락 주의).
@@ -41,6 +42,19 @@
 ---
 
 ## 작업 이력 (Work Log)
+
+### [2026-06-15] Codex (GPT-5) — Chapter 13 고품질화+시각화 통합 패스
+- **작업 내용**:
+  - 자동화 메모리와 저장소 문서를 대조해 기존 계획이 존재함을 확인하고, 정적 감사 결과 기준 다음 미완료 범위를 `Chapter 13의 Lesson 1~7`로 확정.
+  - `THEORY-13-M02~M07`에 각 Lesson별 시각 자료, 미니 실습, 완료 조건, SAP 공식 링크 3개, 확인 퀴즈, 정답/해설을 추가.
+  - `THEORY-13-M01`은 기존 인터랙티브 위젯을 유지하면서 빠져 있던 완료 조건을 추가하고, 인라인 스타일을 `assets/abap-lesson-viewer.css` 공통 클래스로 이동.
+  - 중간 폭 화면에서 `THEORY-13-M01`의 탭형 좌우 분할 위젯이 우측 내비게이션과 겹치지 않도록 이벤트 탭 컨테이너 전용 반응형 CSS를 추가.
+- **검증 메모**:
+  - Chapter 13 품질 마커(실습/완료 조건/퀴즈/정답/공식 링크/시각 자료) 7/7 완료.
+  - Track 1 전체 글로서리 미정의 0건.
+  - Chapter 13 소스 기준 인라인 style/script/inline event 0건.
+  - Playwright 렌더링 확인: `THEORY-13-M01`, `THEORY-13-M07` 콘솔 오류 0건, M01 탭 위젯과 우측 내비 겹침 없음.
+- **다음 AI를 위한 메모**: 다음은 Chapter 14(Dynpro 기초) 고품질화+시각화 패스. Screen Flow Logic, PBO/PAI, OK_CODE, PF-STATUS, Custom Control/Container 흐름을 먼저 공식 문서와 대조한 뒤 Lesson 단위로 보강한다.
 
 ### [2026-06-12] Antigravity IDE (Gemini 3.5 Flash) — THEORY-13-M01 다이어그램 디자인 개선
 - **작업 내용**:

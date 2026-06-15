@@ -1,6 +1,6 @@
 # Track 1 Lesson 고품질화 계획
 
-> 📅 **최종수정: 2026-06-11 KST**
+> 📅 **최종수정: 2026-06-15 KST**
 
 이 문서는 Track 1(`THEORY-*`) 137개 Lesson을 "작성 완료" 상태에서 "고품질 교육용 웹페이지" 상태로 끌어올리기 위한 성공 기준과 실행 계획이다.
 기존 본문 양산 규칙은 [HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md)를 따르고, 본 문서는 그 다음 라운드의 품질 기준을 정의한다.
@@ -97,6 +97,8 @@ NotebookLM 질의 결과, 노트북은 대체로 다음 범위에 강하다.
 3. **Chapter 11~19**: SQL, Dynpro, ALV, OO ABAP는 실습과 오개념 퀴즈를 강화한다.
 4. **Chapter 4~10**: DDIC, 모듈화, Internal Table, SALV, Selection Screen은 초심자 실습과 화면 흐름을 보강한다.
 
+2026-06-15 재시작 기준으로 `Chapter 13의 Lesson 1~7`은 시각 자료, 미니 실습, 완료 조건, SAP 공식 링크, 확인 퀴즈, 정답/해설 패턴을 적용 완료했다. 다음 우선순위는 `Chapter 14`이며, 이후 `Chapter 15~19`를 Chapter 단위로 이어간다.
+
 ## 7. Chapter 1~3 파일럿 리뷰 결과
 
 2026-06-11 기준으로 사용자가 지정한 우선 범위인 `Chapter 1~3`만 먼저 보강하고 검토했다.
@@ -141,4 +143,3 @@ NotebookLM 질의 결과, 노트북은 대체로 다음 범위에 강하다.
   - 여러 행이 필요할 때 기본 순서: 정훈영 → 홍길동 → 아이유 → 유재석 → 손흥민
   - SAP Demo 테이블 SQL 예제는 이름을 억지로 넣지 않고, 실습 설명·비유·퀴즈에서 이름을 사용한다.
   - 상세 규칙 원문: [HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md) §4-7 참조.
-

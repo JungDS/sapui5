@@ -71,7 +71,41 @@
 </section>
 
 <section class="lesson-section">
-  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <h2>4. 기본값 선택 흐름 시각화 🧭</h2>
+  <div class="viz-visual">
+    <p class="viz-visual-title">고정 기본값과 실행 시점 기본값을 고르는 기준</p>
+    <div class="viz-compare">
+      <div class="viz-compare-before">
+        <span class="viz-compare-label">선언부 DEFAULT</span>
+        <div class="viz-compare-body">
+          <table class="viz-table">
+            <tbody>
+              <tr><th>언제 적합?</th><td>항상 같은 값</td></tr>
+              <tr><th>예시</th><td><code>DEFAULT '1000'</code></td></tr>
+              <tr><th>주의</th><td>날짜·사용자별 값처럼 매번 계산되는 값에는 부적합</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="viz-compare-after">
+        <span class="viz-compare-label">INITIALIZATION</span>
+        <div class="viz-compare-body">
+          <table class="viz-table">
+            <tbody>
+              <tr><th>언제 적합?</th><td>실행 시점에 계산해야 하는 값</td></tr>
+              <tr><th>예시</th><td><code>sy-datum</code>, 이번 달 시작일, 사용자 기본 회사코드</td></tr>
+              <tr><th>주의</th><td>화면 진입 준비 단계이므로 무거운 조회는 피함</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="viz-note">정훈영 사원이 매일 오늘 날짜를 기본 조회일로 쓰려면 고정 DEFAULT보다 INITIALIZATION이 자연스럽습니다.</p>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름 🔍</h2>
   <ul>
     <li>✅ <strong>정상:</strong> INITIALIZATION에서 채운 값이 화면에 미리 표시되고, 사용자가 수정 가능합니다.</li>
     <li>❌ <strong>오류 1 — 너무 늦게:</strong> START-OF-SELECTION에서 기본값을 넣으면 화면이 이미 지나가 적용 안 됩니다.</li>
@@ -80,7 +114,7 @@
 </section>
 
 <section class="lesson-section">
-  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <h2>6. 실무에서 조심할 점 🚨</h2>
   <div class="lesson-callout warn">
     <div class="lesson-callout-icon">⚠️</div>
     <div class="lesson-callout-content">
@@ -91,7 +125,45 @@
 </section>
 
 <section class="lesson-section">
-  <h2>6. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 날짜 기본값 설계하기 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <p>정훈영 사원이 월별 매출 리포트를 자주 실행한다고 가정하고, 조회 시작일은 이번 달 1일, 종료일은 오늘 날짜로 채우는 선택 화면을 설계해 보세요.</p>
+      <p><strong>완료 조건:</strong> 화면 최초 진입 시 시작일과 종료일이 자동으로 채워지고, 사용자가 종료일을 다른 날짜로 바꿔 실행해도 <code>START-OF-SELECTION</code>에서 다시 덮어쓰지 않는 이유를 설명할 수 있어야 합니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINITIALIZATION.html" target="_blank" rel="noopener">SAP Help Portal: INITIALIZATION</a> - 선택 화면 표시 전 기본값을 준비하는 이벤트 블록을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS_VALUE.html" target="_blank" rel="noopener">SAP Help Portal: PARAMETERS value_options</a> - <code>DEFAULT</code> 같은 선언부 기본값 옵션을 비교합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPAT_SELECTION-SCREEN_EVENTS.html" target="_blank" rel="noopener">SAP Help Portal: Selection Screen Events</a> - 선택 화면 이벤트의 전체 흐름 안에서 INITIALIZATION 위치를 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 🧩</h2>
+  <ol>
+    <li>매번 오늘 날짜처럼 실행 시점에 달라지는 기본값은 <code>DEFAULT</code>와 <code>INITIALIZATION</code> 중 어디에 두는 것이 자연스러울까요?</li>
+    <li><code>START-OF-SELECTION</code>에서 기본값을 채우면 왜 선택 화면 기본값으로 보이지 않을까요?</li>
+    <li>INITIALIZATION에 대량 DB 조회를 넣으면 어떤 사용성 문제가 생길까요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>INITIALIZATION</strong>입니다. 화면이 뜨기 전 실행되므로 실행 시점 값을 계산해 입력 칸에 미리 넣기 좋습니다.</li>
+      <li>그 시점에는 사용자가 이미 실행을 누른 뒤입니다. 화면 기본값을 준비하는 타이밍이 아니라 메인 로직 타이밍입니다.</li>
+      <li>화면이 표시되기 전 사용자가 기다리게 됩니다. 기본값 준비는 가볍게 유지하고 무거운 조회는 실행 이후로 미룹니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

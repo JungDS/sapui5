@@ -421,11 +421,10 @@
   </div>
 
   <!-- 5단계: 가상 Selection Screen 샌드박스 위젯 (밝은 테마) -->
-  <div class="viz-visual"
-    style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 24px; margin-top: 24px;">
-    <p class="viz-visual-title" style="margin-top: 0; color: #1e293b; font-size: 1.15rem;">🎮 가상 SAP GUI 실행 시뮬레이터
+  <div class="viz-visual event-sandbox-visual">
+    <p class="viz-visual-title event-sandbox-title">🎮 가상 SAP GUI 실행 시뮬레이터
       (Selection Screen Sandbox)</p>
-    <p style="font-size: 0.95rem; margin-bottom: 20px; color: #334155; line-height: 1.6;">
+    <p class="event-sandbox-copy">
       사원 번호(숫자 4자리)와 기준년도를 입력한 뒤 <strong>실행 (F8)</strong>을 클릭해 보세요. SAP 엔진이 백그라운드에서 이벤트 생명주기(INITIALIZATION → AT
       SELECTION-SCREEN → START-OF-SELECTION → END-OF-SELECTION)에 따라 실시간으로 동작을 제어하며 로그를 기록하고, 가상 DB(ALV Grid)를 조회하는 과정을
       직접 눈으로 확인할 수 있습니다. 사원 번호를 비운 채 실행하여 <code>AT SELECTION-SCREEN</code>의 검증 에러를 유도해 보세요!
@@ -443,17 +442,16 @@
       <div class="sap-selection-screen">
         <div class="sap-field-row">
           <label>조회 기준년도 (P_YEAR)</label>
-          <input type="text" class="sap-input" id="sb-year" value="2026" maxlength="4" style="width: 100px;" />
+          <input type="text" class="sap-input sap-input-short" id="sb-year" value="2026" maxlength="4" />
         </div>
         <div class="sap-field-row">
           <label>조회 사원번호 (S_EMPNO)</label>
-          <input type="text" class="sap-input" id="sb-emp-no" placeholder="1000, 2000, 3000, 4000 중 입력" maxlength="4"
-            style="width: 180px;" />
+          <input type="text" class="sap-input sap-input-medium" id="sb-emp-no" placeholder="1000, 2000, 3000, 4000 중 입력" maxlength="4" />
         </div>
         <button class="sap-btn-execute">실행 (F8)</button>
       </div>
       <div class="sap-result-log">
-        <div style="color: #94a3b8; font-style: italic;">실행(F8) 버튼을 누르면 SAP 내부 이벤트 실행 흐름이 여기에 로그로 출력됩니다...</div>
+        <div class="sap-log-placeholder">실행(F8) 버튼을 누르면 SAP 내부 이벤트 실행 흐름이 여기에 로그로 출력됩니다...</div>
       </div>
     </div>
   </div>
@@ -536,10 +534,11 @@
         신입 사원 <strong>정훈영 사원</strong>은 ABAP 코드의 작성 순서와 상관없이 SAP 엔진이 이벤트를 정해진 약속대로 실행한다는 사실을 증명하기 위해 테스트용 추적 리포트를 설계하고자
         합니다.
       </p>
+      <p><strong>완료 조건:</strong> 실행 로그에 <code>INITIALIZATION</code>이 소스 위치보다 먼저 찍히고, <code>START-OF-SELECTION</code>과 <code>END-OF-SELECTION</code>의 순서를 말로 설명할 수 있으면 성공입니다.</p>
     </div>
   </div>
 
-  <p style="font-size: 0.95rem; margin-top: 24px; color: #475569;">
+  <p class="code-tour-intro">
     <strong>💡 1단계: 코드 키워드 클릭 투어 (아코디언 가이드)</strong><br>
     아래 소스 코드에서 점선으로 된 <span class="code-tour-anchor" data-tour-id="tour-sos">이벤트 구문</span>을 클릭해 보세요. 코드 내부에서 해당하는 이벤트의
     자세한 설명이 아코디언 방식으로 바로 열립니다.
@@ -643,7 +642,7 @@
     </div>
   </div>
 
-  <p style="font-size: 0.95rem; margin-top: 28px; color: #475569;">
+  <p class="code-tour-intro debugger-intro">
     <strong>💡 2단계: 가상 ABAP 디버깅 실행기 (Step-Debugger Simulator)</strong><br>
     <strong>디버그 시작</strong> 버튼을 누르고 <strong>Next Step (F6)</strong>을 누르며 SAP 내부 엔진이 실제 소스 코드를 어떤 순서로 추적하는지 확인해 보세요.
   </p>
@@ -665,13 +664,12 @@
           <span class="monitor-val-value val-event">-</span>
         </div>
       </div>
-      <div style="font-size: 0.75rem; color: #475569; margin-top: 12px; font-weight: bold; text-transform: uppercase;">
-        출력 스트림 (Console Output)</div>
+      <div class="debugger-output-label">출력 스트림 (Console Output)</div>
       <div class="monitor-console-output">디버깅이 대기 중입니다. [디버그 시작]을 눌러 테스트를 수행하세요.</div>
     </div>
   </div>
 
-  <p style="margin-top: 20px;">
+  <p class="debugger-note">
     코드가 거꾸로 배치되어 있어도, SAP 엔진은 <strong>INITIALIZATION (1단계) → START-OF-SELECTION (3단계) → END-OF-SELECTION (4단계)</strong>
     순서대로 정확히 점프하며 실행하는 것을 관찰할 수 있습니다.
   </p>
@@ -715,8 +713,7 @@
       </div>
     </div>
 
-    <div style="font-size: 0.75rem; color: #64748b; font-weight: bold; margin-bottom: 8px; text-transform: uppercase;">
-      드래그할 이벤트 블록 카드</div>
+    <div class="puzzle-items-label">드래그할 이벤트 블록 카드</div>
     <div class="puzzle-drag-items">
       <div class="drag-item" draggable="true" id="SOS">START-OF-SELECTION</div>
       <div class="drag-item" draggable="true" id="INIT">INITIALIZATION</div>
@@ -726,7 +723,7 @@
     <div class="puzzle-feedback"></div>
   </div>
 
-  <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 32px 0;">
+  <hr class="lesson-divider">
 
   <h2>9. 단답형 확인 퀴즈 🔍</h2>
   <ol>

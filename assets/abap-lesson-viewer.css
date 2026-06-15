@@ -1588,6 +1588,77 @@
 .sap-log-line.info { color: #475569; }
 .sap-log-line.error { color: #dc2626; font-weight: bold; }
 
+.event-sandbox-visual {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  margin-top: 24px;
+}
+
+.event-sandbox-title {
+  margin-top: 0;
+  color: #1e293b;
+  font-size: 1.15rem;
+}
+
+.event-sandbox-copy,
+.code-tour-intro,
+.debugger-note {
+  color: #334155;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.event-sandbox-copy {
+  margin-bottom: 20px;
+}
+
+.sap-input-short {
+  width: 100px;
+}
+
+.sap-input-medium {
+  width: 180px;
+}
+
+.sap-log-placeholder {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.code-tour-intro {
+  margin-top: 24px;
+}
+
+.debugger-intro {
+  margin-top: 28px;
+}
+
+.debugger-output-label,
+.puzzle-items-label {
+  color: #475569;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.debugger-output-label {
+  margin-top: 12px;
+}
+
+.debugger-note {
+  margin-top: 20px;
+}
+
+.puzzle-items-label {
+  margin-bottom: 8px;
+}
+
+.lesson-divider {
+  border: 0;
+  border-top: 1px solid #e2e8f0;
+  margin: 32px 0;
+}
+
 .sap-modal-overlay {
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
@@ -1784,6 +1855,22 @@
     flex-direction: column;
   }
   .tab-split-left, .tab-split-right {
+    flex: none;
+    width: 100%;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1500px) {
+  body:not(.stage7-doc-nav-collapsed) .event-tabs-container {
+    max-width: min(100%, calc(100vw - 560px));
+  }
+
+  body:not(.stage7-doc-nav-collapsed) .event-tabs-container .tab-split-container {
+    flex-direction: column;
+  }
+
+  body:not(.stage7-doc-nav-collapsed) .event-tabs-container .tab-split-left,
+  body:not(.stage7-doc-nav-collapsed) .event-tabs-container .tab-split-right {
     flex: none;
     width: 100%;
   }

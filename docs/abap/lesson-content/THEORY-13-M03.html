@@ -102,7 +102,33 @@
 </section>
 
 <section class="lesson-section">
-  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <h2>4. 화면 속성 변경 흐름 시각화 🧭</h2>
+  <div class="viz-visual">
+    <p class="viz-visual-title">AT SELECTION-SCREEN OUTPUT에서 화면이 바뀌는 4단계</p>
+    <div class="viz-flow">
+      <div class="viz-flow-step">
+        <strong>1. 화면 표시 직전</strong>
+        <span>SAP가 선택 화면을 그리기 전에 이벤트를 호출합니다.</span>
+      </div>
+      <div class="viz-flow-step">
+        <strong>2. LOOP AT SCREEN</strong>
+        <span>화면 요소를 한 줄씩 돌며 <code>screen-name</code>, <code>screen-group1</code>을 확인합니다.</span>
+      </div>
+      <div class="viz-flow-step">
+        <strong>3. 속성 변경</strong>
+        <span><code>screen-active</code>, <code>screen-input</code> 같은 값을 조정합니다.</span>
+      </div>
+      <div class="viz-flow-step">
+        <strong>4. MODIFY SCREEN</strong>
+        <span>변경한 속성을 실제 화면 렌더링에 반영합니다.</span>
+      </div>
+    </div>
+    <p class="viz-note">MODIF ID는 여러 입력 칸에 같은 이름표를 붙여, 정훈영 사원이 상세 옵션 그룹을 한 번에 숨기거나 열 수 있게 해주는 장치입니다.</p>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름 🔍</h2>
   <ul>
     <li>✅ <strong>정상:</strong> 조건에 따라 칸이 자연스럽게 나타났다 사라지고, 화면이 깔끔해집니다.</li>
     <li>❌ <strong>오류 1:</strong> <code>MODIFY SCREEN</code>을 빼먹어 속성이 반영되지 않음(가장 흔한 실수).</li>
@@ -111,7 +137,7 @@
 </section>
 
 <section class="lesson-section">
-  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <h2>6. 실무에서 조심할 점 🚨</h2>
   <div class="lesson-callout warn">
     <div class="lesson-callout-icon">⚠️</div>
     <div class="lesson-callout-content">
@@ -122,7 +148,45 @@
 </section>
 
 <section class="lesson-section">
-  <h2>6. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 상세 옵션 접기/펼치기 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <p>정훈영 사원의 조회 리포트에 <code>p_detail</code> 체크박스를 두고, 체크했을 때만 상세 조건 그룹이 보이도록 설계해 보세요. 상세 조건 필드에는 같은 <code>MODIF ID</code>를 붙입니다.</p>
+      <p><strong>완료 조건:</strong> 체크 해제 시 상세 조건 필드가 숨겨지고, 체크 시 다시 보이며, 반복문 안에서 <code>MODIFY SCREEN</code>을 호출해야 하는 이유를 설명할 수 있어야 합니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPAT_SELECTION-SCREEN_EVENTS.html" target="_blank" rel="noopener">SAP Help Portal: AT SELECTION-SCREEN events</a> - <code>OUTPUT</code> 이벤트가 선택 화면 표시 전 동작하는 위치를 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLOOP_AT_SCREEN.html" target="_blank" rel="noopener">SAP Help Portal: LOOP AT SCREEN</a> - 화면 요소를 순회하는 시스템 테이블 방식의 루프를 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMODIFY_SCREEN.html" target="_blank" rel="noopener">SAP Help Portal: MODIFY SCREEN</a> - 변경한 SCREEN 속성을 적용하는 문장을 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 🧩</h2>
+  <ol>
+    <li><code>LOOP AT SCREEN</code>으로 속성을 바꾼 뒤 꼭 호출해야 하는 문장은 무엇인가요?</li>
+    <li>여러 선택 화면 필드를 그룹 단위로 제어하려면 선언부에서 어떤 옵션을 붙이나요?</li>
+    <li>필드를 숨겼는데 변수 값이 그대로 남아 있으면 어떤 문제가 생길 수 있나요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>MODIFY SCREEN</strong>입니다. SCREEN work area 값을 바꾼 뒤 실제 화면 속성에 반영하는 단계입니다.</li>
+      <li><strong>MODIF ID</strong>입니다. 런타임에서는 보통 <code>screen-group1</code> 값으로 그룹을 판별합니다.</li>
+      <li>사용자에게 안 보이는 값이 뒤 로직의 조건으로 남아 엉뚱한 조회나 검증 결과를 만들 수 있습니다. 필요하면 숨길 때 <code>CLEAR</code>도 함께 고려합니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">
