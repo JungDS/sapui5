@@ -1,6 +1,6 @@
 # 개발 일지 - 2026-06-10
 
-> 📅 **최종수정: 2026-06-10 13:34 KST**
+> 📅 **최종수정: 2026-06-10 18:57 KST**
 
 ## 참여 AI
 - **Claude (Opus 4.8)**
@@ -8,6 +8,57 @@
 - **Codex (GPT-5)**
 
 ## 작업 상세 내용
+
+### Codex (GPT-5) — Chapter 2의 Lesson 1~6 고품질화 패턴 확산
+- `docs/abap/lesson-content/THEORY-02-M01.html` ~ `THEORY-02-M06.html`에 미니 실습, 완료 조건, 공식 문서 링크, 확인 퀴즈, 정답/해설을 추가.
+- NotebookLM 노트 `ABAP Evolution and Messaging Channels Training Guide`에서 ABAP 기본 문법 주제의 실무 맥락과 흔한 오해를 확인하고, SAP 공식 문서와 충돌하지 않도록 교육용 문장으로 재구성.
+- Lesson별 공식 링크는 SAP Learning Basic ABAP Programming 과정과 SAP Help Portal ABAP Keyword Documentation을 우선 사용.
+- 전체 Track 1 정적 감사 기준을 다시 계산해 `TRACK1_QUALITY_PLAN.md`의 퀴즈/실습/공식 링크 수치를 갱신.
+- 포맷터 실행 중 기존 후반 Lesson 12개가 다시 쓰이는 현상이 있었으나, 이번 변경 범위를 Chapter 2의 Lesson 1~6으로 유지하기 위해 범위 밖 변경은 원복.
+- Lesson Viewer에서 Chapter 2의 Lesson 1~6 전체를 열어 실습/퀴즈/요약/공식 링크/용어 태그 렌더링과 사용자 화면 내부 ID 미노출을 확인.
+
+### Codex 고민했던 점 및 설계 이유
+- **Classic Report와 최신 ABAP 균형**: Chapter 2는 `REPORT`와 `WRITE` 같은 Classic 문법을 다루지만, 공식 SAP Learning의 최신 Basic ABAP 과정은 ADT class runner 예시도 함께 다룬다. 그래서 본문은 기존 Classic Report 흐름을 유지하고, 공식 링크는 관련 개념의 최신 자료로 보강했다.
+- **퀴즈의 초점**: 문법 암기보다 저장/활성화 차이, 상수 변경 불가, WRITE의 한계, 조건 순서, 무한 반복, `sy-subrc` 즉시 확인처럼 초심자가 실제로 헷갈리는 지점을 우선했다.
+- **범위 관리**: 문자열 템플릿, ALV, 데이터베이스 조회, 권한 체크는 본문에서 살짝 연결만 하고 후속 Chapter의 깊은 설명 영역으로 남겼다.
+
+### Codex (GPT-5) — Chapter 1의 Lesson 2~6 고품질화 패턴 확산
+- `docs/abap/lesson-content/THEORY-01-M02.html` ~ `THEORY-01-M06.html`에 미니 실습, 완료 조건, 공식 문서 링크, 확인 퀴즈, 정답/해설을 추가.
+- NotebookLM 노트 `ABAP Evolution and Messaging Channels Training Guide`에서 DDIC 기초 주제의 실무 맥락과 흔한 오해를 확인하고, SAP 공식 문서와 충돌하지 않도록 교육용 문장으로 재구성.
+- Lesson별 공식 링크는 SAP Learning의 ABAP Dictionary/Data Modeling 과정과 SAP Help Portal 문서를 우선 사용.
+- 전체 Track 1 정적 감사 기준을 다시 계산해 `TRACK1_QUALITY_PLAN.md`의 퀴즈/실습/공식 링크 수치를 갱신.
+- 포맷터 실행 중 기존 후반 Lesson 12개가 다시 쓰이는 현상이 있었으나, 이번 변경 범위를 Chapter 1의 Lesson 2~6으로 유지하기 위해 범위 밖 변경은 원복.
+- Lesson Viewer에서 Chapter 1의 Lesson 2~6 전체를 열어 실습/퀴즈/요약/공식 링크/용어 태그 렌더링과 사용자 화면 내부 ID 미노출을 확인.
+
+### Codex 고민했던 점 및 설계 이유
+- **기존 흐름 보존**: Lesson 2~6은 이미 초심자 설명과 요약은 충분했으므로, 본문을 크게 뒤엎지 않고 빠진 학습 장치만 끝부분에 추가했다.
+- **NotebookLM 활용 방식**: 노트의 BC430/BC400 계열 요약은 퀴즈 포인트로 쓰기 좋았지만, 본문 근거 링크는 SAP Learning/SAP Help Portal로 제한했다.
+- **Chapter 단위 커밋 유지**: Chapter 1의 나머지 5개 Lesson을 한 번에 묶어 Chapter 전체 품질 기준을 맞추는 것이 다음 Chapter 확산에 더 선명한 기준이 된다고 판단했다.
+
+### Codex (GPT-5) — Chapter 1의 Lesson 1 고품질화 패턴 적용
+- `docs/abap/lesson-content/THEORY-01-M01.html`을 Track 1 품질 기준에 맞춰 전면 보강.
+- 추가한 구성: 지난 시간 연결, DDIC 필요성 상세 설명, Repository Object 설명, SE11/ADT 비교, 저장과 활성화 차이, 미니 실습, 완료 조건, 공식 SAP 링크, 확인 퀴즈, 정답/해설, 한눈에 정리.
+- SAP 공식 링크는 SAP Learning의 ABAP Dictionary/Repository Object 및 Domain/Data Element 자료, SAP Help Portal의 ADT 문서를 우선 사용.
+- `reference/abap_glossary.json`에 `RepositoryObject` 항목을 추가해 용어 팝업 패리티 유지.
+- Lesson Viewer에서 실습/퀴즈/요약/공식 링크/용어 태그가 렌더링되고 사용자 화면 텍스트에 내부 ID가 노출되지 않음을 확인.
+
+### Codex 고민했던 점 및 설계 이유
+- **패턴 우선 적용**: 137개를 곧장 일괄 수정하면 퀴즈·실습·링크 톤이 흔들릴 수 있어, 가장 부족했던 `Chapter 1의 Lesson 1`에 먼저 패턴을 만들었다.
+- **공식 링크 개수 제한**: 초심자 본문 흐름을 해치지 않도록 SAP 공식 링크는 핵심 3개로 제한하고, "더 확인하기" 섹션에 모았다.
+- **실습의 난이도 조절**: 첫 Lesson은 아직 시스템 조작을 깊게 요구하기 이르므로, 실제 시스템이 없어도 수행 가능한 흐름 기록형 실습으로 설계했다.
+
+### Codex (GPT-5) — Track 1 Lesson 고품질화 목표·계획 수립
+- 사용자의 새 목표에 맞춰 실제 Lesson 본문 수정 전에 성공 기준을 먼저 문서화.
+- 작업 시작 전 `main`을 `origin/main`과 fast-forward 동기화하고, `codex/track1-quality-plan` 브랜치를 생성.
+- `.project-docs` 최신 규칙, Lesson Viewer 구조, Track 1 21개 Chapter / 137개 Lesson 범위를 확인.
+- 빠른 정적 감사를 통해 현재 Track 1은 설명·글로서리·실무 주의·요약 기반은 갖췄지만, 퀴즈/정답/해설, 공식 링크, 실습 완료 조건이 일관되지 않음을 확인.
+- NotebookLM 노트 `ABAP Evolution and Messaging Channels Training Guide`(69개 소스)를 확인하고, SAP 교육 PDF/SAP Learning/ABAP Cloud/CDS/RAP/Open SQL 자료를 활용하되 공식 문서 검증을 거치도록 원칙화.
+- 신규 문서 `.project-docs/TRACK1_QUALITY_PLAN.md`를 추가하고, `00_INDEX`, `03_CONVENTIONS`, `99_AI_SYNC`에 연결.
+
+### Codex 고민했던 점 및 설계 이유
+- **작성 완료와 고품질 완료의 차이**: 기존 문서에는 Track 1 137개 작성 완료가 명시되어 있었지만, 사용자 목표의 기준은 퀴즈·실습·공식 링크·NotebookLM 확장까지 포함하므로 별도 완료 기준이 필요했다.
+- **NotebookLM 근거 사용 방식**: 노트에는 SAP 교육 PDF와 공식 SAP Learning도 있지만 블로그·Scribd·생성 텍스트도 섞여 있어, 설명 아이디어와 공식 검증 근거를 분리하는 원칙을 먼저 세웠다.
+- **Chapter 단위 확산 전략**: 137개를 한 번에 고치면 품질 패턴이 흔들릴 수 있어, Chapter 1에서 퀴즈/실습/링크 패턴을 확정한 뒤 Chapter 단위로 확산하는 계획을 택했다.
 
 ### Claude — ABAP Track 1 완성 (THEORY-19 ~ 21)
 - `THEORY-19`(SALV / Grid ALV 표시 제어 심화, M01~M07): SALV Sort/Filter/Functions, Layout/Variant, Grid Column 제어, Deep Structure 기반 Cell Color(LVC_T_SCOL/ctab_fname)·Cell Style(LVC_T_STYL/stylefname), Row/Column/Cell 색상 선택 기준, Stable Refresh.

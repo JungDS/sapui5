@@ -131,7 +131,57 @@ gs_flight-fldate = sy-datum.</code></pre>
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 항공편 한 줄 Structure 설계하기 🧪</h2>
+  <p>
+    이번 실습은 “저장소가 아닌 한 줄 타입”을 정확히 잡는 연습입니다. 항공편 한 건을 프로그램에서 다룬다고 생각하고 Structure를 설계해보세요.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>Structure 이름을 정합니다. 예: <code>ZSFLIGHT_LINE</code></li>
+        <li>Component 4개를 적습니다. 예: <code>CARRID</code>, <code>CONNID</code>, <code>FLDATE</code>, <code>PRICE</code></li>
+        <li>각 Component가 참조할 Data Element를 적습니다.</li>
+        <li>ABAP 변수 선언 예시를 한 줄 적습니다. 예: <code>DATA gs_flight TYPE zsflight_line.</code></li>
+        <li>이 Structure가 DB에 데이터를 저장하지 않는다는 점을 한 문장으로 설명합니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> Component 목록, 타입 연결, 변수 선언 예시, “저장소가 아니다” 설명이 모두 있으면 성공입니다.</p>
+    </div>
+  </div>
+  <p>
+    NotebookLM의 DDIC 자료도 Structure를 프로그램 변수나 라인 타입으로 쓰는 재사용 타입으로 설명합니다. 핵심은 “모양은 공유하지만, 데이터는 여기 저장되지 않는다”입니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://learning.sap.com/courses/building-data-models-with-the-abap-dictionary-and-abap-core-data-services/defining-dictionary-structures_f49fdfa0-b063-4697-a795-cbdcc38aff6a" target="_blank" rel="noopener">SAP Learning: Dictionary Structures 정의</a> — Structure와 Component를 ABAP Dictionary 타입으로 정의하는 흐름을 확인합니다.</li>
+    <li><a href="https://learning.sap.com/courses/building-data-models-with-the-abap-dictionary-and-abap-core-data-services/using-dictionary-objects-as-data-types_e28df7c3-7686-414e-9827-673dceeb21fb" target="_blank" rel="noopener">SAP Learning: Dictionary Object를 데이터 타입으로 사용하기</a> — Structure가 변수, 파라미터, 라인 타입으로 재사용되는 맥락을 봅니다.</li>
+    <li><a href="https://help.sap.com/docs/SAP_NETWEAVER_731_BW_ABAP/ec1c9c8191b74de98feb94001a95dd76/908d7310b1af11d194f600a0c929b3c3.html" target="_blank" rel="noopener">SAP Help Portal: Creating Structures</a> — Structure 생성 절차와 Component 타입 지정 방식을 공식 도움말로 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>Structure를 활성화하면 실제 데이터베이스 테이블이 자동으로 만들어질까요?</li>
+    <li>Structure 안의 낱개 필드는 무엇이라고 부르나요?</li>
+    <li><code>DATA gs_flight TYPE zsflight.</code>에서 <code>gs_flight</code>는 어떤 역할을 하나요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>아니요.</strong> Structure는 데이터 타입 설계도이며, DB 저장 공간을 만들지 않습니다.</li>
+      <li><strong>Component</strong>입니다. Component마다 보통 적절한 Data Element를 연결합니다.</li>
+      <li><strong>Work Area</strong> 역할을 합니다. Structure 모양대로 프로그램 메모리에 생긴 임시 한 줄 변수입니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

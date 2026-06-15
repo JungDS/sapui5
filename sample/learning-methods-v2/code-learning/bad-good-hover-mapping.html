@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bad/Good Hover Mapping | 학습 수단 샘플 v2</title>
+<link rel="stylesheet" href="../assets/method-samples.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../index.html">학습 수단 샘플 v2</a>
+    <a class="topbar-back" href="../index.html">← 전체 목록</a>
+  </div>
+</header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">코드 학습 · Bad/Good Hover Mapping</p>
+    <h1>Bad/Good Practice Hover Mapping</h1>
+    <p class="lead">왼쪽 안티패턴 코드와 오른쪽 권장 코드를 나란히 두고, 어느 한 줄에 마우스를 올리면 양쪽의 대응 줄이 함께 강조되며 아래에 상세 해설이 나타납니다. "무엇이 왜 잘못됐는지"를 한 줄 단위로 비교합니다.</p>
+    <div class="tags">
+      <span class="tag origin">원본: Chapter 13 Lesson 1 (기본값 위치 버그)</span>
+      <span class="tag">hover 연동 강조</span>
+      <span class="tag">실시간 해설</span>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 ABAP 안티패턴에 적용</h2>
+    <p class="section-sub">예시 1은 Chapter 13 Lesson 1의 "잘못된 이벤트 블록에 기본값 세팅" 비교를 그대로 이식했습니다. 각 줄에 마우스를 올려보세요.</p>
+
+    <div class="example-stack">
+      <!-- 예시 1: Chapter 13 원본 -->
+      <article class="method-example spotlight">
+        <p class="ex-topic origin">예시 1 · Report Event (Chapter 13 Lesson 1 원본)</p>
+        <h3>기본값을 어느 이벤트 블록에 둘 것인가</h3>
+        <p class="ex-desc">START-OF-SELECTION에 기본값을 넣으면 매 실행마다 사용자 입력을 덮어쓰는 버그가 납니다. INITIALIZATION에 두는 것이 정답입니다.</p>
+        <div class="interactive-diff-mapper">
+          <div class="diff-header-bar"><div class="diff-header-title">💻 실무 코드 비교 분석기 (Hover Mapping)</div></div>
+          <div class="diff-container">
+            <div class="diff-pane bad-code">
+              <h4>❌ Bad Practice (버그 유발)</h4>
+              <pre><code><span class="diff-highlight" data-diff-target="d1-param" data-explain-title="화면 입력 파라미터" data-explain-desc="사용자가 직접 입력하는 4자리 연도 파라미터를 선언합니다.">PARAMETERS p_year TYPE c LENGTH 4.</span>
+
+<span class="diff-highlight" data-diff-target="d1-block" data-explain-title="잘못된 이벤트 블록" data-explain-desc="START-OF-SELECTION은 사용자가 F8을 누른 직후 실행되는 메인 로직입니다. 여기에 기본값을 넣는 실수가 잦습니다.">START-OF-SELECTION.</span>
+<span class="diff-highlight" data-diff-target="d1-logic" data-explain-title="매 실행마다 덮어쓰기" data-explain-desc="사용자가 연도를 바꿔 실행해도 이 줄이 매번 '2026'으로 덮어써, 입력이 무시됩니다.">  p_year = '2026'.</span>
+<span class="diff-highlight" data-diff-target="d1-sel" data-explain-title="항상 2026만 조회" data-explain-desc="덮어쓰기 때문에 WHERE 조건은 늘 '2026'이 되어 사용자 입력과 무관한 결과가 나옵니다.">  SELECT * FROM zemp WHERE gyear = p_year.</span></code></pre>
+            </div>
+            <div class="diff-pane good-code">
+              <h4>✅ Good Practice (권장)</h4>
+              <pre><code><span class="diff-highlight" data-diff-source="d1-param" data-explain-title="화면 입력 파라미터" data-explain-desc="사용자가 직접 입력하는 4자리 연도 파라미터를 선언합니다.">PARAMETERS p_year TYPE c LENGTH 4.</span>
+
+<span class="diff-highlight" data-diff-source="d1-block" data-explain-title="올바른 초기화 시점" data-explain-desc="INITIALIZATION은 화면이 뜨기 전 단 한 번 실행됩니다. 기본값 세팅에 딱 맞는 타이밍입니다.">INITIALIZATION.</span>
+<span class="diff-highlight" data-diff-source="d1-logic" data-explain-title="안전한 기본값" data-explain-desc="화면 표시 전 한 번만 '2026'을 채우므로, 사용자가 바꾼 값은 보존됩니다.">  p_year = '2026'.</span>
+
+START-OF-SELECTION.
+<span class="diff-highlight" data-diff-source="d1-sel" data-explain-title="의도한 연도 조회" data-explain-desc="사용자가 수정한 연도가 보존되어 WHERE 조건에 그대로 반영됩니다.">  SELECT * FROM zemp WHERE gyear = p_year.</span></code></pre>
+            </div>
+          </div>
+          <div class="diff-explanation"><span class="placeholder">양쪽 코드의 강조 줄에 마우스를 올리면 비교 설명이 여기에 표시됩니다.</span></div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 안티패턴 Lesson에서 Hover Mapping은 "어느 줄이 어느 줄과 대응되는가"를 손으로 짚어주므로, 단순 Before/After 표보다 인과관계가 또렷하다.</div>
+      </article>
+
+      <!-- 예시 2: Open SQL -->
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · Open SQL</p>
+        <h3>LOOP 안 SELECT vs JOIN 한 번</h3>
+        <p class="ex-desc">반복문 안에서 SELECT를 돌리면 DB 왕복이 폭증합니다. 한 번의 JOIN으로 대체하는 것이 정석입니다.</p>
+        <div class="interactive-diff-mapper">
+          <div class="diff-header-bar"><div class="diff-header-title">💻 성능 안티패턴 비교</div></div>
+          <div class="diff-container">
+            <div class="diff-pane bad-code">
+              <h4>❌ Bad Practice (N+1 쿼리)</h4>
+              <pre><code><span class="diff-highlight" data-diff-target="d2-loop" data-explain-title="결과만큼 반복" data-explain-desc="비행 건수만큼 루프를 돕니다. 1만 건이면 1만 번 반복합니다.">LOOP AT lt_flight INTO DATA(ls_f).</span>
+<span class="diff-highlight" data-diff-target="d2-sel" data-explain-title="루프 안 SELECT (치명적)" data-explain-desc="반복마다 DB를 왕복합니다. 네트워크/파싱 비용이 건수만큼 곱해져 성능이 무너집니다.">  SELECT SINGLE carrname FROM scarr WHERE carrid = @ls_f-carrid INTO @DATA(lv_name).</span>
+ENDLOOP.</code></pre>
+            </div>
+            <div class="diff-pane good-code">
+              <h4>✅ Good Practice (단일 JOIN)</h4>
+              <pre><code><span class="diff-highlight" data-diff-source="d2-loop" data-explain-title="DB가 한 번에 결합" data-explain-desc="반복 대신 DB 엔진이 두 테이블을 한 번에 조인하도록 위임합니다.">SELECT f~carrid, c~carrname, f~fldate</span>
+<span class="diff-highlight" data-diff-source="d2-sel" data-explain-title="JOIN으로 1회 조회" data-explain-desc="DB 왕복이 1회로 줄어 건수와 무관하게 빠릅니다.">  FROM sflight AS f INNER JOIN scarr AS c ON f~carrid = c~carrid INTO TABLE @DATA(lt_join).</span></code></pre>
+            </div>
+          </div>
+          <div class="diff-explanation"><span class="placeholder">강조 줄에 마우스를 올리면 비교 설명이 표시됩니다.</span></div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 성능 주제는 "반복 줄 ↔ 단일 조회 줄"을 직접 연결해 보여주면 비용 차이를 직관적으로 이해시킬 수 있다.</div>
+      </article>
+
+      <!-- 예시 3: Internal Table -->
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · Internal Table</p>
+        <h3>LOOP 중 DELETE vs DELETE WHERE</h3>
+        <p class="ex-desc">루프를 돌며 행을 지우면 인덱스가 밀려 일부 행을 건너뜁니다. 집합 연산인 DELETE ... WHERE가 안전합니다.</p>
+        <div class="interactive-diff-mapper">
+          <div class="diff-header-bar"><div class="diff-header-title">💻 인덱스 시프트 안티패턴 비교</div></div>
+          <div class="diff-container">
+            <div class="diff-pane bad-code">
+              <h4>❌ Bad Practice (행 건너뜀)</h4>
+              <pre><code><span class="diff-highlight" data-diff-target="d3-loop" data-explain-title="순회 중 변경" data-explain-desc="루프가 인덱스를 따라가는 도중에 테이블 구조를 바꿉니다.">LOOP AT lt_emp INTO DATA(ls_e).</span>
+<span class="diff-highlight" data-diff-target="d3-del" data-explain-title="삭제 시 인덱스 밀림" data-explain-desc="현재 행을 지우면 뒤 행이 한 칸 당겨지는데, 루프 인덱스는 증가해 바로 다음 행을 건너뜁니다.">  IF ls_e-dept = 'OLD'. DELETE lt_emp INDEX sy-tabix. ENDIF.</span>
+ENDLOOP.</code></pre>
+            </div>
+            <div class="diff-pane good-code">
+              <h4>✅ Good Practice (집합 삭제)</h4>
+              <pre><code><span class="diff-highlight" data-diff-source="d3-loop" data-explain-title="조건 한 줄로 위임" data-explain-desc="루프 없이 ABAP 런타임이 조건에 맞는 행을 한 번에 처리합니다.">DELETE lt_emp WHERE dept = 'OLD'.</span>
+<span class="diff-highlight" data-diff-source="d3-del" data-explain-title="누락 없이 안전" data-explain-desc="인덱스 밀림 문제가 없고 의도도 한눈에 읽힙니다.">" 모든 'OLD' 부서 행이 정확히 제거됩니다.</span></code></pre>
+            </div>
+          </div>
+          <div class="diff-explanation"><span class="placeholder">강조 줄에 마우스를 올리면 비교 설명이 표시됩니다.</span></div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> "순회 중 구조 변경"처럼 눈에 안 보이는 버그는 Bad/Good를 줄 단위로 연결해야 위험 지점이 분명해진다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/method-samples.js"></script>
+</body>
+</html>

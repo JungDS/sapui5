@@ -1,0 +1,92 @@
+/* 
+  [STANDARD_V3_STRUCTURE] 
+  이 파일은 고품질 교육용 웹페이지 표준 구조(v3)를 따릅니다.
+  AI 일괄 처리 및 스크립트 자동화의 대상이므로 코어 레이아웃과 클래스 명칭을 임의로 변경하지 마십시오.
+*/
+/* ============================================================
+   quiz.css — 드래그 앤 드롭 퍼즐, 카드 분류, Step Debugger, SAP GUI Sandbox, 플래시카드, 체크리스트, 의사결정, 단답/빈칸, 미니시험, foldable, cheat-table, media-gallery, match-grid, project-board, link-list, recap, storyline
+   [모듈 목차] 이 파일에 없는 스타일은 다른 모듈에 추가하세요.
+   중복 추가 전 반드시 이 파일 전체를 먼저 확인하십시오.
+   ============================================================ */
+
+
+/* ============================================================
+   추가 수단 (Chapter 13 밖) — 플래시카드/체크리스트/의사결정/빈칸/매칭
+   ============================================================ */
+.flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.flashcard { min-height: 120px; border: 1px solid var(--line); border-radius: 12px; background: #fff; display: grid; place-items: center; text-align: center; padding: 16px; cursor: pointer; font-weight: 800; color: var(--ink); transition: all .2s ease; }
+.flashcard:hover { border-color: var(--blue); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(37,99,235,.1); }
+.flashcard .back { display: none; font-weight: 500; color: var(--muted); font-size: .9rem; }
+.flashcard.flipped .front { display: none; }
+.flashcard.flipped .back { display: block; }
+.flashcard.flipped { background: #f2fdf9; border-color: #00b09b; }
+
+.checklist { display: grid; gap: 10px; }
+.checklist label { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: #fff; cursor: pointer; }
+.checklist label:hover { border-color: var(--blue); }
+.checklist input { margin-top: 4px; }
+.checklist-progress { margin-top: 12px; font-weight: 800; color: var(--blue); }
+
+.decision-box { display: grid; gap: 14px; }
+.decision-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.decision-box select, .fillblank-input { border: 1px solid var(--line); border-radius: 8px; padding: 9px 12px; font: inherit; background: #fff; }
+.decision-result, .short-output, .fill-output, .exam-output { margin-top: 6px; padding: 12px 14px; border-radius: 10px; background: #f1f5f9; border: 1px solid var(--line); min-height: 24px; font-weight: 600; color: #334155; }
+.decision-result.show { background: #eef5ff; border-color: #c7d6f4; }
+
+.btn { border: 1px solid var(--blue); background: var(--blue); color: #fff; border-radius: 8px; padding: 9px 16px; font-weight: 700; cursor: pointer; font: inherit; }
+.btn:hover { background: #1d4ed8; }
+.btn.ghost { background: #fff; color: var(--blue); }
+.btn.ghost:hover { background: #eef5ff; }
+
+.short-quiz { display: grid; gap: 10px; }
+.short-quiz .q { font-weight: 700; }
+.short-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.short-row .fillblank-input { flex: 1; min-width: 180px; }
+.short-output.ok, .fill-output.ok, .exam-output.ok { background: #ecfdf5; border-color: #a7f3d0; color: #065f46; }
+.short-output.bad, .fill-output.bad, .exam-output.bad { background: #fef2f2; border-color: #fca5a5; color: #991b1b; }
+
+.exam { display: grid; gap: 18px; }
+.exam-q { border: 1px solid var(--line); border-radius: 10px; padding: 14px; background: #fff; }
+.exam-q p { margin: 0 0 10px; font-weight: 700; }
+.exam-q label { display: block; padding: 4px 0; cursor: pointer; }
+
+details.foldable { border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; margin: 10px 0; background: #fff; }
+details.foldable summary { cursor: pointer; font-weight: 700; color: var(--blue); }
+details.foldable[open] summary { margin-bottom: 8px; }
+
+.cheat-table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+.cheat-table th, .cheat-table td { border: 1px solid var(--line); padding: 10px 12px; text-align: left; vertical-align: top; word-break: keep-all; overflow-wrap: anywhere; }
+.cheat-table th { background: #eef5ff; color: #17375f; }
+.cheat-table td code { background: #f1f5f9; padding: 2px 5px; border-radius: 4px; }
+
+.media-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.media-shot { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #fff; }
+.media-shot .shot-canvas { min-height: 130px; display: grid; place-items: center; background: linear-gradient(180deg, #fff, #eef2f8); padding: 14px; text-align: center; font-weight: 700; color: #334155; }
+.media-shot figcaption { padding: 10px 12px; font-size: .88rem; color: var(--muted); border-top: 1px solid var(--line); }
+
+.match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.match-col { display: grid; gap: 10px; }
+.match-item { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; background: #fff; }
+.match-item.code { font-family: 'D2Coding', monospace; font-size: .88rem; }
+@media (max-width: 600px) { .match-grid { grid-template-columns: 1fr; } }
+
+.project-board { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+.project-card { border: 1px solid var(--line); border-radius: 12px; padding: 16px; background: #fff; }
+.project-card h4 { margin: 0 0 8px; }
+.project-card ul { margin: 0; padding-left: 1.1rem; color: var(--muted); }
+
+.link-list { display: grid; gap: 10px; }
+.link-list a { display: block; border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; background: #fff; text-decoration: none; }
+.link-list a:hover { border-color: var(--blue); background: #f8fbff; }
+.link-list a strong { display: block; color: var(--ink); }
+.link-list a span { color: var(--muted); font-size: .9rem; }
+
+.recap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+.recap-card { border: 1px solid var(--line); border-left: 5px solid var(--green); border-radius: 0 10px 10px 0; padding: 14px 16px; background: #fff; }
+.recap-card strong { display: block; margin-bottom: 4px; }
+
+.storyline { display: grid; gap: 12px; }
+.storyline .beat { border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; background: #fff; display: flex; gap: 12px; align-items: flex-start; }
+.storyline .beat .beat-icon { font-size: 1.4rem; flex-shrink: 0; }
+.storyline .beat strong { color: #12365f; }
+

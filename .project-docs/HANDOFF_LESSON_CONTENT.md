@@ -1,9 +1,9 @@
 # 인계 문서 — ABAP Lesson 본문 양산 (Track 1)
 
-> 📅 **최종수정: 2026-06-10 00:50 KST**
+> 📅 **최종수정: 2026-06-15 KST**
 
 > 이 문서는 ABAP 커리큘럼의 Lesson 본문(`docs/abap/lesson-content/<ID>.html`)을 이어서 작성할 AI를 위한 단일 인계서다.
-> **시작 전 이 문서를 끝까지 읽고**, `.project-docs/99_AI_SYNC.md`와 기존 작성본 `THEORY-01-M01.html`(기준 샘플)을 확인할 것.
+> **시작 전 이 문서를 끝까지 읽고**, `.project-docs/99_AI_SYNC.md`, `.project-docs/10_LEARNING_CONTENT_METHODS.md`, `sample/learning-methods/README.md`와 기존 작성본 `THEORY-01-M01.html`(기준 샘플)을 확인할 것.
 
 ---
 
@@ -18,27 +18,31 @@
 |---|---|---|---|
 | THEORY-01 | DDIC 1차: 기본 데이터 구조 | 6 (M01~M06) | **M01~M06 작성 완료** (M02~M06 Codex 재보강 완료) |
 | THEORY-02 | ABAP 기본 문법과 WRITE | 6 | **M01~M06 작성 완료** |
-| THEORY-03 | PARAMETERS Selection Screen | 4 | **M01~M04 작성 완료** |
-| THEORY-04 | DDIC 2차: 관계와 입력 도움말 | 6 | **M01~M06 작성 완료** |
-| THEORY-05 | ABAP 모듈화 기초 | 6 | **M01~M06 작성 완료** |
-| THEORY-06 | Internal Table 기초 | 6 | **M01~M06 작성 완료** |
-| THEORY-07 | Internal Table 응용 / Deep Structure | 9 | **M01~M09 작성 완료** |
-| THEORY-08 | Simple ALV / SALV 1차 | 5 | **M01~M05 작성 완료** |
-| THEORY-09 | Open SQL 1차: 기본 조회 | 6 | **M01~M06 작성 완료** |
-| THEORY-10 | SELECT-OPTIONS와 Range Table | 6 | **M01~M06 작성 완료** |
-| THEORY-11 | Open SQL 2차: JOIN과 집계 | 7 | **M01~M07 작성 완료** (Claude) |
-| THEORY-12 | Classic DDIC View와 유지보수 | 6 | **M01~M06 작성 완료** (Claude) |
-| THEORY-13 | Report Event와 Selection Screen 심화 | 7 | **M01~M07 작성 완료** (Claude) |
+| THEORY-03 | PARAMETERS Selection Screen | 4 | **M01~M04 작성 완료** (Codex 고품질화 완료) |
+| THEORY-04 | DDIC 2차: 관계와 입력 도움말 | 6 | **M01~M06 작성 완료** (Claude 고품질화+시각화 완료) |
+| THEORY-05 | ABAP 모듈화 기초 | 6 | **M01~M06 작성 완료** (Claude 고품질화+시각화 완료) |
+| THEORY-06 | Internal Table 기초 | 6 | **M01~M06 작성 완료** (Codex 시각화 + Claude 고품질화 완료) |
+| THEORY-07 | Internal Table 응용 / Deep Structure | 9 | **M01~M09 작성 완료** (Claude 고품질화+시각화 완료) |
+| THEORY-08 | Simple ALV / SALV 1차 | 5 | **M01~M05 작성 완료** (Claude 고품질화+시각화 완료) |
+| THEORY-09 | Open SQL 1차: 기본 조회 | 6 | **M01~M06 작성 완료** (Claude 고품질화+시각화 완료) |
+| THEORY-10 | SELECT-OPTIONS와 Range Table | 6 | **M01~M06 고품질화+시각화 완료** (Gemini) |
+| THEORY-11 | Open SQL 2차: JOIN과 집계 | 7 | **M01~M07 고품질화+시각화 완료** (Claude/Gemini) |
+| THEORY-12 | Classic DDIC View와 유지보수 | 6 | **M01~M06 고품질화+시각화 완료** (Claude/Gemini) |
+| THEORY-13 | Report Event와 Selection Screen 심화 | 7 | **M01~M07 고품질화+시각화 완료** (Codex/Gemini) |
 | THEORY-14 | Screen Programming / Dynpro 기초 | 7 | **M01~M07 작성 완료** (Claude) |
 | THEORY-15 | Grid ALV 기초 | 9 | **M01~M09 작성 완료** (Claude) |
 | THEORY-16 | Modern ABAP Syntax | 6 | **M01~M06 작성 완료** (Claude) |
 | THEORY-17 | New Open SQL / Modern ABAP SQL | 7 | **M01~M07 작성 완료** (Claude) |
 | THEORY-18 | OO ABAP 기본 설계 | 7 | **M01~M07 작성 완료** (Claude) |
 | THEORY-19 | SALV / Grid ALV 표시 제어 심화 | 7 | **M01~M07 작성 완료** (Claude) |
-| THEORY-20 | CDS View Entity 기초 | 6 | **M01~M06 작성 완료** (Claude) |
-| THEORY-21 | RAP / ABAP Cloud 입문 | 8 | **M01~M08 작성 완료** (Claude) — 🎉 **Track 1 완성(137/137)** |
+| THEORY-20 | CDS View Entity 기초 | 6 | **M01~M06 작성 완료** (Codex 고품질화 완료) |
+| THEORY-21 | RAP / ABAP Cloud 입문 | 8 | **M01~M08 작성 완료** (Codex 고품질화 완료) — 🎉 **Track 1 완성(137/137)** |
 
 > Track 2(PRACTICAL-*, 13개 섹션)는 현재 진행 중. 정확한 ID/이름은 JSON의 `d.tracks[1]`에서 추출(아래 §6 스크립트 참조).
+>
+> **Track 1 고품질화 라운드(2026-06-10~11 Codex):** `Chapter 1의 Lesson 1`에 실습 과제, 완료 조건, 확인 퀴즈, 정답/해설, SAP 공식 링크 3개를 추가해 후속 Lesson 보강 패턴을 만들었다. 이어 `Chapter 1의 Lesson 2~6`, `Chapter 2의 Lesson 1~6`, `Chapter 3의 Lesson 1~4`, `Chapter 20의 Lesson 1~6`, `Chapter 21의 Lesson 1~8`에도 같은 패턴을 적용했다. `Chapter 20~21`은 NotebookLM, 로컬 reference, SAP 공식 문서를 교차 검증해 CDS View Entity, Association, Annotation, Metadata Extension, DCL, RAP BO, BDEF, EML, Service Binding, ABAP Cloud/Released API 보강을 완료했다. 상세 기준은 [TRACK1_QUALITY_PLAN.md](TRACK1_QUALITY_PLAN.md).
+>
+> **시각화 확산 라운드(2026-06-11~):** 고품질화에 시각화(`viz-*` 패턴 카탈로그, 본 문서 §5 참조)를 통합해 Chapter 단위로 진행한다. `Chapter 4의 Lesson 1~6` 완료(FK 관계도, 1:N 카디널리티, Value Table vs FK 비교, F4 플로우, F4 탐색 우선순위 폭포수, 검증 책임 비교). `Chapter 5의 Lesson 1~6` 완료(PERFORM 호출/복귀 플로우, 참조 vs 값 전달 전/후 비교, CALL FUNCTION 데이터 방향 관계도, DEFINITION/IMPLEMENTATION 그리드, Static vs Instance 비교, 모듈화 도구 3종 비교+결정 플로우). `Chapter 6의 Lesson 1~6` 미니 패스 완료(기존 Codex 시각 자료 유지, 미니 실습/공식 링크/퀴즈만 추가). `Chapter 7의 Lesson 1~9` 완료(MODIFY TRANSPORTING·DELETE WHERE·SORT 전/후 비교, 이진 탐색 단계 그리드, 테이블 3종 비교, INTO vs ASSIGNING 비교, Secondary Key 거래 비교, Deep Structure 중첩 구조도, CLEAR/REFRESH/FREE 3종 그리드). `Chapter 8의 Lesson 1~5` 완료(WRITE vs SALV 비교, 공장·리모컨 FACTORY 플로우, set_all 전/후 툴바 비교, 미니 리포트 6단계 플로우, 1차 범위 vs 심화 비교). `Chapter 9의 Lesson 1~6` 완료(SELECT 4단계 물류 플로우+FIELDS 발췌 그리드, WHERE 필터 3단계 그리드, SELECT SINGLE 키 완전/부분 비교, INTO vs INTO TABLE 비교, inline vs 명시적 Target 비교, SELECT in LOOP 왕복 횟수 비교). NotebookLM 질의 → SAP 공식 문서 교차 검증 흐름을 따른다. `Chapter 10의 Lesson 1~6` 완료 (Range Table 구조 비교, 화면 입력 내부 표 매핑, WHERE IN 조건 매칭 흐름, Include/Exclude 혼합 매칭, EQ vs BT vs CP 비교 매칭표, RANGE OF 직접 조작 메모리 로드 상태). `Chapter 11의 Lesson 1~7` 완료 (INNER JOIN 연결 흐름도, LEFT OUTER JOIN 좌우 행 유지 비교, GROUP BY 그룹 요약 흐름 그리드, HAVING 처리 순서 흐름, ORDER BY DB 정렬 vs ABAP SORT 비교, FOR ALL ENTRIES 함정 비교, JOIN/FAE/ABAP 처리 선택 기준). `Chapter 12의 Lesson 1~6` 완료 (Database View 조인 흐름도, Projection View 필드 솎아내기 전/후 비교, Help View 데이터 공급 흐름도, Maintenance View 3개 테이블 통합 관리 구조도, TMG ↔ SM30 아키텍처 및 데이터 흐름도 SVG 추가, Classic View ↔ CDS 아키텍처 비교도 SVG 추가 및 퀴즈/실습/공식 링크/Jung Hunyoung 이름 규칙 완벽 적용). `Chapter 13의 Lesson 1~7` 완료(Report Event 전체 흐름 탭 위젯, INITIALIZATION/DEFAULT 비교, Selection Screen OUTPUT 흐름, 입력 검증 게이트, START/END 처리 흐름, 존재·권한 검증 비교, 미니 실습·완료 조건·공식 링크·확인 퀴즈/정답 해설 추가).
 
 ---
 
@@ -83,6 +87,17 @@
 4. **10·20대 젊은 톤**: 현재 톤(이모지·콜아웃·비유)은 유지하되 더 캐주얼·생동감 있게. 과한 인터넷 밈/유행어는 지양(가독성·정확성 우선).
 5. **정확성**: ABAP 사실관계 정확히(트랜잭션 코드, 문법, 표준 객체명). JSON `caution_points`를 "실무 주의" 콜아웃으로 녹일 것.
 6. **연결성**: 첫 문단에서 직전 Lesson을 한 줄로 잇고, 마지막에 다음 Lesson을 예고(JSON의 이름 사용).
+7. **예제 이름 규칙**: 코드 예제·시각화 표·실습 시나리오에 사람 이름이 필요할 때는 아래 풀에서 고른다. 항상 **`정훈영`을 주인공(1번 인물)**으로 쓰고, 나머지 조연은 목록에서 필요한 만큼 선택한다. 목록 밖의 이름(홍길순, 김철수 등 일반 이름)은 쓰지 않는다.
+
+   | 구분 | 이름 목록 |
+   |---|---|
+   | **주인공 (항상 1번)** | 정훈영 |
+   | **고전/설화** | 홍길동, 심청, 이몽룡, 성춘향, 바보온달, 평강공주, 손오공, 사오정, 저팔계 |
+   | **스포츠·연예·셀럽** | 유재석, 손흥민, 강호동, 이병헌, 마동석, 지드래곤, 차은우, 박지성, 류현진, 아이유, 김연아, 이효리, 김혜수, 전지현, 송혜교, 김태희, 한가인, 장도연, 장윤정, 이영지, 수지, 윤아, 손예진, 김고은, 홍진경, 박세리, 신유빈, 안유진 |
+
+   - Internal Table·SQL 결과 표에서 여러 행이 필요할 때: 정훈영, 홍길동, 아이유, 유재석, 손흥민 순서로 채운다.
+   - 업무 역할이 필요할 때 예시: 정훈영(개발팀), 홍길동(영업팀), 아이유(마케팅팀) 식으로 자연스럽게 배정.
+   - SAP 표준 Demo 테이블(SPFLI, SCARR, SBOOK 등)을 그대로 쓰는 SQL 예제에서는 이름을 억지로 끼워 넣지 않되, 실습 시나리오 설명·비유·퀴즈에는 이름을 사용한다.
 
 ---
 
@@ -117,6 +132,88 @@
 </section>
 ```
 - CSS 클래스는 `assets/abap-lesson-viewer.css`/`abap-glossary.css`에 정의됨. 새 클래스를 임의로 만들지 말고 기존 것 재사용.
+- 텍스트 설명을 넘어 다이어그램, Sandbox, Hover Mapping, 아코디언, 디버거, 드래그 퀴즈 같은 학습 수단을 고를 때는 [10_LEARNING_CONTENT_METHODS.md](10_LEARNING_CONTENT_METHODS.md)를 우선 참고하고, 실제 구성 샘플은 `sample/learning-methods/README.md`에서 확인한다.
+
+### 시각화 패턴 카탈로그 (전 Lesson 공통 — 2026-06-11 도입)
+
+> 시각화는 코드 예제 설명 전용이 아니다. **데이터 상태 변화 / 요소 간 관계 / 처리 흐름 / 전·후 차이** 중 하나에 해당하는 설명이면 본문 어디든 시각 자료를 넣는다 (Lesson당 최소 1개, 보통 1~3개).
+> 신규 작업은 `viz-*` 클래스를 사용한다. `itab-*`는 Chapter 6에서 시작된 동일 스타일의 기존 별칭(호환 유지)이다.
+
+**적용 판단 체크리스트** — 아래 중 하나라도 "예"면 시각화한다:
+- [ ] 한 대상의 **상태가 단계별로 변하는가**? → ① 상태 변화 그리드
+- [ ] 둘 이상의 **요소가 관계/순서로 연결되는가**? → ② 관계도 or ⑤ 프로세스 플로우
+- [ ] 반복/이벤트의 **현재 위치를 추적해야 하는가**? → ③ 포인터 추적
+- [ ] **성공/실패(분기) 결과가 갈리는가**? → ④ 성공/실패 비교
+- [ ] 명령 실행 **전과 후의 데이터/코드가 달라지는가**? → ⑥ 전/후 비교
+- [ ] **계층/아키텍처 구조**(3-Tier, VDM, RAP 등)인가? → ⑦ 인라인 SVG
+
+```html
+<!-- ① 상태 변화 그리드: 선언→채움→추가→읽기 등 단계별 스냅샷 -->
+<div class="viz-visual">
+  <p class="viz-visual-title">제목</p>
+  <div class="viz-state-grid">
+    <div class="viz-state">
+      <span class="viz-state-label">1. 단계명</span>
+      <table class="viz-table">
+        <thead><tr><th>필드</th></tr></thead>
+        <tbody><tr class="viz-highlight-row"><td>값</td></tr></tbody>
+      </table>
+      <!-- 빈 상태는: <div class="viz-empty">아직 행이 없습니다</div> -->
+    </div>
+  </div>
+  <p class="viz-note">하단 설명</p>
+</div>
+
+<!-- ② 관계도: A → B → C (Domain→Data Element→Field, FK→Check Table 등) -->
+<div class="viz-relation">
+  <div class="viz-concept"><span class="viz-concept-label">A</span>...</div>
+  <div class="viz-arrow">→</div>
+  <div class="viz-concept"><span class="viz-concept-label">B</span>...</div>
+  <div class="viz-arrow">→</div>
+  <div class="viz-concept"><span class="viz-concept-label">C</span>...</div>
+</div>
+
+<!-- ③ 포인터 추적: 현재 처리 행 강조 -->
+<tr class="viz-current-row"><td>...</td></tr>
+
+<!-- ④ 성공/실패 비교 배지 -->
+<span class="viz-badge success">sy-subrc = 0</span>
+<span class="viz-badge fail">sy-subrc = 4</span>
+
+<!-- ⑤ 프로세스 플로우: 이벤트/처리 순서 -->
+<div class="viz-flow">
+  <div class="viz-flow-step"><strong>1. 단계</strong><span>설명</span></div>
+  <div class="viz-flow-step"><strong>2. 단계</strong><span>설명</span></div>
+</div>
+
+<!-- ⑥ 전/후 비교: SORT/DELETE/MODIFY, Classic vs Modern -->
+<div class="viz-compare">
+  <div class="viz-compare-before">
+    <span class="viz-compare-label">실행 전 (또는 Classic)</span>
+    <div class="viz-compare-body"><table class="viz-table">...</table></div>
+  </div>
+  <div class="viz-compare-after">
+    <span class="viz-compare-label">실행 후 (또는 Modern)</span>
+    <div class="viz-compare-body"><table class="viz-table">...</table></div>
+  </div>
+</div>
+
+<!-- ⑦ 인라인 SVG 다이어그램: 계층/아키텍처 (viz-visual 안에 중첩) -->
+<div class="viz-svg">
+  <svg viewBox="0 0 640 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="다이어그램 설명">
+    <!-- 정적 도형/텍스트만. <script>·애니메이션 금지 -->
+  </svg>
+</div>
+```
+
+**SVG 작성 규칙**:
+- `<script>`, 이벤트 핸들러, 외부 참조 금지 — 정적 마크업만.
+- 색상은 표준 팔레트 hex를 직접 사용: 주(#0056b3/#eef5ff), 성공(#00a884/#e8f8ef), 실패(#9b2530/#fff0f0), 강조(#fff7db), 제목(#12365f), 본문 회색(#56657a), 테두리(#d7e1ee).
+- 한글 텍스트 허용. `font-family`는 지정하지 않거나 `inherit`(뷰어 폰트 상속).
+- `viewBox` 필수, 고정 width/height 금지 (`viz-svg`가 반응형 처리).
+- 접근성: `role="img"` + `aria-label`로 그림 내용 한 줄 설명.
+
+**인터랙션이 필요한 경우**: 조각 파일에 단독 `<script>`를 넣지 말고 `assets/abap-lesson-viewer.js`에 공통 스크립트로 추가한다(클래스/data-속성 기반 위임). 단독 스크립트는 공통화가 불가능한 예외에만 허용.
 
 ### 글로서리 항목 스키마 (`reference/abap_glossary.json`)
 ```json

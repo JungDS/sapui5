@@ -1,0 +1,321 @@
+/* 
+  [STANDARD_V3_STRUCTURE] 
+  이 파일은 고품질 교육용 웹페이지 표준 구조(v3)를 따릅니다.
+  AI 일괄 처리 및 스크립트 자동화의 대상이므로 코어 레이아웃과 클래스 명칭을 임의로 변경하지 마십시오.
+*/
+/* ============================================================
+   widgets.css — lesson-callout, ABAP Editor Mockup & 토큰, Mermaid viz-*, Code Tour 아코디언, Diff Mapper, 탭형 빌드업(tabs/split)
+   [모듈 목차] 이 파일에 없는 스타일은 다른 모듈에 추가하세요.
+   중복 추가 전 반드시 이 파일 전체를 먼저 확인하십시오.
+   ============================================================ */
+
+/* ============================================================
+   콜아웃 (Chapter 13 lesson-callout)
+   ============================================================ */
+.lesson-callout {
+  display: flex; gap: 1rem; padding: 1.25rem; margin: 1rem 0;
+  border-radius: 12px; background: #f8f9fa; border: 1px solid #e9ecef;
+  border-left: 6px solid #0056b3; position: relative; overflow: hidden;
+}
+.lesson-callout.tip { border-left-color: #00b09b; background: #f2fdf9; border-color: #e4f7f0; }
+.lesson-callout.warn { border-left-color: #ff5f6d; background: #fff8f8; border-color: #fde8e8; }
+.lesson-callout-icon { font-size: 1.6rem; flex-shrink: 0; }
+.lesson-callout-content { min-width: 0; }
+.lesson-callout-content h4 { margin: 0 0 .4rem; font-size: 1.08rem; font-weight: 700; color: #111; }
+.lesson-callout-content p { margin: 0; font-size: .98rem; line-height: 1.65; color: #444; }
+.lesson-callout-content ul { margin: .4rem 0 0; padding-left: 1.1rem; }
+
+/* ============================================================
+   ABAP Navy Editor Mockup + 토큰 (Chapter 13)
+   ============================================================ */
+.abap-editor-mockup {
+  background-color: #f6f8fa; border: 1px solid #d0d0d0; border-radius: 8px;
+  overflow: hidden; margin: 14px 0;
+  font-family: 'D2Coding', Consolas, Monaco, 'Courier New', monospace; font-size: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.abap-editor-header { background-color: #343e6a; padding: 8px 16px; display: flex; align-items: center; border-bottom: 1px solid #232a4a; }
+.abap-editor-mac-buttons { display: flex; gap: 6px; }
+.abap-editor-mac-btn { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+.abap-editor-mac-btn.red { background-color: #ff5f56; }
+.abap-editor-mac-btn.yellow { background-color: #ffbd2e; }
+.abap-editor-mac-btn.green { background-color: #27c93f; }
+.abap-editor-title { margin-left: auto; color: #ffa03b; font-weight: bold; font-size: 12px; letter-spacing: 1px; }
+.abap-editor-actions { margin-left: 16px; }
+.shiki-copy-button {
+  background-color: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 4px; padding: 4px 10px; font-size: 12px; cursor: pointer; color: #fff;
+  transition: all .2s; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: bold;
+}
+.shiki-copy-button:hover { background-color: rgba(255,255,255,0.24); }
+.shiki-copy-button.is-copied { color: #27c93f; border-color: #27c93f; background-color: rgba(39,201,63,0.15); }
+.lesson-copy-buffer { position: fixed; top: 0; left: -9999px; opacity: 0; pointer-events: none; }
+.abap-editor-body { display: flex; background-color: #f6f8fa; }
+.abap-editor-body-lines { display: flex; flex-direction: column; background-color: #f6f8fa; width: 100%; }
+.editor-line { display: flex; align-items: stretch; width: 100%; }
+.editor-line-number {
+  background-color: #f0f0e1; color: #888; padding: 6px 8px; text-align: right;
+  border-right: 1px solid #d0d0d0; user-select: none; min-width: 36px; flex-shrink: 0;
+  display: flex; justify-content: flex-end; align-items: flex-start;
+  font-family: 'D2Coding', Consolas, Monaco, monospace; font-size: 14px; line-height: 1.5;
+}
+.editor-line-content {
+  background-color: transparent; color: #333; padding: 6px 12px; margin: 0; border: none;
+  overflow-x: auto; width: 100%; display: block;
+  font-family: 'D2Coding', Consolas, Monaco, monospace; font-size: 14px; line-height: 1.5;
+}
+.editor-line-content code {
+  font-family: inherit; font-size: inherit; line-height: inherit; white-space: pre;
+  background: transparent !important; border: none !important; padding: 0 !important; color: inherit !important;
+}
+.code-tour-accordion .accordion-content { white-space: normal !important; }
+.abap-editor-line-numbers {
+  background-color: #f0f0e1; color: #888; padding: 12px 8px; text-align: right;
+  border-right: 1px solid #d0d0d0; user-select: none; min-width: 32px; line-height: 1.5;
+  font-family: 'D2Coding', Consolas, Monaco, monospace; font-size: 14px; flex-shrink: 0;
+}
+.abap-editor-code {
+  background-color: transparent; color: #333; padding: 12px; margin: 0; border: none;
+  overflow-x: auto; font-family: 'D2Coding', Consolas, Monaco, 'Courier New', monospace;
+  font-size: 14px; line-height: 1.5; width: 100%;
+}
+.abap-editor-code code { font-family: inherit; font-size: inherit; line-height: inherit; }
+.abap-token-keyword { color: #005cc5; font-weight: 700; }
+.abap-token-string, .abap-token-number { color: #22863a; }
+.abap-token-comment { color: #888; font-style: italic; }
+
+/* ============================================================
+   Lesson Learning Visuals (viz-*)
+   ============================================================ */
+.viz-visual { margin: 1rem 0; padding: 1.25rem; border: 1px solid #dbe7f4; border-radius: 8px; background: #f8fbff; }
+.viz-visual-title { margin: 0 0 1rem; font-weight: 800; color: #12365f; }
+.viz-state-grid, .viz-concept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+.viz-state, .viz-concept { min-width: 0; border: 1px solid #d7e1ee; border-radius: 8px; background: #fff; overflow: hidden; }
+.viz-state-label, .viz-concept-label { display: block; padding: .65rem .8rem; border-bottom: 1px solid #e7edf5; background: #eef5ff; color: #17375f; font-weight: 800; }
+.viz-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: .95rem; }
+.viz-table th, .viz-table td { padding: .55rem .65rem; border-bottom: 1px solid #edf1f7; text-align: left; vertical-align: top; word-break: keep-all; overflow-wrap: anywhere; }
+.viz-table th { background: #f6f8fb; color: #38506d; font-weight: 800; }
+.viz-table tr:last-child td { border-bottom: 0; }
+.viz-empty { padding: 1rem; color: #68788c; text-align: center; background: repeating-linear-gradient(-45deg, #fff, #fff 10px, #f4f7fb 10px, #f4f7fb 20px); }
+.viz-highlight-row { background: #fff7db; }
+.viz-current-row { background: #eaf9f4; box-shadow: inset 4px 0 0 #00a884; }
+.viz-badge { display: inline-flex; align-items: center; gap: .3rem; padding: .2rem .5rem; border-radius: 999px; background: #eaf2ff; color: #17477e; font-size: .8rem; font-weight: 800; }
+.viz-badge.success { background: #e8f8ef; color: #17683d; }
+.viz-badge.fail { background: #fff0f0; color: #9b2530; }
+.viz-flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: .75rem; align-items: stretch; }
+.viz-flow-step { display: flex; flex-direction: column; justify-content: center; min-height: 86px; padding: .9rem; border: 1px solid #d7e1ee; border-radius: 8px; background: #fff; }
+.viz-flow-step strong { color: #12365f; }
+.viz-flow-step span { margin-top: .35rem; color: #5a6a7e; font-size: .92rem; }
+.viz-arrow { color: #0056b3; font-weight: 900; }
+.viz-relation { display: grid; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr); gap: .75rem; align-items: center; }
+.viz-relation .viz-arrow { text-align: center; font-size: 1.35rem; }
+.viz-note { margin-top: .9rem; color: #56657a; font-size: .95rem; }
+.viz-compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1rem; align-items: stretch; }
+.viz-compare-before, .viz-compare-after { min-width: 0; border: 1px solid #d7e1ee; border-radius: 8px; background: #fff; overflow: hidden; }
+.viz-compare-before > .viz-compare-label { display: block; padding: .65rem .8rem; border-bottom: 1px solid #e7edf5; background: #fff3f0; color: #8a3a2e; font-weight: 800; }
+.viz-compare-after > .viz-compare-label { display: block; padding: .65rem .8rem; border-bottom: 1px solid #e7edf5; background: #e8f8ef; color: #17683d; font-weight: 800; }
+.viz-compare-body { padding: .8rem; }
+.viz-svg { display: flex; justify-content: center; padding: .5rem 0; }
+.viz-svg svg { width: 100%; max-width: 640px; height: auto; }
+
+@media (max-width: 720px) {
+  .viz-relation { grid-template-columns: 1fr; }
+  .viz-relation .viz-arrow { transform: rotate(90deg); }
+  .viz-compare { grid-template-columns: 1fr; }
+}
+
+/* ---------- Mermaid node 커스텀 (이벤트 흐름도) ---------- */
+.viz-visual svg .edgePath .path { stroke: #1e293b !important; stroke-width: 2.5px !important; }
+.viz-visual svg .marker { fill: #1e293b !important; stroke: #1e293b !important; stroke-width: 1px !important; }
+.viz-visual svg .node rect { rx: 15px !important; ry: 15px !important; stroke-width: 3.2px !important; filter: drop-shadow(0px 3px 0px rgba(15,23,42,0.08)) !important; }
+.viz-visual svg .node polygon { stroke-width: 3.2px !important; filter: drop-shadow(0px 3px 0px rgba(15,23,42,0.08)) !important; }
+.viz-visual svg .node .label { font-weight: normal !important; color: #1e293b !important; }
+.viz-visual svg .node .label b, .viz-visual svg .node .label strong { font-weight: 800 !important; font-size: 16px !important; display: inline-block !important; margin-bottom: 4px !important; }
+.viz-visual svg .node .label .node-content-wrapper { display: block !important; padding: 14px 24px !important; box-sizing: border-box !important; text-align: center !important; }
+.viz-visual svg .node .label .node-badge { display: inline-block !important; font-size: 11px !important; font-weight: 800 !important; padding: 3px 10px !important; border-radius: 99px !important; margin-bottom: 8px !important; line-height: 1.2 !important; text-align: center !important; }
+.viz-visual svg .node .label .badge-p1 { background: #ffe4e6 !important; color: #e11d48 !important; }
+.viz-visual svg .node .label .badge-p2 { background: #fef9c3 !important; color: #a16207 !important; }
+.viz-visual svg .node .label .badge-p3 { background: #f3e8ff !important; color: #7e22ce !important; }
+.viz-visual svg .node .label .badge-screen { background: #0c4a6e !important; color: #fff !important; }
+.viz-visual svg .node .label .badge-p5 { background: #fce7f3 !important; color: #be185d !important; }
+.viz-visual svg .node .label .badge-p6 { background: #dcfce7 !important; color: #15803d !important; }
+.viz-visual svg .node .label .badge-p7 { background: #ffedd5 !important; color: #c2410c !important; }
+.viz-visual svg .node .label .node-desc { font-size: 13px !important; font-weight: normal !important; color: #64748b !important; margin-top: 6px !important; line-height: 1.4 !important; display: block !important; }
+.viz-visual svg .edgeLabel rect { fill: #f8fbff !important; stroke: none !important; rx: 5px !important; ry: 5px !important; }
+.viz-visual svg .edgeLabel foreignObject, .viz-visual svg .edgeLabel div, .viz-visual svg .edgeLabel span { background-color: #f8fbff !important; border: none !important; box-shadow: none !important; border-radius: 5px !important; padding: 3px 8px !important; display: inline-block !important; color: #1e293b !important; font-weight: 700 !important; }
+.viz-visual .mermaid { display: flex !important; justify-content: center !important; align-items: center !important; width: 100% !important; text-align: center !important; }
+.viz-visual svg { margin: 0 auto !important; display: block !important; }
+
+/* ============================================================
+   1. 맥락 인지형 아코디언 가이드 (Code Tour)
+   ============================================================ */
+.code-tour-container { position: relative; background-color: #fff; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin: 16px 0; border: 1px solid #cbd5e1; overflow: hidden; }
+.code-tour-container .abap-editor-header { background-color: #343e6a; border-bottom: 1px solid #232a4a; }
+.code-tour-container .abap-editor-title { color: #ffa03b; }
+.code-tour-container pre.abap-editor-code { padding: 12px !important; color: #334155; background-color: transparent !important; margin: 0; }
+.code-tour-anchor { position: relative; background: rgba(37,99,235,0.08); border-bottom: 2px dashed #2563eb; padding: 1px 6px; border-radius: 4px; cursor: pointer; transition: all .3s ease; font-weight: 700; color: #2563eb !important; display: inline-block; }
+.code-tour-anchor:hover { background: rgba(37,99,235,0.15); color: #1d4ed8 !important; box-shadow: 0 0 8px rgba(37,99,235,0.2); }
+.code-tour-anchor .tour-icon { font-size: .85em; margin-left: 4px; opacity: .8; display: inline-block; }
+.code-tour-accordion { max-height: 0; opacity: 0; overflow: hidden; transition: max-height .4s cubic-bezier(0.16,1,0.3,1), opacity .3s ease, margin .3s ease; background: #f0f7ff; border-left: 4px solid transparent; margin: 0; border-radius: 4px; }
+.code-tour-accordion.active { max-height: 500px; opacity: 1; margin: 12px 0; border-left-color: #2563eb; }
+.code-tour-accordion .accordion-content { padding: 16px 20px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: .95rem; line-height: 1.6; color: #334155; }
+.code-tour-accordion .accordion-content strong { color: #1e293b; }
+.code-tour-accordion .accordion-content p { margin: .3rem 0 0; }
+
+/* ============================================================
+   2. Before & After 코드 비교 매퍼 (Diff Mapper)
+   ============================================================ */
+.interactive-diff-mapper { background: #fff; border: 1px solid #cbd5e1; border-radius: 16px; overflow: hidden; margin: 16px 0; box-shadow: 0 8px 25px rgba(0,0,0,0.06); }
+.diff-header-bar { background: #f1f5f9; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #cbd5e1; }
+.diff-header-title { color: #1e293b; font-weight: 700; font-size: .95rem; display: flex; align-items: center; gap: 8px; }
+.diff-container { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid #cbd5e1; }
+.diff-pane { padding: 20px; background: #fff; min-width: 0; }
+.diff-pane:first-child { border-right: 1px solid #cbd5e1; }
+.diff-pane h4 { margin-top: 0; margin-bottom: 16px; font-size: .9rem; text-transform: uppercase; letter-spacing: .5px; display: flex; align-items: center; gap: 6px; }
+.diff-pane.bad-code h4 { color: #dc2626; }
+.diff-pane.good-code h4 { color: #16a34a; }
+.diff-pane pre { margin: 0; background: transparent !important; white-space: pre-wrap; }
+.diff-pane code { font-family: 'D2Coding', Consolas, monospace; font-size: 13.5px; line-height: 1.6; color: #475569; }
+.diff-highlight { display: block; padding: 4px 8px; margin: 2px -8px; border-radius: 4px; cursor: pointer; transition: all .25s cubic-bezier(0.4,0,0.2,1); border-left: 3px solid transparent; }
+.bad-code .diff-highlight { color: #b91c1c; }
+.bad-code .diff-highlight:hover, .bad-code .diff-highlight.highlight-linked { background: #ffe4e6; border-left-color: #f43f5e; color: #9f1239; box-shadow: 0 2px 8px rgba(244,63,94,0.15); }
+.good-code .diff-highlight { color: #15803d; }
+.good-code .diff-highlight:hover, .good-code .diff-highlight.highlight-linked { background: #d1fae5; border-left-color: #10b981; color: #065f46; box-shadow: 0 2px 8px rgba(16,185,129,0.15); }
+.diff-explanation { background: #f8fafc; padding: 16px 20px; color: #334155; font-size: .95rem; line-height: 1.6; min-height: 60px; transition: all .3s ease; display: flex; align-items: center; }
+.diff-explanation .placeholder { color: #64748b; font-style: italic; }
+.diff-explanation-content { display: flex; flex-direction: column; gap: 4px; }
+.diff-explanation-content strong { color: #1e293b; }
+
+@media (max-width: 720px) {
+  .diff-container { grid-template-columns: 1fr; }
+  .diff-pane:first-child { border-right: none; border-bottom: 1px solid #cbd5e1; }
+}
+
+/* ============================================================
+   3. 드래그 앤 드롭 퍼즐 (Drag & Drop Quiz)
+   ============================================================ */
+.interactive-puzzle-quiz { background: #fff; border: 1px solid #cbd5e1; border-radius: 16px; padding: 24px; margin: 16px 0; box-shadow: 0 8px 25px rgba(0,0,0,0.05); }
+.puzzle-question { font-size: 1.05rem; font-weight: 700; color: #1e293b; margin-top: 0; margin-bottom: 20px; line-height: 1.5; }
+.puzzle-drop-zones { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.drop-zone { background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 12px; padding: 16px; min-height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; transition: all .3s ease; position: relative; }
+.drop-zone.drag-over { border-color: #2563eb; background: #eff6ff; transform: scale(1.02); }
+.drop-zone.correct { border-color: #10b981; background: #ecfdf5; border-style: solid; }
+.drop-zone.incorrect { border-color: #ef4444; background: #fef2f2; border-style: solid; }
+.zone-label { font-size: .75rem; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 12px; letter-spacing: .5px; text-align: center; }
+.puzzle-drag-items { display: flex; flex-wrap: wrap; gap: 12px; background: #f1f5f9; padding: 16px; border-radius: 12px; min-height: 60px; align-items: center; }
+.drag-item { background: #fff; border: 1px solid #cbd5e1; border-radius: 8px; padding: 8px 16px; font-family: 'D2Coding', monospace; font-size: .9rem; font-weight: 700; color: #334155; cursor: grab; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: all .2s cubic-bezier(0.4,0,0.2,1); user-select: none; }
+.drag-item:active { cursor: grabbing; }
+.drag-item:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(37,99,235,0.15); border-color: #2563eb; color: #2563eb; }
+.drag-item.dragging { opacity: .4; transform: scale(0.95); }
+.puzzle-feedback { margin-top: 20px; padding: 12px 16px; border-radius: 8px; font-size: .95rem; display: none; line-height: 1.5; }
+.puzzle-feedback.success { display: block; background: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; }
+.puzzle-feedback.error { display: block; background: #fef2f2; border: 1px solid #fca5a5; color: #991b1b; }
+.confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; }
+
+/* 카드 분류 퀴즈 */
+.card-sort { background: #fff; border: 1px solid #cbd5e1; border-radius: 16px; padding: 24px; margin: 16px 0; box-shadow: 0 8px 25px rgba(0,0,0,0.05); }
+.cardsort-pool { display: flex; flex-wrap: wrap; gap: 12px; background: #f1f5f9; padding: 16px; border-radius: 12px; min-height: 60px; align-items: center; margin-bottom: 16px; }
+.cardsort-zones { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+.cardsort-zone { background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 12px; padding: 14px; min-height: 110px; display: flex; flex-direction: column; gap: 8px; align-items: stretch; transition: all .25s ease; }
+.cardsort-zone.drag-over { border-color: #2563eb; background: #eff6ff; }
+.cardsort-zone .zone-label { text-align: center; }
+
+/* ============================================================
+   4. 대화형 Step Debugger
+   ============================================================ */
+.interactive-debugger { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; background: #fff; border: 1px solid #cbd5e1; border-radius: 16px; overflow: hidden; margin: 16px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+.debugger-code-panel { background: #f8fafc; padding: 12px 16px !important; border-right: 1px solid #cbd5e1; max-height: 400px; overflow-y: auto; }
+.debugger-code-panel pre { margin: 0 !important; padding: 0 !important; background: transparent !important; }
+.debugger-code-panel code { margin: 0 !important; padding: 0 !important; background: transparent !important; border: none !important; }
+.db-line { display: block !important; padding: 1px 12px 1px 24px !important; position: relative; font-family: 'D2Coding', Consolas, monospace !important; font-size: 13px !important; line-height: 1.5; color: #475569 !important; border-radius: 4px; transition: all .25s ease; }
+.db-line:empty { height: .8em !important; min-height: .8em !important; padding: 0 12px 0 24px !important; margin: 0 !important; }
+.db-line::before { content: ""; position: absolute; left: 6px; top: 50%; transform: translateY(-50%); width: 12px; height: 12px; background: transparent; clip-path: polygon(0 0, 100% 50%, 0 100%); transition: all .2s ease; }
+.db-line.active { background: #fef9c3; color: #854d0e; box-shadow: inset 4px 0 0 #eab308; font-weight: bold; }
+.db-line.active::before { background: #eab308; transform: translateY(-50%) scale(1.1); }
+.debugger-monitor-panel { display: flex; flex-direction: column; background: #fff; padding: 24px; min-width: 0; }
+.monitor-header { color: #1e293b; font-weight: 700; font-size: .95rem; margin-bottom: 20px; text-transform: uppercase; letter-spacing: .5px; display: flex; align-items: center; gap: 8px; }
+.monitor-controls { display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
+.debugger-btn { padding: 8px 16px; border-radius: 8px; font-size: .85rem; font-weight: 700; cursor: pointer; transition: all .25s ease; border: none; }
+.debugger-btn.btn-dbg-start { background: #2563eb; color: #fff; }
+.debugger-btn.btn-dbg-start:hover { background: #1d4ed8; }
+.debugger-btn.btn-dbg-next { background: #f1f5f9; color: #64748b; border: 1px solid #cbd5e1; }
+.debugger-btn.btn-dbg-next:not(:disabled) { background: #f59e0b; color: #fff; border-color: #d97706; }
+.debugger-btn.btn-dbg-next:not(:disabled):hover { background: #d97706; }
+.debugger-btn:disabled { opacity: .4; cursor: not-allowed; }
+.monitor-state-card { background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 16px; flex-grow: 1; display: flex; flex-direction: column; gap: 16px; overflow-y: auto; max-height: 250px; }
+.monitor-val-row { display: flex; justify-content: space-between; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; font-size: .85rem; gap: 10px; }
+.monitor-val-row:last-child { border-bottom: none; }
+.monitor-val-label { color: #475569; font-weight: 600; }
+.monitor-val-value { font-family: 'D2Coding', monospace; color: #0284c7; font-weight: 700; text-align: right; }
+.monitor-val-value.success { color: #16a34a; }
+.monitor-val-value.fail { color: #dc2626; }
+.monitor-console-output { margin-top: auto; background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px; font-family: 'D2Coding', monospace; font-size: .85rem; color: #15803d; min-height: 80px; white-space: pre-wrap; max-height: 140px; overflow-y: auto; }
+
+@media (max-width: 768px) {
+  .interactive-debugger { grid-template-columns: 1fr; }
+  .debugger-code-panel { border-right: none; border-bottom: 1px solid #cbd5e1; }
+}
+
+/* ============================================================
+   5. 가상 SAP GUI Sandbox
+   ============================================================ */
+.interactive-sap-sandbox { background: #cbd5e1; border: 2px solid #64748b; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin: 16px 0; overflow: hidden; font-family: Arial, sans-serif; }
+.sap-gui-header { background: linear-gradient(180deg, #475569 0%, #334155 100%); padding: 6px 12px; display: flex; align-items: center; border-bottom: 2px solid #1e293b; color: #fff; }
+.sap-tcode-bar { display: flex; align-items: center; gap: 8px; font-size: .8rem; font-weight: bold; }
+.tcode-val { background: #fff; color: #000; padding: 2px 8px; border-radius: 4px; font-family: monospace; font-size: .85rem; }
+.sap-gui-title-bar { background: #f8fafc; border-bottom: 1px solid #cbd5e1; padding: 8px 16px; color: #334155; font-weight: bold; font-size: .95rem; }
+.sap-selection-screen { background: #f8fafc; padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+.sap-field-row { display: grid; grid-template-columns: 180px minmax(100px, 300px); align-items: center; gap: 12px; }
+.sap-field-row label { font-size: .85rem; color: #475569; font-weight: bold; }
+.sap-input { border: 1px solid #cbd5e1; padding: 6px 10px; border-radius: 4px; font-size: .85rem; background: #fff; color: #1e293b; outline: none; transition: border-color .2s; max-width: 100%; }
+.sap-input:focus { border-color: #2563eb; box-shadow: 0 0 0 2px rgba(37,99,235,0.1); }
+.sap-btn-execute { align-self: flex-start; background: #2563eb; color: #fff; font-size: .85rem; font-weight: bold; border: 1px solid #1d4ed8; padding: 8px 20px; border-radius: 4px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all .2s; margin-top: 10px; }
+.sap-btn-execute:hover { background: #1d4ed8; }
+.sap-result-log { background: #fff; color: #334155; padding: 16px; border-top: 2px solid #94a3b8; font-family: monospace; font-size: .85rem; min-height: 120px; max-height: 320px; overflow-y: auto; }
+.sap-log-line { margin: 6px 0; opacity: 0; transform: translateY(5px); animation: fadeInLog .4s ease forwards; line-height: 1.5; }
+@keyframes fadeInLog { to { opacity: 1; transform: translateY(0); } }
+.sap-log-line.event { color: #0284c7; font-weight: bold; }
+.sap-log-line.info { color: #475569; }
+.sap-log-line.error { color: #dc2626; font-weight: bold; }
+.sap-log-line.success { color: #15803d; font-weight: bold; }
+.sap-input-short { width: 100px; }
+.sap-input-medium { width: 180px; }
+.sap-log-placeholder { color: #94a3b8; font-style: italic; }
+.sap-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); display: none; align-items: center; justify-content: center; z-index: 99999; }
+.sap-modal { background: #fff; border: 2px solid #ef4444; border-radius: 8px; width: 90%; max-width: 400px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); overflow: hidden; }
+.sap-modal-header { background: #ef4444; color: #fff; padding: 10px 16px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+.sap-modal-body { padding: 20px; color: #1e293b; font-size: .9rem; line-height: 1.5; }
+.sap-modal-footer { background: #f8fafc; padding: 10px 16px; display: flex; justify-content: flex-end; border-top: 1px solid #e2e8f0; }
+.sap-modal-btn { background: #475569; color: #fff; border: none; padding: 6px 16px; border-radius: 4px; font-size: .85rem; cursor: pointer; }
+.sap-modal-btn:hover { background: #334155; }
+.sap-alv-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-family: Arial, sans-serif; font-size: .8rem; background: #fff; color: #1e293b; }
+.sap-alv-table th { background: #f1f5f9; border: 1px solid #cbd5e1; padding: 6px 10px; color: #334155; font-weight: bold; text-align: left; }
+.sap-alv-table td { border: 1px solid #cbd5e1; padding: 6px 10px; }
+.sap-alv-table tr:nth-child(even) { background: #f8fafc; }
+.sandbox-copy { color: #334155; font-size: .95rem; line-height: 1.6; margin: 0 0 16px; }
+
+@media (max-width: 560px) {
+  .sap-field-row { grid-template-columns: 1fr; gap: 4px; }
+}
+
+/* ============================================================
+   탭형 점진 빌드업 + 좌우 분할
+   ============================================================ */
+.event-tabs-container { margin: 16px 0; display: flex; flex-direction: column; }
+.event-tab-buttons { display: flex; gap: 8px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+.tab-btn { background: #f1f5f9; border: 1px solid #cbd5e1; color: #475569; padding: 8px 16px; border-radius: 8px; font-size: .88rem; font-weight: 700; cursor: pointer; transition: all .25s ease; }
+.tab-btn:hover { background: #e2e8f0; color: #1e293b; }
+.tab-btn.active { background: #2563eb; border-color: #1d4ed8; color: #fff; box-shadow: 0 4px 10px rgba(37,99,235,0.2); }
+.tabs-content { position: relative; min-height: 420px; }
+.event-tab-panel { height: 0; opacity: 0; overflow: hidden; position: absolute; pointer-events: none; width: 100%; transition: opacity .3s ease; left: 0; top: 0; }
+.event-tab-panel.active { height: auto; opacity: 1; position: relative; pointer-events: auto; }
+.tab-split-container { display: flex; gap: 24px; align-items: stretch; }
+.tab-split-left { flex: 1.1; min-width: 0; display: flex; flex-direction: column; justify-content: center; }
+.tab-split-right { flex: 0.9; min-width: 0; display: flex; flex-direction: column; }
+.tab-split-right .abap-editor-mockup { margin: 0; height: 100%; }
+
+@media (max-width: 900px) {
+  .tab-split-container { flex-direction: column; }
+  .tab-split-left, .tab-split-right { flex: none; width: 100%; }
+  .tabs-content { min-height: 0; }
+}

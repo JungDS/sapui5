@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!-- 
+  [STANDARD_V3_STRUCTURE] 
+  이 파일은 고품질 교육용 웹페이지 표준 구조(v3)를 따릅니다.
+  AI 일괄 처리 및 스크립트 자동화의 대상이므로 코어 레이아웃과 클래스 명칭을 임의로 변경하지 마십시오.
+-->
+
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>미니 프로젝트 미션 | 학습 수단 샘플 v3</title>
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" href="../assets/widgets.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+<link rel="stylesheet" href="../assets/variants.css">
+</head>
+<body>
+
+    <!-- [NEW] Design Variants Selector -->
+    <div class="variant-panel" data-page-id="capstone/mini-project-mission">
+      <h4>🎨 Design Variants (시안 선택):</h4>
+      <div class="variant-options">
+        <label class="variant-chip-a"><input type="radio" name="viewport" value="A"> 🔵 A — 기본</label>
+        <label class="variant-chip-b"><input type="radio" name="viewport" value="B"> 🟡 B — Notion</label>
+        <label class="variant-chip-c"><input type="radio" name="viewport" value="C"> 🟣 C — 파스텔</label>
+      </div>
+      <button class="page-export-btn" data-page-id="capstone/mini-project-mission">선택 JSON 복사</button>
+    </div>
+    
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v3</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">종합 미션 · 미니 프로젝트</p>
+    <h1>미니 프로젝트 미션</h1>
+    <p class="lead">여러 Lesson에서 배운 것을 묶어 작은 완성물을 만들게 합니다. "목표 → 요구사항 → 단계 → 완료 조건"을 한 보드로 제시해, 학습자가 스스로 기능 하나를 끝까지 구현하게 합니다. Chapter 마지막이나 Track 2에 적합합니다.</p>
+    <div class="tags"><span class="tag origin">원본 주제: Chapter 13 (이벤트 전체 통합)</span><span class="tag">통합 구현 과제</span></div>
+  </section>
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 통합 과제에 적용</h2>
+    <p class="section-sub">예시 1은 Chapter 13 이벤트 6개 Lesson을 하나의 리포트로 통합하는 캡스톤입니다.</p>
+    <div class="example-stack">
+      <article class="method-example spotlight">
+        <p class="ex-topic origin">예시 1 · Report Event (Chapter 13 통합)</p>
+        <h3>사원 조회 리포트 완성하기</h3>
+        <p class="ex-desc">이벤트 라이프사이클 전 단계를 하나의 리포트에 통합합니다.</p>
+        <div class="project-board">
+          <div class="project-card"><h4>🎯 목표</h4><ul><li>이벤트 6단계를 모두 사용하는 사원 조회 리포트</li></ul></div>
+          <div class="project-card"><h4>📋 요구사항</h4><ul><li>기준년도 기본값(오늘 연도)</li><li>상세 옵션 체크 시에만 추가 필드 표시</li><li>회사코드 존재 검증</li><li>SALV로 결과 출력, 0건 안내</li></ul></div>
+          <div class="project-card"><h4>🪜 단계</h4><ul><li>INITIALIZATION: 기본값</li><li>AT SELECTION-SCREEN OUTPUT: 화면 제어</li><li>AT SELECTION-SCREEN: 검증</li><li>START-OF-SELECTION: 조회</li><li>END-OF-SELECTION: 출력</li></ul></div>
+          <div class="project-card"><h4>🏁 완료 조건</h4><ul><li>잘못된 입력은 화면 복귀</li><li>0건이면 안내 메시지</li><li>정상 입력 시 ALV 표시</li></ul></div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 캡스톤은 "목표/요구/단계/완료"를 보드로 분리해 학습자가 작업 범위를 스스로 관리하게 한다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · Open SQL + ALV</p>
+        <h3>항공편 매출 요약 리포트</h3>
+        <div class="project-board">
+          <div class="project-card"><h4>🎯 목표</h4><ul><li>항공사별 매출 합계를 표로 출력</li></ul></div>
+          <div class="project-card"><h4>📋 요구사항</h4><ul><li>기간(s_date) 입력</li><li>JOIN으로 항공사명 표시</li><li>GROUP BY로 매출 합계</li></ul></div>
+          <div class="project-card"><h4>🪜 단계</h4><ul><li>선택 화면 설계</li><li>JOIN + 집계 SELECT</li><li>SALV 출력</li></ul></div>
+          <div class="project-card"><h4>🏁 완료 조건</h4><ul><li>LOOP 안 SELECT 없음</li><li>합계가 정확</li><li>0건 안내 처리</li></ul></div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> SQL+ALV 통합 과제는 "성능 원칙 준수"를 완료 조건에 명시해 안티패턴을 차단한다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · OO ABAP</p>
+        <h3>조회 로직 클래스로 분리하기</h3>
+        <div class="project-board">
+          <div class="project-card"><h4>🎯 목표</h4><ul><li>조회 로직을 클래스 메서드로 캡슐화</li></ul></div>
+          <div class="project-card"><h4>📋 요구사항</h4><ul><li>lcl_flight_reader 클래스</li><li>get_flights( ) 메서드</li><li>리포트는 클래스를 호출만</li></ul></div>
+          <div class="project-card"><h4>🪜 단계</h4><ul><li>DEFINITION/IMPLEMENTATION 작성</li><li>NEW로 인스턴스화</li><li>결과를 ALV로 출력</li></ul></div>
+          <div class="project-card"><h4>🏁 완료 조건</h4><ul><li>조회와 출력이 분리됨</li><li>클래스만 바꿔도 화면 영향 없음</li></ul></div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> OO 캡스톤은 "관심사 분리(조회 vs 출력)"를 완료 조건으로 두어 설계 감각을 기른다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/core.js"></script>
+<script src="../assets/widgets.js"></script>
+<script src="../assets/quiz.js"></script>
+<script src="../assets/sandbox.js"></script>
+<script src="../assets/variants.js"></script>
+</body>
+</html>

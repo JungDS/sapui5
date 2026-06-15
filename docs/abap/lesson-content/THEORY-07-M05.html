@@ -43,7 +43,7 @@
     <div class="abap-editor-line-numbers">
       1<br>2
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span> lt_sorted <span class="abap-token-keyword">TYPE</span> SORTED <span class="abap-token-keyword">TABLE</span> <span class="abap-token-keyword">OF</span> ty_student
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span> lt_sorted <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">SORTED TABLE OF</span> ty_student
   <span class="abap-token-keyword">WITH</span> <span class="abap-token-keyword">UNIQUE</span> <span class="abap-token-keyword">KEY</span> id.</code></pre>
   </div>
 </div>
@@ -79,7 +79,7 @@
     <div class="abap-editor-line-numbers">
       1<br>2
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span> lt_hashed <span class="abap-token-keyword">TYPE</span> HASHED <span class="abap-token-keyword">TABLE</span> <span class="abap-token-keyword">OF</span> ty_student
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span> lt_hashed <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">HASHED TABLE OF</span> ty_student
   <span class="abap-token-keyword">WITH</span> <span class="abap-token-keyword">UNIQUE</span> <span class="abap-token-keyword">KEY</span> id.</code></pre>
   </div>
 </div>
@@ -91,6 +91,53 @@
     <li><strong>어울리는 경우:</strong> 고유 키로 특정 한 줄을 자주 찾아야 할 때</li>
     <li><strong>주의:</strong> 순서 출력이 목적이라면 다른 선택이 더 자연스러울 수 있습니다.</li>
   </ul>
+  <div class="viz-visual">
+    <p class="viz-visual-title">테이블 3종 비교 — 줄이 보관되는 방식이 다르다</p>
+    <div class="viz-state-grid">
+      <div class="viz-state">
+        <span class="viz-state-label">STANDARD: 번호표 순서대로</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td>1</td><td>A03 Sora</td></tr>
+            <tr><td>2</td><td>A01 Mina</td></tr>
+            <tr><td>3</td><td>A02 Jun</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-state">
+        <span class="viz-state-label">SORTED: 키 순서를 항상 유지</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td>1</td><td>A01 Mina</td></tr>
+            <tr><td>2</td><td>A02 Jun</td></tr>
+            <tr><td>3</td><td>A03 Sora</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-state">
+        <span class="viz-state-label">HASHED: 순서 없음, 키로 직행</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td>키 'A02'</td><td>→ 해시 계산 → 해당 줄로 바로 이동</td></tr>
+            <tr><td>INDEX</td><td><span class="viz-badge fail">사용 불가</span></td></tr>
+            <tr><td>UNIQUE KEY</td><td><span class="viz-badge">중복 키 불허</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <table class="viz-table">
+      <thead>
+        <tr><th>기준</th><th>STANDARD</th><th>SORTED</th><th>HASHED</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>INDEX 접근</td><td><span class="viz-badge success">가능</span></td><td><span class="viz-badge success">가능</span></td><td><span class="viz-badge fail">불가</span></td></tr>
+        <tr><td>키 검색 속도</td><td>줄 수에 비례</td><td>빠름 (이진 탐색)</td><td>가장 빠름 (건수 무관)</td></tr>
+        <tr><td>정렬 유지</td><td>직접 SORT 필요</td><td>자동 유지</td><td>순서 개념 없음</td></tr>
+        <tr><td>어울리는 일</td><td>순서대로 쌓고 출력</td><td>키 검색 + 순서 접근 둘 다</td><td>고유 키 단건 조회 반복</td></tr>
+      </tbody>
+    </table>
+    <p class="viz-note">“무조건 HASHED가 최적”이 아닙니다. INDEX나 구간 처리(FROM n TO m)가 필요하면 HASHED는 쓸 수 없고, 둘 다 필요하면 SORTED가 균형점입니다.</p>
+  </div>
 </section>
 
 <section class="lesson-section">
@@ -120,7 +167,7 @@
          score <span class="abap-token-keyword">TYPE</span> i,
        <span class="abap-token-keyword">END</span> <span class="abap-token-keyword">OF</span> ty_student.
 
-<span class="abap-token-keyword">DATA</span>: lt_sorted <span class="abap-token-keyword">TYPE</span> SORTED <span class="abap-token-keyword">TABLE</span> <span class="abap-token-keyword">OF</span> ty_student <span class="abap-token-keyword">WITH</span> <span class="abap-token-keyword">UNIQUE</span> <span class="abap-token-keyword">KEY</span> id,
+<span class="abap-token-keyword">DATA</span>: lt_sorted <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">SORTED TABLE OF</span> ty_student <span class="abap-token-keyword">WITH</span> <span class="abap-token-keyword">UNIQUE</span> <span class="abap-token-keyword">KEY</span> id,
       ls_student <span class="abap-token-keyword">TYPE</span> ty_student.
 
 ls_student-id = <span class="abap-token-string">'A01'</span>.
@@ -173,7 +220,50 @@ ls_student-score = <span class="abap-token-number">95</span>.
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 종류별 차이 체험하기 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>같은 Line Type으로 SORTED TABLE(<code>WITH UNIQUE KEY id</code>)과 HASHED TABLE을 각각 선언합니다.</li>
+        <li>SORTED TABLE에 A03→A01→A02 순서로 INSERT하고 LOOP 출력하면 자동으로 A01→A02→A03 순서가 되는지 확인합니다.</li>
+        <li>HASHED TABLE에 <code>READ TABLE ... WITH TABLE KEY id = 'A02'</code>로 키 검색이 되는지, <code>INDEX 1</code> 접근은 문법 오류가 나는지 확인합니다.</li>
+        <li>UNIQUE KEY 테이블에 같은 id를 두 번 INSERT해 어떤 일이 일어나는지 관찰합니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> “SORTED는 순서 자동 유지, HASHED는 INDEX 불가·중복 키 불허”를 직접 만든 코드로 확인하면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSORTED_TABLE_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Sorted Table</a> - 키 순서를 항상 유지하는 SORTED TABLE의 공식 정의를 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENHASHED_TABLE_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Hashed Table</a> - 키 기반 직행 검색을 하는 HASHED TABLE의 공식 정의를 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINTERNAL_TABLE_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Internal Table</a> - Table Kind를 포함한 Internal Table의 구성 요소를 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>“HASHED TABLE이 가장 빠르니까 항상 HASHED를 쓰면 된다”는 말이 틀린 이유는 무엇인가요?</li>
+    <li>UNIQUE KEY가 선언된 테이블에 중복 키 데이터를 INSERT하면 어떤 위험이 있나요?</li>
+    <li>키 검색과 INDEX/구간 접근이 모두 필요하다면 어떤 테이블 종류가 적합한가요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>HASHED에는 순서(INDEX) 개념이 없기 때문</strong>입니다. INDEX 접근이나 구간 처리(FROM n TO m)가 필요한 로직에서는 쓸 수 없고, 키 검색만 반복하는 경우에 가장 유리합니다.</li>
+      <li><strong>런타임 오류(덤프, 예: ITAB_DUPLICATE_KEY)로 프로그램이 중단될 수 있습니다.</strong> 외부 파일/인터페이스 데이터를 적재할 때는 사전 중복 검증이나 예외 처리가 필요합니다.</li>
+      <li><strong>SORTED TABLE</strong>입니다. 키 순서를 유지해 빠른 키 검색이 가능하면서 INDEX 접근도 지원합니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

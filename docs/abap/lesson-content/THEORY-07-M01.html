@@ -44,7 +44,7 @@
 
 <span class="abap-token-keyword">IF</span> sy-subrc = <span class="abap-token-number">0</span>.
   ls_student-score = <span class="abap-token-number">88</span>.
-  <span class="abap-token-keyword">MODIFY</span> lt_students <span class="abap-token-keyword">FROM</span> ls_student INDEX <span class="abap-token-number">2</span>.
+  <span class="abap-token-keyword">MODIFY</span> lt_students <span class="abap-token-keyword">FROM</span> ls_student <span class="abap-token-keyword">INDEX</span> <span class="abap-token-number">2</span>.
 <span class="abap-token-keyword">ENDIF</span>.</code></pre>
   </div>
 </div>
@@ -82,7 +82,7 @@
       1<br>2
     </div>
     <pre class="shiki abap-editor-code"><code>ls_student-score = <span class="abap-token-number">88</span>.
-<span class="abap-token-keyword">MODIFY</span> lt_students <span class="abap-token-keyword">FROM</span> ls_student INDEX <span class="abap-token-number">2</span> TRANSPORTING score.</code></pre>
+<span class="abap-token-keyword">MODIFY</span> lt_students <span class="abap-token-keyword">FROM</span> ls_student <span class="abap-token-keyword">INDEX</span> <span class="abap-token-number">2</span> <span class="abap-token-keyword">TRANSPORTING</span> score.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -125,7 +125,7 @@
          score <span class="abap-token-keyword">TYPE</span> i,
        <span class="abap-token-keyword">END</span> <span class="abap-token-keyword">OF</span> ty_student.
 
-<span class="abap-token-keyword">DATA</span>: lt_students <span class="abap-token-keyword">TYPE</span> STANDARD <span class="abap-token-keyword">TABLE</span> <span class="abap-token-keyword">OF</span> ty_student,
+<span class="abap-token-keyword">DATA</span>: lt_students <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">STANDARD TABLE OF</span> ty_student,
       ls_student  <span class="abap-token-keyword">TYPE</span> ty_student.
 
 ls_student-id = <span class="abap-token-string">'A01'</span>. ls_student-name = <span class="abap-token-string">'Mina'</span>. ls_student-score = <span class="abap-token-number">90</span>.
@@ -138,7 +138,7 @@ ls_student-id = <span class="abap-token-string">'A02'</span>. ls_student-name = 
 <span class="abap-token-keyword">READ</span> <span class="abap-token-keyword">TABLE</span> lt_students <span class="abap-token-keyword">INTO</span> ls_student <span class="abap-token-keyword">WITH</span> <span class="abap-token-keyword">KEY</span> id = <span class="abap-token-string">'A02'</span>.
 <span class="abap-token-keyword">IF</span> sy-subrc = <span class="abap-token-number">0</span>.
   ls_student-score = <span class="abap-token-number">88</span>.
-  <span class="abap-token-keyword">MODIFY</span> lt_students <span class="abap-token-keyword">FROM</span> ls_student INDEX <span class="abap-token-number">2</span> TRANSPORTING score.
+  <span class="abap-token-keyword">MODIFY</span> lt_students <span class="abap-token-keyword">FROM</span> ls_student <span class="abap-token-keyword">INDEX</span> <span class="abap-token-number">2</span> <span class="abap-token-keyword">TRANSPORTING</span> score.
 <span class="abap-token-keyword">ENDIF</span>.
 
 <span class="abap-token-keyword">LOOP</span> <span class="abap-token-keyword">AT</span> lt_students <span class="abap-token-keyword">INTO</span> ls_student.
@@ -150,6 +150,36 @@ ls_student-id = <span class="abap-token-string">'A02'</span>. ls_student-name = 
   <p>
     실행하면 Jun의 점수가 85에서 88로 바뀐 상태로 출력됩니다. 디버거에서 MODIFY 전후의 <code>lt_students</code>를 보면 원본 Internal Table 행이 실제로 바뀌는 것을 확인할 수 있습니다.
   </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">MODIFY ... TRANSPORTING score 실행 전과 후</p>
+    <div class="viz-compare">
+      <div class="viz-compare-before">
+        <span class="viz-compare-label">실행 전 lt_students</span>
+        <div class="viz-compare-body">
+          <table class="viz-table">
+            <thead><tr><th>순번</th><th>id</th><th>name</th><th>score</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>A01</td><td>Mina</td><td>90</td></tr>
+              <tr class="viz-highlight-row"><td>2</td><td>A02</td><td>Jun</td><td>85</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="viz-compare-after">
+        <span class="viz-compare-label">실행 후 lt_students</span>
+        <div class="viz-compare-body">
+          <table class="viz-table">
+            <thead><tr><th>순번</th><th>id</th><th>name</th><th>score</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>A01</td><td>Mina</td><td>90</td></tr>
+              <tr class="viz-current-row"><td>2</td><td>A02</td><td>Jun</td><td><strong>88</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="viz-note">TRANSPORTING score 덕분에 2번 행의 <code>score</code> 칸만 바뀌고 <code>id</code>, <code>name</code>은 손대지 않습니다. TRANSPORTING이 없으면 Work Area 전체가 행을 통째로 덮어씁니다.</p>
+  </div>
 </section>
 
 <section class="lesson-section">
@@ -180,7 +210,50 @@ ls_student-id = <span class="abap-token-string">'A02'</span>. ls_student-name = 
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 안전하게 한 칸만 고치기 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>예제 <code>zmodify_itab_basic</code>을 실행해 Jun의 점수가 88로 바뀌는지 확인합니다.</li>
+        <li>검색 ID를 <code>A99</code>로 바꿔 READ TABLE이 실패하면 MODIFY가 실행되지 않는 것을 확인합니다.</li>
+        <li><code>TRANSPORTING score</code>를 지우고 실행해, Work Area 전체가 행을 덮어쓰는 차이를 디버거나 출력으로 관찰합니다.</li>
+        <li><code>INDEX 2</code> 대신 존재하지 않는 <code>INDEX 9</code>를 지정하고 <code>sy-subrc</code>를 출력해봅니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> “TRANSPORTING은 바꿀 칸을 제한하고, MODIFY 결과도 sy-subrc로 확인해야 한다”를 실행 결과로 보여줄 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMODIFY_ITAB.html" target="_blank" rel="noopener">SAP Help Portal: MODIFY itab</a> - Internal Table 행을 변경하는 MODIFY 문장의 공식 문법을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREAD_TABLE.html" target="_blank" rel="noopener">SAP Help Portal: READ TABLE</a> - 변경 대상 행을 찾는 READ TABLE 문법을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINTERNAL_TABLE_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Internal Table</a> - Internal Table의 공식 정의를 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li><code>TRANSPORTING</code>을 생략한 MODIFY는 어떤 식으로 행을 바꾸나요? 어떤 위험이 있나요?</li>
+    <li>SORT나 DELETE를 실행한 뒤에도 같은 데이터가 같은 INDEX에 있을까요?</li>
+    <li>READ TABLE이 실패한 상태에서 MODIFY를 실행하면 어떤 문제가 생길 수 있나요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>Work Area 전체로 행을 통째로 덮어씁니다.</strong> 바꿀 의도가 없던 필드까지 Work Area의 값(또는 초기값)으로 덮일 수 있고, 모든 칸을 복사하므로 성능에도 손해입니다.</li>
+      <li><strong>아닐 수 있습니다.</strong> INDEX는 “현재 순서”에 의존하므로 정렬/삭제 후에는 위치가 달라질 수 있습니다. 업무적으로는 키 기준이 더 안전한 경우가 많습니다.</li>
+      <li><strong>이전에 남아 있던 Work Area 값이 엉뚱한 행에 반영될 수 있습니다.</strong> 그래서 READ TABLE 성공(<code>sy-subrc = 0</code>) 안에서만 MODIFY해야 합니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

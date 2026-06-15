@@ -47,7 +47,7 @@
 <span class="abap-token-keyword">SELECT</span> <span class="abap-token-keyword">FROM</span> t005t
   <span class="abap-token-keyword">FIELDS</span> land1, landx
   <span class="abap-token-keyword">WHERE</span> spras = @sy-langu
-    AND land1 IN @s_land1
+    <span class="abap-token-keyword">AND</span> land1 <span class="abap-token-keyword">IN</span> @s_land1
   <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt_countries).</code></pre>
   </div>
 </div>
@@ -92,7 +92,7 @@
   <span class="abap-token-keyword">SELECT</span> <span class="abap-token-keyword">FROM</span> t005t
     <span class="abap-token-keyword">FIELDS</span> land1, landx
     <span class="abap-token-keyword">WHERE</span> spras = @sy-langu
-      AND land1 IN @s_land1
+      <span class="abap-token-keyword">AND</span> land1 <span class="abap-token-keyword">IN</span> @s_land1
     <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt_countries).
 
   <span class="abap-token-keyword">IF</span> lt_countries <span class="abap-token-keyword">IS</span> <span class="abap-token-keyword">INITIAL</span>.
@@ -111,66 +111,143 @@
 </section>
 
 <section class="lesson-section">
-  <h2>4. 비어 있는 Range는 어떻게 볼까? 🪧</h2>
+  <h2>4. WHERE IN 조건의 매칭 흐름 시각화 🗺️</h2>
   <p>
-    SELECT-OPTIONS를 비워두면 “사용자가 특별히 제한하지 않았다”는 의미로 쓰이는 경우가 많습니다. 다만 빈 Range Table을 어떻게 처리할지에 대해서는 코드 위치와 문맥을 확인해야 합니다.
+    <code>WHERE empid IN @s_empid</code>가 실행될 때, 데이터베이스가 사원 목록을 걸러내는 과정을 정훈영 사원의 조건표 예시로 살펴보겠습니다.
   </p>
-  <p>
-    초심자 단계에서는 다음 두 질문을 습관처럼 해보세요.
-  </p>
-  <ul>
-    <li>비어 있으면 전체 조회를 허용해도 되는가?</li>
-    <li>너무 많은 데이터가 조회될 위험은 없는가?</li>
-  </ul>
-  <p>
-    필요한 경우 Selection Screen 검증에서 최소 한 조건을 요구하거나, 조회 전 사용자에게 안내할 수 있습니다.
-  </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">s_empid (사원 Range Table) 조건 적용 흐름</p>
+    <div class="viz-compare">
+      <div class="viz-compare-before">
+        <span class="viz-compare-label">1. 조건표 (s_empid)</span>
+        <table class="viz-table">
+          <thead><tr><th>SIGN</th><th>OPTION</th><th>LOW</th><th>HIGH</th></tr></thead>
+          <tbody>
+            <tr class="viz-highlight-row"><td>I</td><td>EQ</td><td>E001</td><td></td></tr>
+            <tr class="viz-highlight-row"><td>I</td><td>EQ</td><td>E003</td><td></td></tr>
+          </tbody>
+        </table>
+        <p class="viz-note">"E001 또는 E003만 포함해라"</p>
+      </div>
+      <div class="viz-compare-after">
+        <span class="viz-compare-label">2. 대상 테이블 (ZEMPLOYEE)</span>
+        <table class="viz-table">
+          <thead><tr><th>EMPID</th><th>EMPNAME</th></tr></thead>
+          <tbody>
+            <tr class="viz-highlight-row"><td>E001</td><td>정훈영 (매칭! ✅)</td></tr>
+            <tr><td>E002</td><td>홍길동 (탈락 ❌)</td></tr>
+            <tr class="viz-highlight-row"><td>E003</td><td>아이유 (매칭! ✅)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="viz-flow" style="margin-top:0.8rem">
+      <div class="viz-flow-step"><strong>최종 조회 결과</strong><span>정훈영(E001), 아이유(E003) 2건만 결과 테이블에 담김</span></div>
+    </div>
+  </div>
 </section>
 
 <section class="lesson-section">
-  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
-  <ul>
-    <li>✅ <strong>정상 흐름:</strong> 사용자가 입력한 Selection Table 조건이 <code>WHERE land1 IN @s_land1</code>로 적용됩니다.</li>
-    <li>✅ <strong>Multiple Selection:</strong> 여러 값이나 범위를 입력해도 IN 조건 하나로 처리할 수 있습니다.</li>
-    <li>❌ <strong>@ 누락:</strong> <code>s_land1</code> 앞의 <code>@</code>를 빼면 ABAP 변수 전달이 되지 않아 오류가 날 수 있습니다.</li>
-    <li>❌ <strong>타입 불일치:</strong> DB 필드와 Range Table의 LOW/HIGH 타입이 맞지 않으면 문제가 됩니다.</li>
-    <li>❌ <strong>무제한 조회:</strong> 조건이 비어 있거나 너무 넓으면 대량 조회 위험이 생깁니다.</li>
-  </ul>
-  <p>
-    미니 실습으로 Selection Screen에서 값 1개, 여러 값, 범위를 각각 넣고 조회 결과가 어떻게 달라지는지 비교해보세요.
-  </p>
-</section>
-
-<section class="lesson-section">
-  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <h2>5. 비어 있는 Range는 어떻게 처리될까? 🪧</h2>
   <div class="lesson-callout warn">
     <div class="lesson-callout-icon">⚠️</div>
     <div class="lesson-callout-content">
-      <h4>IN 조건은 편하지만 조회 범위를 크게 만들 수 있습니다</h4>
-      <p>SELECT-OPTIONS는 사용자가 많은 조건을 넣을 수 있어 편리하지만, 반대로 너무 넓은 범위를 허용할 수도 있습니다. 운영 Report에서는 필수 조건, 최대 범위, 권한 검사를 함께 고려해야 합니다.</p>
+      <h4>빈 Range Table = 전체 조회 허용!</h4>
+      <p>Range Table이 비어 있으면, SQL의 <code>IN</code> 조건은 <strong>항상 참(True)</strong>으로 평가됩니다. 즉, 아무런 필터링을 하지 않고 테이블의 <strong>전체 데이터</strong>를 조회하게 됩니다.</p>
     </div>
   </div>
   <p>
-    이번 Lesson은 단일 필드 IN 조건에 집중합니다. 여러 테이블 JOIN과 복합 조건은 후속 Open SQL 심화에서 다룹니다.
+    이것은 사용자가 "아무런 제한을 두지 않고 전체를 보겠다"는 의도일 때는 편리하지만, 수천만 건이 넘는 대용량 테이블에서는 시스템 다운을 유발하는 치명적인 성능 문제를 일으킬 수 있습니다.
   </p>
+  <p>
+    따라서 초심자 단계에서는 다음 두 질문을 습관처럼 해보세요.
+  </p>
+  <ul>
+    <li>조건이 비어 있을 때 전체 조회를 허용해도 되는 테이블인가?</li>
+    <li>너무 많은 데이터가 조회되어 성능 장애를 유발할 위험은 없는가?</li>
+  </ul>
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>6. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
+  <ul>
+    <li>✅ <strong>정상 흐름:</strong> 사용자가 입력한 Selection Table 조건이 <code>WHERE land1 IN @s_land1</code>로 정상 필터링됩니다.</li>
+    <li>✅ <strong>Multiple Selection 대응:</strong> 여러 값이나 범위를 복잡하게 입력해도 단 하나의 IN 조건으로 완벽하게 처리됩니다.</li>
+    <li>❌ <strong>호스트 변수 기호(@) 누락:</strong> Open SQL에서 ABAP 변수/Range Table을 넘길 때 <code>@</code>를 빠뜨리면 구문 오류가 발생합니다.</li>
+    <li>❌ <strong>타입 불일치:</strong> 비교 대상 DB 필드와 Range Table의 LOW/HIGH 타입이 서로 호환되지 않으면 런타임 에러가 발생할 수 있습니다.</li>
+    <li>❌ <strong>빈 조건으로 인한 메모리 폭발:</strong> 조건이 비어 있을 때 대량 조회가 발생하는 것을 방지하는 방어 코드가 없으면 시스템 성능이 극도로 저하됩니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 실무에서 조심해야 할 점 🚨</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>IN 조건은 편리하지만 대량 조회를 경계하세요</h4>
+      <p>SELECT-OPTIONS는 개발자가 쿼리를 여러 번 짤 필요 없이 다중 입력을 알아서 해결해 주어 매우 강력합니다. 하지만 운영 환경에서는 필수 검색 항목(OBLIGATORY)을 지정하거나, 최대 조회 기간을 강제하는 등 대용량 데이터 조회 방어 조치가 필수적입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 미니 실습: 조건에 따른 조회 분기 테스트 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>예제 코드 <code>zsql_where_in_range</code>를 생성하고 활성화합니다.</li>
+        <li>Selection Screen에서 국가 코드에 <code>KR</code>을 입력한 뒤 실행하여 한국 데이터가 정상 조회되는지 확인합니다.</li>
+        <li>조건창에 아무것도 입력하지 않고 실행했을 때 전체 국가 목록이 다 출력되는지 관찰합니다.</li>
+        <li>코드에서 <code>WHERE land1 IN @s_land1</code> 앞의 호스트 변수 기호 <code>@</code>를 일부러 지워보고 ADT가 어떤 구문 에러를 주는지 확인합니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> 조건 입력값의 유무에 따라 SQL이 어떻게 전체 조회와 조건 조회를 넘나드는지 원리를 설명할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPWHERE_IN_SELTAB.html" target="_blank" rel="noopener">SAP Help Portal: WHERE log_exp - IN range_tab</a> - Range Table을 사용하는 Open SQL IN 조건의 공식 상세 규칙을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENOBJS_HOST_VARIABLES.html" target="_blank" rel="noopener">SAP Help Portal: Host Variables (@)</a> - Open SQL 문장에서 ABAP 변수를 구분하는 호스트 변수의 의미를 학습합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECT.html" target="_blank" rel="noopener">SAP Help Portal: SELECT Statement</a> - Open SQL SELECT 조회의 기술 사양과 옵션을 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>Range Table이 비어 있는 상태에서 <code>WHERE field IN @range</code>가 실행되면 결과는 어떻게 되나요?</li>
+    <li>Open SQL 구문에서 ABAP 변수나 Range Table명을 적을 때 왜 앞에 <code>@</code> 기호를 붙여야 하나요?</li>
+    <li><code>WHERE field IN @range</code> 조건에서 <code>field</code>의 데이터 타입과 Range Table(range)의 LOW/HIGH 필드 타입은 어때야 하나요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>해당 IN 조건이 항상 참(True)이 되어 전체 데이터를 조회하게 됩니다.</strong> 조건 필터링이 생략된 것과 같은 효과를 냅니다.</li>
+      <li><strong>데이터베이스 지시어와 ABAP 프로그램의 호스트 변수를 구분하기 위해서입니다.</strong> <code>@</code>가 없으면 데이터베이스 테이블의 필드로 오인하여 구문 에러가 납니다.</li>
+      <li><strong>두 필드의 데이터 타입은 서로 호환 가능(Compatible)해야 합니다.</strong> 타입이 아예 다르면 값을 비교할 수 없어 구문 에러나 런타임 에러가 발생합니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>11. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">
-      <h4>WHERE IN 핵심</h4>
+      <h4>WHERE IN 핵심 정리</h4>
       <ul>
-        <li><strong>WHERE field IN @range</strong>는 필드 값을 Range Table 조건으로 필터링합니다.</li>
-        <li>SELECT-OPTIONS로 만든 Selection Table을 Open SQL 조건에 바로 연결할 수 있습니다.</li>
-        <li><code>@</code>는 ABAP 쪽 Range Table을 SQL에 전달하는 표시입니다.</li>
-        <li>타입이 맞아야 하고, 비어 있거나 넓은 조건은 대량 조회 위험을 만들 수 있습니다.</li>
-        <li>조건 입력과 조회 조건은 한 세트로 검증해야 합니다.</li>
+        <li><strong>WHERE field IN @range</strong>는 Range Table의 다중 조건을 한번에 SQL 조건으로 바인딩합니다.</li>
+        <li>SELECT-OPTIONS로 생성된 Selection Table은 이 문법을 통해 SQL과 바로 연결됩니다.</li>
+        <li>ABAP 변수나 Range Table명 앞에는 반드시 호스트 변수 기호인 <code>@</code>를 붙여야 합니다.</li>
+        <li><strong>빈 Range Table</strong>은 전체 조회를 의미하므로 대량 조회 방어 대책이 필요합니다.</li>
       </ul>
     </div>
   </div>
   <p>
-    다음 Lesson <strong>Multiple Selection과 Include/Exclude</strong>에서는 사용자가 여러 조건과 제외 조건을 입력하는 방식을 살펴봅니다.
+    다음 Lesson <strong>Multiple Selection과 Include/Exclude</strong>에서는 사용자가 다중 조건 창에서 조건을 풍부하게 조작할 때의 동작 방식을 배웁니다.
   </p>
 </section>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!-- 
+  [STANDARD_V3_STRUCTURE] 
+  이 파일은 고품질 교육용 웹페이지 표준 구조(v3)를 따릅니다.
+  AI 일괄 처리 및 스크립트 자동화의 대상이므로 코어 레이아웃과 클래스 명칭을 임의로 변경하지 마십시오.
+-->
+
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Shortcut Simulator | 학습 수단 샘플 v3</title>
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../assets/widgets.css">
+  <link rel="stylesheet" href="../assets/quiz.css">
+  <link rel="stylesheet" href="../assets/variants.css">
+</head>
+<body>
+  
+    <!-- [NEW] Design Variants Selector -->
+    <div class="variant-panel" data-page-id="interactive/shortcut-simulator">
+      <h4>🎨 Design Variants (시안 선택):</h4>
+      <div class="variant-options">
+        <label class="variant-chip-a"><input type="radio" name="variant_interactive_shortcut-simulator" value="A"> 🔵 A — 기본</label>
+        <label class="variant-chip-b"><input type="radio" name="variant_interactive_shortcut-simulator" value="B"> 🟡 B — Notion</label>
+        <label class="variant-chip-c"><input type="radio" name="variant_interactive_shortcut-simulator" value="C"> 🟣 C — 파스텔</label>
+      </div>
+      <button class="page-export-btn" data-page-id="interactive/shortcut-simulator">선택 JSON 복사</button>
+    </div>
+    
+  <header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v3</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+  
+  <main class="layout">
+    <section class="hero">
+      <p class="eyebrow">인터랙티브 학습 · 단축키 시뮬레이터</p>
+      <h1>ABAP 단축키 체화 훈련</h1>
+      <p class="lead">단축키는 표를 눈으로 보고 외워서는 절대 손에 익지 않습니다. 직접 키보드를 눌러보고, 화면이 반응하는 경험을 통해 근육 기억(Muscle Memory)으로 각인시키는 인터랙티브 컴포넌트입니다.</p>
+    </section>
+
+    <section class="section">
+      <p class="section-eyebrow">실제 적용 예시</p>
+      <h2>에디터 필수 단축키 마스터</h2>
+      <p class="section-sub">키보드를 사용하여 아래 요구사항에 맞는 단축키를 직접 입력해보세요.</p>
+      
+      <article class="method-example spotlight">
+        <p class="ex-topic">예시 1 · 자동 정렬 (Pretty Printer)</p>
+        <h3>미션: 코드를 보기 좋게 정렬하세요</h3>
+        <p>힌트: Shift 키와 특정 펑션 키(F1~F12)의 조합입니다.</p>
+        
+        <div class="shortcut-simulator" style="margin-top:1.5rem;">
+          <input type="text" class="shortcut-input" placeholder="키보드를 입력하세요" readonly data-target="Shift+F1">
+          <div class="shortcut-msg error">아직 입력되지 않았거나 틀렸습니다. (정답: Shift+F1)</div>
+        </div>
+      </article>
+
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · 활성화 (Activate)</p>
+        <h3>미션: 작성한 코드를 활성화하세요</h3>
+        <p>힌트: Ctrl 키와 특정 펑션 키(F1~F12)의 조합입니다.</p>
+        
+        <div class="shortcut-simulator" style="margin-top:1.5rem;">
+          <input type="text" class="shortcut-input" placeholder="키보드를 입력하세요" readonly data-target="Ctrl+F3">
+          <div class="shortcut-msg success" style="display:none;">정답! 코드가 활성화 되었습니다.</div>
+        </div>
+        
+        <div class="ai-note" style="margin-top:2rem;"><strong>AI 작성 메모:</strong> 실무에서 가장 많이 쓰는 단축키 5개 정도만 이 방식으로 훈련시켜도 코딩 속도가 극적으로 올라갑니다. 텍스트 필드에 포커스를 두고 키 이벤트를 감지하는 간단한 JS로 훌륭한 훈련 도구를 만들 수 있습니다.</div>
+      </article>
+
+    </section>
+  </main>
+  
+  <script src="../assets/core.js"></script>
+  <script src="../assets/widgets.js"></script>
+  <script src="../assets/quiz.js"></script>
+  <script src="../assets/sandbox.js"></script>
+  <script src="../assets/variants.js"></script>
+  <script>
+    document.querySelectorAll('.shortcut-input').forEach(input => {
+      input.addEventListener('keydown', e => {
+        e.preventDefault();
+        const keys = [];
+        if(e.ctrlKey) keys.push('Ctrl');
+        if(e.shiftKey) keys.push('Shift');
+        if(e.altKey) keys.push('Alt');
+        
+        if(e.key !== 'Control' && e.key !== 'Shift' && e.key !== 'Alt') {
+          keys.push(e.key.toUpperCase());
+        }
+        
+        const keyString = keys.join('+');
+        if(keys.length > 0 && e.key !== 'Control' && e.key !== 'Shift' && e.key !== 'Alt') {
+          input.value = keyString;
+          const target = input.getAttribute('data-target');
+          const msg = input.nextElementSibling;
+          
+          if(keyString.toUpperCase() === target.toUpperCase()) {
+            msg.className = 'shortcut-msg success';
+            msg.textContent = '정답입니다! (' + target + ')';
+            msg.style.display = 'block';
+          } else {
+            msg.className = 'shortcut-msg error';
+            msg.textContent = '틀렸습니다. 다시 시도하세요.';
+            msg.style.display = 'block';
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

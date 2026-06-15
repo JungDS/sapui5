@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!-- 
+  [STANDARD_V3_STRUCTURE] 
+  이 파일은 고품질 교육용 웹페이지 표준 구조(v3)를 따릅니다.
+  AI 일괄 처리 및 스크립트 자동화의 대상이므로 코어 레이아웃과 클래스 명칭을 임의로 변경하지 마십시오.
+-->
+
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>미니 시험 모드 | 학습 수단 샘플 v3</title>
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" href="../assets/widgets.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+<link rel="stylesheet" href="../assets/variants.css">
+</head>
+<body>
+
+    <!-- [NEW] Design Variants Selector -->
+    <div class="variant-panel" data-page-id="quizzes/mini-exam-mode">
+      <h4>🎨 Design Variants (시안 선택):</h4>
+      <div class="variant-options">
+        <label class="variant-chip-a"><input type="radio" name="viewport" value="A"> 🔵 A — 기본</label>
+        <label class="variant-chip-b"><input type="radio" name="viewport" value="B"> 🟡 B — Notion</label>
+        <label class="variant-chip-c"><input type="radio" name="viewport" value="C"> 🟣 C — 파스텔</label>
+      </div>
+      <button class="page-export-btn" data-page-id="quizzes/mini-exam-mode">선택 JSON 복사</button>
+    </div>
+    
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v3</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">퀴즈 · 미니 시험 모드</p>
+    <h1>미니 시험 모드</h1>
+    <p class="lead">여러 객관식 문항을 한 번에 풀고 점수와 해설을 확인합니다. Chapter 마무리에서 학습 전체를 점검하는 용도로, 채점 후 틀린 문항의 해설을 펼쳐 다시 회수합니다.</p>
+    <div class="tags"><span class="tag origin">원본 주제: Chapter 13 (이벤트 종합)</span><span class="tag">객관식 + 점수 + 해설</span></div>
+  </section>
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 주제 시험에 적용</h2>
+    <p class="section-sub">예시 1은 Chapter 13 이벤트 종합 미니 시험입니다.</p>
+    <div class="example-stack">
+      <article class="method-example spotlight">
+        <p class="ex-topic origin">예시 1 · Report Event (Chapter 13 주제)</p>
+        <h3>이벤트 종합 미니 시험</h3>
+        <div class="exam">
+          <div class="exam-q" data-q="e1q1" data-correct="b">
+            <p>1. 화면 표시 전 기본값을 채우는 이벤트는?</p>
+            <label><input type="radio" name="e1q1" value="a"> START-OF-SELECTION</label>
+            <label><input type="radio" name="e1q1" value="b"> INITIALIZATION</label>
+            <label><input type="radio" name="e1q1" value="c"> END-OF-SELECTION</label>
+          </div>
+          <div class="exam-q" data-q="e1q2" data-correct="c">
+            <p>2. 입력 검증 실패 시 사용하는 메시지 타입은?</p>
+            <label><input type="radio" name="e1q2" value="a"> TYPE 'S'</label>
+            <label><input type="radio" name="e1q2" value="b"> TYPE 'I'</label>
+            <label><input type="radio" name="e1q2" value="c"> TYPE 'E'</label>
+          </div>
+          <button class="btn" data-exam-check>채점</button>
+          <div class="exam-output"></div>
+          <details class="foldable"><summary>해설 보기</summary><p>1) INITIALIZATION은 화면 표시 전 실행. 2) TYPE 'E'는 화면을 다시 보여주며 진행을 막습니다(S/I는 안내만).</p></details>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 미니 시험은 오답 보기에 "그럴듯한 혼동 항목"을 넣어야 변별력이 생긴다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · Internal Table</p>
+        <h3>내부 테이블 미니 시험</h3>
+        <div class="exam">
+          <div class="exam-q" data-q="e2q1" data-correct="a">
+            <p>1. BINARY SEARCH 전에 반드시 필요한 것은?</p>
+            <label><input type="radio" name="e2q1" value="a"> 같은 키로 SORT</label>
+            <label><input type="radio" name="e2q1" value="b"> CLEAR</label>
+            <label><input type="radio" name="e2q1" value="c"> FREE</label>
+          </div>
+          <div class="exam-q" data-q="e2q2" data-correct="b">
+            <p>2. READ TABLE 실패 시 sy-subrc 값은?</p>
+            <label><input type="radio" name="e2q2" value="a"> 0</label>
+            <label><input type="radio" name="e2q2" value="b"> 4</label>
+            <label><input type="radio" name="e2q2" value="c"> 8</label>
+          </div>
+          <button class="btn" data-exam-check>채점</button>
+          <div class="exam-output"></div>
+          <details class="foldable"><summary>해설 보기</summary><p>1) 정렬되지 않으면 덤프 없이 잘못된 결과. 2) 실패 시 sy-subrc=4이며 Work Area엔 직전 값이 남습니다.</p></details>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 시스템 필드 값(0/4/8)은 보기로 함께 제시해 정확한 의미를 변별시킨다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · Open SQL</p>
+        <h3>SQL 미니 시험</h3>
+        <div class="exam">
+          <div class="exam-q" data-q="e3q1" data-correct="c">
+            <p>1. 성능상 피해야 할 패턴은?</p>
+            <label><input type="radio" name="e3q1" value="a"> INNER JOIN</label>
+            <label><input type="radio" name="e3q1" value="b"> 필드 목록 지정</label>
+            <label><input type="radio" name="e3q1" value="c"> LOOP 안에서 SELECT</label>
+          </div>
+          <div class="exam-q" data-q="e3q2" data-correct="a">
+            <p>2. 조회 결과 0건일 때 sy-subrc는?</p>
+            <label><input type="radio" name="e3q2" value="a"> 4 (정상일 수 있음)</label>
+            <label><input type="radio" name="e3q2" value="b"> 0</label>
+            <label><input type="radio" name="e3q2" value="c"> 덤프 발생</label>
+          </div>
+          <button class="btn" data-exam-check>채점</button>
+          <div class="exam-output"></div>
+          <details class="foldable"><summary>해설 보기</summary><p>1) 루프 안 SELECT는 DB 왕복 폭증. 2) 0건은 sy-subrc=4로, 덤프가 아니라 정상 결과일 수 있어 안내 처리합니다.</p></details>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> Chapter 마지막 Lesson에 주제별 미니 시험을 모으면 종합 점검 효과가 크다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/core.js"></script>
+<script src="../assets/widgets.js"></script>
+<script src="../assets/quiz.js"></script>
+<script src="../assets/sandbox.js"></script>
+<script src="../assets/variants.js"></script>
+</body>
+</html>

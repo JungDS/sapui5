@@ -43,7 +43,7 @@
     <div class="abap-editor-line-numbers">
       1<br>2
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">PARAMETERS</span> p_raw  <span class="abap-token-keyword">TYPE</span> c LENGTH <span class="abap-token-number">3</span>.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">PARAMETERS</span> p_raw  <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> <span class="abap-token-number">3</span>.
 <span class="abap-token-keyword">PARAMETERS</span> p_carr <span class="abap-token-keyword">TYPE</span> zde_carrid.</code></pre>
   </div>
 </div>
@@ -55,6 +55,36 @@
   <p>
     여기서 <code>zde_carrid</code>는 예시 Data Element 이름입니다. 실제 프로젝트에서는 표준 Data Element나 고객사 네이밍 규칙에 맞는 Data Element를 사용합니다.
   </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">같은 입력칸, 다른 능력 — 선언 방식 비교</p>
+    <div class="viz-compare">
+      <div class="viz-compare-before">
+        <span class="viz-compare-label">p_raw TYPE c LENGTH 3</span>
+        <div class="viz-compare-body">
+          <table class="viz-table">
+            <tbody>
+              <tr><td>화면 라벨</td><td>변수명 그대로</td></tr>
+              <tr><td>업무 의미</td><td>없음 (그냥 3자리 문자)</td></tr>
+              <tr><td>F4 Help</td><td><span class="viz-badge fail">연결 없음</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="viz-compare-after">
+        <span class="viz-compare-label">p_carr TYPE zde_carrid</span>
+        <div class="viz-compare-body">
+          <table class="viz-table">
+            <tbody>
+              <tr><td>화면 라벨</td><td>Data Element 라벨 재사용</td></tr>
+              <tr><td>업무 의미</td><td>"항공사 코드"라는 의미 보유</td></tr>
+              <tr><td>F4 Help</td><td><span class="viz-badge success">DDIC 연결 활용</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="viz-note">두 입력칸은 겉보기에 비슷하지만, DDIC 타입을 입은 쪽만 라벨·의미·입력 도움말을 재사용할 수 있습니다.</p>
+  </div>
 </section>
 
 <section class="lesson-section">
@@ -75,6 +105,32 @@
       <h4>왜 DDIC를 재사용하나요?</h4>
       <p>프로그램마다 F4 Help를 따로 만들면 유지보수가 힘듭니다. Data Element와 Search Help에 의미를 모아두면 여러 프로그램이 같은 입력 도움말을 재사용할 수 있습니다.</p>
     </div>
+  </div>
+  <div class="viz-visual">
+    <p class="viz-visual-title">F4를 누르면 시스템은 이 순서로 도움말을 찾는다</p>
+    <div class="viz-flow">
+      <div class="viz-flow-step">
+        <strong>1. 화면 로직</strong>
+        <span>Dynpro의 값 요청 이벤트가 있는가?</span>
+      </div>
+      <div class="viz-flow-step">
+        <strong>2. 필드 Search Help</strong>
+        <span>필드/테이블에 연결된 Search Help가 있는가?</span>
+      </div>
+      <div class="viz-flow-step">
+        <strong>3. Check Table</strong>
+        <span>Foreign Key의 기준표 키 목록을 보여줄 수 있는가?</span>
+      </div>
+      <div class="viz-flow-step">
+        <strong>4. Data Element</strong>
+        <span>Data Element에 붙은 Search Help가 있는가?</span>
+      </div>
+      <div class="viz-flow-step">
+        <strong>5. Fixed Value</strong>
+        <span>Domain의 고정값 목록이 있는가?</span>
+      </div>
+    </div>
+    <p class="viz-note">위에서 아래로 내려가다 처음 걸리는 곳에서 F4 팝업이 만들어집니다. 그래서 별도 Search Help가 없어도 Check Table만 있으면 기준표 키 목록이 F4로 나타날 수 있습니다.</p>
   </div>
 </section>
 
@@ -102,7 +158,7 @@
     </div>
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zparam_ddic_f4.
 
-<span class="abap-token-keyword">PARAMETERS</span> p_carr <span class="abap-token-keyword">TYPE</span> zde_carrid OBLIGATORY.
+<span class="abap-token-keyword">PARAMETERS</span> p_carr <span class="abap-token-keyword">TYPE</span> zde_carrid <span class="abap-token-keyword">OBLIGATORY</span>.
 
 <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'선택한 항공사:'</span>, p_carr.</code></pre>
   </div>
@@ -146,7 +202,50 @@
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 두 가지 선언으로 차이 체험하기 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li><code>p_raw TYPE c LENGTH 3</code>와 Data Element 타입 입력칸을 가진 Report를 만듭니다. (시스템에 항공사 예제가 있다면 표준 Data Element <code>S_CARR_ID</code>를 활용해도 좋습니다.)</li>
+        <li>Selection Screen에서 두 입력칸의 라벨이 어떻게 다르게 보이는지 기록합니다.</li>
+        <li>각 입력칸에서 F4를 눌러 후보 목록이 뜨는지/안 뜨는지 비교합니다.</li>
+        <li>F4가 뜬 경우, 위 폭포수 흐름 중 몇 번째 단계에서 걸렸을지 추측해 적어봅니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> “F4가 안 뜨면 코드가 아니라 Data Element/Foreign Key/Search Help 연결을 본다”는 점검 순서를 말할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS.html" target="_blank" rel="noopener">SAP Help Portal: PARAMETERS</a> - PARAMETERS 문장에서 DDIC 타입을 사용하는 공식 문법을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDATA_ELEMENT_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: DDIC Data Element</a> - Data Element가 의미·라벨·도움말의 재사용 단위라는 점을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINPUT_HELP_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Input Help</a> - F4 입력 도움말이 만들어지는 공식 메커니즘을 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li><code>TYPE c LENGTH 3</code>와 Data Element 타입 선언의 가장 큰 차이는 무엇인가요?</li>
+    <li>별도의 Search Help를 만들지 않았는데도 F4 목록이 뜨는 경우가 있습니다. 어떤 경우일까요?</li>
+    <li>F4에서 값을 선택했다면 그 입력값에 대한 업무 검증은 끝난 것일까요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li>단순 타입은 형태만 정하지만, <strong>Data Element 타입은 업무 의미·화면 라벨·DDIC 연결(F4 등)</strong>까지 함께 가져옵니다.</li>
+      <li><strong>Check Table(Foreign Key)이나 Domain Fixed Value가 연결된 경우</strong>입니다. F4는 화면 로직 → Search Help → Check Table → Data Element → Fixed Value 순서로 도움말을 찾기 때문입니다.</li>
+      <li><strong>아니요.</strong> F4는 입력 편의 기능이므로 권한, 기간, 상태 같은 업무 조건은 프로그램 검증이 따로 필요합니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

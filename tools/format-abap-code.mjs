@@ -13,7 +13,7 @@ function highlightABAP(code) {
     "ELSEIF", "ENDIF", "CASE", "WHEN", "ENDCASE", "DO", "WHILE", "ENDDO", "ENDWHILE", 
     "REPORT", "PARAMETERS", "SELECT-OPTIONS", "FORM", "ENDFORM", "USING", "CHANGING", 
     "CALL", "FUNCTION", "EXPORTING", "IMPORTING", "TABLES", "EXCEPTIONS", "CLASS", "ENDCLASS", 
-    "METHODS", "PUBLIC", "PRIVATE", "PROTECTED", "SECTION", "INITIALIZATION", 
+    "METHOD", "METHODS", "CLASS-METHODS", "ENDMETHOD", "PUBLIC", "PRIVATE", "PROTECTED", "SECTION", "INITIALIZATION",
     "START-OF-SELECTION", "END-OF-SELECTION", "SELECTION-SCREEN", "MODULE", "ENDMODULE", 
     "CONSTANTS", "VALUE", "IS", "NOT", "INITIAL", "CLEAR", "REFRESH", "FREE", "SORT", 
     "BY", "ASCENDING", "DESCENDING", "WITH", "KEY", "BINARY", "SEARCH", "FIELD-SYMBOLS", 
@@ -23,7 +23,14 @@ function highlightABAP(code) {
     "IMPLEMENTATION", "UNIQUE", "PERSISTENT", "LOCK", "AUTHORIZATION", "ETAG", "MAPPING", 
     "FOR", "VALIDATE", "SAVE", "LOCAL", "MODE", "FIELDS", "RESULT", "FAILED", "REPORTED", 
     "DETERMINATION", "ACTION", "FEATURES", "INSTANCE", "CLASS-DATA", "INTERFACES", 
-    "REDEFINITION", "RAISE", "EXCEPTION", "TRY", "CATCH", "ENDTRY", "NEW"
+    "REDEFINITION", "RAISE", "EXCEPTION", "TRY", "CATCH", "ENDTRY", "NEW", "RETURNING",
+    "LENGTH", "TIMES", "CONTINUE", "EXIT", "CONCATENATE", "SEPARATED BY", "FIND", "IN",
+    "DEFAULT", "OBLIGATORY", "BEGIN OF BLOCK", "END OF BLOCK", "FRAME TITLE", "PERFORM",
+    "OTHERS", "STANDARD TABLE OF", "INDEX",
+    "LEFT OUTER JOIN", "RIGHT OUTER JOIN", "INNER JOIN", "CROSS JOIN", "JOIN",
+    "GROUP BY", "ORDER BY", "HAVING", "AND", "OR", "SINGLE", "DISTINCT",
+    "COUNT", "SUM", "AVG", "MIN", "MAX", "UP TO", "ROWS", "TRANSPORTING",
+    "APPENDING", "CORRESPONDING", "PRIMARY KEY", "SORTED TABLE OF", "HASHED TABLE OF"
   ];
 
   keywords.sort((a, b) => b.length - a.length);
@@ -35,7 +42,7 @@ function highlightABAP(code) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
 
-  const lines = code.split('\n');
+  const lines = code.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
   const highlightedLines = lines.map(line => {
     let comment = '';
     let codePart = line;
@@ -89,7 +96,11 @@ function highlightABAP(code) {
 
 function generateNavyEditor(rawCode) {
   // Remove leading/trailing blank lines securely
-  let cleanCode = rawCode.replace(/^\s*[\r\n]/g, '').replace(/[\r\n]\s*$/g, '');
+  let cleanCode = rawCode
+    .replace(/\r\n/g, '\n')
+    .replace(/\r/g, '\n')
+    .replace(/^\s*[\r\n]/g, '')
+    .replace(/[\r\n]\s*$/g, '');
   
   const highlighted = highlightABAP(cleanCode);
   const lines = cleanCode.split('\n');
@@ -118,12 +129,18 @@ function generateNavyEditor(rawCode) {
 <!-- ABAP_MOCKUP_END -->`;
 }
 
+function normalizeEol(value, eol) {
+  const normalized = value.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+  return eol === '\r\n' ? normalized.replace(/\n/g, '\r\n') : normalized;
+}
+
 let totalModified = 0;
 
 for (const file of files) {
   const filePath = path.join(contentDir, file);
   let html = fs.readFileSync(filePath, 'utf-8');
   let originalHtml = html;
+  const fileEol = originalHtml.includes('\r\n') ? '\r\n' : '\n';
 
   // 1. Un-wrap existing Navy Mockups back to raw <pre><code>
   html = html.replace(/<!-- ABAP_MOCKUP_START -->[\s\S]*?<!-- ABAP_MOCKUP_END -->/gi, (match) => {
@@ -156,6 +173,8 @@ for (const file of files) {
     // Generate the full Navy Editor Mockup
     return generateNavyEditor(pureCode);
   });
+
+  html = normalizeEol(html, fileEol);
 
   if (html !== originalHtml) {
     fs.writeFileSync(filePath, html, 'utf-8');

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Step Debugger Timeline | 학습 수단 샘플 v2</title>
+<link rel="stylesheet" href="../assets/method-samples.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../index.html">학습 수단 샘플 v2</a>
+    <a class="topbar-back" href="../index.html">← 전체 목록</a>
+  </div>
+</header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">상호작용 · Step Debugger Simulator</p>
+    <h1>Step Debugger Timeline</h1>
+    <p class="lead"><strong>디버그 시작</strong> 후 <strong>Next Step (F6)</strong>을 누르면 현재 실행 줄이 하이라이트되고, 모니터 패널의 변수와 콘솔 출력이 갱신됩니다. 런타임이 코드를 어떤 순서로 점프하는지 브라우저에서 그대로 모사합니다.</p>
+    <div class="tags">
+      <span class="tag origin">원본: Chapter 13 Lesson 1 (이벤트 실행 순서 디버거)</span>
+      <span class="tag">현재 줄 하이라이트</span>
+      <span class="tag">변수 모니터 + 콘솔</span>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 런타임 흐름에 적용</h2>
+    <p class="section-sub">예시 1은 Chapter 13 Lesson 1의 이벤트 순서 디버거를 그대로 이식했습니다. 코드가 거꾸로 적혀 있어도 실행 순서는 정해진 순위를 따릅니다.</p>
+
+    <div class="example-stack">
+      <!-- 예시 1: Chapter 13 원본 -->
+      <article class="method-example spotlight">
+        <p class="ex-topic origin">예시 1 · Report Event (Chapter 13 Lesson 1 원본)</p>
+        <h3>이벤트 블록 실행 순서 추적</h3>
+        <p class="ex-desc">INITIALIZATION이 코드 맨 아래에 있어도 1순위로 점프하는 것을 Next Step으로 관찰하세요.</p>
+        <div class="interactive-debugger">
+          <div class="debugger-code-panel"><pre><code><span class="db-line" data-line="1">REPORT zreport_event_demo.</span><span class="db-line" data-line="2"></span><span class="db-line" data-line="3">START-OF-SELECTION.</span><span class="db-line" data-line="4"> WRITE: / '[3] START-OF-SELECTION'.</span><span class="db-line" data-line="5"></span><span class="db-line" data-line="6">END-OF-SELECTION.</span><span class="db-line" data-line="7"> WRITE: / '[4] END-OF-SELECTION'.</span><span class="db-line" data-line="8"></span><span class="db-line" data-line="9">INITIALIZATION.</span><span class="db-line" data-line="10"> WRITE: / '[1] INITIALIZATION'.</span></code></pre></div>
+          <div class="debugger-monitor-panel">
+            <div class="monitor-header">⚙️ ABAP Debugger Monitor</div>
+            <div class="monitor-controls"><button class="debugger-btn btn-dbg-start">디버그 시작</button><button class="debugger-btn btn-dbg-next" disabled>Next Step (F6)</button></div>
+            <div class="monitor-state-card">
+              <div class="monitor-val-row"><span class="monitor-val-label">현재 호출 이벤트</span><span class="monitor-val-value" data-key="event">-</span></div>
+              <div class="monitor-val-row"><span class="monitor-val-label">SY-SUBRC</span><span class="monitor-val-value" data-key="subrc">-</span></div>
+            </div>
+            <div class="monitor-console-output">디버깅 대기 중입니다. [디버그 시작]을 누르세요.</div>
+          </div>
+          <script type="application/json" class="debugger-steps">
+          {
+            "steps": [
+              { "line": 1, "vars": { "event": "LOAD-OF-PROGRAM", "subrc": "0" }, "console": "[LOAD-OF-PROGRAM] 프로그램 로드 완료." },
+              { "line": 9, "vars": { "event": "INITIALIZATION", "subrc": "0" }, "console": "-> INITIALIZATION 블록으로 점프 (코드 맨 아래지만 1순위)." },
+              { "line": 10, "vars": { "event": "INITIALIZATION", "subrc": "0" }, "console": "[1] INITIALIZATION 실행 (초기화)." },
+              { "line": 3, "vars": { "event": "START-OF-SELECTION", "subrc": "0" }, "console": "-> START-OF-SELECTION 블록으로 점프 (3순위)." },
+              { "line": 4, "vars": { "event": "START-OF-SELECTION", "subrc": "0" }, "console": "[3] START-OF-SELECTION 실행 (메인 로직)." },
+              { "line": 6, "vars": { "event": "END-OF-SELECTION", "subrc": "0" }, "console": "-> END-OF-SELECTION 블록으로 점프 (4순위)." },
+              { "line": 7, "vars": { "event": "END-OF-SELECTION", "subrc": "0" }, "console": "[4] END-OF-SELECTION 실행 (출력 마감)." }
+            ]
+          }
+          </script>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> "줄 번호 순서 ≠ 실행 순서"를 글로 백 번 설명하는 것보다, Next Step으로 점프를 직접 보여주는 편이 강력하다.</div>
+      </article>
+
+      <!-- 예시 2: Internal Table LOOP -->
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · Internal Table</p>
+        <h3>LOOP AT 반복과 sy-tabix 추적</h3>
+        <p class="ex-desc">반복마다 현재 행 인덱스(sy-tabix)가 어떻게 증가하는지 Next Step으로 따라가세요.</p>
+        <div class="interactive-debugger">
+          <div class="debugger-code-panel"><pre><code><span class="db-line" data-line="1">LOOP AT lt_emp INTO ls_emp.</span><span class="db-line" data-line="2"> WRITE: / sy-tabix, ls_emp-name.</span><span class="db-line" data-line="3">ENDLOOP.</span></code></pre></div>
+          <div class="debugger-monitor-panel">
+            <div class="monitor-header">⚙️ Loop Monitor</div>
+            <div class="monitor-controls"><button class="debugger-btn btn-dbg-start">디버그 시작</button><button class="debugger-btn btn-dbg-next" disabled>Next Step (F6)</button></div>
+            <div class="monitor-state-card">
+              <div class="monitor-val-row"><span class="monitor-val-label">SY-TABIX (현재 행)</span><span class="monitor-val-value" data-key="tabix">-</span></div>
+              <div class="monitor-val-row"><span class="monitor-val-label">ls_emp-name</span><span class="monitor-val-value" data-key="name">-</span></div>
+            </div>
+            <div class="monitor-console-output">디버깅 대기 중입니다.</div>
+          </div>
+          <script type="application/json" class="debugger-steps">
+          {
+            "steps": [
+              { "line": 1, "vars": { "tabix": "1", "name": "정훈영" }, "console": "1번째 행 진입. sy-tabix = 1." },
+              { "line": 2, "vars": { "tabix": "1", "name": "정훈영" }, "console": "출력: 1 정훈영" },
+              { "line": 1, "vars": { "tabix": "2", "name": "김지현" }, "console": "2번째 행 진입. sy-tabix = 2." },
+              { "line": 2, "vars": { "tabix": "2", "name": "김지현" }, "console": "출력: 2 김지현" },
+              { "line": 1, "vars": { "tabix": "3", "name": "박서우" }, "console": "3번째 행 진입. sy-tabix = 3." },
+              { "line": 2, "vars": { "tabix": "3", "name": "박서우" }, "console": "출력: 3 박서우" },
+              { "line": 3, "vars": { "tabix": "3", "name": "박서우" }, "console": "ENDLOOP. 더 이상 행 없음." }
+            ]
+          }
+          </script>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 루프/검색처럼 "포인터가 움직이는" 주제는 모니터에 sy-tabix·sy-subrc를 띄워 상태 변화를 눈으로 잡게 한다.</div>
+      </article>
+
+      <!-- 예시 3: AT SELECTION-SCREEN 검증 -->
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · Selection Screen 검증</p>
+        <h3>검증 실패 후 화면 복귀 추적</h3>
+        <p class="ex-desc">종료일이 시작일보다 빠를 때 MESSAGE 'E'가 흐름을 멈추고 화면으로 돌려보내는 과정을 추적합니다.</p>
+        <div class="interactive-debugger">
+          <div class="debugger-code-panel"><pre><code><span class="db-line" data-line="1">AT SELECTION-SCREEN.</span><span class="db-line" data-line="2"> IF p_to &lt; p_from.</span><span class="db-line" data-line="3">  MESSAGE 'E: 종료일 오류' TYPE 'E'.</span><span class="db-line" data-line="4"> ENDIF.</span><span class="db-line" data-line="5">START-OF-SELECTION.</span><span class="db-line" data-line="6"> SELECT ... (실행 안 됨)</span></code></pre></div>
+          <div class="debugger-monitor-panel">
+            <div class="monitor-header">⚙️ Validation Monitor</div>
+            <div class="monitor-controls"><button class="debugger-btn btn-dbg-start">디버그 시작</button><button class="debugger-btn btn-dbg-next" disabled>Next Step (F6)</button></div>
+            <div class="monitor-state-card">
+              <div class="monitor-val-row"><span class="monitor-val-label">현재 이벤트</span><span class="monitor-val-value" data-key="event">-</span></div>
+              <div class="monitor-val-row"><span class="monitor-val-label">검증 결과</span><span class="monitor-val-value" data-key="check">-</span></div>
+            </div>
+            <div class="monitor-console-output">디버깅 대기 중입니다.</div>
+          </div>
+          <script type="application/json" class="debugger-steps">
+          {
+            "steps": [
+              { "line": 1, "vars": { "event": "AT SELECTION-SCREEN", "check": "시작" }, "console": "사용자 F8 → 검증 블록 진입." },
+              { "line": 2, "vars": { "event": "AT SELECTION-SCREEN", "check": "비교 중" }, "console": "p_to < p_from ? 조건 평가." },
+              { "line": 3, "vars": { "event": "AT SELECTION-SCREEN", "check": "실패" }, "console": "MESSAGE 'E' → 흐름 중단, 선택 화면으로 복귀." },
+              { "line": 1, "vars": { "event": "AT SELECTION-SCREEN", "check": "재입력 대기" }, "console": "START-OF-SELECTION(5번 줄)은 실행되지 않음. 값 수정 후 재실행 필요." }
+            ]
+          }
+          </script>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 검증 실패 경로는 "메인 로직이 실행되지 않는다"는 사실을 디버거로 보여줄 때 가장 명확하다(6번 줄에 끝내 도달하지 않음).</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/method-samples.js"></script>
+</body>
+</html>

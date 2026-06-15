@@ -37,17 +37,17 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" 부모 클래스</span>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" 부모 클래스</span>
 <span class="abap-token-keyword">CLASS</span> zcl_employee DEFINITION <span class="abap-token-keyword">PUBLIC</span>.
   <span class="abap-token-keyword">PUBLIC</span> <span class="abap-token-keyword">SECTION</span>.
     <span class="abap-token-keyword">METHODS</span> work.
 <span class="abap-token-keyword">ENDCLASS</span>.
 
-<span class="abap-token-comment">" 자식 클래스 — 부모를 물려받음</span>
+<span class="abap-token-comment">" 자식 클래스 — 부모를 물려받음</span>
 <span class="abap-token-keyword">CLASS</span> zcl_manager DEFINITION <span class="abap-token-keyword">PUBLIC</span>
-  INHERITING <span class="abap-token-keyword">FROM</span> zcl_employee.        <span class="abap-token-comment">"상속</span>
+  INHERITING <span class="abap-token-keyword">FROM</span> zcl_employee.        <span class="abap-token-comment">"상속</span>
   <span class="abap-token-keyword">PUBLIC</span> <span class="abap-token-keyword">SECTION</span>.
-    <span class="abap-token-keyword">METHODS</span> approve.                   <span class="abap-token-comment">"관리자만의 새 기능</span>
+    <span class="abap-token-keyword">METHODS</span> approve.                   <span class="abap-token-comment">"관리자만의 새 기능</span>
 <span class="abap-token-keyword">ENDCLASS</span>.</code></pre>
   </div>
 </div>
@@ -87,7 +87,7 @@
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">CLASS</span> zcl_manager DEFINITION <span class="abap-token-keyword">PUBLIC</span>
   INHERITING <span class="abap-token-keyword">FROM</span> zcl_employee.
   <span class="abap-token-keyword">PUBLIC</span> <span class="abap-token-keyword">SECTION</span>.
-    <span class="abap-token-keyword">METHODS</span> work <span class="abap-token-keyword">REDEFINITION</span>.    <span class="abap-token-comment">"부모의 work를 다르게 구현</span>
+    <span class="abap-token-keyword">METHODS</span> work <span class="abap-token-keyword">REDEFINITION</span>.    <span class="abap-token-comment">"부모의 work를 다르게 구현</span>
 <span class="abap-token-keyword">ENDCLASS</span>.</code></pre>
   </div>
 </div>

@@ -1,0 +1,101 @@
+/* 
+  [STANDARD_V3_STRUCTURE] 
+  이 파일은 고품질 교육용 웹페이지 표준 구조(v3)를 따릅니다.
+  AI 일괄 처리 및 스크립트 자동화의 대상이므로 코어 레이아웃과 클래스 명칭을 임의로 변경하지 마십시오.
+*/
+/* ============================================================
+   base.css — 전역 리셋, CSS 변수(:root), body, topbar, layout/hero, section, example-stack, ai-note, 반응형 cols-2
+   [모듈 목차] 이 파일에 없는 스타일은 다른 모듈에 추가하세요.
+   중복 추가 전 반드시 이 파일 전체를 먼저 확인하십시오.
+   ============================================================ */
+
+/* ============================================================
+   학습 수단 샘플 라이브러리 v2 공통 스타일
+   - 페이지 셸(반응형: 기본 1열, 넓은 화면에서만 2열 허용)
+   - Chapter 13 Lesson 1~6에서 사용된 실제 위젯 스타일 이식
+   - 가로 스크롤 금지: 모든 컨테이너 max-width 100%, 코드만 내부 스크롤
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  --bg: #f4f7fb;
+  --panel: #ffffff;
+  --ink: #142033;
+  --muted: #5a6a7e;
+  --line: #dbe3ef;
+  --blue: #2563eb;
+  --navy: #343e6a;
+  --green: #16a34a;
+  --amber: #b45309;
+  --red: #be123c;
+  --violet: #6d28d9;
+}
+
+html, body { max-width: 100%; overflow-x: hidden; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", Arial, sans-serif;
+  line-height: 1.65;
+}
+
+img, svg, table, pre { max-width: 100%; }
+a { color: var(--blue); }
+
+/* ---------- Topbar ---------- */
+.topbar {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(255,255,255,.95);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+}
+.topbar-inner {
+  width: min(1080px, calc(100% - 32px));
+  margin: 0 auto; min-height: 56px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.brand { font-weight: 800; text-decoration: none; color: var(--ink); font-size: 1rem; }
+.topbar-back { font-size: .9rem; font-weight: 700; text-decoration: none; }
+
+/* ---------- Layout & Hero ---------- */
+.layout { width: min(1080px, calc(100% - 32px)); margin: 28px auto 72px; }
+.hero { margin-bottom: 22px; }
+.eyebrow { color: var(--blue); font-weight: 800; margin: 0 0 8px; font-size: .85rem; letter-spacing: .04em; text-transform: uppercase; }
+h1 { margin: 0 0 12px; font-size: clamp(1.7rem, 3.4vw, 2.6rem); line-height: 1.15; }
+.lead { max-width: 780px; color: var(--muted); font-size: 1.05rem; margin: 0; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.tag { border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 5px 12px; font-size: .82rem; color: var(--muted); }
+.tag.origin { border-color: #c7d8c7; background: #f0faf2; color: #15683d; }
+
+/* ---------- Section blocks ---------- */
+.section { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 24px; margin: 20px 0; }
+.section > h2 { margin: 0 0 6px; font-size: 1.25rem; }
+.section > .section-sub { margin: 0 0 18px; color: var(--muted); }
+.section-eyebrow { color: var(--blue); font-weight: 800; font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; margin: 0 0 4px; }
+
+/* 대표 샘플(Hero sample): 페이지 최상단에서 가장 먼저 보이는 핵심 컴포넌트 */
+.sample-stage { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 22px; margin: 20px 0; }
+.sample-stage.spotlight { border-color: #c7d6f4; box-shadow: 0 8px 28px rgba(37,99,235,.08); }
+
+/* ---------- Example stack (기본 1열, 넓은 화면에서만 일부 2열) ---------- */
+.example-stack { display: grid; grid-template-columns: 1fr; gap: 20px; }
+.method-example {
+  border: 1px solid var(--line); border-radius: 12px; padding: 20px; background: #fff;
+  min-width: 0;
+}
+.method-example > h3 { margin: 0 0 4px; font-size: 1.08rem; }
+.method-example > .ex-topic { margin: 0 0 14px; color: var(--blue); font-weight: 700; font-size: .82rem; text-transform: uppercase; letter-spacing: .03em; }
+.method-example > .ex-topic.origin { color: #15683d; }
+.method-example .ex-desc { color: var(--muted); margin: 0 0 14px; }
+.method-example.spotlight { border-color: #c7d6f4; box-shadow: 0 8px 28px rgba(37,99,235,.08); }
+.ai-note { margin-top: 16px; border-left: 4px solid var(--violet); background: #f6f3ff; border-radius: 0 8px 8px 0; padding: 10px 14px; font-size: .9rem; color: #463a6b; }
+.ai-note strong { color: #3b2d63; }
+
+/* 넓은 화면에서 2열을 허용하는 경량 예시 전용 */
+@media (min-width: 1000px) {
+  .example-stack.cols-2 { grid-template-columns: 1fr 1fr; }
+}
+

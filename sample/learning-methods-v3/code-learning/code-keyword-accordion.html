@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<!-- 
+  [STANDARD_V3_STRUCTURE] 
+  이 파일은 고품질 교육용 웹페이지 표준 구조(v3)를 따릅니다.
+  AI 일괄 처리 및 스크립트 자동화의 대상이므로 코어 레이아웃과 클래스 명칭을 임의로 변경하지 마십시오.
+-->
+
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>코드 키워드 아코디언 | 학습 수단 샘플 v3</title>
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" href="../assets/widgets.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+<link rel="stylesheet" href="../assets/variants.css">
+</head>
+<body>
+
+    <!-- [NEW] Design Variants Selector -->
+    <div class="variant-panel" data-page-id="code-learning/code-keyword-accordion">
+      <h4>🎨 Design Variants (시안 선택):</h4>
+      <div class="variant-options">
+        <label class="variant-chip-a"><input type="radio" name="viewport" value="A"> 🔵 A — 기본</label>
+        <label class="variant-chip-b"><input type="radio" name="viewport" value="B"> 🟡 B — 라이트(Light)</label>
+        <label class="variant-chip-c"><input type="radio" name="viewport" value="C"> 🟣 C — 터미널(Terminal)</label>
+      </div>
+      <button class="page-export-btn" data-page-id="code-learning/code-keyword-accordion">선택 JSON 복사</button>
+    </div>
+    
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../index.html">학습 수단 샘플 v3</a>
+    <a class="topbar-back" href="../index.html">← 전체 목록</a>
+  </div>
+</header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">코드 학습 · 코드 키워드 아코디언 가이드</p>
+    <h1>코드 키워드 아코디언</h1>
+    <p class="lead">코드 안의 핵심 키워드를 점선 앵커로 표시하고, 클릭하면 바로 그 줄 아래에서 설명 아코디언이 펼쳐집니다. 긴 예제를 떠나지 않고도 키워드 단위로 의미를 분해해 읽을 수 있습니다.</p>
+    <div class="tags">
+      <span class="tag origin">원본: Chapter 13 Lesson 1 (이벤트 키워드 투어)</span>
+      <span class="tag">클릭 → 인라인 펼침</span>
+      <span class="tag">코드 이탈 없음</span>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시</p>
+    <h2>같은 수단을 세 가지 ABAP 코드에 적용</h2>
+    <p class="section-sub">예시 1은 Chapter 13 Lesson 1의 이벤트 키워드 클릭 투어를 이식했습니다. 점선 키워드(🔍)를 클릭해 보세요.</p>
+
+    <div class="example-stack">
+      <!-- 예시 1: Chapter 13 원본 -->
+      <article class="method-example spotlight">
+        <p class="ex-topic origin">예시 1 · Report Event (Chapter 13 Lesson 1 원본)</p>
+        <h3>이벤트 블록 키워드 투어</h3>
+        <p class="ex-desc">코드는 거꾸로 배치돼 있지만 실행 순서는 INITIALIZATION → START-OF-SELECTION → END-OF-SELECTION입니다. 각 키워드를 눌러 실행 순위 설명을 확인하세요.</p>
+        <div class="code-tour-container abap-editor-mockup">
+          <div class="abap-editor-header"><div class="abap-editor-mac-buttons"><span class="abap-editor-mac-btn red"></span><span class="abap-editor-mac-btn yellow"></span><span class="abap-editor-mac-btn green"></span></div><div class="abap-editor-title">ABAP</div></div>
+          <div class="abap-editor-body">
+            <div class="abap-editor-body-lines">
+              <div class="editor-line"><span class="editor-line-number">1</span><div class="editor-line-content"><code><span class="abap-token-keyword">REPORT</span> zreport_event_demo.</code></div></div>
+              <div class="editor-line"><span class="editor-line-number">2</span><div class="editor-line-content"><code></code></div></div>
+              <div class="editor-line"><span class="editor-line-number">3</span><div class="editor-line-content"><code><span class="code-tour-anchor" data-tour-id="t1-sos">START-OF-SELECTION.</span> <span class="tour-icon">🔍</span></code>
+                <div class="code-tour-accordion" id="t1-sos"><div class="accordion-content"><strong>[3순위 실행] START-OF-SELECTION</strong><p>DB에서 데이터를 SELECT로 조회·가공하는 핵심 블록입니다. 비즈니스 로직은 여기에 둡니다.</p></div></div>
+              </div></div>
+              <div class="editor-line"><span class="editor-line-number">4</span><div class="editor-line-content"><code>  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'[3] START-OF-SELECTION 실행'</span>.</code></div></div>
+              <div class="editor-line"><span class="editor-line-number">5</span><div class="editor-line-content"><code><span class="code-tour-anchor" data-tour-id="t1-eos">END-OF-SELECTION.</span> <span class="tour-icon">🔍</span></code>
+                <div class="code-tour-accordion" id="t1-eos"><div class="accordion-content"><strong>[4순위 실행] END-OF-SELECTION</strong><p>조회·연산이 끝난 뒤 결과를 출력하는 마감 블록입니다. 빈 결과 안내도 여기서 처리합니다.</p></div></div>
+              </div></div>
+              <div class="editor-line"><span class="editor-line-number">6</span><div class="editor-line-content"><code>  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'[4] END-OF-SELECTION 실행'</span>.</code></div></div>
+              <div class="editor-line"><span class="editor-line-number">7</span><div class="editor-line-content"><code><span class="code-tour-anchor" data-tour-id="t1-init">INITIALIZATION.</span> <span class="tour-icon">🔍</span></code>
+                <div class="code-tour-accordion" id="t1-init"><div class="accordion-content"><strong>[1순위 실행] INITIALIZATION</strong><p>코드 가장 아래에 적혀 있어도 전체 흐름 중 가장 먼저(선택 화면 표시 전) 실행됩니다.</p></div></div>
+              </div></div>
+              <div class="editor-line"><span class="editor-line-number">8</span><div class="editor-line-content"><code>  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'[1] INITIALIZATION 실행'</span>.</code></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> "코드 위치 ≠ 실행 순서"처럼 직관에 어긋나는 개념일수록, 키워드 클릭 설명이 오개념을 즉시 교정한다.</div>
+      </article>
+
+      <!-- 예시 2: Open SQL -->
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · Open SQL</p>
+        <h3>SELECT 구문 절(clause) 투어</h3>
+        <p class="ex-desc">SELECT 한 문장을 이루는 절들을 키워드 단위로 분해합니다. 각 키워드를 눌러 역할을 확인하세요.</p>
+        <div class="code-tour-container abap-editor-mockup">
+          <div class="abap-editor-header"><div class="abap-editor-mac-buttons"><span class="abap-editor-mac-btn red"></span><span class="abap-editor-mac-btn yellow"></span><span class="abap-editor-mac-btn green"></span></div><div class="abap-editor-title">ABAP</div></div>
+          <div class="abap-editor-body">
+            <div class="abap-editor-body-lines">
+              <div class="editor-line"><span class="editor-line-number">1</span><div class="editor-line-content"><code><span class="code-tour-anchor" data-tour-id="t2-sel">SELECT</span> <span class="tour-icon">🔍</span> carrid, connid, price</code>
+                <div class="code-tour-accordion" id="t2-sel"><div class="accordion-content"><strong>SELECT — 필드 목록</strong><p>가져올 컬럼만 콕 집어 지정합니다. <code>SELECT *</code>보다 필요한 필드만 적는 것이 성능에 유리합니다.</p></div></div>
+              </div></div>
+              <div class="editor-line"><span class="editor-line-number">2</span><div class="editor-line-content"><code>  <span class="code-tour-anchor" data-tour-id="t2-from">FROM</span> <span class="tour-icon">🔍</span> sflight</code>
+                <div class="code-tour-accordion" id="t2-from"><div class="accordion-content"><strong>FROM — 조회 대상</strong><p>어떤 DB 테이블/뷰에서 읽을지 지정합니다.</p></div></div>
+              </div></div>
+              <div class="editor-line"><span class="editor-line-number">3</span><div class="editor-line-content"><code>  <span class="code-tour-anchor" data-tour-id="t2-where">WHERE</span> <span class="tour-icon">🔍</span> carrid = @p_carrid</code>
+                <div class="code-tour-accordion" id="t2-where"><div class="accordion-content"><strong>WHERE — 필터 조건</strong><p>조건에 맞는 행만 골라냅니다. 호스트 변수에는 <code>@</code>를 붙여야 합니다(Strict 모드).</p></div></div>
+              </div></div>
+              <div class="editor-line"><span class="editor-line-number">4</span><div class="editor-line-content"><code>  <span class="code-tour-anchor" data-tour-id="t2-into">INTO TABLE</span> <span class="tour-icon">🔍</span> @DATA(lt_flight).</code>
+                <div class="code-tour-accordion" id="t2-into"><div class="accordion-content"><strong>INTO TABLE — 결과 담기</strong><p>여러 행을 내부 테이블에 담습니다. 한 행만 받을 때는 <code>INTO @DATA(...)</code> + <code>SELECT SINGLE</code>을 씁니다.</p></div></div>
+              </div></div>
+            </div>
+          </div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 한 문장이 여러 절로 이뤄진 구문(SELECT, LOOP, CALL METHOD)은 절 단위 아코디언으로 쪼개면 초보자 부담이 크게 준다.</div>
+      </article>
+
+      <!-- 예시 3: Internal Table -->
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · Internal Table</p>
+        <h3>READ TABLE 옵션 투어</h3>
+        <p class="ex-desc">내부 테이블 한 행 읽기 구문의 옵션을 키워드별로 분해합니다.</p>
+        <div class="code-tour-container abap-editor-mockup">
+          <div class="abap-editor-header"><div class="abap-editor-mac-buttons"><span class="abap-editor-mac-btn red"></span><span class="abap-editor-mac-btn yellow"></span><span class="abap-editor-mac-btn green"></span></div><div class="abap-editor-title">ABAP</div></div>
+          <div class="abap-editor-body">
+            <div class="abap-editor-body-lines">
+              <div class="editor-line"><span class="editor-line-number">1</span><div class="editor-line-content"><code><span class="code-tour-anchor" data-tour-id="t3-read">READ TABLE</span> <span class="tour-icon">🔍</span> lt_emp INTO ls_emp</code>
+                <div class="code-tour-accordion" id="t3-read"><div class="accordion-content"><strong>READ TABLE — 한 행 읽기</strong><p>조건에 맞는 첫 번째 행을 Work Area로 복사합니다.</p></div></div>
+              </div></div>
+              <div class="editor-line"><span class="editor-line-number">2</span><div class="editor-line-content"><code>  <span class="code-tour-anchor" data-tour-id="t3-key">WITH KEY</span> <span class="tour-icon">🔍</span> empno = '1000'</code>
+                <div class="code-tour-accordion" id="t3-key"><div class="accordion-content"><strong>WITH KEY — 검색 조건</strong><p>어떤 값으로 찾을지 지정합니다. 키가 완전할수록 결과가 결정적입니다.</p></div></div>
+              </div></div>
+              <div class="editor-line"><span class="editor-line-number">3</span><div class="editor-line-content"><code>  <span class="code-tour-anchor" data-tour-id="t3-bin">BINARY SEARCH</span> <span class="tour-icon">🔍</span>.</code>
+                <div class="code-tour-accordion" id="t3-bin"><div class="accordion-content"><strong>BINARY SEARCH — 이진 탐색</strong><p>빠르지만 <strong>반드시 사전에 같은 키로 SORT</strong>가 되어 있어야 합니다. 정렬이 안 되면 덤프 없이 잘못된 결과가 납니다.</p></div></div>
+              </div></div>
+              <div class="editor-line"><span class="editor-line-number">4</span><div class="editor-line-content"><code><span class="code-tour-anchor" data-tour-id="t3-subrc">IF sy-subrc = 0.</span> <span class="tour-icon">🔍</span></code>
+                <div class="code-tour-accordion" id="t3-subrc"><div class="accordion-content"><strong>sy-subrc — 결과 확인</strong><p>0이면 행을 찾은 것, 4면 못 찾은 것. 실패 시 Work Area에는 직전 값이 남아 있을 수 있어 반드시 확인해야 합니다.</p></div></div>
+              </div></div>
+            </div>
+          </div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> BINARY SEARCH의 "SORT 선행" 전제처럼 숨은 조건은 키워드 아코디언에서 경고로 강조하면 실수를 예방한다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/core.js"></script>
+<script src="../assets/widgets.js"></script>
+<script src="../assets/quiz.js"></script>
+<script src="../assets/sandbox.js"></script>
+<script src="../assets/variants.js"></script>
+</body>
+</html>

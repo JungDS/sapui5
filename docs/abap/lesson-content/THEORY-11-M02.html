@@ -62,9 +62,9 @@
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">SELECT</span> f~carrid, f~connid,
        b~bookid
   <span class="abap-token-keyword">FROM</span> spfli <span class="abap-token-keyword">AS</span> f
-  LEFT OUTER JOIN sbook <span class="abap-token-keyword">AS</span> b
+  <span class="abap-token-keyword">LEFT OUTER JOIN</span> sbook <span class="abap-token-keyword">AS</span> b
     <span class="abap-token-keyword">ON</span> f~carrid = b~carrid
-   AND f~connid = b~connid
+   <span class="abap-token-keyword">AND</span> f~connid = b~connid
   <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt_result).
 <span class="abap-token-comment">"→ 예약(sbook)이 없는 항공편도 결과에 남고, bookid 자리는 초기값(공백/0)으로 채워짐</span></code></pre>
   </div>
@@ -76,7 +76,41 @@
 </section>
 
 <section class="lesson-section">
-  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <h2>4. LEFT OUTER JOIN vs INNER JOIN 비교 🗺️</h2>
+  <div class="viz-compare">
+    <div class="viz-compare-before">
+      <span class="viz-compare-label">INNER JOIN 결과</span>
+      <div class="viz-compare-body">
+        <table class="viz-table">
+          <thead><tr><th>CARRID</th><th>CONNID</th><th>BOOKID</th></tr></thead>
+          <tbody>
+            <tr><td>LH</td><td>0400</td><td>001</td></tr>
+            <tr><td>LH</td><td>0400</td><td>002</td></tr>
+          </tbody>
+        </table>
+        <p class="viz-note">예약(sbook)이 없는 항공편은 결과에서 사라짐</p>
+      </div>
+    </div>
+    <div class="viz-compare-after">
+      <span class="viz-compare-label">LEFT OUTER JOIN 결과</span>
+      <div class="viz-compare-body">
+        <table class="viz-table">
+          <thead><tr><th>CARRID</th><th>CONNID</th><th>BOOKID</th></tr></thead>
+          <tbody>
+            <tr><td>LH</td><td>0400</td><td>001</td></tr>
+            <tr><td>LH</td><td>0400</td><td>002</td></tr>
+            <tr class="viz-highlight-row"><td>AA</td><td>0017</td><td><span class="viz-badge">초기값(공백)</span></td></tr>
+          </tbody>
+        </table>
+        <p class="viz-note">AA 항공편은 예약이 없어도 남고, BOOKID는 초기값으로 채워짐</p>
+      </div>
+    </div>
+  </div>
+  <p>짝이 없는 오른쪽 필드는 ABAP의 타입 초기값(문자→공백, 숫자→0)으로 자동 변환됩니다.</p>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름 🔍</h2>
   <ul>
     <li>✅ <strong>정상:</strong> 왼쪽 테이블 행이 전부 유지되고, 오른쪽은 짝이 있으면 값이, 없으면 초기값이 들어옵니다.</li>
     <li>❌ <strong>흔한 착각:</strong> 비어 있는 오른쪽 필드를 <code>WHERE b~bookid = 0</code> 같은 식으로 거르려다, "값이 0인 실제 데이터"까지 잘못 거르는 실수가 생깁니다.</li>
@@ -85,7 +119,7 @@
 </section>
 
 <section class="lesson-section">
-  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <h2>6. 실무에서 조심할 점 🚨</h2>
   <div class="lesson-callout warn">
     <div class="lesson-callout-icon">⚠️</div>
     <div class="lesson-callout-content">
@@ -96,7 +130,50 @@
 </section>
 
 <section class="lesson-section">
-  <h2>6. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: LEFT OUTER JOIN 직접 확인하기 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>위 예제를 SE38에서 실행하고, 예약(SBOOK)이 없는 항공편의 <code>bookid</code>가 공백으로 들어오는지 디버거로 확인합니다.</li>
+        <li>같은 SQL에서 <code>LEFT OUTER JOIN</code>을 <code>INNER JOIN</code>으로 바꿔보고, 결과 행 수가 줄어드는지 비교합니다.</li>
+        <li><code>FROM sbook AS b LEFT OUTER JOIN spfli AS f ON ...</code> 처럼 좌우를 뒤집으면 어느 쪽 행이 전부 유지되는지 생각해봅니다.</li>
+        <li>"예약이 없는 항공편만" 찾으려면 LEFT OUTER JOIN 후 어떤 WHERE 조건을 쓸 수 있을지 고민해봅니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> INNER JOIN과 LEFT OUTER JOIN의 행 수 차이를 직접 확인하고, 짝 없는 행에서 초기값이 어떻게 들어오는지 설명할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECT_JOIN.html" target="_blank" rel="noopener">SAP Help Portal: SELECT … JOIN</a> — LEFT OUTER JOIN 문법과 동작을 공식 설명으로 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_NULL_VALUE_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: NULL Value in ABAP SQL</a> — NULL이 ABAP 초기값으로 변환되는 원리를 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECT_FROM_JOIN.html" target="_blank" rel="noopener">SAP Help Portal: FROM … JOIN 절</a> — ON 조건과 여러 JOIN을 체이닝하는 방법을 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>LEFT OUTER JOIN에서 오른쪽 테이블에 짝이 없는 행의 CHAR 필드는 어떤 값으로 채워지나요?</li>
+    <li>"왼쪽 테이블의 모든 행을 유지하고 싶다"면 어느 JOIN을 써야 하나요?</li>
+    <li>LEFT OUTER JOIN 후 "오른쪽에 짝이 없는 행만 찾고 싶다"면 WHERE 조건을 어떻게 쓸 수 있나요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>공백(초기값)으로 채워집니다.</strong> DB의 NULL은 ABAP으로 올 때 해당 타입의 초기값(CHAR→공백, INT→0, DATS→00000000)으로 자동 변환됩니다.</li>
+      <li><strong>LEFT OUTER JOIN</strong>을 씁니다. 왼쪽(FROM)에 쓴 테이블의 행은 오른쪽에 짝이 없어도 결과에 남습니다.</li>
+      <li><strong>오른쪽 테이블의 키 필드가 초기값인 행을 거릅니다.</strong> 예: <code>WHERE b~bookid = ' '</code> 또는 <code>WHERE b~bookid IS INITIAL</code>(단, IS INITIAL은 ABAP SQL에서 지원 여부 확인 필요). 실무에서는 보통 오른쪽 키 필드를 IS NULL로 처리하지 않고, ABAP 루프에서 초기값 여부를 확인하는 방식을 씁니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

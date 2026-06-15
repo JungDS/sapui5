@@ -21,6 +21,46 @@
   <blockquote>
     한 줄 설계도 → 한 줄 메모지 → 여러 줄 노트 순서로 생각하면 됩니다.
   </blockquote>
+  <div class="itab-visual">
+    <p class="itab-visual-title">선언 3종 세트 관계도</p>
+    <div class="itab-relation">
+      <div class="itab-concept">
+        <span class="itab-concept-label">Line Type</span>
+        <table class="itab-table">
+          <tbody>
+            <tr><th>id</th><td>char3</td></tr>
+            <tr><th>name</th><td>char20</td></tr>
+            <tr><th>score</th><td>i</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="itab-arrow">→</div>
+      <div class="itab-concept">
+        <span class="itab-concept-label">Work Area</span>
+        <table class="itab-table">
+          <tbody>
+            <tr><th>id</th><td>A01</td></tr>
+            <tr><th>name</th><td>정훈영</td></tr>
+            <tr><th>score</th><td>95</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="itab-arrow">→</div>
+      <div class="itab-concept">
+        <span class="itab-concept-label">Internal Table</span>
+        <table class="itab-table">
+          <thead>
+            <tr><th>id</th><th>name</th><th>score</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>A01</td><td>정훈영</td><td>95</td></tr>
+            <tr><td>A02</td><td>홍길동</td><td>88</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="itab-note">Line Type은 모양, Work Area는 현재 한 줄, Internal Table은 같은 모양의 여러 줄입니다.</p>
+  </div>
 </section>
 
 <section class="lesson-section">
@@ -118,7 +158,7 @@
     <div class="abap-editor-line-numbers">
       1
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span> lt_students <span class="abap-token-keyword">TYPE</span> STANDARD <span class="abap-token-keyword">TABLE</span> <span class="abap-token-keyword">OF</span> ty_student.</code></pre>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span> lt_students <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">STANDARD TABLE OF</span> ty_student.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -150,7 +190,7 @@
          score <span class="abap-token-keyword">TYPE</span> i,
        <span class="abap-token-keyword">END</span> <span class="abap-token-keyword">OF</span> ty_student.
 
-<span class="abap-token-keyword">DATA</span>: lt_students <span class="abap-token-keyword">TYPE</span> STANDARD <span class="abap-token-keyword">TABLE</span> <span class="abap-token-keyword">OF</span> ty_student,
+<span class="abap-token-keyword">DATA</span>: lt_students <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">STANDARD TABLE OF</span> ty_student,
       ls_student  <span class="abap-token-keyword">TYPE</span> ty_student.</code></pre>
   </div>
 </div>
@@ -188,7 +228,50 @@
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 세 부품 직접 선언하기 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li><code>TYPES</code>로 id, name 칸을 가진 Line Type을 선언합니다.</li>
+        <li>그 타입으로 Work Area 하나와 STANDARD TABLE 하나를 선언합니다.</li>
+        <li>Line Type에 <code>score TYPE i</code> 칸을 추가하고, 코드가 그대로 동작하는지 확인합니다.</li>
+        <li>세 선언 각각이 “설계도 / 한 줄 공간 / 여러 줄 표” 중 무엇인지 주석으로 적어봅니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> Line Type, Work Area, Internal Table 세 부품의 역할을 자신의 말로 구분해 설명할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES.html" target="_blank" rel="noopener">SAP Help Portal: TYPES</a> - Line Type을 정의하는 TYPES 문장의 공식 문법을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINTERNAL_TABLE_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Internal Table</a> - Internal Table을 이루는 요소(Line Type, Key, Table Kind)를 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENWORK_AREA_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Work Area</a> - Work Area의 공식 정의를 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li><code>TYPES</code>로 선언한 Line Type 자체에 데이터를 담을 수 있을까요?</li>
+    <li>Work Area와 Internal Table의 차이는 무엇인가요?</li>
+    <li><code>TYPE STANDARD TABLE OF ty_student</code>에서 <code>OF</code> 뒤에 오는 것은 무엇인가요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>담을 수 없습니다.</strong> TYPES는 메모리를 차지하지 않는 설계도(타입 정의)일 뿐이고, 실제 데이터는 DATA로 선언한 변수에 담깁니다.</li>
+      <li><strong>Work Area는 한 줄짜리 작업 공간, Internal Table은 여러 줄을 담는 표</strong>입니다. 같은 Line Type을 공유하면 줄을 주고받기 쉽습니다.</li>
+      <li><strong>Line Type(한 줄의 모양)</strong>입니다. “ty_student 모양의 줄을 여러 개 담는 STANDARD TABLE”이라는 뜻입니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

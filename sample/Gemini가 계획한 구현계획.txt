@@ -1,0 +1,80 @@
+# 학습 수단 샘플 라이브러리 v3 최종 구현 계획
+
+`sample/learning-methods-v2`에 구축된 기존 38개 학습 수단에 **신규 기획된 6종의 고품질 상호작용 수단**을 추가하여 **총 44개**의 학습 수단 샘플 페이지를 생성합니다. 
+모든 페이지는 최소 3개의 디자인 시안(Design Variants)을 제공하며, 브라우저에서 디자인 선택 즉시 Python API 서버를 통해 로컬 파일에 선택 결과가 기록됩니다. 기존 v2는 보존됩니다.
+
+---
+
+## User Review Required
+
+> [!IMPORTANT]
+> **1. B안 채택에 따른 로컬 서버(dev-server.py) 환경 및 작동 방식**
+> - 저장소 루트(`c:\ui5\study\sapui5`)에 약 15라인의 `dev-server.py`가 생성됩니다.
+> - 기존 `python -m http.server` 대신, 터미널에서 `python dev-server.py`를 실행합니다.
+> - 브라우저 화면에서 디자인 시안(라디오 버튼)을 선택하면 즉시 백그라운드 API(POST)가 호출되어 `design-choices.json` 파일에 선택 결과가 자동 갱신됩니다.
+
+> [!TIP]
+> **2. 시안(Design Variants) 적용 형태**
+> 각 44개 페이지 상단에 **디자인 시안(Design Variants) 섹션**을 추가합니다. 
+> 사용자가 A, B, C 시안 중 하나를 클릭하면, 아래쪽 본문 예시 컴포넌트들의 레이아웃 및 스타일(색상, 테두리, 정렬 등)이 CSS 변수 및 클래스 토글을 통해 **즉각적으로 변화**하여 시각적인 차이를 직관적으로 비교할 수 있도록 구현합니다.
+
+> [!TIP]
+> **3. 🌟 (신규) 추가 확장되는 6가지 고품질 학습 수단 제안**
+> 기존 38개에 얽매이지 않고, 강의 퀄리티를 대폭 끌어올릴 6가지 새로운 컴포넌트를 기획하여 v3에 추가합니다.
+> 1. **`visuals/image-hotspot-explorer.html` (이미지 핫스팟 탐색기):** SAP GUI나 ADT의 스크린샷 이미지 위에 투명한 마우스 핫스팟을 두고, 마우스를 올리거나 클릭하면 해당 영역의 설정 툴팁이나 설명이 뜨는 양방향 UI.
+> 2. **`visuals/interactive-data-chart.html` (인터랙티브 데이터 차트):** 테이블의 샘플 데이터를 수정하면 CSS/SVG 차트(막대/파이)가 실시간으로 변동하는 차트 컴포넌트. (ALV 대시보드나 실적 집계 학습용)
+> 3. **`code-learning/performance-profiler-mock.html` (성능 프로파일러 모의 실험):** LOOP 내 SELECT(Bad)와 FAE/JOIN(Good) 코드의 성능 차이를, 가상의 프로파일러 게이지 바 애니메이션을 통해 속도(ms) 차이로 생동감 있게 보여주는 UI.
+> 4. **`interactive/architecture-builder.html` (다단계 아키텍처 조립기):** TIER(DB, App, UI)에 맞춰 제공된 블록들을 마우스로 알맞은 영역에 드롭하면 점선이 연결되며 거대한 SVG 아키텍처가 완성되는 퍼즐. (RAP, OData 구조 설명용)
+> 5. **`interactive/shortcut-simulator.html` (단축키 커맨드 시뮬레이터):** F8, Ctrl+F3 등 실제 ADT 키보드 단축키를 화면 내 가상 키보드 UI와 연동하여 타이핑하듯 배울 수 있는 시뮬레이터.
+> 6. **`quizzes/ox-survival-quiz.html` (O/X 타임어택 서바이벌):** 간단하지만 빠른 판단이 필요한 ABAP 문법(예: `sy-subrc = 0` 의미 등)을 5초 이내에 O/X로 연달아 풀어야 하는 긴장감 있는 퀴즈 형태.
+
+---
+
+## Proposed Changes
+
+### 1. 인프라 및 기록 파일 구성
+- **[NEW] [dev-server.py](file:///c:/ui5/study/sapui5/dev-server.py)**
+  - 정적 파일 서빙 및 POST `/save-choices` 처리용 경량 파이썬 서버 스크립트.
+- **[NEW] [sample/learning-methods-v3/design-choices.json](file:///c:/ui5/study/sapui5/sample/learning-methods-v3/design-choices.json)**
+  - 시안 선택 결과가 저장될 JSON 파일. 총 44개 page-id에 대한 `chosen: null` 초기 스키마 구성.
+
+### 2. 공통 자산 개선 (Assets)
+- **[NEW] [sample/learning-methods-v3/assets/method-samples.css](file:///c:/ui5/study/sapui5/sample/learning-methods-v3/assets/method-samples.css)**
+  - v2 기반 복제 후, 시안별(Variant A, B, C) 테마 및 신규 6종 위젯(핫스팟 이미지, 차트, 게이지 바 등) 전용 스타일 병합.
+- **[NEW] [sample/learning-methods-v3/assets/method-samples.js](file:///c:/ui5/study/sapui5/sample/learning-methods-v3/assets/method-samples.js)**
+  - LocalStorage 동기화, `fetch('/save-choices')` 자동 저장, "선택 내보내기", Copy 버튼 안정화, 그리고 신규 6종의 복잡한 JS 상호작용 로직(애니메이션, 드래그/드롭 퍼즐 확장, 타이머 등) 추가.
+
+### 3. 페이지 템플릿 마이그레이션 및 일관성 확보
+- **[NEW] [sample/learning-methods-v3/index.html](file:///c:/ui5/study/sapui5/sample/learning-methods-v3/index.html)**
+  - 총 44개(기존 38 + 신규 6)의 페이지 리스트 구성 및 경로 연결.
+- **[NEW] [sample/learning-methods-v3/README.md](file:///c:/ui5/study/sapui5/sample/learning-methods-v3/README.md)**
+  - v3 신규 아키텍처 및 추가된 확장 6종 학습 수단 설명 문서화.
+- **[NEW] 총 44개 개별 학습 수단 HTML 페이지 생성**
+  - 모든 파일 상단에 **Design Variants** 블록 삽입.
+  - 전 페이지의 코드 블록에 `shiki-copy-wrapper` 및 `Copy 버튼` 일관 적용.
+  - **신규 6개 파일 작성** (위 제안 섹션의 목록과 동일).
+  - **[MODIFY] 개별 결함 조치 내역:**
+    - `interactive/step-debugger-timeline.html`: 예시 2번(LOOP) 상단에 LT_EMP의 초기 데이터를 보여주는 `viz-table` 추가.
+    - `code-learning/code-keyword-accordion.html`: 렌더링 깨짐 수정을 위해 `.code-tour-accordion`을 `.editor-line-content` 안쪽으로 재배치.
+
+### 4. 문서 갱신
+- **[MODIFY] [.project-docs/99_AI_SYNC.md](file:///c:/ui5/study/sapui5/.project-docs/99_AI_SYNC.md)**
+  - v3 마이그레이션 및 6종 확장 컴포넌트 기획 추가.
+- **[MODIFY] [.project-docs/진행계획/4c8b81b0-9779-4e78-98e6-7965479a2b94/TASKS.md](file:///c:/ui5/study/sapui5/.project-docs/진행계획/4c8b81b0-9779-4e78-98e6-7965479a2b94/TASKS.md)** & **RUN_LOG.md**
+  - 진행 태스크 목록(총 44개 파일) 및 진행 로그 추가.
+- **[MODIFY] [.project-docs/10_LEARNING_CONTENT_METHODS.md](file:///c:/ui5/study/sapui5/.project-docs/10_LEARNING_CONTENT_METHODS.md)**
+  - 신규 6종의 학습 수단 명세와 디자인 시안 자동 반영 흐름 보강.
+
+---
+
+## Verification Plan
+
+### Automated Tests
+- Python 스크립트를 생성하여 `design-choices.json`에 정의된 44개 page-id의 경로와 생성된 `sample/learning-methods-v3/` 하위의 실제 HTML 파일 경로 일치 검사.
+- `<code>` 태그 내 특수문자 HTML 이스케이프 유효성 검증.
+
+### Manual Verification
+1. `dev-server.py` 구동 후 `localhost:8000/sample/learning-methods-v3/index.html` 접근 시 콘솔 에러 유무 확인.
+2. 페이지별 A, B, C 시안 라디오 버튼 클릭 시 즉각적인 디자인 전환 및 파일 자동 기록 동작 검증.
+3. 신규 도입된 6개 상호작용 컴포넌트(핫스팟, 차트, 게이지, 퍼즐, 키보드 시뮬, O/X 퀴즈)의 정상 작동 여부 검수.
+4. 모바일 및 데스크톱 뷰포트에서의 가로 스크롤 이슈 발생 여부 집중 확인.

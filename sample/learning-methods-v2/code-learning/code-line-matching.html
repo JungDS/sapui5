@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>코드 라인 매칭 | 학습 수단 샘플 v2</title>
+<link rel="stylesheet" href="../assets/method-samples.css">
+</head>
+<body>
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v2</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">코드 학습 · 코드 라인 매칭</p>
+    <h1>코드 라인 매칭</h1>
+    <p class="lead">코드 줄과 그 역할(또는 실행 단계)을 연결하게 합니다. 왼쪽 코드(번호)와 오른쪽 설명(문자)을 짝지어 보고, 정답을 펼쳐 확인합니다. 복잡한 예제를 줄 단위 의미로 해부할 때 좋습니다.</p>
+    <div class="tags"><span class="tag origin">원본: Chapter 13 Lesson 1 (이벤트 블록 역할)</span><span class="tag">코드 ↔ 설명 짝짓기</span></div>
+  </section>
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 ABAP 코드에 적용</h2>
+    <p class="section-sub">예시 1은 Chapter 13 이벤트 블록과 역할을 짝짓는 문제입니다.</p>
+    <div class="example-stack">
+      <article class="method-example spotlight">
+        <p class="ex-topic origin">예시 1 · Report Event (Chapter 13 주제)</p>
+        <h3>이벤트 블록 ↔ 역할</h3>
+        <div class="match-grid">
+          <div class="match-col">
+            <div class="match-item code">1. INITIALIZATION.</div>
+            <div class="match-item code">2. AT SELECTION-SCREEN.</div>
+            <div class="match-item code">3. START-OF-SELECTION.</div>
+            <div class="match-item code">4. END-OF-SELECTION.</div>
+          </div>
+          <div class="match-col">
+            <div class="match-item">A. 입력값 검증 (실패 시 화면 복귀)</div>
+            <div class="match-item">B. 결과 출력·마감</div>
+            <div class="match-item">C. 화면 표시 전 기본값 세팅</div>
+            <div class="match-item">D. DB 조회 등 메인 로직</div>
+          </div>
+        </div>
+        <details class="foldable"><summary>정답 보기</summary><p>1-C, 2-A, 3-D, 4-B</p></details>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 보기를 코드 순서와 다르게 섞어야(코드 1234 / 설명 CADB) 단순 위치 매칭이 아닌 의미 매칭이 된다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · Open SQL</p>
+        <h3>SELECT 절 ↔ 의미</h3>
+        <div class="match-grid">
+          <div class="match-col">
+            <div class="match-item code">1. SELECT carrid, price</div>
+            <div class="match-item code">2. FROM sflight</div>
+            <div class="match-item code">3. WHERE carrid = @p_c</div>
+            <div class="match-item code">4. INTO TABLE @lt</div>
+          </div>
+          <div class="match-col">
+            <div class="match-item">A. 조회 대상 테이블</div>
+            <div class="match-item">B. 가져올 컬럼 목록</div>
+            <div class="match-item">C. 결과를 담을 내부 테이블</div>
+            <div class="match-item">D. 필터 조건</div>
+          </div>
+        </div>
+        <details class="foldable"><summary>정답 보기</summary><p>1-B, 2-A, 3-D, 4-C</p></details>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 한 문장이 여러 절로 구성된 구문은 절 ↔ 역할 매칭으로 구조를 분해한다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · ALV</p>
+        <h3>SALV 메서드 ↔ 역할</h3>
+        <div class="match-grid">
+          <div class="match-col">
+            <div class="match-item code">1. factory( )</div>
+            <div class="match-item code">2. get_functions( )</div>
+            <div class="match-item code">3. set_all( )</div>
+            <div class="match-item code">4. display( )</div>
+          </div>
+          <div class="match-col">
+            <div class="match-item">A. 툴바 기능 객체 얻기</div>
+            <div class="match-item">B. ALV 객체 생성</div>
+            <div class="match-item">C. 화면에 출력</div>
+            <div class="match-item">D. 모든 표준 기능 켜기</div>
+          </div>
+        </div>
+        <details class="foldable"><summary>정답 보기</summary><p>1-B, 2-A, 3-D, 4-C</p></details>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> API 메서드는 "이름 → 역할" 매칭으로 호출 순서와 책임을 함께 정리한다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/method-samples.js"></script>
+</body>
+</html>

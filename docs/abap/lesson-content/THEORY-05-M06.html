@@ -84,6 +84,59 @@
       <p>“이 로직은 어디서 다시 쓰일까?”, “다음 사람이 이름만 보고 이해할까?”, “값이 어디서 들어오고 어디서 바뀔까?” 이 세 질문만 해도 모듈화 품질이 확 좋아집니다.</p>
     </div>
   </div>
+  <div class="viz-visual">
+    <p class="viz-visual-title">모듈화 도구 3종 비교표</p>
+    <table class="viz-table">
+      <thead>
+        <tr><th>기준</th><th>Subroutine (FORM)</th><th>Function Module</th><th>Class / Method</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>재사용 범위</td>
+          <td>같은 프로그램 안</td>
+          <td>시스템 전체 (전통 방식)</td>
+          <td>Local: 프로그램 안 / Global: 시스템 전체</td>
+        </tr>
+        <tr>
+          <td>주로 만나는 곳</td>
+          <td>오래된 Report</td>
+          <td>표준/레거시 공용 기능, RFC</td>
+          <td>현대 ABAP, ABAP Cloud, RAP</td>
+        </tr>
+        <tr>
+          <td>신규 개발</td>
+          <td><span class="viz-badge fail">지양 (Obsolete)</span></td>
+          <td><span class="viz-badge">RFC 등 특수 목적만</span></td>
+          <td><span class="viz-badge success">우선 선택</span></td>
+        </tr>
+        <tr>
+          <td>지금 배우는 이유</td>
+          <td>기존 코드 읽기</td>
+          <td>표준 기능 호출 + 기존 코드 읽기</td>
+          <td>새 설계의 기본기</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="viz-flow">
+      <div class="viz-flow-step">
+        <strong>Q1. 기존 코드 수정?</strong>
+        <span>예 → 기존 구조(FORM/FM)를 존중하며 유지보수</span>
+      </div>
+      <div class="viz-flow-step">
+        <strong>Q2. 새 로직, 한 프로그램용?</strong>
+        <span>예 → Local Class Method 고려</span>
+      </div>
+      <div class="viz-flow-step">
+        <strong>Q3. 새 로직, 여러 곳 공용?</strong>
+        <span>예 → Global Class Method 우선</span>
+      </div>
+      <div class="viz-flow-step">
+        <strong>Q4. 외부 시스템 연동(RFC)?</strong>
+        <span>예 → RFC용 Function Module 검토</span>
+      </div>
+    </div>
+    <p class="viz-note">신규 개발의 기본값은 Class입니다. OO 문맥과 ABAP Cloud에서는 Subroutine 선언 자체가 허용되지 않으므로, FORM은 “읽기 위해” 배운다고 생각하면 정확합니다.</p>
+  </div>
 </section>
 
 <section class="lesson-section">
@@ -101,7 +154,49 @@
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 선택 기준 적용해보기 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>다음 네 가지 상황에 어떤 모듈화 도구를 고를지 위 결정 플로우로 판단해 적어봅니다: ① 오래된 Report의 출력 FORM 버그 수정 ② 새 Report 안에서만 쓰는 검증 로직 ③ 여러 프로그램이 함께 쓸 금액 계산 로직 ④ 외부 시스템이 호출할 인터페이스</li>
+        <li>각 선택의 이유를 Reuse(어디서 다시 쓰나)와 Readability(누가 읽나) 관점에서 한 줄씩 적습니다.</li>
+        <li>이번 Chapter에서 작성한 FORM 예제 하나를 골라 Local Class Method로 바꾸면 어떤 모양이 될지 시그니처만 적어봅니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> ①은 기존 구조 유지, ②는 Local Class, ③은 Global Class, ④는 RFC Function Module 방향으로 판단하고 이유를 설명할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCLASS_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Class</a> - 현대 ABAP 모듈화의 중심인 Class의 공식 정의를 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFUNCTION_MODULE_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Function Module</a> - Function Module의 정의와 위치를 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPERFORM.html" target="_blank" rel="noopener">SAP Help Portal: PERFORM</a> - Subroutine 호출 문법과 사용 제약을 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>S/4HANA 신규 개발에서 FORM/PERFORM 기반 Subroutine을 새로 만드는 것이 권장될까요?</li>
+    <li>여러 프로그램에서 함께 쓸 새 업무 로직을 만든다면 무엇을 먼저 고려해야 하나요?</li>
+    <li>Function Module을 신규로 만드는 것이 여전히 적합한 대표적인 경우는 무엇인가요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>아니요.</strong> Subroutine은 신규 개발에서 더 이상 권장되지 않는(Obsolete) 방식이며, OO 문맥과 ABAP Cloud에서는 선언 자체가 허용되지 않습니다. 기존 코드를 읽기 위해 배웁니다.</li>
+      <li><strong>Global Class의 Method</strong>입니다. 현대 ABAP과 Clean Core 방향에서 재사용 로직의 표준 컨테이너는 Class입니다.</li>
+      <li><strong>외부 시스템 연동(RFC)</strong>처럼 Function Module이 기술적으로 필요한 경우입니다. 그 외 일반 업무 로직은 Class를 우선 검토합니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

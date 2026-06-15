@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>상태 변화 그리드 | 학습 수단 샘플 v2</title>
+<link rel="stylesheet" href="../assets/method-samples.css">
+</head>
+<body>
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v2</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">시각화 · 상태 변화 그리드</p>
+    <h1>상태 변화 그리드</h1>
+    <p class="lead">연산 실행 <strong>전</strong>과 <strong>후</strong>의 내부 테이블 상태를 두 표로 나란히 보여줍니다. 어느 행이 추가/삭제/변경됐는지 색으로 강조해, 추상적인 "테이블이 바뀐다"를 구체적인 행 변화로 만듭니다.</p>
+    <div class="tags"><span class="tag">Internal Table 적용</span><span class="tag">전/후 표 대비</span></div>
+  </section>
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 내부 테이블 연산에 적용</h2>
+    <p class="section-sub">정훈영 사원 데이터로 연산 전/후 상태 변화를 추적합니다.</p>
+    <div class="example-stack">
+      <article class="method-example spotlight">
+        <p class="ex-topic">예시 1 · Internal Table — APPEND</p>
+        <h3>APPEND 전/후</h3>
+        <div class="viz-visual">
+          <div class="viz-state-grid">
+            <div class="viz-state"><span class="viz-state-label">APPEND 전</span><table class="viz-table"><thead><tr><th>#</th><th>이름</th></tr></thead><tbody><tr><td>1</td><td>정훈영</td></tr><tr><td>2</td><td>김지현</td></tr></tbody></table></div>
+            <div class="viz-state"><span class="viz-state-label">APPEND 후</span><table class="viz-table"><thead><tr><th>#</th><th>이름</th></tr></thead><tbody><tr><td>1</td><td>정훈영</td></tr><tr><td>2</td><td>김지현</td></tr><tr class="viz-highlight-row"><td>3</td><td>박서우 (추가됨)</td></tr></tbody></table></div>
+          </div>
+          <p class="viz-note">APPEND는 맨 뒤에 행을 붙입니다. 새 행(3번)이 노란색으로 강조됩니다.</p>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 추가/변경된 행만 <code>viz-highlight-row</code>로 강조하면 "무엇이 달라졌는지" 시선이 바로 간다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · Internal Table — SORT</p>
+        <h3>SORT BY name 전/후</h3>
+        <div class="viz-visual">
+          <div class="viz-state-grid">
+            <div class="viz-state"><span class="viz-state-label">SORT 전 (입력 순)</span><table class="viz-table"><thead><tr><th>이름</th></tr></thead><tbody><tr><td>정훈영</td></tr><tr><td>김지현</td></tr><tr><td>박서우</td></tr></tbody></table></div>
+            <div class="viz-state"><span class="viz-state-label">SORT 후 (가나다순)</span><table class="viz-table"><thead><tr><th>이름</th></tr></thead><tbody><tr><td>김지현</td></tr><tr><td>박서우</td></tr><tr><td>정훈영</td></tr></tbody></table></div>
+          </div>
+          <p class="viz-note">정렬은 행 내용이 아니라 순서를 바꿉니다. BINARY SEARCH 전에는 이 정렬이 반드시 선행돼야 합니다.</p>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 순서만 바뀌는 연산은 같은 데이터의 배치 변화를 두 표로 보여줘 "내용 보존 + 순서 변경"을 분명히 한다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · Internal Table — DELETE WHERE</p>
+        <h3>DELETE WHERE dept = 'OLD' 전/후</h3>
+        <div class="viz-visual">
+          <div class="viz-state-grid">
+            <div class="viz-state"><span class="viz-state-label">DELETE 전</span><table class="viz-table"><thead><tr><th>이름</th><th>부서</th></tr></thead><tbody><tr><td>정훈영</td><td>SD</td></tr><tr><td>김지현</td><td>OLD</td></tr><tr><td>박서우</td><td>OLD</td></tr></tbody></table></div>
+            <div class="viz-state"><span class="viz-state-label">DELETE 후</span><table class="viz-table"><thead><tr><th>이름</th><th>부서</th></tr></thead><tbody><tr><td>정훈영</td><td>SD</td></tr><tr class="viz-empty"><td colspan="2">'OLD' 부서 2행 제거됨</td></tr></tbody></table></div>
+          </div>
+          <p class="viz-note">조건에 맞는 모든 행이 한 번에 제거됩니다. LOOP 중 DELETE와 달리 인덱스 밀림이 없습니다.</p>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 삭제 결과는 빈 상태(<code>viz-empty</code>)로 "사라졌음"을 시각화하면 변화가 체감된다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/method-samples.js"></script>
+</body>
+</html>

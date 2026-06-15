@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>빈칸 코드 완성 | 학습 수단 샘플 v2</title>
+<link rel="stylesheet" href="../assets/method-samples.css">
+</head>
+<body>
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v2</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">코드 학습 · 빈칸 코드 완성</p>
+    <h1>빈칸 코드 완성</h1>
+    <p class="lead">핵심 키워드나 조건식을 빈칸으로 비워두고 직접 채우게 합니다. 정답을 입력하면 즉시 채점되어, 읽기만 하던 코드를 능동적으로 회수하게 만듭니다.</p>
+    <div class="tags"><span class="tag origin">원본: Chapter 13 Lesson 1~6 (이벤트 키워드)</span><span class="tag">입력 즉시 채점</span></div>
+  </section>
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 ABAP 코드에 적용</h2>
+    <p class="section-sub">예시 1은 Chapter 13의 이벤트 블록 키워드를 빈칸으로 만든 문제입니다.</p>
+    <div class="example-stack">
+      <article class="method-example spotlight">
+        <p class="ex-topic origin">예시 1 · Report Event (Chapter 13 주제)</p>
+        <h3>기본값을 채울 이벤트 블록은?</h3>
+        <div data-answer-check data-explain="화면 표시 전 한 번 실행되는 이벤트입니다." data-hint="화면이 뜨기 전에 실행되는 이벤트 이름을 떠올려보세요.">
+          <div class="abap-editor-mockup"><div class="abap-editor-header"><div class="abap-editor-mac-buttons"><span class="abap-editor-mac-btn red"></span><span class="abap-editor-mac-btn yellow"></span><span class="abap-editor-mac-btn green"></span></div><div class="abap-editor-title">FILL</div></div><div class="abap-editor-body"><pre class="abap-editor-code"><span class="abap-token-keyword">PARAMETERS</span> p_date <span class="abap-token-keyword">TYPE</span> sy-datum.
+
+________________.   <span class="abap-token-comment">" 빈칸: 기본값 세팅 이벤트</span>
+  p_date = sy-datum.</pre></div></div>
+          <div class="short-row"><input class="fillblank-input" data-answer="INITIALIZATION" placeholder="이벤트 키워드 입력"><button class="btn" data-check>채점</button></div>
+          <div class="short-output" data-result>정답을 입력하고 채점을 눌러보세요.</div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 정답이 한 단어(키워드)일 때 빈칸이 가장 깔끔하다. 힌트는 "어느 시점인지"를 떠올리게 적는다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · Open SQL</p>
+        <h3>Strict 모드 호스트 변수 기호는?</h3>
+        <div data-answer-check data-explain="Strict 모드에서는 호스트 변수 앞에 @를 붙입니다." data-hint="ABAP SQL Strict 모드에서 변수 앞에 붙이는 한 글자 기호입니다.">
+          <div class="abap-editor-mockup"><div class="abap-editor-header"><div class="abap-editor-mac-buttons"><span class="abap-editor-mac-btn red"></span><span class="abap-editor-mac-btn yellow"></span><span class="abap-editor-mac-btn green"></span></div><div class="abap-editor-title">FILL</div></div><div class="abap-editor-body"><pre class="abap-editor-code"><span class="abap-token-keyword">SELECT</span> * <span class="abap-token-keyword">FROM</span> sflight
+  <span class="abap-token-keyword">WHERE</span> carrid = ___p_carrid   <span class="abap-token-comment">" 빈칸: 한 글자 기호</span>
+  <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @lt.</pre></div></div>
+          <div class="short-row"><input class="fillblank-input" data-answer="@" placeholder="기호 입력"><button class="btn" data-check>채점</button></div>
+          <div class="short-output" data-result>정답을 입력하고 채점을 눌러보세요.</div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 자주 빠뜨리는 한 글자(@) 같은 디테일은 빈칸으로 만들어 손에 각인시킨다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · Internal Table</p>
+        <h3>이진 탐색에 꼭 필요한 선행 구문은?</h3>
+        <div data-answer-check data-explain="BINARY SEARCH 전에는 같은 키로 SORT가 선행돼야 합니다." data-hint="정렬 구문 키워드입니다.">
+          <div class="abap-editor-mockup"><div class="abap-editor-header"><div class="abap-editor-mac-buttons"><span class="abap-editor-mac-btn red"></span><span class="abap-editor-mac-btn yellow"></span><span class="abap-editor-mac-btn green"></span></div><div class="abap-editor-title">FILL</div></div><div class="abap-editor-body"><pre class="abap-editor-code">____ lt_emp <span class="abap-token-keyword">BY</span> empno.   <span class="abap-token-comment">" 빈칸: 선행 정렬</span>
+<span class="abap-token-keyword">READ</span> <span class="abap-token-keyword">TABLE</span> lt_emp <span class="abap-token-keyword">WITH</span> <span class="abap-token-keyword">KEY</span> empno = <span class="abap-token-string">'4000'</span>
+  <span class="abap-token-keyword">BINARY SEARCH</span>.</pre></div></div>
+          <div class="short-row"><input class="fillblank-input" data-answer="SORT" placeholder="키워드 입력"><button class="btn" data-check>채점</button></div>
+          <div class="short-output" data-result>정답을 입력하고 채점을 눌러보세요.</div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> "전제 조건"을 빈칸으로 물으면 단순 암기를 넘어 의존 관계를 회수하게 된다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/method-samples.js"></script>
+</body>
+</html>

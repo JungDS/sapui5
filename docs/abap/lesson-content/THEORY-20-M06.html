@@ -11,7 +11,7 @@
 <section class="lesson-section">
   <h2>1. 지난 시간 연결: 데이터를 잘 만들었는데, 보안은? 🔐</h2>
   <p>
-    지금까지 CDS로 데이터를 합치고(Association) 의미를 입혔습니다(Annotation). 그런데 한 가지가 남았습니다. "<strong>이 데이터를 이 사용자가 봐도 되는가?</strong>" THEORY-13에서 리포트에 AUTHORITY-CHECK를 걸었듯, CDS에도 권한 장치가 있습니다.
+    지금까지 CDS로 데이터를 합치고(Association) 의미를 입혔습니다(Annotation). 그런데 한 가지가 남았습니다. "<strong>이 데이터를 이 사용자가 봐도 되는가?</strong>" Chapter 13에서 리포트에 AUTHORITY-CHECK를 걸었듯, CDS에도 권한 장치가 있습니다.
   </p>
   <p>그것이 <span class="glossary-term" data-glossary="DCL">DCL</span>로 정의하는 <span class="glossary-term" data-glossary="AccessControl">Access Control</span>입니다.</p>
 </section>
@@ -39,7 +39,7 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" CDS View에 권한 검사 켜기 (M01에서 본 헤더)</span>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" CDS View에 권한 검사 켜기 (이번 Chapter의 첫 Lesson에서 본 헤더)</span>
 @AccessControl.authorizationCheck: #CHECK
 <span class="abap-token-keyword">define</span> <span class="abap-token-keyword">view</span> <span class="abap-token-keyword">entity</span> ZI_Flight <span class="abap-token-keyword">as</span> <span class="abap-token-keyword">select</span> <span class="abap-token-keyword">from</span> sflight { ... }</code></pre>
   </div>
@@ -83,7 +83,7 @@
 <section class="lesson-section">
   <h2>3. 자동으로 걸리는 행 필터 🔍</h2>
   <p>
-    DCL이 걸린 CDS를 SELECT하면, SAP가 <strong>로그인한 사용자의 권한에 맞는 행만</strong> 자동으로 돌려줍니다. THEORY-01의 MANDT(클라이언트 자동 분리)와 비슷한 느낌으로, 권한 기준의 자동 필터가 한 겹 더 얹히는 것입니다.
+    DCL이 걸린 CDS를 SELECT하면, SAP가 <strong>로그인한 사용자의 권한에 맞는 행만</strong> 자동으로 돌려줍니다. Chapter 1의 MANDT(클라이언트 자동 분리)와 비슷한 느낌으로, 권한 기준의 자동 필터가 한 겹 더 얹히는 것입니다.
   </p>
 </section>
 
@@ -108,11 +108,56 @@
 </section>
 
 <section class="lesson-section">
-  <h2>6. 한눈에 정리 🏁</h2>
+  <h2>6. 미니 실습: DCL 권한 필터 흐름 그리기 🧪</h2>
+  <p>
+    이번 실습은 DCL을 별도 보안 문서처럼 보지 않고, CDS 조회 결과에 행 단위 필터가 어떻게 얹히는지 흐름으로 이해하는 데 목적이 있습니다.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>CDS DDL, DCL Role, 사용자 권한, 최종 조회 결과를 화살표로 연결해봅니다.</li>
+        <li><code>@AccessControl.authorizationCheck</code>와 <span class="glossary-term" data-glossary="DCL">DCL</span> Role의 역할 차이를 한 문장씩 적습니다.</li>
+        <li>개발 환경에서 <code>#NOT_REQUIRED</code>를 쓴 예제가 운영 기준으로 그대로 가면 왜 위험한지 적습니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> DCL이 화면 숨김이 아니라 CDS 조회 결과 자체를 제한하는 권한 계층이라는 점을 설명할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/abencds_f1_define_role.html" target="_blank" rel="noopener">SAP Help Portal: CDS DCL DEFINE ROLE</a> - DCL Role 선언 문법을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENCDS_DCL_ROLE_GRANT_RULE.html" target="_blank" rel="noopener">SAP Help Portal: DCL Grant Rule</a> - 접근 규칙이 CDS 엔티티에 어떻게 부여되는지 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENCDS_DCL_ROLE_COND_RULE.html" target="_blank" rel="noopener">SAP Help Portal: Conditional Access Rule</a> - 조건부 접근 규칙으로 행 제한을 적용하는 방식을 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>DCL은 CDS의 어떤 측면을 보완하나요?</li>
+    <li><code>@AccessControl.authorizationCheck</code>만 있으면 권한 로직이 완성되나요?</li>
+    <li>권한 필터를 UI에서만 처리하면 왜 위험한가요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>데이터 접근 제어</strong>를 보완합니다. DDL이 구조와 의미를 정의한다면 DCL은 누가 어떤 행을 볼 수 있는지 제한합니다.</li>
+      <li><strong>아닙니다.</strong> Annotation은 권한 검사 정책을 명시하는 역할이고, 실제 제한 조건은 DCL Role과 권한 설계에서 구체화됩니다.</li>
+      <li><strong>다른 소비 경로에서 우회될 수 있기 때문</strong>입니다. CDS/DCL 계층에서 제한하면 여러 소비자에게 일관된 보안 기준을 적용하기 쉽습니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">
-      <h4>THEORY-20 마무리 핵심</h4>
+      <h4>Chapter 20 마무리 핵심</h4>
       <ul>
         <li>CDS: <strong>View Entity(DDL) → Interface/Projection 2계층 → Association → Annotation → MDE → DCL</strong>.</li>
         <li><strong>DCL/Access Control</strong>은 조회 시 권한에 맞는 행만 자동 필터합니다.</li>

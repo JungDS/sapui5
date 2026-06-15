@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!-- 
+  [STANDARD_V3_STRUCTURE] 
+  이 파일은 고품질 교육용 웹페이지 표준 구조(v3)를 따릅니다.
+  AI 일괄 처리 및 스크립트 자동화의 대상이므로 코어 레이아웃과 클래스 명칭을 임의로 변경하지 마십시오.
+-->
+
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>성공 실패 배지 | 학습 수단 샘플 v3</title>
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" href="../assets/widgets.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+<link rel="stylesheet" href="../assets/variants.css">
+</head>
+<body>
+
+    <!-- [NEW] Design Variants Selector -->
+    <div class="variant-panel" data-page-id="visuals/success-failure-badges">
+      <h4>🎨 Design Variants (시안 선택):</h4>
+      <div class="variant-options">
+        <label class="variant-chip-a"><input type="radio" name="viewport" value="A"> 🔵 A — 기본</label>
+        <label class="variant-chip-b"><input type="radio" name="viewport" value="B"> 🟡 B — Notion</label>
+        <label class="variant-chip-c"><input type="radio" name="viewport" value="C"> 🟣 C — 파스텔</label>
+      </div>
+      <button class="page-export-btn" data-page-id="visuals/success-failure-badges">선택 JSON 복사</button>
+    </div>
+    
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v3</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">시각화 · 성공/실패 배지</p>
+    <h1>성공 실패 배지</h1>
+    <p class="lead">분기 결과, <code>sy-subrc</code> 값, 검증 통과/실패, 권한 유무를 색 배지로 즉시 읽히게 합니다. 표나 흐름도 안에 섞어 상태를 한눈에 강조할 때 효과적입니다.</p>
+    <div class="tags"><span class="tag origin">원본: Chapter 13 Lesson 4 (검증 통과/실패 배지)</span><span class="tag">상태 강조</span></div>
+  </section>
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 ABAP 상태에 적용</h2>
+    <p class="section-sub">예시 1은 Chapter 13 Lesson 4의 검증 성공/실패 배지를 이식했습니다.</p>
+    <div class="example-stack">
+      <article class="method-example spotlight">
+        <p class="ex-topic origin">예시 1 · Report Event (Chapter 13 Lesson 4 원본)</p>
+        <h3>입력 검증 결과 배지</h3>
+        <div class="viz-visual">
+          <p class="viz-visual-title">AT SELECTION-SCREEN 검증 분기</p>
+          <table class="viz-table">
+            <thead><tr><th>입력</th><th>검증</th><th>다음 단계</th></tr></thead>
+            <tbody>
+              <tr><td>종료일 ≥ 시작일</td><td><span class="viz-badge success">통과</span></td><td>START-OF-SELECTION 진행</td></tr>
+              <tr><td>종료일 &lt; 시작일</td><td><span class="viz-badge fail">실패 (MESSAGE E)</span></td><td>선택 화면 복귀</td></tr>
+              <tr><td>회사코드 미입력</td><td><span class="viz-badge fail">실패</span></td><td>선택 화면 복귀</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 표의 "검증" 열을 배지로 채우면 통과/실패 행이 색으로 즉시 구분된다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · Open SQL (sy-subrc)</p>
+        <h3>조회 결과에 따른 sy-subrc</h3>
+        <div class="viz-visual">
+          <p class="viz-visual-title">SELECT 이후 시스템 필드 상태</p>
+          <table class="viz-table">
+            <thead><tr><th>조회 결과</th><th>sy-subrc</th><th>의미</th></tr></thead>
+            <tbody>
+              <tr><td>1건 이상</td><td><span class="viz-badge success">0</span></td><td>조회 성공, 결과 존재</td></tr>
+              <tr><td>0건</td><td><span class="viz-badge fail">4</span></td><td>조건에 맞는 행 없음(정상 결과일 수 있음)</td></tr>
+            </tbody>
+          </table>
+          <p class="viz-note"><code>sy-subrc = 4</code>는 덤프가 아닙니다. 안내 메시지로 처리해 빈 화면 오해를 막습니다.</p>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> sy-subrc는 "0=성공/4=없음"을 배지로 고정하면 초보자가 시스템 필드 값을 직관적으로 읽는다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · 권한 검사</p>
+        <h3>AUTHORITY-CHECK 결과 배지</h3>
+        <div class="viz-visual">
+          <p class="viz-visual-title">권한 객체 검사 분기</p>
+          <table class="viz-table">
+            <thead><tr><th>사용자</th><th>권한</th><th>처리</th></tr></thead>
+            <tbody>
+              <tr><td>정훈영 (SD)</td><td><span class="viz-badge success">있음 (subrc 0)</span></td><td>조회 진행</td></tr>
+              <tr><td>외부 사용자</td><td><span class="viz-badge fail">없음 (subrc 4)</span></td><td>MESSAGE E로 차단</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 권한 주제는 "있음/없음"을 배지로 보여주고, 없음일 때의 차단 동작을 반드시 함께 적는다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/core.js"></script>
+<script src="../assets/widgets.js"></script>
+<script src="../assets/quiz.js"></script>
+<script src="../assets/sandbox.js"></script>
+<script src="../assets/variants.js"></script>
+</body>
+</html>

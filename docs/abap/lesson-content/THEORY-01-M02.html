@@ -117,7 +117,57 @@
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: Domain 설계 기록지 만들기 🧪</h2>
+  <p>
+    이번 Lesson의 실습은 실제 시스템이 없어도 할 수 있는 설계 기록 실습입니다. 아래 업무 요구사항을 보고 Domain을 어떻게 만들지 스스로 적어보세요.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>요구사항</h4>
+      <p>예약 등급을 저장해야 합니다. 값은 비즈니스석, 이코노미석, 일등석 세 종류만 허용합니다. 화면에는 한 글자 코드로 보이면 충분합니다.</p>
+      <ol>
+        <li>Domain 이름을 정합니다. 예: <code>ZBOOK_CLASS</code></li>
+        <li><span class="glossary-term" data-glossary="DataType">Data Type</span>과 <span class="glossary-term" data-glossary="Length">Length</span>를 정합니다.</li>
+        <li><span class="glossary-term" data-glossary="FixedValue">Fixed Value</span> 후보를 3개 적고, 각 값의 설명을 붙입니다.</li>
+        <li>잘못된 값이 들어오는 오류 케이스를 1개 적습니다. 예: <code>X</code> 입력 시 거부되어야 함</li>
+      </ol>
+      <p><strong>완료 조건:</strong> Domain 이름, 타입/길이, 허용값 목록, 오류 케이스가 모두 한 줄씩 적혀 있으면 성공입니다.</p>
+    </div>
+  </div>
+  <p>
+    NotebookLM의 ABAP Dictionary 자료도 같은 포인트를 강조합니다. Domain은 라벨이나 업무 설명이 아니라 기술 속성과 허용값을 잡는 곳입니다. 그래서 실습 기록에도 “의미 설명”보다 “값의 규격”이 먼저 나와야 합니다.
+  </p>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://learning.sap.com/courses/building-data-models-with-the-abap-dictionary-and-abap-core-data-services/exploring-abap-dictionary_af8fdedf-0a10-43ab-aa1b-20abbece9d8b" target="_blank" rel="noopener">SAP Learning: ABAP Dictionary 객체 개요</a> — Domain, Data Element, Structure, Table의 역할 차이를 큰 그림으로 확인합니다.</li>
+    <li><a href="https://learning.sap.com/courses/building-data-models-with-the-abap-dictionary-and-abap-core-data-services/defining-domains-and-data-elements_b65b511a-4ad1-4437-80f5-5ad689cab833" target="_blank" rel="noopener">SAP Learning: Domain과 Data Element 정의</a> — Domain이 Data Type, Length, Fixed Value와 어떻게 연결되는지 이어서 볼 수 있습니다.</li>
+    <li><a href="https://help.sap.com/docs/SAP_NETWEAVER_740/ec1c9c8191b74de98feb94001a95dd76/cf21ede5446011d189700000e8322d00.html" target="_blank" rel="noopener">SAP Help Portal: Domains</a> — Domain이 값 범위를 정의하고 Data Element에 연결되는 방식을 공식 설명으로 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>Domain이 주로 정하는 것은 화면 라벨일까요, 데이터의 기술적 규격일까요?</li>
+    <li><code>001</code>처럼 앞의 0이 중요한 코드는 무조건 숫자 타입으로 잡아도 될까요?</li>
+    <li>국가 코드처럼 값이 많고 계속 관리되는 목록은 Fixed Value에 전부 넣는 것이 좋을까요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>데이터의 기술적 규격</strong>입니다. 화면 라벨과 업무 의미는 다음 단계인 Data Element가 담당합니다.</li>
+      <li><strong>아니요.</strong> 앞의 0이 의미 있는 코드는 숫자 계산 대상이 아니라 코드일 수 있으므로 <code>CHAR</code>나 <code>NUMC</code>를 검토해야 합니다.</li>
+      <li><strong>아니요.</strong> Fixed Value는 작고 거의 변하지 않는 목록에 적합합니다. 값이 많거나 운영 중 늘어나는 목록은 Check Table이나 Value Help 쪽으로 설계하는 것이 보통 더 안전합니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

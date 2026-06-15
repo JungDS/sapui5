@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>화면 캡처 갤러리 | 학습 수단 샘플 v2</title>
+<link rel="stylesheet" href="../assets/method-samples.css">
+</head>
+<body>
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v2</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">시각화 · 단계별 스크린샷 갤러리</p>
+    <h1>화면 캡처 갤러리</h1>
+    <p class="lead">SAP GUI·ADT 화면이 단계별로 어떻게 바뀌는지 순서형 이미지로 보여줍니다. 화면 조작·메뉴 경로·설정 절차처럼 "보면 바로 따라 할 수 있는" 주제에 적합합니다. (아래는 실제 캡처를 끼울 자리를 표현한 placeholder입니다.)</p>
+    <div class="tags"><span class="tag">화면 조작 적용</span><span class="tag">순서형 갤러리</span></div>
+  </section>
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 화면 절차에 적용</h2>
+    <p class="section-sub">실제 학습 자료에서는 <code>shot-canvas</code> 자리에 실제 SAP GUI/ADT 스크린샷을 넣습니다.</p>
+    <div class="example-stack">
+      <article class="method-example spotlight">
+        <p class="ex-topic">예시 1 · Selection Screen — F4 입력 도움말</p>
+        <h3>F4 Help 사용 3단계</h3>
+        <div class="media-gallery">
+          <figure class="media-shot"><div class="shot-canvas">① 입력 칸에서 F4 누르기</div><figcaption>회사코드 칸에 커서를 두고 F4를 누릅니다.</figcaption></figure>
+          <figure class="media-shot"><div class="shot-canvas">② 후보 목록 팝업</div><figcaption>유효한 회사코드 목록이 다이얼로그로 표시됩니다.</figcaption></figure>
+          <figure class="media-shot"><div class="shot-canvas">③ 선택 → 자동 입력</div><figcaption>항목을 더블클릭하면 값이 칸에 채워집니다.</figcaption></figure>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 화면 절차는 ①②③ 번호와 한 줄 캡션을 붙여 "보고 따라 하기"가 가능하게 한다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · DDIC — SE11</p>
+        <h3>테이블 생성 흐름</h3>
+        <div class="media-gallery">
+          <figure class="media-shot"><div class="shot-canvas">① SE11 진입</div><figcaption>Database table 라디오 선택 후 이름 입력.</figcaption></figure>
+          <figure class="media-shot"><div class="shot-canvas">② 필드 정의</div><figcaption>키 필드와 Data Element를 지정합니다.</figcaption></figure>
+          <figure class="media-shot"><div class="shot-canvas">③ Technical Settings</div><figcaption>Data class·Size category 설정 후 활성화.</figcaption></figure>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 설정 화면은 "어떤 라디오/필드를 만지는지"를 캡션에 명시해야 재현 가능하다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · OO ABAP — ADT</p>
+        <h3>Console App 실행</h3>
+        <div class="media-gallery">
+          <figure class="media-shot"><div class="shot-canvas">① 클래스 생성</div><figcaption>IF_OO_ADT_CLASSRUN 구현 클래스 작성.</figcaption></figure>
+          <figure class="media-shot"><div class="shot-canvas">② F9 실행</div><figcaption>Run As → ABAP Application(Console).</figcaption></figure>
+          <figure class="media-shot"><div class="shot-canvas">③ Console 출력</div><figcaption>out-&gt;write 결과가 콘솔 뷰에 표시됩니다.</figcaption></figure>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> ADT는 단축키(F9)와 메뉴 경로를 함께 적어 GUI/ADT 차이를 헷갈리지 않게 한다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/method-samples.js"></script>
+</body>
+</html>

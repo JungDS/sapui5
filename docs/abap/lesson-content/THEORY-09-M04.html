@@ -55,6 +55,36 @@
     <li><strong>INTO TABLE:</strong> 그 결과 묶음을 Internal Table에 담습니다.</li>
     <li><strong>@DATA(lt_countries):</strong> 결과를 받을 Internal Table을 inline 선언합니다.</li>
   </ul>
+  <div class="viz-visual">
+    <p class="viz-visual-title">한 줄 그릇 vs 여러 줄 그릇 — INTO와 INTO TABLE</p>
+    <div class="viz-compare">
+      <div class="viz-compare-before">
+        <span class="viz-compare-label">INTO @ls_country (Structure)</span>
+        <div class="viz-compare-body">
+          <table class="viz-table">
+            <tbody>
+              <tr><td>그릇</td><td>한 줄짜리 구조(Work Area)</td></tr>
+              <tr><td>어울림</td><td><code>SELECT SINGLE</code> 단건 조회</td></tr>
+              <tr><td>여러 건 결과</td><td><span class="viz-badge fail">담을 수 없음</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="viz-compare-after">
+        <span class="viz-compare-label">INTO TABLE @lt_countries (Internal Table)</span>
+        <div class="viz-compare-body">
+          <table class="viz-table">
+            <tbody>
+              <tr><td>그릇</td><td>여러 줄을 담는 Internal Table</td></tr>
+              <tr><td>어울림</td><td>목록 조회 (Result Set 전체)</td></tr>
+              <tr><td>여러 건 결과</td><td><span class="viz-badge success">한 번에 적재</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="viz-note">결과가 몇 줄인지에 따라 그릇이 달라집니다. 단건은 INTO + 구조, 목록은 INTO TABLE + Internal Table — 이 짝을 바꿔 끼우면 문법 오류이거나 의도와 다른 동작이 됩니다.</p>
+  </div>
 </section>
 
 <section class="lesson-section">
@@ -173,7 +203,50 @@
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 조회 → 건수 확인 → SALV 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>국가 텍스트를 INTO TABLE로 조회하고 <code>lines( )</code>로 건수를 출력합니다.</li>
+        <li>건수가 0이면 안내 메시지, 1건 이상이면 SALV로 표시하는 분기를 완성합니다.</li>
+        <li>WHERE 조건을 좁혀(특정 국가) 건수가 달라지는 것을 확인합니다.</li>
+        <li>INTO TABLE을 INTO로 잘못 바꿔보고 어떤 문법 메시지가 나는지 확인 후 복원합니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> 조회 건수에 따라 다른 화면(메시지/SALV)이 나오는 작은 리포트가 완성되면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECT.html" target="_blank" rel="noopener">SAP Help Portal: SELECT</a> - INTO TABLE을 포함한 SELECT 공식 문법을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINTERNAL_TABLE_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Internal Table</a> - Result Set을 담는 Internal Table의 정의를 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_SQL_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: ABAP SQL</a> - ABAP SQL 전체 개념을 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>여러 건의 조회 결과를 받으려면 INTO와 INTO TABLE 중 무엇을 쓰나요?</li>
+    <li>INTO TABLE 조회 직후 결과가 있는지 확인하는 두 가지 방법은 무엇인가요?</li>
+    <li>“일단 조건 없이 다 가져와서 메모리에서 처리하자”가 위험한 이유는 무엇인가요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>INTO TABLE</strong>입니다. 대상이 Internal Table이어야 하며, 한 줄짜리 구조에는 여러 건을 담을 수 없습니다.</li>
+      <li><strong><code>sy-subrc</code> 확인</strong>과 <strong><code>lines( itab )</code> 또는 <code>IS INITIAL</code> 검사</strong>입니다. 건수는 조회 로직 점검의 첫 단서입니다.</li>
+      <li><strong>대량 데이터가 그대로 네트워크를 타고 와 Runtime Memory를 차지하기 때문</strong>입니다. 필터링은 가능한 한 DB(WHERE)에서 끝내야 합니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

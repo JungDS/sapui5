@@ -250,6 +250,21 @@
       .then(function (html) {
         root.innerHTML = html;
         setupCodeCopyButtons(root);
+        initializeInteractiveWidgets(root);
+        if (window.mermaid) {
+          try {
+            window.mermaid.initialize({
+              startOnLoad: false,
+              theme: 'neutral',
+              securityLevel: 'loose'
+            });
+            window.mermaid.run({
+              nodes: root.querySelectorAll('.mermaid')
+            });
+          } catch (e) {
+            console.error("Failed to run Mermaid: ", e);
+          }
+        }
       })
       .catch(function (error) {
         renderError(error.message);
@@ -337,5 +352,438 @@
     .catch(function (error) {
       renderError(error.message);
     });
+
+  // 5대 인터랙티브 학습 위젯 초기화 통합 함수 (+ 점진적 이벤트 탭 위젯 추가)
+  function initializeInteractiveWidgets(scope) {
+    initCodeTour(scope);
+    initDiffMapper(scope);
+    initPuzzleQuiz(scope);
+    initDebugger(scope);
+    initSapSandbox(scope);
+    initEventTabs(scope);
+  }
+
+  // 1. 맥락 인지형 아코디언 가이드 (Context-Aware Code Tour)
+  function initCodeTour(scope) {
+    var anchors = scope.querySelectorAll('.code-tour-anchor');
+    anchors.forEach(function (anchor) {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        var targetId = anchor.getAttribute('data-tour-id');
+        var accordion = scope.querySelector('#' + targetId);
+        if (!accordion) return;
+        
+        var isActive = accordion.classList.contains('active');
+        if (isActive) {
+          accordion.classList.remove('active');
+          accordion.style.maxHeight = null;
+        } else {
+          accordion.classList.add('active');
+          accordion.style.maxHeight = accordion.scrollHeight + 'px';
+        }
+      });
+    });
+  }
+
+  // 2. Before & After 코드 비교 매퍼 (Code Diff Mapper)
+  function initDiffMapper(scope) {
+    var diffMappers = scope.querySelectorAll('.interactive-diff-mapper');
+    diffMappers.forEach(function (mapper) {
+      var highlights = mapper.querySelectorAll('.diff-highlight');
+      var explanationEl = mapper.querySelector('.diff-explanation');
+      var defaultText = explanationEl ? explanationEl.innerHTML : '';
+      
+      highlights.forEach(function (el) {
+        el.addEventListener('mouseenter', function () {
+          var targetId = el.getAttribute('data-diff-target') || el.getAttribute('data-diff-source');
+          if (!targetId) return;
+          
+          var linked = mapper.querySelectorAll('[data-diff-target="' + targetId + '"], [data-diff-source="' + targetId + '"]');
+          linked.forEach(function (item) {
+            item.classList.add('highlight-linked');
+          });
+          
+          var title = el.getAttribute('data-explain-title') || '설명';
+          var text = el.getAttribute('data-explain-desc') || '';
+          if (explanationEl && text) {
+            explanationEl.innerHTML = '<div class="diff-explanation-content"><strong>' + title + '</strong><span>' + text + '</span></div>';
+          }
+        });
+        
+        el.addEventListener('mouseleave', function () {
+          highlights.forEach(function (item) {
+            item.classList.remove('highlight-linked');
+          });
+          if (explanationEl) {
+            explanationEl.innerHTML = defaultText;
+          }
+        });
+      });
+    });
+  }
+
+  // Canvas Confetti Effect
+  function triggerConfetti() {
+    var canvas = document.createElement('canvas');
+    canvas.className = 'confetti-canvas';
+    document.body.appendChild(canvas);
+    
+    var ctx = canvas.getContext('2d');
+    var colors = ['#f43f5e', '#3b82f6', '#10b981', '#f59e0b', '#8b5cf6'];
+    var confettiCount = 150;
+    var confetti = [];
+    
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    
+    for (var i = 0; i < confettiCount; i++) {
+      confetti.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height - canvas.height,
+        size: Math.random() * 8 + 4,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        speed: Math.random() * 4 + 4,
+        angle: Math.random() * 360,
+        spin: Math.random() * 4 - 2
+      });
+    }
+    
+    var startTime = Date.now();
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      var elapsed = Date.now() - startTime;
+      
+      if (elapsed > 2500) {
+        if (canvas.parentElement) {
+          document.body.removeChild(canvas);
+        }
+        window.removeEventListener('resize', resizeCanvas);
+        return;
+      }
+      
+      confetti.forEach(function (p) {
+        p.y += p.speed;
+        p.x += Math.sin(p.angle * Math.PI / 180) * 1.5;
+        p.angle += p.spin;
+        
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      
+      requestAnimationFrame(draw);
+    }
+    draw();
+  }
+
+  // 3. 드래그 앤 드롭 구문 퍼즐 (Drag & Drop Syntax Jigsaw)
+  function initPuzzleQuiz(scope) {
+    var quizzes = scope.querySelectorAll('.interactive-puzzle-quiz');
+    quizzes.forEach(function (quiz) {
+      var dragItems = quiz.querySelectorAll('.drag-item');
+      var dropZones = quiz.querySelectorAll('.drop-zone');
+      var dragItemsContainer = quiz.querySelector('.puzzle-drag-items');
+      
+      var draggedItem = null;
+      
+      dragItems.forEach(function (item) {
+        item.addEventListener('dragstart', function () {
+          draggedItem = item;
+          item.classList.add('dragging');
+        });
+        
+        item.addEventListener('dragend', function () {
+          item.classList.remove('dragging');
+        });
+      });
+      
+      dropZones.forEach(function (zone) {
+        zone.addEventListener('dragover', function (e) {
+          e.preventDefault();
+          zone.classList.add('drag-over');
+        });
+        
+        zone.addEventListener('dragleave', function () {
+          zone.classList.remove('drag-over');
+        });
+        
+        zone.addEventListener('drop', function () {
+          zone.classList.remove('drag-over');
+          if (!draggedItem) return;
+          
+          var existing = zone.querySelector('.drag-item');
+          if (existing) {
+            dragItemsContainer.appendChild(existing);
+          }
+          
+          zone.appendChild(draggedItem);
+          checkPuzzleSolution(quiz);
+        });
+      });
+      
+      quiz.addEventListener('click', function (e) {
+        if (e.target.classList.contains('drag-item') && e.target.parentElement.classList.contains('drop-zone')) {
+          dragItemsContainer.appendChild(e.target);
+          e.target.parentElement.classList.remove('correct', 'incorrect');
+          checkPuzzleSolution(quiz);
+        }
+      });
+    });
+  }
+
+  function checkPuzzleSolution(quiz) {
+    var dropZones = quiz.querySelectorAll('.drop-zone');
+    var feedback = quiz.querySelector('.puzzle-feedback');
+    var totalZones = dropZones.length;
+    var filledZones = 0;
+    var correctCount = 0;
+    
+    dropZones.forEach(function (zone) {
+      var expected = zone.getAttribute('data-expected');
+      var child = zone.querySelector('.drag-item');
+      
+      if (child) {
+        filledZones++;
+        var actualId = child.getAttribute('id');
+        var isCorrect = false;
+        
+        if (expected === 'LOAD-OF-PROGRAM' && actualId === 'LOP') isCorrect = true;
+        if (expected === 'INITIALIZATION' && actualId === 'INIT') isCorrect = true;
+        if (expected === 'START-OF-SELECTION' && actualId === 'SOS') isCorrect = true;
+        if (expected === 'END-OF-SELECTION' && actualId === 'EOS') isCorrect = true;
+        
+        if (isCorrect) {
+          zone.classList.remove('incorrect');
+          zone.classList.add('correct');
+          correctCount++;
+        } else {
+          zone.classList.remove('correct');
+          zone.classList.add('incorrect');
+        }
+      } else {
+        zone.classList.remove('correct', 'incorrect');
+      }
+    });
+    
+    if (filledZones === totalZones) {
+      if (correctCount === totalZones) {
+        feedback.className = 'puzzle-feedback success';
+        feedback.innerHTML = '🎉 <strong>정답입니다!</strong> 라이프사이클 순서인 <strong>LOAD-OF-PROGRAM → INITIALIZATION → START-OF-SELECTION → END-OF-SELECTION</strong>을 완벽히 매핑하셨습니다. 화면 기본값 처리는 INITIALIZATION, 메인 비즈니스 조회 처리는 START-OF-SELECTION에 수행된다는 원리를 꼭 기억하세요!';
+        triggerConfetti();
+      } else {
+        feedback.className = 'puzzle-feedback error';
+        feedback.innerHTML = '❌ <strong>순서가 올바르지 않습니다.</strong> 각 이벤트 블록의 호출 순서를 다시 고민하여 조립해 보세요. (힌트: 요리사 정훈영 사원의 비유를 떠올려보세요!)';
+      }
+    } else {
+      feedback.style.display = 'none';
+    }
+  }
+
+  // 4. 대화형 코드 디버깅 시뮬레이터 (Interactive Step-Debugger)
+  function initDebugger(scope) {
+    var debuggers = scope.querySelectorAll('.interactive-debugger');
+    debuggers.forEach(function (dbg) {
+      var btnStart = dbg.querySelector('.btn-dbg-start');
+      var btnNext = dbg.querySelector('.btn-dbg-next');
+      var lines = dbg.querySelectorAll('.db-line');
+      var monitorVals = {
+        event: dbg.querySelector('.val-event'),
+        subrc: dbg.querySelector('.val-subrc'),
+        tabix: dbg.querySelector('.val-tabix')
+      };
+      var consoleOut = dbg.querySelector('.monitor-console-output');
+      
+      var currentStep = -1;
+      
+      var steps = [
+        { line: 1, event: 'LOAD-OF-PROGRAM', subrc: '0', tabix: '0', console: '[LOAD-OF-PROGRAM] 프로그램 로드 완료.' },
+        { line: 9, event: 'INITIALIZATION', subrc: '0', tabix: '0', console: '[LOAD-OF-PROGRAM] 프로그램 로드 완료.\n\n-> INITIALIZATION 이벤트 블록 점프.' },
+        { line: 10, event: 'INITIALIZATION', subrc: '0', tabix: '0', console: '[LOAD-OF-PROGRAM] 프로그램 로드 완료.\n[1] INITIALIZATION 실행 (초기화)' },
+        { line: 3, event: 'START-OF-SELECTION', subrc: '0', tabix: '0', console: '[LOAD-OF-PROGRAM] 프로그램 로드 완료.\n[1] INITIALIZATION 실행 (초기화)\n\n-> START-OF-SELECTION 이벤트 블록 점프.' },
+        { line: 4, event: 'START-OF-SELECTION', subrc: '0', tabix: '0', console: '[LOAD-OF-PROGRAM] 프로그램 로드 완료.\n[1] INITIALIZATION 실행 (초기화)\n[3] START-OF-SELECTION 실행 (메인 로직)' },
+        { line: 6, event: 'END-OF-SELECTION', subrc: '0', tabix: '0', console: '[LOAD-OF-PROGRAM] 프로그램 로드 완료.\n[1] INITIALIZATION 실행 (초기화)\n[3] START-OF-SELECTION 실행 (메인 로직)\n\n-> END-OF-SELECTION 이벤트 블록 점프.' },
+        { line: 7, event: 'END-OF-SELECTION', subrc: '0', tabix: '0', console: '[LOAD-OF-PROGRAM] 프로그램 로드 완료.\n[1] INITIALIZATION 실행 (초기화)\n[3] START-OF-SELECTION 실행 (메인 로직)\n[4] END-OF-SELECTION 실행 (출력 마감)' }
+      ];
+      
+      btnStart.addEventListener('click', function () {
+        currentStep = 0;
+        btnStart.textContent = '다시 시작';
+        btnNext.disabled = false;
+        if (consoleOut) {
+          consoleOut.textContent = '=== 가상 디버거 실행 시작 ===';
+        }
+        updateDebuggerUI();
+      });
+      
+      btnNext.addEventListener('click', function () {
+        if (currentStep < steps.length - 1) {
+          currentStep++;
+          updateDebuggerUI();
+          if (currentStep === steps.length - 1) {
+            btnNext.disabled = true;
+            if (consoleOut) {
+              consoleOut.textContent += '\n\n=== 디버깅 종료: 실행 완료 ===';
+            }
+          }
+        }
+      });
+      
+      function updateDebuggerUI() {
+        lines.forEach(function (l) { l.classList.remove('active'); });
+        
+        var step = steps[currentStep];
+        if (!step) return;
+        
+        var activeLine = dbg.querySelector('.db-line[data-line="' + step.line + '"]');
+        if (activeLine) activeLine.classList.add('active');
+        
+        if (monitorVals.event) monitorVals.event.textContent = step.event;
+        if (monitorVals.subrc) monitorVals.subrc.textContent = step.subrc;
+        if (monitorVals.tabix) monitorVals.tabix.textContent = step.tabix;
+        if (consoleOut) {
+          consoleOut.textContent = '=== 디버거 추적 중 ===\n' + step.console;
+          consoleOut.scrollTop = consoleOut.scrollHeight;
+        }
+      }
+    });
+  }
+
+  // 5. 가상 Selection Screen & T-Code 샌드박스 (Mock SAP UI Sandbox)
+  function initSapSandbox(scope) {
+    var sandboxes = scope.querySelectorAll('.interactive-sap-sandbox');
+    sandboxes.forEach(function (sandbox) {
+      var btnExec = sandbox.querySelector('.sap-btn-execute');
+      var logEl = sandbox.querySelector('.sap-result-log');
+      var yearInput = sandbox.querySelector('#sb-year');
+      var empInput = sandbox.querySelector('#sb-emp-no');
+      
+      var modalOverlay = document.createElement('div');
+      modalOverlay.className = 'sap-modal-overlay';
+      modalOverlay.innerHTML = '<div class="sap-modal">' +
+        '<div class="sap-modal-header">⚠️ SAP GUI Error</div>' +
+        '<div class="sap-modal-body"></div>' +
+        '<div class="sap-modal-footer"><button class="sap-modal-btn">확인</button></div>' +
+        '</div>';
+      document.body.appendChild(modalOverlay);
+      
+      var modalBody = modalOverlay.querySelector('.sap-modal-body');
+      var modalBtn = modalOverlay.querySelector('.sap-modal-btn');
+      
+      modalBtn.addEventListener('click', function () {
+        modalOverlay.style.display = 'none';
+      });
+      
+      var empDb = [
+        { id: '1000', name: '정훈영', dept: 'SD개발팀', year: '2026' },
+        { id: '2000', name: '김지현', dept: 'FI운영팀', year: '2026' },
+        { id: '3000', name: '이민수', dept: 'CO컨설팅', year: '2025' },
+        { id: '4000', name: '박서우', dept: 'MM개발팀', year: '2026' }
+      ];
+      
+      btnExec.addEventListener('click', function () {
+        if (!logEl) return;
+        logEl.innerHTML = '';
+        var yearVal = yearInput.value.trim();
+        var empVal = empInput.value.trim();
+        
+        addLogLine('LOAD-OF-PROGRAM', 'event', 'SAP GUI가 ZREPORT_EVENT_DEMO 프로그램을 RAM 메모리에 로드 완료.');
+        
+        setTimeout(function () {
+          addLogLine('INITIALIZATION', 'event', '화면 출력 직전 INITIALIZATION 이벤트 실행.');
+          addLogLine('System', 'info', '화면 기본 입력값 세팅 완료 (Year: ' + yearVal + ').');
+        }, 500);
+        
+        setTimeout(function () {
+          addLogLine('AT SELECTION-SCREEN', 'event', '사용자 입력값 유효성 검증 시작.');
+          
+          if (!empVal) {
+            addLogLine('Error', 'error', '검증 실패: 사원 번호는 필수 입력란입니다.');
+            showSapError('사원 번호를 입력해 주세요. (T-Code: ZREPORT_EVENT_DEMO)');
+            return;
+          }
+          
+          if (isNaN(empVal) || empVal.length !== 4) {
+            addLogLine('Error', 'error', '검증 실패: 사원 번호는 숫자 4자리여야 합니다.');
+            showSapError('올바르지 않은 사원 번호 형식입니다. (4자리 숫자 입력)');
+            return;
+          }
+          
+          addLogLine('System', 'info', '검증 성공. 데이터 조회를 수행합니다.');
+          
+          setTimeout(function () {
+            addLogLine('START-OF-SELECTION', 'event', 'START-OF-SELECTION 이벤트 시작. 데이터베이스 쿼리 실행.');
+            
+            var result = empDb.filter(function (emp) {
+              return emp.id === empVal && emp.year === yearVal;
+            });
+            
+            addLogLine('SELECT', 'info', '쿼리 실행 완료. ' + result.length + ' 건의 결과 레코드를 획득하였습니다.');
+            
+            setTimeout(function () {
+              addLogLine('END-OF-SELECTION', 'event', 'END-OF-SELECTION 실행. ALV Grid로 결과 화면을 서빙합니다.');
+              
+              if (result.length > 0) {
+                var tableHtml = '<table class="sap-alv-table">' +
+                  '<thead><tr><th>사원번호</th><th>성명</th><th>부서</th><th>기준년도</th></tr></thead>' +
+                  '<tbody>';
+                result.forEach(function (row) {
+                  tableHtml += '<tr><td>' + row.id + '</td><td>' + row.name + '</td><td>' + row.dept + '</td><td>' + row.year + '</td></tr>';
+                });
+                tableHtml += '</tbody></table>';
+                logEl.innerHTML += '<div class="sap-log-line info">' + tableHtml + '</div>';
+              } else {
+                logEl.innerHTML += '<div class="sap-log-line error">조회 조건에 해당하는 데이터가 존재하지 않습니다. (SY-SUBRC = 4)</div>';
+              }
+            }, 600);
+            
+          }, 600);
+          
+        }, 1000);
+      });
+      
+      function addLogLine(label, type, text) {
+        var line = document.createElement('div');
+        line.className = 'sap-log-line ' + type;
+        line.innerHTML = '[' + label + '] ' + text;
+        logEl.appendChild(line);
+        logEl.scrollTop = logEl.scrollHeight;
+      }
+      
+      function showSapError(msg) {
+        modalBody.textContent = msg;
+        modalOverlay.style.display = 'flex';
+      }
+    });
+  }
+
+  // 6. 점진적 빌드업 탭 제어 함수 (Incremental Build-Up Tabs)
+  function initEventTabs(scope) {
+    var tabButtons = scope.querySelectorAll('.event-tab-buttons .tab-btn');
+    var tabPanels = scope.querySelectorAll('.tabs-content .event-tab-panel');
+
+    tabButtons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var targetId = btn.getAttribute('data-tab');
+
+        // 모든 버튼 비활성화 및 클릭된 버튼 활성화
+        tabButtons.forEach(function (b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+
+        // 모든 패널 비활성화 및 타겟 패널 활성화
+        tabPanels.forEach(function (panel) {
+          if (panel.getAttribute('id') === targetId) {
+            panel.classList.add('active');
+          } else {
+            panel.classList.remove('active');
+          }
+        });
+      });
+    });
+  }
 
 })();

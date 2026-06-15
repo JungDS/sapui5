@@ -74,7 +74,7 @@
     <div class="abap-editor-line-numbers">
       1
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span> lt_countries <span class="abap-token-keyword">TYPE</span> STANDARD <span class="abap-token-keyword">TABLE</span> <span class="abap-token-keyword">OF</span> ty_country.</code></pre>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span> lt_countries <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">STANDARD TABLE OF</span> ty_country.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -108,6 +108,36 @@
   <p>
     이제 SELECT 결과는 미리 선언한 <code>lt_countries</code>에 들어갑니다. 이 <code>lt_countries</code>가 Target Variable입니다.
   </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">즉석 보관함 vs 미리 만든 보관함</p>
+    <div class="viz-compare">
+      <div class="viz-compare-before">
+        <span class="viz-compare-label">Inline 선언: INTO TABLE @DATA(lt_...)</span>
+        <div class="viz-compare-body">
+          <table class="viz-table">
+            <tbody>
+              <tr><td>모양 결정</td><td>SELECT의 FIELDS 목록이 자동 결정</td></tr>
+              <tr><td>장점</td><td>짧고 빠르게 작성</td></tr>
+              <tr><td>주의</td><td>FIELDS를 바꾸면 테이블 모양도 같이 바뀜 — 뒤 로직이 조용히 영향받음</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="viz-compare-after">
+        <span class="viz-compare-label">명시적 선언: TYPES + DATA lt_...</span>
+        <div class="viz-compare-body">
+          <table class="viz-table">
+            <tbody>
+              <tr><td>모양 결정</td><td>TYPES로 개발자가 먼저 고정</td></tr>
+              <tr><td>장점</td><td>여러 곳에서 재사용, 의도가 코드에 드러남</td></tr>
+              <tr><td>주의</td><td>FIELDS 목록과 타입 필드가 맞아야 함</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="viz-note">짧은 일회성 조회는 inline이 편하지만, 결과를 여러 로직·FORM·Method에서 함께 쓰거나 모양을 안정적으로 유지해야 한다면 명시적 Target이 안전합니다.</p>
+  </div>
 </section>
 
 <section class="lesson-section">
@@ -136,7 +166,7 @@
          landx <span class="abap-token-keyword">TYPE</span> t005t-landx,
        <span class="abap-token-keyword">END</span> <span class="abap-token-keyword">OF</span> ty_country.
 
-<span class="abap-token-keyword">DATA</span> lt_countries <span class="abap-token-keyword">TYPE</span> STANDARD <span class="abap-token-keyword">TABLE</span> <span class="abap-token-keyword">OF</span> ty_country.
+<span class="abap-token-keyword">DATA</span> lt_countries <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">STANDARD TABLE OF</span> ty_country.
 <span class="abap-token-keyword">DATA</span> ls_country   <span class="abap-token-keyword">TYPE</span> ty_country.
 
 <span class="abap-token-keyword">SELECT</span> <span class="abap-token-keyword">FROM</span> t005t
@@ -183,7 +213,50 @@
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 두 가지 보관함 만들어보기 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>같은 SELECT를 ① inline <code>@DATA(...)</code> 버전과 ② <code>TYPES</code>+<code>DATA</code> 명시적 Target 버전으로 각각 작성합니다.</li>
+        <li>두 버전 모두 정상 출력되는지 확인합니다.</li>
+        <li>①에서 FIELDS에 필드를 하나 추가했을 때 뒤 LOOP 코드에 어떤 영향이 가는지 관찰합니다.</li>
+        <li>②에서 FIELDS와 TYPES 필드가 어긋나면 어떤 문법 메시지가 나는지 확인합니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> “언제 inline이 편하고 언제 명시적 선언이 안전한가”를 자신의 기준 한 줄로 정리하면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES.html" target="_blank" rel="noopener">SAP Help Portal: TYPES</a> - 결과 한 줄 모양을 정하는 TYPES 문법을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECT.html" target="_blank" rel="noopener">SAP Help Portal: SELECT</a> - INTO 구역과 Target 지정 문법을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINTERNAL_TABLE_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Internal Table</a> - Typed Internal Table의 기반 개념을 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li><code>INTO TABLE @DATA(lt_x)</code>에서 <code>lt_x</code>의 모양(필드 구성)은 무엇이 결정하나요?</li>
+    <li>조회 결과를 여러 FORM/Method에서 함께 써야 한다면 inline과 명시적 Target 중 무엇이 유리한가요?</li>
+    <li>명시적 Target을 쓸 때 FIELDS 목록과 무엇이 맞아야 하나요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>SELECT의 FIELDS 목록</strong>입니다. FIELDS를 바꾸면 inline 테이블의 모양도 함께 바뀌므로 뒤 로직에 영향이 갑니다.</li>
+      <li><strong>명시적 Target(TYPES+DATA)</strong>입니다. 타입 이름으로 여러 곳에서 재사용할 수 있고 모양이 안정적으로 고정됩니다.</li>
+      <li><strong>Target의 Line Type 필드 구성</strong>입니다. 어긋나면 문법 오류나 의도하지 않은 값 매핑이 생깁니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

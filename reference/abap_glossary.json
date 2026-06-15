@@ -54,6 +54,16 @@
     "design_theme": "warn",
     "html_content": "<p>최신 SAP 환경(ABAP Cloud 등)에서는 SE11 대신 <strong>ADT</strong> 사용을 권장합니다.</p>"
   },
+  "RepositoryObject": {
+    "title": "Repository Object",
+    "desc": "SAP 시스템의 Repository에 저장되는 개발 객체입니다. 프로그램, 클래스, 테이블, 구조, 데이터 엘리먼트, 도메인처럼 이름과 수명주기를 가진 개발 산출물을 뜻합니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 회사 공용 부품 창고에 등록된 표준 부품과 같아요. 이름표가 붙어 있고, 다른 팀도 그 부품을 찾아 재사용할 수 있습니다.",
+    "used_in_lessons": [
+      "THEORY-01-M01"
+    ],
+    "design_theme": "info",
+    "html_content": "<p>Repository Object는 저장뿐 아니라 활성화, 전송, 의존 관계 확인 같은 SAP 개발 흐름 안에서 관리됩니다.</p>"
+  },
   "Domain": {
     "title": "Domain (도메인)",
     "desc": "데이터의 기술적 형태(데이터 타입·길이·소수 자릿수)와 허용 값(고정값)을 정의하는 DDIC의 가장 밑바닥 부품입니다. 의미가 아니라 '재질'만 책임집니다.",
@@ -852,6 +862,36 @@
     ],
     "design_theme": "primary",
     "html_content": ""
+  },
+  "PassByReference": {
+    "title": "Pass By Reference (참조 전달)",
+    "desc": "호출한 쪽의 실제 변수를 직접 가리키는 방식으로 파라미터를 전달합니다. FORM 안에서 값을 바꾸면 원본 변수도 바뀔 수 있습니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 문서 사본이 아니라 원본 문서 링크를 건네주는 것과 같아요. 상대가 원본을 고치면 내 문서도 바뀝니다.",
+    "used_in_lessons": [
+      "THEORY-05-M02"
+    ],
+    "design_theme": "warn",
+    "html_content": "<p>FORM의 USING/CHANGING 파라미터는 별도 VALUE(...)를 쓰지 않으면 기본적으로 참조 전달로 이해해야 합니다.</p>"
+  },
+  "PassByValue": {
+    "title": "Pass By Value (값 전달)",
+    "desc": "호출한 쪽의 값을 복사해 FORM 안의 지역 데이터 객체로 전달합니다. FORM 안에서 복사본을 바꿔도 원본 변수는 유지됩니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 원본 문서가 아니라 복사본을 건네주는 것과 같아요. 복사본에 낙서해도 원본은 그대로입니다.",
+    "used_in_lessons": [
+      "THEORY-05-M02"
+    ],
+    "design_theme": "info",
+    "html_content": "<p>Subroutine에서는 FORM의 formal parameter 선언에 <code>USING VALUE(parameter)</code>처럼 VALUE(...)를 명시해 값 전달을 표현합니다.</p>"
+  },
+  "PassByValueAndResult": {
+    "title": "Pass By Value and Result (값 전달 후 결과 반영)",
+    "desc": "처리 중에는 복사본을 사용하고, 절차가 정상 종료될 때 복사본의 최종 값을 호출한 쪽 실제 변수로 다시 복사하는 방식입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 작업용 사본에 수정한 뒤, 작업이 정상 완료되면 그 결과만 원본에 반영하는 절차와 같아요.",
+    "used_in_lessons": [
+      "THEORY-05-M02"
+    ],
+    "design_theme": "primary",
+    "html_content": "<p>Subroutine에서는 FORM의 formal parameter 선언에 <code>CHANGING VALUE(parameter)</code>처럼 사용해 처리 중 원본 직접 변경을 피하면서 결과를 돌려줄 수 있습니다.</p>"
   },
   "FunctionModule": {
     "title": "Function Module (함수 모듈)",
@@ -2094,8 +2134,8 @@
   },
   "TMG": {
     "title": "Table Maintenance Generator (TMG)",
-    "desc": "테이블이나 View로부터 데이터 입력·수정 화면(유지보수 다이얼로그)을 자동으로 생성해주는 도구입니다.",
-    "everyday_analogy": "이해하기 쉬운 일상 사례: 양식만 주면 입력 폼을 자동으로 만들어 주는 폼 생성기와 같아요. 직접 화면을 코딩할 필요가 없죠.",
+    "desc": "ABAP DDIC의 테이블이나 뷰를 대상으로, 데이터를 입력, 수정, 삭제할 수 있는 유지보수 화면(Screen) 및 모듈 풀 프로그램을 코딩 없이 자동으로 생성해 주는 도구입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 엑셀 데이터를 입력받기 위한 서식과 설정을 자동으로 채워주는 '설문지 폼 메이커'와 같아요. 설정만 몇 개 넣으면 완벽한 폼이 뚝딱 나옵니다.",
     "used_in_lessons": [
       "THEORY-12-M05"
     ],
@@ -2103,19 +2143,19 @@
     "html_content": ""
   },
   "SM30": {
-    "title": "트랜잭션 SM30",
-    "desc": "TMG로 만든 유지보수 화면을 열어 테이블/View 데이터를 표 형태로 관리하는 트랜잭션입니다. 저장 시 Foreign Key 검증이 작동합니다.",
-    "everyday_analogy": "이해하기 쉬운 일상 사례: 설정값을 직접 고치러 들어가는 '관리자 페이지' 입구와 같아요.",
+    "title": "트랜잭션 SM30 (Table Maintenance)",
+    "desc": "TMG(Table Maintenance Generator)로 만들어진 테이블이나 뷰의 데이터 유지보수 화면을 실행하여 실제 테이블 데이터를 입력, 수정, 삭제할 수 있는 SAP 표준 트랜잭션입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 자동으로 만들어진 설문지(TMG)를 띄워두고 실제로 설문 내용을 타이핑해 제출하는 '설문지 응답 페이지'와 같아요.",
     "used_in_lessons": [
       "THEORY-12-M05"
     ],
     "design_theme": "code",
-    "html_content": "<p>데이터를 직접 바꾸므로 권한 그룹과 변경 로그 관리가 중요합니다.</p>"
+    "html_content": ""
   },
   "MaintenanceDialog": {
     "title": "유지보수 다이얼로그 (Maintenance Dialog)",
-    "desc": "TMG가 생성하는 데이터 입력·수정 화면 묶음입니다. Function Group과 화면 번호에 담겨 SM30에서 호출됩니다.",
-    "everyday_analogy": "이해하기 쉬운 일상 사례: 자동으로 만들어진 '입력 폼 화면' 그 자체예요.",
+    "desc": "사용자가 테이블 데이터를 관리할 수 있도록 생성된 화면, 제어 로직(PBO/PAI), 그리고 관련 데이터 오브젝트들의 묶음입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 회원가입 폼 화면과 그 밑에 작동하는 오류 체크 프로그램이 하나로 묶인 패키지 상품과 같습니다.",
     "used_in_lessons": [
       "THEORY-12-M05"
     ],
@@ -2123,24 +2163,24 @@
     "html_content": ""
   },
   "ClassicView": {
-    "title": "Classic View",
-    "desc": "SE11 기반의 전통적 DDIC View들(Database/Projection/Help/Maintenance)을 통칭합니다. 현대의 CDS View Entity 이전 세대 방식입니다.",
-    "everyday_analogy": "이해하기 쉬운 일상 사례: 용도별로 따로 깔던 옛날 앱들처럼, 기능마다 다른 도구를 쓰던 방식이에요.",
+    "title": "Classic View (고전 뷰)",
+    "desc": "SAP DDIC에서 기존에 사용하던 Database View, Projection View, Help View, Maintenance View 등 4가지 전통적인 뷰를 아우르는 말입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 피처폰 시절에 문자는 문자 앱, 전화는 전화 앱, 캘린더는 캘린더 앱으로 각각 따로 사용하던 단일 기능 앱들과 같습니다.",
+    "used_in_lessons": [
+      "THEORY-12-M06"
+    ],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "CDSViewEntity": {
+    "title": "CDS View Entity",
+    "desc": "현대 ABAP(S/4HANA 등)에서 기존 Classic View를 하나로 통합하고 SQL 기반 코드로 확장한 차세대 데이터 정의 모델입니다.",
+    "everyday_analogy": "이해하기 쉬운 일상 사례: 전화, 문자, 인터넷, 게임까지 모두 고화질로 부드럽게 돌아가는 올인원 '스마트폰'과 같습니다.",
     "used_in_lessons": [
       "THEORY-12-M06"
     ],
     "design_theme": "info",
     "html_content": ""
-  },
-  "CDSViewEntity": {
-    "title": "CDS View Entity",
-    "desc": "코드(소스)로 정의하는 현대 SAP의 통합 데이터 모델입니다. JOIN·계산·Association·Annotation을 한 곳에서 표현하고, OData·Fiori·RAP로 이어집니다.",
-    "everyday_analogy": "이해하기 쉬운 일상 사례: 지도·길찾기·맛집을 따로 깔던 시절에서, 하나의 앱이 다 해주는 올인원 앱으로 바뀐 것과 같아요.",
-    "used_in_lessons": [
-      "THEORY-12-M06"
-    ],
-    "design_theme": "primary",
-    "html_content": "<p>THEORY-20에서 본격적으로 배웁니다.</p>"
   },
   "Modernization": {
     "title": "현대화 (Modernization)",

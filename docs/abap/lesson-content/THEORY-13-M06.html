@@ -43,7 +43,7 @@
     RETURN.
   <span class="abap-token-keyword">ENDIF</span>.
 
-  <span class="abap-token-comment">" 담아둔 결과를 ALV 등으로 출력</span>
+  <span class="abap-token-comment">" 담아둔 결과를 ALV 등으로 출력</span>
   cl_salv_table=&gt;factory(
     <span class="abap-token-keyword">IMPORTING</span> r_salv_table = <span class="abap-token-keyword">DATA</span>(lo_alv)
     <span class="abap-token-keyword">CHANGING</span>  t_table      = gt_result ).
@@ -74,7 +74,41 @@
 </section>
 
 <section class="lesson-section">
-  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <h2>4. 출력 마무리 흐름 시각화 🧭</h2>
+  <div class="viz-visual">
+    <p class="viz-visual-title">END-OF-SELECTION에서 결과를 다루는 분기</p>
+    <div class="viz-compare">
+      <div class="viz-compare-before">
+        <span class="viz-compare-label">조회 결과 0건</span>
+        <div class="viz-compare-body">
+          <table class="viz-table">
+            <tbody>
+              <tr><th>상태</th><td><code>gt_result IS INITIAL</code></td></tr>
+              <tr><th>처리</th><td>안내 메시지 표시 후 종료</td></tr>
+              <tr><th>사용자 경험</th><td>빈 화면 대신 이유를 알 수 있음</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="viz-compare-after">
+        <span class="viz-compare-label">조회 결과 있음</span>
+        <div class="viz-compare-body">
+          <table class="viz-table">
+            <tbody>
+              <tr><th>상태</th><td><code>gt_result</code>에 행 존재</td></tr>
+              <tr><th>처리</th><td>SALV/WRITE 등으로 출력</td></tr>
+              <tr><th>사용자 경험</th><td>검증된 데이터만 정리된 화면으로 확인</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="viz-note">정훈영 사원의 리포트는 데이터가 없을 때도 "프로그램이 멈춘 것처럼 보이지 않게" 친절한 메시지로 마무리해야 합니다.</p>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름 🔍</h2>
   <ul>
     <li>✅ <strong>정상:</strong> 결과가 있으면 출력, 없으면 안내 메시지 후 종료.</li>
     <li>❌ <strong>오류 1:</strong> 빈 결과를 확인하지 않고 출력 → 빈 화면만 떠 사용자가 "오류인가?" 오해.</li>
@@ -83,7 +117,7 @@
 </section>
 
 <section class="lesson-section">
-  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <h2>6. 실무에서 조심할 점 🚨</h2>
   <div class="lesson-callout warn">
     <div class="lesson-callout-icon">⚠️</div>
     <div class="lesson-callout-content">
@@ -94,7 +128,45 @@
 </section>
 
 <section class="lesson-section">
-  <h2>6. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 빈 결과와 출력 결과 분리하기 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <p>정훈영 사원의 조회 리포트에서 <code>gt_result</code>가 비어 있으면 안내 메시지만 보여주고, 행이 있으면 SALV 또는 WRITE 출력으로 넘어가도록 분기해 보세요.</p>
+      <p><strong>완료 조건:</strong> 결과 0건과 결과 있음 두 케이스를 각각 테스트하고, <code>END-OF-SELECTION</code>에는 추가 DB 조회가 아니라 출력·안내 책임만 남겼다고 설명할 수 있어야 합니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPEND-OF-SELECTION.html" target="_blank" rel="noopener">SAP Help Portal: END-OF-SELECTION</a> - 데이터 선택 후 마무리 이벤트 블록을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMESSAGE.html" target="_blank" rel="noopener">SAP Help Portal: MESSAGE</a> - 데이터 없음 같은 사용자 안내 메시지 처리 방식을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSTART-OF-SELECTION.html" target="_blank" rel="noopener">SAP Help Portal: START-OF-SELECTION</a> - 조회 단계와 출력 단계의 경계를 비교합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 🧩</h2>
+  <ol>
+    <li><code>END-OF-SELECTION</code>은 보통 조회, 검증, 출력 중 어느 책임에 가장 가깝나요?</li>
+    <li>조회 결과가 0건일 때 이것을 무조건 오류로 처리하면 왜 좋지 않을까요?</li>
+    <li>조회와 출력을 분리하면 디버깅할 때 어떤 점이 편해지나요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>출력</strong> 책임에 가깝습니다. START-OF-SELECTION에서 준비한 결과를 사용자에게 보여주는 단계입니다.</li>
+      <li>0건은 조건에 맞는 데이터가 없다는 정상 결과일 수 있습니다. 오류처럼 처리하면 사용자가 불필요하게 문제 상황으로 오해합니다.</li>
+      <li>데이터가 잘못됐는지, 출력이 잘못됐는지 원인을 나누어 볼 수 있습니다. 내부 테이블 상태만 먼저 확인하면 조회 문제를 빠르게 좁힐 수 있습니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

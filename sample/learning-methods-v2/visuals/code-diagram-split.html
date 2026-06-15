@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>코드/다이어그램 좌우 비교 | 학습 수단 샘플 v2</title>
+<link rel="stylesheet" href="../assets/method-samples.css">
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v2</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">시각화 · 코드와 다이어그램 좌우 비교</p>
+    <h1>코드/다이어그램 좌우 비교</h1>
+    <p class="lead">왼쪽엔 흐름도, 오른쪽엔 그 흐름을 구현한 실제 ABAP 코드를 나란히 둡니다. 추상 개념과 구체 코드가 같은 화면에서 1:1로 매핑되어, "이 단계가 코드의 이 줄"임을 즉시 연결합니다. 좁은 화면에서는 자동으로 위아래로 쌓입니다.</p>
+    <div class="tags"><span class="tag origin">원본: Chapter 13 Lesson 1 (탭 좌우 분할)</span><span class="tag">흐름 ↔ 코드 매핑</span></div>
+  </section>
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 ABAP 주제에 적용</h2>
+    <p class="section-sub">예시 1은 Chapter 13 Lesson 1의 다이어그램+에디터 좌우 분할 레이아웃을 이식했습니다.</p>
+    <div class="example-stack">
+      <article class="method-example spotlight">
+        <p class="ex-topic origin">예시 1 · Report Event (Chapter 13 Lesson 1 원본)</p>
+        <h3>이벤트 흐름 ↔ 코드</h3>
+        <div class="viz-visual">
+          <div class="tab-split-container">
+            <div class="tab-split-left">
+              <div class="mermaid">
+flowchart TD
+INIT("<div class='node-content-wrapper'><div class='node-badge badge-p2'>1</div><br><b>INITIALIZATION</b></div>")
+ASS("<div class='node-content-wrapper'><div class='node-badge badge-p5'>2</div><br><b>AT SELECTION-SCREEN</b></div>")
+SOS("<div class='node-content-wrapper'><div class='node-badge badge-p6'>3</div><br><b>START-OF-SELECTION</b></div>")
+INIT --> ASS
+ASS --> SOS
+style INIT fill:#ffffff,stroke:#eab308,color:#1e293b
+style ASS fill:#ffffff,stroke:#f472b6,color:#1e293b
+style SOS fill:#ffffff,stroke:#22c55e,color:#1e293b
+              </div>
+            </div>
+            <div class="tab-split-right">
+              <div class="abap-editor-mockup">
+                <div class="abap-editor-header"><div class="abap-editor-mac-buttons"><span class="abap-editor-mac-btn red"></span><span class="abap-editor-mac-btn yellow"></span><span class="abap-editor-mac-btn green"></span></div><div class="abap-editor-title">ZREPORT_EVENT</div></div>
+                <div class="abap-editor-body"><pre class="abap-editor-code"><span class="abap-token-keyword">INITIALIZATION.</span>
+  p_year = <span class="abap-token-string">'2026'</span>.
+
+<span class="abap-token-keyword">AT SELECTION-SCREEN.</span>
+  <span class="abap-token-keyword">IF</span> p_year <span class="abap-token-keyword">IS INITIAL</span>.
+    <span class="abap-token-keyword">MESSAGE</span> <span class="abap-token-string">'연도 입력!'</span> <span class="abap-token-keyword">TYPE</span> <span class="abap-token-string">'E'</span>.
+  <span class="abap-token-keyword">ENDIF</span>.
+
+<span class="abap-token-keyword">START-OF-SELECTION.</span>
+  <span class="abap-token-keyword">SELECT</span> * <span class="abap-token-keyword">FROM</span> zemp <span class="abap-token-keyword">WHERE</span> gyear = @p_year <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @gt.</pre></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 다이어그램 노드 번호와 코드 블록 순서를 일치시키면 시선이 "1→1, 2→2"로 자연스럽게 흐른다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · Open SQL</p>
+        <h3>JOIN 흐름 ↔ 코드</h3>
+        <div class="viz-visual">
+          <div class="tab-split-container">
+            <div class="tab-split-left">
+              <div class="mermaid">
+flowchart TD
+A("<div class='node-content-wrapper'><b>sflight (f)</b></div>")
+B("<div class='node-content-wrapper'><b>scarr (c)</b></div>")
+J("<div class='node-content-wrapper'><div class='node-badge badge-p6'>결합</div><br><b>INNER JOIN</b><br><div class='node-desc'>f~carrid = c~carrid</div></div>")
+A --> J
+B --> J
+style A fill:#ffffff,stroke:#0284c7,color:#1e293b
+style B fill:#ffffff,stroke:#0284c7,color:#1e293b
+style J fill:#ffffff,stroke:#22c55e,color:#1e293b
+              </div>
+            </div>
+            <div class="tab-split-right">
+              <div class="abap-editor-mockup">
+                <div class="abap-editor-header"><div class="abap-editor-mac-buttons"><span class="abap-editor-mac-btn red"></span><span class="abap-editor-mac-btn yellow"></span><span class="abap-editor-mac-btn green"></span></div><div class="abap-editor-title">ZFLIGHT_JOIN</div></div>
+                <div class="abap-editor-body"><pre class="abap-editor-code"><span class="abap-token-keyword">SELECT</span> f~carrid, c~carrname, f~fldate
+  <span class="abap-token-keyword">FROM</span> sflight <span class="abap-token-keyword">AS</span> f
+  <span class="abap-token-keyword">INNER JOIN</span> scarr <span class="abap-token-keyword">AS</span> c
+    <span class="abap-token-keyword">ON</span> f~carrid = c~carrid
+  <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt_join).</pre></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> JOIN처럼 "두 입력이 하나로 합쳐지는" 구조는 다이어그램이 ON 조건의 의미를 코드보다 빨리 전달한다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · Internal Table</p>
+        <h3>LOOP 흐름 ↔ 코드</h3>
+        <div class="viz-visual">
+          <div class="tab-split-container">
+            <div class="tab-split-left">
+              <div class="mermaid">
+flowchart TD
+L("<div class='node-content-wrapper'><div class='node-badge badge-p2'>반복</div><br><b>LOOP AT</b></div>")
+W("<div class='node-content-wrapper'><div class='node-badge badge-p6'>처리</div><br><b>행 처리</b></div>")
+E("<div class='node-content-wrapper'><b>ENDLOOP</b></div>")
+L --> W
+W -->|"다음 행"| L
+L -->|"끝"| E
+style L fill:#ffffff,stroke:#eab308,color:#1e293b
+style W fill:#ffffff,stroke:#22c55e,color:#1e293b
+style E fill:#f1f5f9,stroke:#64748b,color:#1e293b
+              </div>
+            </div>
+            <div class="tab-split-right">
+              <div class="abap-editor-mockup">
+                <div class="abap-editor-header"><div class="abap-editor-mac-buttons"><span class="abap-editor-mac-btn red"></span><span class="abap-editor-mac-btn yellow"></span><span class="abap-editor-mac-btn green"></span></div><div class="abap-editor-title">ZITAB_LOOP</div></div>
+                <div class="abap-editor-body"><pre class="abap-editor-code"><span class="abap-token-keyword">LOOP</span> <span class="abap-token-keyword">AT</span> lt_emp <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">DATA</span>(ls_emp).
+  <span class="abap-token-keyword">WRITE</span>: / sy-tabix, ls_emp-name.
+<span class="abap-token-keyword">ENDLOOP.</span></pre></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 반복은 다이어그램의 "되돌아가는 화살표"로 표현하면 ENDLOOP가 어디로 점프하는지 직관적이다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/method-samples.js"></script>
+</body>
+</html>

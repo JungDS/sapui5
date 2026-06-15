@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!-- 
+  [STANDARD_V3_STRUCTURE] 
+  이 파일은 고품질 교육용 웹페이지 표준 구조(v3)를 따릅니다.
+  AI 일괄 처리 및 스크립트 자동화의 대상이므로 코어 레이아웃과 클래스 명칭을 임의로 변경하지 마십시오.
+-->
+
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Performance Profiler Mock | 학습 수단 샘플 v3</title>
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../assets/widgets.css">
+  <link rel="stylesheet" href="../assets/quiz.css">
+  <link rel="stylesheet" href="../assets/variants.css">
+</head>
+<body>
+  
+    <!-- [NEW] Design Variants Selector -->
+    <div class="variant-panel" data-page-id="code-learning/performance-profiler-mock">
+      <h4>🎨 Design Variants (시안 선택):</h4>
+      <div class="variant-options">
+        <label class="variant-chip-a"><input type="radio" name="variant_code-learning_performance-profiler-mock" value="A"> 🔵 A — 기본</label>
+        <label class="variant-chip-b"><input type="radio" name="variant_code-learning_performance-profiler-mock" value="B"> 🟡 B — Notion</label>
+        <label class="variant-chip-c"><input type="radio" name="variant_code-learning_performance-profiler-mock" value="C"> 🟣 C — 파스텔</label>
+      </div>
+      <button class="page-export-btn" data-page-id="code-learning/performance-profiler-mock">선택 JSON 복사</button>
+    </div>
+    
+  <header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v3</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+  
+  <main class="layout">
+    <section class="hero">
+      <p class="eyebrow">코드 학습 · 퍼포먼스 프로파일러 (SAT)</p>
+      <h1>성능 차이 시각화</h1>
+      <p class="lead">단순히 "이 코드가 더 빠릅니다"라고 말하는 대신, SAP의 실제 성능 분석 도구(SAT, ST05)의 결과를 모방한 프로파일링 UI를 제공합니다. 사용자가 직접 버튼을 눌러 소요 시간을 체감하게 합니다.</p>
+    </section>
+
+    <section class="section">
+      <p class="section-eyebrow">실제 적용 예시</p>
+      <h2>안티 패턴 vs 권장 패턴 성능 차이</h2>
+      <p class="section-sub">데이터가 10만 건일 때, LOOP 내부에서 SELECT를 수행하는 코드와 FOR ALL ENTRIES를 사용하는 코드의 실행 시간을 시뮬레이션합니다.</p>
+      
+      <article class="method-example spotlight">
+        <p class="ex-topic">예시 1 · DB 접근 횟수 최소화</p>
+        <h3>프로파일링 벤치마크 테스트</h3>
+        
+        <div class="performance-profiler" style="margin-top:1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom:1.5rem;">
+            <p style="margin:0; font-weight:bold; color:#334155;">데이터 볼륨: 100,000 Rows</p>
+            <button class="btn-run-profile" style="background:#2563eb; color:#fff; padding:0.5rem 1rem; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">프로파일링 실행 ▶</button>
+          </div>
+          
+          <div class="profile-row">
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.3rem;">
+              <strong style="color:#b91c1c;">Bad Code (LOOP 내 SELECT)</strong>
+              <span style="font-family:monospace; font-weight:bold; color:#475569;">예상 소요시간: ~4,500ms</span>
+            </div>
+            <p style="font-size:0.85rem; color:#64748b; margin:0 0 0.5rem 0;">DB에 10만 번 접속을 시도하여 심각한 네트워크 병목 현상 발생.</p>
+            <div class="profile-bar" style="background:#fee2e2; height:24px;"><div class="profile-bar-fill bad" data-target-width="95%" style="background:#ef4444;"></div></div>
+          </div>
+          
+          <div class="profile-row" style="margin-top:2rem;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.3rem;">
+              <strong style="color:#15803d;">Good Code (FOR ALL ENTRIES)</strong>
+              <span style="font-family:monospace; font-weight:bold; color:#475569;">예상 소요시간: ~135ms</span>
+            </div>
+            <p style="font-size:0.85rem; color:#64748b; margin:0 0 0.5rem 0;">DB에 1번 접속하여 배열 단위로 데이터를 한 번에 가져옴.</p>
+            <div class="profile-bar" style="background:#d1fae5; height:24px;"><div class="profile-bar-fill good" data-target-width="8%" style="background:#10b981;"></div></div>
+          </div>
+        </div>
+        
+        <div class="ai-note" style="margin-top:2rem;"><strong>AI 작성 메모:</strong> 성능 개선 교육에서 수치만 나열하면 와닿지 않습니다. 프로파일러 UI 애니메이션을 통해 긴 막대(나쁜 코드)와 아주 짧은 막대(좋은 코드)를 대비시키면 시각적 각인 효과가 매우 큽니다.</div>
+      </article>
+
+    </section>
+  </main>
+  
+  <script src="../assets/core.js"></script>
+  <script src="../assets/widgets.js"></script>
+  <script src="../assets/quiz.js"></script>
+  <script src="../assets/sandbox.js"></script>
+  <script src="../assets/variants.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.querySelector('.btn-run-profile');
+      if(btn) {
+        btn.addEventListener('click', () => {
+          const fills = document.querySelectorAll('.profile-bar-fill');
+          fills.forEach(f => {
+            f.style.width = '0%';
+            setTimeout(() => {
+              f.style.width = f.getAttribute('data-target-width');
+            }, 100);
+          });
+        });
+      }
+    });
+  </script>
+</body>
+</html>

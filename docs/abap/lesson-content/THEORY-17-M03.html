@@ -40,7 +40,7 @@
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">SELECT</span> carrid, connid, price
   <span class="abap-token-keyword">FROM</span> sflight
   <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt_flights).
-<span class="abap-token-comment">"→ lt_flights는 carrid/connid/price 3개 필드를 가진</span>
+<span class="abap-token-comment">"→ lt_flights는 carrid/connid/price 3개 필드를 가진</span>
 <span class="abap-token-comment">"   Internal Table로 자동 생성됨</span></code></pre>
   </div>
 </div>
@@ -81,9 +81,9 @@
       1<br>2<br>3<br>4<br>5<br>6
     </div>
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">SELECT</span> carrid,
-       SUM( price ) <span class="abap-token-keyword">AS</span> total_price
+       <span class="abap-token-keyword">SUM</span>( price ) <span class="abap-token-keyword">AS</span> total_price
   <span class="abap-token-keyword">FROM</span> sflight
-  GROUP <span class="abap-token-keyword">BY</span> carrid
+  <span class="abap-token-keyword">GROUP BY</span> carrid
   <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt).
 <span class="abap-token-comment">"→ 결과 필드 이름: carrid, total_price</span></code></pre>
   </div>

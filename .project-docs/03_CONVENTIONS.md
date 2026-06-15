@@ -1,6 +1,6 @@
 # 03. 규칙과 컨벤션
 
-> 📅 **최종수정: 2026-06-10 10:05 KST**
+> 📅 **최종수정: 2026-06-10 18:20 KST**
 
 ## 1) HTML 메타데이터 (body)
 운영 문서는 `body`에 메타데이터를 둔다. page-type에 따라 셸이 활성화된다.
@@ -113,3 +113,11 @@ ABAP 커리큘럼 Lesson 본문(`docs/abap/lesson-content/<ID>.html`) 작성 시
 - **코드블록 서식**: 작성은 표준 `<pre><code>`로 하고, 네이비 ABAP Editor 멱등 포맷터(`tools/format-abap-code.mjs`)를 돌려 서식을 통일한다(Shiki 하이라이팅 + Copy 버튼). 멱등이므로 재실행 안전.
 - **추적 3종 동시 갱신(섹션 커밋마다)**: ① `HANDOFF_LESSON_CONTENT.md` 진행표 ② `99_AI_SYNC.md` 현황/Work Log ③ `changelogs/CHANGELOG_<날짜>.md`. 현황만 갱신하고 Work Log를 빠뜨리지 말 것.
 - **멀티 AI 협업(중요, →[04 P11](04_PITFALLS.md))**: **한 번에 한 AI만** 커밋·푸시. 작업 시작 전 `git pull` 필수. `git add -A` 금지(내 파일만 명시적 add). **[필수] 로컬 작업 후 항상 `git commit` 및 `git push`까지 완료하여 다른 AI가 원격 저장소 기준으로 최신 상태를 볼 수 있도록 동기화해야 함.** 동시 작업 시 범위를 파일로 분리.
+
+## 10) Track 1 Lesson 고품질화 규칙
+Track 1(`THEORY-*`)은 137개 Lesson 본문 작성이 완료되었지만, 후속 고품질화 라운드는 [TRACK1_QUALITY_PLAN.md](TRACK1_QUALITY_PLAN.md)의 기준을 따른다.
+
+- 각 Lesson은 설명, 예제, 실습 문제, 퀴즈, 정답/해설, 용어 팝업, 공식 링크 후보를 점검한다.
+- 사용자에게 보이는 제목·본문·링크 텍스트에는 `THEORY-01-M02` 같은 내부 ID를 쓰지 않고 `Chapter 1의 Lesson 2`처럼 쓴다.
+- NotebookLM 노트 `ABAP Evolution and Messaging Channels Training Guide`는 내용 확장 근거로 활용하되, SAP 공식 문서와 프로젝트 문맥으로 재검증한다.
+- Chapter 단위 커밋을 기본으로 하며, 변경량이 크면 Lesson 단위로 나눈다.

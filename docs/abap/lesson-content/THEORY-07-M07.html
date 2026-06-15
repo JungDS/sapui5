@@ -56,7 +56,7 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">TYPES</span> tt_students <span class="abap-token-keyword">TYPE</span> STANDARD <span class="abap-token-keyword">TABLE</span> <span class="abap-token-keyword">OF</span> ty_student
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">TYPES</span> tt_students <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">STANDARD TABLE OF</span> ty_student
   <span class="abap-token-keyword">WITH</span> NON-<span class="abap-token-keyword">UNIQUE</span> SORTED <span class="abap-token-keyword">KEY</span> score_key COMPONENTS score.
 
 <span class="abap-token-keyword">DATA</span> lt_students <span class="abap-token-keyword">TYPE</span> tt_students.</code></pre>
@@ -108,6 +108,36 @@
   <p>
     Secondary Key는 검색을 빠르게 할 수 있지만, 키를 유지하는 비용도 있습니다. 데이터를 자주 추가/삭제/변경한다면 키 관리 비용도 함께 생깁니다.
   </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">Secondary Key의 거래 — 읽기는 빨라지고, 쓰기는 비싸진다</p>
+    <div class="viz-compare">
+      <div class="viz-compare-before">
+        <span class="viz-compare-label">얻는 것 (읽기 성능)</span>
+        <div class="viz-compare-body">
+          <table class="viz-table">
+            <tbody>
+              <tr><td>READ / LOOP</td><td>보조 키 기준 검색이 크게 빨라짐</td></tr>
+              <tr><td>의도 표현</td><td>"이 필드로 자주 찾는다"가 선언에 드러남</td></tr>
+              <tr><td>어울리는 패턴</td><td><span class="viz-badge success">한 번 채우고 자주 읽기</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="viz-compare-after">
+        <span class="viz-compare-label">치르는 것 (유지 비용)</span>
+        <div class="viz-compare-body">
+          <table class="viz-table">
+            <tbody>
+              <tr><td>INSERT/DELETE/MODIFY</td><td>변경 때마다 보조 키 인덱스 갱신 비용 발생</td></tr>
+              <tr><td>메모리</td><td>키 인덱스만큼 추가 사용</td></tr>
+              <tr><td>안 어울리는 패턴</td><td><span class="viz-badge fail">잦은 추가/삭제/변경</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <p class="viz-note">Secondary Key는 공짜 가속기가 아니라 거래입니다. “가득 채워두고 빈번하게 읽기만 하는” 테이블에 선별적으로 적용해야 이득이 비용을 넘습니다.</p>
+  </div>
 </section>
 
 <section class="lesson-section">
@@ -139,7 +169,50 @@
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 보조 키 한 세트 완성하기 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>학생 테이블에 <code>WITH NON-UNIQUE SORTED KEY score_key COMPONENTS score</code> 형태의 Secondary Key를 선언합니다.</li>
+        <li><code>READ TABLE ... WITH KEY score_key COMPONENTS score = 90</code>으로 보조 키 검색을 실행합니다.</li>
+        <li>키 이름을 <code>by_score</code>로 바꾸고, 선언과 사용처를 함께 수정해 한 세트로 움직이는 것을 확인합니다.</li>
+        <li>이 테이블이 “자주 읽기만 하는지, 자주 바뀌는지”를 기준으로 보조 키가 적절한 선택이었는지 한 줄 평가를 적어봅니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> 보조 키 선언–사용–비용 평가까지 한 사이클을 돌고, “읽기 이득 vs 쓰기 비용” 거래를 설명할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSECONDARY_TABLE_KEY_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Secondary Table Key</a> - 보조 키의 공식 정의를 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREAD_TABLE.html" target="_blank" rel="noopener">SAP Help Portal: READ TABLE</a> - 키를 지정해 검색하는 READ TABLE 문법을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINTERNAL_TABLE_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Internal Table</a> - Primary/Secondary Key를 포함한 테이블 구성 요소를 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>Secondary Key를 많이 달수록 테이블 성능이 무조건 좋아질까요?</li>
+    <li>Secondary Key가 가장 효과적인 데이터 사용 패턴은 무엇인가요?</li>
+    <li>같은 점수의 학생이 여러 명일 수 있는 score 필드에는 UNIQUE와 NON-UNIQUE 중 무엇이 자연스러운가요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>아니요.</strong> 읽기는 빨라지지만 INSERT/DELETE/MODIFY 때마다 키 인덱스 갱신 비용이 쌓입니다. 변경이 잦은 테이블에서는 오히려 손해일 수 있습니다.</li>
+      <li><strong>“한 번 가득 채우고, 이후 빈번하게 읽기만 하는” 패턴</strong>입니다. 이 경우 유지 비용은 거의 없고 읽기 이득만 누립니다.</li>
+      <li><strong>NON-UNIQUE</strong>입니다. 같은 값이 여러 줄 존재할 수 있는 필드에 UNIQUE를 선언하면 적재 시 중복 오류가 납니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

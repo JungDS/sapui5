@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!-- 
+  [STANDARD_V3_STRUCTURE] 
+  이 파일은 고품질 교육용 웹페이지 표준 구조(v3)를 따릅니다.
+  AI 일괄 처리 및 스크립트 자동화의 대상이므로 코어 레이아웃과 클래스 명칭을 임의로 변경하지 마십시오.
+-->
+
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Hotspot Explorer | 학습 수단 샘플 v3</title>
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../assets/widgets.css">
+  <link rel="stylesheet" href="../assets/quiz.css">
+  <link rel="stylesheet" href="../assets/variants.css">
+</head>
+<body>
+  
+    <!-- [NEW] Design Variants Selector -->
+    <div class="variant-panel" data-page-id="visuals/image-hotspot-explorer">
+      <h4>🎨 Design Variants (시안 선택):</h4>
+      <div class="variant-options">
+        <label class="variant-chip-a"><input type="radio" name="variant_visuals_image-hotspot-explorer" value="A"> 🔵 A — 기본</label>
+        <label class="variant-chip-b"><input type="radio" name="variant_visuals_image-hotspot-explorer" value="B"> 🟡 B — Notion</label>
+        <label class="variant-chip-c"><input type="radio" name="variant_visuals_image-hotspot-explorer" value="C"> 🟣 C — 파스텔</label>
+      </div>
+      <button class="page-export-btn" data-page-id="visuals/image-hotspot-explorer">선택 JSON 복사</button>
+    </div>
+    
+  <header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v3</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+  
+  <main class="layout">
+    <section class="hero">
+      <p class="eyebrow">시각화 자료 · 이미지 핫스팟 탐색</p>
+      <h1>이미지 핫스팟 탐색</h1>
+      <p class="lead">복잡한 화면이나 다이어그램 위에 인터랙티브 마커(핫스팟)를 배치하여, 마우스를 올릴 때만 상세 설명이 나타나게 합니다. 이를 통해 초기 화면의 인지 부하를 줄이고 능동적인 탐색을 유도할 수 있습니다.</p>
+    </section>
+
+    <section class="section">
+      <p class="section-eyebrow">실제 적용 예시</p>
+      <h2>SAP GUI 개발 환경 구성 요소</h2>
+      <p class="section-sub">처음 ABAP 에디터를 접하는 학습자에게 화면의 각 요소가 어떤 역할을 하는지 핫스팟으로 안내합니다. 이미지를 살펴보고 파란색 점에 마우스를 올려보세요.</p>
+      
+      <article class="method-example spotlight">
+        <p class="ex-topic">예시 1 · ABAP Editor (SE38) 주요 기능</p>
+        <h3>화면 구성 요소 인터랙티브 탐색</h3>
+        
+        <div class="hotspot-explorer" style="position: relative; display: inline-block; max-width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; overflow: hidden;">
+          <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80" alt="Code Editor Background" style="display: block; width: 100%; filter: grayscale(80%) opacity(0.7);">
+          
+          <div class="hotspot" style="top:15%; left:25%;" data-title="Command Field (명령어 창)" data-desc="SAP GUI 상단의 흰색 입력칸입니다. '/nSE38'과 같이 T-Code를 입력하여 다른 화면으로 즉시 이동할 수 있습니다."></div>
+          <div class="hotspot" style="top:40%; left:80%;" data-title="Check (구문 검사) [Ctrl+F2]" data-desc="코드에 문법적 오류가 없는지 실행 전 미리 검사합니다. 에러가 날 경우 하단에 상태 메시지로 표시됩니다."></div>
+          <div class="hotspot" style="top:60%; left:20%;" data-title="Pretty Printer (자동 정렬) [Shift+F1]" data-desc="들여쓰기와 대소문자(예: 키워드는 대문자, 변수는 소문자)를 사전에 설정한 규칙에 따라 자동으로 예쁘게 맞춰줍니다."></div>
+          <div class="hotspot" style="top:30%; left:60%;" data-title="Activate (활성화) [Ctrl+F3]" data-desc="저장(Save)만으로는 코드가 시스템에 반영되지 않습니다. 반드시 활성화(Activate)를 거쳐야 실제 실행이 가능합니다."></div>
+          
+          <div class="hotspot-tooltip"></div>
+        </div>
+        
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 이미지 위에 텍스트를 무작정 박아넣으면 모바일 환경에서 글씨가 깨지거나 화면이 너무 복잡해집니다. 핫스팟 컴포넌트는 정보를 '선택적'으로 보여주어 정보의 밀도를 스마트하게 조절합니다.</div>
+      </article>
+      
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · ABAP Dictionary (SE11)</p>
+        <h3>데이터베이스 테이블 구조 탐색</h3>
+        <p>SE11에서 테이블을 생성할 때 필수적으로 입력해야 하는 영역을 확인합니다.</p>
+        
+        <div class="hotspot-explorer" style="position: relative; display: inline-block; max-width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; overflow: hidden; margin-top: 1rem;">
+          <img src="https://images.unsplash.com/photo-1544383835-bda2bc66a55d?auto=format&fit=crop&w=800&q=80" alt="Database Structure Background" style="display: block; width: 100%; filter: grayscale(80%) opacity(0.7);">
+          
+          <div class="hotspot" style="top:25%; left:40%;" data-title="Delivery Class" data-desc="A(Application table), C(Customizing table) 등 이 테이블의 목적과 유지보수 주체를 결정합니다."></div>
+          <div class="hotspot" style="top:55%; left:65%;" data-title="Data Element" data-desc="단순한 타입(INT, CHAR)을 넘어, 필드의 의미(Label)와 F1 도움말까지 정의하는 도메인의 확장 개념입니다."></div>
+          <div class="hotspot" style="top:80%; left:30%;" data-title="Technical Settings" data-desc="데이터 클래스(보관 주기)와 사이즈 카테고리(예상 데이터 용량)를 설정하여 DB 공간을 최적화합니다."></div>
+          
+          <div class="hotspot-tooltip"></div>
+        </div>
+      </article>
+
+    </section>
+  </main>
+  
+  <script src="../assets/core.js"></script>
+  <script src="../assets/widgets.js"></script>
+  <script src="../assets/quiz.js"></script>
+  <script src="../assets/sandbox.js"></script>
+  <script src="../assets/variants.js"></script>
+</body>
+</html>

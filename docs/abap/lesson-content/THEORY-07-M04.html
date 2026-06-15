@@ -86,7 +86,7 @@
          score <span class="abap-token-keyword">TYPE</span> i,
        <span class="abap-token-keyword">END</span> <span class="abap-token-keyword">OF</span> ty_student.
 
-<span class="abap-token-keyword">DATA</span>: lt_students <span class="abap-token-keyword">TYPE</span> STANDARD <span class="abap-token-keyword">TABLE</span> <span class="abap-token-keyword">OF</span> ty_student,
+<span class="abap-token-keyword">DATA</span>: lt_students <span class="abap-token-keyword">TYPE</span> <span class="abap-token-keyword">STANDARD TABLE OF</span> ty_student,
       ls_student  <span class="abap-token-keyword">TYPE</span> ty_student.
 
 ls_student-id = <span class="abap-token-string">'A03'</span>. ls_student-name = <span class="abap-token-string">'Sora'</span>. ls_student-score = <span class="abap-token-number">95</span>.
@@ -114,6 +114,45 @@ ls_student-id = <span class="abap-token-string">'A02'</span>. ls_student-name = 
   <p>
     처음 APPEND 순서는 A03, A01, A02입니다. 하지만 검색 전에 <code>SORT lt_students BY id.</code>를 실행했기 때문에 BINARY SEARCH가 기대하는 정렬 상태가 됩니다.
   </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">이진 탐색은 절반씩 줄여간다 — A06을 찾는 과정 (7줄 예시)</p>
+    <div class="viz-state-grid">
+      <div class="viz-state">
+        <span class="viz-state-label">1회차: 가운데(A04) 확인</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td>A01</td></tr>
+            <tr><td>A02</td></tr>
+            <tr><td>A03</td></tr>
+            <tr class="viz-current-row"><td>A04 ← 가운데. A06은 더 뒤쪽</td></tr>
+            <tr class="viz-highlight-row"><td>A05</td></tr>
+            <tr class="viz-highlight-row"><td>A06</td></tr>
+            <tr class="viz-highlight-row"><td>A07</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-state">
+        <span class="viz-state-label">2회차: 남은 절반의 가운데(A06) 확인</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td>A05</td></tr>
+            <tr class="viz-current-row"><td>A06 ← 일치! <span class="viz-badge success">2번 만에 발견</span></td></tr>
+            <tr><td>A07</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-state">
+        <span class="viz-state-label">비교: 순차 탐색이었다면</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td>A01 → A02 → A03 → A04 → A05 → A06</td></tr>
+            <tr><td><span class="viz-badge fail">6번 비교 필요</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="viz-note">정렬되어 있어야 “가운데보다 크다/작다”로 절반을 버릴 수 있습니다. 100만 줄이라도 약 20번의 비교면 충분한 이유입니다. 정렬이 안 되어 있으면 이 판단 자체가 틀려서 조용히 잘못된 결과가 나옵니다.</p>
+  </div>
 </section>
 
 <section class="lesson-section">
@@ -179,7 +218,50 @@ ls_student-id = <span class="abap-token-string">'A02'</span>. ls_student-name = 
 </section>
 
 <section class="lesson-section">
-  <h2>7. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: 정렬 전제 깨뜨려보기 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>예제 <code>zbinary_search_basic</code>을 실행해 A02 검색이 성공하는지 확인합니다.</li>
+        <li><code>SORT lt_students BY id.</code> 줄을 주석 처리하고 다시 실행해, 오류 없이도 검색이 실패하거나 엉뚱해질 수 있음을 관찰합니다.</li>
+        <li><code>SORT ... BY score.</code>(검색 기준과 다른 정렬)로 바꿔 실행하고 결과를 기록합니다.</li>
+        <li>학생을 7명으로 늘리고, 위 그림처럼 어떤 순서로 범위가 절반씩 줄어드는지 종이에 그려봅니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> “BINARY SEARCH 앞에는 같은 기준의 SORT가 반드시 있어야 하고, 어기면 오류 대신 잘못된 결과가 나온다”를 실험으로 확인하면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREAD_TABLE.html" target="_blank" rel="noopener">SAP Help Portal: READ TABLE</a> - BINARY SEARCH 옵션을 포함한 READ TABLE 공식 문법을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSORT_ITAB.html" target="_blank" rel="noopener">SAP Help Portal: SORT itab</a> - BINARY SEARCH의 전제가 되는 정렬 문법을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSORTED_TABLE_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Sorted Table</a> - 항상 정렬 상태를 유지해 이 문제를 구조적으로 막는 테이블 종류를 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>BINARY SEARCH 옵션을 붙이면 시스템이 알아서 테이블을 정렬해줄까요?</li>
+    <li>정렬되지 않은 테이블에 BINARY SEARCH를 쓰면 런타임 오류(덤프)가 날까요?</li>
+    <li>최신 ABAP에서 “SORT + BINARY SEARCH” 조합 대신 권장되는 구조적 대안은 무엇인가요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>아니요.</strong> BINARY SEARCH는 “이미 정렬되어 있다”는 가정 위에서 동작하는 옵션일 뿐, 정렬은 개발자가 SORT로 먼저 해야 합니다.</li>
+      <li><strong>아니요, 그래서 더 위험합니다.</strong> 오류 없이 실행되면서 데이터를 못 찾거나 엉뚱한 줄을 가져오는 논리 오류가 생깁니다.</li>
+      <li><strong>처음부터 정렬 상태를 유지하는 SORTED TABLE을 선언하는 것</strong>입니다(다음 Lesson 주제). 키 기반 접근이 잦다면 HASHED TABLE도 후보입니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

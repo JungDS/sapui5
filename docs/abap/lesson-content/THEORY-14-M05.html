@@ -46,11 +46,11 @@
 <span class="abap-token-keyword">MODULE</span> user_command_0100 INPUT.
   <span class="abap-token-keyword">CASE</span> ok_code.
     <span class="abap-token-keyword">WHEN</span> <span class="abap-token-string">'SAVE'</span>.
-      PERFORM save_data.        <span class="abap-token-comment">"저장 처리</span>
-    <span class="abap-token-keyword">WHEN</span> <span class="abap-token-string">'BACK'</span> OR <span class="abap-token-string">'EXIT'</span>.
-      LEAVE <span class="abap-token-keyword">TO</span> SCREEN <span class="abap-token-number">0</span>.        <span class="abap-token-comment">"화면 종료</span>
+      <span class="abap-token-keyword">PERFORM</span> save_data.        <span class="abap-token-comment">"저장 처리</span>
+    <span class="abap-token-keyword">WHEN</span> <span class="abap-token-string">'BACK'</span> <span class="abap-token-keyword">OR</span> <span class="abap-token-string">'EXIT'</span>.
+      LEAVE <span class="abap-token-keyword">TO</span> SCREEN <span class="abap-token-number">0</span>.        <span class="abap-token-comment">"화면 종료</span>
   <span class="abap-token-keyword">ENDCASE</span>.
-  <span class="abap-token-keyword">CLEAR</span> ok_code.               <span class="abap-token-comment">"다음을 위해 비워줌</span>
+  <span class="abap-token-keyword">CLEAR</span> ok_code.               <span class="abap-token-comment">"다음을 위해 비워줌</span>
 <span class="abap-token-keyword">ENDMODULE</span>.</code></pre>
   </div>
 </div>

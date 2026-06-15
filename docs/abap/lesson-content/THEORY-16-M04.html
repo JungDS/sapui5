@@ -34,10 +34,10 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" 인덱스로 꺼내기</span>
-<span class="abap-token-keyword">DATA</span>(ls_first) = lt_flights[ <span class="abap-token-number">1</span> ].           <span class="abap-token-comment">"첫 번째 줄</span>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" 인덱스로 꺼내기</span>
+<span class="abap-token-keyword">DATA</span>(ls_first) = lt_flights[ <span class="abap-token-number">1</span> ].           <span class="abap-token-comment">"첫 번째 줄</span>
 
-<span class="abap-token-comment">" 키(조건)로 꺼내기</span>
+<span class="abap-token-comment">" 키(조건)로 꺼내기</span>
 <span class="abap-token-keyword">DATA</span>(ls_lh) = lt_flights[ carrid = <span class="abap-token-string">'LH'</span> ].  <span class="abap-token-comment">"carrid가 LH인 줄</span></code></pre>
   </div>
 </div>
@@ -77,11 +77,11 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" 안전하게: 없으면 빈 구조(OPTIONAL) 또는 기본값(DEFAULT)</span>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">" 안전하게: 없으면 빈 구조(OPTIONAL) 또는 기본값(DEFAULT)</span>
 <span class="abap-token-keyword">DATA</span>(ls) = <span class="abap-token-keyword">VALUE</span> #( lt_flights[ carrid = <span class="abap-token-string">'XX'</span> ] OPTIONAL ).
-<span class="abap-token-comment">"→ 못 찾아도 예외 없이 초기값 구조를 돌려줌</span>
+<span class="abap-token-comment">"→ 못 찾아도 예외 없이 초기값 구조를 돌려줌</span>
 
-<span class="abap-token-comment">" 존재 여부만 확인</span>
+<span class="abap-token-comment">" 존재 여부만 확인</span>
 <span class="abap-token-keyword">IF</span> line_exists( lt_flights[ carrid = <span class="abap-token-string">'LH'</span> ] ).
   ...
 <span class="abap-token-keyword">ENDIF</span>.</code></pre>

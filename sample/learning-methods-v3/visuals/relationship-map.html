@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!-- 
+  [STANDARD_V3_STRUCTURE] 
+  이 파일은 고품질 교육용 웹페이지 표준 구조(v3)를 따릅니다.
+  AI 일괄 처리 및 스크립트 자동화의 대상이므로 코어 레이아웃과 클래스 명칭을 임의로 변경하지 마십시오.
+-->
+
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>관계도 | 학습 수단 샘플 v3</title>
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" href="../assets/widgets.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+<link rel="stylesheet" href="../assets/variants.css">
+</head>
+<body>
+
+    <!-- [NEW] Design Variants Selector -->
+    <div class="variant-panel" data-page-id="visuals/relationship-map">
+      <h4>🎨 Design Variants (시안 선택):</h4>
+      <div class="variant-options">
+        <label class="variant-chip-a"><input type="radio" name="viewport" value="A"> 🔵 A — 기본</label>
+        <label class="variant-chip-b"><input type="radio" name="viewport" value="B"> 🟡 B — Notion</label>
+        <label class="variant-chip-c"><input type="radio" name="viewport" value="C"> 🟣 C — 파스텔</label>
+      </div>
+      <button class="page-export-btn" data-page-id="visuals/relationship-map">선택 JSON 복사</button>
+    </div>
+    
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v3</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">시각화 · 관계도</p>
+    <h1>관계도 (Relationship Map)</h1>
+    <p class="lead">노드와 화살표로 객체 간 의존·참조·계층 관계를 보여줍니다. DDIC 구성 요소처럼 "A가 B를 참조하고 B가 C를 참조"하는 사슬을 한 줄로 펼쳐 한눈에 잡습니다. 좁은 화면에서는 세로로 쌓이고 화살표가 회전합니다.</p>
+    <div class="tags"><span class="tag">DDIC 적용</span><span class="tag">노드 + 화살표</span></div>
+  </section>
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 ABAP 관계에 적용</h2>
+    <div class="example-stack">
+      <article class="method-example spotlight">
+        <p class="ex-topic">예시 1 · DDIC</p>
+        <h3>Domain → Data Element → Field</h3>
+        <div class="viz-visual">
+          <p class="viz-visual-title">DDIC 타입 정의 사슬</p>
+          <div class="viz-relation">
+            <div class="viz-state"><span class="viz-state-label">Domain</span><div class="viz-compare-body">기술 속성(타입·길이·값 범위)<br><code>CHAR4</code></div></div>
+            <span class="viz-arrow">→</span>
+            <div class="viz-state"><span class="viz-state-label">Data Element</span><div class="viz-compare-body">의미·레이블 부여<br><code>BUKRS (회사코드)</code></div></div>
+            <span class="viz-arrow">→</span>
+            <div class="viz-state"><span class="viz-state-label">Table Field</span><div class="viz-compare-body">테이블 컬럼에서 사용<br><code>T001-BUKRS</code></div></div>
+          </div>
+          <p class="viz-note">기술 속성은 Domain이, 비즈니스 의미는 Data Element가, 실제 사용은 Field가 담당합니다.</p>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> "누가 무엇을 책임지는가"를 노드 라벨에 명시하면 단순 화살표보다 의미가 산다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · DDIC 관계</p>
+        <h3>Foreign Key → Check Table</h3>
+        <div class="viz-visual">
+          <p class="viz-visual-title">참조 무결성 검증 관계</p>
+          <div class="viz-relation">
+            <div class="viz-state"><span class="viz-state-label">입력 필드</span><div class="viz-compare-body"><code>ZEMP-BUKRS</code><br>사용자 입력값</div></div>
+            <span class="viz-arrow">→</span>
+            <div class="viz-state"><span class="viz-state-label">Foreign Key</span><div class="viz-compare-body">관계 정의<br>입력값 존재 여부 검증</div></div>
+            <span class="viz-arrow">→</span>
+            <div class="viz-state"><span class="viz-state-label">Check Table</span><div class="viz-compare-body"><code>T001</code><br>유효 회사코드 마스터</div></div>
+          </div>
+          <p class="viz-note">입력값이 Check Table에 존재할 때만 통과합니다(앱 서버 레벨 논리 검증).</p>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 검증 관계는 "입력 → 규칙 → 기준 데이터" 3노드로 그리면 무결성 흐름이 분명하다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · CDS</p>
+        <h3>View → Association → Target</h3>
+        <div class="viz-visual">
+          <p class="viz-visual-title">CDS 뷰 연결 관계</p>
+          <div class="viz-relation">
+            <div class="viz-state"><span class="viz-state-label">CDS View</span><div class="viz-compare-body"><code>ZI_Flight</code><br>비행 데이터</div></div>
+            <span class="viz-arrow">→</span>
+            <div class="viz-state"><span class="viz-state-label">Association</span><div class="viz-compare-body"><code>_Carrier</code><br>경로식으로 항해</div></div>
+            <span class="viz-arrow">→</span>
+            <div class="viz-state"><span class="viz-state-label">Target View</span><div class="viz-compare-body"><code>ZI_Carrier</code><br>항공사 마스터</div></div>
+          </div>
+          <p class="viz-note">Association은 JOIN을 미리 정의해 두고, 필요할 때 경로식(<code>_Carrier.Name</code>)으로 따라갑니다.</p>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> CDS Association은 "지연 JOIN"이라는 점을 노드 설명에 담아 일반 JOIN과 구분한다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/core.js"></script>
+<script src="../assets/widgets.js"></script>
+<script src="../assets/quiz.js"></script>
+<script src="../assets/sandbox.js"></script>
+<script src="../assets/variants.js"></script>
+</body>
+</html>

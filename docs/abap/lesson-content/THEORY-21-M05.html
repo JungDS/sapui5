@@ -18,7 +18,7 @@
 <section class="lesson-section">
   <h2>2. Behavior Pool 클래스 ✍️</h2>
   <p>
-    BDEF에 적은 <code>implementation in class zbp_i_travel</code>가 바로 그 구현을 담는 <span class="glossary-term" data-glossary="BehaviorPool">Behavior Pool</span> 클래스입니다. 여기에 검증·결정·액션 메서드를 구현합니다(THEORY-18의 OO ABAP 지식이 여기서 쓰입니다).
+    BDEF에 적은 <code>implementation in class zbp_i_travel</code>가 바로 그 구현을 담는 <span class="glossary-term" data-glossary="BehaviorPool">Behavior Pool</span> 클래스입니다. 여기에 검증·결정·액션 메서드를 구현합니다(Chapter 18의 OO ABAP 지식이 여기서 쓰입니다).
   </p>
   <!-- ABAP_MOCKUP_START -->
 <div class="abap-editor-mockup shiki-copy-wrapper">
@@ -44,10 +44,10 @@
 <span class="abap-token-keyword">ENDCLASS</span>.
 
 <span class="abap-token-keyword">CLASS</span> lhc_travel <span class="abap-token-keyword">IMPLEMENTATION</span>.
-  METHOD validate_dates.
+  <span class="abap-token-keyword">METHOD</span> validate_dates.
     <span class="abap-token-comment">" 키로 해당 건들을 읽어 검증</span>
-    <span class="abap-token-keyword">READ</span> ENTITIES <span class="abap-token-keyword">OF</span> zi_travel IN <span class="abap-token-keyword">LOCAL</span> <span class="abap-token-keyword">MODE</span>
-      <span class="abap-token-keyword">ENTITY</span> Travel <span class="abap-token-keyword">FIELDS</span> ( begin_date end_date ) <span class="abap-token-keyword">WITH</span> CORRESPONDING #( keys )
+    <span class="abap-token-keyword">READ</span> ENTITIES <span class="abap-token-keyword">OF</span> zi_travel <span class="abap-token-keyword">IN</span> <span class="abap-token-keyword">LOCAL</span> <span class="abap-token-keyword">MODE</span>
+      <span class="abap-token-keyword">ENTITY</span> Travel <span class="abap-token-keyword">FIELDS</span> ( begin_date end_date ) <span class="abap-token-keyword">WITH</span> <span class="abap-token-keyword">CORRESPONDING</span> #( keys )
       <span class="abap-token-keyword">RESULT</span> <span class="abap-token-keyword">DATA</span>(travels).
 
     <span class="abap-token-keyword">LOOP</span> <span class="abap-token-keyword">AT</span> travels <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">DATA</span>(travel).
@@ -56,7 +56,7 @@
         <span class="abap-token-comment">" 메시지도 함께 보고</span>
       <span class="abap-token-keyword">ENDIF</span>.
     <span class="abap-token-keyword">ENDLOOP</span>.
-  ENDMETHOD.
+  <span class="abap-token-keyword">ENDMETHOD</span>.
 <span class="abap-token-keyword">ENDCLASS</span>.</code></pre>
   </div>
 </div>
@@ -99,7 +99,52 @@
 </section>
 
 <section class="lesson-section">
-  <h2>6. 한눈에 정리 🏁</h2>
+  <h2>6. 미니 실습: Behavior Pool 호출 흐름 구분하기 🧪</h2>
+  <p>
+    이번 실습은 Behavior Implementation을 일반 ABAP 클래스처럼 직접 호출하는 습관과 RAP 프레임워크를 통한 호출 흐름을 구분하는 데 목적이 있습니다.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>BDEF에서 선언한 Validation, Determination, Action이 어느 구현 메서드와 이어질지 화살표로 그립니다.</li>
+        <li><span class="glossary-term" data-glossary="BehaviorImplementation">Behavior Implementation</span> 메서드를 외부 프로그램에서 직접 호출하지 않는 이유를 적습니다.</li>
+        <li>EML의 <code>READ ENTITIES</code>, <code>MODIFY ENTITIES</code>가 어느 위치에서 등장하는지 표시합니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> Behavior Pool은 RAP 프레임워크가 호출하는 구현 장소이며, 외부 소비자는 EML이나 서비스 경로를 사용한다는 점을 설명할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/docs/abap-cloud/abap-rap/creating-abap-classes-for-behavior-implementation" target="_blank" rel="noopener">SAP Help Portal: Behavior Implementation Classes</a> - Behavior Pool 클래스 생성과 템플릿 흐름을 확인합니다.</li>
+    <li><a href="https://help.sap.com/docs/abap-cloud/abap-rap/entity-manipulation-language-eml" target="_blank" rel="noopener">SAP Help Portal: Entity Manipulation Language</a> - RAP BO를 읽고 변경하는 표준 언어를 확인합니다.</li>
+    <li><a href="https://help.sap.com/docs/abap-cloud/abap-rap/multi-inline-developing-transactional-behavior" target="_blank" rel="noopener">SAP Help Portal: Developing Transactional Behavior</a> - 트랜잭션 Behavior 구현 흐름을 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>Behavior Pool 클래스는 일반 Utility 클래스처럼 외부에서 마음대로 호출해도 되나요?</li>
+    <li>EML은 RAP에서 어떤 역할을 하나요?</li>
+    <li><code>FAILED</code>, <code>REPORTED</code> 같은 응답 구조는 왜 중요한가요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>아닙니다.</strong> Behavior Pool은 RAP 프레임워크가 Business Object 동작을 실행하기 위해 호출하는 구현 장소입니다.</li>
+      <li><strong>Business Object 인스턴스를 타입 안전하게 읽고 변경하는 ABAP 언어 기능</strong>입니다.</li>
+      <li><strong>처리 실패와 메시지를 프레임워크와 UI로 돌려주는 표준 통로</strong>이기 때문입니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">
@@ -108,7 +153,7 @@
         <li><strong>Behavior Implementation(BIL)</strong>은 BDEF에서 선언한 동작의 실제 로직을 <strong>Behavior Pool</strong> 클래스에 구현합니다.</li>
         <li>키로 <strong>READ ENTITIES</strong>해 읽고, 실패는 <strong>failed/reported</strong>로 보고합니다.</li>
         <li>RAP 안에서는 직접 SELECT/UPDATE 대신 RAP 전용 구문을 씁니다.</li>
-        <li>THEORY-18의 OO ABAP 지식이 그대로 활용됩니다.</li>
+        <li>Chapter 18의 OO ABAP 지식이 그대로 활용됩니다.</li>
       </ul>
     </div>
   </div>

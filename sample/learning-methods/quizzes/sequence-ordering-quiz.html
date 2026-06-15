@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>순서 배열 퀴즈 - 학습 수단 샘플</title>
+<link rel="stylesheet" href="../assets/method-samples.css" />
+</head>
+<body>
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">Learning Method Samples</a><span>퀴즈</span></div></header>
+<main class="layout">
+<section class="hero">
+<p class="eyebrow">퀴즈</p>
+<h1>순서 배열 퀴즈</h1>
+<p class="lead">처리 단계 카드를 올바른 실행 순서로 배열하는 수단</p>
+<div class="tags"><span class="tag">순서 배열 퀴즈</span></div>
+</section>
+<section class="section">
+<h2>언제 쓰나</h2>
+<p>이 수단은 ABAP 개념을 텍스트로만 설명하면 실행 순서, 상태 변화, 실무 실수가 잘 보이지 않을 때 사용한다. 한 Lesson에는 핵심 수단 1개를 중심으로 두고, 실습이나 퀴즈와 연결하면 효과가 좋다.</p>
+</section>
+<section class="section">
+<h2>샘플 컴포넌트</h2>
+<div class="demo-surface"><div class="sequence"><ol><li>PARAMETERS로 입력을 받는다.</li><li>AT SELECTION-SCREEN에서 검증한다.</li><li>START-OF-SELECTION에서 조회한다.</li><li>결과를 출력한다.</li></ol></div></div>
+</section>
+<section class="section">
+<h2>ABAP 예시 초안 3개</h2>
+<div class="example-grid"><article class="method-example" data-example="1">
+<h3>1. Internal Table 처리에 순서 배열 퀴즈 적용</h3>
+<p><strong>상황</strong> 여러 주문 행이 추가되고 LOOP에서 현재 행을 읽는 흐름을 초심자가 놓치지 않도록 보여준다.</p>
+<p><strong>초안 방향</strong> 데이터가 추가되기 전, 추가된 후, LOOP 중인 현재 행을 같은 화면에서 비교한다.</p>
+<pre><code>DATA lt_orders TYPE STANDARD TABLE OF zorder_demo.
+APPEND VALUE #( order_id = &#x27;SO-1001&#x27; amount = 120000 status = &#x27;OPEN&#x27; ) TO lt_orders.
+LOOP AT lt_orders INTO DATA(ls_order).
+  WRITE: / ls_order-order_id, ls_order-status.
+ENDLOOP.</code></pre>
+</article><article class="method-example" data-example="2">
+<h3>2. Open SQL 조회에 순서 배열 퀴즈 적용</h3>
+<p><strong>상황</strong> WHERE 조건, 조회 결과 없음, sy-subrc 확인처럼 자주 실수하는 지점을 학습자가 직접 확인한다.</p>
+<p><strong>초안 방향</strong> 정상 조회와 빈 결과를 나란히 보여주고 어떤 메시지가 나오는지 연결한다.</p>
+<pre><code>SELECT FROM zemployee_demo
+       FIELDS employee_id, name, department
+       WHERE department = @p_dept
+       INTO TABLE @DATA(lt_employee).
+IF sy-subrc &lt;&gt; 0.
+  MESSAGE &#x27;조회 결과가 없습니다.&#x27; TYPE &#x27;S&#x27;.
+ENDIF.</code></pre>
+</article><article class="method-example" data-example="3">
+<h3>3. Selection Screen 검증에 순서 배열 퀴즈 적용</h3>
+<p><strong>상황</strong> 입력값 검증이 메인 로직보다 먼저 실행된다는 런타임 순서를 체감하게 한다.</p>
+<p><strong>초안 방향</strong> p_bukrs 입력 여부에 따라 AT SELECTION-SCREEN과 START-OF-SELECTION 로그가 달라진다.</p>
+<pre><code>PARAMETERS p_bukrs TYPE bukrs OBLIGATORY.
+AT SELECTION-SCREEN.
+  IF p_bukrs IS INITIAL.
+    MESSAGE &#x27;회사 코드를 입력하세요.&#x27; TYPE &#x27;E&#x27;.
+  ENDIF.
+START-OF-SELECTION.
+  WRITE: / &#x27;회사 코드:&#x27;, p_bukrs.</code></pre>
+</article></div>
+</section>
+<section class="section">
+<h2>AI 작성 메모</h2>
+<p>초안 생성 시 먼저 학습자가 무엇을 관찰하거나 조작해야 하는지 정하고, 그 결과를 정답 해설이나 완료 조건과 연결한다. 과한 장식보다 코드, 데이터, 결과의 대응 관계가 선명해야 한다.</p>
+</section>
+</main>
+<script src="../assets/method-samples.js"></script>
+
+</body>
+</html>

@@ -58,10 +58,10 @@
       1<br>2<br>3<br>4<br>5<br>6<br>7
     </div>
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">SELECT</span> carrid,
-       COUNT(*) <span class="abap-token-keyword">AS</span> cnt,
-       SUM( loccuram ) <span class="abap-token-keyword">AS</span> total
+       <span class="abap-token-keyword">COUNT</span>(*) <span class="abap-token-keyword">AS</span> cnt,
+       <span class="abap-token-keyword">SUM</span>( loccuram ) <span class="abap-token-keyword">AS</span> total
   <span class="abap-token-keyword">FROM</span> sbook
-  GROUP <span class="abap-token-keyword">BY</span> carrid
+  <span class="abap-token-keyword">GROUP BY</span> carrid
   <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt_summary).
 <span class="abap-token-comment">"→ 항공사(carrid)별로 예약 건수(cnt)와 매출 합계(total)가 한 줄씩</span></code></pre>
   </div>
@@ -77,7 +77,50 @@
 </section>
 
 <section class="lesson-section">
-  <h2>4. 정상 흐름과 오류 흐름 🔍</h2>
+  <h2>4. GROUP BY 집계 상태 변화 그리드 📊</h2>
+  <div class="viz-visual">
+    <p class="viz-visual-title">SBOOK → GROUP BY carrid → 집계 결과</p>
+    <div class="viz-state-grid">
+      <div class="viz-state">
+        <span class="viz-state-label">1. 원본 데이터 (SBOOK 예약 내역)</span>
+        <table class="viz-table">
+          <thead><tr><th>CARRID</th><th>BOOKID</th><th>LOCCURAM</th></tr></thead>
+          <tbody>
+            <tr><td>LH</td><td>001</td><td>500</td></tr>
+            <tr><td>LH</td><td>002</td><td>700</td></tr>
+            <tr><td>AA</td><td>010</td><td>300</td></tr>
+            <tr><td>AA</td><td>011</td><td>400</td></tr>
+            <tr><td>AA</td><td>012</td><td>600</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-state">
+        <span class="viz-state-label">2. GROUP BY carrid (같은 항공사끼리 묶기)</span>
+        <table class="viz-table">
+          <thead><tr><th>그룹</th><th>행 수</th><th>LOCCURAM 합</th></tr></thead>
+          <tbody>
+            <tr class="viz-highlight-row"><td>LH</td><td>2건</td><td>1,200</td></tr>
+            <tr><td>AA</td><td>3건</td><td>1,300</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-state">
+        <span class="viz-state-label">3. 집계 결과 (lt_summary)</span>
+        <table class="viz-table">
+          <thead><tr><th>CARRID</th><th>CNT</th><th>TOTAL</th></tr></thead>
+          <tbody>
+            <tr><td>LH</td><td>2</td><td>1,200</td></tr>
+            <tr><td>AA</td><td>3</td><td>1,300</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="viz-note">5개 행 → 2개 그룹 → 2행 요약. COUNT(*)는 건수, SUM(loccuram)은 합계를 각 그룹마다 계산합니다.</p>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름 🔍</h2>
   <ul>
     <li>✅ <strong>정상:</strong> GROUP BY 기준 필드 + 집계 함수만 SELECT에 적으면 그룹별 요약이 깔끔하게 나옵니다.</li>
     <li>❌ <strong>오류 1:</strong> GROUP BY에 없는 일반 필드를 SELECT에 적음 → "GROUP BY에 넣으라"는 오류.</li>
@@ -86,7 +129,7 @@
 </section>
 
 <section class="lesson-section">
-  <h2>5. 실무에서 조심할 점 🚨</h2>
+  <h2>6. 실무에서 조심할 점 🚨</h2>
   <div class="lesson-callout warn">
     <div class="lesson-callout-icon">⚠️</div>
     <div class="lesson-callout-content">
@@ -97,7 +140,50 @@
 </section>
 
 <section class="lesson-section">
-  <h2>6. 한눈에 정리 🏁</h2>
+  <h2>7. 미니 실습: GROUP BY 집계 직접 해보기 🧪</h2>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>SE38에서 예제를 실행해 <code>lt_summary</code>에 항공사별 건수(cnt)와 합계(total)가 들어오는지 디버거로 확인합니다.</li>
+        <li>GROUP BY에서 <code>carrid</code>를 빼고 <code>connid</code>만 남겨 SELECT에 일반 필드를 추가해 보면서 오류 메시지를 관찰합니다.</li>
+        <li><code>SUM</code> 대신 <code>MAX( loccuram )</code>와 <code>MIN( loccuram )</code>을 사용해 항공사별 최고/최저 금액을 구해봅니다.</li>
+        <li>GROUP BY carrid, connid로 기준 필드를 두 개로 늘렸을 때 결과 행 수가 어떻게 달라지는지 관찰합니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> "SELECT에 적은 일반 필드는 모두 GROUP BY에도 있어야 한다"는 황금 규칙을 직접 오류로 경험하고, 집계 함수 3종(COUNT/SUM/MAX)의 결과를 모두 확인했으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECT_GROUP_BY.html" target="_blank" rel="noopener">SAP Help Portal: SELECT … GROUP BY</a> — GROUP BY 절의 공식 문법과 예제를 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSQL_AGG_FUNCTIONS.html" target="_blank" rel="noopener">SAP Help Portal: SQL Aggregate Functions</a> — COUNT/SUM/AVG/MAX/MIN 집계 함수의 공식 명세를 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECT.html" target="_blank" rel="noopener">SAP Help Portal: SELECT 문 개요</a> — SELECT 전체 절(FROM/WHERE/GROUP BY/HAVING/ORDER BY)의 구조를 한눈에 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>GROUP BY 없이 <code>SELECT COUNT(*) FROM sbook</code>을 실행하면 몇 개의 행이 반환될까요?</li>
+    <li><code>SELECT carrid, connid, COUNT(*) FROM sbook GROUP BY carrid</code>는 오류가 날까요? 이유는?</li>
+    <li>ABAP에서 전체 데이터를 읽어 LOOP로 합계를 내는 것보다 GROUP BY가 왜 더 빠른가요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>1행만 반환됩니다.</strong> GROUP BY 없이 집계 함수만 쓰면 전체 테이블이 하나의 그룹으로 처리되어, 총 건수 하나가 담긴 행 1개만 나옵니다.</li>
+      <li><strong>오류가 납니다.</strong> <code>connid</code>는 GROUP BY에 없는 일반 필드인데 SELECT에 적었기 때문입니다. GROUP BY의 황금 규칙: SELECT에 쓰는 일반 필드(집계 함수 안에 없는 것)는 전부 GROUP BY에도 있어야 합니다.</li>
+      <li><strong>DB 서버가 데이터를 직접 처리하기 때문입니다.</strong> GROUP BY는 DB 안에서 그룹 묶기·계산을 완료하고 결과만 ABAP으로 보내므로, 수십만 건 전체를 네트워크로 전송해 ABAP에서 계산하는 것보다 훨씬 빠르고 메모리도 적게 씁니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

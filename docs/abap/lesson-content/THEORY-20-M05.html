@@ -93,7 +93,52 @@
 </section>
 
 <section class="lesson-section">
-  <h2>6. 한눈에 정리 🏁</h2>
+  <h2>6. 미니 실습: UI Annotation 분리 판단하기 🧪</h2>
+  <p>
+    이번 실습은 Metadata Extension을 “파일 하나 더 만드는 일”이 아니라, 데이터 모델과 소비 화면의 변경 속도를 분리하는 설계 도구로 보는 연습입니다.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>기존 CDS 안의 Annotation을 데이터 의미, 권한/기술, UI 표시로 나눕니다.</li>
+        <li>UI 표시 Annotation 중 Metadata Extension으로 옮기면 좋은 후보를 표시하고, 대상 CDS에 <code>@Metadata.allowExtensions: true</code>가 필요한지 확인합니다.</li>
+        <li>Metadata Extension이 적용되려면 대상 CDS 이름과 Annotation 위치가 왜 정확해야 하는지 적습니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> 데이터 모델을 바꾸지 않고 화면 표시 메타데이터만 조정하는 상황을 예로 들 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 공식 문서로 더 확인하기 🔗</h2>
+  <ul>
+    <li><a href="https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENCDS_META_DATA_EXTENSIONS.html" target="_blank" rel="noopener">SAP Help Portal: CDS Metadata Extensions</a> - MDE가 CDS 엔티티 밖에서 Annotation을 추가하는 방식을 확인합니다.</li>
+    <li><a href="https://help.sap.com/docs/abap-cloud/abap-development-tools-user-guide/metadata-extensions" target="_blank" rel="noopener">SAP Help Portal: Metadata Extensions in ADT</a> - ADT에서 Metadata Extension 객체를 다루는 흐름을 확인합니다.</li>
+    <li><a href="https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENCDS_ANNOTATIONS_SCOPES.html" target="_blank" rel="noopener">SAP Help Portal: Scopes for Annotations</a> - Annotation의 적용 범위와 덮어쓰기 가능성을 확인합니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 확인 퀴즈와 정답/해설 ✅</h2>
+  <ol>
+    <li>Metadata Extension을 쓰는 가장 큰 설계상 이점은 무엇인가요?</li>
+    <li>모든 Annotation을 무조건 MDE로 옮기는 것이 좋은가요?</li>
+    <li>MDE를 만들었는데 화면이 바뀌지 않을 때 먼저 확인할 것은 무엇인가요?</li>
+  </ol>
+  <details>
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>데이터 모델과 소비 화면 메타데이터를 분리</strong>해 변경 영향을 줄이는 것입니다.</li>
+      <li><strong>아닙니다.</strong> 데이터 의미나 기술적으로 모델 자체에 가까운 Annotation은 DDL에 남기는 편이 더 명확할 수 있습니다.</li>
+      <li><strong>대상 CDS 엔티티 이름, Annotation 위치, 적용 범위, 확장 허용 Annotation, 활성화 여부</strong>를 먼저 확인합니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 한눈에 정리 🏁</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">

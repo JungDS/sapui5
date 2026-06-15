@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>실무 체크리스트 | 학습 수단 샘플 v2</title>
+<link rel="stylesheet" href="../assets/method-samples.css">
+</head>
+<body>
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v2</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">상호작용 · 실무 체크리스트</p>
+    <h1>실무 체크리스트</h1>
+    <p class="lead">PR 전 점검표처럼, 코드를 제출하기 전 확인할 항목을 체크박스로 제공합니다. 체크할수록 진행률이 갱신되어 "빠짐없이 확인했는지"를 스스로 점검하게 합니다.</p>
+    <div class="tags"><span class="tag origin">원본 주제: Chapter 13 (이벤트 책임 분리)</span><span class="tag">진행률 표시</span></div>
+  </section>
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 점검 영역에 적용</h2>
+    <p class="section-sub">예시 1은 Chapter 13 이벤트 Lesson의 핵심 원칙을 체크리스트로 만든 것입니다.</p>
+    <div class="example-stack">
+      <article class="method-example spotlight">
+        <p class="ex-topic origin">예시 1 · Report Event (Chapter 13 주제)</p>
+        <h3>리포트 이벤트 코드 리뷰 체크리스트</h3>
+        <div>
+          <div class="checklist">
+            <label><input type="checkbox"> 기본값 세팅을 INITIALIZATION에 두었는가? (START-OF-SELECTION 아님)</label>
+            <label><input type="checkbox"> 입력 검증을 AT SELECTION-SCREEN에서 하는가?</label>
+            <label><input type="checkbox"> 조회/가공은 START-OF-SELECTION, 출력은 END-OF-SELECTION으로 분리했는가?</label>
+            <label><input type="checkbox"> 코드 블록을 실행 생명주기 순서대로 정렬했는가?</label>
+            <label><input type="checkbox"> 조회 0건일 때 안내 메시지를 준비했는가?</label>
+          </div>
+          <div class="checklist-progress"></div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 체크리스트 항목은 "동작/위치"를 검증하는 질문형으로 적어, 코드 리뷰 기준으로 그대로 재사용한다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · Open SQL</p>
+        <h3>SQL 성능 체크리스트</h3>
+        <div>
+          <div class="checklist">
+            <label><input type="checkbox"> LOOP 안에서 SELECT를 돌리지 않는가?</label>
+            <label><input type="checkbox"> 필요한 컬럼만 SELECT 하는가? (<code>SELECT *</code> 회피)</label>
+            <label><input type="checkbox"> Strict 모드 호스트 변수에 <code>@</code>를 붙였는가?</label>
+            <label><input type="checkbox"> FOR ALL ENTRIES 전에 드라이버 테이블 공백을 확인했는가?</label>
+            <label><input type="checkbox"> 적절한 인덱스를 타도록 WHERE를 구성했는가?</label>
+          </div>
+          <div class="checklist-progress"></div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 성능 체크리스트엔 "회피해야 할 패턴"을 부정형 질문(~하지 않는가?)으로 넣어 안티패턴을 점검한다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · ALV</p>
+        <h3>ALV 출력 체크리스트</h3>
+        <div>
+          <div class="checklist">
+            <label><input type="checkbox"> factory → display 순서를 지켰는가?</label>
+            <label><input type="checkbox"> 표준 툴바(정렬/필터/합계)를 set_all로 켰는가?</label>
+            <label><input type="checkbox"> 결과 0건일 때 ALV 대신 안내로 분기했는가?</label>
+            <label><input type="checkbox"> factory 예외(cx_salv_msg)를 TRY/CATCH로 처리했는가?</label>
+          </div>
+          <div class="checklist-progress"></div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> API 사용 체크리스트엔 "기본적으로 꺼져 있는 것(툴바)"과 "예외 처리"를 항상 포함한다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/method-samples.js"></script>
+</body>
+</html>
