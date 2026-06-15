@@ -64,7 +64,7 @@
             feedback.className = "puzzle-feedback error";
             feedback.innerHTML = quiz.getAttribute("data-error") || "❌ <strong>아직 아니에요.</strong> 순서를 다시 생각해 보세요.";
           }
-        } else { feedback.style.display = "none"; }
+        } else { feedback.className = "puzzle-feedback"; }
       }
     });
   }
