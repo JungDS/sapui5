@@ -1,88 +1,73 @@
-<!-- lesson-content/THEORY-02-M02.html -->
+<!-- lesson-content/THEORY-02-M02.html | 최종수정 2026-06-16 01:40 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
   <div class="lesson-callout-content">
     <h4>학습 목표</h4>
-    <p>지난 Lesson에서 ABAP 프로그램의 최소 구조를 만들었습니다. 이번에는 프로그램 안에서 값을 담는 <span class="glossary-term" data-glossary="DATAStatement">DATA</span>, 바뀌지 않는 값을 고정하는 <span class="glossary-term" data-glossary="CONSTANTSStatement">CONSTANTS</span>, 재사용할 타입 이름을 만드는 <span class="glossary-term" data-glossary="TYPESStatement">TYPES</span>를 배웁니다. 함께 <span class="glossary-term" data-glossary="ElementaryType">Elementary Type</span>도 가볍게 익힙니다.</p>
+    <p>이번 Lesson에서는 프로그램 안에서 값을 다루는 세 가지 선언을 배웁니다. 값을 담는 변수 <span class="glossary-term" data-glossary="DATA">DATA</span>, 바뀌지 않는 값 <span class="glossary-term" data-glossary="CONSTANTS">CONSTANTS</span>, 그리고 값의 모양을 정의해 재사용하는 <span class="glossary-term" data-glossary="TYPES">TYPES</span>입니다. 가장 기본이 되는 <span class="glossary-term" data-glossary="ElementaryType">Elementary Type</span>도 함께 정리합니다.</p>
   </div>
 </div>
 
 <section class="lesson-section">
-  <h2>1. 지난 시간 연결: 출력하려면 먼저 담을 곳이 필요하다 🥤</h2>
+  <h2>1. 지난 Lesson 연결: 프로그램을 만들었으니 이제 값을 담아 보자</h2>
   <p>
-    이전 Lesson에서는 <code>WRITE 'Hello ABAP!'.</code>처럼 글자를 바로 출력했습니다. 하지만 실제 프로그램은 대부분 값을 잠깐 담아두고, 계산하고, 조건에 따라 바꾸고, 마지막에 출력합니다. 이때 필요한 것이 변수와 상수입니다.
+    지난 Lesson에서 <code>REPORT</code>로 프로그램을 열고 <code>WRITE</code>로 한 줄을 출력해 봤습니다. 그런데 진짜 업무 프로그램은 고정된 문장만 찍지 않습니다. “주문 수량”, “단가”, “오늘 날짜” 같은 값을 어딘가에 담아 두고 계산하고 비교해야 합니다.
   </p>
   <p>
-    아주 쉽게 말하면, <strong>DATA는 값을 담는 컵</strong>, <strong>CONSTANTS는 라벨이 붙은 고정 안내문</strong>, <strong>TYPES는 컵 모양의 이름표</strong>입니다. 세 가지를 구분하면 ABAP 선언문이 훨씬 덜 무섭게 보입니다.
+    그 “담아 두는 자리”를 만드는 것이 변수 선언입니다. ABAP에서는 <code>DATA</code>, <code>CONSTANTS</code>, <code>TYPES</code> 세 가지로 값과 모양을 다룹니다. 오늘은 이 셋을 구분하는 감을 잡는 것이 목표입니다.
   </p>
-</section>
-
-<section class="lesson-section">
-  <h2>2. DATA: 값이 바뀔 수 있는 변수 선언 📦</h2>
-  <p>
-    <span class="glossary-term" data-glossary="DATAStatement">DATA</span>는 프로그램 실행 중 값을 담아두는 변수를 만듭니다. 변수는 실행 중에 값이 바뀔 수 있습니다.
-  </p>
-  <!-- ABAP_MOCKUP_START -->
-<div class="abap-editor-mockup shiki-copy-wrapper">
-  <div class="abap-editor-header">
-    <div class="abap-editor-mac-buttons">
-      <span class="abap-editor-mac-btn red"></span>
-      <span class="abap-editor-mac-btn yellow"></span>
-      <span class="abap-editor-mac-btn green"></span>
-    </div>
-    <div class="abap-editor-title">ABAP</div>
-    <div class="abap-editor-actions">
-      <button class="shiki-copy-button" data-copied="false">Copy</button>
-    </div>
-  </div>
-  <div class="abap-editor-body">
-    <div class="abap-editor-line-numbers">
-      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9
-    </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zbasic_data.
-
-<span class="abap-token-keyword">DATA</span> gv_name <span class="abap-token-keyword">TYPE</span> string.
-<span class="abap-token-keyword">DATA</span> gv_age  <span class="abap-token-keyword">TYPE</span> i.
-
-gv_name = <span class="abap-token-string">'JUN'</span>.
-gv_age  = <span class="abap-token-number">20</span>.
-
-<span class="abap-token-keyword">WRITE</span>: / gv_name, gv_age.</code></pre>
-  </div>
-</div>
-<!-- ABAP_MOCKUP_END -->
-  <ul>
-    <li><code>gv_name</code>은 문자열을 담는 변수입니다.</li>
-    <li><code>gv_age</code>는 정수를 담는 변수입니다.</li>
-    <li><code>TYPE string</code>, <code>TYPE i</code>처럼 변수 뒤에 어떤 종류의 값을 담을지 적습니다.</li>
-  </ul>
   <blockquote>
-    초심자 체크: 변수 이름은 아무렇게나 짓지 않습니다. 실무에서는 전역 변수, 지역 변수, 상수 등에 대한 네이밍 규칙이 따로 있는 경우가 많습니다.
+    핵심 질문: “이건 <strong>바뀌는 값</strong>인가, <strong>고정된 값</strong>인가, 아니면 값이 아니라 <strong>모양(틀)</strong>인가?”
   </blockquote>
 </section>
 
 <section class="lesson-section">
-  <h2>3. Elementary Type: 가장 기본적인 값의 종류 🧱</h2>
+  <h2>2. 세 선언의 역할을 한눈에 구분하기</h2>
   <p>
-    <span class="glossary-term" data-glossary="ElementaryType">Elementary Type</span>은 더 쪼개지지 않는 기본 타입입니다. 지금은 모든 타입을 외울 필요 없습니다. 자주 만나는 것만 먼저 잡으면 됩니다.
+    초심자가 가장 먼저 헷갈리는 지점이 “변수와 타입이 뭐가 다른가”입니다. 아래 3분류로 나눠 보면, 지금 내가 쓰는 것이 값인지 모양인지가 덜 헷갈립니다.
   </p>
-  <ul>
-    <li><code>string</code>: 길이가 유동적인 문자열입니다.</li>
-    <li><code>c</code>: 고정 길이 문자입니다. 예: <code>TYPE c LENGTH 3</code></li>
-    <li><code>i</code>: 정수입니다.</li>
-    <li><code>p</code>: 소수 자릿수를 가진 packed number입니다. 금액이나 수량 계산에서 자주 보게 됩니다.</li>
-    <li><code>d</code>: 날짜 타입입니다. 내부적으로 <code>YYYYMMDD</code> 형태를 다룹니다.</li>
-  </ul>
-  <p>
-    DDIC의 Domain에서 데이터 타입과 길이를 정했던 것처럼, ABAP 코드 안에서도 변수의 타입을 정합니다. DDIC는 시스템 전체에서 재사용되는 설계도에 가깝고, 여기의 DATA 선언은 프로그램 안에서 쓰는 작업 도구에 가깝습니다.
-  </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">DATA · CONSTANTS · TYPES 3분류</p>
+    <div class="viz-state-grid">
+      <div class="viz-state">
+        <span class="viz-state-label">DATA</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td><strong>무엇</strong></td><td>값을 담는 변수(상자)</td></tr>
+            <tr><td><strong>바뀌나?</strong></td><td>실행 중 자유롭게 변경 가능</td></tr>
+            <tr><td><strong>예</strong></td><td>주문 수량, 합계</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-state">
+        <span class="viz-state-label">CONSTANTS</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td><strong>무엇</strong></td><td>고정된 값(팻말)</td></tr>
+            <tr><td><strong>바뀌나?</strong></td><td>한 번 정하면 변경 불가</td></tr>
+            <tr><td><strong>예</strong></td><td>최대 재시도 3회, 원주율</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-state">
+        <span class="viz-state-label">TYPES</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td><strong>무엇</strong></td><td>값의 모양(틀) 정의</td></tr>
+            <tr><td><strong>바뀌나?</strong></td><td>값이 아니라 정의 — 재사용</td></tr>
+            <tr><td><strong>예</strong></td><td>“수량 타입”을 만들어 여러 변수가 사용</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="viz-note">한 문장으로: <strong>DATA는 바뀌는 상자, CONSTANTS는 고정 팻말, TYPES는 상자를 찍는 틀</strong>입니다.</p>
+  </div>
 </section>
 
 <section class="lesson-section">
-  <h2>4. CONSTANTS: 절대 바뀌면 안 되는 값 고정하기 🔒</h2>
+  <h2>3. DATA와 CONSTANTS를 코드로 써 보기</h2>
   <p>
-    <span class="glossary-term" data-glossary="CONSTANTSStatement">CONSTANTS</span>는 실행 중에 바뀌지 않는 값을 선언합니다. 예를 들어 최대 재시도 횟수, 기본 통화, 고정 상태 코드처럼 프로그램 전체에서 같은 의미로 쓰는 값에 어울립니다.
+    변수는 <code>DATA 이름 TYPE 타입.</code> 형태로 선언합니다. 상수는 <code>CONSTANTS 이름 TYPE 타입 VALUE 초기값.</code>처럼 <strong>VALUE로 값을 반드시 지정</strong>합니다.
   </p>
   <!-- ABAP_MOCKUP_START -->
 <div class="abap-editor-mockup shiki-copy-wrapper">
@@ -99,30 +84,64 @@ gv_age  = <span class="abap-token-number">20</span>.
   </div>
   <div class="abap-editor-body">
     <div class="abap-editor-line-numbers">
-      1<br>2
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">CONSTANTS</span> gc_max_retry <span class="abap-token-keyword">TYPE</span> i <span class="abap-token-keyword">VALUE</span> <span class="abap-token-number">3</span>.
-<span class="abap-token-keyword">CONSTANTS</span> gc_currency  <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> <span class="abap-token-number">3</span> <span class="abap-token-keyword">VALUE</span> <span class="abap-token-string">'KRW'</span>.</code></pre>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zdata_demo.
+
+<span class="abap-token-keyword">DATA</span> lv_qty   <span class="abap-token-keyword">TYPE</span> i.                  <span class="abap-token-comment">" 주문 수량 (정수, 바뀔 수 있음)</span>
+<span class="abap-token-keyword">DATA</span> lv_name  <span class="abap-token-keyword">TYPE</span> string.             <span class="abap-token-comment">" 고객 이름 (가변 문자열)</span>
+
+<span class="abap-token-keyword">CONSTANTS</span> lc_max_retry <span class="abap-token-keyword">TYPE</span> i <span class="abap-token-keyword">VALUE</span> <span class="abap-token-number">3</span>. <span class="abap-token-comment">" 최대 재시도 횟수 (고정)</span>
+
+lv_qty  = <span class="abap-token-number">10</span>.
+lv_name = <span class="abap-token-string">'ABAP'</span>.
+
+<span class="abap-token-keyword">WRITE</span>: / lv_name, lv_qty, lc_max_retry.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
-  <ul>
-    <li><code>gc_max_retry</code>는 최대 재시도 횟수입니다. 실행 중 값을 바꾸면 안 됩니다.</li>
-    <li><code>gc_currency</code>는 기본 통화 코드입니다. 길이 3자리 문자로 고정했습니다.</li>
-  </ul>
-  <div class="lesson-callout warn">
-    <div class="lesson-callout-icon">⚠️</div>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
     <div class="lesson-callout-content">
-      <h4>마법 숫자를 줄이세요</h4>
-      <p>코드 중간에 <code>3</code>, <code>'KRW'</code> 같은 값이 이유 없이 튀어나오면 나중에 의미를 찾기 어렵습니다. 이름 있는 상수로 바꾸면 “왜 이 값이 쓰였는지”가 훨씬 잘 보입니다.</p>
+      <h4>대입과 선언은 다릅니다</h4>
+      <p><code>DATA</code>는 “자리를 만든다”, <code>=</code>는 “그 자리에 값을 넣는다”입니다. <code>CONSTANTS</code>는 선언과 동시에 <code>VALUE</code>로 값을 고정하므로, 뒤에서 <code>lc_max_retry = 5.</code>처럼 다시 넣으려 하면 문법 오류가 납니다.</p>
     </div>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>5. TYPES: 타입 모양에 이름 붙이기 🏷️</h2>
+  <h2>4. Elementary Type: 더 못 쪼개는 기본 타입들</h2>
   <p>
-    <span class="glossary-term" data-glossary="TYPESStatement">TYPES</span>는 값을 담는 변수를 만드는 것이 아니라, <strong>타입의 별명</strong>을 만듭니다. 같은 타입 모양을 여러 번 써야 할 때 유용합니다.
+    <span class="glossary-term" data-glossary="ElementaryType">Elementary Type</span>은 더 쪼갤 수 없는 단일 값 타입입니다. 처음에는 아래 7개만 알아도 충분합니다. 자주 쓰는 것부터 익히세요.
+  </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">자주 쓰는 기본 타입 치트시트</p>
+    <table class="viz-table">
+      <thead>
+        <tr><th>타입</th><th>의미</th><th>특징</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>I</code></td><td>정수</td><td>수량, 카운터에 사용</td></tr>
+        <tr><td><code>P</code></td><td>압축 소수(Packed)</td><td>금액·단가 등 소수 계산. <code>DECIMALS</code> 지정</td></tr>
+        <tr><td><code>STRING</code></td><td>가변 문자열</td><td>길이 고정 없이 늘어남</td></tr>
+        <tr><td><code>C</code></td><td>고정 길이 문자</td><td>길이를 미리 지정(<code>LENGTH</code>)</td></tr>
+        <tr><td><code>N</code></td><td>숫자형 문자</td><td>우편번호·코드처럼 0으로 시작 보존</td></tr>
+        <tr><td><code>D</code></td><td>날짜</td><td>8자리 <code>YYYYMMDD</code></td></tr>
+        <tr><td><code>T</code></td><td>시간</td><td>6자리 <code>HHMMSS</code></td></tr>
+      </tbody>
+    </table>
+    <p class="viz-note">금액에 <code>I</code>(정수)를 쓰면 소수점이 잘립니다. 단가·금액은 보통 <code>P DECIMALS n</code>을 씁니다.</p>
+  </div>
+  <details class="foldable">
+    <summary>C(고정 문자)와 STRING(가변 문자)은 뭐가 다를까?</summary>
+    <p><code>C LENGTH 10</code>은 항상 10칸을 차지하고 남는 칸은 공백으로 채웁니다. <code>STRING</code>은 담은 내용만큼만 길이를 가집니다. 길이가 정해진 코드값에는 <code>C</code>/<code>N</code>, 길이를 모르는 설명·이름에는 <code>STRING</code>이 잘 맞습니다.</p>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>5. TYPES: 모양을 한 번 정의해 재사용하기</h2>
+  <p>
+    같은 “수량” 개념을 여러 변수가 쓴다면, 매번 <code>TYPE i</code>를 반복하는 대신 <code>TYPES</code>로 “수량 타입”을 한 번 정의해 재사용할 수 있습니다. 규격이 바뀌면 정의 한 곳만 고치면 됩니다.
   </p>
   <!-- ABAP_MOCKUP_START -->
 <div class="abap-editor-mockup shiki-copy-wrapper">
@@ -139,99 +158,169 @@ gv_age  = <span class="abap-token-number">20</span>.
   </div>
   <div class="abap-editor-body">
     <div class="abap-editor-line-numbers">
-      1<br>2<br>3<br>4
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">TYPES</span> ty_carrid <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> <span class="abap-token-number">3</span>.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> ztypes_demo.
 
-<span class="abap-token-keyword">DATA</span> gv_from_carrier <span class="abap-token-keyword">TYPE</span> ty_carrid.
-<span class="abap-token-keyword">DATA</span> gv_to_carrier   <span class="abap-token-keyword">TYPE</span> ty_carrid.</code></pre>
+<span class="abap-token-keyword">TYPES</span> ty_qty <span class="abap-token-keyword">TYPE</span> i.        <span class="abap-token-comment">" '수량'이라는 모양을 정의 (값 아님)</span>
+
+<span class="abap-token-keyword">DATA</span> lv_order_qty <span class="abap-token-keyword">TYPE</span> ty_qty.   <span class="abap-token-comment">" 정의한 타입을 재사용</span>
+<span class="abap-token-keyword">DATA</span> lv_stock_qty <span class="abap-token-keyword">TYPE</span> ty_qty.
+
+lv_order_qty = <span class="abap-token-number">5</span>.
+lv_stock_qty = <span class="abap-token-number">20</span>.
+
+<span class="abap-token-keyword">WRITE</span>: / lv_order_qty, lv_stock_qty.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
-  <p>
-    여기서 <code>ty_carrid</code> 자체가 값을 담는 변수는 아닙니다. “3자리 문자 타입을 앞으로 ty_carrid라고 부르자”라는 약속입니다. 그 약속을 사용해 <code>gv_from_carrier</code>, <code>gv_to_carrier</code> 변수를 같은 모양으로 만들 수 있습니다.
-  </p>
-  <blockquote>
-    TYPES는 DDIC의 Structure나 Domain처럼 재사용의 감각을 코드 안으로 가져오는 문법입니다. 단, 이 Lesson에서는 가장 단순한 Elementary Type 별명까지만 다룹니다.
-  </blockquote>
+  <div class="viz-visual">
+    <p class="viz-visual-title">TYPES는 틀, DATA는 그 틀로 찍은 상자</p>
+    <div class="viz-relation">
+      <div class="viz-concept">
+        <span class="viz-concept-label">TYPES</span>
+        <table class="viz-table"><tbody>
+          <tr><td><code>ty_qty</code></td></tr>
+          <tr><td>모양 정의(틀)</td></tr>
+        </tbody></table>
+      </div>
+      <div class="viz-arrow">→</div>
+      <div class="viz-concept">
+        <span class="viz-concept-label">DATA</span>
+        <table class="viz-table"><tbody>
+          <tr><td><code>lv_order_qty</code>, <code>lv_stock_qty</code></td></tr>
+          <tr><td>같은 틀로 만든 변수들</td></tr>
+        </tbody></table>
+      </div>
+      <div class="viz-arrow">→</div>
+      <div class="viz-concept">
+        <span class="viz-concept-label">값 대입</span>
+        <table class="viz-table"><tbody>
+          <tr><td><code>5</code>, <code>20</code></td></tr>
+          <tr><td>각 변수에 담긴 값</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+    <p class="viz-note">Chapter 1의 Data Element가 “DDIC에 만든 공용 타입”이라면, <code>TYPES</code>는 “이 프로그램 안에서 쓰는 지역 타입”에 가깝습니다.</p>
+  </div>
 </section>
 
 <section class="lesson-section">
-  <h2>6. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
-  <ul>
-    <li>✅ <strong>정상 흐름:</strong> 변수 타입을 정하고, 타입에 맞는 값을 넣고, <code>WRITE</code>로 출력합니다.</li>
-    <li>❌ <strong>타입 불일치:</strong> 정수 변수에 문자 값을 넣으려 하면 변환 오류나 예기치 않은 결과가 날 수 있습니다.</li>
-    <li>❌ <strong>상수 변경 시도:</strong> <code>CONSTANTS</code>로 선언한 값은 실행 중 다시 대입할 수 없습니다.</li>
-    <li>❌ <strong>선행 주제 확장:</strong> 복잡한 구조 타입과 내부 테이블 타입은 나중에 별도 Lesson에서 다룹니다. 지금은 기본 선언 감각을 먼저 잡습니다.</li>
-  </ul>
-  <p>
-    미니 실습으로는 이름, 나이, 기본 통화 상수를 선언한 뒤 출력해보면 충분합니다. 입력값이 아직 없으므로 코드 안에서 값을 직접 대입하고 결과를 확인합니다.
-  </p>
+  <h2>6. 정상 흐름과 오류 흐름을 함께 보기</h2>
+  <div class="viz-visual event-tabs-container is-compact">
+    <p class="viz-visual-title">자주 만나는 선언 관련 오류</p>
+    <div class="event-tab-buttons">
+      <button class="tab-btn active" data-tab="m02-tab-1">✅ 정상</button>
+      <button class="tab-btn" data-tab="m02-tab-2">❌ 상수 재대입</button>
+      <button class="tab-btn" data-tab="m02-tab-3">❌ 타입 불일치</button>
+    </div>
+    <div class="tabs-content">
+      <div class="event-tab-panel active" id="m02-tab-1">
+        <div class="viz-flow">
+          <div class="viz-flow-step"><strong>선언</strong><span><code>DATA lv_qty TYPE i.</code></span></div>
+          <div class="viz-flow-step"><strong>대입</strong><span><code>lv_qty = 10.</code></span></div>
+          <div class="viz-flow-step"><strong>활성화·실행</strong><span><span class="viz-badge success">OK</span> 값 출력</span></div>
+        </div>
+      </div>
+      <div class="event-tab-panel" id="m02-tab-2">
+        <div class="viz-flow">
+          <div class="viz-flow-step"><strong>선언</strong><span><code>CONSTANTS lc_max TYPE i VALUE 3.</code></span></div>
+          <div class="viz-flow-step"><strong>재대입 시도</strong><span><code>lc_max = 5.</code></span></div>
+          <div class="viz-flow-step"><strong>활성화</strong><span><span class="viz-badge fail">실패</span> 상수에는 값을 다시 넣을 수 없음</span></div>
+        </div>
+      </div>
+      <div class="event-tab-panel" id="m02-tab-3">
+        <div class="viz-flow">
+          <div class="viz-flow-step"><strong>선언</strong><span><code>DATA lv_qty TYPE i.</code></span></div>
+          <div class="viz-flow-step"><strong>대입</strong><span><code>lv_qty = 'ABC'.</code> (문자→정수)</span></div>
+          <div class="viz-flow-step"><strong>결과</strong><span><span class="viz-badge fail">주의</span> 변환 오류 또는 의도치 않은 값</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="viz-note">정수 변수에 글자를 넣는 등 “모양이 안 맞는 값”을 넣으면 변환 규칙에 따라 오류가 나거나 엉뚱한 값이 됩니다. 타입을 맞추는 습관이 중요합니다.</p>
+  </div>
 </section>
 
 <section class="lesson-section">
-  <h2>7. 미니 실습: 변수, 상수, 타입을 한 번에 구분하기 🧪</h2>
-  <p>
-    이번 실습은 “값을 담는 것”, “값을 고정하는 것”, “타입 이름을 만드는 것”을 분리해서 적는 연습입니다.
-  </p>
+  <h2>7. 미니 실습: 세 선언을 직접 구분해 보기</h2>
   <div class="lesson-callout">
     <div class="lesson-callout-icon">✍️</div>
     <div class="lesson-callout-content">
       <h4>실습 과제</h4>
       <ol>
-        <li><code>DATA</code>로 이름과 점수를 담는 변수를 선언합니다.</li>
-        <li><code>CONSTANTS</code>로 합격 기준 점수 80을 선언합니다.</li>
-        <li><code>TYPES</code>로 3자리 코드 타입을 하나 만들고, 그 타입으로 변수를 하나 선언합니다.</li>
-        <li><code>CONSTANTS</code> 값을 다시 대입하려 하면 어떤 오류가 나는지 예상해봅니다.</li>
-        <li><code>string</code>과 <code>c LENGTH 3</code> 중 어떤 상황에 무엇이 어울리는지 한 줄씩 적습니다.</li>
+        <li><code>DATA</code>로 정수 변수 1개, 문자열 변수 1개를 선언합니다.</li>
+        <li><code>CONSTANTS</code>로 “최대 횟수 3” 같은 고정값 1개를 선언합니다.</li>
+        <li><code>TYPES</code>로 타입 1개를 정의하고, 그 타입으로 변수 2개를 만듭니다.</li>
+        <li>상수에 값을 다시 대입해 보고 어떤 오류가 나는지 적습니다. <em>(오류 케이스)</em></li>
+        <li>오류 줄을 지운 뒤 활성화·실행해 값을 출력합니다. <em>(정상 결과)</em></li>
       </ol>
-      <p><strong>완료 조건:</strong> DATA, CONSTANTS, TYPES가 각각 무엇을 만드는지 예제 한 줄로 설명할 수 있으면 성공입니다.</p>
+      <p><strong>완료 조건:</strong> “이건 DATA/CONSTANTS/TYPES 중 무엇이고 왜 그런가”를 각 줄에 대해 설명할 수 있으면 성공입니다.</p>
     </div>
   </div>
+  <details class="foldable">
+    <summary>변수 이름 접두어(lv_, lc_, ty_)는 꼭 써야 하나?</summary>
+    <p>문법상 필수는 아니지만, 회사 코딩 가이드에서 변수는 <code>lv_</code>, 상수는 <code>lc_</code>, 타입은 <code>ty_</code> 같은 접두어를 권하는 경우가 많습니다. 이름만 봐도 역할이 보이게 하는 관행입니다. 회사 규칙이 있으면 그 규칙을 따르세요.</p>
+  </details>
 </section>
 
 <section class="lesson-section">
-  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <h2>8. 실무에서 조심해야 할 점</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">🚨</div>
+    <div class="lesson-callout-content">
+      <h4>“돌아가는 선언”과 “맞는 선언”은 다릅니다</h4>
+      <p>금액에 정수 타입을 쓰면 당장은 실행되지만 소수점이 잘려 잘못된 계산으로 이어집니다. 타입은 “값의 의미”에 맞게 고르는 것이 유지보수의 출발점입니다.</p>
+    </div>
+  </div>
   <ul>
-    <li><a href="https://learning.sap.com/courses/basic-abap-programming/working-with-basic-data-objects-and-data-types_cf92dee2-85ec-4b9f-a778-1a7cfef70dad" target="_blank" rel="noopener">SAP Learning: 기본 Data Object와 Data Type</a> — 변수, 상수, 리터럴, 타입의 차이를 공식 학습 흐름으로 확인합니다.</li>
-    <li><a href="https://learning.sap.com/courses/basic-abap-programming/debugging-an-abap-program_d070e545-efd5-4d87-8b75-20f18d7b7d3b" target="_blank" rel="noopener">SAP Learning: ABAP 디버깅</a> — TYPES, CONSTANTS, DATA 선언 이후 값이 어떻게 바뀌는지 디버거로 확인합니다.</li>
-    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapdata.html" target="_blank" rel="noopener">SAP Help Portal: DATA</a> — 변수를 선언하는 <code>DATA</code> 문의 공식 설명입니다.</li>
+    <li><strong>의미에 맞는 타입:</strong> 금액·단가는 <code>P DECIMALS</code>, 코드값은 <code>C</code>/<code>N</code>, 설명은 <code>STRING</code>.</li>
+    <li><strong>표준 vs 커스텀:</strong> 접두어·네이밍은 회사 커스텀 관행이고, <code>DATA/CONSTANTS/TYPES</code> 동작은 SAP 표준입니다. 둘을 섞어 외우지 않습니다.</li>
+    <li><strong>과확장 금지:</strong> 구조체(Structure)·내부 테이블 같은 복합 타입은 뒤 Chapter에서 다룹니다. 지금은 기본 타입에 집중합니다.</li>
   </ul>
 </section>
 
 <section class="lesson-section">
-  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <h2>9. 공식 문서로 더 확인하기</h2>
+  <div class="link-list">
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapdata.htm" target="_blank" rel="noopener">SAP Help Portal: DATA<span>변수를 선언하는 <code>DATA</code> 문의 공식 정의를 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapconstants.htm" target="_blank" rel="noopener">SAP Help Portal: CONSTANTS<span><code>VALUE</code>로 고정값을 정하는 상수 선언 규칙을 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abaptypes.htm" target="_blank" rel="noopener">SAP Help Portal: TYPES<span>재사용 가능한 타입을 정의하는 <code>TYPES</code> 문을 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abenbuilt_in_types.htm" target="_blank" rel="noopener">SAP Help Portal: Built-In ABAP Types<span>I, P, C, N, D, T, STRING 등 기본(Elementary) 타입을 확인합니다.</span></a>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 확인 퀴즈</h2>
   <ol>
-    <li>실행 중 값이 바뀔 수 있는 데이터 객체는 DATA와 CONSTANTS 중 무엇으로 선언하나요?</li>
-    <li><code>CONSTANTS</code> 선언에서 <code>VALUE</code>는 선택일까요, 필수일까요?</li>
-    <li><code>TYPES ty_carrid TYPE c LENGTH 3.</code>는 값을 담는 변수를 만든 것일까요, 타입 이름을 만든 것일까요?</li>
+    <li>실행 중에 값이 바뀔 수 있는 선언과, 한 번 정하면 못 바꾸는 선언은 각각 무엇인가요?</li>
+    <li><code>TYPES</code>로 만든 것은 “값”인가요, “모양”인가요?</li>
+    <li>금액 계산에 <code>I</code>(정수) 타입을 쓰면 어떤 문제가 생기나요?</li>
+    <li>고정 길이 문자 <code>C</code>와 가변 문자열 <code>STRING</code>의 차이는 무엇인가요?</li>
   </ol>
-  <details>
+  <details class="foldable">
     <summary>정답/해설 보기</summary>
     <ol>
-      <li><strong>DATA</strong>입니다. DATA는 실행 중 값이 바뀔 수 있는 변수를 만듭니다.</li>
-      <li><strong>필수</strong>입니다. 상수는 고정값이므로 선언 시 어떤 값을 가질지 정해야 합니다.</li>
-      <li><strong>타입 이름</strong>을 만든 것입니다. 실제 값을 담으려면 그 타입을 사용해 별도의 DATA 변수를 선언해야 합니다.</li>
+      <li><strong>바뀌는 것은 <code>DATA</code>(변수), 못 바꾸는 것은 <code>CONSTANTS</code>(상수)</strong>입니다.</li>
+      <li><strong>“모양”</strong>입니다. <code>TYPES</code>는 값을 담지 않고 타입(틀)만 정의하며, <code>DATA</code>가 그 틀로 변수를 만듭니다.</li>
+      <li><strong>소수점이 잘립니다.</strong> 금액·단가는 <code>P DECIMALS n</code> 같은 소수 타입을 써야 합니다.</li>
+      <li><strong><code>C</code>는 길이가 고정되어 남는 칸을 공백으로 채우고, <code>STRING</code>은 담은 내용만큼만 길이를 가집니다.</strong></li>
     </ol>
   </details>
 </section>
 
 <section class="lesson-section">
-  <h2>10. 한눈에 정리 🏁</h2>
+  <h2>11. 한눈에 정리</h2>
+  <div class="recap-grid">
+    <div class="recap-card"><strong>DATA</strong>실행 중 값이 바뀌는 변수(상자)를 선언합니다.</div>
+    <div class="recap-card"><strong>CONSTANTS</strong><code>VALUE</code>로 고정한 값. 다시 대입할 수 없습니다.</div>
+    <div class="recap-card"><strong>TYPES</strong>값이 아니라 모양(틀)을 정의해 여러 변수가 재사용합니다.</div>
+    <div class="recap-card"><strong>Elementary Type</strong>I·P·C·N·D·T·STRING. 의미에 맞는 타입을 고르는 게 핵심입니다.</div>
+  </div>
   <div class="lesson-callout tip">
-    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-icon">➡️</div>
     <div class="lesson-callout-content">
-      <h4>오늘의 핵심만 딱 잡기</h4>
-      <ul>
-        <li><strong>DATA</strong>는 실행 중 값이 바뀔 수 있는 변수를 만듭니다.</li>
-        <li><strong>CONSTANTS</strong>는 실행 중 바뀌면 안 되는 고정값을 만듭니다.</li>
-        <li><strong>TYPES</strong>는 타입 모양에 이름을 붙여 재사용하게 해줍니다.</li>
-        <li><strong>Elementary Type</strong>은 <code>string</code>, <code>c</code>, <code>i</code>, <code>p</code>, <code>d</code> 같은 기본 타입입니다.</li>
-        <li>실무에서는 실행 여부뿐 아니라 이름, 타입, 유지보수성을 함께 봅니다.</li>
-      </ul>
+      <h4>다음 Lesson 예고</h4>
+      <p>다음 Lesson <strong>WRITE 기본 출력</strong>에서는 지금 선언한 변수의 값을 결과 목록에 보기 좋게 찍는 법(<code>WRITE</code>와 기본 서식)을 배웁니다.</p>
     </div>
   </div>
-  <p>
-    다음 Lesson <strong>WRITE 기본 출력</strong>에서는 방금 선언한 값들을 화면의 Output List에 보기 좋게 출력해보겠습니다.
-  </p>
 </section>
