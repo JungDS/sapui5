@@ -11,6 +11,141 @@
       ],
       "note": ""
     },
+    "visuals/relationship-map": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "interactive/architecture-builder": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "code-learning/performance-profiler-mock": {
+      "chosen": "B",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "code-learning/bug-hunt-mission": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "interactive/expected-log-comparison": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "index-dashboard": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "visuals/success-failure-badges": {
+      "chosen": "C",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "code-learning/abap-editor-mockup": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "visuals/code-diagram-split": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "interactive/breakpoint-checklist": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "code-learning/bad-good-hover-mapping": {
+      "chosen": "B",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "foundations/callout-patterns": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "foundations/concept-storytelling": {
+      "chosen": "B",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "visuals/static-svg-architecture": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "visuals/visual-media-gallery": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
     "code-learning/code-keyword-accordion": {
       "chosen": "A",
       "options": [
@@ -47,7 +182,25 @@
       ],
       "note": ""
     },
-    "index-dashboard": {
+    "code-learning/code-line-matching": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "visuals/state-change-grid": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "interactive/practical-checklist": {
       "chosen": "A",
       "options": [
         "A",
@@ -74,15 +227,6 @@
       ],
       "note": ""
     },
-    "code-learning/abap-editor-mockup": {
-      "chosen": "A",
-      "options": [
-        "A",
-        "B",
-        "C"
-      ],
-      "note": ""
-    },
     "foundations/foldable-explanation": {
       "chosen": "A",
       "options": [
@@ -101,7 +245,7 @@
       ],
       "note": ""
     },
-    "visuals/code-diagram-split": {
+    "visuals/before-after-comparison": {
       "chosen": "A",
       "options": [
         "A",
@@ -110,7 +254,16 @@
       ],
       "note": ""
     },
-    "visuals/before-after-comparison": {
+    "interactive/shortcut-simulator": {
+      "chosen": "C",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "code-learning/fill-blank-code": {
       "chosen": "A",
       "options": [
         "A",
@@ -128,8 +281,8 @@
       ],
       "note": ""
     },
-    "foundations/callout-patterns": {
-      "chosen": "A",
+    "visuals/process-flow": {
+      "chosen": "B",
       "options": [
         "A",
         "B",
@@ -137,8 +290,8 @@
       ],
       "note": ""
     },
-    "foundations/concept-storytelling": {
-      "chosen": "B",
+    "visuals/sample-data-table": {
+      "chosen": "A",
       "options": [
         "A",
         "B",
