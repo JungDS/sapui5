@@ -13,3 +13,8 @@
 - 상호작용 검증 통과: 탭, Sandbox, Step Debugger, drag/drop, 단답형 퀴즈의 필수 data attribute 확인.
 - 로컬 HTTP smoke 통과: `index.html`과 카테고리별 대표 페이지 7개를 `127.0.0.1:8127`에서 200 응답으로 확인.
 - 다음 단계: scoped stage, commit, push.
+
+## 2026-06-15 KST Commit & Push
+- 구현 커밋 생성: `7205473 docs: add learning method sample library`.
+- push 완료: `origin/codex/track1-quality-plan`.
+- 제외 대상 `.project-docs/virtual_browser_test_guide.md`, `sample/abap-event-diagram-sample.html`은 stage하지 않고 그대로 남겼다.
