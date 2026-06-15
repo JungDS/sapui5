@@ -170,6 +170,8 @@ function initShortcut(root) {
     const input = sh.querySelector(".shortcut-input");
     const msg = sh.querySelector(".shortcut-msg");
     if (!input) return;
+    // 정답은 input의 data-target에 "Shift+F1" 형식(공백 없음)으로 지정한다.
+    const target = (input.getAttribute("data-target") || "").toUpperCase();
     input.addEventListener("keydown", (e) => {
       e.preventDefault();
       let keys = [];
@@ -177,13 +179,16 @@ function initShortcut(root) {
       if (e.shiftKey) keys.push("Shift");
       if (e.altKey) keys.push("Alt");
       if (e.key !== "Control" && e.key !== "Shift" && e.key !== "Alt") keys.push(e.key.toUpperCase());
-      const combo = keys.join(" + ");
+      if (keys.length === 0) return;
+      const combo = keys.join("+");
       input.value = combo;
-      if (combo === sh.dataset.targetCombo) {
-        msg.textContent = "✅ 성공! 올바른 단축키를 입력했습니다.";
+      if (!msg) return;
+      msg.style.display = "block";
+      if (combo.toUpperCase() === target) {
+        msg.textContent = "정답입니다! (" + (input.getAttribute("data-target") || combo) + ")";
         msg.className = "shortcut-msg success";
       } else {
-        msg.textContent = "❌ 아님. 타겟 단축키를 눌러보세요.";
+        msg.textContent = "틀렸습니다. 다시 시도하세요.";
         msg.className = "shortcut-msg error";
       }
     });
