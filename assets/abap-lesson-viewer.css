@@ -1,4 +1,4 @@
-/* ABAP Lesson Viewer UI | 최종수정 2026-06-16 00:50 KST | v1.2 */
+/* ABAP Lesson Viewer UI | 최종수정 2026-06-16 01:34 KST | v1.2 */
 @import url('https://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css');
 
 .lesson-loading {
@@ -688,6 +688,7 @@
 .viz-arrow {
   color: #0056b3;
   font-weight: 900;
+  pointer-events: none;
 }
 
 .itab-relation,
