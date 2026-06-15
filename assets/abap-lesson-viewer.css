@@ -1,4 +1,4 @@
-/* ABAP Lesson Viewer UI | 최종수정 2026-06-10 13:17 KST | v1.2 */
+/* ABAP Lesson Viewer UI | 최종수정 2026-06-16 00:12 KST | v1.2 */
 @import url('https://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css');
 
 .lesson-loading {
@@ -709,6 +709,82 @@
   margin-top: 0.9rem;
   color: #56657a;
   font-size: 0.95rem;
+}
+
+/* === v3 Foundation Components: foldable, official links, recap === */
+.foldable {
+  margin: 1rem 0;
+  border: 1px solid #d7e1ee;
+  border-radius: 8px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.foldable summary {
+  cursor: pointer;
+  padding: 0.85rem 1rem;
+  background: #f6f8fb;
+  color: #17375f;
+  font-weight: 800;
+}
+
+.foldable > :not(summary) {
+  padding: 0 1rem 1rem;
+}
+
+.link-list {
+  display: grid;
+  gap: 0.75rem;
+  margin: 1.25rem 0;
+}
+
+.link-list a {
+  display: block;
+  padding: 0.9rem 1rem;
+  border: 1px solid #d7e1ee;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #17477e;
+  text-decoration: none;
+  font-weight: 800;
+  transition: all 0.2s ease;
+}
+
+.link-list a:hover {
+  border-color: #0056b3;
+  background: #f8fbff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 86, 179, 0.1);
+}
+
+.link-list span {
+  display: block;
+  margin-top: 0.25rem;
+  color: #56657a;
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+.recap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.9rem;
+  margin: 1.25rem 0;
+}
+
+.recap-card {
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid #d7e1ee;
+  border-left: 5px solid #00a884;
+  border-radius: 0 8px 8px 0;
+  background: #ffffff;
+}
+
+.recap-card strong {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: #12365f;
 }
 
 /* === 전/후 비교 (Before/After Compare) === */
@@ -1861,6 +1937,21 @@
 }
 
 @media (min-width: 901px) and (max-width: 1500px) {
+  body:not(.stage7-doc-nav-collapsed) .viz-visual,
+  body:not(.stage7-doc-nav-collapsed) .recap-grid,
+  body:not(.stage7-doc-nav-collapsed) .link-list,
+  body:not(.stage7-doc-nav-collapsed) .foldable {
+    max-width: min(100%, calc(100vw - 560px));
+  }
+
+  body:not(.stage7-doc-nav-collapsed) .viz-relation {
+    grid-template-columns: 1fr;
+  }
+
+  body:not(.stage7-doc-nav-collapsed) .viz-relation .viz-arrow {
+    transform: rotate(90deg);
+  }
+
   body:not(.stage7-doc-nav-collapsed) .event-tabs-container {
     max-width: min(100%, calc(100vw - 560px));
   }

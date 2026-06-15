@@ -1,187 +1,304 @@
-<!-- lesson-content/THEORY-01-M01.html -->
+<!-- lesson-content/THEORY-01-M01.html | 최종수정 2026-06-16 00:03 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
   <div class="lesson-callout-content">
     <h4>학습 목표</h4>
-    <p>이번 Lesson에서는 SAP 개발의 첫 입구인 <span class="glossary-term" data-glossary="DDIC">SAP Dictionary</span>가 왜 필요한지, <span class="glossary-term" data-glossary="SE11">SE11</span>과 <span class="glossary-term" data-glossary="ADT">ADT</span>에서 무엇을 하는지, 그리고 <span class="glossary-term" data-glossary="RepositoryObject">Repository Object</span>가 어떤 흐름으로 저장·검사·활성화되는지 초심자 기준으로 잡아봅니다.</p>
+    <p>이번 Lesson에서는 SAP 개발의 첫 입구인 <span class="glossary-term" data-glossary="DDIC">SAP Dictionary</span>가 왜 필요한지, <span class="glossary-term" data-glossary="SE11">SE11</span>과 <span class="glossary-term" data-glossary="ADT">ADT</span>가 같은 저장소를 어떻게 다루는지, 그리고 <span class="glossary-term" data-glossary="RepositoryObject">Repository Object</span>가 저장·검사·활성화되는 흐름을 초심자 기준으로 잡습니다.</p>
   </div>
 </div>
 
 <section class="lesson-section">
-  <h2>1. ABAP 학습은 왜 데이터 설계에서 시작할까? 🧭</h2>
+  <h2>1. 첫 Lesson의 질문: 왜 코드보다 데이터 정의가 먼저일까?</h2>
   <p>
-    ABAP을 처음 배우면 바로 코드를 치고 싶어집니다. 그런데 SAP에서는 코드보다 먼저 "이 시스템에서 데이터가 어떤 모양으로 존재하는가"를 이해해야 합니다. 회사 시스템의 프로그램은 혼자 놀지 않습니다. 구매, 판매, 회계, 생산 화면이 같은 고객 번호, 같은 통화 코드, 같은 전표 번호를 함께 봅니다.
+    ABAP을 처음 배우면 바로 Report를 만들고 <code>WRITE</code>를 실행하고 싶어집니다. 하지만 SAP 업무 시스템에서는 코드보다 먼저 “회사 전체가 같은 데이터 규격을 믿고 쓰는가”를 맞춰야 합니다. 판매 화면, 구매 화면, 회계 전표, ALV 리포트가 모두 같은 고객 번호와 통화 코드와 날짜 규격을 봐야 하기 때문입니다.
   </p>
   <p>
-    그래서 SAP 개발의 첫 관문은 <strong>데이터 정의를 중앙에서 맞추는 일</strong>입니다. 이 중앙 창고가 바로 <span class="glossary-term" data-glossary="DDIC">SAP Dictionary</span>, 줄여서 DDIC입니다. 오늘은 세부 부품을 만들기 전에 "왜 DDIC라는 창고를 거쳐야 하는지"를 먼저 이해합니다.
+    이 중앙 규격 창고가 <span class="glossary-term" data-glossary="DDIC">DDIC</span>입니다. DDIC는 테이블만 만드는 화면이 아니라 데이터베이스 객체, 타입 정의, 검색 도움말 같은 서비스 정의를 한곳에서 관리합니다. 그래서 뒤 Lesson의 <span class="glossary-term" data-glossary="Domain">Domain</span>, <span class="glossary-term" data-glossary="DataElement">Data Element</span>, <span class="glossary-term" data-glossary="Structure">Structure</span>, <span class="glossary-term" data-glossary="TransparentTable">Transparent Table</span>을 이해하려면 오늘의 전체 흐름이 먼저 잡혀야 합니다.
   </p>
   <blockquote>
-    한 줄로 말하면, DDIC는 SAP 시스템 전체가 같은 데이터 규격을 믿고 쓰게 해주는 출발점입니다.
+    DDIC는 “SAP 시스템 전체가 같은 데이터 정의를 한 번 만들고 계속 재사용하게 하는 기준점”입니다.
   </blockquote>
 </section>
 
 <section class="lesson-section">
-  <h2>2. 왜 데이터베이스에 바로 테이블을 만들지 않을까? 🤔</h2>
+  <h2>2. DDIC는 세 가지 일을 한다</h2>
   <p>
-    일반적인 웹 개발에서는 데이터베이스에 직접 접속해서 <strong><span class="glossary-term" data-glossary="DDL">DDL</span></strong> 문장, 예를 들어 <code>CREATE TABLE</code>을 실행해 테이블을 만들 수 있습니다. 하지만 SAP에서는 보통 이런 방식으로 업무 테이블을 직접 만들지 않습니다.
+    SAP 공식 설명에서 DDIC의 역할은 크게 세 묶음으로 나뉩니다. 이 세 묶음을 구분하면 “지금 내가 만드는 것이 저장 공간인지, 타입인지, 도움 기능인지”가 덜 헷갈립니다.
   </p>
-  <p>
-    SAP는 데이터베이스 위에 ABAP 애플리케이션 서버와 여러 개발 도구가 올라간 구조입니다. 개발자가 DDIC에서 테이블, 구조, 데이터 타입을 정의하고 <span class="glossary-term" data-glossary="Activation">활성화</span>하면, SAP가 그 정의를 실제 데이터베이스에 맞게 반영합니다. 개발자는 특정 데이터베이스 문법보다 <strong>SAP 시스템 안에서 일관되게 쓰이는 데이터 정의</strong>에 집중합니다.
-  </p>
-  <ul>
-    <li><strong>중앙 관리:</strong> 여러 프로그램이 같은 필드 타입과 라벨을 재사용합니다.</li>
-    <li><strong>일관성:</strong> 테이블, 화면, 리포트, ALV가 같은 의미의 필드를 같은 방식으로 해석합니다.</li>
-    <li><strong>검증:</strong> 활성화 시점에 타입, 참조, 의존 관계 오류를 먼저 잡을 수 있습니다.</li>
-    <li><strong>운영 안정성:</strong> 변경이 실제 DB에 어떤 영향을 주는지 SAP 도구 흐름 안에서 관리합니다.</li>
-  </ul>
-  <div class="lesson-callout">
-    <div class="lesson-callout-icon">💡</div>
-    <div class="lesson-callout-content">
-      <h4>DDIC는 단순한 설계 화면이 아닙니다</h4>
-      <p>DDIC는 데이터 타입을 적어두는 메모장이 아니라, ABAP 런타임·화면·DB 테이블·입력 도움말이 함께 참고하는 <span class="glossary-term" data-glossary="SSOT">단일 진실 공급원</span>에 가깝습니다. 그래서 첫 Lesson에서 이 감각을 잡아두면 뒤의 Domain, Data Element, Table, Search Help가 훨씬 덜 낯설어집니다.</p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">DDIC 역할 3분류</p>
+    <div class="viz-state-grid">
+      <div class="viz-state">
+        <span class="viz-state-label">Database Object</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td><strong>예</strong></td><td>테이블, 뷰</td></tr>
+            <tr><td><strong>질문</strong></td><td>데이터를 어디에 저장하거나 어떻게 보여줄까?</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-state">
+        <span class="viz-state-label">Type Definition</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td><strong>예</strong></td><td>Domain, Data Element, Structure</td></tr>
+            <tr><td><strong>질문</strong></td><td>값의 재질과 업무 의미를 어떻게 정할까?</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-state">
+        <span class="viz-state-label">Service Definition</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td><strong>예</strong></td><td><span class="glossary-term" data-glossary="F4Help">F4 Help</span>, Lock Object</td></tr>
+            <tr><td><strong>질문</strong></td><td>입력 후보, 잠금 같은 주변 기능을 어떻게 붙일까?</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+    <p class="viz-note">이번 Chapter 01은 이 중 Type Definition과 Database Object의 가장 기본 흐름을 먼저 다룹니다.</p>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>3. Repository Object는 SAP 안에 저장되는 개발 부품이다 📦</h2>
+  <h2>3. 개발 부품의 조립 순서: 재질 → 의미 → 저장 공간</h2>
   <p>
-    SAP 개발자가 만드는 것은 단순 파일이 아니라 <span class="glossary-term" data-glossary="RepositoryObject">Repository Object</span>입니다. Repository Object는 SAP 시스템 저장소에 등록되는 개발 부품입니다. 프로그램, 클래스, 테이블, 구조, 데이터 엘리먼트, 도메인처럼 이름을 가진 개발 산출물이 여기에 들어갑니다.
+    DDIC에서 업무 필드를 만들 때는 보통 작은 부품부터 쌓습니다. 예를 들어 “항공사 코드” 필드가 필요하다면 바로 테이블 열부터 만들기보다, 먼저 기술적 재질과 업무 의미를 나눠 생각합니다.
   </p>
-  <p>
-    처음에는 "부품"이라고 생각하면 쉽습니다. 자동차 공장에 엔진, 바퀴, 나사, 배선 부품이 따로 있고 조립 순서가 있듯이, SAP에도 데이터 타입, 테이블, 프로그램, 클래스가 따로 있고 서로 참조합니다. 한 부품이 잘못되면 그 부품을 가져다 쓰는 다른 부품에도 영향이 갑니다.
-  </p>
-  <div class="lesson-callout">
-    <div class="lesson-callout-icon">🧩</div>
-    <div class="lesson-callout-content">
-      <h4>오늘 알아둘 대표 부품</h4>
-      <ul>
-        <li><strong>Domain:</strong> 데이터의 기술적 재질, 예를 들어 문자 3자리 같은 규격입니다.</li>
-        <li><strong>Data Element:</strong> Domain 위에 업무 의미와 화면 라벨을 붙인 부품입니다.</li>
-        <li><strong>Structure:</strong> 여러 필드를 한 줄 모양으로 묶은 타입입니다.</li>
-        <li><strong>Database Table:</strong> 실제 데이터를 영구 저장하는 테이블 정의입니다.</li>
-        <li><strong>Program/Class:</strong> 데이터를 읽고 처리하는 실행 로직입니다.</li>
-      </ul>
+  <div class="viz-visual">
+    <p class="viz-visual-title">항공사 코드 필드가 만들어지는 기본 조립 흐름</p>
+    <div class="viz-relation">
+      <div class="viz-concept">
+        <span class="viz-concept-label">Domain</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td>CHAR 3</td></tr>
+            <tr><td>고정값 또는 값 범위</td></tr>
+            <tr><td>기술적 재질</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-arrow">→</div>
+      <div class="viz-concept">
+        <span class="viz-concept-label">Data Element</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td>항공사 코드</td></tr>
+            <tr><td><span class="glossary-term" data-glossary="FieldLabel">Field Label</span></td></tr>
+            <tr><td>업무 의미</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-arrow">→</div>
+      <div class="viz-concept">
+        <span class="viz-concept-label">Table Field</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td>ZFLIGHT-CARRID</td></tr>
+            <tr><td>테이블의 실제 열</td></tr>
+            <tr><td>조회·저장 대상</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+    <p class="viz-note">Domain 하나를 여러 Data Element가 재사용할 수 있습니다. 같은 CHAR 3 재질이어도 “출발 공항”과 “도착 공항”처럼 화면 라벨과 의미는 다르게 둘 수 있습니다.</p>
+  </div>
+  <details class="foldable">
+    <summary>왜 Domain과 Data Element를 굳이 나눌까?</summary>
+    <p>Domain은 타입·길이·값 범위처럼 기술적 속성을 맡고, Data Element는 라벨·F1 도움말처럼 업무 의미를 맡습니다. 재질과 의미를 나눠두면 같은 기술 규격을 여러 업무 필드에서 재사용하면서도 화면 설명은 각각 다르게 줄 수 있습니다.</p>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>4. SE11과 ADT: 문은 달라도 Repository는 같다</h2>
+  <p>
+    <span class="glossary-term" data-glossary="SE11">SE11</span>은 SAP GUI에서 DDIC 객체를 만들고 조회하는 전통적인 입구입니다. <span class="glossary-term" data-glossary="ADT">ADT</span>는 Eclipse 기반의 최신 ABAP 개발 환경입니다. 화면은 다르지만 둘 다 SAP 시스템의 <span class="glossary-term" data-glossary="RepositoryObject">Repository Object</span>를 다룹니다.
+  </p>
+  <div class="viz-visual event-tabs-container">
+    <p class="viz-visual-title">같은 DDIC 작업을 세 관점으로 보기</p>
+    <div class="event-tab-buttons">
+      <button class="tab-btn active" data-tab="ddic-tab-1">1. Classic SE11</button>
+      <button class="tab-btn" data-tab="ddic-tab-2">2. ADT</button>
+      <button class="tab-btn" data-tab="ddic-tab-3">3. 공통 원리</button>
+    </div>
+    <div class="tabs-content">
+      <div class="event-tab-panel active" id="ddic-tab-1">
+        <div class="viz-flow">
+          <div class="viz-flow-step"><strong>명령창</strong><span><code>SE11</code> 입력</span></div>
+          <div class="viz-flow-step"><strong>객체 선택</strong><span>Domain, Data Element, Table 조회·생성</span></div>
+          <div class="viz-flow-step"><strong>필드 입력</strong><span>탭과 화면 필드 중심으로 정의</span></div>
+          <div class="viz-flow-step"><strong>활성화</strong><span>검사를 통과하면 시스템에서 사용 가능</span></div>
+        </div>
+      </div>
+      <div class="event-tab-panel" id="ddic-tab-2">
+        <div class="viz-flow">
+          <div class="viz-flow-step"><strong>ABAP Project</strong><span>SAP 시스템에 로그인한 프로젝트</span></div>
+          <div class="viz-flow-step"><strong>New Dictionary Object</strong><span>Data Element, Database Table 등 생성</span></div>
+          <div class="viz-flow-step"><strong>Source/Form Editor</strong><span>최신 객체는 코드 기반 편집 비중이 큼</span></div>
+          <div class="viz-flow-step"><strong>Activate</strong><span>저장소에 저장 후 활성 버전 생성</span></div>
+        </div>
+      </div>
+      <div class="event-tab-panel" id="ddic-tab-3">
+        <div class="viz-flow">
+          <div class="viz-flow-step"><strong>객체는 서버에 있음</strong><span>로컬 파일이 아니라 SAP Repository에 저장</span></div>
+          <div class="viz-flow-step"><strong>비활성 버전</strong><span>저장만 한 변경은 아직 실행 기준이 아님</span></div>
+          <div class="viz-flow-step"><strong>활성 버전</strong><span>검사 통과 후 런타임에서 믿고 사용</span></div>
+          <div class="viz-flow-step"><strong>의존 객체 영향</strong><span>참조하는 프로그램·테이블까지 함께 고려</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="viz-note">실무에서는 회사 정책과 시스템 버전에 따라 SE11과 ADT를 모두 볼 수 있습니다. 중요한 것은 “어떤 도구든 SAP Repository Object를 만들고 활성화한다”는 공통 원리입니다.</p>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>4. SE11과 ADT: 문은 달라도 보는 창고는 같다 🛠️</h2>
+  <h2>5. 저장과 활성화는 완전히 다르다</h2>
   <p>
-    DDIC 객체를 만들고 확인하는 대표 입구는 두 가지입니다. 전통적인 SAP GUI에서는 <span class="glossary-term" data-glossary="SE11">SE11</span>을 많이 사용했고, 최신 개발 환경에서는 Eclipse 기반 <span class="glossary-term" data-glossary="ADT">ADT</span>를 사용합니다.
+    초심자가 가장 자주 헷갈리는 지점은 저장과 <span class="glossary-term" data-glossary="Activation">활성화</span>입니다. 저장은 “변경 내용을 비활성 버전으로 보관했다”에 가깝습니다. 활성화는 “문법과 참조 관계를 검사했고, 이제 다른 객체가 이 정의를 사용해도 된다”는 상태로 올리는 단계입니다.
   </p>
-  <ul>
-    <li><strong>SE11:</strong> SAP GUI에서 DDIC 객체를 조회·생성·변경하는 전통적인 화면입니다.</li>
-    <li><strong>ADT:</strong> Eclipse 기반의 현대 ABAP 개발 환경입니다. ABAP Cloud, CDS, RAP 학습으로 갈수록 중요해집니다.</li>
-    <li><strong>공통점:</strong> 둘 다 SAP 시스템의 Repository Object를 다룹니다. 화면 모양은 달라도 "객체를 만들고 활성화한다"는 흐름은 같습니다.</li>
-  </ul>
-  <p>
-    실무에서는 회사 시스템 버전과 개발 정책에 따라 둘 다 보게 됩니다. 기존 시스템을 읽을 때는 SE11 화면을 만날 수 있고, 신규 개발이나 ABAP Cloud 흐름에서는 ADT가 중심이 됩니다. 그래서 지금은 도구 이름을 외우기보다, <strong>도구가 DDIC 객체를 다루는 입구</strong>라는 관계를 잡아두면 충분합니다.
-  </p>
-</section>
-
-<section class="lesson-section">
-  <h2>5. 저장과 활성화는 다르다 🔍</h2>
-  <p>
-    SAP에서 개발 부품을 만들 때 가장 자주 헷갈리는 단어가 저장과 <span class="glossary-term" data-glossary="Activation">활성화</span>입니다. 저장은 "내가 적은 정의를 보관했다"에 가깝고, 활성화는 "이제 시스템의 다른 객체가 믿고 써도 된다"는 상태로 만드는 검사 과정입니다.
-  </p>
-  <ul>
-    <li>✅ <strong>정상 흐름:</strong> 객체 생성 → 필수 정보 입력 → 저장 → 문법/참조 검사 → 활성화 성공 → 다른 프로그램이나 객체에서 사용 가능</li>
-    <li>❌ <strong>오류 흐름:</strong> 참조한 Domain이 없거나, 필수 필드가 비어 있거나, 의존 객체가 깨져 있으면 활성화가 실패합니다.</li>
-    <li>🧪 <strong>확인 포인트:</strong> "저장됐으니 끝"이 아니라, 활성화 상태와 오류 메시지를 확인해야 합니다.</li>
-  </ul>
-  <blockquote>
-    초심자 체크: 활성화되지 않은 객체는 이름이 보여도 실제 개발 흐름에서는 아직 믿고 쓰기 어렵습니다. 객체를 만들었다면 마지막에 활성화 상태를 꼭 확인하세요.
-  </blockquote>
-</section>
-
-<section class="lesson-section">
-  <h2>6. 미니 실습: DDIC 객체 흐름을 말로 따라가기 ✍️</h2>
-  <p>
-    아직 실제 시스템이 없어도 괜찮습니다. 오늘은 손으로 코드를 치는 대신, DDIC 개발 흐름을 머릿속으로 따라가며 기록하는 실습을 해봅니다. 시스템이 있다면 SE11 또는 ADT에서 같은 흐름을 직접 찾아봐도 좋습니다.
-  </p>
-  <div class="lesson-callout">
-    <div class="lesson-callout-icon">🧪</div>
-    <div class="lesson-callout-content">
-      <h4>실습 과제</h4>
-      <ol>
-        <li>새 업무 필드가 필요하다고 가정합니다. 예: 항공사 코드.</li>
-        <li>이 필드를 만들 때 바로 테이블부터 만들지 않고, 어떤 DDIC 부품이 먼저 필요할지 적어봅니다.</li>
-        <li>각 부품이 저장만 된 상태인지, 활성화까지 된 상태인지 구분해봅니다.</li>
-        <li>활성화가 실패할 수 있는 이유를 하나 적어봅니다. 예: 참조한 Domain 이름이 틀림.</li>
-      </ol>
-      <p><strong>완료 조건:</strong> "Domain → Data Element → Table Field"처럼 최소 3단계 흐름을 말로 설명하고, 활성화 실패 사례 1개를 적을 수 있으면 성공입니다.</p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">DDIC 객체가 사용 가능해지는 5단계</p>
+    <div class="viz-flow">
+      <div class="viz-flow-step"><strong>1. 객체 생성</strong><span>이름, 패키지, 설명을 정한다.</span></div>
+      <div class="viz-flow-step"><strong>2. 속성 입력</strong><span>타입, 길이, 라벨, 필드 목록을 채운다.</span></div>
+      <div class="viz-flow-step"><strong>3. 저장</strong><span><span class="viz-badge fail">Inactive</span> 변경 내용은 보관됐지만 아직 기준 버전은 아니다.</span></div>
+      <div class="viz-flow-step"><strong>4. 활성화</strong><span>문법·참조·의존 관계를 검사한다.</span></div>
+      <div class="viz-flow-step"><strong>5. 런타임 사용</strong><span><span class="viz-badge success">Active</span> 프로그램과 화면이 믿고 참조한다.</span></div>
     </div>
   </div>
-</section>
-
-<section class="lesson-section">
-  <h2>7. 실무에서 주의할 점 🚨</h2>
   <div class="lesson-callout warn">
     <div class="lesson-callout-icon">⚠️</div>
     <div class="lesson-callout-content">
-      <h4>표준 객체와 고객사 관행을 구분하세요</h4>
-      <p>SAP에는 이미 통화, 단위, 날짜, 회사 코드처럼 검증된 표준 객체가 많습니다. 필요한 객체를 바로 새로 만들기 전에 표준 객체가 있는지 먼저 확인하세요. 다만 어떤 회사에서는 자체 네이밍과 확장 규칙을 강하게 둘 수 있으니, 표준 SAP 개념과 고객사 로컬 관행을 섞어 외우지 않는 것이 중요합니다.</p>
+      <h4>저장 아이콘만 누르고 끝내면 안 됩니다</h4>
+      <p>저장된 비활성 버전은 작업 중인 초안에 가깝습니다. 실제 실행 기준은 마지막으로 성공한 활성 버전입니다. 객체를 만들거나 고쳤다면 활성화 상태와 오류 메시지를 확인하는 습관을 들이세요.</p>
     </div>
   </div>
-  <p>
-    또 하나 중요한 점은 운영 데이터입니다. 이미 데이터가 많이 쌓인 테이블의 구조를 바꾸면 실제 데이터베이스 조정이 필요할 수 있고, 잘못하면 데이터 손상이나 긴급 장애로 이어질 수 있습니다. 지금은 개념 단계지만, "데이터 구조 변경은 조심스럽게"라는 감각을 초반부터 가져가면 좋습니다.
-  </p>
 </section>
 
 <section class="lesson-section">
-  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <h2>6. 런타임 오브젝트와 구조 변경 리스크</h2>
   <p>
-    아래 링크는 이번 Lesson을 더 정확하게 확인할 때 우선 참고할 만한 SAP 공식 자료입니다. 블로그나 예제 글보다 먼저 공식 설명으로 기준을 잡고, 그다음 예제를 넓히는 흐름을 추천합니다.
+    활성화가 중요한 이유는 단순히 버튼 하나를 더 누르기 위해서가 아닙니다. DDIC 정의가 활성화되면 ABAP 런타임과 데이터베이스가 참조할 수 있는 런타임 기준 정보가 만들어집니다. 테이블 정의라면 SAP가 데이터베이스 수준으로 정의를 반영하고, 프로그램 실행 시점에는 현재 DDIC 상태와 런타임 정보가 맞는지도 중요해집니다.
   </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">Structure와 Transparent Table의 생명주기 차이</p>
+    <div class="viz-compare">
+      <div class="viz-compare-before">
+        <span class="viz-compare-label">Structure</span>
+        <div class="viz-compare-body">
+          <ul>
+            <li>필드 묶음의 타입 정의입니다.</li>
+            <li>DB에 데이터를 저장할 물리 공간을 만들지 않습니다.</li>
+            <li>Work Area, 파라미터, 화면 구조 같은 “모양”으로 자주 씁니다.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="viz-compare-after">
+        <span class="viz-compare-label">Transparent Table</span>
+        <div class="viz-compare-body">
+          <ul>
+            <li>DDIC 테이블 정의입니다.</li>
+            <li>활성화 시 실제 데이터베이스의 물리 테이블과 연결됩니다.</li>
+            <li>운영 데이터가 쌓인 뒤 구조 변경은 변환·조정 리스크가 있습니다.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <p class="viz-note">초반에는 “Structure는 모양, Transparent Table은 저장 공간”으로 기억해도 충분합니다.</p>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 미니 실습: DDIC 객체 흐름을 손으로 조립하기</h2>
+  <p>
+    실제 SAP 시스템이 없어도 오늘 Lesson은 연습할 수 있습니다. 아래 시나리오를 종이에 그리며 각 객체가 어떤 역할을 맡는지 따라가세요.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">✍️</div>
+    <div class="lesson-callout-content">
+      <h4>실습 과제</h4>
+      <ol>
+        <li>새 필드가 필요하다고 가정합니다. 예: 항공사 코드.</li>
+        <li>먼저 Domain에 적을 기술 규격을 씁니다. 예: <code>CHAR 3</code>.</li>
+        <li>그다음 Data Element에 붙일 업무 의미와 Field Label을 씁니다. 예: 항공사 코드, Airline Code.</li>
+        <li>마지막으로 Table Field 이름을 씁니다. 예: <code>ZFLIGHT-CARRID</code>.</li>
+        <li>저장만 한 상태와 활성화까지 끝난 상태를 색으로 구분해 표시합니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> “Domain → Data Element → Table Field → 저장 → 활성화” 흐름을 자신의 말로 설명하고, 활성화 실패 이유 1개를 말할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+  <details class="foldable">
+    <summary>활성화 실패 예시 보기</summary>
+    <ul>
+      <li>Data Element가 참조하는 Domain 이름을 잘못 적었다.</li>
+      <li>Table Field가 아직 활성화되지 않은 Data Element를 참조한다.</li>
+      <li>운영 데이터가 있는 테이블의 필드 길이를 줄여 기존 데이터와 충돌한다.</li>
+    </ul>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 실무에서 조심해야 할 점</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">🚨</div>
+    <div class="lesson-callout-content">
+      <h4>표준 객체와 고객사 관행을 섞어 외우지 마세요</h4>
+      <p>SAP에는 통화, 단위, 날짜, 회사 코드처럼 이미 검증된 표준 DDIC 객체가 많습니다. 새로 만들기 전에 표준 객체가 있는지 먼저 확인하고, 고객사 네이밍 규칙이나 확장 규칙은 별도 관행으로 구분해 기록하세요.</p>
+    </div>
+  </div>
   <ul>
-    <li><a href="https://learning.sap.com/courses/technical-implementation-and-operation-i-of-sap-s-4hana-and-sap-business-suite/accessing-and-editing-abap-repository-objects" target="_blank" rel="noopener">SAP Learning: ABAP Dictionary와 Repository Object 개요</a></li>
-    <li><a href="https://learning.sap.com/courses/building-data-models-with-the-abap-dictionary-and-abap-core-data-services/defining-domains-and-data-elements_b65b511a-4ad1-4437-80f5-5ad689cab833" target="_blank" rel="noopener">SAP Learning: Domain과 Data Element 만들기</a></li>
-    <li><a href="https://help.sap.com/docs/ABAP_PLATFORM_NEW/c238d694b825421f940829321ffa326a/4b190c90ceba4d02a99e0a2286b89358.html" target="_blank" rel="noopener">SAP Help Portal: ABAP Development Tools for Eclipse</a></li>
+    <li><strong>운영 테이블 구조 변경:</strong> 데이터가 쌓인 테이블의 길이·키·필드 변경은 변환 작업과 장애 리스크가 있습니다.</li>
+    <li><strong>고정값 오해:</strong> Domain의 고정값은 입력 도움과 기본 검증에 도움을 주지만, 모든 입력 경로의 무결성을 자동 보장한다고 생각하면 안 됩니다.</li>
+    <li><strong>Cloud 제약:</strong> ABAP Cloud나 Clean Core 환경에서는 사용 가능한 객체와 확장 방식이 제한될 수 있으므로 릴리스 상태와 확장 가이드를 확인해야 합니다.</li>
   </ul>
 </section>
 
 <section class="lesson-section">
-  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
-  <div class="lesson-callout tip">
-    <div class="lesson-callout-icon">📝</div>
-    <div class="lesson-callout-content">
-      <h4>짧게 점검해보기</h4>
-      <ol>
-        <li><strong>문제 1.</strong> SAP에서 업무 테이블을 만들 때 DDIC를 거치는 가장 큰 이유는 무엇일까요?</li>
-        <li><strong>문제 2.</strong> 저장과 활성화 중, 다른 객체가 안정적으로 사용할 수 있는 상태로 만드는 단계는 무엇일까요?</li>
-        <li><strong>문제 3.</strong> SE11과 ADT의 관계를 가장 잘 설명하는 문장은 무엇일까요?</li>
-      </ol>
-      <details>
-        <summary>정답/해설 보기</summary>
-        <ol>
-          <li><strong>정답 1:</strong> 데이터 정의를 중앙에서 일관되게 관리하기 위해서입니다. DDIC는 타입, 의미, 참조 관계를 여러 프로그램과 화면이 함께 믿고 쓰게 해줍니다.</li>
-          <li><strong>정답 2:</strong> 활성화입니다. 저장은 보관에 가깝고, 활성화는 시스템 검사를 통과해 사용할 수 있는 상태로 만드는 과정입니다.</li>
-          <li><strong>정답 3:</strong> 둘은 서로 다른 개발 도구 입구입니다. SE11은 전통적인 SAP GUI 입구, ADT는 Eclipse 기반 현대 개발 입구이며, 둘 다 SAP Repository Object를 다룹니다.</li>
-        </ol>
-      </details>
-    </div>
+  <h2>9. 공식 문서로 더 확인하기</h2>
+  <p>
+    이번 Lesson은 아래 SAP 공식 자료를 기준으로 재검증했습니다. 블로그 예제보다 먼저 공식 문서에서 용어와 제약을 확인하는 습관을 들이세요.
+  </p>
+  <div class="link-list">
+    <a href="https://learning.sap.com/courses/technical-implementation-and-operation-i-of-sap-s-4hana-and-sap-business-suite/accessing-and-editing-abap-repository-objects" target="_blank" rel="noopener">SAP Learning: Accessing and Editing ABAP Repository Objects<span>DDIC의 중앙 관리 역할, SE11, Repository Object, 저장/활성화 흐름을 확인합니다.</span></a>
+    <a href="https://learning.sap.com/courses/basic-abap-programming/exploring-the-architecture-of-rap_cdfbb8b8-9d94-4c33-bc5d-3d29d8206724" target="_blank" rel="noopener">SAP Learning: Exploring the Architecture<span>Data Element의 기술 타입과 의미 정보, 라벨 자동 활용 예시를 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_816_index_htm/8.16/en-US/ABENDDIC_GLOSSARY.html" target="_blank" rel="noopener">SAP Help Portal: DDIC Glossary<span>DDIC 객체가 SE11 또는 ADT에서 유지보수된다는 공식 용어 정의를 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENDDIC_DATABASE_TABLES.html" target="_blank" rel="noopener">SAP Help Portal: DDIC Database Tables<span>Transparent Table이 활성화 시 데이터베이스 객체와 연결되는 설명을 확인합니다.</span></a>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>10. 한눈에 정리 🏁</h2>
+  <h2>10. 확인 퀴즈</h2>
+  <ol>
+    <li>DDIC가 SAP 시스템에서 필요한 가장 큰 이유는 무엇인가요?</li>
+    <li>Domain과 Data Element를 나누는 이유를 “재질”과 “의미”라는 말로 설명해보세요.</li>
+    <li>저장과 활성화 중, 다른 객체가 믿고 사용할 수 있는 상태로 만드는 단계는 무엇인가요?</li>
+    <li>Structure와 Transparent Table의 가장 큰 차이는 무엇인가요?</li>
+  </ol>
+  <details class="foldable">
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>데이터 정의를 중앙에서 일관되게 관리하기 위해서입니다.</strong> 여러 프로그램과 화면이 같은 타입과 의미를 참조합니다.</li>
+      <li><strong>Domain은 기술적 재질, Data Element는 업무 의미입니다.</strong> 같은 재질을 재사용하면서 라벨과 설명은 다르게 둘 수 있습니다.</li>
+      <li><strong>활성화입니다.</strong> 저장은 비활성 버전 보관이고, 활성화는 검사 후 사용 가능한 기준 버전을 만드는 과정입니다.</li>
+      <li><strong>Structure는 저장 공간이 없는 타입 모양이고, Transparent Table은 실제 데이터 저장과 연결되는 테이블 정의입니다.</strong></li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>11. 한눈에 정리</h2>
+  <div class="recap-grid">
+    <div class="recap-card"><strong>DDIC</strong>SAP 데이터 정의를 중앙에서 만들고 재사용하게 하는 기준점입니다.</div>
+    <div class="recap-card"><strong>조립 순서</strong>Domain으로 재질을 정하고, Data Element로 의미를 붙이고, Table Field에서 사용합니다.</div>
+    <div class="recap-card"><strong>도구</strong>SE11과 ADT는 화면은 다르지만 SAP Repository Object를 다루는 입구입니다.</div>
+    <div class="recap-card"><strong>활성화</strong>저장만으로 끝나지 않습니다. 활성화가 성공해야 런타임에서 믿고 씁니다.</div>
+  </div>
   <div class="lesson-callout tip">
-    <div class="lesson-callout-icon">📌</div>
+    <div class="lesson-callout-icon">➡️</div>
     <div class="lesson-callout-content">
-      <h4>오늘의 핵심만 딱 잡기</h4>
-      <ul>
-        <li><strong>DDIC</strong>는 SAP 데이터 정의를 중앙에서 관리하는 핵심 창고입니다.</li>
-        <li><strong>Repository Object</strong>는 SAP 시스템 저장소에 등록되는 개발 부품입니다.</li>
-        <li><strong>SE11</strong>과 <strong>ADT</strong>는 DDIC와 Repository Object를 다루는 서로 다른 개발 도구 입구입니다.</li>
-        <li><strong>저장</strong>과 <strong>활성화</strong>는 다릅니다. 사용할 수 있는 상태가 되려면 활성화가 중요합니다.</li>
-        <li>표준 객체를 먼저 찾고, 운영 데이터가 있는 구조 변경은 신중하게 다뤄야 합니다.</li>
-      </ul>
+      <h4>다음 Lesson 예고</h4>
+      <p>다음 Lesson <strong>Domain 기본 설계</strong>에서는 가장 작은 DDIC 부품인 Domain을 만들고, 데이터 타입·길이·고정값을 어떻게 정하는지 실습 흐름으로 봅니다.</p>
     </div>
   </div>
-  <p>
-    이제 SAP 개발의 데이터 창고가 왜 필요한지 알게 됐습니다. 다음 Lesson <strong>Domain 기본 설계</strong>에서는 이 창고의 가장 작은 부품인 Domain을 만들고, 데이터의 기술적 재질을 어떻게 정하는지 확인합니다.
-  </p>
 </section>
