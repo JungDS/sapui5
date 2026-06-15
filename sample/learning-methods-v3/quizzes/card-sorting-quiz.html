@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!-- 
+  [STANDARD_V3_STRUCTURE] 
+  이 파일은 고품질 교육용 웹페이지 표준 구조(v3)를 따릅니다.
+  AI 일괄 처리 및 스크립트 자동화의 대상이므로 코어 레이아웃과 클래스 명칭을 임의로 변경하지 마십시오.
+-->
+
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>카드 분류 퀴즈 | 학습 수단 샘플 v3</title>
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" href="../assets/widgets.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+<link rel="stylesheet" href="../assets/variants.css">
+</head>
+<body>
+
+    <!-- [NEW] Design Variants Selector -->
+    <div class="variant-panel" data-page-id="quizzes/card-sorting-quiz">
+      <h4>🎨 Design Variants (시안 선택):</h4>
+      <div class="variant-options">
+        <label class="variant-chip-a"><input type="radio" name="viewport" value="A"> 🔵 A — 기본</label>
+        <label class="variant-chip-b"><input type="radio" name="viewport" value="B"> 🟡 B — Notion</label>
+        <label class="variant-chip-c"><input type="radio" name="viewport" value="C"> 🟣 C — 파스텔</label>
+      </div>
+      <button class="page-export-btn" data-page-id="quizzes/card-sorting-quiz">선택 JSON 복사</button>
+    </div>
+    
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v3</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">퀴즈 · 카드 분류</p>
+    <h1>카드 분류 퀴즈</h1>
+    <p class="lead">여러 카드를 알맞은 그룹으로 끌어다 분류합니다. 순서가 아니라 "소속·책임"을 묻는 회수 활동으로, 이벤트 책임 분리나 도구 분류처럼 범주화가 핵심인 주제에 적합합니다. 채점 시 그룹별 정답 수를 확인합니다.</p>
+    <div class="tags"><span class="tag origin">원본 주제: Chapter 13 (이벤트 책임 분리)</span><span class="tag">그룹 분류 + 채점</span></div>
+  </section>
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 분류 문제에 적용</h2>
+    <p class="section-sub">예시 1은 Chapter 13 이벤트 책임을 "준비/검증/조회/출력"으로 분류하는 문제입니다.</p>
+    <div class="example-stack">
+      <article class="method-example spotlight">
+        <p class="ex-topic origin">예시 1 · Report Event (Chapter 13 주제)</p>
+        <h3>이벤트 책임 분류</h3>
+        <div class="card-sort" data-success="🎉 <strong>완벽!</strong> 각 이벤트가 어느 책임에 속하는지 정확히 분류했습니다.">
+          <p class="puzzle-question">카드를 알맞은 책임 그룹으로 끌어다 놓으세요.</p>
+          <div class="cardsort-pool">
+            <div class="drag-item" draggable="true" data-cat="prep">p_date = sy-datum</div>
+            <div class="drag-item" draggable="true" data-cat="valid">MESSAGE 'E'</div>
+            <div class="drag-item" draggable="true" data-cat="query">SELECT ... INTO TABLE</div>
+            <div class="drag-item" draggable="true" data-cat="output">cl_salv...display( )</div>
+          </div>
+          <div class="cardsort-zones">
+            <div class="cardsort-zone" data-cat="prep"><span class="zone-label">준비 (INITIALIZATION)</span></div>
+            <div class="cardsort-zone" data-cat="valid"><span class="zone-label">검증 (AT SELECTION-SCREEN)</span></div>
+            <div class="cardsort-zone" data-cat="query"><span class="zone-label">조회 (START-OF-SELECTION)</span></div>
+            <div class="cardsort-zone" data-cat="output"><span class="zone-label">출력 (END-OF-SELECTION)</span></div>
+          </div>
+          <button class="btn" data-cardsort-check style="margin-top:16px">채점</button>
+          <div class="cardsort-feedback puzzle-feedback"></div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 카드 분류는 "각 코드가 어느 이벤트 책임인가"처럼 소속을 묻는 데 강하다(순서 퀴즈와 구분).</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · Open SQL vs Internal Table</p>
+        <h3>연산이 일어나는 곳 분류 (DB vs 메모리)</h3>
+        <div class="card-sort" data-success="🎉 <strong>정확!</strong> DB 연산과 메모리 연산을 잘 구분했습니다.">
+          <p class="puzzle-question">각 연산이 DB에서 일어나는지, 내부 테이블(메모리)에서 일어나는지 분류하세요.</p>
+          <div class="cardsort-pool">
+            <div class="drag-item" draggable="true" data-cat="db">SELECT ... WHERE</div>
+            <div class="drag-item" draggable="true" data-cat="db">INNER JOIN</div>
+            <div class="drag-item" draggable="true" data-cat="mem">LOOP AT itab</div>
+            <div class="drag-item" draggable="true" data-cat="mem">READ TABLE</div>
+          </div>
+          <div class="cardsort-zones">
+            <div class="cardsort-zone" data-cat="db"><span class="zone-label">DB 서버에서</span></div>
+            <div class="cardsort-zone" data-cat="mem"><span class="zone-label">메모리(내부 테이블)에서</span></div>
+          </div>
+          <button class="btn" data-cardsort-check style="margin-top:16px">채점</button>
+          <div class="cardsort-feedback puzzle-feedback"></div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> "어디서 실행되는가(DB/메모리)"는 성능 사고의 출발점이라 분류 퀴즈로 굳히면 좋다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · OO ABAP</p>
+        <h3>Static vs Instance 분류</h3>
+        <div class="card-sort" data-success="🎉 <strong>정답!</strong> 클래스 소속과 객체 소속을 정확히 구분했습니다.">
+          <p class="puzzle-question">각 멤버가 클래스(Static)에 속하는지 객체(Instance)에 속하는지 분류하세요.</p>
+          <div class="cardsort-pool">
+            <div class="drag-item" draggable="true" data-cat="stat">CLASS-METHODS</div>
+            <div class="drag-item" draggable="true" data-cat="stat">lcl=&gt;create( )</div>
+            <div class="drag-item" draggable="true" data-cat="inst">METHODS run</div>
+            <div class="drag-item" draggable="true" data-cat="inst">lo-&gt;run( )</div>
+          </div>
+          <div class="cardsort-zones">
+            <div class="cardsort-zone" data-cat="stat"><span class="zone-label">Static (클래스, =&gt;)</span></div>
+            <div class="cardsort-zone" data-cat="inst"><span class="zone-label">Instance (객체, -&gt;)</span></div>
+          </div>
+          <button class="btn" data-cardsort-check style="margin-top:16px">채점</button>
+          <div class="cardsort-feedback puzzle-feedback"></div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 헷갈리는 이분법(Static/Instance)은 연산자(=&gt;/-&gt;) 단서를 카드에 담아 분류 근거를 학습시킨다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/core.js"></script>
+<script src="../assets/widgets.js"></script>
+<script src="../assets/quiz.js"></script>
+<script src="../assets/sandbox.js"></script>
+<script src="../assets/variants.js"></script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<!-- 
+  [STANDARD_V3_STRUCTURE] 
+  이 파일은 고품질 교육용 웹페이지 표준 구조(v3)를 따릅니다.
+  AI 일괄 처리 및 스크립트 자동화의 대상이므로 코어 레이아웃과 클래스 명칭을 임의로 변경하지 마십시오.
+-->
+
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mermaid 흐름도 | 학습 수단 샘플 v3</title>
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" href="../assets/widgets.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+<link rel="stylesheet" href="../assets/variants.css">
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+</head>
+<body>
+
+    <!-- [NEW] Design Variants Selector -->
+    <div class="variant-panel" data-page-id="visuals/mermaid-flowchart">
+      <h4>🎨 Design Variants (시안 선택):</h4>
+      <div class="variant-options">
+        <label class="variant-chip-a"><input type="radio" name="viewport" value="A"> 🔵 A — 기본</label>
+        <label class="variant-chip-b"><input type="radio" name="viewport" value="B"> 🟡 B — Notion</label>
+        <label class="variant-chip-c"><input type="radio" name="viewport" value="C"> 🟣 C — 파스텔</label>
+      </div>
+      <button class="page-export-btn" data-page-id="visuals/mermaid-flowchart">선택 JSON 복사</button>
+    </div>
+    
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v3</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">시각화 · Mermaid 흐름도</p>
+    <h1>Mermaid 흐름도</h1>
+    <p class="lead">노드와 화살표로 실행 순서·분기·복귀를 표현합니다. 텍스트 기반 다이어그램 문법이라 코드처럼 버전 관리되고, 색 배지로 단계 역할을 구분합니다.</p>
+    <div class="tags"><span class="tag origin">원본: Chapter 13 Lesson 1 (이벤트 흐름도)</span><span class="tag">노드 + 분기 + 복귀</span></div>
+  </section>
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 ABAP 흐름에 적용</h2>
+    <p class="section-sub">예시 1은 Chapter 13 Lesson 1의 전체 이벤트 라이프사이클 흐름도(검증 실패 복귀 루프 포함)를 이식했습니다.</p>
+    <div class="example-stack">
+      <article class="method-example spotlight">
+        <p class="ex-topic origin">예시 1 · Report Event (Chapter 13 Lesson 1 원본)</p>
+        <h3>이벤트 라이프사이클 흐름도</h3>
+        <div class="viz-visual">
+          <p class="viz-visual-title">실행 순서와 검증 실패 복귀 루프</p>
+          <div class="mermaid">
+flowchart TD
+Start([Program Starts])
+INIT("<div class='node-content-wrapper'><div class='node-badge badge-p2'>준비</div><br><b>INITIALIZATION</b><br><div class='node-desc'>화면 기본값 세팅</div></div>")
+Screen["<div class='node-content-wrapper'><div class='node-badge badge-screen'>화면</div><br><b>Selection Screen</b><br><div class='node-desc'>⏳ 사용자 입력 대기</div></div>"]
+ASS("<div class='node-content-wrapper'><div class='node-badge badge-p5'>검증</div><br><b>AT SELECTION-SCREEN</b><br><div class='node-desc'>입력값 유효성 검사</div></div>")
+SOS("<div class='node-content-wrapper'><div class='node-badge badge-p6'>메인</div><br><b>START-OF-SELECTION</b><br><div class='node-desc'>DB 조회·가공</div></div>")
+EOS("<div class='node-content-wrapper'><div class='node-badge badge-p7'>출력</div><br><b>END-OF-SELECTION</b><br><div class='node-desc'>결과 출력·마감</div></div>")
+Ends([Program Ends])
+Start --> INIT
+INIT --> Screen
+Screen -->|"입력 발생"| ASS
+ASS -.->|"에러 시 복귀"| Screen
+ASS -->|"통과 + F8"| SOS
+SOS --> EOS
+EOS --> Ends
+style Start fill:#f1f5f9,stroke:#64748b,color:#0f172a
+style INIT fill:#ffffff,stroke:#eab308,color:#1e293b
+style Screen fill:#f0f9ff,stroke:#0284c7,stroke-width:4px,color:#0f172a
+style ASS fill:#ffffff,stroke:#f472b6,color:#1e293b
+style SOS fill:#ffffff,stroke:#22c55e,color:#1e293b
+style EOS fill:#ffffff,stroke:#fb923c,color:#1e293b
+style Ends fill:#f1f5f9,stroke:#64748b,color:#0f172a
+          </div>
+          <p class="viz-note">점선 화살표(검증 실패 → 화면 복귀)가 핵심입니다. 통과해야만 메인 로직으로 진행합니다.</p>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 분기/복귀가 있는 흐름은 실선(정상)·점선(예외)을 구분해 그리면 한 장으로 정상/오류 경로를 모두 담는다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · Open SQL</p>
+        <h3>조회 결과 분기 흐름도</h3>
+        <div class="viz-visual">
+          <p class="viz-visual-title">SELECT 후 결과 유무에 따른 분기</p>
+          <div class="mermaid">
+flowchart TD
+S(["SELECT ... INTO TABLE"])
+C{"sy-subrc = 0 ?"}
+Y("<div class='node-content-wrapper'><div class='node-badge badge-p6'>결과 있음</div><br><b>결과 출력</b><br><div class='node-desc'>SALV/WRITE</div></div>")
+N("<div class='node-content-wrapper'><div class='node-badge badge-p5'>0건</div><br><b>안내 메시지</b><br><div class='node-desc'>데이터 없음 표시</div></div>")
+S --> C
+C -->|"예 (행 있음)"| Y
+C -->|"아니오 (4)"| N
+style S fill:#ffffff,stroke:#0284c7,color:#1e293b
+style Y fill:#ffffff,stroke:#22c55e,color:#1e293b
+style N fill:#ffffff,stroke:#f472b6,color:#1e293b
+          </div>
+          <p class="viz-note">0건은 오류가 아니라 정상 결과일 수 있으므로 별도 안내 경로를 둡니다.</p>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 마름모 조건 노드(<code>{ }</code>)로 분기를 표현하면 "둘 중 하나" 흐름이 또렷하다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · OO ABAP</p>
+        <h3>메서드 호출 흐름도</h3>
+        <div class="viz-visual">
+          <p class="viz-visual-title">호출자 → 객체 → 메서드 → 복귀</p>
+          <div class="mermaid">
+flowchart LR
+Caller("<div class='node-content-wrapper'><b>호출자</b><br><div class='node-desc'>lo_report->run( )</div></div>")
+Obj("<div class='node-content-wrapper'><div class='node-badge badge-p2'>객체</div><br><b>lcl_report</b></div>")
+M("<div class='node-content-wrapper'><div class='node-badge badge-p6'>메서드</div><br><b>run( )</b><br><div class='node-desc'>로직 수행 후 반환</div></div>")
+Caller --> Obj
+Obj --> M
+M -.->|"결과 반환"| Caller
+style Caller fill:#ffffff,stroke:#64748b,color:#1e293b
+style Obj fill:#ffffff,stroke:#eab308,color:#1e293b
+style M fill:#ffffff,stroke:#22c55e,color:#1e293b
+          </div>
+          <p class="viz-note">제어가 메서드로 넘어갔다가 다시 호출자로 돌아오는 점선이 "반환"을 나타냅니다.</p>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 좌우 흐름(LR)은 호출/반환 같은 왕복 관계를, 상하 흐름(TD)은 순차 단계를 표현할 때 적합하다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/core.js"></script>
+<script src="../assets/widgets.js"></script>
+<script src="../assets/quiz.js"></script>
+<script src="../assets/sandbox.js"></script>
+<script src="../assets/variants.js"></script>
+</body>
+</html>

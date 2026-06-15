@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!-- 
+  [STANDARD_V3_STRUCTURE] 
+  이 파일은 고품질 교육용 웹페이지 표준 구조(v3)를 따릅니다.
+  AI 일괄 처리 및 스크립트 자동화의 대상이므로 코어 레이아웃과 클래스 명칭을 임의로 변경하지 마십시오.
+-->
+
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>현재 행 강조 | 학습 수단 샘플 v3</title>
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" href="../assets/widgets.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+<link rel="stylesheet" href="../assets/variants.css">
+</head>
+<body>
+
+    <!-- [NEW] Design Variants Selector -->
+    <div class="variant-panel" data-page-id="visuals/current-row-highlight">
+      <h4>🎨 Design Variants (시안 선택):</h4>
+      <div class="variant-options">
+        <label class="variant-chip-a"><input type="radio" name="viewport" value="A"> 🔵 A — 기본</label>
+        <label class="variant-chip-b"><input type="radio" name="viewport" value="B"> 🟡 B — Notion</label>
+        <label class="variant-chip-c"><input type="radio" name="viewport" value="C"> 🟣 C — 파스텔</label>
+      </div>
+      <button class="page-export-btn" data-page-id="visuals/current-row-highlight">선택 JSON 복사</button>
+    </div>
+    
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v3</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">시각화 · 현재 행 강조</p>
+    <h1>현재 행 강조</h1>
+    <p class="lead">LOOP·READ·이진 탐색에서 "지금 처리 중인 행"을 초록 강조선으로 표시해, 포인터가 어디를 가리키는지 시각화합니다. 추상적인 인덱스(sy-tabix)를 구체적인 위치로 바꿔줍니다.</p>
+    <div class="tags"><span class="tag">Internal Table 적용</span><span class="tag">포인터 위치 표시</span></div>
+  </section>
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 행 탐색에 적용</h2>
+    <div class="example-stack">
+      <article class="method-example spotlight">
+        <p class="ex-topic">예시 1 · Internal Table — LOOP</p>
+        <h3>LOOP 중 현재 행 (sy-tabix = 2)</h3>
+        <div class="viz-visual">
+          <p class="viz-visual-title">반복문이 두 번째 행을 처리하는 순간</p>
+          <table class="viz-table">
+            <thead><tr><th>sy-tabix</th><th>이름</th><th>부서</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>정훈영</td><td>SD</td></tr>
+              <tr class="viz-current-row"><td>2 ◀ 현재</td><td>김지현</td><td>FI</td></tr>
+              <tr><td>3</td><td>박서우</td><td>MM</td></tr>
+            </tbody>
+          </table>
+          <p class="viz-note">초록 강조선이 Work Area로 복사돼 처리 중인 행을 가리킵니다.</p>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 반복 단계를 캡처처럼 한 장씩 보여주면 sy-tabix 증가가 위치 이동으로 체감된다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · Internal Table — READ TABLE</p>
+        <h3>READ WITH KEY 매칭 행</h3>
+        <div class="viz-visual">
+          <p class="viz-visual-title"><code>READ TABLE lt WITH KEY empno = '3000'</code></p>
+          <table class="viz-table">
+            <thead><tr><th>사원번호</th><th>이름</th></tr></thead>
+            <tbody>
+              <tr><td>1000</td><td>정훈영</td></tr>
+              <tr><td>2000</td><td>김지현</td></tr>
+              <tr class="viz-current-row"><td>3000 ◀ 매칭</td><td>이민수</td></tr>
+            </tbody>
+          </table>
+          <p class="viz-note">조건에 맞는 첫 행을 찾으면 <code>sy-subrc = 0</code>, Work Area에 그 행이 담깁니다.</p>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> READ는 "찾은 한 행"을 강조해, LOOP의 "순차 이동"과 다른 일회성 탐색임을 대비시킨다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · Internal Table — BINARY SEARCH</p>
+        <h3>이진 탐색 범위 좁히기</h3>
+        <div class="viz-visual">
+          <p class="viz-visual-title">정렬된 테이블에서 중간값부터 비교 (목표: 4000)</p>
+          <table class="viz-table">
+            <thead><tr><th>인덱스</th><th>값</th><th>판정</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>1000</td><td>범위 밖(아래)</td></tr>
+              <tr><td>2</td><td>2000</td><td>범위 밖(아래)</td></tr>
+              <tr class="viz-current-row"><td>3 ◀ 중간</td><td>3000</td><td>목표보다 작음 → 오른쪽 탐색</td></tr>
+              <tr class="viz-highlight-row"><td>4</td><td>4000</td><td>다음 비교 대상</td></tr>
+            </tbody>
+          </table>
+          <p class="viz-note">매 비교마다 후보가 절반으로 줄어 빠릅니다. 단, <strong>사전 SORT가 필수</strong>입니다.</p>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 알고리즘은 "현재 비교 행(초록)"과 "다음 후보(노랑)"를 함께 표시해 좁혀가는 과정을 보인다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/core.js"></script>
+<script src="../assets/widgets.js"></script>
+<script src="../assets/quiz.js"></script>
+<script src="../assets/sandbox.js"></script>
+<script src="../assets/variants.js"></script>
+</body>
+</html>

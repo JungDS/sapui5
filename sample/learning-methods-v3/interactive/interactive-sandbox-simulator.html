@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<!-- 
+  [STANDARD_V3_STRUCTURE] 
+  이 파일은 고품질 교육용 웹페이지 표준 구조(v3)를 따릅니다.
+  AI 일괄 처리 및 스크립트 자동화의 대상이므로 코어 레이아웃과 클래스 명칭을 임의로 변경하지 마십시오.
+-->
+
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>가상 Sandbox 시뮬레이터 | 학습 수단 샘플 v3</title>
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" href="../assets/widgets.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+<link rel="stylesheet" href="../assets/variants.css">
+</head>
+<body>
+
+    <!-- [NEW] Design Variants Selector -->
+    <div class="variant-panel" data-page-id="interactive/interactive-sandbox-simulator">
+      <h4>🎨 Design Variants (시안 선택):</h4>
+      <div class="variant-options">
+        <label class="variant-chip-a"><input type="radio" name="viewport" value="A"> 🔵 A — 기본</label>
+        <label class="variant-chip-b"><input type="radio" name="viewport" value="B"> 🟡 B — Notion</label>
+        <label class="variant-chip-c"><input type="radio" name="viewport" value="C"> 🟣 C — 파스텔</label>
+      </div>
+      <button class="page-export-btn" data-page-id="interactive/interactive-sandbox-simulator">선택 JSON 복사</button>
+    </div>
+    
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../index.html">학습 수단 샘플 v3</a>
+    <a class="topbar-back" href="../index.html">← 전체 목록</a>
+  </div>
+</header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">상호작용 · 가상 SAP GUI Sandbox</p>
+    <h1>가상 Sandbox 시뮬레이터</h1>
+    <p class="lead">학습자가 직접 값을 입력하고 <strong>실행(F8)</strong>을 누르면, SAP 엔진이 이벤트 순서대로 동작하는 과정을 로그로 보여주고 가상 DB 조회 결과까지 ALV 표로 렌더링합니다. 잘못된 입력은 검증 단계에서 막혀 에러 모달이 뜹니다.</p>
+    <div class="tags">
+      <span class="tag origin">원본: Chapter 13 Lesson 1 (Selection Screen Sandbox)</span>
+      <span class="tag">입력 → 검증 → 조회 → 출력</span>
+      <span class="tag">JSON 시나리오 구동</span>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 ABAP 주제에 적용</h2>
+    <p class="section-sub">예시 1은 Chapter 13 Lesson 1의 사원 정보 조회 Sandbox를 그대로 이식했습니다. 사원번호를 비우거나 4자리 숫자가 아닌 값을 넣어 검증 에러를 유도해 보세요.</p>
+
+    <div class="example-stack">
+      <!-- 예시 1: Chapter 13 원본 -->
+      <article class="method-example spotlight">
+        <p class="ex-topic origin">예시 1 · Report Event (Chapter 13 Lesson 1 원본)</p>
+        <h3>사원 정보 통합 조회 Sandbox</h3>
+        <p class="ex-desc">기준년도와 사원번호를 입력하고 실행하면 INITIALIZATION → AT SELECTION-SCREEN → START-OF-SELECTION → END-OF-SELECTION 순으로 로그가 쌓이고, 가상 DB에서 일치하는 사원이 ALV로 출력됩니다.</p>
+        <p class="sandbox-copy">💡 사원번호 예시: <code>1000</code>(정훈영), <code>2000</code>(김지현), <code>4000</code>(박서우)은 2026년 / <code>3000</code>(이민수)은 2025년 데이터입니다.</p>
+        <div class="interactive-sap-sandbox">
+          <div class="sap-gui-header"><div class="sap-tcode-bar">T-Code: <span class="tcode-val">SE38 (ZREPORT_EVENT_DEMO)</span></div></div>
+          <div class="sap-gui-title-bar">사원 정보 통합 조회 프로그램 (Selection Screen)</div>
+          <div class="sap-selection-screen">
+            <div class="sap-field-row"><label>조회 기준년도 (P_YEAR)</label><input type="text" class="sap-input sap-input-short" id="sb1-year" value="2026" maxlength="4"></div>
+            <div class="sap-field-row"><label>조회 사원번호 (S_EMPNO)</label><input type="text" class="sap-input sap-input-medium" id="sb1-emp" placeholder="1000, 2000, 3000, 4000" maxlength="4"></div>
+            <button class="sap-btn-execute">실행 (F8)</button>
+          </div>
+          <div class="sap-result-log"><div class="sap-log-placeholder">실행(F8) 버튼을 누르면 SAP 내부 이벤트 흐름이 로그로 출력됩니다…</div></div>
+          <script type="application/json" class="sandbox-config">
+          {
+            "fields": { "year": "#sb1-year", "emp": "#sb1-emp" },
+            "steps": [
+              { "label": "LOAD-OF-PROGRAM", "type": "event", "text": "프로그램을 메모리에 로드 완료." },
+              { "label": "INITIALIZATION", "type": "event", "text": "화면 기본값 세팅 (Year: {year})." },
+              { "label": "AT SELECTION-SCREEN", "type": "event", "text": "사용자 입력값 유효성 검증 시작." }
+            ],
+            "validations": [
+              { "field": "emp", "test": "required", "label": "Error", "text": "검증 실패: 사원 번호는 필수 입력란입니다.", "modal": "사원 번호를 입력해 주세요." },
+              { "field": "emp", "test": "num4", "label": "Error", "text": "검증 실패: 사원 번호는 숫자 4자리여야 합니다.", "modal": "올바르지 않은 사원 번호 형식입니다. (4자리 숫자)" }
+            ],
+            "selectStep": { "label": "START-OF-SELECTION", "type": "event", "text": "검증 통과. 데이터베이스 쿼리 실행." },
+            "db": [
+              { "id": "1000", "name": "정훈영", "dept": "SD개발팀", "year": "2026" },
+              { "id": "2000", "name": "김지현", "dept": "FI운영팀", "year": "2026" },
+              { "id": "3000", "name": "이민수", "dept": "CO컨설팅", "year": "2025" },
+              { "id": "4000", "name": "박서우", "dept": "MM개발팀", "year": "2026" }
+            ],
+            "match": { "id": "emp", "year": "year" },
+            "selectResult": { "text": "쿼리 완료. {count}건의 결과 레코드 획득." },
+            "columns": [ {"key":"id","head":"사원번호"}, {"key":"name","head":"성명"}, {"key":"dept","head":"부서"}, {"key":"year","head":"기준년도"} ],
+            "endStep": { "label": "END-OF-SELECTION", "type": "event", "text": "ALV Grid로 결과 화면을 서빙합니다." },
+            "emptyText": "조회 조건에 해당하는 데이터가 없습니다. (SY-SUBRC = 4)"
+          }
+          </script>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> Sandbox는 "입력값에 따라 결과가 달라진다"를 직접 만지게 할 때만 쓴다. 검증 실패 경로(빈 값/형식 오류)를 반드시 넣어야 학습 가치가 산다.</div>
+      </article>
+
+      <!-- 예시 2: Open SQL -->
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · Open SQL</p>
+        <h3>항공편 WHERE 필터 Sandbox</h3>
+        <p class="ex-desc">항공사 코드와 최소 가격을 입력하면 WHERE 조건이 적용된 결과셋이 달라집니다. 항공사 코드를 비우면 전체에서 가격 조건만 적용됩니다.</p>
+        <p class="sandbox-copy">💡 항공사 코드: <code>AA</code>, <code>LH</code>, <code>UA</code> / 가격은 숫자(예: 500)</p>
+        <div class="interactive-sap-sandbox">
+          <div class="sap-gui-header"><div class="sap-tcode-bar">T-Code: <span class="tcode-val">SE38 (ZFLIGHT_QUERY)</span></div></div>
+          <div class="sap-gui-title-bar">항공편 조회 (SFLIGHT)</div>
+          <div class="sap-selection-screen">
+            <div class="sap-field-row"><label>항공사 (P_CARRID)</label><input type="text" class="sap-input sap-input-short" id="sb2-carr" placeholder="AA / LH / UA"></div>
+            <div class="sap-field-row"><label>최소 가격 (P_MINPRC)</label><input type="text" class="sap-input sap-input-short" id="sb2-price" value="0"></div>
+            <button class="sap-btn-execute">실행 (F8)</button>
+          </div>
+          <div class="sap-result-log"><div class="sap-log-placeholder">실행(F8)을 누르면 SELECT 쿼리 흐름이 출력됩니다…</div></div>
+          <script type="application/json" class="sandbox-config">
+          {
+            "fields": { "carr": "#sb2-carr", "price": "#sb2-price" },
+            "steps": [
+              { "label": "AT SELECTION-SCREEN", "type": "event", "text": "입력 검증 시작 (가격은 숫자)." }
+            ],
+            "validations": [
+              { "field": "price", "test": "numeric", "label": "Error", "text": "검증 실패: 최소 가격은 숫자여야 합니다.", "modal": "최소 가격에는 숫자를 입력하세요." }
+            ],
+            "selectStep": { "label": "START-OF-SELECTION", "type": "event", "text": "SELECT ... FROM sflight WHERE carrid = '{carr}' 실행." },
+            "db": [
+              { "carrid": "AA", "connid": "0017", "price": "422" },
+              { "carrid": "AA", "connid": "0064", "price": "666" },
+              { "carrid": "LH", "connid": "0400", "price": "555" },
+              { "carrid": "UA", "connid": "0941", "price": "1090" }
+            ],
+            "match": { "carrid": "carr" },
+            "selectResult": { "text": "필터 적용 후 {count}건 (가격 조건은 표시 단계에서 추가 안내)." },
+            "columns": [ {"key":"carrid","head":"항공사"}, {"key":"connid","head":"노선"}, {"key":"price","head":"요금"} ],
+            "endStep": { "label": "END-OF-SELECTION", "type": "event", "text": "결과셋을 출력합니다." },
+            "emptyText": "조건에 맞는 항공편이 없습니다. (SY-SUBRC = 4)"
+          }
+          </script>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 빈 입력을 "필터 제외"로 처리하면 학습자가 WHERE 조건의 누적 효과를 직접 실험할 수 있다.</div>
+      </article>
+
+      <!-- 예시 3: DDIC / 권한 -->
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · Selection Screen 권한 검증</p>
+        <h3>회사코드 권한 체크 Sandbox</h3>
+        <p class="ex-desc">회사코드를 입력하면 AT SELECTION-SCREEN에서 존재 여부를 검증하고, 등록된 코드만 조회로 진행합니다. 미등록 코드는 에러로 막힙니다.</p>
+        <p class="sandbox-copy">💡 등록된 회사코드: <code>1000</code>, <code>2000</code>, <code>3000</code></p>
+        <div class="interactive-sap-sandbox">
+          <div class="sap-gui-header"><div class="sap-tcode-bar">T-Code: <span class="tcode-val">SE38 (ZCOMPANY_CHECK)</span></div></div>
+          <div class="sap-gui-title-bar">회사코드 검증 조회 (T001)</div>
+          <div class="sap-selection-screen">
+            <div class="sap-field-row"><label>회사코드 (P_BUKRS)</label><input type="text" class="sap-input sap-input-short" id="sb3-bukrs" placeholder="1000" maxlength="4"></div>
+            <button class="sap-btn-execute">실행 (F8)</button>
+          </div>
+          <div class="sap-result-log"><div class="sap-log-placeholder">실행(F8)을 누르면 권한/존재 검증 흐름이 출력됩니다…</div></div>
+          <script type="application/json" class="sandbox-config">
+          {
+            "fields": { "bukrs": "#sb3-bukrs" },
+            "steps": [
+              { "label": "AT SELECTION-SCREEN ON P_BUKRS", "type": "event", "text": "SELECT SINGLE FROM t001 WHERE bukrs = '{bukrs}' 존재 검증." }
+            ],
+            "validations": [
+              { "field": "bukrs", "test": "required", "label": "Error", "text": "검증 실패: 회사코드는 필수입니다.", "modal": "회사코드를 입력하세요." }
+            ],
+            "selectStep": { "label": "START-OF-SELECTION", "type": "event", "text": "검증 통과 시 회사 정보 조회." },
+            "db": [
+              { "bukrs": "1000", "butxt": "정훈영코리아", "land": "KR" },
+              { "bukrs": "2000", "butxt": "Hunyoung GmbH", "land": "DE" },
+              { "bukrs": "3000", "butxt": "Hunyoung US", "land": "US" }
+            ],
+            "match": { "bukrs": "bukrs" },
+            "selectResult": { "text": "존재 검증 결과 {count}건. 0건이면 'MESSAGE E'로 화면 복귀." },
+            "columns": [ {"key":"bukrs","head":"회사코드"}, {"key":"butxt","head":"회사명"}, {"key":"land","head":"국가"} ],
+            "endStep": { "label": "END-OF-SELECTION", "type": "event", "text": "검증된 회사 정보를 출력합니다." },
+            "emptyText": "존재하지 않는 회사코드입니다. AT SELECTION-SCREEN에서 MESSAGE 'E'로 막힙니다."
+          }
+          </script>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 존재/권한 검증은 "DB에 있으면 통과, 없으면 화면 복귀" 패턴이 핵심. 빈 결과를 에러 메시지로 안내하는 것까지 시뮬레이션하면 실무 감각이 붙는다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/core.js"></script>
+<script src="../assets/widgets.js"></script>
+<script src="../assets/quiz.js"></script>
+<script src="../assets/sandbox.js"></script>
+<script src="../assets/variants.js"></script>
+</body>
+</html>

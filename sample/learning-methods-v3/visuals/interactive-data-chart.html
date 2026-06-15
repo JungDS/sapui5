@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!-- 
+  [STANDARD_V3_STRUCTURE] 
+  이 파일은 고품질 교육용 웹페이지 표준 구조(v3)를 따릅니다.
+  AI 일괄 처리 및 스크립트 자동화의 대상이므로 코어 레이아웃과 클래스 명칭을 임의로 변경하지 마십시오.
+-->
+
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Interactive Data Chart | 학습 수단 샘플 v3</title>
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../assets/widgets.css">
+  <link rel="stylesheet" href="../assets/quiz.css">
+  <link rel="stylesheet" href="../assets/variants.css">
+</head>
+<body>
+  
+    <!-- [NEW] Design Variants Selector -->
+    <div class="variant-panel" data-page-id="visuals/interactive-data-chart">
+      <h4>🎨 Design Variants (시안 선택):</h4>
+      <div class="variant-options">
+        <label class="variant-chip-a"><input type="radio" name="variant_visuals_interactive-data-chart" value="A"> 🔵 A — 기본</label>
+        <label class="variant-chip-b"><input type="radio" name="variant_visuals_interactive-data-chart" value="B"> 🟡 B — Notion</label>
+        <label class="variant-chip-c"><input type="radio" name="variant_visuals_interactive-data-chart" value="C"> 🟣 C — 파스텔</label>
+      </div>
+      <button class="page-export-btn" data-page-id="visuals/interactive-data-chart">선택 JSON 복사</button>
+    </div>
+    
+  <header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v3</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+  
+  <main class="layout">
+    <section class="hero">
+      <p class="eyebrow">시각화 자료 · 인터랙티브 데이터 차트</p>
+      <h1>인터랙티브 데이터 차트</h1>
+      <p class="lead">단순한 고정된 그래프 이미지를 넘어, 사용자가 직접 값을 입력하고 그에 따라 차트가 애니메이션과 함께 실시간으로 반응하도록 구성합니다. 데이터베이스의 트랜잭션 수치나 퍼포먼스 비교 등을 시연할 때 매우 효과적입니다.</p>
+    </section>
+
+    <section class="section">
+      <p class="section-eyebrow">실제 적용 예시</p>
+      <h2>ABAP DB 접근 방식별 성능 비교</h2>
+      <p class="section-sub">Loop 안에서 SELECT를 실행할 때와 Array Fetch(FOR ALL ENTRIES)를 사용할 때의 예상 응답 시간(ms)을 비교합니다. 직접 반복 횟수(루프 건수)를 조절해보세요.</p>
+      
+      <article class="method-example spotlight">
+        <p class="ex-topic">예시 1 · Single Select vs Array Fetch</p>
+        <h3>데이터 건수에 따른 응답 시간 시뮬레이터</h3>
+        
+        <div class="interactive-data-chart" style="margin-top: 1.5rem;">
+          <div class="chart-inputs" style="flex: 1; display: flex; flex-direction: column; gap: 1rem; max-width: 250px;">
+            <p style="font-size: 0.9rem; color: #475569; margin:0;">아래 입력창에 데이터를 조회할 건수를 입력해보세요. 실시간으로 그래프가 반영됩니다.</p>
+            <div>
+              <label style="display:block; font-size:0.85rem; font-weight:bold; margin-bottom:4px;">단건 조회 (Loop내 Select)</label>
+              <input type="number" class="chart-input" value="150" style="width: 100%; padding: 8px;">
+            </div>
+            <div>
+              <label style="display:block; font-size:0.85rem; font-weight:bold; margin-bottom:4px;">배열 조회 (FOR ALL ENTRIES)</label>
+              <input type="number" class="chart-input" value="45" style="width: 100%; padding: 8px;">
+            </div>
+            <div>
+              <label style="display:block; font-size:0.85rem; font-weight:bold; margin-bottom:4px;">JOIN (DB 레벨 결합)</label>
+              <input type="number" class="chart-input" value="20" style="width: 100%; padding: 8px;">
+            </div>
+          </div>
+          
+          <div class="chart-display" style="flex: 2; display: flex; align-items: flex-end; justify-content: space-around; height: 250px; border-left: 2px solid #cbd5e1; border-bottom: 2px solid #cbd5e1; padding: 1rem; position: relative;">
+            <div style="position: absolute; left: -40px; top: -10px; font-size: 0.8rem; color: #64748b;">(ms)</div>
+            
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end; width: 25%;">
+              <div class="chart-bar" style="width: 100%; background: #ef4444; border-radius: 4px 4px 0 0;"></div>
+              <span style="font-size: 0.8rem; font-weight: bold; text-align: center;">Loop<br>Select</span>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end; width: 25%;">
+              <div class="chart-bar" style="width: 100%; background: #f59e0b; border-radius: 4px 4px 0 0;"></div>
+              <span style="font-size: 0.8rem; font-weight: bold; text-align: center;">Array<br>Fetch</span>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end; width: 25%;">
+              <div class="chart-bar" style="width: 100%; background: #10b981; border-radius: 4px 4px 0 0;"></div>
+              <span style="font-size: 0.8rem; font-weight: bold; text-align: center;">DB<br>Join</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="ai-note" style="margin-top: 1.5rem;"><strong>AI 작성 메모:</strong> 성능 비교 차트는 정적 이미지로 보여주면 체감하기 어렵습니다. 사용자가 "1만 건" 같이 극한의 값을 직접 입력해보고 빨간색(Loop Select) 그래프가 화면 밖으로 치솟는 걸 직접 보면 성능 튜닝의 필요성을 직관적으로 깨닫습니다.</div>
+      </article>
+
+    </section>
+  </main>
+  
+  <script src="../assets/core.js"></script>
+  <script src="../assets/widgets.js"></script>
+  <script src="../assets/quiz.js"></script>
+  <script src="../assets/sandbox.js"></script>
+  <script src="../assets/variants.js"></script>
+</body>
+</html>

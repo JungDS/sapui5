@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!-- 
+  [STANDARD_V3_STRUCTURE] 
+  이 파일은 고품질 교육용 웹페이지 표준 구조(v3)를 따릅니다.
+  AI 일괄 처리 및 스크립트 자동화의 대상이므로 코어 레이아웃과 클래스 명칭을 임의로 변경하지 마십시오.
+-->
+
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Architecture Builder | 학습 수단 샘플 v3</title>
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../assets/widgets.css">
+  <link rel="stylesheet" href="../assets/quiz.css">
+  <link rel="stylesheet" href="../assets/variants.css">
+</head>
+<body>
+  
+    <!-- [NEW] Design Variants Selector -->
+    <div class="variant-panel" data-page-id="interactive/architecture-builder">
+      <h4>🎨 Design Variants (시안 선택):</h4>
+      <div class="variant-options">
+        <label class="variant-chip-a"><input type="radio" name="variant_interactive_architecture-builder" value="A"> 🔵 A — 기본</label>
+        <label class="variant-chip-b"><input type="radio" name="variant_interactive_architecture-builder" value="B"> 🟡 B — Notion</label>
+        <label class="variant-chip-c"><input type="radio" name="variant_interactive_architecture-builder" value="C"> 🟣 C — 파스텔</label>
+      </div>
+      <button class="page-export-btn" data-page-id="interactive/architecture-builder">선택 JSON 복사</button>
+    </div>
+    
+  <header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v3</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+  
+  <main class="layout">
+    <section class="hero">
+      <p class="eyebrow">인터랙티브 학습 · 아키텍처 빌더</p>
+      <h1>블록 조립형 아키텍처 설계</h1>
+      <p class="lead">복잡한 SAP 시스템 아키텍처나 모듈 간 연동 구조를 학습자가 직접 드래그 앤 드롭으로 완성하게 합니다. 눈으로만 보는 것보다 직접 퍼즐을 맞출 때 구조에 대한 기억이 훨씬 오래 남습니다.</p>
+    </section>
+
+    <section class="section">
+      <p class="section-eyebrow">실제 적용 예시</p>
+      <h2>SAP 3-Tier Architecture 구성</h2>
+      <p class="section-sub">아래 컴포넌트들을 알맞은 계층(Tier) 위치로 드래그 앤 드롭하여 3-Tier 시스템을 완성하세요.</p>
+      
+      <article class="method-example spotlight">
+        <p class="ex-topic">예시 1 · 시스템 랜드스케이프 구성</p>
+        <h3>컴포넌트 배치 미션</h3>
+        
+        <div class="interactive-puzzle-quiz" style="margin-top:1.5rem;">
+          <h4 class="puzzle-question">다음 요소들을 올바른 계층으로 드래그 앤 드롭하세요.</h4>
+          
+          <div class="puzzle-drop-zones">
+            <div class="drop-zone" data-accept="gui">
+              <div class="zone-label">Presentation Layer</div>
+            </div>
+            <div class="drop-zone" data-accept="app">
+              <div class="zone-label">Application Layer</div>
+            </div>
+            <div class="drop-zone" data-accept="db">
+              <div class="zone-label">Database Layer</div>
+            </div>
+          </div>
+          
+          <div class="puzzle-drag-items">
+            <div class="drag-item" draggable="true" data-type="app">ABAP Dispatcher</div>
+            <div class="drag-item" draggable="true" data-type="gui">SAP GUI for Windows</div>
+            <div class="drag-item" draggable="true" data-type="db">HANA Database</div>
+            <div class="drag-item" draggable="true" data-type="app">Work Process (DIA/BGD)</div>
+            <div class="drag-item" draggable="true" data-type="gui">Fiori Launchpad (Web)</div>
+          </div>
+          
+          <div class="puzzle-feedback success">정답입니다! 사용자의 요청이 Presentation을 거쳐 Application에서 처리되고 DB에 접근하는 3-Tier 구조가 완성되었습니다.</div>
+        </div>
+        
+        <div class="ai-note" style="margin-top:2rem;"><strong>AI 작성 메모:</strong> 아키텍처는 추상적이어서 글만으로는 와닿지 않습니다. 직접 'GUI'를 최상단에, 'DB'를 최하단에 놓는 행위를 통해 3-Tier의 물리적, 논리적 구분을 체화하게 됩니다.</div>
+      </article>
+    </section>
+  </main>
+  
+  <script src="../assets/core.js"></script>
+  <script src="../assets/widgets.js"></script>
+  <script src="../assets/quiz.js"></script>
+  <script src="../assets/sandbox.js"></script>
+  <script src="../assets/variants.js"></script>
+</body>
+</html>

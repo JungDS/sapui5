@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!-- 
+  [STANDARD_V3_STRUCTURE] 
+  이 파일은 고품질 교육용 웹페이지 표준 구조(v3)를 따릅니다.
+  AI 일괄 처리 및 스크립트 자동화의 대상이므로 코어 레이아웃과 클래스 명칭을 임의로 변경하지 마십시오.
+-->
+
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>공식 링크 섹션 | 학습 수단 샘플 v3</title>
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" href="../assets/widgets.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+<link rel="stylesheet" href="../assets/variants.css">
+</head>
+<body>
+
+    <!-- [NEW] Design Variants Selector -->
+    <div class="variant-panel" data-page-id="foundations/official-links-section">
+      <h4>🎨 Design Variants (시안 선택):</h4>
+      <div class="variant-options">
+        <label class="variant-chip-a"><input type="radio" name="viewport" value="A"> 🔵 A — 기본</label>
+        <label class="variant-chip-b"><input type="radio" name="viewport" value="B"> 🟡 B — Notion</label>
+        <label class="variant-chip-c"><input type="radio" name="viewport" value="C"> 🟣 C — 파스텔</label>
+      </div>
+      <button class="page-export-btn" data-page-id="foundations/official-links-section">선택 JSON 복사</button>
+    </div>
+    
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v3</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">기초 구성 · 공식 링크 섹션</p>
+    <h1>공식 링크 섹션</h1>
+    <p class="lead">Lesson 끝에 SAP Help Portal·SAP Learning 공식 문서 링크를 3개 내외로 모아, 학습 내용의 정확성 근거와 추가 학습 경로를 제공합니다. 링크마다 "무엇을 확인하는 링크인지" 한 줄 설명을 붙입니다.</p>
+    <div class="tags"><span class="tag origin">원본: Chapter 13 Lesson 1~6 (SAP Help 링크 3종)</span><span class="tag">근거 + 심화 경로</span></div>
+  </section>
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 ABAP 주제에 적용</h2>
+    <p class="section-sub">예시 1은 Chapter 13 Lesson 1의 이벤트 공식 링크 3종을 이식했습니다.</p>
+    <div class="example-stack">
+      <article class="method-example spotlight">
+        <p class="ex-topic origin">예시 1 · Report Event (Chapter 13 Lesson 1 원본)</p>
+        <h3>리포트 이벤트 공식 문서</h3>
+        <div class="link-list">
+          <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENREPORT_EVENTS.html" target="_blank" rel="noopener"><strong>Executable Program Events</strong><span>리포트 프로그램의 전체 실행 생명주기 사양</span></a>
+          <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINITIALIZATION.html" target="_blank" rel="noopener"><strong>INITIALIZATION</strong><span>화면 렌더링 직전 값을 초기화하는 구문</span></a>
+          <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSTART-OF-SELECTION.html" target="_blank" rel="noopener"><strong>START-OF-SELECTION</strong><span>메인 로직이 실행되는 이벤트 블록</span></a>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 링크는 반드시 실존 검증 후 사용하고, 설명에 "이 링크로 무엇을 확인하는지"를 적어 클릭 동기를 만든다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · Open SQL</p>
+        <h3>ABAP SQL 공식 문서</h3>
+        <div class="link-list">
+          <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECT.html" target="_blank" rel="noopener"><strong>SELECT</strong><span>ABAP SQL 조회 구문의 기본 동작</span></a>
+          <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECT_SINGLE.html" target="_blank" rel="noopener"><strong>SELECT SINGLE</strong><span>한 행만 읽는 조회와 키 완전성</span></a>
+          <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENWHERE_LOGEXP.html" target="_blank" rel="noopener"><strong>WHERE 논리식</strong><span>필터 조건과 호스트 변수 @ 규칙</span></a>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 한 Lesson당 3개를 넘기지 않는다. 너무 많으면 학습자가 무엇부터 볼지 길을 잃는다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · ALV</p>
+        <h3>SALV 공식 문서</h3>
+        <div class="link-list">
+          <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENALV_GRID.html" target="_blank" rel="noopener"><strong>SAP List Viewer (ALV)</strong><span>ALV 출력 도구 전반 개요</span></a>
+          <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTRY.html" target="_blank" rel="noopener"><strong>TRY ... CATCH</strong><span>factory 예외(cx_salv_msg) 처리</span></a>
+          <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMESSAGE.html" target="_blank" rel="noopener"><strong>MESSAGE</strong><span>데이터 없음 같은 사용자 안내 처리</span></a>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 주제와 직접 관련된 보조 문서(예외 처리, 메시지)를 한 개쯤 섞으면 실무 맥락이 풍부해진다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/core.js"></script>
+<script src="../assets/widgets.js"></script>
+<script src="../assets/quiz.js"></script>
+<script src="../assets/sandbox.js"></script>
+<script src="../assets/variants.js"></script>
+</body>
+</html>

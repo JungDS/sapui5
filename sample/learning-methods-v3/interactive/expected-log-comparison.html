@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!-- 
+  [STANDARD_V3_STRUCTURE] 
+  이 파일은 고품질 교육용 웹페이지 표준 구조(v3)를 따릅니다.
+  AI 일괄 처리 및 스크립트 자동화의 대상이므로 코어 레이아웃과 클래스 명칭을 임의로 변경하지 마십시오.
+-->
+
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>예상 로그 비교 | 학습 수단 샘플 v3</title>
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" href="../assets/widgets.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+<link rel="stylesheet" href="../assets/variants.css">
+</head>
+<body>
+
+    <!-- [NEW] Design Variants Selector -->
+    <div class="variant-panel" data-page-id="interactive/expected-log-comparison">
+      <h4>🎨 Design Variants (시안 선택):</h4>
+      <div class="variant-options">
+        <label class="variant-chip-a"><input type="radio" name="viewport" value="A"> 🔵 A — 기본</label>
+        <label class="variant-chip-b"><input type="radio" name="viewport" value="B"> 🟡 B — Notion</label>
+        <label class="variant-chip-c"><input type="radio" name="viewport" value="C"> 🟣 C — 파스텔</label>
+      </div>
+      <button class="page-export-btn" data-page-id="interactive/expected-log-comparison">선택 JSON 복사</button>
+    </div>
+    
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v3</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">상호작용 · 예상 로그 비교</p>
+    <h1>예상 로그 비교</h1>
+    <p class="lead">정상 실행 로그와 오류 실행 로그를 나란히 보여줍니다. 어느 단계까지 진행되고 어디서 멈추는지 비교하면, 런타임 흐름의 차이를 글보다 빠르게 이해합니다.</p>
+    <div class="tags"><span class="tag origin">원본 주제: Chapter 13 Lesson 4 (검증 통과/실패)</span><span class="tag">정상 vs 오류 로그</span></div>
+  </section>
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 흐름에 적용</h2>
+    <p class="section-sub">예시 1은 Chapter 13 Lesson 4의 검증 성공/실패 로그를 비교한 것입니다.</p>
+    <div class="example-stack">
+      <article class="method-example spotlight">
+        <p class="ex-topic origin">예시 1 · Report Event (Chapter 13 Lesson 4 주제)</p>
+        <h3>입력 검증 성공 vs 실패</h3>
+        <div class="viz-visual">
+          <div class="viz-compare">
+            <div class="viz-compare-after"><span class="viz-compare-label">✅ 정상 (검증 통과)</span><div class="viz-compare-body"><div class="shiki-copy-wrapper"><button class="shiki-copy-button">Copy</button><pre class="abap-editor-code">AT SELECTION-SCREEN: OK
+START-OF-SELECTION: SELECT 3 rows
+END-OF-SELECTION: ALV 출력</pre></div></div>
+            <div class="viz-compare-before"><span class="viz-compare-label">❌ 오류 (검증 실패)</span><div class="viz-compare-body"><pre class="abap-editor-code">AT SELECTION-SCREEN: p_to &lt; p_from
+MESSAGE E: 종료일 오류 → 화면 복귀
+START-OF-SELECTION: (실행 안 됨)</pre></div></div>
+          </div>
+          <p class="viz-note">오류 로그는 START-OF-SELECTION 줄에 끝내 도달하지 않습니다. 이것이 "검증이 메인 로직을 막는다"의 증거입니다.</p>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 두 로그의 마지막 줄 차이("실행됨" vs "실행 안 됨")가 핵심이므로 그 줄을 끝에 배치한다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · Open SQL</p>
+        <h3>조회 결과 있음 vs 0건</h3>
+        <div class="viz-visual">
+          <div class="viz-compare">
+            <div class="viz-compare-after"><span class="viz-compare-label">✅ 결과 있음</span><div class="viz-compare-body"><pre class="abap-editor-code">SELECT ... : sy-subrc = 0
+건수: 3
+END: ALV 3행 출력</pre></div></div>
+            <div class="viz-compare-before"><span class="viz-compare-label">⚠️ 0건 (정상일 수 있음)</span><div class="viz-compare-body"><pre class="abap-editor-code">SELECT ... : sy-subrc = 4
+건수: 0
+END: '데이터 없음' 안내 메시지</pre></div></div>
+          </div>
+          <p class="viz-note">0건은 덤프가 아닙니다. <code>sy-subrc=4</code>를 확인해 안내로 분기하는 흐름을 비교합니다.</p>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> "오류처럼 보이지만 정상"인 케이스(0건)는 로그로 보여줘 오해를 푼다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · 권한 검사</p>
+        <h3>권한 통과 vs 거부</h3>
+        <div class="viz-visual">
+          <div class="viz-compare">
+            <div class="viz-compare-after"><span class="viz-compare-label">✅ 권한 있음</span><div class="viz-compare-body"><pre class="abap-editor-code">AUTHORITY-CHECK: sy-subrc = 0
+조회 진행
+ALV 출력</pre></div></div></div>
+            <div class="viz-compare-before"><span class="viz-compare-label">❌ 권한 없음</span><div class="viz-compare-body"><pre class="abap-editor-code">AUTHORITY-CHECK: sy-subrc = 4
+MESSAGE E: 권한 없음
+조회: (실행 안 됨)</pre></div></div>
+          </div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 권한 로그는 "검사 결과 → 분기 → 실행/차단"의 3줄 구조로 두 경로를 대비시킨다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/core.js"></script>
+<script src="../assets/widgets.js"></script>
+<script src="../assets/quiz.js"></script>
+<script src="../assets/sandbox.js"></script>
+<script src="../assets/variants.js"></script>
+</body>
+</html>

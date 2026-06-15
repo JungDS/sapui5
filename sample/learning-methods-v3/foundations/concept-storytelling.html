@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!-- 
+  [STANDARD_V3_STRUCTURE] 
+  이 파일은 고품질 교육용 웹페이지 표준 구조(v3)를 따릅니다.
+  AI 일괄 처리 및 스크립트 자동화의 대상이므로 코어 레이아웃과 클래스 명칭을 임의로 변경하지 마십시오.
+-->
+
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>개념 도입 스토리 | 학습 수단 샘플 v3</title>
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" href="../assets/widgets.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+<link rel="stylesheet" href="../assets/variants.css">
+</head>
+<body>
+
+    <!-- [NEW] Design Variants Selector -->
+    <div class="variant-panel" data-page-id="foundations/concept-storytelling">
+      <h4>🎨 Design Variants (시안 선택):</h4>
+      <div class="variant-options">
+        <label class="variant-chip-a"><input type="radio" name="viewport" value="A"> 🔵 A — 기본</label>
+        <label class="variant-chip-b"><input type="radio" name="viewport" value="B"> 🟡 B — Notion</label>
+        <label class="variant-chip-c"><input type="radio" name="viewport" value="C"> 🟣 C — 파스텔</label>
+      </div>
+      <button class="page-export-btn" data-page-id="foundations/concept-storytelling">선택 JSON 복사</button>
+    </div>
+    
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v3</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">기초 구성 · 개념 도입 스토리</p>
+    <h1>개념 도입 스토리</h1>
+    <p class="lead">낯선 영문 용어를 익숙한 일상 장면에 빗대 기억의 고리를 만듭니다. 특히 직관에 어긋나는 개념(코드 순서 ≠ 실행 순서)일수록, 비유 스토리가 오개념을 흔들고 새 개념을 자리잡게 합니다.</p>
+    <div class="tags"><span class="tag origin">원본: Chapter 13 Lesson 1 (요리사 정훈영의 하루)</span><span class="tag">비유 기반</span></div>
+  </section>
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 ABAP 개념에 적용</h2>
+    <p class="section-sub">예시 1은 Chapter 13 Lesson 1의 "요리사 정훈영 사원의 하루" 비유를 이식했습니다.</p>
+    <div class="example-stack">
+      <article class="method-example spotlight">
+        <p class="ex-topic origin">예시 1 · Report Event (Chapter 13 Lesson 1 원본)</p>
+        <h3>요리사 정훈영 사원의 하루 = 이벤트 라이프사이클</h3>
+        <p class="ex-desc">복잡한 영문 이벤트명을 주방 프로세스에 비유하면 순서가 한 번에 들어옵니다.</p>
+        <div class="storyline">
+          <div class="beat"><span class="beat-icon">🔑</span><div><strong>LOAD-OF-PROGRAM — 주방 오픈</strong><br>출근해 불을 켜고 앞치마를 맵니다. 프로그램이 메모리에 적재되는 순간.</div></div>
+          <div class="beat"><span class="beat-icon">📝</span><div><strong>INITIALIZATION — 추천 메뉴 미리 적기</strong><br>손님이 오기 전 "오늘의 추천 파스타"를 메뉴판에 디폴트로 적어둡니다. (화면 기본값)</div></div>
+          <div class="beat"><span class="beat-icon">🪑</span><div><strong>Selection Screen — 주문 대기</strong><br>손님(사용자)이 메뉴판을 보고 옵션을 고릅니다.</div></div>
+          <div class="beat"><span class="beat-icon">✅</span><div><strong>AT SELECTION-SCREEN — 주문 검증</strong><br>재료가 충분한지, 주문이 올바른지 확인합니다. 틀리면 다시 주문받습니다.</div></div>
+          <div class="beat"><span class="beat-icon">🍳</span><div><strong>START-OF-SELECTION — 조리 시작</strong><br>검증을 통과하면 본격적으로 요리(DB 조회·가공)를 합니다.</div></div>
+          <div class="beat"><span class="beat-icon">🍽️</span><div><strong>END-OF-SELECTION — 플레이팅</strong><br>완성된 음식을 그릇에 담아 서빙합니다. (결과 출력)</div></div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 6개 이상의 낯선 용어가 순서대로 나올 때, 하나의 일관된 비유(주방)로 전체를 꿰면 암기 부담이 급감한다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · Internal Table</p>
+        <h3>내부 테이블 = 작업용 화이트보드</h3>
+        <p class="ex-desc">DB는 영구 창고, 내부 테이블은 잠깐 쓰는 화이트보드라는 비유로 "임시·휘발" 성질을 잡습니다.</p>
+        <div class="storyline">
+          <div class="beat"><span class="beat-icon">🏬</span><div><strong>DB 테이블 — 본사 창고</strong><br>모든 물건이 영구 보관되는 곳. 함부로 들고 다니지 않습니다.</div></div>
+          <div class="beat"><span class="beat-icon">📋</span><div><strong>내부 테이블 — 작업용 화이트보드</strong><br>창고에서 필요한 만큼만 꺼내 적어두고 계산합니다. 프로그램이 끝나면 지워집니다(휘발).</div></div>
+          <div class="beat"><span class="beat-icon">✍️</span><div><strong>APPEND / INSERT — 줄 추가</strong><br>화이트보드에 행을 덧붙입니다.</div></div>
+          <div class="beat"><span class="beat-icon">👉</span><div><strong>Work Area — 지금 보는 한 줄</strong><br>화이트보드의 한 줄을 손가락으로 짚어 읽고 고칩니다.</div></div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> "영구 vs 임시"처럼 추상적 성질은 창고/화이트보드 같은 물리적 비유로 대비시키면 또렷해진다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · OO ABAP</p>
+        <h3>클래스와 객체 = 붕어빵 틀과 붕어빵</h3>
+        <p class="ex-desc">클래스는 설계도(틀), 객체는 그 틀로 찍어낸 실물이라는 고전 비유로 인스턴스화를 설명합니다.</p>
+        <div class="storyline">
+          <div class="beat"><span class="beat-icon">🧇</span><div><strong>CLASS DEFINITION — 붕어빵 틀</strong><br>모양과 기능(메서드)을 정의한 설계도. 그 자체로는 먹을 수 없습니다.</div></div>
+          <div class="beat"><span class="beat-icon">🐟</span><div><strong>NEW / CREATE OBJECT — 붕어빵 찍기</strong><br>틀로 실제 붕어빵(객체)을 만듭니다. 여러 개 찍을 수 있습니다.</div></div>
+          <div class="beat"><span class="beat-icon">🍯</span><div><strong>Attribute — 속(앙금/슈크림)</strong><br>각 붕어빵마다 다른 속을 채울 수 있듯, 객체마다 속성 값이 다릅니다.</div></div>
+          <div class="beat"><span class="beat-icon">➡️</span><div><strong>-&gt; 메서드 호출 — 한 입 베어물기</strong><br>특정 붕어빵(객체)에게 동작을 시킵니다.</div></div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> "하나의 틀로 여러 실물"이라는 인스턴스화 핵심은 붕어빵 비유로 한 문장에 담긴다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/core.js"></script>
+<script src="../assets/widgets.js"></script>
+<script src="../assets/quiz.js"></script>
+<script src="../assets/sandbox.js"></script>
+<script src="../assets/variants.js"></script>
+</body>
+</html>

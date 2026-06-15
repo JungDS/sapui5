@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!-- 
+  [STANDARD_V3_STRUCTURE] 
+  이 파일은 고품질 교육용 웹페이지 표준 구조(v3)를 따릅니다.
+  AI 일괄 처리 및 스크립트 자동화의 대상이므로 코어 레이아웃과 클래스 명칭을 임의로 변경하지 마십시오.
+-->
+
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>O/X Survival Quiz | 학습 수단 샘플 v3</title>
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../assets/widgets.css">
+  <link rel="stylesheet" href="../assets/quiz.css">
+  <link rel="stylesheet" href="../assets/variants.css">
+</head>
+<body>
+  
+    <!-- [NEW] Design Variants Selector -->
+    <div class="variant-panel" data-page-id="quizzes/ox-survival-quiz">
+      <h4>🎨 Design Variants (시안 선택):</h4>
+      <div class="variant-options">
+        <label class="variant-chip-a"><input type="radio" name="variant_quizzes_ox-survival-quiz" value="A"> 🔵 A — 기본</label>
+        <label class="variant-chip-b"><input type="radio" name="variant_quizzes_ox-survival-quiz" value="B"> 🟡 B — Notion</label>
+        <label class="variant-chip-c"><input type="radio" name="variant_quizzes_ox-survival-quiz" value="C"> 🟣 C — 파스텔</label>
+      </div>
+      <button class="page-export-btn" data-page-id="quizzes/ox-survival-quiz">선택 JSON 복사</button>
+    </div>
+    
+  <header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v3</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+  
+  <main class="layout">
+    <section class="hero">
+      <p class="eyebrow">퀴즈 · O/X 서바이벌 게임</p>
+      <h1>O/X 개념 생존 게임</h1>
+      <p class="lead">순간적인 판단력을 요구하는 빠른 템포의 O/X 퀴즈입니다. 헷갈리기 쉬운 ABAP 개념들을 연달아 출제하여 긴장감을 유도하고, 오답 시 즉각 탈락(또는 감점)시켜 게임적 재미를 부여합니다.</p>
+    </section>
+
+    <section class="section">
+      <p class="section-eyebrow">실제 적용 예시</p>
+      <h2>ABAP 핵심 문법 진실 혹은 거짓</h2>
+      <p class="section-sub">제한 시간 내에 정답을 선택해야 합니다. 3번 틀리면 게임 오버입니다.</p>
+      
+      <article class="method-example spotlight">
+        <p class="ex-topic">예시 1 · 헷갈리는 문법 O/X</p>
+        <h3>생존 O/X 퀴즈</h3>
+        
+        <div class="ox-survival-game" style="margin-top: 1.5rem;">
+          <div class="ox-question">
+            Q1. 인터널 테이블(Internal Table)은 데이터베이스에 실제 데이터를 영구적으로 저장하는 테이블이다.
+          </div>
+          <div class="ox-btns">
+            <button class="btn-o" title="O (진실)">O</button>
+            <button class="btn-x" title="X (거짓)">X</button>
+          </div>
+          <div class="ox-score">현재 생존 포인트: <span style="color:#ef4444;">♥♥♥</span></div>
+          <p class="ox-feedback" style="display:none; margin-top:1rem; font-weight:bold; color:#ef4444;">틀렸습니다! 인터널 테이블은 메모리에 상주하는 임시 저장소(휘발성)입니다.</p>
+        </div>
+        
+        <div class="ai-note" style="margin-top:2rem;"><strong>AI 작성 메모:</strong> 지루한 사지선다 객관식보다 이런 원초적인 O/X 버튼 게임이 집중도를 훨씬 높입니다. 정답/오답 처리를 JS로 살짝 곁들이면 효과가 배가됩니다.</div>
+      </article>
+
+    </section>
+  </main>
+  
+  <script src="../assets/core.js"></script>
+  <script src="../assets/widgets.js"></script>
+  <script src="../assets/quiz.js"></script>
+  <script src="../assets/sandbox.js"></script>
+  <script src="../assets/variants.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const btnO = document.querySelector('.btn-o');
+      const btnX = document.querySelector('.btn-x');
+      const feedback = document.querySelector('.ox-feedback');
+      const hearts = document.querySelector('.ox-score span');
+      
+      if(btnO && btnX) {
+        btnO.addEventListener('click', () => {
+          feedback.style.display = 'block';
+          feedback.style.color = '#ef4444';
+          feedback.textContent = '틀렸습니다! (X가 정답입니다)';
+          hearts.textContent = '♥♥♡';
+        });
+        btnX.addEventListener('click', () => {
+          feedback.style.display = 'block';
+          feedback.style.color = '#10b981';
+          feedback.textContent = '정답입니다! 인터널 테이블은 프로그램 실행 중에만 존재하는 메모리 테이블입니다.';
+        });
+      }
+    });
+  </script>
+</body>
+</html>

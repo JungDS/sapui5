@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!-- 
+  [STANDARD_V3_STRUCTURE] 
+  이 파일은 고품질 교육용 웹페이지 표준 구조(v3)를 따릅니다.
+  AI 일괄 처리 및 스크립트 자동화의 대상이므로 코어 레이아웃과 클래스 명칭을 임의로 변경하지 마십시오.
+-->
+
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>오류 찾기 미션 | 학습 수단 샘플 v3</title>
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" href="../assets/widgets.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+<link rel="stylesheet" href="../assets/variants.css">
+</head>
+<body>
+
+    <!-- [NEW] Design Variants Selector -->
+    <div class="variant-panel" data-page-id="code-learning/bug-hunt-mission">
+      <h4>🎨 Design Variants (시안 선택):</h4>
+      <div class="variant-options">
+        <label class="variant-chip-a"><input type="radio" name="viewport" value="A"> 🔵 A — 기본</label>
+        <label class="variant-chip-b"><input type="radio" name="viewport" value="B"> 🟡 B — Notion</label>
+        <label class="variant-chip-c"><input type="radio" name="viewport" value="C"> 🟣 C — 파스텔</label>
+      </div>
+      <button class="page-export-btn" data-page-id="code-learning/bug-hunt-mission">선택 JSON 복사</button>
+    </div>
+    
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v3</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">코드 학습 · 오류 찾기 미션</p>
+    <h1>오류 찾기 미션</h1>
+    <p class="lead">일부러 틀린 코드를 제시하고 버그를 찾게 합니다. 문제 줄 번호나 키워드를 입력해 채점하고, 해설로 원인을 확인합니다. 안티패턴·성능·화면 제어처럼 "실수가 잦은" 주제에 효과적입니다.</p>
+    <div class="tags"><span class="tag origin">원본: Chapter 13 Lesson 1/3 (이벤트·화면 제어 실수)</span><span class="tag">버그 진단 + 해설</span></div>
+  </section>
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 ABAP 버그에 적용</h2>
+    <p class="section-sub">예시 1은 Chapter 13 Lesson 1의 "기본값을 잘못된 이벤트에 둔 버그"를 찾는 미션입니다.</p>
+    <div class="example-stack">
+      <article class="method-example spotlight">
+        <p class="ex-topic origin">예시 1 · Report Event (Chapter 13 Lesson 1 원본)</p>
+        <h3>왜 사용자 입력이 무시될까?</h3>
+        <div data-answer-check data-explain="3번 줄이 버그입니다. START-OF-SELECTION은 매 실행마다 값을 덮어씁니다." data-hint="기본값을 매번 덮어쓰는 줄의 번호(숫자)를 입력하세요.">
+          <div class="abap-editor-mockup"><div class="abap-editor-header"><div class="abap-editor-mac-buttons"><span class="abap-editor-mac-btn red"></span><span class="abap-editor-mac-btn yellow"></span><span class="abap-editor-mac-btn green"></span></div><div class="abap-editor-title">ABAP</div></div><div class="abap-editor-body"><div class="abap-editor-line-numbers">1<br>2<br>3<br>4</div><div class="shiki-copy-wrapper"><button class="shiki-copy-button">Copy</button><pre class="abap-editor-code"><span class="abap-token-keyword">PARAMETERS</span> p_year <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> 4.
+<span class="abap-token-keyword">START-OF-SELECTION.</span>
+  p_year = <span class="abap-token-string">'2026'</span>.
+  <span class="abap-token-keyword">SELECT</span> * <span class="abap-token-keyword">FROM</span> zemp <span class="abap-token-keyword">WHERE</span> gyear = @p_year <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @gt.</pre></div></div>
+          <div class="short-row"><input class="fillblank-input" data-answer="3" placeholder="버그 줄 번호"><button class="btn" data-check>진단</button></div>
+          <div class="short-output" data-result>버그가 있는 줄 번호를 입력하세요.</div>
+        </div>
+        <details class="foldable"><summary>해설 보기</summary><p>3번 줄. 기본값 세팅은 <code>INITIALIZATION</code>에 두어야 합니다. START-OF-SELECTION은 F8 실행마다 돌아 사용자가 바꾼 연도를 매번 '2026'으로 덮어씁니다.</p></details>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> "현상(입력 무시) → 버그 줄 찾기 → 해설" 3단 구성으로 진단 사고를 훈련시킨다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · Open SQL</p>
+        <h3>왜 이렇게 느릴까?</h3>
+        <div data-answer-check data-explain="2번 줄이 문제입니다. 루프 안 SELECT는 DB를 건수만큼 왕복합니다." data-hint="반복마다 DB를 왕복하는 줄 번호(숫자)를 입력하세요.">
+          <div class="abap-editor-mockup"><div class="abap-editor-header"><div class="abap-editor-mac-buttons"><span class="abap-editor-mac-btn red"></span><span class="abap-editor-mac-btn yellow"></span><span class="abap-editor-mac-btn green"></span></div><div class="abap-editor-title">ABAP</div></div><div class="abap-editor-body"><div class="abap-editor-line-numbers">1<br>2<br>3</div><pre class="abap-editor-code"><span class="abap-token-keyword">LOOP</span> <span class="abap-token-keyword">AT</span> lt_flight <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">DATA</span>(ls_f).
+  <span class="abap-token-keyword">SELECT</span> <span class="abap-token-keyword">SINGLE</span> carrname <span class="abap-token-keyword">FROM</span> scarr <span class="abap-token-keyword">WHERE</span> carrid = @ls_f-carrid <span class="abap-token-keyword">INTO</span> @<span class="abap-token-keyword">DATA</span>(lv_n).
+<span class="abap-token-keyword">ENDLOOP.</span></pre></div></div></div>
+          <div class="short-row"><input class="fillblank-input" data-answer="2" placeholder="버그 줄 번호"><button class="btn" data-check>진단</button></div>
+          <div class="short-output" data-result>버그가 있는 줄 번호를 입력하세요.</div>
+        </div>
+        <details class="foldable"><summary>해설 보기</summary><p>2번 줄. 루프 안 SELECT는 안티패턴입니다. <code>INNER JOIN</code>이나 <code>FOR ALL ENTRIES</code>로 한 번에 가져오세요.</p></details>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 성능 버그는 "느린 이유"를 묻고, 해설에 대안(JOIN/FAE)을 함께 제시한다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · Selection Screen 화면 제어</p>
+        <h3>왜 칸이 안 숨겨질까?</h3>
+        <div data-answer-check data-explain="MODIFY SCREEN 누락이 원인입니다. 속성 변경 후 반영 구문이 빠졌습니다." data-hint="속성 변경을 화면에 반영하는, 빠진 구문의 키워드 두 단어를 입력하세요.">
+          <div class="abap-editor-mockup"><div class="abap-editor-header"><div class="abap-editor-mac-buttons"><span class="abap-editor-mac-btn red"></span><span class="abap-editor-mac-btn yellow"></span><span class="abap-editor-mac-btn green"></span></div><div class="abap-editor-title">ABAP</div></div><div class="abap-editor-body"><pre class="abap-editor-code"><span class="abap-token-keyword">AT</span> <span class="abap-token-keyword">SELECTION-SCREEN</span> OUTPUT.
+  <span class="abap-token-keyword">LOOP</span> <span class="abap-token-keyword">AT</span> SCREEN.
+    <span class="abap-token-keyword">IF</span> screen-name = <span class="abap-token-string">'P_DETAIL'</span>.
+      screen-active = <span class="abap-token-string">'0'</span>.
+      <span class="abap-token-comment">" ??? 무언가 빠졌다</span>
+    <span class="abap-token-keyword">ENDIF</span>.
+  <span class="abap-token-keyword">ENDLOOP</span>.</pre></div></div>
+          <div class="short-row"><input class="fillblank-input" data-answer="MODIFY SCREEN" placeholder="빠진 구문"><button class="btn" data-check>진단</button></div>
+          <div class="short-output" data-result>빠진 구문을 입력하세요.</div>
+        </div>
+        <details class="foldable"><summary>해설 보기</summary><p><code>MODIFY SCREEN.</code>이 빠졌습니다. <code>screen-active</code>를 바꿔도 이 구문이 없으면 실제 화면에 반영되지 않습니다(가장 흔한 실수).</p></details>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> "빠진 줄 찾기"형 버그는 키워드 입력으로 받아, 학습자가 정확한 구문을 떠올리게 한다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/core.js"></script>
+<script src="../assets/widgets.js"></script>
+<script src="../assets/quiz.js"></script>
+<script src="../assets/sandbox.js"></script>
+<script src="../assets/variants.js"></script>
+</body>
+</html>

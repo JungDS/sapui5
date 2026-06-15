@@ -25,6 +25,17 @@
 | V06 | done | 검증 — 38개 유지, 각 method-example 3개, 380/620px 가로 스크롤 0건, mermaid 렌더링, README/index 링크 실존, 콘솔 오류 0건, desktop/mobile 스크린샷 |
 | V07 | done | 문서 동기화(TASKS/RUN_LOG/99_AI_SYNC/CHANGELOG) 및 scoped commit/push |
 
+## v3 마이그레이션 (Design Variants 및 확장 컴포넌트 추가)
+> 사용자의 디자인 시안 선택(Variant A/B/C)을 로컬에 자동 기록하는 `dev-server.py` 환경을 도입하고, 기존 38종의 수단에 6가지 고품질 인터랙티브 컴포넌트를 추가하여 총 44종으로 확장함.
+
+| ID | 상태 | 작업 |
+|---|---|---|
+| M01 | done | `dev-server.py` 및 `design-choices.json` 로컬 서버/저장 환경 구축 |
+| M02 | done | `method-samples.css`, `method-samples.js` 공통 자산 v3 복제 및 시안 로직 추가 |
+| M03 | done | 기존 v2 38종 마이그레이션 (라디오 버튼 패널 주입, Copy 버튼 보강, 결함 패치) |
+| M04 | done | 신규 고품질 위젯 6종 추가 (핫스팟, 차트, 게이지, 퍼즐, 키보드, 타임어택 퀴즈) |
+| M05 | done | `index.html`, `README.md`, 및 관련 문서(`TASKS.md`, `99_AI_SYNC.md`) 갱신 |
+| M06 | todo | 44개 컴포넌트에 대한 브라우저 수동 검증 수행 |
+
 ## Stage 범위
-- 포함: `.project-docs/진행계획/4c8b81b0-9779-4e78-98e6-7965479a2b94/`, `.project-docs/10_LEARNING_CONTENT_METHODS.md`, 관련 인계 문서, `sample/learning-methods/`, `.project-docs/08_DEV_DIARY.md`, 2026-06-15 changelog.
-- 제외: `.project-docs/virtual_browser_test_guide.md`, `sample/abap-event-diagram-sample.html`.
+- 포함: `dev-server.py`, `sample/learning-methods-v3/`, `.project-docs/진행계획/4c8b81b0-9779-4e78-98e6-7965479a2b94/`, `.project-docs/10_LEARNING_CONTENT_METHODS.md`, `99_AI_SYNC.md`.

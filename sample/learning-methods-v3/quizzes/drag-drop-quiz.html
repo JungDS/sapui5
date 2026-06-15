@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!-- 
+  [STANDARD_V3_STRUCTURE] 
+  이 파일은 고품질 교육용 웹페이지 표준 구조(v3)를 따릅니다.
+  AI 일괄 처리 및 스크립트 자동화의 대상이므로 코어 레이아웃과 클래스 명칭을 임의로 변경하지 마십시오.
+-->
+
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>드래그 앤 드롭 퀴즈 | 학습 수단 샘플 v3</title>
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" href="../assets/widgets.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+<link rel="stylesheet" href="../assets/variants.css">
+</head>
+<body>
+
+    <!-- [NEW] Design Variants Selector -->
+    <div class="variant-panel" data-page-id="quizzes/drag-drop-quiz">
+      <h4>🎨 Design Variants (시안 선택):</h4>
+      <div class="variant-options">
+        <label class="variant-chip-a"><input type="radio" name="viewport" value="A"> 🔵 A — 기본</label>
+        <label class="variant-chip-b"><input type="radio" name="viewport" value="B"> 🟡 B — Notion</label>
+        <label class="variant-chip-c"><input type="radio" name="viewport" value="C"> 🟣 C — 파스텔</label>
+      </div>
+      <button class="page-export-btn" data-page-id="quizzes/drag-drop-quiz">선택 JSON 복사</button>
+    </div>
+    
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../index.html">학습 수단 샘플 v3</a>
+    <a class="topbar-back" href="../index.html">← 전체 목록</a>
+  </div>
+</header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">퀴즈 · 드래그 앤 드롭</p>
+    <h1>드래그 앤 드롭 퀴즈</h1>
+    <p class="lead">카드를 알맞은 순서 칸으로 끌어다 놓으면 정답 여부에 따라 칸이 초록/빨강으로 바뀌고, 모두 맞히면 축하 효과가 나타납니다. 배치한 카드를 클릭하면 다시 회수됩니다. 순서·분류·매칭 회수에 적합합니다.</p>
+    <div class="tags">
+      <span class="tag origin">원본: Chapter 13 Lesson 1 (이벤트 순서 맞추기)</span>
+      <span class="tag">드래그 → 즉시 채점</span>
+      <span class="tag">정답 시 컨페티</span>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 ABAP 순서 문제에 적용</h2>
+    <p class="section-sub">예시 1은 Chapter 13 Lesson 1의 이벤트 카드 순서 맞추기를 그대로 이식했습니다.</p>
+
+    <div class="example-stack">
+      <!-- 예시 1: Chapter 13 원본 -->
+      <article class="method-example spotlight">
+        <p class="ex-topic origin">예시 1 · Report Event (Chapter 13 Lesson 1 원본)</p>
+        <h3>리포트 이벤트 생명주기 순서</h3>
+        <div class="interactive-puzzle-quiz" data-success="🎉 <strong>정답입니다!</strong> LOAD-OF-PROGRAM → INITIALIZATION → START-OF-SELECTION → END-OF-SELECTION 순서를 완벽히 맞췄습니다." data-error="❌ <strong>아직 아니에요.</strong> 요리사 정훈영 사원의 하루(주방 오픈 → 주문서 초기화 → 조리 → 플레이팅)를 떠올려보세요.">
+          <div class="puzzle-question">Q. 프로그램 호출부터 최종 출력까지, 리포트 전체 생명주기 순서를 채우세요.</div>
+          <div class="puzzle-drop-zones">
+            <div class="drop-zone" data-expected="LOAD-OF-PROGRAM"><span class="zone-label">1단계 (메모리 로드)</span></div>
+            <div class="drop-zone" data-expected="INITIALIZATION"><span class="zone-label">2단계 (화면 초기화)</span></div>
+            <div class="drop-zone" data-expected="START-OF-SELECTION"><span class="zone-label">3단계 (메인 쿼리)</span></div>
+            <div class="drop-zone" data-expected="END-OF-SELECTION"><span class="zone-label">4단계 (출력 마감)</span></div>
+          </div>
+          <div class="puzzle-items-label">드래그할 이벤트 블록 카드</div>
+          <div class="puzzle-drag-items">
+            <div class="drag-item" draggable="true" data-answer="START-OF-SELECTION">START-OF-SELECTION</div>
+            <div class="drag-item" draggable="true" data-answer="INITIALIZATION">INITIALIZATION</div>
+            <div class="drag-item" draggable="true" data-answer="LOAD-OF-PROGRAM">LOAD-OF-PROGRAM</div>
+            <div class="drag-item" draggable="true" data-answer="END-OF-SELECTION">END-OF-SELECTION</div>
+          </div>
+          <div class="puzzle-feedback"></div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 단순 암기보다 카드를 직접 배열하게 하면 능동적 회수가 일어난다. 오답 피드백에 비유 힌트를 넣으면 재시도 동기가 생긴다.</div>
+      </article>
+
+      <!-- 예시 2: Open SQL -->
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · Open SQL</p>
+        <h3>SELECT 문 절(clause) 작성 순서</h3>
+        <div class="interactive-puzzle-quiz" data-success="🎉 <strong>정답!</strong> SELECT → FROM → WHERE → INTO TABLE 순서가 맞습니다." data-error="❌ 조회 대상(FROM)을 먼저 정한 뒤 조건(WHERE)을 거는 흐름을 떠올려보세요.">
+          <div class="puzzle-question">Q. ABAP SQL 한 문장에서 절이 등장하는 순서대로 채우세요.</div>
+          <div class="puzzle-drop-zones">
+            <div class="drop-zone" data-expected="SELECT"><span class="zone-label">1 (가져올 컬럼)</span></div>
+            <div class="drop-zone" data-expected="FROM"><span class="zone-label">2 (조회 대상)</span></div>
+            <div class="drop-zone" data-expected="WHERE"><span class="zone-label">3 (필터)</span></div>
+            <div class="drop-zone" data-expected="INTO TABLE"><span class="zone-label">4 (결과 담기)</span></div>
+          </div>
+          <div class="puzzle-items-label">드래그할 절 카드</div>
+          <div class="puzzle-drag-items">
+            <div class="drag-item" draggable="true" data-answer="WHERE">WHERE</div>
+            <div class="drag-item" draggable="true" data-answer="INTO TABLE">INTO TABLE</div>
+            <div class="drag-item" draggable="true" data-answer="SELECT">SELECT</div>
+            <div class="drag-item" draggable="true" data-answer="FROM">FROM</div>
+          </div>
+          <div class="puzzle-feedback"></div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 구문 작성 순서가 헷갈리는 주제(SQL 절, OPEN/FETCH/CLOSE)는 카드 배열로 손에 익힌다.</div>
+      </article>
+
+      <!-- 예시 3: ALV -->
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · ALV (SALV)</p>
+        <h3>SALV 출력 4단계 순서</h3>
+        <div class="interactive-puzzle-quiz" data-success="🎉 <strong>정답!</strong> 조회 → factory 생성 → 기능 활성화 → display 순서입니다." data-error="❌ 표를 만들려면 먼저 데이터가 있어야 하고, 객체를 생성한 뒤에야 기능을 켤 수 있습니다.">
+          <div class="puzzle-question">Q. CL_SALV_TABLE로 ALV를 출력하는 일반적인 순서를 채우세요.</div>
+          <div class="puzzle-drop-zones">
+            <div class="drop-zone" data-expected="SELECT INTO TABLE"><span class="zone-label">1 (데이터 조회)</span></div>
+            <div class="drop-zone" data-expected="factory( )"><span class="zone-label">2 (ALV 객체 생성)</span></div>
+            <div class="drop-zone" data-expected="set_all( )"><span class="zone-label">3 (툴바 기능 활성화)</span></div>
+            <div class="drop-zone" data-expected="display( )"><span class="zone-label">4 (화면 출력)</span></div>
+          </div>
+          <div class="puzzle-items-label">드래그할 단계 카드</div>
+          <div class="puzzle-drag-items">
+            <div class="drag-item" draggable="true" data-answer="display( )">display( )</div>
+            <div class="drag-item" draggable="true" data-answer="SELECT INTO TABLE">SELECT INTO TABLE</div>
+            <div class="drag-item" draggable="true" data-answer="set_all( )">set_all( )</div>
+            <div class="drag-item" draggable="true" data-answer="factory( )">factory( )</div>
+          </div>
+          <div class="puzzle-feedback"></div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> API 호출 순서(생성 → 설정 → 표시)는 드래그 퀴즈로 굳히면 실제 코드 작성 시 순서 실수를 줄인다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/core.js"></script>
+<script src="../assets/widgets.js"></script>
+<script src="../assets/quiz.js"></script>
+<script src="../assets/sandbox.js"></script>
+<script src="../assets/variants.js"></script>
+</body>
+</html>

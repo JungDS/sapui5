@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!-- 
+  [STANDARD_V3_STRUCTURE] 
+  이 파일은 고품질 교육용 웹페이지 표준 구조(v3)를 따릅니다.
+  AI 일괄 처리 및 스크립트 자동화의 대상이므로 코어 레이아웃과 클래스 명칭을 임의로 변경하지 마십시오.
+-->
+
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>한눈에 정리 | 학습 수단 샘플 v3</title>
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" href="../assets/widgets.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+<link rel="stylesheet" href="../assets/variants.css">
+</head>
+<body>
+
+    <!-- [NEW] Design Variants Selector -->
+    <div class="variant-panel" data-page-id="foundations/summary-recap">
+      <h4>🎨 Design Variants (시안 선택):</h4>
+      <div class="variant-options">
+        <label class="variant-chip-a"><input type="radio" name="viewport" value="A"> 🔵 A — 기본</label>
+        <label class="variant-chip-b"><input type="radio" name="viewport" value="B"> 🟡 B — Notion</label>
+        <label class="variant-chip-c"><input type="radio" name="viewport" value="C"> 🟣 C — 파스텔</label>
+      </div>
+      <button class="page-export-btn" data-page-id="foundations/summary-recap">선택 JSON 복사</button>
+    </div>
+    
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v3</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">기초 구성 · 한눈에 정리</p>
+    <h1>한눈에 정리 (Summary Recap)</h1>
+    <p class="lead">Lesson 마지막에 핵심을 짧은 카드로 압축하고, 다음 Lesson으로 가는 연결 문장을 답니다. 학습을 닫고 다음 흐름을 예고해 "끊김 없는 학습 경로"를 만듭니다.</p>
+    <div class="tags"><span class="tag origin">원본: Chapter 13 Lesson 1~6 (한눈에 정리)</span><span class="tag">핵심 압축 + 다음 예고</span></div>
+  </section>
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 Lesson 마무리에 적용</h2>
+    <p class="section-sub">예시 1은 Chapter 13 Lesson 1의 "이벤트 기초 핵심 요약 + 다음 Lesson 예고"를 이식했습니다.</p>
+    <div class="example-stack">
+      <article class="method-example spotlight">
+        <p class="ex-topic origin">예시 1 · Report Event (Chapter 13 Lesson 1 원본)</p>
+        <h3>이벤트 기초 핵심 요약</h3>
+        <div class="recap-grid">
+          <div class="recap-card"><strong>실행 순서의 주인</strong>코드 작성 순서가 아닌 <b>이벤트 라이프사이클</b>이 순서를 정합니다.</div>
+          <div class="recap-card"><strong>INITIALIZATION</strong>화면이 뜨기 전 기본값을 세팅하는 준비 단계.</div>
+          <div class="recap-card"><strong>AT SELECTION-SCREEN</strong>입력값의 적합성을 검사하는 검증 필터.</div>
+          <div class="recap-card"><strong>START-OF-SELECTION</strong>DB 조회 등 핵심 계산을 수행하는 요리 단계.</div>
+        </div>
+        <div class="lesson-callout tip"><div class="lesson-callout-icon">➡️</div><div class="lesson-callout-content"><h4>다음 Lesson 예고</h4><p>다음 <strong>INITIALIZATION 기본값 설정</strong>에서는 날짜·부서 코드 같은 기본값을 화면에 실제로 적재해 봅니다.</p></div></div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 요약 카드는 4개 이내로, 각 카드 제목은 키워드, 본문은 한 문장으로 압축한다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · Internal Table</p>
+        <h3>내부 테이블 핵심 요약</h3>
+        <div class="recap-grid">
+          <div class="recap-card"><strong>임시·휘발</strong>DB와 달리 프로그램 실행 중에만 존재합니다.</div>
+          <div class="recap-card"><strong>TYPES는 설계도</strong>선언만으로 메모리를 쓰지 않습니다. DATA가 실체.</div>
+          <div class="recap-card"><strong>INTO는 복사</strong>Work Area로 읽으면 원본은 그대로입니다.</div>
+          <div class="recap-card"><strong>검색 실패 주의</strong>READ 실패 후 Work Area엔 직전 값이 남습니다(sy-subrc 확인).</div>
+        </div>
+        <div class="lesson-callout tip"><div class="lesson-callout-icon">➡️</div><div class="lesson-callout-content"><h4>다음 Lesson 예고</h4><p>다음 <strong>SORT/DELETE/MODIFY</strong>에서 내부 테이블을 정렬·가공하는 법을 배웁니다.</p></div></div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 오개념 교정형 Lesson은 요약 카드에도 "주의" 항목(검색 실패)을 한 장 끼운다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · OO ABAP</p>
+        <h3>클래스 기초 핵심 요약</h3>
+        <div class="recap-grid">
+          <div class="recap-card"><strong>DEFINITION vs IMPLEMENTATION</strong>설계도와 구현을 나눠 적습니다.</div>
+          <div class="recap-card"><strong>Static <code>=&gt;</code> / Instance <code>-&gt;</code></strong>연산자가 소속을 말해줍니다.</div>
+          <div class="recap-card"><strong>NEW로 인스턴스화</strong>하나의 클래스로 여러 객체를 만듭니다.</div>
+          <div class="recap-card"><strong>Subroutine 대체</strong>신규 개발은 FORM 대신 클래스 우선.</div>
+        </div>
+        <div class="lesson-callout tip"><div class="lesson-callout-icon">➡️</div><div class="lesson-callout-content"><h4>다음 Lesson 예고</h4><p>다음 <strong>상속과 인터페이스</strong>에서 클래스 간 관계를 확장합니다.</p></div></div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 다음 Lesson 예고는 "무엇을 하게 되는지"를 동사로 적어 호기심을 남긴다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/core.js"></script>
+<script src="../assets/widgets.js"></script>
+<script src="../assets/quiz.js"></script>
+<script src="../assets/sandbox.js"></script>
+<script src="../assets/variants.js"></script>
+</body>
+</html>

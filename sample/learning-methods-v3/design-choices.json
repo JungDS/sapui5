@@ -1,0 +1,150 @@
+{
+  "version": "v3",
+  "updated": "2026-06-15",
+  "choices": {
+    "foundations/summary-recap": {
+      "chosen": "B",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "code-learning/code-keyword-accordion": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "visuals/image-hotspot-explorer": {
+      "chosen": "C",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "foundations/cheat-sheet-matrix": {
+      "chosen": "C",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "visuals/mermaid-flowchart": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "index-dashboard": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "visuals/progressive-tab-diagram": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "foundations/practice-and-completion": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "code-learning/abap-editor-mockup": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "foundations/foldable-explanation": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "foundations/official-links-section": {
+      "chosen": "B",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "visuals/code-diagram-split": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "visuals/before-after-comparison": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "visuals/interactive-data-chart": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "foundations/callout-patterns": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "foundations/concept-storytelling": {
+      "chosen": "B",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    }
+  }
+}

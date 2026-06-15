@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!-- 
+  [STANDARD_V3_STRUCTURE] 
+  이 파일은 고품질 교육용 웹페이지 표준 구조(v3)를 따릅니다.
+  AI 일괄 처리 및 스크립트 자동화의 대상이므로 코어 레이아웃과 클래스 명칭을 임의로 변경하지 마십시오.
+-->
+
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>샘플 데이터 테이블 | 학습 수단 샘플 v3</title>
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" href="../assets/widgets.css">
+<link rel="stylesheet" href="../assets/quiz.css">
+<link rel="stylesheet" href="../assets/variants.css">
+</head>
+<body>
+
+    <!-- [NEW] Design Variants Selector -->
+    <div class="variant-panel" data-page-id="visuals/sample-data-table">
+      <h4>🎨 Design Variants (시안 선택):</h4>
+      <div class="variant-options">
+        <label class="variant-chip-a"><input type="radio" name="viewport" value="A"> 🔵 A — 기본</label>
+        <label class="variant-chip-b"><input type="radio" name="viewport" value="B"> 🟡 B — Notion</label>
+        <label class="variant-chip-c"><input type="radio" name="viewport" value="C"> 🟣 C — 파스텔</label>
+      </div>
+      <button class="page-export-btn" data-page-id="visuals/sample-data-table">선택 JSON 복사</button>
+    </div>
+    
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v3</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">시각화 · 샘플 데이터 테이블</p>
+    <h1>샘플 데이터 테이블</h1>
+    <p class="lead">작은 입력 데이터셋과 쿼리 결과셋을 함께 제시해, SQL·내부 테이블 연산이 데이터를 어떻게 거르고 합치는지 눈으로 확인시킵니다. 추상적 쿼리를 "이 데이터가 이렇게 바뀐다"로 구체화합니다.</p>
+    <div class="tags"><span class="tag">Open SQL 적용</span><span class="tag">원본 데이터 + 결과셋</span></div>
+  </section>
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 쿼리에 적용</h2>
+    <div class="example-stack">
+      <article class="method-example spotlight">
+        <p class="ex-topic">예시 1 · Open SQL — WHERE 필터</p>
+        <h3>WHERE carrid = 'AA'</h3>
+        <div class="viz-visual">
+          <div class="viz-state-grid">
+            <div class="viz-state"><span class="viz-state-label">원본 SFLIGHT</span><table class="viz-table"><thead><tr><th>carrid</th><th>connid</th><th>price</th></tr></thead><tbody><tr><td>AA</td><td>0017</td><td>422</td></tr><tr><td>LH</td><td>0400</td><td>555</td></tr><tr><td>AA</td><td>0064</td><td>666</td></tr></tbody></table></div>
+            <div class="viz-state"><span class="viz-state-label">결과 (carrid='AA')</span><table class="viz-table"><thead><tr><th>carrid</th><th>connid</th><th>price</th></tr></thead><tbody><tr class="viz-highlight-row"><td>AA</td><td>0017</td><td>422</td></tr><tr class="viz-highlight-row"><td>AA</td><td>0064</td><td>666</td></tr></tbody></table></div>
+          </div>
+          <p class="viz-note">WHERE는 조건에 맞는 행만 남깁니다. LH 행은 결과에서 빠집니다.</p>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 원본과 결과를 같은 컬럼 구조로 두면 "어느 행이 걸러졌는가"가 즉시 보인다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · Open SQL — INNER JOIN</p>
+        <h3>두 테이블 결합 결과</h3>
+        <div class="viz-visual">
+          <div class="viz-state-grid">
+            <div class="viz-state"><span class="viz-state-label">sflight + scarr</span><table class="viz-table"><thead><tr><th>carrid</th><th>(scarr) carrname</th></tr></thead><tbody><tr><td>AA</td><td>American</td></tr><tr><td>LH</td><td>Lufthansa</td></tr></tbody></table></div>
+            <div class="viz-state"><span class="viz-state-label">JOIN 결과</span><table class="viz-table"><thead><tr><th>carrid</th><th>carrname</th><th>fldate</th></tr></thead><tbody><tr><td>AA</td><td>American</td><td>2026-07-01</td></tr><tr><td>LH</td><td>Lufthansa</td><td>2026-07-02</td></tr></tbody></table></div>
+          </div>
+          <p class="viz-note">JOIN은 carrid가 일치하는 행끼리 컬럼을 합칩니다. 코드 값(AA)이 이름(American)으로 풍부해집니다.</p>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> JOIN은 "코드 → 이름"처럼 의미가 붙는 결과를 보여줘야 왜 결합하는지 와닿는다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · Open SQL — 집계</p>
+        <h3>SUM ... GROUP BY carrid</h3>
+        <div class="viz-visual">
+          <div class="viz-state-grid">
+            <div class="viz-state"><span class="viz-state-label">원본 (행별 요금)</span><table class="viz-table"><thead><tr><th>carrid</th><th>price</th></tr></thead><tbody><tr><td>AA</td><td>422</td></tr><tr><td>AA</td><td>666</td></tr><tr><td>LH</td><td>555</td></tr></tbody></table></div>
+            <div class="viz-state"><span class="viz-state-label">집계 결과</span><table class="viz-table"><thead><tr><th>carrid</th><th>SUM(price)</th></tr></thead><tbody><tr><td>AA</td><td>1088</td></tr><tr><td>LH</td><td>555</td></tr></tbody></table></div>
+          </div>
+          <p class="viz-note">GROUP BY는 같은 키의 행을 묶고, 집계 함수가 그 그룹을 하나의 값으로 요약합니다.</p>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 집계는 "여러 행 → 한 행"으로 줄어드는 모습을 표로 보여줄 때 GROUP BY 개념이 분명해진다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/core.js"></script>
+<script src="../assets/widgets.js"></script>
+<script src="../assets/quiz.js"></script>
+<script src="../assets/sandbox.js"></script>
+<script src="../assets/variants.js"></script>
+</body>
+</html>
