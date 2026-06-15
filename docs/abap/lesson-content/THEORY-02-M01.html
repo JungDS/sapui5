@@ -1,36 +1,32 @@
-<!-- lesson-content/THEORY-02-M01.html -->
+<!-- lesson-content/THEORY-02-M01.html | 최종수정 2026-06-16 01:26 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
   <div class="lesson-callout-content">
     <h4>학습 목표</h4>
-    <p>DDIC 1차에서 데이터의 모양을 만들었다면, 이제 그 데이터를 다루는 <span class="glossary-term" data-glossary="ABAPProgram">ABAP Program</span>의 첫 줄을 작성합니다. <span class="glossary-term" data-glossary="REPORT">REPORT</span>, <span class="glossary-term" data-glossary="Comment">Comment</span>, <span class="glossary-term" data-glossary="Activation">Activation</span>, <span class="glossary-term" data-glossary="Execution">Execution</span>이 어떤 순서로 이어지는지 익혀봅니다.</p>
+    <p>이번 Lesson에서는 실행 가능한 가장 작은 <span class="glossary-term" data-glossary="ABAPProgram">ABAP Program</span>을 직접 써 봅니다. <span class="glossary-term" data-glossary="REPORT">REPORT</span> 선언이 무엇을 뜻하는지, <span class="glossary-term" data-glossary="Comment">Comment</span>(주석)는 어떻게 남기는지, 그리고 저장 → <span class="glossary-term" data-glossary="Activation">Activation</span>(활성화) → <span class="glossary-term" data-glossary="Execution">Execution</span>(실행)이 왜 서로 다른 단계인지를 초심자 기준으로 잡습니다.</p>
   </div>
 </div>
 
 <section class="lesson-section">
-  <h2>1. 지난 Chapter 연결: 창고를 만들었으니 이제 움직여보자 🚀</h2>
+  <h2>1. 지난 Chapter 연결: 창고를 만들었으니 이제 움직여 보자</h2>
   <p>
-    Chapter 1에서는 Domain, Data Element, Structure, Transparent Table을 만들며 “데이터가 어떤 모양으로 존재하는가”를 배웠습니다. 그런데 데이터 창고만 있다고 업무가 자동으로 돌아가지는 않습니다. 누군가 데이터를 읽고, 계산하고, 화면에 보여주는 프로그램을 작성해야 합니다.
+    Chapter 1에서는 Domain, Data Element, Structure, Transparent Table을 만들며 “데이터가 어떤 모양으로 존재하는가”를 배웠습니다. 그런데 데이터 창고만 있다고 업무가 자동으로 돌아가지는 않습니다. 누군가 데이터를 읽고, 계산하고, 화면에 보여주는 <strong>프로그램</strong>을 작성해야 합니다.
   </p>
   <p>
-    ABAP에서 가장 가볍게 시작할 수 있는 프로그램 형태가 <span class="glossary-term" data-glossary="REPORT">REPORT Program</span>입니다. 처음에는 복잡한 화면이나 버튼을 만들지 않고, 소스 코드를 실행해서 결과 목록을 보는 방식으로 연습합니다.
+    ABAP에서 가장 가볍게 시작할 수 있는 형태가 <span class="glossary-term" data-glossary="REPORT">REPORT</span> 프로그램입니다. 복잡한 화면이나 버튼 없이, 소스 코드를 실행해서 결과 목록(<span class="glossary-term" data-glossary="OutputList">Output List</span>)을 보는 방식이라 첫 연습에 딱 맞습니다.
   </p>
   <blockquote>
-    오늘의 목표는 “Hello ABAP”을 띄우기 전에, ABAP 프로그램이 어떤 최소 구조로 시작되는지 이해하는 것입니다.
+    오늘의 목표는 “Hello ABAP”을 띄우는 것 자체가 아니라, ABAP 프로그램이 <strong>어떤 최소 구조로 시작되고 어떤 단계를 거쳐 실행되는지</strong>를 이해하는 것입니다.
   </blockquote>
 </section>
 
 <section class="lesson-section">
-  <h2>2. REPORT는 프로그램의 이름표이자 시작 선언 🏷️</h2>
+  <h2>2. ABAP 프로그램의 최소 구조: REPORT 한 줄에서 시작한다</h2>
   <p>
-    ABAP 프로그램 파일의 가장 위쪽에는 보통 <code>REPORT</code> 문이 옵니다. <code>REPORT</code>는 “이 소스는 실행 가능한 리포트 프로그램입니다”라고 시스템에 알려주는 첫 선언입니다.
+    실행 가능한 ABAP 프로그램의 첫 줄에는 보통 <code>REPORT</code> 문이 옵니다. <code>REPORT</code>는 “이 소스는 실행 가능한 리포트 프로그램입니다”라고 시스템에 알리는 시작 선언입니다. 그 아래에 실제로 일을 시키는 문장(예: <code>WRITE</code>)을 적습니다.
   </p>
-  <div class="lesson-callout">
-    <div class="lesson-callout-icon">💡</div>
-    <div class="lesson-callout-content">
-      <h4>가장 작은 ABAP 프로그램</h4>
-      <!-- ABAP_MOCKUP_START -->
+  <!-- ABAP_MOCKUP_START -->
 <div class="abap-editor-mockup shiki-copy-wrapper">
   <div class="abap-editor-header">
     <div class="abap-editor-mac-buttons">
@@ -53,23 +49,81 @@
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
-      <p><code>zhello_abap</code>은 프로그램 이름입니다. 실무에서는 고객 개발 객체에 보통 <code>Z</code> 또는 <code>Y</code>로 시작하는 이름을 붙입니다. 회사별 네이밍 규칙이 있으면 그 규칙을 따릅니다.</p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">가장 작은 프로그램을 이루는 세 조각</p>
+    <div class="viz-relation">
+      <div class="viz-concept">
+        <span class="viz-concept-label">REPORT 선언</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td><code>REPORT zhello_abap.</code></td></tr>
+            <tr><td>실행 가능한 프로그램임을 선언</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-arrow">→</div>
+      <div class="viz-concept">
+        <span class="viz-concept-label">실행 문장</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td><code>WRITE 'Hello ABAP!'.</code></td></tr>
+            <tr><td>실제로 일을 시키는 명령</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-arrow">→</div>
+      <div class="viz-concept">
+        <span class="viz-concept-label">마침표</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td><code>.</code></td></tr>
+            <tr><td>한 문장의 끝 표시</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="viz-note"><code>zhello_abap</code>은 프로그램 이름입니다. 고객 개발 객체는 보통 <code>Z</code> 또는 <code>Y</code>로 시작하는 이름을 씁니다(회사 네이밍 규칙이 있으면 그 규칙 우선).</p>
+  </div>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>문장의 끝은 줄바꿈이 아니라 마침표(<code>.</code>)</h4>
+      <p>ABAP은 줄을 바꿨다고 문장이 끝나는 것이 아니라 마침표로 문장의 끝을 판단합니다. 한 문장을 여러 줄에 걸쳐 써도 되고, 마침표를 빠뜨리면 다음 문장까지 한 덩어리로 읽혀 문법 오류가 납니다. 초심자가 가장 자주 만나는 오류가 바로 마침표 누락입니다.</p>
     </div>
   </div>
-  <p>
-    여기서 문장 끝의 마침표 <code>.</code>도 중요합니다. ABAP은 문장의 끝을 마침표로 구분합니다. 줄바꿈만 했다고 문장이 끝나는 것이 아닙니다. 초반에 가장 자주 만나는 오류가 바로 마침표 누락입니다.
-  </p>
 </section>
 
 <section class="lesson-section">
-  <h2>3. Comment는 미래의 나에게 남기는 메모 📝</h2>
+  <h2>3. Comment(주석): 미래의 나와 동료에게 남기는 메모</h2>
   <p>
-    <span class="glossary-term" data-glossary="Comment">Comment</span>는 프로그램 실행에는 영향을 주지 않는 설명입니다. 지금은 내가 코드를 썼으니 다 기억날 것 같지만, 한 달 뒤의 나는 생각보다 많은 걸 잊습니다. 주석은 그때의 나와 동료를 위한 작은 안내판입니다.
+    <span class="glossary-term" data-glossary="Comment">Comment</span>는 프로그램 실행에는 전혀 영향을 주지 않는 설명입니다. 지금은 내가 방금 썼으니 다 기억날 것 같지만, 한 달 뒤의 나는 생각보다 많은 걸 잊습니다. 주석은 그때의 나와 동료를 위한 작은 안내판입니다. ABAP에는 주석을 다는 방법이 두 가지 있습니다.
   </p>
-  <ul>
-    <li><strong>전체 줄 주석:</strong> 줄 맨 앞에 <code>*</code>를 씁니다.</li>
-    <li><strong>인라인 주석:</strong> 코드 뒤에 큰따옴표 <code>"</code>를 쓰고 설명을 붙입니다.</li>
-  </ul>
+  <div class="viz-visual">
+    <p class="viz-visual-title">두 가지 주석 방식</p>
+    <div class="viz-compare">
+      <div class="viz-compare-before">
+        <span class="viz-compare-label">전체 줄 주석 — 별표 <code>*</code></span>
+        <div class="viz-compare-body">
+          <ul>
+            <li>줄 <strong>맨 앞 첫 칸</strong>에 <code>*</code>를 둡니다.</li>
+            <li>그 줄 전체가 주석이 됩니다.</li>
+            <li>블록 설명, 작성 이유를 적을 때.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="viz-compare-after">
+        <span class="viz-compare-label">인라인 주석 — 큰따옴표 <code>"</code></span>
+        <div class="viz-compare-body">
+          <ul>
+            <li>코드 <strong>뒤</strong>에 <code>"</code>를 쓰고 설명을 붙입니다.</li>
+            <li><code>"</code> 뒤부터 줄 끝까지 주석입니다.</li>
+            <li>특정 한 줄을 짧게 보충할 때.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <p class="viz-note">별표는 “줄 맨 앞”에 있을 때만 전체 줄 주석입니다. 코드 중간의 곱셈 기호 <code>*</code>와 혼동하지 마세요.</p>
+  </div>
   <!-- ABAP_MOCKUP_START -->
 <div class="abap-editor-mockup shiki-copy-wrapper">
   <div class="abap-editor-header">
@@ -89,127 +143,172 @@
     </div>
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zhello_abap.
 
-<span class="abap-token-comment">* 첫 ABAP 출력 연습</span>
-<span class="abap-token-keyword">WRITE</span> <span class="abap-token-string">'Hello ABAP!'</span>. <span class="abap-token-comment">" 화면에 문장을 출력한다</span></code></pre>
+<span class="abap-token-comment">* 첫 ABAP 출력 연습 (전체 줄 주석)</span>
+<span class="abap-token-keyword">WRITE</span> <span class="abap-token-string">'Hello ABAP!'</span>.   <span class="abap-token-comment">" 화면에 문장을 출력한다 (인라인 주석)</span></code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
   <p>
-    주석은 많을수록 좋은 것이 아닙니다. <code>WRITE</code>가 출력한다는 사실처럼 코드만 봐도 알 수 있는 내용은 짧게 두고, “왜 이렇게 했는지”, “주의할 업무 규칙이 무엇인지”를 남기는 쪽이 더 좋습니다.
+    주석은 많을수록 좋은 것이 아닙니다. <code>WRITE</code>가 출력한다는 사실처럼 코드만 봐도 아는 내용은 짧게 두고, <strong>“왜 이렇게 했는지”, “어떤 업무 규칙 때문인지”</strong>를 남기는 쪽이 훨씬 가치 있습니다.
   </p>
 </section>
 
 <section class="lesson-section">
-  <h2>4. 저장, 활성화, 실행은 서로 다르다 ⚙️</h2>
+  <h2>4. 저장 · 활성화 · 실행은 서로 다른 단계</h2>
   <p>
-    초심자가 헷갈리기 쉬운 부분입니다. 코드를 저장했다고 바로 실행 가능한 상태가 되는 것은 아닙니다. ABAP 개발에서는 <strong>저장 → 활성화 → 실행</strong> 흐름을 구분해서 봐야 합니다.
+    초심자가 가장 헷갈리는 지점입니다. 코드를 저장했다고 바로 실행 가능한 상태가 되는 것은 아닙니다. ABAP 개발에서는 <strong>저장 → 활성화 → 실행</strong>을 구분해서 봐야 합니다.
   </p>
-  <ul>
-    <li><strong>저장:</strong> 내가 쓴 소스를 시스템에 보관합니다. 아직 문법 오류가 있을 수 있습니다.</li>
-    <li><strong>Activation:</strong> 문법과 참조 객체를 검사해, 다른 사용자가 쓸 수 있는 활성 버전으로 만듭니다.</li>
-    <li><strong>Execution:</strong> 활성화된 프로그램을 실제로 실행합니다. SAP GUI나 ADT에서 보통 <code>F8</code> 실행을 사용합니다.</li>
-  </ul>
+  <div class="viz-visual">
+    <p class="viz-visual-title">첫 프로그램이 결과를 내기까지의 4단계</p>
+    <div class="viz-flow">
+      <div class="viz-flow-step"><strong>1. 작성</strong><span><code>REPORT</code>·주석·<code>WRITE</code>를 에디터(SE38 또는 ADT)에 입력한다.</span></div>
+      <div class="viz-flow-step"><strong>2. 저장</strong><span><span class="viz-badge fail">Inactive</span> 소스를 보관한다. 아직 문법 오류가 있을 수 있다.</span></div>
+      <div class="viz-flow-step"><strong>3. 활성화</strong><span>문법·참조를 검사해 실행 기준이 되는 활성 버전을 만든다.</span></div>
+      <div class="viz-flow-step"><strong>4. 실행 (F8)</strong><span><span class="viz-badge success">Active</span> 활성 버전을 실행해 Output List를 본다.</span></div>
+    </div>
+  </div>
+  <details class="foldable">
+    <summary>왜 저장과 활성화를 굳이 나눌까?</summary>
+    <p>저장은 “작업 중인 초안을 비활성 버전으로 보관”한 상태에 가깝습니다. <span class="glossary-term" data-glossary="Activation">활성화</span>는 문법과 참조 관계를 검사해 “이제 런타임이 믿고 실행해도 된다”는 기준 버전으로 올리는 단계입니다. 그래서 저장만 한 변경은 마지막으로 성공한 활성 버전의 동작에 영향을 주지 않습니다.</p>
+  </details>
   <div class="lesson-callout warn">
     <div class="lesson-callout-icon">⚠️</div>
     <div class="lesson-callout-content">
-      <h4>저장만 하고 실행하려 하면 막힐 수 있어요</h4>
-      <p>문법 오류가 남아 있거나 활성화가 실패한 프로그램은 제대로 실행되지 않습니다. “분명 저장했는데 왜 안 되지?”라고 당황하기 전에 활성화 결과 메시지를 먼저 확인하세요.</p>
+      <h4>“분명 저장했는데 왜 안 바뀌지?”</h4>
+      <p>문법 오류가 남아 있거나 활성화가 실패한 프로그램은 옛 활성 버전대로 동작하거나 실행이 막힙니다. 당황하기 전에 <strong>활성화 결과 메시지</strong>를 먼저 확인하는 습관을 들이세요.</p>
     </div>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>5. 정상 흐름과 오류 흐름을 함께 보기 🔎</h2>
+  <h2>5. 정상 흐름과 오류 흐름을 함께 보기</h2>
   <p>
-    이제 첫 프로그램의 흐름을 정상 케이스와 오류 케이스로 나눠봅시다.
+    ABAP 초반 실력은 거창한 로직보다 “오류 메시지를 읽고 어느 줄이 문제인지 찾는 습관”에서 자랍니다. 같은 첫 프로그램을 정상 케이스와 대표적인 오류 케이스로 나눠 봅시다.
   </p>
-  <ul>
-    <li>✅ <strong>정상 흐름:</strong> <code>REPORT zhello_abap.</code> 작성 → <code>WRITE 'Hello ABAP!'.</code> 작성 → 활성화 성공 → 실행 → 출력 목록에 문장이 표시됩니다.</li>
-    <li>❌ <strong>마침표 누락:</strong> <code>WRITE 'Hello ABAP!'</code>처럼 문장 끝 마침표를 빼면 문법 오류가 납니다.</li>
-    <li>❌ <strong>이름 규칙 오류:</strong> 고객 개발 프로그램인데 표준 SAP 네임스페이스처럼 이름을 만들면 생성이 막히거나 운용 규칙에 어긋날 수 있습니다.</li>
-  </ul>
-  <blockquote>
-    ABAP 초반 실력은 거창한 로직보다 “오류 메시지를 읽고 어느 줄이 문제인지 찾는 습관”에서 자랍니다.
-  </blockquote>
-</section>
-
-<section class="lesson-section">
-  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
-  <p>
-    회사마다 개발 객체 이름, 패키지, 전송 요청, 주석 스타일에 대한 관행이 있습니다. 하지만 고객사 관행을 SAP 표준 동작과 섞어서 외우면 나중에 헷갈립니다.
-  </p>
-  <div class="lesson-callout warn">
-    <div class="lesson-callout-icon">⚠️</div>
-    <div class="lesson-callout-content">
-      <h4>“실행된다”와 “좋은 프로그램이다”는 다릅니다</h4>
-      <p>첫 Lesson에서는 실행되는 코드가 목표지만, 실무에서는 권한, 오류 처리, 유지보수성, 네이밍, 전송 절차까지 함께 봅니다. 지금은 과하게 확장하지 않되, 실행 성공만 보고 끝내지 않는 태도를 기억해두세요.</p>
+  <div class="viz-visual event-tabs-container is-compact">
+    <p class="viz-visual-title">정상 흐름 vs 자주 만나는 오류</p>
+    <div class="event-tab-buttons">
+      <button class="tab-btn active" data-tab="m01-tab-1">✅ 정상 흐름</button>
+      <button class="tab-btn" data-tab="m01-tab-2">❌ 마침표 누락</button>
+      <button class="tab-btn" data-tab="m01-tab-3">❌ 이름 규칙 위반</button>
     </div>
+    <div class="tabs-content">
+      <div class="event-tab-panel active" id="m01-tab-1">
+        <div class="viz-flow">
+          <div class="viz-flow-step"><strong>작성</strong><span><code>REPORT</code> + <code>WRITE '...'.</code> (마침표 포함)</span></div>
+          <div class="viz-flow-step"><strong>활성화</strong><span>검사 통과</span></div>
+          <div class="viz-flow-step"><strong>실행</strong><span>Output List에 <code>Hello ABAP!</code> 표시</span></div>
+        </div>
+      </div>
+      <div class="event-tab-panel" id="m01-tab-2">
+        <div class="viz-flow">
+          <div class="viz-flow-step"><strong>작성</strong><span><code>WRITE 'Hello ABAP!'</code> — 끝 마침표 누락</span></div>
+          <div class="viz-flow-step"><strong>활성화</strong><span><span class="viz-badge fail">실패</span> 문법 검사에서 문장 끝을 못 찾음</span></div>
+          <div class="viz-flow-step"><strong>고치기</strong><span>오류 줄에 마침표 추가 후 재활성화</span></div>
+        </div>
+      </div>
+      <div class="event-tab-panel" id="m01-tab-3">
+        <div class="viz-flow">
+          <div class="viz-flow-step"><strong>작성</strong><span>고객 개발인데 표준 네임스페이스처럼 이름 지정</span></div>
+          <div class="viz-flow-step"><strong>생성/저장</strong><span><span class="viz-badge fail">막힘</span> 네이밍·패키지 규칙 위반</span></div>
+          <div class="viz-flow-step"><strong>고치기</strong><span><code>Z</code>/<code>Y</code> 등 허용된 이름으로 재지정</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="viz-note">오류는 실력 부족의 신호가 아니라 “어디를 고치면 되는지 알려주는 안내”입니다. 메시지의 줄 번호부터 확인하세요.</p>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>7. 미니 실습: 첫 프로그램 실행 기록 남기기 🧪</h2>
+  <h2>6. 미니 실습: 첫 프로그램 실행 기록 남기기</h2>
   <p>
-    이번 실습은 아주 작게 시작합니다. <code>REPORT</code>, 주석, <code>WRITE</code> 한 줄을 작성하고 저장, 활성화, 실행 결과를 구분해서 기록해보세요.
+    실제 SAP 시스템이 없어도, 또는 연습 시스템이 있다면 그 위에서, 아래 단계를 따라 입력값·결과·오류 케이스를 한 세트로 기록해 보세요.
   </p>
   <div class="lesson-callout">
     <div class="lesson-callout-icon">✍️</div>
     <div class="lesson-callout-content">
       <h4>실습 과제</h4>
       <ol>
-        <li>프로그램 이름을 정합니다. 예: <code>zhello_abap</code></li>
+        <li>프로그램 이름을 정합니다. 예: <code>zhello_abap</code>.</li>
         <li><code>REPORT</code> 문과 <code>WRITE</code> 문을 작성합니다.</li>
         <li>전체 줄 주석 1개와 인라인 주석 1개를 추가합니다.</li>
-        <li>활성화 전 일부러 마침표를 하나 빼고, 어떤 오류 메시지가 나는지 기록합니다.</li>
-        <li>마침표를 고친 뒤 활성화하고 실행 결과를 적습니다.</li>
+        <li>일부러 마침표 하나를 빼고 활성화해, 어떤 오류 메시지가 나는지 적습니다. <em>(오류 케이스 기록)</em></li>
+        <li>마침표를 고쳐 활성화하고 실행 결과(Output List)를 적습니다. <em>(정상 결과 기록)</em></li>
       </ol>
-      <p><strong>완료 조건:</strong> 저장, 활성화, 실행을 각각 다른 단계로 설명할 수 있고, 마침표 누락 오류를 스스로 고칠 수 있으면 성공입니다.</p>
+      <p><strong>완료 조건:</strong> 저장·활성화·실행을 각각 다른 단계로 설명할 수 있고, 마침표 누락 오류를 스스로 찾아 고칠 수 있으면 성공입니다.</p>
     </div>
   </div>
+  <details class="foldable">
+    <summary>활성화가 막히는 대표 원인 보기</summary>
+    <ul>
+      <li>문장 끝 마침표(<code>.</code>)를 빠뜨렸다.</li>
+      <li>문자열 따옴표 <code>'</code>를 한쪽만 닫았다.</li>
+      <li>고객 개발인데 이름이 네임스페이스·패키지 규칙에 맞지 않는다.</li>
+    </ul>
+  </details>
 </section>
 
 <section class="lesson-section">
-  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <h2>7. 실무에서 조심해야 할 점</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">🚨</div>
+    <div class="lesson-callout-content">
+      <h4>“실행된다”와 “좋은 프로그램이다”는 다릅니다</h4>
+      <p>첫 Lesson에서는 실행되는 코드가 목표지만, 실무에서는 권한, 오류 처리, 유지보수성, 네이밍, 전송(Transport) 절차까지 함께 봅니다. 지금은 과하게 확장하지 않되, 실행 성공만 보고 끝내지 않는 태도를 기억해 두세요.</p>
+    </div>
+  </div>
   <ul>
-    <li><a href="https://learning.sap.com/courses/basic-abap-programming/developing-your-first-abap-program_ed4f33ed-ee5d-416c-bd91-a497e762f2cb" target="_blank" rel="noopener">SAP Learning: 첫 ABAP 애플리케이션 개발</a> — 활성화와 실행 흐름을 ADT 기준으로 따라가 봅니다.</li>
-    <li><a href="https://learning.sap.com/courses/basic-abap-programming/understanding-the-basics-of-abap_c0e5346f-a136-4b9f-a167-9031eca12932" target="_blank" rel="noopener">SAP Learning: ABAP 기본 이해</a> — ABAP 언어와 개발 환경의 큰 그림을 확인합니다.</li>
-    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPORT.html" target="_blank" rel="noopener">SAP Help Portal: REPORT</a> — 실행 가능한 프로그램을 여는 <code>REPORT</code> 문의 공식 설명입니다.</li>
+    <li><strong>표준과 커스텀을 섞어 외우지 않기:</strong> SAP 표준 동작과 고객사 커스텀 관행(네이밍·패키지·주석 스타일)은 구분해 기록합니다.</li>
+    <li><strong>선행 지식·유지보수성까지 확인:</strong> 단순히 돌아가는 코드보다, 왜 그렇게 썼는지와 다음에 고치기 쉬운지를 함께 봅니다.</li>
+    <li><strong>지금은 과확장 금지:</strong> 변수·조건·반복·문자열은 이어지는 Lesson에서 깊게 다룹니다. 이 단계에서 미리 끌어오지 않습니다.</li>
   </ul>
 </section>
 
 <section class="lesson-section">
-  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <h2>8. 공식 문서로 더 확인하기</h2>
+  <p>
+    이번 Lesson은 아래 SAP 공식 자료를 기준으로 작성했습니다. 블로그 예제보다 먼저 공식 문서에서 용어와 제약을 확인하는 습관을 들이세요.
+  </p>
+  <div class="link-list">
+    <a href="https://learning.sap.com/courses/basic-abap-programming/developing-your-first-abap-program_ed4f33ed-ee5d-416c-bd91-a497e762f2cb" target="_blank" rel="noopener">SAP Learning: Developing Your First ABAP Program<span>저장·활성화·실행 흐름을 ADT 기준으로 따라가 봅니다.</span></a>
+    <a href="https://learning.sap.com/courses/basic-abap-programming/understanding-the-basics-of-abap_c0e5346f-a136-4b9f-a167-9031eca12932" target="_blank" rel="noopener">SAP Learning: Understanding the Basics of ABAP<span>ABAP 언어와 개발 환경의 큰 그림을 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPREPORT.html" target="_blank" rel="noopener">SAP Help Portal: REPORT<span>실행 가능한 프로그램을 여는 <code>REPORT</code> 문의 공식 정의입니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCOMMENT.html" target="_blank" rel="noopener">SAP Help Portal: Comments<span>전체 줄 주석(<code>*</code>)과 인라인 주석(<code>"</code>)의 공식 규칙을 확인합니다.</span></a>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈</h2>
   <ol>
-    <li>ABAP 문장의 끝을 표시하는 기호는 무엇인가요?</li>
-    <li>저장만 하면 항상 최신 코드가 실행될까요?</li>
-    <li>코드가 무엇을 하는지보다 “왜 이렇게 했는지”를 남기기에 더 좋은 것은 코드 중복일까요, 주석일까요?</li>
+    <li>ABAP에서 한 문장의 끝을 표시하는 기호는 무엇인가요?</li>
+    <li>전체 줄 주석과 인라인 주석은 각각 어떤 기호로 시작하나요?</li>
+    <li>저장만 하면 항상 최신 코드가 실행될까요? 그 이유는?</li>
+    <li><code>REPORT</code> 문은 어떤 역할을 하나요?</li>
   </ol>
-  <details>
+  <details class="foldable">
     <summary>정답/해설 보기</summary>
     <ol>
       <li><strong>마침표 <code>.</code></strong>입니다. ABAP은 줄바꿈이 아니라 마침표로 문장 끝을 판단합니다.</li>
-      <li><strong>아니요.</strong> 저장과 활성화는 다릅니다. 실행 가능한 런타임 버전을 만들려면 활성화가 필요합니다.</li>
-      <li><strong>주석</strong>입니다. 단, 코드만 봐도 알 수 있는 설명보다 업무 의도와 주의점을 남기는 주석이 더 좋습니다.</li>
+      <li><strong>전체 줄 주석은 줄 맨 앞의 별표 <code>*</code>, 인라인 주석은 코드 뒤의 큰따옴표 <code>"</code></strong>입니다.</li>
+      <li><strong>아니요.</strong> 저장은 비활성 버전 보관이고, 실행 기준이 되는 활성 버전은 <span class="glossary-term" data-glossary="Activation">활성화</span>를 거쳐야 만들어집니다.</li>
+      <li><strong>이 소스가 실행 가능한 리포트 프로그램임을 선언</strong>하는 시작 문입니다.</li>
     </ol>
   </details>
 </section>
 
 <section class="lesson-section">
-  <h2>10. 한눈에 정리 🏁</h2>
+  <h2>10. 한눈에 정리</h2>
+  <div class="recap-grid">
+    <div class="recap-card"><strong>REPORT</strong>실행 가능한 ABAP 리포트 프로그램의 시작 선언입니다.</div>
+    <div class="recap-card"><strong>마침표</strong>ABAP 문장은 줄바꿈이 아니라 마침표 <code>.</code>로 끝납니다.</div>
+    <div class="recap-card"><strong>Comment</strong>전체 줄은 <code>*</code>, 인라인은 <code>"</code>. 실행에는 영향 없는 설명입니다.</div>
+    <div class="recap-card"><strong>저장→활성화→실행</strong>서로 다른 단계입니다. 활성화가 성공해야 런타임이 믿고 실행합니다.</div>
+  </div>
   <div class="lesson-callout tip">
-    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-icon">➡️</div>
     <div class="lesson-callout-content">
-      <h4>오늘의 핵심만 딱 잡기</h4>
-      <ul>
-        <li><strong>REPORT</strong>는 실행 가능한 ABAP 리포트 프로그램의 시작 선언입니다.</li>
-        <li>ABAP 문장은 마침표 <code>.</code>로 끝납니다.</li>
-        <li><strong>Comment</strong>는 코드의 이유와 주의점을 남기는 설명입니다.</li>
-        <li><strong>저장</strong>, <strong>Activation</strong>, <strong>Execution</strong>은 서로 다른 단계입니다.</li>
-        <li>실행되는 코드보다 오류 메시지 확인과 유지보수성까지 보는 습관이 중요합니다.</li>
-      </ul>
+      <h4>다음 Lesson 예고</h4>
+      <p>다음 Lesson <strong>DATA / CONSTANTS / TYPES 선언</strong>에서는 프로그램 안에 값을 담을 변수, 변하지 않는 상수, 재사용할 타입을 선언하는 법을 배웁니다.</p>
     </div>
   </div>
-  <p>
-    다음 Lesson <strong>DATA / CONSTANTS / TYPES 선언</strong>에서는 프로그램 안에 값을 담을 변수와 변하지 않는 상수, 그리고 재사용할 타입을 선언해보겠습니다.
-  </p>
 </section>
