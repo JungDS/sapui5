@@ -3,7 +3,7 @@
 > 📅 **최종수정: 2026-06-15 KST**
 
 > 이 문서는 ABAP 커리큘럼의 Lesson 본문(`docs/abap/lesson-content/<ID>.html`)을 이어서 작성할 AI를 위한 단일 인계서다.
-> **시작 전 이 문서를 끝까지 읽고**, `.project-docs/99_AI_SYNC.md`와 기존 작성본 `THEORY-01-M01.html`(기준 샘플)을 확인할 것.
+> **시작 전 이 문서를 끝까지 읽고**, `.project-docs/99_AI_SYNC.md`, `.project-docs/10_LEARNING_CONTENT_METHODS.md`, `sample/learning-methods/README.md`와 기존 작성본 `THEORY-01-M01.html`(기준 샘플)을 확인할 것.
 
 ---
 
@@ -132,6 +132,7 @@
 </section>
 ```
 - CSS 클래스는 `assets/abap-lesson-viewer.css`/`abap-glossary.css`에 정의됨. 새 클래스를 임의로 만들지 말고 기존 것 재사용.
+- 텍스트 설명을 넘어 다이어그램, Sandbox, Hover Mapping, 아코디언, 디버거, 드래그 퀴즈 같은 학습 수단을 고를 때는 [10_LEARNING_CONTENT_METHODS.md](10_LEARNING_CONTENT_METHODS.md)를 우선 참고하고, 실제 구성 샘플은 `sample/learning-methods/README.md`에서 확인한다.
 
 ### 시각화 패턴 카탈로그 (전 Lesson 공통 — 2026-06-11 도입)
 

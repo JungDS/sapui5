@@ -17,12 +17,14 @@
 
 ## 현재 상태 및 목표 (Current Status & Goals)
 - **현재 목표**: 🎉 **Track 1(THEORY-*) 137/137 작성 완료!** (THEORY-01~21 전부). 사용자의 새 목표에 따라 Track 1을 "고품질 교육용 웹페이지" 기준으로 재감사·보강하는 라운드를 진행 중. 기준 문서: [TRACK1_QUALITY_PLAN.md](TRACK1_QUALITY_PLAN.md). 병행 다음 목표는 **Track 2(PRACTICAL-* 13개 섹션)** 신규 작성.
+- **학습 수단 카탈로그(2026-06-15, Codex)**: `Chapter 13의 Lesson 1`에 적용된 다이어그램, Sandbox, Bad/Good Practice Hover Mapping, 아코디언 가이드, 디버깅 실행기, 드래그 퀴즈, 단답형 퀴즈 등 고관여 학습 수단을 정리하고, 향후 Lesson 초안 생성 시 선택할 추천 수단을 `.project-docs/10_LEARNING_CONTENT_METHODS.md`에 문서화했다. 새 Lesson/Chapter 고품질화 시작 전 이 문서를 함께 읽을 것.
+- **학습 수단 샘플 라이브러리(2026-06-15, Codex)**: 학습 수단을 실제 화면으로 확인할 수 있도록 `sample/learning-methods/`에 38개 standalone HTML 샘플과 README를 추가했다. 진행계획과 작업 로그는 `.project-docs/진행계획/4c8b81b0-9779-4e78-98e6-7965479a2b94/`에서 관리한다. 새 학습 자료 초안 작성 전 `10_LEARNING_CONTENT_METHODS.md`와 샘플 README를 함께 확인할 것.
 - **최근 진행(2026-06-15, Codex)**: 사용량 제한으로 중단된 자동화 재시작 후 메모리와 저장소 계획을 대조해 다음 실제 미완료 범위를 `Chapter 13`으로 확정. `Chapter 13의 Lesson 1~7`에 미니 실습, 완료 조건, SAP 공식 링크, 확인 퀴즈/정답 해설, 시각 자료를 보강했고, `THEORY-13-M01`의 남은 인라인 스타일을 공통 CSS 클래스로 이동 및 중간 폭 화면에서 우측 내비와 탭 위젯이 겹치지 않도록 보정했다.
 - **최근 진행(2026-06-12, Antigravity)**: **Chapter 10~12 (Range Table, JOIN, Classic View)** 고품질화 완료 및 예제 이름 규칙(정훈영 주인공 규칙) 적용 완료. TMG/SM30 및 Classic/CDS 비교 아키텍처 SVG 흐름 시각화 보강 완료. `abap_glossary.json` 누락 용어 5종 패치 완료. **THEORY-13-M01의 이벤트 라이프사이클 다이어그램을 roadmap.html의 CSS 트리 구조로 개선 교체 완료**. 로컬 웹 서버(localhost:8080) 구동 확인 완료.
 - **최근 진행(2026-06-11, Claude)**: 사용자 승인 플랜에 따라 **Track 1 시각화 확산 + 고품질화 통합 라운드** 시작. Phase 0(기반 정비) 완료 — `viz-*` 범용 CSS 별칭/`viz-compare`/`viz-svg` 신설, 시각화 패턴 카탈로그 7종을 HANDOFF에 표준화, Chapter 10 일반 표 정리, 포맷터 SQL 키워드 보강(77개 파일 하이라이트 개선). **NotebookLM MCP 연결 완료**(notebooklm-mcp v2.0.0, 노트북 `ABAP Evolution and Messaging Channels Training Guide` 등록·질의 검증). 이후 Chapter 4→19 통합 패스, 마지막에 Chapter 1~3/6/20~21 시각화 보강 미니 패스 예정.
 - **이전 진행(2026-06-11, Codex)**: 사용자 피드백에 따라 `Chapter 1의 Lesson 1`, `Chapter 2의 Lesson 3`, `Chapter 5의 Lesson 2/4/5`, `Chapter 6의 Lesson 1~6`을 보정. 코드 예제 D2Coding 상속, ABAP 키워드 포맷터 확장, Classic `WRITE`와 ADT `out->write( )` 구분, Subroutine 전달 방식, Class 입문 설명, Internal Table 시각 자료를 보강.
 - **⚠️ 동시 작업 주의**: AI 작업 간 겹침 방지를 위해 섹션 단위 작업을 엄수.
-- **⚠️ 인계 핵심 문서**: 이어서 작업할 AI는 **[HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md)를 가장 먼저 정독**할 것. 작성 규칙·스타일 기준·복붙용 프롬프트가 모두 거기 있음.
+- **⚠️ 인계 핵심 문서**: 이어서 작업할 AI는 **[HANDOFF_LESSON_CONTENT.md](HANDOFF_LESSON_CONTENT.md)**와 **[10_LEARNING_CONTENT_METHODS.md](10_LEARNING_CONTENT_METHODS.md)**를 함께 정독할 것. HANDOFF는 작성 규칙·스타일 기준, 10번 문서는 다이어그램/Sandbox/퀴즈/인터랙션 등 학습 수단 선택 기준을 담고 있음.
 
 ---
 
@@ -31,6 +33,8 @@
 - **Lesson 본문 양산**: Track 1 완료. 다음은 **Track 2(PRACTICAL-* 13개 섹션, 약 70개 Lesson)** 신규 작성. 같은 스타일(초심자·한눈에 정리·글로서리 패리티·추적 3종 동시 갱신·Chapter/Lesson 용어)을 그대로 적용한다. JSON의 `d.tracks[1]`에서 PRACTICAL 섹션/Lesson ID 추출.
 - **[완료] 신규 19~21 코드블록 서식 및 CSS 아키텍처 리팩토링**: Antigravity가 네이비 ABAP Editor 포맷터 개선을 통해 에디터 외곽 인라인 스타일을 CSS 클래스로 분리했고, Codex가 코드 하이라이트 토큰까지 `abap-token-*` 클래스로 공통화함.
 - **[프로세스] 섹션 작성 후 추적 3종 동시 갱신**: 섹션 커밋 시 ① `HANDOFF_LESSON_CONTENT.md` 진행표 ② 본 파일(99_AI_SYNC) 작업이력/현황 ③ `changelogs/CHANGELOG_<날짜>.md`를 함께 갱신할 것(누락 주의).
+- **[프로세스] Lesson 초안 생성 전 학습 수단 선택**: 텍스트 설명으로만 끝내지 말고 `.project-docs/10_LEARNING_CONTENT_METHODS.md`의 선택 가이드에 따라 시각 자료, 비교표, Sandbox, Hover Mapping, 아코디언, 디버거, 드래그/분류 퀴즈 등 적절한 수단을 최소 1개 이상 검토한다.
+- **[프로세스] 학습 수단 샘플 확인**: 새 수단을 실제 페이지로 설계할 때는 `sample/learning-methods/README.md`에서 38개 standalone 샘플 중 가장 가까운 패턴을 먼저 확인한다. 구현 진행/검증 상태는 `.project-docs/진행계획/4c8b81b0-9779-4e78-98e6-7965479a2b94/TASKS.md`와 `RUN_LOG.md`를 기준으로 이어간다.
 - **글로서리 완전 패리티**: Lesson에서 쓰는 주요 용어는 `reference/abap_glossary.json`에 반드시 함께 등록(일상 비유 포함). 미등록 용어는 툴팁이 안 뜸(깨진 링크).
 - (선택) Lesson 내 퀴즈·실습 코드 블록 등 상호작용 컴포넌트 고도화.
 
@@ -42,6 +46,20 @@
 ---
 
 ## 작업 이력 (Work Log)
+
+### [2026-06-15] Codex (GPT-5) — 학습 수단 샘플 라이브러리 구현
+- **작업 내용**:
+  - `.project-docs/진행계획/4c8b81b0-9779-4e78-98e6-7965479a2b94/`에 `PLAN.md`, `TASKS.md`, `RUN_LOG.md`를 추가해 구현 계획과 진행 상태를 관리하도록 구성.
+  - `sample/learning-methods/`에 38개 standalone HTML 샘플 페이지, 브라우저용 `index.html`, Markdown `README.md`, 공통 CSS/JS(`assets/method-samples.*`)를 추가.
+  - 각 샘플 페이지는 학습 수단 설명, 샘플 컴포넌트, ABAP 예시 초안 3개, AI 작성 메모를 포함한다.
+- **다음 AI를 위한 메모**: Lesson 초안 생성 시 `10_LEARNING_CONTENT_METHODS.md`로 수단을 고른 뒤 `sample/learning-methods/README.md`에서 유사 샘플을 확인하면 초안 품질을 안정적으로 끌어올릴 수 있다.
+
+### [2026-06-15] Codex (GPT-5) — 학습 콘텐츠 수단 카탈로그 문서화
+- **작업 내용**:
+  - `Chapter 13의 Lesson 1`에 사용된 고관여 학습 수단을 분석해 `.project-docs/10_LEARNING_CONTENT_METHODS.md`를 신규 작성.
+  - 현재 사용된 수단(탭형 다이어그램, Mermaid 흐름도, Sandbox, Hover Mapping, 아코디언 가이드, Step Debugger, 드래그 퀴즈, 단답형 퀴즈 등)과 향후 추천 수단(치트시트, Breakpoint 체크리스트, 예상 로그 비교, 의사결정 트리, 카드 분류 퀴즈, 오류 찾기 미션 등)을 정리.
+  - `.project-docs/00_INDEX.md`와 `HANDOFF_LESSON_CONTENT.md`에 링크를 추가하고, 본 `99_AI_SYNC.md`에도 시작 전 참조 문서로 반영.
+- **다음 AI를 위한 메모**: 새 Lesson을 만들 때는 JSON 지침을 읽은 뒤 바로 본문을 쓰지 말고, 먼저 `10_LEARNING_CONTENT_METHODS.md`의 선택 가이드로 "읽기/보기/조작하기/풀어보기/정리하기" 흐름을 설계한다.
 
 ### [2026-06-15] Codex (GPT-5) — Chapter 13 고품질화+시각화 통합 패스
 - **작업 내용**:

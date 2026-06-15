@@ -38,3 +38,40 @@
 ## 다음 후보
 - `Chapter 14` Dynpro 기초 고품질화+시각화 패스.
 - PBO/PAI, OK_CODE, PF-STATUS/TITLEBAR, Custom Control/Container 흐름을 공식 문서와 대조한 뒤 Lesson 단위로 실습·퀴즈·시각 자료를 추가한다.
+
+---
+
+## 추가 작업 — 학습 콘텐츠 수단 카탈로그
+
+### 배경
+- 사용자는 `Chapter 13의 Lesson 1`에 들어간 다이어그램, Sandbox, Hover Mapping, 아코디언, 디버깅 실행기, 드래그 퀴즈, 단답형 퀴즈 같은 수단을 정리해 두면 이후 AI가 Lesson 초안 단계부터 더 높은 품질의 자료를 만들 수 있다고 판단했다.
+
+### 수행 내용
+- `.project-docs/10_LEARNING_CONTENT_METHODS.md` 신규 작성.
+- 현재 사용된 고관여 학습 수단과 향후 추천 수단을 카탈로그화.
+- 수단 선택 가이드, AI 작성 절차, 품질 기준, Chapter 14~19 우선 확산 후보를 정리.
+- `.project-docs/00_INDEX.md`, `.project-docs/HANDOFF_LESSON_CONTENT.md`, `.project-docs/99_AI_SYNC.md`에 참조 링크와 시작 전 확인 지침을 추가.
+
+### 설계 이유
+- 기존 HANDOFF의 시각화 패턴은 `viz-*` 마크업 중심이었다. 새 문서는 그보다 한 단계 위에서 "이 Lesson에는 어떤 학습 경험을 넣을 것인가"를 고르는 기획 문서 역할을 한다.
+- 모든 Lesson에 무거운 인터랙션을 넣기보다, 순서·상태 변화·분기·오개념·실무 실수 여부에 따라 적절한 수단을 선택하도록 기준을 분리했다.
+
+---
+
+## 추가 작업 — 학습 수단 샘플 라이브러리 구현
+
+### 배경
+- 사용자는 정리된 학습 수단을 문서로만 남기는 것을 넘어, AI가 실제 초안 생성 시 바로 참고할 수 있는 화면 샘플 묶음을 원했다.
+- 또한 구현 계획, 태스크, 런로그를 GUID 기반 진행계획 폴더에서 함께 관리하도록 요청했다.
+
+### 수행 내용
+- `.project-docs/진행계획/4c8b81b0-9779-4e78-98e6-7965479a2b94/`를 생성하고 `PLAN.md`, `TASKS.md`, `RUN_LOG.md`를 추가.
+- `sample/learning-methods/`에 38개 standalone HTML 샘플 페이지와 `README.md`, `index.html`을 추가.
+- 공통 스타일 `assets/method-samples.css`와 공통 동작 `assets/method-samples.js`를 추가.
+- 각 샘플 페이지에 학습 수단 설명, 샘플 컴포넌트, ABAP 예시 초안 3개, AI 작성 메모를 포함.
+- `.project-docs/00_INDEX.md`, `.project-docs/HANDOFF_LESSON_CONTENT.md`, `.project-docs/99_AI_SYNC.md`에서 새 샘플 라이브러리와 진행계획 폴더를 참조하도록 갱신.
+
+### 설계 이유
+- 원본 카탈로그의 46개 항목은 학습 경험 관점에서 겹치는 부분이 있어 38개 대표 수단으로 병합했다.
+- 샘플 페이지는 실제 Lesson fragment가 아니라 독립 실행 가능한 참고 자료이므로, 공통 CSS/JS를 두되 각 HTML이 바로 열리는 형태로 구성했다.
+- 실제 SAP 화면 캡처가 없는 수단은 mock screenshot 형태로 표현해 저작권과 환경 의존성을 피했다.

@@ -12,7 +12,7 @@
 ---
 
 ## 📅 일자별 기록 목록
-- [2026-06-15 (Codex — Chapter 13 고품질화+시각화 통합 패스)](changelogs/CHANGELOG_20260615.md)
+- [2026-06-15 (Codex — Chapter 13 고품질화, 학습 수단 카탈로그, 샘플 라이브러리)](changelogs/CHANGELOG_20260615.md)
 - [2026-06-12 (Claude — Chapter 7 고품질화+시각화 통합 패스)](changelogs/CHANGELOG_20260612.md)
 - [2026-06-11 (Codex/Claude — Track 1 피드백 보정, Chapter 3·20~21 고품질화, 시각화 확산 Phase 0 및 Chapter 4~6)](changelogs/CHANGELOG_20260611.md)
 - [2026-06-09 (운영 분석 문서 동기화 — Lesson Viewer 아키텍처 반영, 코드 변경 없음)](changelogs/CHANGELOG_20260609.md)
