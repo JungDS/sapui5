@@ -75,3 +75,26 @@
 - 원본 카탈로그의 46개 항목은 학습 경험 관점에서 겹치는 부분이 있어 38개 대표 수단으로 병합했다.
 - 샘플 페이지는 실제 Lesson fragment가 아니라 독립 실행 가능한 참고 자료이므로, 공통 CSS/JS를 두되 각 HTML이 바로 열리는 형태로 구성했다.
 - 실제 SAP 화면 캡처가 없는 수단은 mock screenshot 형태로 표현해 저작권과 환경 의존성을 피했다.
+
+---
+
+## 추가 작업 — 학습 수단 샘플 라이브러리 v2 전면 재작성
+
+### 배경
+- v1(`sample/learning-methods/`)은 거의 모든 페이지가 동일한 ABAP 코드 카드 3개를 반복해 "수단이 실제 적용된 모습"을 보여주지 못했고, 3열 고정 카드로 가로 스크롤이 발생했다.
+- 사용자는 Chapter 13 Lesson 1~6에 이미 적용된 실제 위젯(다이어그램·Sandbox·Bad/Good Hover Mapping·아코디언·디버거·드래그/단답 퀴즈)을 원본 예시로 활용해 38개 페이지를 전면 재작성하길 요청했다.
+
+### 수행 내용
+- `sample/learning-methods-v2/`를 신설하고 38개 standalone 페이지 + `index.html` + `README.md` + 공통 `assets/method-samples.css/js`를 작성.
+- `THEORY-13-M01~M06.html`과 `assets/abap-lesson-viewer.css/js`에서 위젯의 마크업·스타일·동작을 추출해 공통 asset에 이식. 각 페이지 예시 1은 Chapter 13 원본 이식, 예시 2·3은 Internal Table/Open SQL/Selection Screen·Report Event/DDIC/ALV/OO ABAP/RAP·CDS 변형.
+- 공통 JS를 멀티 인스턴스 + JSON 데이터 기반으로 일반화(Sandbox/Step Debugger/Decision Tree config, 드래그 퍼즐 data-expected/data-answer). 카드 분류 핸들러를 신설.
+- 레이아웃을 반응형(기본 1열, 넓은 화면만 일부 2열)으로 재설계하고 `overflow-x: hidden` + 코드 블록 내부 스크롤로 가로 스크롤을 차단.
+
+### 검증
+- HTML 38개 유지, 각 페이지 `method-example` 3개, README/index 링크 실존, 380/620px 가로 스크롤 0건, mermaid 렌더링, 주요 위젯 동작, 콘솔 오류 0건, desktop/mobile 스크린샷 확인.
+- 수정 버그: Sandbox `selectResult` 라벨 누락(`[undefined]`) → 기본값 'SELECT'; 카드 분류 재채점 시 클래스 유실 → `cardsort-feedback` 보존.
+
+### 설계 이유
+- "코드 카드 나열"이 아니라 "수단이 실제 작동하는 컴포넌트"를 보여주는 것이 핵심이므로, Chapter 13의 검증된 위젯을 그대로 이식해 신뢰도와 재사용성을 동시에 확보했다.
+- 위젯 동작을 JSON config로 분리해, 한 페이지에 같은 수단의 서로 다른 인스턴스 3개가 충돌 없이 공존하도록 했다.
+- v1은 그대로 보존했다(이력 비교용). 신규 참조는 v2를 사용한다.

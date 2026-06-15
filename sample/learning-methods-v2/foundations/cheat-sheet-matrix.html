@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>치트시트 매트릭스 | 학습 수단 샘플 v2</title>
+<link rel="stylesheet" href="../assets/method-samples.css">
+</head>
+<body>
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v2</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">기초 구성 · 치트시트 매트릭스</p>
+    <h1>치트시트 매트릭스</h1>
+    <p class="lead">"언제 쓰나 / 넣을 코드 / 금지할 패턴 / 디버깅 포인트"를 한 표로 정리해, 복습과 실무 적용을 동시에 돕습니다. 이벤트·ALV 메서드처럼 항목이 많은 주제를 한눈에 비교할 때 강력합니다.</p>
+    <div class="tags"><span class="tag">Report Event 적용</span><span class="tag">4열 매트릭스</span><span class="tag">복습/실무 겸용</span></div>
+  </section>
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 ABAP 주제에 적용</h2>
+    <p class="section-sub">예시 1은 Chapter 13 이벤트 라이프사이클을 치트시트로 압축한 것입니다.</p>
+    <div class="example-stack">
+      <article class="method-example spotlight">
+        <p class="ex-topic">예시 1 · Report Event (Chapter 13 주제)</p>
+        <h3>리포트 이벤트 치트시트</h3>
+        <div class="viz-visual">
+          <table class="cheat-table">
+            <thead><tr><th>이벤트</th><th>언제 쓰나</th><th>넣을 코드</th><th>금지/주의</th></tr></thead>
+            <tbody>
+              <tr><td><code>INITIALIZATION</code></td><td>화면 표시 전 기본값</td><td><code>p_date = sy-datum.</code></td><td>무거운 DB 조회 금지</td></tr>
+              <tr><td><code>AT SELECTION-SCREEN OUTPUT</code></td><td>화면 표시 직전 속성</td><td><code>LOOP AT SCREEN ... MODIFY SCREEN.</code></td><td><code>MODIFY SCREEN</code> 누락 주의</td></tr>
+              <tr><td><code>AT SELECTION-SCREEN</code></td><td>입력 검증</td><td><code>MESSAGE 'E'</code>로 차단</td><td>여기서 본 처리/대량 조회 금지</td></tr>
+              <tr><td><code>START-OF-SELECTION</code></td><td>메인 조회·가공</td><td><code>SELECT ... INTO TABLE</code></td><td>입력 검증을 여기서 처음 하지 말 것</td></tr>
+              <tr><td><code>END-OF-SELECTION</code></td><td>출력 마감</td><td>SALV/WRITE 출력</td><td>여기서 추가 조회 금지</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> "넣을 코드"와 "금지" 열을 나란히 두면 권장/안티패턴이 한 줄에서 대비된다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · Internal Table</p>
+        <h3>내부 테이블 연산 치트시트</h3>
+        <div class="viz-visual">
+          <table class="cheat-table">
+            <thead><tr><th>연산</th><th>언제 쓰나</th><th>코드</th><th>주의</th></tr></thead>
+            <tbody>
+              <tr><td>추가</td><td>맨 뒤에 행 붙이기</td><td><code>APPEND ls TO lt.</code></td><td>정렬 테이블엔 INSERT</td></tr>
+              <tr><td>읽기</td><td>키로 한 행</td><td><code>READ TABLE lt ... BINARY SEARCH.</code></td><td>SORT 선행 필수</td></tr>
+              <tr><td>수정</td><td>일부 필드만</td><td><code>MODIFY ... TRANSPORTING f.</code></td><td>생략 시 행 전체 덮어씀</td></tr>
+              <tr><td>삭제</td><td>조건 일괄</td><td><code>DELETE lt WHERE ...</code></td><td>LOOP 중 DELETE 인덱스 밀림</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 자주 틀리는 전제(SORT 선행, TRANSPORTING 생략)는 "주의" 열에 키워드로 못 박는다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · ALV</p>
+        <h3>SALV vs Grid ALV 치트시트</h3>
+        <div class="viz-visual">
+          <table class="cheat-table">
+            <thead><tr><th>구분</th><th>SALV</th><th>Grid ALV</th></tr></thead>
+            <tbody>
+              <tr><td>용도</td><td>조회 전용 출력</td><td>편집 가능 출력</td></tr>
+              <tr><td>생성</td><td><code>cl_salv_table=&gt;factory</code></td><td><code>cl_gui_alv_grid</code> + Container</td></tr>
+              <tr><td>화면</td><td>전체 화면 자동</td><td>Dynpro/Container 필요</td></tr>
+              <tr><td>주의</td><td>툴바는 set_all로 켬</td><td>GUI 종속(ABAP Cloud 미사용)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> "둘 중 무엇을 쓸까" 의사결정이 필요한 주제는 좌우 비교형 치트시트로 정리한다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/method-samples.js"></script>
+</body>
+</html>

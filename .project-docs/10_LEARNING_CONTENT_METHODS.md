@@ -125,6 +125,12 @@
 - `Chapter 18`: Class/Object 관계 SVG, Static/Instance 카드 분류 퀴즈.
 - `Chapter 19`: SALV/Grid ALV 기능 선택 의사결정 트리, Stable Refresh 상태 보존 시뮬레이터.
 
+## 8.5 실제 적용 샘플 참조 (learning-methods-v2)
+
+- 각 수단이 **실제로 작동하는 모습**은 `sample/learning-methods-v2/`에서 확인한다(우선 참조). README의 "원본 위젯 출처" 표가 어떤 샘플이 Chapter 13 Lesson 1~6의 어느 위젯을 이식했는지 알려준다.
+- 새 Lesson에 위젯을 넣을 때는 v2 샘플의 마크업/클래스를 그대로 가져오되, fragment 규칙(인라인 `style`/`script` 금지)에 맞춰 CSS는 `assets/abap-lesson-viewer.css`, JS는 `assets/abap-lesson-viewer.js`에 둔다. v2의 위젯은 이 공통 asset과 호환되도록 이식돼 있다.
+- v1 `sample/learning-methods/`는 품질이 낮아(동일 코드 카드 반복, 가로 스크롤) 신규 참조에 쓰지 않는다. 이력 비교용으로만 보존한다.
+
 ## 9. 주의할 점
 
 - 무거운 인터랙션은 학습 효과가 분명할 때만 넣는다. 단순 설명은 `viz-flow`, `viz-compare`, `details`로 충분한 경우가 많다.

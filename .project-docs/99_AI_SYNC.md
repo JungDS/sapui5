@@ -18,7 +18,8 @@
 ## 현재 상태 및 목표 (Current Status & Goals)
 - **현재 목표**: 🎉 **Track 1(THEORY-*) 137/137 작성 완료!** (THEORY-01~21 전부). 사용자의 새 목표에 따라 Track 1을 "고품질 교육용 웹페이지" 기준으로 재감사·보강하는 라운드를 진행 중. 기준 문서: [TRACK1_QUALITY_PLAN.md](TRACK1_QUALITY_PLAN.md). 병행 다음 목표는 **Track 2(PRACTICAL-* 13개 섹션)** 신규 작성.
 - **학습 수단 카탈로그(2026-06-15, Codex)**: `Chapter 13의 Lesson 1`에 적용된 다이어그램, Sandbox, Bad/Good Practice Hover Mapping, 아코디언 가이드, 디버깅 실행기, 드래그 퀴즈, 단답형 퀴즈 등 고관여 학습 수단을 정리하고, 향후 Lesson 초안 생성 시 선택할 추천 수단을 `.project-docs/10_LEARNING_CONTENT_METHODS.md`에 문서화했다. 새 Lesson/Chapter 고품질화 시작 전 이 문서를 함께 읽을 것.
-- **학습 수단 샘플 라이브러리(2026-06-15, Codex)**: 학습 수단을 실제 화면으로 확인할 수 있도록 `sample/learning-methods/`에 38개 standalone HTML 샘플과 README를 추가했다. 진행계획과 작업 로그는 `.project-docs/진행계획/4c8b81b0-9779-4e78-98e6-7965479a2b94/`에서 관리한다. 새 학습 자료 초안 작성 전 `10_LEARNING_CONTENT_METHODS.md`와 샘플 README를 함께 확인할 것.
+- **학습 수단 샘플 라이브러리(2026-06-15, Codex)**: 학습 수단을 실제 화면으로 확인할 수 있도록 `sample/learning-methods/`에 38개 standalone HTML 샘플과 README를 추가했다. 진행계획과 작업 로그는 `.project-docs/진행계획/4c8b81b0-9779-4e78-98e6-7965479a2b94/`에서 관리한다.
+- **학습 수단 샘플 v2 전면 재작성(2026-06-15, Claude Opus 4.8)**: v1은 페이지마다 동일한 코드 카드를 반복하고 3열 고정으로 가로 스크롤이 발생해 품질이 낮았다. `sample/learning-methods-v2/`로 전면 재작성하여, Chapter 13 Lesson 1~6의 실제 위젯(탭 다이어그램·Sandbox·Bad/Good Hover Mapping·코드 키워드 아코디언·Step Debugger·드래그/단답 퀴즈)을 각 페이지의 첫 번째 대표 예시로 이식하고, 예시 2·3은 Internal Table/Open SQL/DDIC/ALV/OO/RAP 변형으로 구성했다. 반응형(기본 1열) + 가로 스크롤 차단. **새 학습 자료 초안 작성 시 우선 참조는 v2**(`sample/learning-methods-v2/README.md`)이며, v1은 이력 비교용으로 보존한다.
 - **최근 진행(2026-06-15, Codex)**: 사용량 제한으로 중단된 자동화 재시작 후 메모리와 저장소 계획을 대조해 다음 실제 미완료 범위를 `Chapter 13`으로 확정. `Chapter 13의 Lesson 1~7`에 미니 실습, 완료 조건, SAP 공식 링크, 확인 퀴즈/정답 해설, 시각 자료를 보강했고, `THEORY-13-M01`의 남은 인라인 스타일을 공통 CSS 클래스로 이동 및 중간 폭 화면에서 우측 내비와 탭 위젯이 겹치지 않도록 보정했다.
 - **최근 진행(2026-06-12, Antigravity)**: **Chapter 10~12 (Range Table, JOIN, Classic View)** 고품질화 완료 및 예제 이름 규칙(정훈영 주인공 규칙) 적용 완료. TMG/SM30 및 Classic/CDS 비교 아키텍처 SVG 흐름 시각화 보강 완료. `abap_glossary.json` 누락 용어 5종 패치 완료. **THEORY-13-M01의 이벤트 라이프사이클 다이어그램을 roadmap.html의 CSS 트리 구조로 개선 교체 완료**. 로컬 웹 서버(localhost:8080) 구동 확인 완료.
 - **최근 진행(2026-06-11, Claude)**: 사용자 승인 플랜에 따라 **Track 1 시각화 확산 + 고품질화 통합 라운드** 시작. Phase 0(기반 정비) 완료 — `viz-*` 범용 CSS 별칭/`viz-compare`/`viz-svg` 신설, 시각화 패턴 카탈로그 7종을 HANDOFF에 표준화, Chapter 10 일반 표 정리, 포맷터 SQL 키워드 보강(77개 파일 하이라이트 개선). **NotebookLM MCP 연결 완료**(notebooklm-mcp v2.0.0, 노트북 `ABAP Evolution and Messaging Channels Training Guide` 등록·질의 검증). 이후 Chapter 4→19 통합 패스, 마지막에 Chapter 1~3/6/20~21 시각화 보강 미니 패스 예정.
@@ -34,7 +35,7 @@
 - **[완료] 신규 19~21 코드블록 서식 및 CSS 아키텍처 리팩토링**: Antigravity가 네이비 ABAP Editor 포맷터 개선을 통해 에디터 외곽 인라인 스타일을 CSS 클래스로 분리했고, Codex가 코드 하이라이트 토큰까지 `abap-token-*` 클래스로 공통화함.
 - **[프로세스] 섹션 작성 후 추적 3종 동시 갱신**: 섹션 커밋 시 ① `HANDOFF_LESSON_CONTENT.md` 진행표 ② 본 파일(99_AI_SYNC) 작업이력/현황 ③ `changelogs/CHANGELOG_<날짜>.md`를 함께 갱신할 것(누락 주의).
 - **[프로세스] Lesson 초안 생성 전 학습 수단 선택**: 텍스트 설명으로만 끝내지 말고 `.project-docs/10_LEARNING_CONTENT_METHODS.md`의 선택 가이드에 따라 시각 자료, 비교표, Sandbox, Hover Mapping, 아코디언, 디버거, 드래그/분류 퀴즈 등 적절한 수단을 최소 1개 이상 검토한다.
-- **[프로세스] 학습 수단 샘플 확인**: 새 수단을 실제 페이지로 설계할 때는 `sample/learning-methods/README.md`에서 38개 standalone 샘플 중 가장 가까운 패턴을 먼저 확인한다. 구현 진행/검증 상태는 `.project-docs/진행계획/4c8b81b0-9779-4e78-98e6-7965479a2b94/TASKS.md`와 `RUN_LOG.md`를 기준으로 이어간다.
+- **[프로세스] 학습 수단 샘플 확인**: 새 수단을 실제 페이지로 설계할 때는 **`sample/learning-methods-v2/README.md`(우선)**에서 38개 standalone 샘플 중 가장 가까운 패턴을 먼저 확인한다(v2는 Chapter 13 원본 위젯을 이식한 고품질 샘플, v1 `sample/learning-methods/`는 이력 비교용 보존). 구현 진행/검증 상태는 `.project-docs/진행계획/4c8b81b0-9779-4e78-98e6-7965479a2b94/TASKS.md`와 `RUN_LOG.md`를 기준으로 이어간다.
 - **글로서리 완전 패리티**: Lesson에서 쓰는 주요 용어는 `reference/abap_glossary.json`에 반드시 함께 등록(일상 비유 포함). 미등록 용어는 툴팁이 안 뜸(깨진 링크).
 - (선택) Lesson 내 퀴즈·실습 코드 블록 등 상호작용 컴포넌트 고도화.
 
@@ -46,6 +47,19 @@
 ---
 
 ## 작업 이력 (Work Log)
+
+### [2026-06-15] Claude (Opus 4.8) — 학습 수단 샘플 라이브러리 v2 전면 재작성
+- **작업 내용**:
+  - v1(`sample/learning-methods/`)의 품질 문제(동일 코드 카드 3개 반복, 3열 고정으로 가로 스크롤)를 확인하고 `sample/learning-methods-v2/`로 38개 페이지를 전면 재작성.
+  - `THEORY-13-M01~M06.html`과 `assets/abap-lesson-viewer.css/js`에서 실제 위젯의 마크업·스타일·동작을 추출해 공통 asset(`assets/method-samples.css/js`)에 이식. 각 페이지 예시 1 = Chapter 13 원본 위젯(탭 다이어그램·Sandbox·Bad/Good Hover Mapping·코드 키워드 아코디언·Step Debugger·드래그/단답 퀴즈), 예시 2·3 = Internal Table/Open SQL/Selection Screen·Report Event/DDIC/ALV/OO/RAP 변형.
+  - 공통 JS를 멀티 인스턴스 + JSON 구동(Sandbox/Step Debugger/Decision)으로 일반화하고 카드 분류 핸들러를 신설. 반응형(기본 1열, 넓은 화면만 일부 2열) + `overflow-x: hidden`으로 가로 스크롤 차단.
+  - `index.html`, `README.md`(원본 위젯 출처 매핑표 포함) 작성.
+- **검증 메모**:
+  - HTML 38개 유지, 각 페이지 `method-example` 정확히 3개, README/index 링크 실존(누락 0).
+  - 로컬 서버 iframe 스윕: 전 38페이지 380px·핵심 페이지 620px 가로 스크롤 0건.
+  - 탭/아코디언/Hover Mapping/드래그 퍼즐(4/4)/카드 분류/Step Debugger/Sandbox(이벤트 로그+ALV) 동작 확인, mermaid SVG 렌더링 확인, 콘솔 오류 0건, desktop/mobile 스크린샷 확인.
+  - 버그 수정: Sandbox `selectResult` 라벨 누락→기본 'SELECT', 카드 분류 재채점 시 클래스 유실→`cardsort-feedback` 보존.
+- **다음 AI를 위한 메모**: 새 학습 자료 초안 설계 시 `sample/learning-methods-v2/README.md`를 우선 참조한다. 위젯을 Lesson fragment로 옮길 때는 v2의 마크업/동작이 `assets/abap-lesson-viewer.css/js`와 호환되도록 이식돼 있으니 그대로 적용하면 된다.
 
 ### [2026-06-15] Codex (GPT-5) — 학습 수단 샘플 라이브러리 구현
 - **작업 내용**:

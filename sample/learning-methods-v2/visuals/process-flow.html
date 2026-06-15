@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>프로세스 플로우 | 학습 수단 샘플 v2</title>
+<link rel="stylesheet" href="../assets/method-samples.css">
+</head>
+<body>
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v2</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">시각화 · 프로세스 플로우</p>
+    <h1>프로세스 플로우</h1>
+    <p class="lead">런타임 처리나 업무 절차를 번호가 매겨진 단계 카드로 보여줍니다. 카드는 화면 폭에 맞춰 1~여러 열로 자동 배치되어 가로 스크롤 없이 흐름을 한눈에 담습니다.</p>
+    <div class="tags"><span class="tag origin">원본: Chapter 13 Lesson 3~5 (단계 플로우)</span><span class="tag">단계 카드</span></div>
+  </section>
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 ABAP 절차에 적용</h2>
+    <p class="section-sub">예시 1은 Chapter 13 Lesson 4의 입력 검증 게이트 4단계 플로우를 이식했습니다.</p>
+    <div class="example-stack">
+      <article class="method-example spotlight">
+        <p class="ex-topic origin">예시 1 · Report Event (Chapter 13 Lesson 4 원본)</p>
+        <h3>입력 검증 게이트 (검문소)</h3>
+        <div class="viz-visual">
+          <p class="viz-visual-title">실행(F8) 이후 메인 로직으로 가기 전 검문소</p>
+          <div class="viz-flow">
+            <div class="viz-flow-step"><strong>1. 사용자가 실행</strong><span>선택 화면 값이 ABAP 변수로 넘어옵니다.</span></div>
+            <div class="viz-flow-step"><strong>2. AT SELECTION-SCREEN</strong><span>날짜 역전·회사코드 존재 등 입력 조건을 검사합니다.</span></div>
+            <div class="viz-flow-step"><strong>3A. 실패</strong><span><span class="viz-badge fail">MESSAGE E</span> 화면 복귀, 재입력.</span></div>
+            <div class="viz-flow-step"><strong>3B. 성공</strong><span><span class="viz-badge success">통과</span> START-OF-SELECTION으로 진행.</span></div>
+          </div>
+          <p class="viz-note">정훈영 사원이 날짜를 거꾸로 넣으면 여기서 막고, 정상일 때만 조회 단계로 보냅니다.</p>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 분기가 있는 절차는 3A/3B처럼 같은 단계 번호에 성공/실패 카드를 나란히 둔다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · Open SQL</p>
+        <h3>START-OF-SELECTION 처리 흐름</h3>
+        <div class="viz-visual">
+          <p class="viz-visual-title">검증된 입력이 결과 테이블이 되기까지</p>
+          <div class="viz-flow">
+            <div class="viz-flow-step"><strong>1. 선택 조건</strong><span><code>p_carrid</code>, <code>s_date</code>가 검증된 상태로 전달.</span></div>
+            <div class="viz-flow-step"><strong>2. Open SQL</strong><span>필요한 필드만 골라 DB에서 읽기.</span></div>
+            <div class="viz-flow-step"><strong>3. 내부 테이블</strong><span><code>gt_result</code>에 담아 후속 처리 준비.</span></div>
+            <div class="viz-flow-step"><strong>4. 출력 단계로</strong><span>조회·가공을 끝내고 END-OF-SELECTION으로.</span></div>
+          </div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> "입력 → 처리 → 산출"의 데이터 변환 흐름은 단계 카드로 그리면 책임 분리가 분명해진다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · ALV</p>
+        <h3>SALV 출력 4단계</h3>
+        <div class="viz-visual">
+          <p class="viz-visual-title">조회 결과를 ALV로 띄우는 절차</p>
+          <div class="viz-flow">
+            <div class="viz-flow-step"><strong>1. 데이터 조회</strong><span><code>SELECT ... INTO TABLE @lt</code></span></div>
+            <div class="viz-flow-step"><strong>2. factory 생성</strong><span><code>cl_salv_table=&gt;factory</code>로 ALV 객체 생성.</span></div>
+            <div class="viz-flow-step"><strong>3. 기능 활성화</strong><span><code>get_functions( )</code> + <code>set_all( )</code>로 툴바 켜기.</span></div>
+            <div class="viz-flow-step"><strong>4. display</strong><span><code>display( )</code>로 화면 출력.</span></div>
+          </div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> API 호출 순서는 각 카드에 실제 메서드명을 코드로 박아 실습 시 그대로 옮겨 쓰게 한다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/method-samples.js"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>의사결정 트리 | 학습 수단 샘플 v2</title>
+<link rel="stylesheet" href="../assets/method-samples.css">
+</head>
+<body>
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v2</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">상호작용 · 의사결정 트리</p>
+    <h1>의사결정 트리</h1>
+    <p class="lead">"내 상황에서는 어떤 기술을 골라야 하나?"를 선택지로 풀어줍니다. 조건을 고르면 권장 기술과 이유가 즉시 나타나, 비슷해 보이는 기술 중 선택 기준을 잡아줍니다.</p>
+    <div class="tags"><span class="tag origin">원본 주제: Chapter 13 Lesson 2 (DEFAULT vs INITIALIZATION)</span><span class="tag">조건 → 추천</span></div>
+  </section>
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 선택 문제에 적용</h2>
+    <p class="section-sub">예시 1은 Chapter 13의 "고정값 vs 계산값" 기본값 선택을 트리로 만든 것입니다.</p>
+    <div class="example-stack">
+      <article class="method-example spotlight">
+        <p class="ex-topic origin">예시 1 · Report Event (Chapter 13 Lesson 2 주제)</p>
+        <h3>DEFAULT vs INITIALIZATION</h3>
+        <div class="decision-box">
+          <div class="decision-row">
+            <label>기본값이…</label>
+            <select>
+              <option value="fixed">항상 같은 고정값이다</option>
+              <option value="calc">실행 시점에 계산해야 한다</option>
+              <option value="range">SELECT-OPTIONS의 Range다</option>
+            </select>
+            <button class="btn">추천 보기</button>
+          </div>
+          <div class="decision-result">조건을 고르고 추천을 눌러보세요.</div>
+          <script type="application/json" class="decision-config">
+          {
+            "fixed": "✅ <strong>선언부 DEFAULT</strong>를 쓰세요. 예: <code>PARAMETERS p_x TYPE c DEFAULT 'X'</code>. 단순·정적이라 가장 깔끔합니다.",
+            "calc": "✅ <strong>INITIALIZATION</strong>을 쓰세요. <code>sy-datum</code>처럼 실행 시점 값을 화면 표시 전에 채웁니다.",
+            "range": "✅ <strong>INITIALIZATION</strong>에서 Range 구조(<code>s_x-low/sign/option</code>)를 채우고 <code>APPEND</code>합니다. DEFAULT로는 표현하기 어렵습니다."
+          }
+          </script>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 비슷한 두 선택지(DEFAULT/INITIALIZATION)는 "결정 기준 한 가지(고정 vs 계산)"로 갈래를 나누면 명쾌하다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · Open SQL</p>
+        <h3>JOIN vs FOR ALL ENTRIES</h3>
+        <div class="decision-box">
+          <div class="decision-row">
+            <label>두 데이터 결합 시…</label>
+            <select>
+              <option value="db">둘 다 DB 테이블이다</option>
+              <option value="itab">한쪽이 이미 내부 테이블이다</option>
+              <option value="empty">내부 테이블이 비어 있을 수 있다</option>
+            </select>
+            <button class="btn">추천 보기</button>
+          </div>
+          <div class="decision-result">조건을 고르고 추천을 눌러보세요.</div>
+          <script type="application/json" class="decision-config">
+          {
+            "db": "✅ <strong>INNER JOIN</strong>이 자연스럽습니다. DB 엔진이 한 번에 결합합니다.",
+            "itab": "✅ <strong>FOR ALL ENTRIES</strong>를 검토하세요. 메모리의 내부 테이블 키로 DB를 조회합니다.",
+            "empty": "⚠️ <strong>FOR ALL ENTRIES 주의</strong>: 드라이버 테이블이 비면 WHERE가 무력화돼 전체가 조회될 수 있습니다. 반드시 <code>IS NOT INITIAL</code> 체크 후 사용하세요."
+          }
+          </script>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 함정(빈 FAE)이 있는 선택은 트리에 "⚠️ 주의" 분기를 따로 둬 위험을 사전 경고한다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · ALV</p>
+        <h3>SALV vs Grid ALV</h3>
+        <div class="decision-box">
+          <div class="decision-row">
+            <label>출력 요구사항이…</label>
+            <select>
+              <option value="readonly">조회 전용이다</option>
+              <option value="edit">셀 편집이 필요하다</option>
+              <option value="cloud">ABAP Cloud에서 동작해야 한다</option>
+            </select>
+            <button class="btn">추천 보기</button>
+          </div>
+          <div class="decision-result">조건을 고르고 추천을 눌러보세요.</div>
+          <script type="application/json" class="decision-config">
+          {
+            "readonly": "✅ <strong>SALV</strong>(CL_SALV_TABLE). factory 한 번으로 전체 화면 ALV가 뜨고 코드가 간결합니다.",
+            "edit": "✅ <strong>Grid ALV</strong>(CL_GUI_ALV_GRID). 편집 가능하지만 Container/Dynpro 설정이 필요합니다.",
+            "cloud": "✅ <strong>RAP + Fiori Elements</strong>를 검토하세요. SALV/Grid ALV는 GUI 종속이라 ABAP Cloud에서 사용하지 않습니다."
+          }
+          </script>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> "조회/편집/클라우드"처럼 요구사항 축으로 나누면 세 도구의 경계가 분명해진다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/method-samples.js"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>전후 비교 | 학습 수단 샘플 v2</title>
+<link rel="stylesheet" href="../assets/method-samples.css">
+</head>
+<body>
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v2</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">시각화 · 전/후 비교</p>
+    <h1>전후 비교 (Before / After)</h1>
+    <p class="lead">두 선택지를 좌우 카드로 나란히 두어 차이를 즉시 대비시킵니다. Bad/Good, Classic/Modern, 실행 전/후, 조건별 결과 등 "둘을 비교하면 이해가 빨라지는" 모든 상황에 씁니다. 좁은 화면에서는 위아래로 쌓입니다.</p>
+    <div class="tags"><span class="tag origin">원본: Chapter 13 Lesson 2 (DEFAULT vs INITIALIZATION)</span><span class="tag">좌우 대비</span></div>
+  </section>
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 ABAP 비교에 적용</h2>
+    <p class="section-sub">예시 1은 Chapter 13 Lesson 2의 "고정 기본값(DEFAULT) vs 실행 시점 기본값(INITIALIZATION)" 비교를 이식했습니다.</p>
+    <div class="example-stack">
+      <article class="method-example spotlight">
+        <p class="ex-topic origin">예시 1 · Report Event (Chapter 13 Lesson 2 원본)</p>
+        <h3>DEFAULT vs INITIALIZATION</h3>
+        <div class="viz-visual">
+          <p class="viz-visual-title">고정 기본값과 실행 시점 기본값을 고르는 기준</p>
+          <div class="viz-compare">
+            <div class="viz-compare-before"><span class="viz-compare-label">선언부 DEFAULT</span><div class="viz-compare-body"><table class="viz-table"><tbody>
+              <tr><th>언제 적합?</th><td>항상 같은 값</td></tr>
+              <tr><th>예시</th><td><code>DEFAULT '1000'</code></td></tr>
+              <tr><th>주의</th><td>날짜·사용자별 값처럼 매번 계산되는 값엔 부적합</td></tr>
+            </tbody></table></div></div>
+            <div class="viz-compare-after"><span class="viz-compare-label">INITIALIZATION</span><div class="viz-compare-body"><table class="viz-table"><tbody>
+              <tr><th>언제 적합?</th><td>실행 시점에 계산해야 하는 값</td></tr>
+              <tr><th>예시</th><td><code>sy-datum</code>, 이번 달 1일</td></tr>
+              <tr><th>주의</th><td>화면 진입 준비 단계라 무거운 조회는 피함</td></tr>
+            </tbody></table></div></div>
+          </div>
+          <p class="viz-note">매일 오늘 날짜를 기본 조회일로 쓰려면 고정 DEFAULT보다 INITIALIZATION이 자연스럽습니다.</p>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 좌우 카드의 행 항목(언제/예시/주의)을 동일하게 맞추면 같은 축으로 비교돼 차이가 또렷하다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · ALV 출력</p>
+        <h3>Classic WRITE vs SALV</h3>
+        <div class="viz-visual">
+          <p class="viz-visual-title">목록 출력 방식 비교</p>
+          <div class="viz-compare">
+            <div class="viz-compare-before"><span class="viz-compare-label">WRITE (Classic)</span><div class="viz-compare-body"><table class="viz-table"><tbody>
+              <tr><th>화면</th><td>줄 단위 텍스트 직접 출력</td></tr>
+              <tr><th>기능</th><td>정렬·필터·합계 직접 구현</td></tr>
+              <tr><th>유지보수</th><td>레이아웃 바뀌면 코드 수정 큼</td></tr>
+            </tbody></table></div></div>
+            <div class="viz-compare-after"><span class="viz-compare-label">SALV</span><div class="viz-compare-body"><table class="viz-table"><tbody>
+              <tr><th>화면</th><td>표준 그리드 자동 렌더링</td></tr>
+              <tr><th>기능</th><td>정렬·필터·합계 툴바 기본 제공</td></tr>
+              <tr><th>유지보수</th><td>필드 카탈로그 자동, 변경 쉬움</td></tr>
+            </tbody></table></div></div>
+          </div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 구식/현대식 비교는 "유지보수" 행을 꼭 넣어 왜 현대식을 권하는지 근거를 남긴다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · Open SQL 성능</p>
+        <h3>LOOP 안 SELECT vs JOIN 1회</h3>
+        <div class="viz-visual">
+          <p class="viz-visual-title">DB 왕복 횟수 비교 (결과 1만 건 기준)</p>
+          <div class="viz-compare">
+            <div class="viz-compare-before"><span class="viz-compare-label">LOOP 안 SELECT</span><div class="viz-compare-body"><table class="viz-table"><tbody>
+              <tr><th>DB 왕복</th><td><span class="viz-badge fail">10,000회</span></td></tr>
+              <tr><th>비용</th><td>건수에 비례해 폭증</td></tr>
+              <tr><th>판정</th><td>안티패턴</td></tr>
+            </tbody></table></div></div>
+            <div class="viz-compare-after"><span class="viz-compare-label">JOIN 1회</span><div class="viz-compare-body"><table class="viz-table"><tbody>
+              <tr><th>DB 왕복</th><td><span class="viz-badge success">1회</span></td></tr>
+              <tr><th>비용</th><td>건수와 무관하게 일정</td></tr>
+              <tr><th>판정</th><td>권장</td></tr>
+            </tbody></table></div></div>
+          </div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 성능 비교는 배지로 "횟수/비용" 숫자를 강조하면 차이가 감각적으로 와닿는다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/method-samples.js"></script>
+</body>
+</html>

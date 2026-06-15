@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>탭형 점진 빌드업 다이어그램 | 학습 수단 샘플 v2</title>
+<link rel="stylesheet" href="../assets/method-samples.css">
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="../index.html">학습 수단 샘플 v2</a>
+    <a class="topbar-back" href="../index.html">← 전체 목록</a>
+  </div>
+</header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">시각화 · 탭형 점진 빌드업</p>
+    <h1>탭형 점진 빌드업 다이어그램</h1>
+    <p class="lead">복잡한 흐름을 한 번에 쏟아내지 않고, 탭을 누를 때마다 노드와 코드가 한 단계씩 늘어나는 방식입니다. 왼쪽엔 흐름도, 오른쪽엔 같은 단계의 ABAP 코드를 나란히 두어 추상 흐름과 실제 코드를 동시에 매핑합니다.</p>
+    <div class="tags">
+      <span class="tag origin">원본: Chapter 13 Lesson 1 (Report Event Lifecycle)</span>
+      <span class="tag">mermaid + ABAP Editor</span>
+      <span class="tag">반응형 좌우 분할</span>
+    </div>
+  </section>
+
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 ABAP 주제에 적용</h2>
+    <p class="section-sub">예시 1은 Chapter 13 Lesson 1에 실제로 적용된 5단계 이벤트 라이프사이클 탭을 그대로 이식한 것입니다.</p>
+
+    <div class="example-stack">
+      <!-- 예시 1: Chapter 13 원본 -->
+      <article class="method-example spotlight">
+        <p class="ex-topic origin">예시 1 · Report Event (Chapter 13 Lesson 1 원본)</p>
+        <h3>리포트 이벤트 라이프사이클 점진 빌드업</h3>
+        <p class="ex-desc">이벤트 구문을 하나도 안 쓴 1단계부터, 선택 화면·검증·마감까지 모두 갖춘 5단계 전체 생명주기까지 탭으로 확장합니다. 각 탭은 왼쪽 흐름도 + 오른쪽 실제 코드 구조입니다.</p>
+
+        <div class="viz-visual event-tabs-container">
+          <p class="viz-visual-title">ABAP 리포트 이벤트 실행 순서 및 흐름도 (점진적 빌드업)</p>
+          <div class="event-tab-buttons">
+            <button class="tab-btn active" data-tab="rep-l1">1단계: 이벤트 생략</button>
+            <button class="tab-btn" data-tab="rep-l2">2단계: INITIALIZATION</button>
+            <button class="tab-btn" data-tab="rep-l3">3단계: 로드 & 마감</button>
+            <button class="tab-btn" data-tab="rep-l4">4단계: 선택 화면 & 검증</button>
+            <button class="tab-btn" data-tab="rep-l5">5단계: 전체 생명주기</button>
+          </div>
+          <div class="tabs-content">
+            <div class="event-tab-panel active" id="rep-l1">
+              <div class="tab-split-container">
+                <div class="tab-split-left">
+                  <div class="mermaid">
+flowchart TD
+Start([Program Starts])
+SOS("<div class='node-content-wrapper'><div class='node-badge badge-p6'>1단계 · 로직</div><br><b>START-OF-SELECTION (생략됨)</b><br><div class='node-desc'>이벤트 블록 선언이 없어도 컴파일러가 암묵적으로 자동 실행하는 메인 로직</div></div>")
+Ends([Program Ends])
+Start --> SOS
+SOS --> Ends
+style Start fill:#f1f5f9,stroke:#64748b,color:#0f172a
+style SOS fill:#ffffff,stroke:#22c55e,color:#1e293b
+style Ends fill:#f1f5f9,stroke:#64748b,color:#0f172a
+                  </div>
+                </div>
+                <div class="tab-split-right">
+                  <div class="abap-editor-mockup">
+                    <div class="abap-editor-header"><div class="abap-editor-mac-buttons"><span class="abap-editor-mac-btn red"></span><span class="abap-editor-mac-btn yellow"></span><span class="abap-editor-mac-btn green"></span></div><div class="abap-editor-title">ZREPORT_STEP1</div></div>
+                    <div class="abap-editor-body"><pre class="abap-editor-code"><span class="abap-token-keyword">REPORT</span> zreport_step1.
+
+<span class="abap-token-comment">* 이벤트 구문을 아예 선언하지 않아도</span>
+<span class="abap-token-comment">* 일반 로직은 암묵적으로 START-OF-SELECTION으로 실행됩니다.</span>
+<span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'이벤트 구문 없이 실행 (메인 로직)'</span>.</pre></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="event-tab-panel" id="rep-l2">
+              <div class="tab-split-container">
+                <div class="tab-split-left">
+                  <div class="mermaid">
+flowchart TD
+Start([Program Starts])
+INIT("<div class='node-content-wrapper'><div class='node-badge badge-p2'>1단계 · 로직</div><br><b>INITIALIZATION</b><br><div class='node-desc'>메인 로직 실행 전 변수 초기값 설정</div></div>")
+SOS("<div class='node-content-wrapper'><div class='node-badge badge-p6'>2단계 · 로직</div><br><b>START-OF-SELECTION</b><br><div class='node-desc'>DB 조회 및 메인 비즈니스 로직</div></div>")
+Ends([Program Ends])
+Start --> INIT
+INIT --> SOS
+SOS --> Ends
+style Start fill:#f1f5f9,stroke:#64748b,color:#0f172a
+style INIT fill:#ffffff,stroke:#eab308,color:#1e293b
+style SOS fill:#ffffff,stroke:#22c55e,color:#1e293b
+style Ends fill:#f1f5f9,stroke:#64748b,color:#0f172a
+                  </div>
+                </div>
+                <div class="tab-split-right">
+                  <div class="abap-editor-mockup">
+                    <div class="abap-editor-header"><div class="abap-editor-mac-buttons"><span class="abap-editor-mac-btn red"></span><span class="abap-editor-mac-btn yellow"></span><span class="abap-editor-mac-btn green"></span></div><div class="abap-editor-title">ZREPORT_STEP2</div></div>
+                    <div class="abap-editor-body"><pre class="abap-editor-code"><span class="abap-token-keyword">REPORT</span> zreport_step2.
+
+<span class="abap-token-keyword">INITIALIZATION.</span>
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'INITIALIZATION 실행 (기본값 설정)'</span>.
+
+<span class="abap-token-keyword">START-OF-SELECTION.</span>
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'START-OF-SELECTION 실행'</span>.</pre></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="event-tab-panel" id="rep-l3">
+              <div class="tab-split-container">
+                <div class="tab-split-left">
+                  <div class="mermaid">
+flowchart TD
+Start([Program Starts])
+LOP("<div class='node-content-wrapper'><div class='node-badge badge-p1'>1단계 · 로직</div><br><b>LOAD-OF-PROGRAM</b><br><div class='node-desc'>프로그램 메모리 로드</div></div>")
+INIT("<div class='node-content-wrapper'><div class='node-badge badge-p2'>2단계 · 로직</div><br><b>INITIALIZATION</b><br><div class='node-desc'>기본값 설정</div></div>")
+SOS("<div class='node-content-wrapper'><div class='node-badge badge-p6'>3단계 · 로직</div><br><b>START-OF-SELECTION</b><br><div class='node-desc'>DB 조회 및 메인 로직</div></div>")
+EOS("<div class='node-content-wrapper'><div class='node-badge badge-p7'>4단계 · 로직</div><br><b>END-OF-SELECTION</b><br><div class='node-desc'>결과 출력 및 마감</div></div>")
+Ends([Program Ends])
+Start --> LOP
+LOP --> INIT
+INIT --> SOS
+SOS --> EOS
+EOS --> Ends
+style Start fill:#f1f5f9,stroke:#64748b,color:#0f172a
+style LOP fill:#ffffff,stroke:#fb7185,color:#1e293b
+style INIT fill:#ffffff,stroke:#eab308,color:#1e293b
+style SOS fill:#ffffff,stroke:#22c55e,color:#1e293b
+style EOS fill:#ffffff,stroke:#fb923c,color:#1e293b
+style Ends fill:#f1f5f9,stroke:#64748b,color:#0f172a
+                  </div>
+                </div>
+                <div class="tab-split-right">
+                  <div class="abap-editor-mockup">
+                    <div class="abap-editor-header"><div class="abap-editor-mac-buttons"><span class="abap-editor-mac-btn red"></span><span class="abap-editor-mac-btn yellow"></span><span class="abap-editor-mac-btn green"></span></div><div class="abap-editor-title">ZREPORT_STEP3</div></div>
+                    <div class="abap-editor-body"><pre class="abap-editor-code"><span class="abap-token-keyword">LOAD-OF-PROGRAM.</span>
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'LOAD-OF-PROGRAM 실행'</span>.
+
+<span class="abap-token-keyword">INITIALIZATION.</span>
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'INITIALIZATION 실행'</span>.
+
+<span class="abap-token-keyword">START-OF-SELECTION.</span>
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'START-OF-SELECTION 실행'</span>.
+
+<span class="abap-token-keyword">END-OF-SELECTION.</span>
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'END-OF-SELECTION 실행'</span>.</pre></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="event-tab-panel" id="rep-l4">
+              <div class="tab-split-container">
+                <div class="tab-split-left">
+                  <div class="mermaid">
+flowchart TD
+Start([Program Starts])
+LOP("<div class='node-content-wrapper'><div class='node-badge badge-p1'>1단계</div><br><b>LOAD-OF-PROGRAM</b></div>")
+INIT("<div class='node-content-wrapper'><div class='node-badge badge-p2'>2단계</div><br><b>INITIALIZATION</b><br><div class='node-desc'>선택 화면 기본값</div></div>")
+Screen["<div class='node-content-wrapper'><div class='node-badge badge-screen'>3단계 · 화면</div><br><b>Selection Screen</b><br><div class='node-desc'>⏳ 사용자 입력 대기</div></div>"]
+ASS("<div class='node-content-wrapper'><div class='node-badge badge-p5'>4단계</div><br><b>AT SELECTION-SCREEN</b><br><div class='node-desc'>입력값 검증</div></div>")
+SOS("<div class='node-content-wrapper'><div class='node-badge badge-p6'>5단계</div><br><b>START-OF-SELECTION</b></div>")
+EOS("<div class='node-content-wrapper'><div class='node-badge badge-p7'>6단계</div><br><b>END-OF-SELECTION</b></div>")
+Ends([Program Ends])
+Start --> LOP
+LOP --> INIT
+INIT --> Screen
+Screen -->|"입력 발생"| ASS
+ASS -.->|"에러 시 복귀"| Screen
+ASS -->|"통과 + F8"| SOS
+SOS --> EOS
+EOS --> Ends
+style Start fill:#f1f5f9,stroke:#64748b,color:#0f172a
+style LOP fill:#ffffff,stroke:#fb7185,color:#1e293b
+style INIT fill:#ffffff,stroke:#eab308,color:#1e293b
+style Screen fill:#f0f9ff,stroke:#0284c7,stroke-width:4px,color:#0f172a
+style ASS fill:#ffffff,stroke:#f472b6,color:#1e293b
+style SOS fill:#ffffff,stroke:#22c55e,color:#1e293b
+style EOS fill:#ffffff,stroke:#fb923c,color:#1e293b
+style Ends fill:#f1f5f9,stroke:#64748b,color:#0f172a
+                  </div>
+                </div>
+                <div class="tab-split-right">
+                  <div class="abap-editor-mockup">
+                    <div class="abap-editor-header"><div class="abap-editor-mac-buttons"><span class="abap-editor-mac-btn red"></span><span class="abap-editor-mac-btn yellow"></span><span class="abap-editor-mac-btn green"></span></div><div class="abap-editor-title">ZREPORT_STEP4</div></div>
+                    <div class="abap-editor-body"><pre class="abap-editor-code"><span class="abap-token-keyword">PARAMETERS</span> p_year <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> 4.
+
+<span class="abap-token-keyword">INITIALIZATION.</span>
+  p_year = <span class="abap-token-string">'2026'</span>.
+
+<span class="abap-token-keyword">AT SELECTION-SCREEN.</span>
+  <span class="abap-token-keyword">IF</span> p_year <span class="abap-token-keyword">IS INITIAL</span>.
+    <span class="abap-token-keyword">MESSAGE</span> <span class="abap-token-string">'연도를 입력하세요.'</span> <span class="abap-token-keyword">TYPE</span> <span class="abap-token-string">'E'</span>.
+  <span class="abap-token-keyword">ENDIF</span>.
+
+<span class="abap-token-keyword">START-OF-SELECTION.</span>
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'조회 실행'</span>.</pre></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="event-tab-panel" id="rep-l5">
+              <div class="tab-split-container">
+                <div class="tab-split-left">
+                  <div class="mermaid">
+flowchart TD
+Start([Program Starts])
+LOP("<div class='node-content-wrapper'><div class='node-badge badge-p1'>1</div><br><b>LOAD-OF-PROGRAM</b></div>")
+INIT("<div class='node-content-wrapper'><div class='node-badge badge-p2'>2</div><br><b>INITIALIZATION</b></div>")
+ASO("<div class='node-content-wrapper'><div class='node-badge badge-p3'>3</div><br><b>AT SELECTION-SCREEN OUTPUT</b><br><div class='node-desc'>화면 속성 제어</div></div>")
+Screen["<div class='node-content-wrapper'><div class='node-badge badge-screen'>4 · 화면</div><br><b>Selection Screen</b></div>"]
+ASS("<div class='node-content-wrapper'><div class='node-badge badge-p5'>5</div><br><b>AT SELECTION-SCREEN</b></div>")
+SOS("<div class='node-content-wrapper'><div class='node-badge badge-p6'>6</div><br><b>START-OF-SELECTION</b></div>")
+EOS("<div class='node-content-wrapper'><div class='node-badge badge-p7'>7</div><br><b>END-OF-SELECTION</b></div>")
+Ends([Program Ends])
+Start --> LOP
+LOP --> INIT
+INIT --> ASO
+ASO --> Screen
+Screen -->|"입력"| ASS
+ASS -.->|"에러 복귀"| Screen
+ASS -->|"통과 + F8"| SOS
+ASS -.->|"재표시"| ASO
+SOS --> EOS
+EOS --> Ends
+style Start fill:#f1f5f9,stroke:#64748b,color:#0f172a
+style LOP fill:#ffffff,stroke:#fb7185,color:#1e293b
+style INIT fill:#ffffff,stroke:#eab308,color:#1e293b
+style ASO fill:#ffffff,stroke:#a855f7,color:#1e293b
+style Screen fill:#f0f9ff,stroke:#0284c7,stroke-width:4px,color:#0f172a
+style ASS fill:#ffffff,stroke:#f472b6,color:#1e293b
+style SOS fill:#ffffff,stroke:#22c55e,color:#1e293b
+style EOS fill:#ffffff,stroke:#fb923c,color:#1e293b
+style Ends fill:#f1f5f9,stroke:#64748b,color:#0f172a
+                  </div>
+                </div>
+                <div class="tab-split-right">
+                  <div class="abap-editor-mockup">
+                    <div class="abap-editor-header"><div class="abap-editor-mac-buttons"><span class="abap-editor-mac-btn red"></span><span class="abap-editor-mac-btn yellow"></span><span class="abap-editor-mac-btn green"></span></div><div class="abap-editor-title">ZREPORT_FULL_DEMO</div></div>
+                    <div class="abap-editor-body"><pre class="abap-editor-code"><span class="abap-token-keyword">PARAMETERS</span> p_year <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> 4.
+
+<span class="abap-token-keyword">LOAD-OF-PROGRAM.</span>
+<span class="abap-token-keyword">INITIALIZATION.</span>
+  p_year = <span class="abap-token-string">'2026'</span>.
+<span class="abap-token-keyword">AT SELECTION-SCREEN OUTPUT.</span>
+<span class="abap-token-keyword">AT SELECTION-SCREEN.</span>
+  <span class="abap-token-keyword">IF</span> p_year <span class="abap-token-keyword">IS INITIAL</span>.
+    <span class="abap-token-keyword">MESSAGE</span> <span class="abap-token-string">'연도 입력은 필수!'</span> <span class="abap-token-keyword">TYPE</span> <span class="abap-token-string">'E'</span>.
+  <span class="abap-token-keyword">ENDIF</span>.
+<span class="abap-token-keyword">START-OF-SELECTION.</span>
+  <span class="abap-token-keyword">SELECT</span> * <span class="abap-token-keyword">FROM</span> zemp <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @gt_data <span class="abap-token-keyword">WHERE</span> gyear = @p_year.
+<span class="abap-token-keyword">END-OF-SELECTION.</span>
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'조회 프로세스 완료'</span>.</pre></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 전체 개요 Lesson(이벤트 라이프사이클처럼 단계가 누적되는 주제)에서만 5단계 탭을 쓰고, 일반 Lesson은 2~3단계로 줄여 산만함을 피한다.</div>
+      </article>
+
+      <!-- 예시 2: Open SQL -->
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · Open SQL</p>
+        <h3>SELECT 쿼리 점진 빌드업</h3>
+        <p class="ex-desc">단순 전체 조회 → WHERE 필터 추가 → JOIN으로 확장하는 과정을 탭으로 나눠, 쿼리가 어떻게 정교해지는지 단계별로 보여줍니다.</p>
+        <div class="viz-visual event-tabs-container">
+          <p class="viz-visual-title">Open SQL 조회문이 정교해지는 3단계</p>
+          <div class="event-tab-buttons">
+            <button class="tab-btn active" data-tab="sql-l1">1단계: 전체 조회</button>
+            <button class="tab-btn" data-tab="sql-l2">2단계: WHERE 필터</button>
+            <button class="tab-btn" data-tab="sql-l3">3단계: JOIN 확장</button>
+          </div>
+          <div class="tabs-content">
+            <div class="event-tab-panel active" id="sql-l1">
+              <div class="abap-editor-mockup">
+                <div class="abap-editor-header"><div class="abap-editor-mac-buttons"><span class="abap-editor-mac-btn red"></span><span class="abap-editor-mac-btn yellow"></span><span class="abap-editor-mac-btn green"></span></div><div class="abap-editor-title">STEP 1</div></div>
+                <div class="abap-editor-body"><pre class="abap-editor-code"><span class="abap-token-keyword">SELECT</span> carrid, connid, fldate
+  <span class="abap-token-keyword">FROM</span> sflight
+  <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt_flight).
+<span class="abap-token-comment">" 모든 행을 가져온다 — 아직 조건이 없다</span></pre></div>
+              </div>
+            </div>
+            <div class="event-tab-panel" id="sql-l2">
+              <div class="abap-editor-mockup">
+                <div class="abap-editor-header"><div class="abap-editor-mac-buttons"><span class="abap-editor-mac-btn red"></span><span class="abap-editor-mac-btn yellow"></span><span class="abap-editor-mac-btn green"></span></div><div class="abap-editor-title">STEP 2</div></div>
+                <div class="abap-editor-body"><pre class="abap-editor-code"><span class="abap-token-keyword">SELECT</span> carrid, connid, fldate
+  <span class="abap-token-keyword">FROM</span> sflight
+  <span class="abap-token-keyword">WHERE</span> carrid = @p_carrid          <span class="abap-token-comment">" 필터 추가</span>
+  <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt_flight).</pre></div>
+              </div>
+            </div>
+            <div class="event-tab-panel" id="sql-l3">
+              <div class="abap-editor-mockup">
+                <div class="abap-editor-header"><div class="abap-editor-mac-buttons"><span class="abap-editor-mac-btn red"></span><span class="abap-editor-mac-btn yellow"></span><span class="abap-editor-mac-btn green"></span></div><div class="abap-editor-title">STEP 3</div></div>
+                <div class="abap-editor-body"><pre class="abap-editor-code"><span class="abap-token-keyword">SELECT</span> f~carrid, c~carrname, f~fldate
+  <span class="abap-token-keyword">FROM</span> sflight <span class="abap-token-keyword">AS</span> f
+  <span class="abap-token-keyword">INNER JOIN</span> scarr <span class="abap-token-keyword">AS</span> c <span class="abap-token-keyword">ON</span> f~carrid = c~carrid
+  <span class="abap-token-keyword">WHERE</span> f~carrid = @p_carrid
+  <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> @<span class="abap-token-keyword">DATA</span>(lt_join).</pre></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> "단순 → 조건 → 결합"처럼 같은 코드가 누적될 때 탭이 가장 효과적이다. 탭마다 직전 단계와 달라진 줄만 강조하면 차이가 또렷해진다.</div>
+      </article>
+
+      <!-- 예시 3: OO ABAP -->
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · OO ABAP</p>
+        <h3>클래스 정의 점진 빌드업</h3>
+        <p class="ex-desc">빈 클래스 골격 → 메서드 선언 → 인스턴스 생성/호출까지 탭으로 확장해, 클래스가 완성되는 과정을 단계별로 익힙니다.</p>
+        <div class="viz-visual event-tabs-container">
+          <p class="viz-visual-title">로컬 클래스가 완성되는 3단계</p>
+          <div class="event-tab-buttons">
+            <button class="tab-btn active" data-tab="oo-l1">1단계: 골격</button>
+            <button class="tab-btn" data-tab="oo-l2">2단계: 메서드</button>
+            <button class="tab-btn" data-tab="oo-l3">3단계: 사용</button>
+          </div>
+          <div class="tabs-content">
+            <div class="event-tab-panel active" id="oo-l1">
+              <div class="abap-editor-mockup">
+                <div class="abap-editor-header"><div class="abap-editor-mac-buttons"><span class="abap-editor-mac-btn red"></span><span class="abap-editor-mac-btn yellow"></span><span class="abap-editor-mac-btn green"></span></div><div class="abap-editor-title">STEP 1</div></div>
+                <div class="abap-editor-body"><pre class="abap-editor-code"><span class="abap-token-keyword">CLASS</span> lcl_report <span class="abap-token-keyword">DEFINITION</span>.
+  <span class="abap-token-keyword">PUBLIC SECTION.</span>
+<span class="abap-token-keyword">ENDCLASS</span>.
+
+<span class="abap-token-keyword">CLASS</span> lcl_report <span class="abap-token-keyword">IMPLEMENTATION</span>.
+<span class="abap-token-keyword">ENDCLASS</span>.</pre></div>
+              </div>
+            </div>
+            <div class="event-tab-panel" id="oo-l2">
+              <div class="abap-editor-mockup">
+                <div class="abap-editor-header"><div class="abap-editor-mac-buttons"><span class="abap-editor-mac-btn red"></span><span class="abap-editor-mac-btn yellow"></span><span class="abap-editor-mac-btn green"></span></div><div class="abap-editor-title">STEP 2</div></div>
+                <div class="abap-editor-body"><pre class="abap-editor-code"><span class="abap-token-keyword">CLASS</span> lcl_report <span class="abap-token-keyword">DEFINITION</span>.
+  <span class="abap-token-keyword">PUBLIC SECTION.</span>
+    <span class="abap-token-keyword">METHODS</span> run <span class="abap-token-keyword">IMPORTING</span> iv_year <span class="abap-token-keyword">TYPE</span> i.
+<span class="abap-token-keyword">ENDCLASS</span>.
+
+<span class="abap-token-keyword">CLASS</span> lcl_report <span class="abap-token-keyword">IMPLEMENTATION</span>.
+  <span class="abap-token-keyword">METHOD</span> run.
+    <span class="abap-token-keyword">WRITE</span>: / iv_year.
+  <span class="abap-token-keyword">ENDMETHOD</span>.
+<span class="abap-token-keyword">ENDCLASS</span>.</pre></div>
+              </div>
+            </div>
+            <div class="event-tab-panel" id="oo-l3">
+              <div class="abap-editor-mockup">
+                <div class="abap-editor-header"><div class="abap-editor-mac-buttons"><span class="abap-editor-mac-btn red"></span><span class="abap-editor-mac-btn yellow"></span><span class="abap-editor-mac-btn green"></span></div><div class="abap-editor-title">STEP 3</div></div>
+                <div class="abap-editor-body"><pre class="abap-editor-code"><span class="abap-token-keyword">START-OF-SELECTION.</span>
+  <span class="abap-token-keyword">DATA</span>(lo_report) = <span class="abap-token-keyword">NEW</span> lcl_report( ).
+  lo_report->run( iv_year = 2026 ).</pre></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 객체 지향 입문에서 "선언 → 구현 → 사용" 3단계 탭은 한 화면에 전체 코드를 쏟아내는 것보다 인지 부하가 훨씬 낮다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/method-samples.js"></script>
+</body>
+</html>

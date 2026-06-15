@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>순서 배열 퀴즈 | 학습 수단 샘플 v2</title>
+<link rel="stylesheet" href="../assets/method-samples.css">
+</head>
+<body>
+<header class="topbar"><div class="topbar-inner"><a class="brand" href="../index.html">학습 수단 샘플 v2</a><a class="topbar-back" href="../index.html">← 전체 목록</a></div></header>
+<main class="layout">
+  <section class="hero">
+    <p class="eyebrow">퀴즈 · 순서 배열</p>
+    <h1>순서 배열 퀴즈</h1>
+    <p class="lead">처리 단계 카드를 올바른 실행 순서로 배열합니다. 드래그 앤 드롭과 같은 메커니즘이지만, "순서가 곧 정답"인 흐름형 주제(이벤트, save 시퀀스, 화면 로직)에 초점을 맞춥니다.</p>
+    <div class="tags"><span class="tag origin">원본: Chapter 13 (이벤트 순서)</span><span class="tag">순서 채점 + 컨페티</span></div>
+  </section>
+  <section class="section">
+    <p class="section-eyebrow">실제 적용 예시 3</p>
+    <h2>같은 수단을 세 가지 순서 문제에 적용</h2>
+    <p class="section-sub">예시 1은 Chapter 13의 전체 이벤트 5단계 순서를 배열하는 문제입니다.</p>
+    <div class="example-stack">
+      <article class="method-example spotlight">
+        <p class="ex-topic origin">예시 1 · Report Event (Chapter 13 주제)</p>
+        <h3>이벤트 5단계 순서</h3>
+        <div class="interactive-puzzle-quiz" data-success="🎉 <strong>정답!</strong> 선택 화면을 가운데 두고 준비 → 화면 → 검증 → 조회 → 출력으로 흐릅니다." data-error="❌ 검증(AT SELECTION-SCREEN)은 화면 표시 이후, 조회 이전이라는 점을 떠올리세요.">
+          <div class="puzzle-question">Q. 다음 단계를 실행 순서대로 배열하세요.</div>
+          <div class="puzzle-drop-zones">
+            <div class="drop-zone" data-expected="INITIALIZATION"><span class="zone-label">1</span></div>
+            <div class="drop-zone" data-expected="Selection Screen"><span class="zone-label">2</span></div>
+            <div class="drop-zone" data-expected="AT SELECTION-SCREEN"><span class="zone-label">3</span></div>
+            <div class="drop-zone" data-expected="START-OF-SELECTION"><span class="zone-label">4</span></div>
+            <div class="drop-zone" data-expected="END-OF-SELECTION"><span class="zone-label">5</span></div>
+          </div>
+          <div class="puzzle-items-label">드래그할 단계</div>
+          <div class="puzzle-drag-items">
+            <div class="drag-item" draggable="true" data-answer="START-OF-SELECTION">START-OF-SELECTION</div>
+            <div class="drag-item" draggable="true" data-answer="Selection Screen">Selection Screen</div>
+            <div class="drag-item" draggable="true" data-answer="END-OF-SELECTION">END-OF-SELECTION</div>
+            <div class="drag-item" draggable="true" data-answer="INITIALIZATION">INITIALIZATION</div>
+            <div class="drag-item" draggable="true" data-answer="AT SELECTION-SCREEN">AT SELECTION-SCREEN</div>
+          </div>
+          <div class="puzzle-feedback"></div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> 화면(Selection Screen)을 중간에 끼워 "화면 전/후"를 구분하게 하면 검증 위치 오개념이 드러난다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 2 · RAP</p>
+        <h3>RAP 상호작용 → 저장 시퀀스</h3>
+        <div class="interactive-puzzle-quiz" data-success="🎉 <strong>정답!</strong> 변경은 메모리에 모였다가 SAVE 시점에 DB로 반영됩니다." data-error="❌ determination/validation은 저장 직전, 실제 DB 반영(save)은 마지막입니다.">
+          <div class="puzzle-question">Q. RAP에서 데이터 변경이 처리되는 순서를 배열하세요.</div>
+          <div class="puzzle-drop-zones">
+            <div class="drop-zone" data-expected="Modify (메모리 변경)"><span class="zone-label">1</span></div>
+            <div class="drop-zone" data-expected="Determination"><span class="zone-label">2</span></div>
+            <div class="drop-zone" data-expected="Validation"><span class="zone-label">3</span></div>
+            <div class="drop-zone" data-expected="Save to DB"><span class="zone-label">4</span></div>
+          </div>
+          <div class="puzzle-items-label">드래그할 단계</div>
+          <div class="puzzle-drag-items">
+            <div class="drag-item" draggable="true" data-answer="Validation">Validation</div>
+            <div class="drag-item" draggable="true" data-answer="Save to DB">Save to DB</div>
+            <div class="drag-item" draggable="true" data-answer="Modify (메모리 변경)">Modify (메모리 변경)</div>
+            <div class="drag-item" draggable="true" data-answer="Determination">Determination</div>
+          </div>
+          <div class="puzzle-feedback"></div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> "메모리에 모았다가 마지막에 커밋"하는 패턴은 순서 배열로 익히면 트랜잭션 감각이 생긴다.</div>
+      </article>
+      <article class="method-example">
+        <p class="ex-topic">예시 3 · Dynpro</p>
+        <h3>Dynpro 화면 흐름 (PBO/PAI)</h3>
+        <div class="interactive-puzzle-quiz" data-success="🎉 <strong>정답!</strong> PBO로 화면을 그리고, 사용자 입력 후 PAI로 처리합니다." data-error="❌ PBO(출력 전)와 PAI(입력 후)의 순서를 떠올리세요.">
+          <div class="puzzle-question">Q. Dynpro 한 사이클의 처리 순서를 배열하세요.</div>
+          <div class="puzzle-drop-zones">
+            <div class="drop-zone" data-expected="PBO (화면 준비)"><span class="zone-label">1</span></div>
+            <div class="drop-zone" data-expected="화면 표시/사용자 입력"><span class="zone-label">2</span></div>
+            <div class="drop-zone" data-expected="PAI (입력 처리)"><span class="zone-label">3</span></div>
+          </div>
+          <div class="puzzle-items-label">드래그할 단계</div>
+          <div class="puzzle-drag-items">
+            <div class="drag-item" draggable="true" data-answer="PAI (입력 처리)">PAI (입력 처리)</div>
+            <div class="drag-item" draggable="true" data-answer="PBO (화면 준비)">PBO (화면 준비)</div>
+            <div class="drag-item" draggable="true" data-answer="화면 표시/사용자 입력">화면 표시/사용자 입력</div>
+          </div>
+          <div class="puzzle-feedback"></div>
+        </div>
+        <div class="ai-note"><strong>AI 작성 메모:</strong> PBO/PAI처럼 "출력 전/입력 후" 약어는 순서 배열로 의미를 위치에 묶는다.</div>
+      </article>
+    </div>
+  </section>
+</main>
+<script src="../assets/method-samples.js"></script>
+</body>
+</html>
