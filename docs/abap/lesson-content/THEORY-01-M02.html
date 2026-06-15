@@ -1,187 +1,336 @@
-<!-- lesson-content/THEORY-01-M02.html -->
+<!-- lesson-content/THEORY-01-M02.html | 최종수정 2026-06-16 01:05 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
   <div class="lesson-callout-content">
     <h4>학습 목표</h4>
-    <p>지난 Lesson에서 <span class="glossary-term" data-glossary="DDIC">DDIC</span>가 SAP 데이터 정의의 중심 창고라는 것을 봤습니다. 이번에는 그 창고에서 가장 작은 부품인 <span class="glossary-term" data-glossary="Domain">Domain</span>을 직접 이해합니다. <span class="glossary-term" data-glossary="DataType">Data Type</span>, <span class="glossary-term" data-glossary="Length">Length</span>, <span class="glossary-term" data-glossary="OutputLength">Output Length</span>, <span class="glossary-term" data-glossary="FixedValue">Fixed Value</span>가 각각 무엇을 막아주고 도와주는지 초심자 기준으로 차근차근 익혀봅니다.</p>
+    <p>이번 Lesson에서는 <span class="glossary-term" data-glossary="Domain">Domain</span>이 무엇을 책임지는지 명확히 나눕니다. <span class="glossary-term" data-glossary="DataType">Data Type</span>, <span class="glossary-term" data-glossary="Length">Length</span>, <span class="glossary-term" data-glossary="OutputLength">Output Length</span>, <span class="glossary-term" data-glossary="FixedValue">Fixed Value</span>, <span class="glossary-term" data-glossary="ValueTable">Value Table</span>의 역할을 보고, 다음 Lesson의 <span class="glossary-term" data-glossary="DataElement">Data Element</span>와 어디서 갈라지는지 설명할 수 있게 됩니다.</p>
   </div>
 </div>
 
 <section class="lesson-section">
-  <h2>1. 지난 시간 연결: SAP는 왜 작은 부품부터 만들까? 🧩</h2>
+  <h2>1. Domain은 DDIC의 가장 작은 기술 규격이다</h2>
   <p>
-    이전 Lesson에서 SAP는 데이터베이스에 바로 <code>CREATE TABLE</code>을 던지는 방식보다, <strong>DDIC에서 부품을 하나씩 정의하고 활성화한 뒤 조립하는 방식</strong>을 선호한다고 배웠습니다. 처음 보면 조금 돌아가는 길처럼 느껴질 수 있어요. 하지만 회사 시스템은 한두 명이 쓰는 앱이 아니라, 수백 개 프로그램과 수천 개 화면이 같은 데이터를 바라보는 큰 세계입니다.
+    지난 Lesson에서 <span class="glossary-term" data-glossary="DDIC">DDIC</span>는 SAP 데이터 정의를 중앙에서 관리하는 기준점이라고 배웠습니다. Domain은 그 기준점 안에서 가장 아래쪽에 놓이는 기술 규격입니다. SAP Learning의 표현처럼 Domain의 주된 목적은 테이블 필드의 기술 속성을 정하는 것입니다.
   </p>
   <p>
-    그래서 SAP는 가장 작은 규격부터 통일합니다. 예를 들어 “항공사 코드는 3자리 문자다”라는 규칙을 여기저기 흩뿌려두지 않고, <strong>딱 한 곳</strong>에 등록해 둡니다. 그 한 곳이 바로 <span class="glossary-term" data-glossary="Domain">Domain</span>입니다.
+    예를 들어 “항공사 코드”라는 필드가 필요하다고 해서 곧바로 화면 라벨부터 쓰면 설계가 흐려집니다. 먼저 “이 값은 문자 몇 자리인가?”, “허용값 목록이 있는가?”, “화면에는 어느 폭으로 보일까?”를 결정해야 합니다. 이 질문의 답이 Domain입니다.
   </p>
   <blockquote>
-    Domain은 “이 데이터는 어떤 재질이고, 몇 자리까지 담을 수 있고, 어떤 값만 허용할까?”를 정하는 첫 번째 설계도입니다.
+    Domain은 업무 의미가 아니라 값의 재질과 허용 범위를 정합니다. 의미와 라벨은 Data Element에서 붙입니다.
   </blockquote>
 </section>
 
 <section class="lesson-section">
-  <h2>2. Domain은 의미가 아니라 재질을 정한다 🧱</h2>
+  <h2>2. Domain 설계의 네 칸</h2>
   <p>
-    Domain을 처음 배울 때 가장 중요한 포인트는 <strong>의미와 재질을 분리해서 생각하는 것</strong>입니다. Domain은 “항공사 코드”, “회사 코드”, “성별 코드”처럼 사람이 읽는 의미를 깊게 설명하지 않습니다. 대신 아주 기술적인 질문에 답합니다.
+    초급 단계에서는 Domain 화면을 아래 네 칸으로 줄여서 보면 충분합니다. 모든 항목을 외우기보다, 각 항목이 어떤 질문에 답하는지 먼저 잡으세요.
   </p>
-  <ul>
-    <li><strong>어떤 종류의 값인가?</strong> 문자라면 <code>CHAR</code>, 숫자처럼 보이는 코드라면 <code>NUMC</code>, 날짜라면 <code>DATS</code>처럼 <span class="glossary-term" data-glossary="DataType">Data Type</span>을 고릅니다.</li>
-    <li><strong>몇 자리까지 담을 수 있는가?</strong> 항공사 코드처럼 3자리면 <code>Length = 3</code>, 사번처럼 8자리면 <code>Length = 8</code>처럼 <span class="glossary-term" data-glossary="Length">Length</span>를 정합니다.</li>
-    <li><strong>화면에는 몇 자리로 보여줄까?</strong> 내부 저장 길이와 화면 표시 폭을 맞추기 위해 <span class="glossary-term" data-glossary="OutputLength">Output Length</span>를 지정합니다.</li>
-    <li><strong>값을 제한할까?</strong> <code>Y</code>/<code>N</code>, <code>M</code>/<code>F</code>처럼 선택지가 적으면 <span class="glossary-term" data-glossary="FixedValue">Fixed Value</span>로 허용 목록을 막아둘 수 있습니다.</li>
-  </ul>
-  <p>
-    비유하자면 Domain은 옷 이름이 아니라 <strong>원단 규격표</strong>입니다. “면 100%, 폭 3cm” 같은 정보는 말하지만, 이 원단이 교복이 될지, 가방끈이 될지는 아직 말하지 않아요. 그 “의미 붙이기”는 다음 Lesson의 Data Element가 맡습니다.
-  </p>
-</section>
-
-<section class="lesson-section">
-  <h2>3. 항공사 코드 Domain을 상상하며 만들어보기 ✍️</h2>
-  <p>
-    이제 아주 작은 실습을 머릿속으로 따라가 봅시다. 목표는 <code>ZCARRID</code>라는 Domain을 만드는 것입니다. 이름 앞의 <code>Z</code>는 고객사에서 직접 만든 객체에 자주 붙이는 접두어라고 생각하면 됩니다. 실제 프로젝트에서는 회사 네이밍 규칙을 따릅니다.
-  </p>
-  <div class="lesson-callout">
-    <div class="lesson-callout-icon">💡</div>
-    <div class="lesson-callout-content">
-      <h4>최소 설정 예시</h4>
-      <ul>
-        <li><strong>Domain 이름:</strong> <code>ZCARRID</code></li>
-        <li><strong>Short Description:</strong> <code>항공사 코드 Domain</code></li>
-        <li><strong>Data Type:</strong> <code>CHAR</code>, 글자를 담는 타입</li>
-        <li><strong>Length:</strong> <code>3</code>, 최대 3자리 저장</li>
-        <li><strong>Output Length:</strong> <code>3</code>, 화면에도 3자리 폭으로 표시</li>
-      </ul>
-      <p><span class="glossary-term" data-glossary="SE11">SE11</span>에서는 Domain 화면에서 위 값을 채우고 저장한 뒤 활성화합니다. <span class="glossary-term" data-glossary="ADT">ADT</span>에서는 Dictionary Object를 만들고 같은 값을 입력한 뒤 활성화합니다. 도구 모양은 달라도 핵심은 같습니다.</p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">Domain 속성 판단표</p>
+    <div class="viz-state-grid">
+      <div class="viz-state">
+        <span class="viz-state-label">Data Type</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td><strong>질문</strong></td><td>값의 종류는?</td></tr>
+            <tr><td><strong>예</strong></td><td><code>CHAR</code>, <code>NUMC</code>, <code>DATS</code>, <code>CURR</code></td></tr>
+            <tr><td><strong>판단</strong></td><td>계산할 숫자인지, 코드처럼 보이는 문자인지 구분한다.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-state">
+        <span class="viz-state-label">Length</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td><strong>질문</strong></td><td>저장 가능한 최대 자릿수는?</td></tr>
+            <tr><td><strong>예</strong></td><td>항공사 코드 <code>CHAR 3</code>, 사번 <code>NUMC 8</code></td></tr>
+            <tr><td><strong>판단</strong></td><td>실제 업무 코드 길이를 확인한 뒤 정한다.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-state">
+        <span class="viz-state-label">Output Length</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td><strong>질문</strong></td><td>화면·리스트 표시 폭은?</td></tr>
+            <tr><td><strong>예</strong></td><td>날짜처럼 내부 길이와 표시 폭이 달라질 수 있다.</td></tr>
+            <tr><td><strong>판단</strong></td><td>저장 길이와 같은 값이라고 단정하지 않는다.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-state">
+        <span class="viz-state-label">Fixed Value</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td><strong>질문</strong></td><td>허용값이 작고 고정적인가?</td></tr>
+            <tr><td><strong>예</strong></td><td><code>Y</code>/<code>N</code>, <code>A</code>/<code>B</code>/<code>C</code></td></tr>
+            <tr><td><strong>판단</strong></td><td>값이 많거나 자주 늘면 별도 테이블 쪽을 검토한다.</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
-  <p>
-    여기서 <code>CHAR 3</code>은 “세 글자까지 들어가는 문자 칸”이라는 뜻입니다. <code>KE</code>, <code>AA</code>, <code>SQ</code>처럼 2자리 값도 들어갈 수 있고, <code>KOR</code>처럼 3자리 값도 들어갈 수 있습니다. 하지만 <code>KOREA</code>처럼 5자리는 들어갈 수 없습니다. Domain이 저장 가능한 그릇 크기를 정했기 때문입니다.
-  </p>
-  <blockquote>
-    초심자 체크: <code>Length</code>는 데이터가 실제로 저장될 수 있는 최대 자리수입니다. <code>Output Length</code>는 화면에 보이는 폭입니다. 처음에는 둘을 같은 값으로 두는 예제가 많지만, 둘은 역할이 다릅니다.
-  </blockquote>
-</section>
-
-<section class="lesson-section">
-  <h2>4. 정상 흐름과 오류 흐름을 나눠서 보기 🔍</h2>
-  <p>
-    Domain을 만들 때는 “활성화가 됐다”에서 끝내지 말고, 정상 흐름과 오류 흐름을 같이 떠올려야 합니다. 초보 단계에서 이 습관을 들이면 나중에 디버깅할 때 덜 당황합니다.
-  </p>
-  <ul>
-    <li>✅ <strong>정상 흐름:</strong> <code>ZCARRID</code>를 <code>CHAR 3</code>으로 만들고 활성화합니다. 이후 Data Element나 Table Field가 이 Domain을 참조하면 “3자리 문자” 규칙을 자동으로 물려받습니다.</li>
-    <li>❌ <strong>길이 오류:</strong> 프로그램이나 화면에서 3자리를 넘는 값을 넣으려 하면, 화면 또는 저장 단계에서 값이 잘리거나 오류가 날 수 있습니다. 그래서 업무 코드의 실제 길이를 먼저 확인해야 합니다.</li>
-    <li>❌ <strong>타입 선택 오류:</strong> 코드가 숫자처럼 보여도 앞에 0이 붙을 수 있으면 <code>INT4</code>가 아니라 <code>NUMC</code>나 <code>CHAR</code>를 고려해야 합니다. 예를 들어 <code>001</code>은 숫자 1이 아니라 코드 001일 수 있습니다.</li>
-  </ul>
-  <div class="lesson-callout warn">
-    <div class="lesson-callout-icon">⚠️</div>
-    <div class="lesson-callout-content">
-      <h4>처음부터 너무 작게 잡으면 나중에 아픕니다</h4>
-      <p>운영 데이터가 쌓인 뒤 Domain의 길이를 줄이는 것은 특히 위험합니다. 이미 저장된 값이 새 길이에 맞지 않으면 데이터 변환 오류가 날 수 있습니다. 반대로 무작정 크게 잡으면 화면 폭과 저장 공간, 검증 기준이 흐려집니다. “업무에서 실제로 쓰는 코드 길이”를 확인하고 정해야 합니다.</p>
-    </div>
+    <p class="viz-note">Domain 설계는 “타입 → 길이 → 표시 폭 → 허용값” 순서로 검토하면 초반 실수가 줄어듭니다.</p>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>5. Fixed Value는 작은 목록을 지키는 문지기 🚦</h2>
+  <h2>3. 작은 예제로 만들기: 예약 등급 Domain</h2>
   <p>
-    <span class="glossary-term" data-glossary="FixedValue">Fixed Value</span>는 Domain에 “이 값들만 허용한다”라고 목록을 박아두는 기능입니다. 예를 들어 승인 여부가 <code>Y</code> 또는 <code>N</code>만 가능하다면, Domain에 두 값을 등록할 수 있습니다.
+    아래 요구사항을 Domain 관점으로 바꿔봅시다. “예약 등급은 비즈니스석, 이코노미석, 일등석 세 종류만 허용한다. 화면에는 한 글자 코드로 충분하다.” 이 요구사항은 업무 설명처럼 보이지만, Domain에 들어갈 내용은 기술 규격과 허용값입니다.
   </p>
-  <ul>
-    <li><strong>Value:</strong> 실제로 저장되는 값입니다. 예: <code>Y</code>, <code>N</code></li>
-    <li><strong>Short Text:</strong> 사용자가 이해할 설명입니다. 예: <code>승인</code>, <code>미승인</code></li>
-    <li><strong>입력 도움말:</strong> 사용자가 F4를 누르면 허용된 값 목록이 보입니다.</li>
-    <li><strong>검증 효과:</strong> 목록에 없는 <code>X</code>를 입력하면 시스템이 거부합니다.</li>
-  </ul>
-  <p>
-    다만 Fixed Value는 <strong>작고 거의 변하지 않는 목록</strong>에 어울립니다. 성별, 사용 여부, 승인 여부처럼 값이 몇 개 안 되는 경우에는 아주 좋습니다. 하지만 국가 코드, 고객 번호, 자재 번호처럼 값이 많거나 계속 늘어나는 목록은 Fixed Value가 아니라 나중에 배울 Check Table이나 Value Help 쪽으로 가는 것이 맞습니다.
-  </p>
-</section>
-
-<section class="lesson-section">
-  <h2>6. 실무 감각: 표준을 먼저 찾고, 커스텀은 신중하게 🚨</h2>
-  <p>
-    실무에서 가장 흔한 초보 실수는 “내가 필요한 Domain을 바로 새로 만드는 것”입니다. SAP에는 이미 통화 코드, 단위, 금액, 날짜, 회사 코드처럼 전 세계 프로젝트에서 검증된 표준 Domain이 많이 있습니다.
-  </p>
-  <div class="lesson-callout warn">
-    <div class="lesson-callout-icon">⚠️</div>
-    <div class="lesson-callout-content">
-      <h4>표준 SAP 동작과 고객사 관행을 섞어 외우지 마세요</h4>
-      <p>어떤 회사에서는 “항상 Z로 새로 만든다” 같은 관행이 있을 수 있지만, 그것이 SAP 표준 철학은 아닙니다. 먼저 표준 객체를 검색하고, 의미와 기술 조건이 정말 맞지 않을 때만 커스텀 Domain을 만드는 쪽이 유지보수에 유리합니다.</p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">요구사항을 Domain 속성으로 접기</p>
+    <div class="viz-flow">
+      <div class="viz-flow-step"><strong>1. 이름</strong><span><code>ZBOOK_CLASS</code>처럼 고객 네임스페이스 규칙에 맞춘다.</span></div>
+      <div class="viz-flow-step"><strong>2. 타입</strong><span>코드 값이므로 <code>CHAR</code>를 우선 검토한다.</span></div>
+      <div class="viz-flow-step"><strong>3. 길이</strong><span>한 글자 코드면 <code>Length = 1</code>로 둔다.</span></div>
+      <div class="viz-flow-step"><strong>4. 고정값</strong><span><code>B</code> Business, <code>E</code> Economy, <code>F</code> First를 등록한다.</span></div>
+      <div class="viz-flow-step"><strong>5. 활성화</strong><span>저장 후 활성화해야 다른 DDIC 객체가 사용할 수 있다.</span></div>
     </div>
   </div>
-  <p>
-    Domain은 작아 보이지만, 나중에 수많은 Data Element와 Table Field가 이어지는 출발점입니다. 첫 단추가 삐뚤어지면 뒤의 부품들도 전부 영향을 받습니다. 그래서 “작은 칸 하나”를 만드는 지금부터 신중하게 생각하는 습관이 중요합니다.
-  </p>
-</section>
-
-<section class="lesson-section">
-  <h2>7. 미니 실습: Domain 설계 기록지 만들기 🧪</h2>
-  <p>
-    이번 Lesson의 실습은 실제 시스템이 없어도 할 수 있는 설계 기록 실습입니다. 아래 업무 요구사항을 보고 Domain을 어떻게 만들지 스스로 적어보세요.
-  </p>
   <div class="lesson-callout">
     <div class="lesson-callout-icon">✍️</div>
     <div class="lesson-callout-content">
-      <h4>요구사항</h4>
-      <p>예약 등급을 저장해야 합니다. 값은 비즈니스석, 이코노미석, 일등석 세 종류만 허용합니다. 화면에는 한 글자 코드로 보이면 충분합니다.</p>
-      <ol>
-        <li>Domain 이름을 정합니다. 예: <code>ZBOOK_CLASS</code></li>
-        <li><span class="glossary-term" data-glossary="DataType">Data Type</span>과 <span class="glossary-term" data-glossary="Length">Length</span>를 정합니다.</li>
-        <li><span class="glossary-term" data-glossary="FixedValue">Fixed Value</span> 후보를 3개 적고, 각 값의 설명을 붙입니다.</li>
-        <li>잘못된 값이 들어오는 오류 케이스를 1개 적습니다. 예: <code>X</code> 입력 시 거부되어야 함</li>
-      </ol>
-      <p><strong>완료 조건:</strong> Domain 이름, 타입/길이, 허용값 목록, 오류 케이스가 모두 한 줄씩 적혀 있으면 성공입니다.</p>
+      <h4>SE11/ADT에서 보는 최소 입력값</h4>
+      <ul>
+        <li><span class="glossary-term" data-glossary="SE11">SE11</span>: Domain 선택 → 이름 입력 → Data Type, Length, Output Length, Value Range 입력 → 활성화.</li>
+        <li><span class="glossary-term" data-glossary="ADT">ADT</span>: New ABAP Repository Object에서 Domain 생성 → 같은 기술 속성 입력 → 활성화.</li>
+        <li>도구는 달라도 Repository에 저장되는 Domain의 책임은 같습니다.</li>
+      </ul>
     </div>
   </div>
+</section>
+
+<section class="lesson-section">
+  <h2>4. Length와 Output Length는 같은 말이 아니다</h2>
   <p>
-    NotebookLM의 ABAP Dictionary 자료도 같은 포인트를 강조합니다. Domain은 라벨이나 업무 설명이 아니라 기술 속성과 허용값을 잡는 곳입니다. 그래서 실습 기록에도 “의미 설명”보다 “값의 규격”이 먼저 나와야 합니다.
+    처음에는 <code>CHAR 3</code>의 저장 길이와 표시 폭이 둘 다 3이라서 둘을 같은 설정처럼 느끼기 쉽습니다. 하지만 역할은 다릅니다. Length는 값이 실제로 담기는 최대 크기이고, Output Length는 사용자 화면이나 리스트에서 차지할 표시 폭입니다.
   </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">저장 크기와 표시 폭 비교</p>
+    <div class="viz-compare">
+      <div class="viz-compare-before">
+        <span class="viz-compare-label">Length</span>
+        <div class="viz-compare-body">
+          <ul>
+            <li>데이터 저장 가능 크기를 정합니다.</li>
+            <li><code>CHAR 3</code>이면 최대 세 자리까지 담을 수 있습니다.</li>
+            <li>운영 데이터가 쌓인 뒤 줄이면 데이터 변환 리스크가 큽니다.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="viz-compare-after">
+        <span class="viz-compare-label">Output Length</span>
+        <div class="viz-compare-body">
+          <ul>
+            <li>화면과 리스트에서 보여줄 폭을 정합니다.</li>
+            <li>날짜나 통화처럼 표시 형식 때문에 저장 길이와 다를 수 있습니다.</li>
+            <li>무리하게 줄이면 값이 잘려 보이거나 사용성이 나빠집니다.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <p class="viz-note">초급 실습에서는 같은 숫자를 자주 쓰더라도, 저장 크기와 표시 폭이라는 역할 차이는 반드시 분리해 기억합니다.</p>
+  </div>
+  <details class="foldable">
+    <summary><code>001</code>은 숫자 타입으로 만들면 될까?</summary>
+    <p>항상 그렇지 않습니다. 앞의 0이 업무적으로 의미 있는 코드라면 계산 대상 숫자가 아니라 “숫자처럼 보이는 코드”입니다. 이런 경우 <code>NUMC</code> 또는 <code>CHAR</code>를 검토합니다. <code>INT4</code>로 만들면 <code>001</code>이라는 표현 자체를 잃을 수 있습니다.</p>
+  </details>
 </section>
 
 <section class="lesson-section">
-  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
-  <ul>
-    <li><a href="https://learning.sap.com/courses/building-data-models-with-the-abap-dictionary-and-abap-core-data-services/exploring-abap-dictionary_af8fdedf-0a10-43ab-aa1b-20abbece9d8b" target="_blank" rel="noopener">SAP Learning: ABAP Dictionary 객체 개요</a> — Domain, Data Element, Structure, Table의 역할 차이를 큰 그림으로 확인합니다.</li>
-    <li><a href="https://learning.sap.com/courses/building-data-models-with-the-abap-dictionary-and-abap-core-data-services/defining-domains-and-data-elements_b65b511a-4ad1-4437-80f5-5ad689cab833" target="_blank" rel="noopener">SAP Learning: Domain과 Data Element 정의</a> — Domain이 Data Type, Length, Fixed Value와 어떻게 연결되는지 이어서 볼 수 있습니다.</li>
-    <li><a href="https://help.sap.com/docs/SAP_NETWEAVER_740/ec1c9c8191b74de98feb94001a95dd76/cf21ede5446011d189700000e8322d00.html" target="_blank" rel="noopener">SAP Help Portal: Domains</a> — Domain이 값 범위를 정의하고 Data Element에 연결되는 방식을 공식 설명으로 확인합니다.</li>
-  </ul>
+  <h2>5. Fixed Value는 작은 목록에만 강하다</h2>
+  <p>
+    <span class="glossary-term" data-glossary="FixedValue">Fixed Value</span>는 Domain에 허용값 목록을 직접 등록하는 기능입니다. 값이 작고 거의 변하지 않을 때 좋습니다. 예를 들어 승인 여부 <code>Y</code>/<code>N</code>, 예약 등급 <code>B</code>/<code>E</code>/<code>F</code>처럼 사용자가 선택할 값이 적으면 F4 입력 도움과 입력 검증에 도움이 됩니다.
+  </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">Fixed Value 후보 판단</p>
+    <table class="viz-table">
+      <thead>
+        <tr>
+          <th>요구사항</th>
+          <th>Domain Fixed Value 적합도</th>
+          <th>이유</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>사용 여부 <code>Y</code>/<code>N</code></td>
+          <td><span class="viz-badge success">좋음</span></td>
+          <td>값이 작고 거의 변하지 않습니다.</td>
+        </tr>
+        <tr>
+          <td>예약 등급 <code>B</code>/<code>E</code>/<code>F</code></td>
+          <td><span class="viz-badge success">좋음</span></td>
+          <td>한정된 코드 목록입니다.</td>
+        </tr>
+        <tr>
+          <td>국가 코드, 고객 번호, 자재 번호</td>
+          <td><span class="viz-badge fail">부적합</span></td>
+          <td>값이 많고 운영 중 계속 관리됩니다.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>Fixed Value를 데이터베이스 제약처럼 과장하지 마세요</h4>
+      <p>Fixed Value는 Dynpro 입력 화면과 DDIC 기반 입력 도움에 영향을 주지만, 모든 프로그램 경로의 데이터 무결성을 자동으로 보장하는 물리 DB 제약은 아닙니다. 중요 업무 규칙은 애플리케이션 검증도 함께 고려해야 합니다.</p>
+    </div>
+  </div>
 </section>
 
 <section class="lesson-section">
-  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <h2>6. Value Table은 자동 검증이 아니라 제안이다</h2>
+  <p>
+    Domain 화면에는 <span class="glossary-term" data-glossary="ValueTable">Value Table</span> 항목도 있습니다. 여기서 초심자가 가장 많이 오해합니다. Value Table에 테이블 이름을 적었다고 해서 모든 입력이 자동으로 그 테이블과 대조되지는 않습니다. SAP 문서와 NotebookLM 교차 확인 기준으로, Value Table은 나중에 <span class="glossary-term" data-glossary="ForeignKey">Foreign Key</span>를 정의할 때 check table 후보를 제안하는 성격에 가깝습니다.
+  </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">Fixed Value, Value Table, Foreign Key 구분</p>
+    <div class="viz-compare">
+      <div class="viz-compare-before">
+        <span class="viz-compare-label">Domain 안에서 끝나는 것</span>
+        <div class="viz-compare-body">
+          <ul>
+            <li><strong>Fixed Value</strong>: 작은 허용값 목록을 Domain에 직접 둡니다.</li>
+            <li>DDIC 기반 화면에서 입력 도움과 기본 검증에 사용됩니다.</li>
+            <li>값 목록이 거의 변하지 않을 때 적합합니다.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="viz-compare-after">
+        <span class="viz-compare-label">관계 정의가 필요한 것</span>
+        <div class="viz-compare-body">
+          <ul>
+            <li><strong>Value Table</strong>: check table 후보를 알려주는 힌트입니다.</li>
+            <li><strong>Foreign Key</strong>: 테이블 필드에서 명시적으로 관계를 정의해야 합니다.</li>
+            <li>대량·변동 목록은 별도 테이블과 값 도움 설계를 검토합니다.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <p class="viz-note">“Value Table 입력 = 자동 입력 검증”으로 외우면 이후 테이블 관계 설계에서 크게 헷갈립니다.</p>
+  </div>
+  <details class="foldable">
+    <summary>Search Help와도 같은 말일까?</summary>
+    <p>아닙니다. <span class="glossary-term" data-glossary="SearchHelp">Search Help</span>는 사용자가 값을 찾도록 돕는 별도 DDIC 서비스입니다. Fixed Value, Value Table, Foreign Key, Search Help는 모두 F4 경험과 관련될 수 있지만 책임과 설정 위치가 다릅니다.</p>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>7. Domain과 Data Element의 경계</h2>
+  <p>
+    SAP의 two-level domain concept를 초급자 말로 풀면 “재질과 의미를 나눈다”입니다. Domain은 타입과 길이, 값 범위 같은 기술 속성을 맡습니다. Data Element는 업무 의미, 필드 라벨, F1 도움말처럼 사용자와 개발자가 이해할 설명을 맡습니다.
+  </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">같은 Domain, 다른 Data Element</p>
+    <div class="viz-flow">
+      <div class="viz-flow-step"><strong>Domain</strong><span><code>CHAR 3</code>, 항공사 코드와 같은 재질</span></div>
+      <div class="viz-flow-step"><strong>Data Element A</strong><span>출발 항공사, 화면 라벨과 설명</span></div>
+      <div class="viz-flow-step"><strong>Data Element B</strong><span>도착 항공사, 다른 화면 라벨과 설명</span></div>
+      <div class="viz-flow-step"><strong>Table Field</strong><span>각 테이블 필드가 필요한 의미의 Data Element를 참조</span></div>
+    </div>
+  </div>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>판단 문장</h4>
+      <p>“이 값이 몇 자리이고 어떤 타입인가?”는 Domain 질문입니다. “이 필드가 업무적으로 무엇이고 화면에 어떤 라벨로 보일까?”는 Data Element 질문입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 초심자 실수 체크리스트</h2>
+  <details class="foldable">
+    <summary>실수 1: 새 필드마다 새 Domain을 만든다</summary>
+    <p>기술 속성과 값 범위가 같은데도 Domain을 계속 새로 만들면 중앙 재사용 장점이 사라집니다. 먼저 SAP 표준 Domain과 기존 커스텀 Domain을 검색하고, 의미만 다르면 Data Element에서 분리할 수 있는지 봅니다.</p>
+  </details>
+  <details class="foldable">
+    <summary>실수 2: 숫자처럼 보이면 무조건 숫자 타입을 고른다</summary>
+    <p>고객 코드, 사번, 우편번호처럼 앞의 0이 중요하거나 계산하지 않는 값은 숫자 타입이 아닐 수 있습니다. 데이터 타입은 “계산 가능 여부”와 “표현 보존”을 함께 보고 고릅니다.</p>
+  </details>
+  <details class="foldable">
+    <summary>실수 3: Fixed Value에 운영 마스터 전체를 넣는다</summary>
+    <p>값이 많거나 운영 중 추가·삭제되는 목록은 Domain의 Fixed Value로 관리하기 어렵습니다. 이후 Lesson에서 다룰 테이블 관계, Foreign Key, Search Help로 분리하는 쪽을 검토합니다.</p>
+  </details>
+  <details class="foldable">
+    <summary>실수 4: Length를 줄이는 변경을 가볍게 본다</summary>
+    <p>이미 데이터가 쌓인 뒤 Domain 길이를 줄이면 기존 값이 새 규격에 맞지 않을 수 있습니다. 운영 반영 전 영향 범위와 변환 작업을 반드시 확인해야 합니다.</p>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 미니 실습: Domain 설계 기록지</h2>
+  <p>
+    실제 시스템이 없어도 설계 판단은 연습할 수 있습니다. 아래 요구사항을 보고 Domain 기록지를 채워보세요.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">🧪</div>
+    <div class="lesson-callout-content">
+      <h4>요구사항</h4>
+      <p>주문 상태를 저장합니다. 가능한 값은 신규, 처리 중, 완료, 취소 네 가지입니다. 화면에는 한 자리 코드로 보여도 충분합니다.</p>
+      <ol>
+        <li>Domain 이름을 정합니다. 예: <code>ZORDER_STATUS</code></li>
+        <li>Data Type과 Length를 정합니다.</li>
+        <li>Fixed Value 네 개와 설명을 적습니다.</li>
+        <li>이 값 목록이 Fixed Value에 적합한 이유를 한 문장으로 씁니다.</li>
+        <li>나중에 상태가 50개로 늘어난다면 어떤 설계로 바꿀지 적습니다.</li>
+      </ol>
+      <p><strong>완료 조건:</strong> 타입·길이·허용값·오류 케이스·변경 시 대안을 모두 설명할 수 있으면 성공입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 공식 문서로 더 확인하기</h2>
+  <p>
+    이번 Lesson은 NotebookLM 노트와 아래 SAP 공식 자료를 교차 확인해 재구성했습니다. 용어는 블로그보다 공식 문서를 먼저 기준으로 삼으세요.
+  </p>
+  <div class="link-list">
+    <a href="https://learning.sap.com/courses/building-data-models-with-the-abap-dictionary-and-abap-core-data-services/defining-domains-and-data-elements_b65b511a-4ad1-4437-80f5-5ad689cab833" target="_blank" rel="noopener">SAP Learning: Defining Domains and Data Elements<span>Domain의 기술 속성, Dictionary 타입, Data Element 라벨을 확인합니다.</span></a>
+    <a href="https://learning.sap.com/courses/technical-implementation-and-operation-i-of-sap-s-4hana-and-sap-business-suite/accessing-and-editing-abap-repository-objects" target="_blank" rel="noopener">SAP Learning: Accessing and Editing ABAP Repository Objects<span>DDIC 중앙 관리와 two-level domain concept를 확인합니다.</span></a>
+    <a href="https://learning.sap.com/courses/building-data-models-with-the-abap-dictionary-and-abap-core-data-services/defining-relationships-between-database-tables_e55dbd61-6083-4747-bb5d-905ba29ab662" target="_blank" rel="noopener">SAP Learning: Defining Relationships Between Database Tables<span>Foreign Key가 ABAP layer에서 어떤 역할을 하는지 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_DYNPROS_VALUE_HELP_AUTO.html" target="_blank" rel="noopener">SAP Help Portal: Input Helps in the ABAP Dictionary<span>Domain fixed values와 value table의 입력 도움 차이를 확인합니다.</span></a>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>11. 확인 퀴즈</h2>
   <ol>
-    <li>Domain이 주로 정하는 것은 화면 라벨일까요, 데이터의 기술적 규격일까요?</li>
-    <li><code>001</code>처럼 앞의 0이 중요한 코드는 무조건 숫자 타입으로 잡아도 될까요?</li>
-    <li>국가 코드처럼 값이 많고 계속 관리되는 목록은 Fixed Value에 전부 넣는 것이 좋을까요?</li>
+    <li>Domain이 주로 정하는 것은 업무 라벨인가요, 기술 속성인가요?</li>
+    <li><code>001</code>처럼 앞의 0이 중요한 사번 코드는 무조건 <code>INT4</code>로 잡아도 될까요?</li>
+    <li>Fixed Value에 적합한 목록의 특징은 무엇인가요?</li>
+    <li>Value Table에 테이블 이름을 넣으면 자동으로 Foreign Key 검증이 완성되나요?</li>
+    <li>Domain과 Data Element를 “재질”과 “의미”로 나눠 설명해보세요.</li>
   </ol>
-  <details>
+  <details class="foldable">
     <summary>정답/해설 보기</summary>
     <ol>
-      <li><strong>데이터의 기술적 규격</strong>입니다. 화면 라벨과 업무 의미는 다음 단계인 Data Element가 담당합니다.</li>
-      <li><strong>아니요.</strong> 앞의 0이 의미 있는 코드는 숫자 계산 대상이 아니라 코드일 수 있으므로 <code>CHAR</code>나 <code>NUMC</code>를 검토해야 합니다.</li>
-      <li><strong>아니요.</strong> Fixed Value는 작고 거의 변하지 않는 목록에 적합합니다. 값이 많거나 운영 중 늘어나는 목록은 Check Table이나 Value Help 쪽으로 설계하는 것이 보통 더 안전합니다.</li>
+      <li><strong>기술 속성입니다.</strong> Data Type, Length, Output Length, 값 범위가 Domain의 핵심입니다.</li>
+      <li><strong>아니요.</strong> 앞의 0을 보존해야 하는 코드는 <code>NUMC</code>나 <code>CHAR</code>를 검토해야 합니다.</li>
+      <li><strong>값이 작고 거의 변하지 않는 목록</strong>입니다. 예: 사용 여부, 승인 여부, 예약 등급.</li>
+      <li><strong>아니요.</strong> Value Table은 후보 제안에 가깝고, 실제 관계와 입력 검증은 Foreign Key 등 별도 설정이 필요합니다.</li>
+      <li><strong>Domain은 재질, Data Element는 의미입니다.</strong> 같은 재질 위에 서로 다른 라벨과 설명을 붙일 수 있습니다.</li>
     </ol>
   </details>
 </section>
 
 <section class="lesson-section">
-  <h2>10. 한눈에 정리 🏁</h2>
+  <h2>12. 한눈에 정리</h2>
+  <div class="recap-grid">
+    <div class="recap-card"><strong>Domain</strong>값의 기술 규격과 허용 범위를 정하는 DDIC 하위 부품입니다.</div>
+    <div class="recap-card"><strong>타입과 길이</strong>계산할 숫자인지, 보존할 코드인지 보고 Data Type과 Length를 정합니다.</div>
+    <div class="recap-card"><strong>Fixed Value</strong>작고 변하지 않는 값 목록에 적합하며 입력 도움과 기본 검증에 도움을 줍니다.</div>
+    <div class="recap-card"><strong>Value Table</strong>자동 검증이 아니라 Foreign Key 후보를 제안하는 성격으로 이해합니다.</div>
+  </div>
   <div class="lesson-callout tip">
-    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-icon">➡️</div>
     <div class="lesson-callout-content">
-      <h4>오늘의 핵심만 딱 잡기</h4>
-      <ul>
-        <li><strong>Domain</strong>은 데이터의 의미가 아니라 기술적 재질을 정합니다.</li>
-        <li><strong>Data Type</strong>은 문자, 숫자, 날짜처럼 값의 종류를 고릅니다.</li>
-        <li><strong>Length</strong>는 저장 가능한 자리수, <strong>Output Length</strong>는 화면 표시 폭입니다.</li>
-        <li><strong>Fixed Value</strong>는 작고 고정된 허용값 목록을 시스템 차원에서 막아줍니다.</li>
-        <li>표준 Domain이 이미 있다면 새로 만들기 전에 재사용 가능성을 먼저 확인합니다.</li>
-      </ul>
+      <h4>다음 Lesson 예고</h4>
+      <p>다음 Lesson <strong>Data Element 기본 설계</strong>에서는 오늘 만든 Domain 위에 업무 의미, Field Label, F1 도움말을 붙이는 방법을 다룹니다.</p>
     </div>
   </div>
-  <p>
-    이제 우리는 데이터의 “재질”을 정할 수 있게 됐습니다. 다음 Lesson <strong>Data Element 기본 설계</strong>에서는 이 재질 위에 사람이 이해할 수 있는 의미와 화면 라벨을 붙여보겠습니다.
-  </p>
 </section>
