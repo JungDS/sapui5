@@ -1,4 +1,4 @@
-/* ABAP Lesson Viewer UI | 최종수정 2026-06-16 00:12 KST | v1.2 */
+/* ABAP Lesson Viewer UI | 최종수정 2026-06-16 00:50 KST | v1.2 */
 @import url('https://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css');
 
 .lesson-loading {
@@ -1877,6 +1877,10 @@
 .tabs-content {
   position: relative;
   min-height: 480px; /* 고정 최소 높이로 레이아웃 흔들림 최소화 */
+}
+
+.event-tabs-container.is-compact .tabs-content {
+  min-height: 0;
 }
 
 /* 탭 전환 시 Mermaid SVG 찌그러짐 방지 기법 */
