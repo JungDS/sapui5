@@ -1,6 +1,6 @@
 # 02. PROGRESS — 목표 진행 현황 · 작업 claim 보드
 
-> 📅 **최종수정: 2026-06-17 01:38 KST**
+> 📅 **최종수정: 2026-06-17 01:50 KST**
 > 🧹 **2026-06-16 기준선 리셋:** DoD 상향(T-code 노출 + 코드 실습 시뮬레이션 필수 → [01_AI_SYNC](01_AI_SYNC.md))으로 모든 진행률을 **0으로 초기화**했다. 구 Chapter 1~4(THEORY-01~04, 22 Lesson)는 새 기준 미충족이라 미착수로 되돌렸다. 이전 완료 이력은 git log로 확인한다.
 > 🎯 **목적:** 단일 목표(Track 1 v3 리빌딩)가 어디까지 진행됐는지, 지금 누가 무엇을 잡고 있는지 한눈에. 다음 단계 결정과 충돌 방지의 SSOT.
 > 📖 **읽을 때:** 작업 **시작 직전(필수)** 과 종료 시. 목표 → [01_AI_SYNC](01_AI_SYNC.md).
@@ -22,7 +22,7 @@
 
 | Chapter | 상태 | 완료/전체 Lesson | 메모 |
 |---|---|---|---|
-| 01 | 🔄 | 5 / 6 | THEORY-01-M01~M05 상향 DoD 기준 완료 |
+| 01 | ✅ | 6 / 6 | THEORY-01-M01~M06 상향 DoD 기준 완료 |
 | 02 | 🔄 | 2 / 6 | M01~M02 완료. M03~M06 재빌딩 대상 |
 | 03 | 🔄 | 1 / 4 | (리셋) 재빌딩 대상 — 상향 DoD 적용 |
 | 04 | ⬜ | 0 / 6 | (리셋) 재빌딩 대상 — 상향 DoD 적용 |
@@ -44,7 +44,7 @@
 | 20 | ⬜ | 0 / — | |
 | 21 | ⬜ | 0 / — | |
 
-> 현재 전체: **8 / 137 Lesson 리빌딩 완료** (2026-06-16 기준선 리셋). 이전 라운드 산출물은 상향 DoD 미충족이라 진행률에 포함하지 않는다.
+> 현재 전체: **9 / 137 Lesson 리빌딩 완료** (2026-06-16 기준선 리셋). 이전 라운드 산출물은 상향 DoD 미충족이라 진행률에 포함하지 않는다.
 
 ## 🔄 진행 중 (Active Claims)
 
@@ -61,6 +61,7 @@
 
 | Lesson | AI | 완료(KST) | 비고 |
 |---|---|---|---|
+| THEORY-01-M06 | Codex | 2026-06-17 01:48 | Technical Settings/Data Browser v3 리빌딩. NotebookLM 보강, SAP 공식 재검증, SE11/SE16N sandbox, T-code 칩, 콘솔 오류 0 |
 | THEORY-01-M05 | Codex | 2026-06-17 01:35 | Transparent Table 기본 생성 v3 리빌딩. NotebookLM 보강, SAP 공식 재검증, SE11 sandbox, 중복 key preview, 콘솔 오류 0 |
 | THEORY-01-M04 | Codex | 2026-06-17 01:26 | Structure 설계 v3 리빌딩. NotebookLM 보강, SAP 공식 재검증, SE11 sandbox, Work Area preview, 콘솔 오류 0 |
 | THEORY-02-M02 | Claude Opus 4.8 | 2026-06-17 02:00 | DATA/CONSTANTS/TYPES·기본타입 도감 v3 리빌딩. nlm CLI 보강(BC100/S4D401), 변수 선언 sandbox, SE38/SE11 칩, 콘솔 0 |
