@@ -1,4 +1,4 @@
-<!-- lesson-content/THEORY-02-M06.html | 최종수정 2026-06-16 01:40 KST -->
+<!-- lesson-content/THEORY-02-M06.html | 최종수정 2026-06-16 01:55 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
@@ -90,6 +90,7 @@ lv_full = |{ lv_first } { lv_last }|.    <span class="abap-token-comment">" 문�
         </tbody></table>
       </div>
     </div>
+    <p class="viz-note">현재 시간이 필요하면 <code>SY-UZEIT</code>(HHMMSS), 로그인 클라이언트는 <code>SY-MANDT</code>를 씁니다. 모두 시스템이 자동으로 채워 주는 값입니다.</p>
   </div>
   <!-- ABAP_MOCKUP_START -->
 <div class="abap-editor-mockup shiki-copy-wrapper">
@@ -223,6 +224,10 @@ lv_full = |{ lv_first } { lv_last }|.    <span class="abap-token-comment">" 문�
     <li><strong>날짜·시간대:</strong> <code>sy-datum</code>은 서버 기준입니다. 사용자/시간대 차이가 중요한 업무는 그 점을 별도로 고려합니다.</li>
     <li><strong>표준 vs 커스텀:</strong> 시스템 필드 동작은 SAP 표준입니다. 로그 양식·필드 구성은 회사 관행이므로 분리해 기록합니다.</li>
   </ul>
+  <details class="foldable">
+    <summary>Modern ABAP / Cloud에서는 문자열·시스템 값을 어떻게 다룰까?</summary>
+    <p>문자열 결합은 Classic의 <code>CONCATENATE a b INTO c SEPARATED BY space.</code> 대신, 최신 환경에서는 <code>&amp;&amp;</code> 연산자나 문자열 템플릿 <code>|{ a } { b }|</code>로 한 줄에 처리합니다. 또 <strong>ABAP Cloud</strong>에서는 <code>sy-datum</code>·<code>sy-uname</code>을 직접 쓰는 것이 점차 제한(Not Released)되어, 표준 API <code>cl_abap_context_info=&gt;get_system_date( )</code>·<code>get_user_technical_name( )</code>로 값을 얻도록 권장합니다(타임존·일관성 관리 때문).</p>
+  </details>
 </section>
 
 <section class="lesson-section">

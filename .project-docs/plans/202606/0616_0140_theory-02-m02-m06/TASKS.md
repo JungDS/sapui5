@@ -1,11 +1,11 @@
 # TASKS — THEORY-02-M02~M06 리빌딩
 
-> 📅 **최종수정: 2026-06-16 01:40 KST**
+> 📅 **최종수정: 2026-06-16 01:55 KST**
 > 상태 플래그만. 산문 금지.
 
 - [x] 작업 claim 기록 (THEORY-02-M02~M06)
 - [x] plans 폴더 생성
-- [~] NotebookLM 질의 (⚠️ 미인증 → 보류)
+- [x] NotebookLM 질의 → 보강 (인증 후 완료, 각 Lesson Classic↔Modern/Cloud 차이 반영)
 - [x] 커리큘럼 JSON 상세 + SAP 공식 근거 확보
 - [x] 신규 글로서리 13종 추가 (DATA/CONSTANTS/TYPES/WRITE/IF/CASE/DO/WHILE/EXIT/CONTINUE/SyDatum/SyUname/SySubrc)
 - [x] M02 본문 리빌딩

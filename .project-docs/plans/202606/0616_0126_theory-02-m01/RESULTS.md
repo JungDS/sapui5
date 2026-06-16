@@ -1,13 +1,13 @@
 # RESULTS — THEORY-02-M01 리빌딩
 
-> 📅 **최종수정: 2026-06-16 01:34 KST**
+> 📅 **최종수정: 2026-06-16 01:55 KST**
 > 결과·검증을 표/플래그로. 산문 최소. SSOT는 git.
 
 | 항목 | 결과 |
 |---|---|
 | 진행 중/중단 작업 | ✅ Codex=Chapter1(M05), Chapter2 미점유 → 충돌 없음 |
 | 리빌딩 범위 | ✅ THEORY-02-M01 (ABAP Program 기본 구조와 주석) |
-| NotebookLM 근거 | ⚠️ 미인증(authenticated=false) → 질의 불가, 보류 |
+| NotebookLM 근거 | ✅ 인증 후 질의 완료(BC100/BC400/S4D400 등) → 키워드 공백 pitfall, 저장/검사/활성화 단축키, Classic↔ABAP Cloud(classrun/F9) 차이 보강 반영. 사실관계 정확 확인 |
 | 대체 근거 | ✅ 커리큘럼 JSON 상세(handled_contents/hands_on_lab/caution_points/assessment_design) + SAP 공식 문서 |
 | v3 학습수단 | ✅ ABAP Editor 목업×2, 관계도(viz-relation), 프로세스 플로우(viz-flow×4), 전후 비교(viz-compare), 탭(정상/오류×3), 접이식×3, 미니 실습, 퀴즈, recap×4 |
 | 글로서리 미정의 | ✅ 0건 (ABAPProgram/REPORT/Comment/Activation/Execution/OutputList 모두 등록) |
@@ -20,4 +20,4 @@
 ## 메모
 - 검증 URL: `http://127.0.0.1:8765/docs/abap/lesson-viewer.html?lesson=THEORY-02-M01`
 - 스크린샷 도구는 환경상 타임아웃 → DOM 스냅샷/eval로 검증 대체.
-- **DoD 갭:** NotebookLM 보강 1건은 미인증으로 보류. 인증(`setup_auth`, 사용자 브라우저 로그인) 후 재보강 가능.
+- NotebookLM은 2026-06-16 인증 완료 후 질의·보강까지 마침(DoD 갭 해소).

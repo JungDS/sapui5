@@ -1,4 +1,4 @@
-<!-- lesson-content/THEORY-02-M03.html | 최종수정 2026-06-16 01:40 KST -->
+<!-- lesson-content/THEORY-02-M03.html | 최종수정 2026-06-16 01:55 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
@@ -118,6 +118,7 @@
         <tr><td><code>... LEFT-JUSTIFIED</code></td><td>왼쪽 정렬</td></tr>
         <tr><td><code>... RIGHT-JUSTIFIED</code></td><td>오른쪽 정렬(숫자 가독성)</td></tr>
         <tr><td><code>... NO-ZERO</code></td><td>앞쪽 0을 공백으로</td></tr>
+        <tr><td><code>... NO-GAP</code></td><td>항목 사이 기본 공백 없이 붙임</td></tr>
         <tr><td><code>... DD/MM/YYYY</code></td><td>날짜 표시 형식 지정</td></tr>
         <tr><td><code>... CURRENCY w</code></td><td>통화 기준으로 소수 자리 맞춤</td></tr>
       </tbody>
@@ -126,7 +127,11 @@
   </div>
   <details class="foldable">
     <summary>왜 출력 형식까지 신경 써야 할까?</summary>
-    <p>리포트는 사람이 읽습니다. 숫자가 왼쪽으로 들쭉날쭉 정렬되거나 통화 소수 자리가 틀리면, 코드가 “돌아가도” 보고서로는 신뢰를 잃습니다. 서식은 사소해 보여도 업무 산출물의 품질입니다.</p>
+    <p>리포트는 사람이 읽습니다. 숫자가 왼쪽으로 들쭉날쭉 정렬되거나 통화 소수 자리가 틀리면, 코드가 “돌아가도” 보고서로는 신뢰를 잃습니다. 서식은 사소해 보여도 업무 산출물의 품질입니다. 참고로 <code>CURRENCY</code> 옵션은 통화 설정 테이블(<code>TCURX</code>)을 참조해 통화별 소수 자리를 맞춰 줍니다(예: JPY는 소수 없음).</p>
+  </details>
+  <details class="foldable">
+    <summary>Modern ABAP / Cloud에서는 WRITE 대신 무엇을 쓸까?</summary>
+    <p><code>WRITE</code>는 Classic ABAP의 GUI 리스트 출력 명령입니다. <strong>ABAP Cloud·RAP 환경에서는 <code>WRITE</code> 사용이 막혀(obsolete)</strong> 있어, ADT 콘솔 클래스(<code>if_oo_adt_classrun</code>)의 <code>out->write( data )</code> 메서드로 결과를 출력합니다. 배우는 단계에서는 값 흐름 확인용으로 <code>WRITE</code>가 가장 빠르지만, 최신 환경에서는 출력 수단이 다르다는 점을 알아 두세요.</p>
   </details>
 </section>
 

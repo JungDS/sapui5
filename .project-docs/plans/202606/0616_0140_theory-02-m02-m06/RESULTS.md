@@ -1,6 +1,6 @@
 # RESULTS — THEORY-02-M02~M06 리빌딩
 
-> 📅 **최종수정: 2026-06-16 01:40 KST**
+> 📅 **최종수정: 2026-06-16 01:55 KST**
 > 결과·검증을 표/플래그로. 산문 최소. SSOT는 git.
 
 | Lesson | 섹션 | 코드목업 | 탭 | 접이식 | recap | 글로서리 | 콘솔오류 |
@@ -13,7 +13,7 @@
 
 | 항목 | 결과 |
 |---|---|
-| NotebookLM 근거 | ⚠️ 미인증(authenticated=false) → 보류 |
+| NotebookLM 근거 | ✅ 인증 후 질의 완료(BC100/BC400/S4D400 등) → 인라인 선언, NO-GAP, out->write, IS INITIAL vs '', COND/SWITCH, sy-index↔sy-tabix·TIME_OUT, cl_abap_context_info 등 보강 반영. 사실관계 정확 확인 |
 | 대체 근거 | ✅ 커리큘럼 JSON 상세 + SAP Help/Learning 공식 |
 | 신규 글로서리 | ✅ 13종 추가, 3종 기존(ElementaryType/FormattingBasic/StringType) |
 | 글로서리 패리티 | ✅ 5개 모두 미정의 0건 |
@@ -24,4 +24,4 @@
 ## 메모
 - 검증 URL: `http://127.0.0.1:8765/docs/abap/lesson-viewer.html?lesson=THEORY-02-M0[2-6]`
 - M03·M06은 정상/오류 대비를 event-tabs 대신 viz-compare로 표현(탭 없음이 의도).
-- **DoD 갭:** NotebookLM 보강은 세션 미인증으로 Chapter 2 전체 보류. `setup_auth`(사용자 로그인) 후 재보강 가능.
+- NotebookLM은 2026-06-16 인증 완료 후 질의·보강까지 마침(Chapter 2 전체 DoD 갭 해소).

@@ -1,4 +1,4 @@
-<!-- lesson-content/THEORY-02-M01.html | 최종수정 2026-06-16 01:26 KST -->
+<!-- lesson-content/THEORY-02-M01.html | 최종수정 2026-06-16 01:55 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
@@ -89,6 +89,7 @@
     <div class="lesson-callout-content">
       <h4>문장의 끝은 줄바꿈이 아니라 마침표(<code>.</code>)</h4>
       <p>ABAP은 줄을 바꿨다고 문장이 끝나는 것이 아니라 마침표로 문장의 끝을 판단합니다. 한 문장을 여러 줄에 걸쳐 써도 되고, 마침표를 빠뜨리면 다음 문장까지 한 덩어리로 읽혀 문법 오류가 납니다. 초심자가 가장 자주 만나는 오류가 바로 마침표 누락입니다.</p>
+      <p>또 하나, 모든 문장은 <strong>키워드로 시작</strong>하고 단어 사이에는 <strong>최소 한 칸의 공백</strong>이 있어야 합니다. <code>WRITE'Hello'.</code>처럼 키워드와 값을 붙여 쓰면 문법 오류가 납니다 — <code>WRITE 'Hello'.</code>로 띄워야 합니다.</p>
     </div>
   </div>
 </section>
@@ -169,7 +170,11 @@
   </div>
   <details class="foldable">
     <summary>왜 저장과 활성화를 굳이 나눌까?</summary>
-    <p>저장은 “작업 중인 초안을 비활성 버전으로 보관”한 상태에 가깝습니다. <span class="glossary-term" data-glossary="Activation">활성화</span>는 문법과 참조 관계를 검사해 “이제 런타임이 믿고 실행해도 된다”는 기준 버전으로 올리는 단계입니다. 그래서 저장만 한 변경은 마지막으로 성공한 활성 버전의 동작에 영향을 주지 않습니다.</p>
+    <p>저장은 “작업 중인 초안을 비활성 버전으로 보관”한 상태에 가깝습니다. <span class="glossary-term" data-glossary="Activation">활성화</span>는 문법과 참조 관계를 검사해 “이제 런타임이 믿고 실행해도 된다”는 기준 버전으로 올리는 단계입니다. 그래서 저장만 한 변경은 마지막으로 성공한 활성 버전의 동작에 영향을 주지 않습니다. SAP GUI 에디터(SE38)에서는 보통 <strong>문법 검사 <code>Ctrl+F2</code> → 활성화 <code>Ctrl+F3</code> → 실행 <code>F8</code></strong> 순서로 단축키가 정해져 있습니다.</p>
+  </details>
+  <details class="foldable">
+    <summary>Modern ABAP / ABAP Cloud에서는 어떻게 다를까?</summary>
+    <p>이 Lesson은 가장 전통적인 Classic ABAP의 <code>REPORT</code> 프로그램을 기준으로 합니다. 반면 <strong>ABAP Cloud</strong> 환경에서는 GUI용 <code>REPORT</code> 프로그램 생성이 막혀 있어, ADT(Eclipse)에서 <code>if_oo_adt_classrun</code> 인터페이스를 구현한 클래스의 <code>main</code> 메서드를 만들고 <strong>콘솔 앱으로 실행(<code>F9</code>)</strong>합니다. 지금은 “환경에 따라 시작 형태가 다르다” 정도만 기억하면 충분합니다(객체지향·클래스는 뒤 Chapter에서).</p>
   </details>
   <div class="lesson-callout warn">
     <div class="lesson-callout-icon">⚠️</div>

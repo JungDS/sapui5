@@ -1,4 +1,4 @@
-<!-- lesson-content/THEORY-02-M02.html | 최종수정 2026-06-16 01:40 KST -->
+<!-- lesson-content/THEORY-02-M02.html | 최종수정 2026-06-16 01:55 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
@@ -107,6 +107,10 @@ lv_name = <span class="abap-token-string">'ABAP'</span>.
       <p><code>DATA</code>는 “자리를 만든다”, <code>=</code>는 “그 자리에 값을 넣는다”입니다. <code>CONSTANTS</code>는 선언과 동시에 <code>VALUE</code>로 값을 고정하므로, 뒤에서 <code>lc_max_retry = 5.</code>처럼 다시 넣으려 하면 문법 오류가 납니다.</p>
     </div>
   </div>
+  <details class="foldable">
+    <summary>Modern ABAP: 인라인 선언(Inline Declaration)</summary>
+    <p>예전에는 프로그램 맨 위에 <code>DATA</code>를 모아 미리 선언하는 방식이 일반적이었습니다. ABAP 7.40부터는 값을 쓰는 자리에서 바로 선언하는 <strong>인라인 선언</strong> <code>DATA(lv_qty) = 10.</code>이 도입됐습니다. 변수가 쓰이는 곳 가까이에서 선언돼 가독성이 좋아 최신 실무 표준입니다. 이 Lesson은 기본기를 위해 먼저 분리형(<code>DATA ... TYPE ...</code>)으로 익힙니다.</p>
+  </details>
 </section>
 
 <section class="lesson-section">
