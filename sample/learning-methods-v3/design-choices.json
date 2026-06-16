@@ -74,6 +74,15 @@
       ],
       "note": ""
     },
+    "capstone/mini-project-mission": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
     "code-learning/abap-editor-mockup": {
       "chosen": "A",
       "options": [
@@ -119,8 +128,8 @@
       ],
       "note": ""
     },
-    "foundations/concept-storytelling": {
-      "chosen": "B",
+    "code-learning/code-keyword-accordion": {
+      "chosen": "A",
       "options": [
         "A",
         "B",
@@ -128,8 +137,8 @@
       ],
       "note": ""
     },
-    "visuals/static-svg-architecture": {
-      "chosen": "A",
+    "foundations/concept-storytelling": {
+      "chosen": "B",
       "options": [
         "A",
         "B",
@@ -146,7 +155,7 @@
       ],
       "note": ""
     },
-    "code-learning/code-keyword-accordion": {
+    "visuals/static-svg-architecture": {
       "chosen": "A",
       "options": [
         "A",
@@ -173,7 +182,7 @@
       ],
       "note": ""
     },
-    "visuals/mermaid-flowchart": {
+    "code-learning/code-line-matching": {
       "chosen": "A",
       "options": [
         "A",
@@ -182,7 +191,7 @@
       ],
       "note": ""
     },
-    "code-learning/code-line-matching": {
+    "visuals/mermaid-flowchart": {
       "chosen": "A",
       "options": [
         "A",

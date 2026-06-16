@@ -12,34 +12,16 @@
       ],
       "note": ""
     },
+    "foundations/cheat-sheet-matrix": {
+      "chosen": "C",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
     "foundations/concept-storytelling": {
-      "chosen": "B",
-      "options": [
-        "A",
-        "B",
-        "C"
-      ],
-      "note": ""
-    },
-    "foundations/practice-and-completion": {
-      "chosen": "A",
-      "options": [
-        "A",
-        "B",
-        "C"
-      ],
-      "note": ""
-    },
-    "foundations/official-links-section": {
-      "chosen": "B",
-      "options": [
-        "A",
-        "B",
-        "C"
-      ],
-      "note": ""
-    },
-    "foundations/summary-recap": {
       "chosen": "B",
       "options": [
         "A",
@@ -57,8 +39,8 @@
       ],
       "note": ""
     },
-    "foundations/cheat-sheet-matrix": {
-      "chosen": "C",
+    "foundations/official-links-section": {
+      "chosen": "B",
       "options": [
         "A",
         "B",
@@ -66,7 +48,7 @@
       ],
       "note": ""
     },
-    "visuals/mermaid-flowchart": {
+    "foundations/practice-and-completion": {
       "chosen": "A",
       "options": [
         "A",
@@ -75,8 +57,8 @@
       ],
       "note": ""
     },
-    "visuals/interactive-data-chart": {
-      "chosen": "A",
+    "foundations/summary-recap": {
+      "chosen": "B",
       "options": [
         "A",
         "B",
@@ -84,16 +66,7 @@
       ],
       "note": ""
     },
-    "visuals/image-hotspot-explorer": {
-      "chosen": "C",
-      "options": [
-        "A",
-        "B",
-        "C"
-      ],
-      "note": ""
-    },
-    "visuals/progressive-tab-diagram": {
+    "visuals/before-after-comparison": {
       "chosen": "A",
       "options": [
         "A",
@@ -111,7 +84,106 @@
       ],
       "note": ""
     },
-    "visuals/before-after-comparison": {
+    "visuals/current-row-highlight": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "visuals/image-hotspot-explorer": {
+      "chosen": "C",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "visuals/interactive-data-chart": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "visuals/mermaid-flowchart": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "visuals/process-flow": {
+      "chosen": "B",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "visuals/progressive-tab-diagram": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "visuals/relationship-map": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "visuals/sample-data-table": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "visuals/state-change-grid": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "visuals/static-svg-architecture": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "visuals/success-failure-badges": {
+      "chosen": "C",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "visuals/visual-media-gallery": {
       "chosen": "A",
       "options": [
         "A",
@@ -129,7 +201,196 @@
       ],
       "note": ""
     },
+    "code-learning/bad-good-hover-mapping": {
+      "chosen": "B",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "code-learning/bug-hunt-mission": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
     "code-learning/code-keyword-accordion": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "code-learning/code-line-matching": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "code-learning/fill-blank-code": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "code-learning/performance-profiler-mock": {
+      "chosen": "B",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "interactive/architecture-builder": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "interactive/breakpoint-checklist": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "interactive/decision-tree": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "interactive/expected-log-comparison": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "interactive/interactive-sandbox-simulator": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "interactive/practical-checklist": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "interactive/shortcut-simulator": {
+      "chosen": "C",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "interactive/step-debugger-timeline": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "quizzes/card-sorting-quiz": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "quizzes/drag-drop-quiz": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "quizzes/flashcards": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "quizzes/mini-exam-mode": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "quizzes/ox-survival-quiz": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "quizzes/sequence-ordering-quiz": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "quizzes/short-answer-quiz": {
+      "chosen": "A",
+      "options": [
+        "A",
+        "B",
+        "C"
+      ],
+      "note": ""
+    },
+    "capstone/mini-project-mission": {
       "chosen": "A",
       "options": [
         "A",
