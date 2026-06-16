@@ -1,14 +1,14 @@
-<!-- THEORY-03-M01.html | 최종수정 2026-06-17 00:51 KST -->
-<!-- 2026-06-17 00:50 KST -->
+<!-- THEORY-03-M01.html | 최종수정 2026-06-17 02:11 KST -->
+<!-- 2026-06-17 02:15 KST -->
 <div class="lesson-callout tip">
   <div class="callout-title">학습 목표</div>
-  <p><span class="glossary-term" data-glossary="PARAMETERSStatement">PARAMETERS</span>가 어떻게 내부 변수와 UI(화면 입력칸)를 동시에 만드는지 그 <strong>이중(Dual) 구조</strong>를 이해하고 실무 옵션을 익힙니다.</p>
+  <p><span class="glossary-term" data-glossary="PARAMETERSStatement">PARAMETERS</span>가 어떻게 내부 변수와 UI(화면 입력칸)를 동시에 만드는지 그 <strong>이중(Dual) 구조</strong>를 이해하고, 화면 이벤트에 따른 올바른 검증 위치를 익힙니다.</p>
 </div>
 
 <section id="s1" class="section">
   <h2 id="s1-1">1. PARAMETERS의 마법: 변수와 화면의 동시 생성</h2>
   <p>ABAP 초보자들이 리포트 프로그램(Executable Program)을 작성할 때 가장 신기해하는 부분은 화면을 그리는 툴 없이 코드 한 줄로 입력 화면이 만들어진다는 점입니다.</p>
-  <p><span class="glossary-term" data-glossary="SE38">SE38</span>에서 <code>PARAMETERS pa_name TYPE string.</code>이라고 선언하면 두 가지 마법이 동시에 일어납니다.</p>
+  <p><span class="glossary-term" data-glossary="SE38">SE38</span>에서 <code>PARAMETERS pa_name TYPE sflight-carrid.</code>이라고 선언하면 두 가지 마법이 동시에 일어납니다.</p>
 
   <div class="viz-compare-before-after">
     <div class="viz-panel before">
@@ -21,106 +21,99 @@
       <p>시스템이 <code>Screen 1000</code>이라는 <strong>표준 선택 화면(<span class="glossary-term" data-glossary="SelectionScreen">Selection Screen</span>)</strong>을 렌더링하고, <span class="glossary-term" data-glossary="ScreenInput">입력 필드</span>를 자동으로 그려줍니다.</p>
     </div>
   </div>
+  
+  <details>
+    <summary>심화 팁: 기본 타입보다 DDIC 참조하기</summary>
+    <p>초보자는 <code>TYPE string</code>이나 <code>TYPE c LENGTH 3</code>처럼 기본 타입을 자주 사용하지만, 실무에서는 <code>TYPE sflight-carrid</code>처럼 ABAP Dictionary의 Data Element나 테이블 필드를 참조해야 합니다. 이렇게 하면 필드 라벨(Field Label)과 검색 도움말(Search Help, F4) 기능을 공짜로 상속받아 사용자 편의성이 극대화됩니다.</p>
+  </details>
 </section>
 
 <section id="s2" class="section">
-  <h2 id="s2-1">2. 직접 해보는 실습 시뮬레이션</h2>
-  <p>아래 가상 Sandbox를 통해 <span class="glossary-term" data-glossary="ElementaryInput">단일 기본 입력</span>을 받고, 실행 버튼(F8)을 눌렀을 때 어떻게 이벤트 흐름이 진행되는지 <strong>직접 조작</strong>해 보세요. (에러 발생 조건을 테스트해 볼 수 있습니다!)</p>
+  <h2 id="s2-1">2. 프로그램 실행 이벤트와 유효성 검증</h2>
+  <p>PARAMETERS로 만들어진 화면은 단순히 입력만 받는 것이 아니라, 정해진 <strong>이벤트 흐름(Event Flow)</strong>에 따라 엄격하게 제어됩니다.</p>
+  <div class="viz-flow">
+    <div class="viz-flow-step">
+      <strong>INITIALIZATION</strong>
+      <span>화면 출력 전 동적 초기값 세팅</span>
+    </div>
+    <div class="viz-flow-step highlight">
+      <strong>AT SELECTION-SCREEN</strong>
+      <span>사용자 입력값 사전 유효성 검증</span>
+    </div>
+    <div class="viz-flow-step">
+      <strong>START-OF-SELECTION</strong>
+      <span>검증 통과 후 메인 비즈니스 로직 실행</span>
+    </div>
+  </div>
+
+  <div class="lesson-callout warn">
+    <div class="callout-title">초보자의 흔한 오류: 검증 타이밍 놓치기</div>
+    <p>입력된 값을 검사하는 로직을 <code>START-OF-SELECTION</code> 안에 작성하면 큰일납니다. 에러 메시지를 띄우더라도 이미 입력 화면(Selection Screen) 단계를 벗어났기 때문에, <strong>사용자가 곧바로 값을 수정하고 다시 실행할 수 없는 치명적 흐름 오류</strong>가 발생합니다. 유효성 검증과 에러(<code>TYPE 'E'</code>) 처리는 반드시 <code>AT SELECTION-SCREEN</code> 블록 내에서 수행해야 합니다.</p>
+  </div>
+</section>
+
+<section id="s3" class="section">
+  <h2 id="s3-1">3. 직접 해보는 실습 시뮬레이션</h2>
+  <p>아래 가상 Sandbox를 통해 <span class="glossary-term" data-glossary="ElementaryInput">단일 기본 입력</span>을 받고 실행 버튼(F8)을 눌렀을 때 이벤트 흐름이 어떻게 진행되는지 <strong>직접 조작</strong>해 보세요. (에러 발생 조건을 테스트해 볼 수 있습니다!)</p>
   
   <div class="interactive-sap-sandbox">
     <div class="sap-gui-header"><div class="sap-tcode-bar">T-Code: <span class="tcode-val">SE38 (ZPARAM_DEMO)</span></div></div>
-    <div class="sap-gui-title-bar">파라미터 입력 시뮬레이터</div>
+    <div class="sap-gui-title-bar">파라미터 입력 및 이벤트 흐름 시뮬레이터</div>
     <div class="sap-selection-screen">
-      <div class="sap-field-row"><label>이름 입력 (PA_NAME)</label><input type="text" class="sap-input sap-input-medium" id="sb1-name" placeholder="이름을 입력하세요"></div>
+      <div class="sap-field-row"><label>항공사 코드 (PA_CARR)</label><input type="text" class="sap-input sap-input-short" id="sb1-carr" placeholder="예: LH, AA, DL"></div>
       <button class="sap-btn-execute">실행 (F8)</button>
     </div>
     <div class="sap-result-log"><div class="sap-log-placeholder">실행(F8) 버튼을 누르면 SAP 내부 이벤트 흐름이 로그로 출력됩니다…</div></div>
     <script type="application/json" class="sandbox-config">
     {
-      "fields": { "name": "#sb1-name" },
+      "fields": { "carr": "#sb1-carr" },
       "steps": [
         { "label": "LOAD-OF-PROGRAM", "type": "event", "text": "프로그램이 메모리에 로드되었습니다." },
-        { "label": "INITIALIZATION", "type": "event", "text": "초기화 작업을 수행합니다." },
-        { "label": "AT SELECTION-SCREEN", "type": "event", "text": "사용자 입력값({name}) 유효성 검증 시작." }
+        { "label": "INITIALIZATION", "type": "event", "text": "초기화 작업: 기본값 등 세팅." },
+        { "label": "AT SELECTION-SCREEN", "type": "event", "text": "사용자 입력값({carr}) 유효성 검증 시작." }
       ],
       "validations": [
-        { "field": "name", "test": "required", "label": "Error", "text": "검증 실패: 이름은 필수 입력란입니다.", "modal": "이름을 입력해 주세요." }
+        { "field": "carr", "test": "required", "label": "Error", "text": "검증 실패: 항공사 코드는 필수 입력란입니다.", "modal": "항공사 코드를 입력해 주세요." }
       ],
       "selectStep": { "label": "START-OF-SELECTION", "type": "event", "text": "검증 통과. 비즈니스 로직을 실행합니다." },
       "db": [
-        { "id": "1", "name": "Donna Moore" },
-        { "id": "2", "name": "John Doe" }
+        { "id": "1", "carrid": "LH", "name": "Lufthansa" },
+        { "id": "2", "carrid": "AA", "name": "American Airlines" },
+        { "id": "3", "carrid": "DL", "name": "Delta Air Lines" }
       ],
-      "match": { "name": "name" },
+      "match": { "carrid": "carr" },
       "selectResult": { "text": "처리 완료." },
-      "columns": [ {"key":"id","head":"순번"}, {"key":"name","head":"입력된 이름"} ],
+      "columns": [ {"key":"id","head":"순번"}, {"key":"carrid","head":"항공사 코드"}, {"key":"name","head":"항공사명"} ],
       "endStep": { "label": "END-OF-SELECTION", "type": "event", "text": "출력 화면을 준비합니다." },
-      "emptyText": "DB에 이름이 없습니다. 테스트에는 'Donna Moore' 또는 'John Doe'를 입력해 보세요."
+      "emptyText": "AT SELECTION-SCREEN 검증 실패: 지원하지 않는 항공사 코드입니다 (LH, AA, DL만 허용). 화면으로 복귀합니다."
     }
     </script>
   </div>
+  
   <div class="lesson-callout warn">
     <div class="callout-title">실무 주의사항: 범위 검색에는 쓰지 마세요!</div>
-    <p><code>PARAMETERS</code>는 오직 <strong>'단일 값(단건)' 입력 전용</strong>입니다. "2026년 1월부터 12월까지"처럼 범위를 받아야 할 때는 다음에 배울 <code>SELECT-OPTIONS</code>를 사용해야 합니다.</p>
+    <p><code>PARAMETERS</code>는 오직 <strong>'단일 값(단건)' 입력 전용</strong>입니다. 다중 값이나 "2026년 1월부터 12월까지"처럼 범위 조건을 받아야 할 때는 다음에 배울 <code>SELECT-OPTIONS</code>를 사용해야 합니다. 범위 요건에 PARAMETERS를 2개(시작, 끝) 선언하는 것은 대표적인 초보적 안티패턴입니다.</p>
   </div>
-</section>
-
-<section id="s3" class="section">
-  <h2 id="s3-1">3. ABAP 코드 살펴보기</h2>
-  <p>실제 SE38에서 위 시뮬레이터와 같은 동작을 하도록 짜여진 코드입니다.</p>
-  <!-- ABAP_MOCKUP_START -->
-<div class="abap-editor-mockup shiki-copy-wrapper">
-  <div class="abap-editor-header">
-    <div class="abap-editor-mac-buttons">
-      <span class="abap-editor-mac-btn red"></span>
-      <span class="abap-editor-mac-btn yellow"></span>
-      <span class="abap-editor-mac-btn green"></span>
-    </div>
-    <div class="abap-editor-title">ABAP</div>
-    <div class="abap-editor-actions">
-      <button class="shiki-copy-button" data-copied="false">Copy</button>
-    </div>
-  </div>
-  <div class="abap-editor-body">
-    <div class="abap-editor-line-numbers">
-      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8
-    </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zparam_demo.
-
-<span class="abap-token-comment">" 문자형 파라미터 선언 (화면에 1개의 입력칸 생성)</span>
-<span class="abap-token-keyword">PARAMETERS</span> pa_name <span class="abap-token-keyword">TYPE</span> string.
-
-<span class="abap-token-keyword">START-OF-SELECTION</span>.
-  <span class="abap-token-comment">" 사용자가 입력한 값이 pa_name 변수에 자동으로 들어옴</span>
-  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'입력된 이름은'</span>, pa_name, <span class="abap-token-string">'입니다.'</span>.</code></pre>
-  </div>
-</div>
-<!-- ABAP_MOCKUP_END -->
-  
-  <details>
-    <summary>심화 팁: 기본 타입보다 DDIC 참조하기</summary>
-    <p>초보자는 <code>TYPE string</code>이나 <code>TYPE c LENGTH 20</code>처럼 기본 타입을 자주 사용하지만, 실무에서는 <code>TYPE sflight-carrid</code>처럼 ABAP Dictionary의 Data Element나 테이블 필드를 참조하도록 권장합니다. 이렇게 하면 필드 라벨(Field Label)과 검색 도움말(Search Help) 기능을 공짜로 상속받을 수 있습니다.</p>
-  </details>
 </section>
 
 <section id="s4" class="section">
   <h2 id="s4-1">한눈에 정리</h2>
   <div class="viz-state-grid">
     <div class="grid-cell">
-      <span class="cell-label">역할</span>
-      <strong>변수 생성 + UI 렌더링</strong>
+      <span class="cell-label">이중 생성 구조</span>
+      <strong>변수 메모리 할당 + UI 렌더링</strong>
     </div>
     <div class="grid-cell">
       <span class="cell-label">입력 형태</span>
       <strong>단일 값 (Elementary Input)</strong>
     </div>
     <div class="grid-cell">
-      <span class="cell-label">금지 사항</span>
-      <strong>범위 검색 (From ~ To)</strong>
+      <span class="cell-label">검증 타이밍</span>
+      <strong>반드시 AT SELECTION-SCREEN에서!</strong>
     </div>
     <div class="grid-cell">
-      <span class="cell-label">진화 방향</span>
-      <strong>Cloud 환경에선 Fiori/RAP로 대체됨</strong>
+      <span class="cell-label">DDIC 참조</span>
+      <strong>TYPE c 대신 TYPE sflight-carrid</strong>
     </div>
   </div>
 </section>
