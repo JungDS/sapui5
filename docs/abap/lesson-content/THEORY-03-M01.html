@@ -1,72 +1,73 @@
-<!-- lesson-content/THEORY-03-M01.html | 최종수정 2026-06-16 10:28 KST -->
-
+<!-- THEORY-03-M01.html | 최종수정 2026-06-17 00:51 KST -->
+<!-- 2026-06-17 00:50 KST -->
 <div class="lesson-callout tip">
-  <div class="lesson-callout-icon">🎯</div>
-  <div class="lesson-callout-content">
-    <h4>학습 목표</h4>
-    <p>이번 Lesson에서는 <span class="glossary-term" data-glossary="PARAMETERSStatement">PARAMETERS 문</span> 한 줄이 왜 화면 입력칸과 프로그램 변수를 동시에 만드는지 이해합니다. Chapter 2의 <span class="glossary-term" data-glossary="DATAStatement">DATA 문</span>, <span class="glossary-term" data-glossary="WRITEStatement">WRITE 문</span>과 연결해 <span class="glossary-term" data-glossary="SelectionScreen">Selection Screen</span>의 첫 감각을 잡습니다.</p>
-  </div>
+  <div class="callout-title">학습 목표</div>
+  <p><span class="glossary-term" data-glossary="PARAMETERSStatement">PARAMETERS</span>가 어떻게 내부 변수와 UI(화면 입력칸)를 동시에 만드는지 그 <strong>이중(Dual) 구조</strong>를 이해하고 실무 옵션을 익힙니다.</p>
 </div>
 
-<section class="lesson-section">
-  <h2>1. 코드 안 값에서 실행 전 입력값으로</h2>
-  <p>
-    Chapter 2에서는 값을 코드 안에 직접 적었습니다. 예를 들어 <code>DATA gv_name TYPE c.</code>처럼 선언하면, 프로그램은 매번 코드가 정한 값을 기준으로 실행됩니다.
-  </p>
-  <p>
-    실제 Report는 실행할 때마다 사용자가 회사 코드, 날짜, 이름 같은 조건을 바꿔 넣어야 합니다. ABAP 실행 프로그램은 이런 값을 묻기 위해 표준 <span class="glossary-term" data-glossary="SelectionScreen">Selection Screen</span>을 사용할 수 있고, 가장 작은 입력칸을 만드는 문장이 <code>PARAMETERS</code>입니다.
-  </p>
-  <blockquote>
-    오늘의 핵심은 “입력 화면을 직접 그리는 법”이 아니라, <code>PARAMETERS</code>가 화면과 메모리를 어떻게 연결하는지 이해하는 것입니다.
-  </blockquote>
-</section>
+<section id="s1" class="section">
+  <h2 id="s1-1">1. PARAMETERS의 마법: 변수와 화면의 동시 생성</h2>
+  <p>ABAP 초보자들이 리포트 프로그램(Executable Program)을 작성할 때 가장 신기해하는 부분은 화면을 그리는 툴 없이 코드 한 줄로 입력 화면이 만들어진다는 점입니다.</p>
+  <p><span class="glossary-term" data-glossary="SE38">SE38</span>에서 <code>PARAMETERS pa_name TYPE string.</code>이라고 선언하면 두 가지 마법이 동시에 일어납니다.</p>
 
-<section class="lesson-section">
-  <h2>2. PARAMETERS는 입력칸과 변수를 함께 만든다</h2>
-  <p>
-    <span class="glossary-term" data-glossary="PARAMETERSStatement">PARAMETERS 문</span>은 두 가지 일을 동시에 합니다. 첫째, Selection Screen에 사용자가 값을 넣을 <span class="glossary-term" data-glossary="ScreenInput">Screen Input</span> 필드를 만듭니다. 둘째, 프로그램 안에서 그 값을 읽을 수 있는 변수도 만듭니다.
-  </p>
-  <div class="viz-visual">
-    <p class="viz-visual-title">한 줄 선언이 만드는 두 결과</p>
-    <div class="viz-flow">
-      <div class="viz-flow-step"><strong>선언</strong><span><code>PARAMETERS p_name(20) TYPE c.</code></span></div>
-      <div class="viz-flow-step"><strong>화면</strong><span>Selection Screen에 <code>P_NAME</code> 입력칸이 생긴다.</span></div>
-      <div class="viz-flow-step"><strong>메모리</strong><span>프로그램 안에서는 <code>p_name</code> 변수를 읽는다.</span></div>
-      <div class="viz-flow-step"><strong>출력</strong><span><code>WRITE</code>가 입력값을 List Output에 보여준다.</span></div>
+  <div class="viz-compare-before-after">
+    <div class="viz-panel before">
+      <h4>백엔드 (Memory)</h4>
+      <p>프로그램 내부에 사용자가 입력할 값을 담아둘 <strong>데이터 컨테이너(변수)</strong>가 생성됩니다.</p>
+      <p><code>DATA</code> 선언과 유사하게 값을 임시 저장하지만, 화면과 직접 연결된다는 차이가 있습니다.</p>
     </div>
-  </div>
-  <div class="viz-visual">
-    <p class="viz-visual-title">DATA와 PARAMETERS 비교</p>
-    <div class="viz-compare">
-      <div class="viz-compare-before">
-        <span class="viz-compare-label"><code>DATA</code>: 내부 변수만 선언</span>
-        <div class="viz-compare-body">
-          <ul>
-            <li>프로그램 메모리에만 존재합니다.</li>
-            <li>사용자 입력칸이 자동으로 생기지 않습니다.</li>
-            <li>계산 중간값, 출력용 변수처럼 내부 처리에 씁니다.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="viz-compare-after">
-        <span class="viz-compare-label"><code>PARAMETERS</code>: 입력칸 + 변수</span>
-        <div class="viz-compare-body">
-          <ul>
-            <li>Selection Screen 입력 필드를 만듭니다.</li>
-            <li>사용자가 실행 전 값을 넣을 수 있습니다.</li>
-            <li>입력된 값은 같은 이름의 변수처럼 읽습니다.</li>
-          </ul>
-        </div>
-      </div>
+    <div class="viz-panel after">
+      <h4>프론트엔드 (UI)</h4>
+      <p>시스템이 <code>Screen 1000</code>이라는 <strong>표준 선택 화면(<span class="glossary-term" data-glossary="SelectionScreen">Selection Screen</span>)</strong>을 렌더링하고, <span class="glossary-term" data-glossary="ScreenInput">입력 필드</span>를 자동으로 그려줍니다.</p>
     </div>
   </div>
 </section>
 
-<section class="lesson-section">
-  <h2>3. 최소 코드와 자동 생성 Screen 1000</h2>
-  <p>
-    실행 가능한 Report에 <code>PARAMETERS</code>를 선언하면 ABAP 런타임이 표준 Selection Screen을 준비합니다. 실행 프로그램의 표준 Selection Screen 번호는 <span class="glossary-term" data-glossary="ScreenNumber">Screen 1000</span>입니다. 초급 단계에서는 “Report 실행 전에 자동으로 뜨는 입력 화면”이라고 잡으면 충분합니다.
-  </p>
+<section id="s2" class="section">
+  <h2 id="s2-1">2. 직접 해보는 실습 시뮬레이션</h2>
+  <p>아래 가상 Sandbox를 통해 <span class="glossary-term" data-glossary="ElementaryInput">단일 기본 입력</span>을 받고, 실행 버튼(F8)을 눌렀을 때 어떻게 이벤트 흐름이 진행되는지 <strong>직접 조작</strong>해 보세요. (에러 발생 조건을 테스트해 볼 수 있습니다!)</p>
+  
+  <div class="interactive-sap-sandbox">
+    <div class="sap-gui-header"><div class="sap-tcode-bar">T-Code: <span class="tcode-val">SE38 (ZPARAM_DEMO)</span></div></div>
+    <div class="sap-gui-title-bar">파라미터 입력 시뮬레이터</div>
+    <div class="sap-selection-screen">
+      <div class="sap-field-row"><label>이름 입력 (PA_NAME)</label><input type="text" class="sap-input sap-input-medium" id="sb1-name" placeholder="이름을 입력하세요"></div>
+      <button class="sap-btn-execute">실행 (F8)</button>
+    </div>
+    <div class="sap-result-log"><div class="sap-log-placeholder">실행(F8) 버튼을 누르면 SAP 내부 이벤트 흐름이 로그로 출력됩니다…</div></div>
+    <script type="application/json" class="sandbox-config">
+    {
+      "fields": { "name": "#sb1-name" },
+      "steps": [
+        { "label": "LOAD-OF-PROGRAM", "type": "event", "text": "프로그램이 메모리에 로드되었습니다." },
+        { "label": "INITIALIZATION", "type": "event", "text": "초기화 작업을 수행합니다." },
+        { "label": "AT SELECTION-SCREEN", "type": "event", "text": "사용자 입력값({name}) 유효성 검증 시작." }
+      ],
+      "validations": [
+        { "field": "name", "test": "required", "label": "Error", "text": "검증 실패: 이름은 필수 입력란입니다.", "modal": "이름을 입력해 주세요." }
+      ],
+      "selectStep": { "label": "START-OF-SELECTION", "type": "event", "text": "검증 통과. 비즈니스 로직을 실행합니다." },
+      "db": [
+        { "id": "1", "name": "Donna Moore" },
+        { "id": "2", "name": "John Doe" }
+      ],
+      "match": { "name": "name" },
+      "selectResult": { "text": "처리 완료." },
+      "columns": [ {"key":"id","head":"순번"}, {"key":"name","head":"입력된 이름"} ],
+      "endStep": { "label": "END-OF-SELECTION", "type": "event", "text": "출력 화면을 준비합니다." },
+      "emptyText": "DB에 이름이 없습니다. 테스트에는 'Donna Moore' 또는 'John Doe'를 입력해 보세요."
+    }
+    </script>
+  </div>
+  <div class="lesson-callout warn">
+    <div class="callout-title">실무 주의사항: 범위 검색에는 쓰지 마세요!</div>
+    <p><code>PARAMETERS</code>는 오직 <strong>'단일 값(단건)' 입력 전용</strong>입니다. "2026년 1월부터 12월까지"처럼 범위를 받아야 할 때는 다음에 배울 <code>SELECT-OPTIONS</code>를 사용해야 합니다.</p>
+  </div>
+</section>
+
+<section id="s3" class="section">
+  <h2 id="s3-1">3. ABAP 코드 살펴보기</h2>
+  <p>실제 SE38에서 위 시뮬레이터와 같은 동작을 하도록 짜여진 코드입니다.</p>
   <!-- ABAP_MOCKUP_START -->
 <div class="abap-editor-mockup shiki-copy-wrapper">
   <div class="abap-editor-header">
@@ -84,192 +85,42 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7<br>8
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> z_demo_param_m01.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zparam_demo.
 
-<span class="abap-token-keyword">PARAMETERS</span> p_name(<span class="abap-token-number">20</span>) <span class="abap-token-keyword">TYPE</span> c.
-<span class="abap-token-keyword">PARAMETERS</span> p_age      <span class="abap-token-keyword">TYPE</span> i.
+<span class="abap-token-comment">" 문자형 파라미터 선언 (화면에 1개의 입력칸 생성)</span>
+<span class="abap-token-keyword">PARAMETERS</span> pa_name <span class="abap-token-keyword">TYPE</span> string.
 
 <span class="abap-token-keyword">START-OF-SELECTION</span>.
-  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'입력한 이름:'</span>, p_name,
-         / <span class="abap-token-string">'입력한 나이:'</span>, p_age.</code></pre>
+  <span class="abap-token-comment">" 사용자가 입력한 값이 pa_name 변수에 자동으로 들어옴</span>
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'입력된 이름은'</span>, pa_name, <span class="abap-token-string">'입니다.'</span>.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
-  <div class="interactive-sap-sandbox">
-    <div class="sap-gui-header">
-      <div class="sap-tcode-bar">Program <span class="tcode-val">Z_DEMO_PARAM_M01</span></div>
-    </div>
-    <div class="sap-gui-title-bar">Standard Selection Screen 1000</div>
-    <div class="sap-selection-screen">
-      <div class="sap-field-row">
-        <label>P_NAME</label>
-        <div class="sap-input">홍길동</div>
-      </div>
-      <div class="sap-field-row">
-        <label>P_AGE</label>
-        <div class="sap-input">25</div>
-      </div>
-      <button class="sap-btn-execute" type="button">Execute (F8)</button>
-    </div>
-  </div>
-  <details class="foldable">
-    <summary>Screen Painter(SE51)로 직접 그려야 하나요?</summary>
-    <p>아닙니다. 이 Lesson의 범위에서는 <code>PARAMETERS</code> 선언만으로 표준 Selection Screen의 입력 필드가 생성됩니다. Screen Painter는 일반 Dynpro 화면을 직접 설계할 때 나오는 별도 주제이며, Chapter 3의 기본 입력 흐름에서는 다루지 않습니다.</p>
+  
+  <details>
+    <summary>심화 팁: 기본 타입보다 DDIC 참조하기</summary>
+    <p>초보자는 <code>TYPE string</code>이나 <code>TYPE c LENGTH 20</code>처럼 기본 타입을 자주 사용하지만, 실무에서는 <code>TYPE sflight-carrid</code>처럼 ABAP Dictionary의 Data Element나 테이블 필드를 참조하도록 권장합니다. 이렇게 하면 필드 라벨(Field Label)과 검색 도움말(Search Help) 기능을 공짜로 상속받을 수 있습니다.</p>
   </details>
 </section>
 
-<section class="lesson-section">
-  <h2>4. Elementary Input: 한 칸에 한 값</h2>
-  <p>
-    지금 배우는 <span class="glossary-term" data-glossary="ElementaryInput">Elementary Input</span>은 이름 하나, 나이 하나, 날짜 하나처럼 단순 값 하나를 받는 입력입니다. 하나의 <code>PARAMETERS</code> 선언은 보통 한 입력칸을 만들고, 그 입력칸은 하나의 값만 담습니다.
-  </p>
-  <div class="viz-visual">
-    <p class="viz-visual-title">처음에 쓰기 좋은 입력 예시</p>
-    <table class="viz-table">
-      <thead>
-        <tr>
-          <th>입력 목적</th>
-          <th>선언 예시</th>
-          <th>초급 판단</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>짧은 이름</td>
-          <td><code>PARAMETERS p_name(20) TYPE c.</code></td>
-          <td>문자 길이를 정해서 받는다.</td>
-        </tr>
-        <tr>
-          <td>숫자</td>
-          <td><code>PARAMETERS p_age TYPE i.</code></td>
-          <td>숫자가 아닌 값은 입력 단계에서 막힐 수 있다.</td>
-        </tr>
-        <tr>
-          <td>날짜</td>
-          <td><code>PARAMETERS p_date TYPE d.</code></td>
-          <td>내부 형식은 날짜 타입 규칙을 따른다.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="lesson-callout warn">
-    <div class="lesson-callout-icon">⚠️</div>
-    <div class="lesson-callout-content">
-      <h4>초급 단계에서 먼저 지킬 규칙</h4>
-      <ul>
-        <li><code>p_name</code>, <code>p_date</code>처럼 Parameter 이름은 짧게 둡니다. Selection Screen 입력 필드 이름은 8자 제한을 넘기지 않는 습관이 안전합니다.</li>
-        <li>처음에는 <code>TYPE c</code>, <code>TYPE i</code>, <code>TYPE d</code> 또는 Dictionary의 단순 Data Element처럼 화면 입력에 맞는 타입으로 시작합니다.</li>
-        <li><code>SELECT-OPTIONS</code>는 여러 값과 범위를 받는 도구입니다. 이번 Lesson에서는 한 칸 입력에 집중합니다.</li>
-      </ul>
+<section id="s4" class="section">
+  <h2 id="s4-1">한눈에 정리</h2>
+  <div class="viz-state-grid">
+    <div class="grid-cell">
+      <span class="cell-label">역할</span>
+      <strong>변수 생성 + UI 렌더링</strong>
     </div>
-  </div>
-</section>
-
-<section class="lesson-section">
-  <h2>5. 5분 미니 실습: DATA로 바꾸면 무엇이 사라질까</h2>
-  <p>
-    아래 실습은 문법을 많이 외우는 것이 아니라, <code>DATA</code>와 <code>PARAMETERS</code>의 차이를 눈으로 확인하는 데 목적이 있습니다.
-  </p>
-  <!-- ABAP_MOCKUP_START -->
-<div class="abap-editor-mockup shiki-copy-wrapper">
-  <div class="abap-editor-header">
-    <div class="abap-editor-mac-buttons">
-      <span class="abap-editor-mac-btn red"></span>
-      <span class="abap-editor-mac-btn yellow"></span>
-      <span class="abap-editor-mac-btn green"></span>
+    <div class="grid-cell">
+      <span class="cell-label">입력 형태</span>
+      <strong>단일 값 (Elementary Input)</strong>
     </div>
-    <div class="abap-editor-title">ABAP</div>
-    <div class="abap-editor-actions">
-      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    <div class="grid-cell">
+      <span class="cell-label">금지 사항</span>
+      <strong>범위 검색 (From ~ To)</strong>
     </div>
-  </div>
-  <div class="abap-editor-body">
-    <div class="abap-editor-line-numbers">
-      1<br>2<br>3<br>4<br>5<br>6
-    </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> z_my_first_param.
-
-<span class="abap-token-keyword">PARAMETERS</span> p_user(<span class="abap-token-number">10</span>) <span class="abap-token-keyword">TYPE</span> c.
-
-<span class="abap-token-keyword">START-OF-SELECTION</span>.
-  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'사용자:'</span>, p_user.</code></pre>
-  </div>
-</div>
-<!-- ABAP_MOCKUP_END -->
-  <ol>
-    <li>프로그램을 활성화하고 실행합니다.</li>
-    <li>Selection Screen에 생긴 <code>P_USER</code> 입력칸에 본인 이름을 넣습니다.</li>
-    <li>실행 후 Output List에 같은 값이 출력되는지 확인합니다.</li>
-    <li><code>PARAMETERS</code> 줄을 <code>DATA p_user(10) TYPE c.</code>로 바꿔 보고, 입력칸이 사라지는지 확인합니다.</li>
-  </ol>
-  <details class="foldable">
-    <summary>왜 입력칸이 사라지나요?</summary>
-    <p><code>DATA</code>는 프로그램 안의 변수만 만들기 때문입니다. 사용자가 실행 전에 값을 넣을 화면 요소를 만들려면 <code>PARAMETERS</code>가 필요합니다. 즉, <code>PARAMETERS</code>는 내부 변수와 Selection Screen 입력 필드를 함께 선언하는 문장입니다.</p>
-  </details>
-</section>
-
-<section class="lesson-section">
-  <h2>6. 이번 범위와 다음 범위</h2>
-  <div class="recap-grid">
-    <div class="recap-card">
-      <strong>이번 Lesson</strong>
-      <span><code>PARAMETERS</code> 한 줄이 입력칸과 변수를 함께 만든다는 기본 원리를 익힙니다.</span>
-    </div>
-    <div class="recap-card">
-      <strong>M02에서 확장</strong>
-      <span><code>DEFAULT</code>로 처음 보이는 값을 넣고, <code>OBLIGATORY</code>로 필수 입력을 표시합니다.</span>
-    </div>
-    <div class="recap-card">
-      <strong>M03에서 연결</strong>
-      <span>입력값이 프로그램 변수로 넘어와 <code>WRITE</code> 출력으로 이어지는 흐름을 봅니다.</span>
-    </div>
-    <div class="recap-card">
-      <strong>M04에서 정리</strong>
-      <span><code>SELECTION-SCREEN BEGIN OF BLOCK</code>으로 입력 필드를 묶어 화면을 정리합니다.</span>
-    </div>
-  </div>
-  <div class="lesson-callout">
-    <div class="lesson-callout-icon">ℹ️</div>
-    <div class="lesson-callout-content">
-      <h4>ABAP Cloud 환경 주의</h4>
-      <p>이 Chapter는 Classic ABAP/SAP GUI Report의 Selection Screen 맛보기입니다. ABAP Cloud나 Fiori 중심 개발에서는 같은 사용자 조건 입력을 CDS/RAP/Fiori 방식으로 설계하는 경우가 많습니다. 지금은 레거시 Report를 읽고 수정하기 위한 기본 문법으로 받아들이면 됩니다.</p>
-    </div>
-  </div>
-</section>
-
-<section class="lesson-section">
-  <h2>7. 공식 문서로 더 확인하기</h2>
-  <div class="link-list">
-    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS.html" target="_blank" rel="noopener">SAP Help: PARAMETERS <span><code>PARAMETERS</code> 문장과 Selection Screen 요소 생성 관계를 확인합니다.</span></a>
-    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSELECTION_SCREEN_OVERVIEW.html" target="_blank" rel="noopener">SAP Help: Selection Screens Overview <span>실행 프로그램의 표준 Selection Screen과 Screen 1000 개념을 확인합니다.</span></a>
-    <a href="https://learning.sap.com/courses/technical-implementation-and-operation-i-of-sap-s-4hana-and-sap-business-suite/accessing-and-editing-abap-repository-objects" target="_blank" rel="noopener">SAP Learning: Repository Objects <span>Repository Object를 열고 ABAP 소스를 실행하는 기본 맥락을 복습합니다.</span></a>
-  </div>
-</section>
-
-<section class="lesson-section">
-  <h2>8. 확인 퀴즈</h2>
-  <ol>
-    <li><code>PARAMETERS p_name(20) TYPE c.</code>를 선언하면 프로그램 안과 화면에 각각 무엇이 생기나요?</li>
-    <li><code>DATA</code>로 같은 이름의 변수를 선언하면 Selection Screen 입력칸이 자동으로 생기나요?</li>
-    <li>여러 값이나 범위를 입력받는 기능을 지금 바로 다루지 않는 이유는 무엇인가요?</li>
-  </ol>
-  <details class="foldable">
-    <summary>정답/해설 보기</summary>
-    <ol>
-      <li>화면에는 <code>P_NAME</code> 입력칸이 생기고, 프로그램 안에서는 <code>p_name</code> 변수를 읽을 수 있습니다.</li>
-      <li>아니요. <code>DATA</code>는 내부 변수만 만들고 Selection Screen 입력 필드는 만들지 않습니다.</li>
-      <li>이번 범위는 한 칸에 한 값을 받는 기본 입력입니다. 여러 값과 범위는 <code>SELECT-OPTIONS</code>, Selection Table 같은 다음 개념이 필요합니다.</li>
-    </ol>
-  </details>
-</section>
-
-<section class="lesson-section">
-  <h2>9. 한눈에 정리</h2>
-  <div class="lesson-callout tip">
-    <div class="lesson-callout-icon">📝</div>
-    <div class="lesson-callout-content">
-      <h4>오늘의 기준 문장</h4>
-      <p><code>PARAMETERS</code>는 Selection Screen 입력칸을 만들고, 사용자가 넣은 값을 프로그램 안의 변수처럼 읽게 해 주는 선언입니다. <code>DATA</code>는 메모리만, <code>PARAMETERS</code>는 화면과 메모리를 함께 만든다고 구분하세요.</p>
+    <div class="grid-cell">
+      <span class="cell-label">진화 방향</span>
+      <strong>Cloud 환경에선 Fiori/RAP로 대체됨</strong>
     </div>
   </div>
 </section>

@@ -1,3 +1,4 @@
+<!-- THEORY-13-M01.html | 최종수정 2026-06-17 00:51 KST -->
 <!-- lesson-content/THEORY-13-M01.html -->
 
 <div class="lesson-callout tip">
@@ -488,21 +489,61 @@
     <div class="diff-container">
       <div class="diff-pane bad-code">
         <h4>❌ Bad Practice (버그 유발)</h4>
-        <pre><code><span class="diff-highlight" data-diff-target="err-param" data-explain-title="화면 입력 파라미터 선언" data-explain-desc="조회 조건 화면에서 사용자가 직접 입력할 수 있는 4자리 연도 파라미터 필드를 선언합니다.">PARAMETERS p_year TYPE c LENGTH 4.</span>
+        <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">PARAMETERS</span> p_year <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> <span class="abap-token-number">4</span>.
 
-<span class="diff-highlight" data-diff-target="err-block" data-explain-title="잘못된 이벤트 블록 사용" data-explain-desc="START-OF-SELECTION은 사용자가 조회(F8)를 누른 직후에 실행되는 메인 로직 블록입니다. 여기에 기본값 세팅을 넣는 실수를 자주 범합니다.">START-OF-SELECTION.</span>
-<span class="diff-highlight" data-diff-target="err-logic" data-explain-title="매 실행마다 값 덮어쓰기 버그" data-explain-desc="사용자가 조회 화면에서 연도를 수정하고 실행(F8)을 누를 때마다 이 로직이 수행되어, 사용자가 수정한 값을 강제로 기본값인 '2026'으로 매번 덮어써 버리게 됩니다.">  p_year = '2026'.</span>
-<span class="diff-highlight" data-diff-target="err-select" data-explain-title="조회 쿼리 수행" data-explain-desc="덮어쓰기 버그로 인해 p_year는 항상 '2026'이 되므로, 사용자가 화면에 어떤 값을 입력해 조회했든 무조건 '2026'년 데이터만 조회하게 됩니다.">  <span class="abap-token-keyword">SELECT</span> * <span class="abap-token-keyword">FROM</span> zemp <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> gt_data <span class="abap-token-keyword">WHERE</span> gyear = p_year.</span></code></pre>
+<span class="abap-token-keyword">START-OF-SELECTION</span>.
+  p_year = <span class="abap-token-string">'2026'</span>.
+  <span class="abap-token-keyword">SELECT</span> * <span class="abap-token-keyword">FROM</span> zemp <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> gt_data <span class="abap-token-keyword">WHERE</span> gyear = p_year.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
       </div>
       <div class="diff-pane good-code">
         <h4>✅ Good Practice (권장 구조)</h4>
-        <pre><code><span class="diff-highlight" data-diff-source="err-param" data-explain-title="화면 입력 파라미터 선언" data-explain-desc="조회 조건 화면에서 사용자가 직접 입력할 수 있는 4자리 연도 파라미터 필드를 선언합니다.">PARAMETERS p_year TYPE c LENGTH 4.</span>
+        <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6<br>7
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">PARAMETERS</span> p_year <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> <span class="abap-token-number">4</span>.
 
-<span class="diff-highlight" data-diff-source="err-block" data-explain-title="올바른 초기값 시점 설정" data-explain-desc="INITIALIZATION은 화면이 사용자에게 로드되기 전 딱 한 번만 수행되는 이벤트입니다. 여기에 기본값을 할당해야 안전합니다.">INITIALIZATION.</span>
-<span class="diff-highlight" data-diff-source="err-logic" data-explain-title="안전한 기본값 세팅" data-explain-desc="선택 화면 로드 전에 값을 '2026'으로 단 한 번 채우므로, 화면에는 '2026'이 기본값으로 노출되며 사용자가 값을 다른 연도로 바꾸어 실행(F8)해도 덮어쓰지 않고 변경된 값을 그대로 사용합니다.">  p_year = '2026'.</span>
+<span class="abap-token-keyword">INITIALIZATION</span>.
+  p_year = <span class="abap-token-string">'2026'</span>.
 
-<span class="abap-token-keyword">START-OF-SELECTION.</span>
-<span class="diff-highlight" data-diff-source="err-select" data-explain-title="의도한 연도 조회 성공" data-explain-desc="사용자가 화면에서 수정한 연도 값이 덮어쓰여지지 않고 안전하게 보존되어, SELECT 쿼리의 WHERE 조건에 올바르게 적용되어 정상 조회됩니다.">  <span class="abap-token-keyword">SELECT</span> * <span class="abap-token-keyword">FROM</span> zemp <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> gt_data <span class="abap-token-keyword">WHERE</span> gyear = p_year.</span></code></pre>
+<span class="abap-token-keyword">START-OF-SELECTION</span>.
+  <span class="abap-token-keyword">SELECT</span> * <span class="abap-token-keyword">FROM</span> zemp <span class="abap-token-keyword">INTO</span> <span class="abap-token-keyword">TABLE</span> gt_data <span class="abap-token-keyword">WHERE</span> gyear = p_year.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
       </div>
     </div>
     <div class="diff-explanation">
@@ -650,7 +691,27 @@
   <!-- 가상 디버거 위젯 -->
   <div class="interactive-debugger">
     <div class="debugger-code-panel">
-      <pre><code><span class="db-line" data-line="1">REPORT zreport_event_demo.</span><span class="db-line" data-line="2"></span><span class="db-line" data-line="3">START-OF-SELECTION.</span><span class="db-line" data-line="4"> WRITE: / '[3] START-OF-SELECTION 실행 (메인 로직)'.</span><span class="db-line" data-line="5"></span><span class="db-line" data-line="6">END-OF-SELECTION.</span><span class="db-line" data-line="7"> WRITE: / '[4] END-OF-SELECTION 실행 (출력 마감)'.</span><span class="db-line" data-line="8"></span><span class="db-line" data-line="9">INITIALIZATION.</span><span class="db-line" data-line="10"> WRITE: / '[1] INITIALIZATION 실행 (초기화)'.</span></code></pre>
+      <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zreport_event_demo.<span class="abap-token-keyword">START-OF-SELECTION</span>. <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'[3] START-OF-SELECTION 실행 (메인 로직)'</span>.<span class="abap-token-keyword">END-OF-SELECTION</span>. <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'[4] END-OF-SELECTION 실행 (출력 마감)'</span>.<span class="abap-token-keyword">INITIALIZATION</span>. <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'[1] INITIALIZATION 실행 (초기화)'</span>.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
     </div>
     <div class="debugger-monitor-panel">
       <div class="monitor-header">⚙️ ABAP Debugger Monitor</div>

@@ -3747,7 +3747,8 @@
     "desc": "ABAP 프로그램(리포트)의 소스 코드를 작성·편집하고 바로 실행·디버깅할 수 있는 전통적인 편집기입니다.",
     "everyday_analogy": "쉽게 말해 일상 비유: 글을 쓰고 곧바로 '실행' 버튼을 눌러 결과를 보는 문서 편집기와 같아요.",
     "used_in_lessons": [
-      "THEORY-01-M01"
+      "THEORY-01-M01",
+      "THEORY-03-M01"
     ],
     "design_theme": "primary",
     "html_content": ""
