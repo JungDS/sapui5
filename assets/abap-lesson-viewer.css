@@ -1726,6 +1726,24 @@
   box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
 }
 
+.sap-screen-block {
+  margin: 0;
+  padding: 18px 16px 16px;
+  border: 1px solid #94a3b8;
+  border-radius: 6px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sap-screen-block legend {
+  padding: 0 8px;
+  color: #12365f;
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+
 .sap-btn-execute {
   align-self: flex-start;
   background: #2563eb;

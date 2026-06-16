@@ -1,6 +1,6 @@
 # 02. PROGRESS — 목표 진행 현황 · 작업 claim 보드
 
-> 📅 **최종수정: 2026-06-16 10:43 KST**
+> 📅 **최종수정: 2026-06-16 10:49 KST**
 > 🎯 **목적:** 단일 목표(Track 1 v3 리빌딩)가 어디까지 진행됐는지, 지금 누가 무엇을 잡고 있는지 한눈에. 다음 단계 결정과 충돌 방지의 SSOT.
 > 📖 **읽을 때:** 작업 **시작 직전(필수)** 과 종료 시. 목표 → [01_AI_SYNC](01_AI_SYNC.md).
 > ⚡ **TL;DR:**
@@ -23,7 +23,7 @@
 |---|---|---|---|
 | 01 | ✅ | 6 / 6 | Chapter 1 완료 (THEORY-01-M01~M06) |
 | 02 | ✅ | 6 / 6 | Chapter 2 완료 (THEORY-02-M01~M06, ABAP 기본 문법과 WRITE 출력) |
-| 03 | 🔄 | 3 / 4 | THEORY-03-M03 완료, 다음 THEORY-03-M04 예정 |
+| 03 | ✅ | 4 / 4 | Chapter 3 완료 (THEORY-03-M01~M04, PARAMETERS 기반 Selection Screen 맛보기) |
 | 04 | ⬜ | 0 / — | |
 | 05 | ⬜ | 0 / — | |
 | 06 | ⬜ | 0 / — | |
@@ -43,7 +43,7 @@
 | 20 | ⬜ | 0 / — | |
 | 21 | ⬜ | 0 / — | |
 
-> 현재 전체: **12 / 137 Lesson 리빌딩 완료**. (이전 라운드 산출물은 백지화 대상이므로 진행률에 포함하지 않는다.)
+> 현재 전체: **16 / 137 Lesson 리빌딩 완료**. (이전 라운드 산출물은 백지화 대상이므로 진행률에 포함하지 않는다.)
 
 ## 🔄 진행 중 (Active Claims)
 
@@ -59,6 +59,7 @@
 
 | Lesson | AI | 완료(KST) | 비고 |
 |---|---|---|---|
+| THEORY-03-M04 | Codex | 2026-06-16 10:49 KST | NotebookLM+SAP 공식 재검증, BEGIN/END BLOCK·WITH FRAME TITLE·static Block 목업·범위 밖 항목 정리, 글로서리 0건, 콘솔 오류 0건, Chapter 3 완료 |
 | THEORY-03-M03 | Codex | 2026-06-16 10:43 KST | NotebookLM+SAP 공식 재검증, 화면→메모리→List Output 흐름/정적 SAP 목업/출력 오해 정리, 글로서리 0건, 콘솔 오류 0건 |
 | THEORY-03-M02 | Codex | 2026-06-16 10:35 KST | NotebookLM+SAP 공식 재검증, DEFAULT/OBLIGATORY 전후 비교·오류 흐름·실습/퀴즈 적용, 글로서리 0건, 콘솔 오류 0건 |
 | THEORY-03-M01 | Codex | 2026-06-16 10:28 KST | NotebookLM+SAP 공식 재검증, PARAMETERS 입력칸+변수 흐름/DATA 비교/Screen 1000/모바일 Selection Screen 보강, 글로서리 0건, 콘솔 오류 0건 |
