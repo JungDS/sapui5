@@ -1,4 +1,4 @@
-// ABAP Curriculum Lesson Viewer | 최종수정 2026-06-16 19:05 KST | v1.4
+// ABAP Curriculum Lesson Viewer | 최종수정 2026-06-17 00:31 KST | v1.4
 //
 // Reads `?lesson=THEORY-01-M01` from the URL, loads the curriculum JSON to find metadata,
 // and fetches the actual lesson content from `lesson-content/THEORY-01-M01.html`.
@@ -730,6 +730,9 @@
     sandboxes.forEach(function (sandbox) {
       var btnExec = sandbox.querySelector('.sap-btn-execute');
       var logEl = sandbox.querySelector('.sap-result-log');
+      if (!btnExec) return;
+
+      var config = parseSandboxConfig(sandbox);
       var yearInput = sandbox.querySelector('#sb-year');
       var empInput = sandbox.querySelector('#sb-emp-no');
       
@@ -748,6 +751,13 @@
       modalBtn.addEventListener('click', function () {
         modalOverlay.style.display = 'none';
       });
+
+      if (config) {
+        btnExec.addEventListener('click', function () {
+          runConfiguredSandbox(sandbox, config, logEl, showSapError);
+        });
+        return;
+      }
       
       var empDb = [
         { id: '1000', name: '정훈영', dept: 'SD개발팀', year: '2026' },
@@ -757,7 +767,7 @@
       ];
       
       btnExec.addEventListener('click', function () {
-        if (!logEl) return;
+        if (!logEl || !yearInput || !empInput) return;
         logEl.innerHTML = '';
         var yearVal = yearInput.value.trim();
         var empVal = empInput.value.trim();
@@ -830,6 +840,109 @@
         modalOverlay.style.display = 'flex';
       }
     });
+  }
+
+  function parseSandboxConfig(sandbox) {
+    var configEl = sandbox.querySelector('template.sandbox-config, script.sandbox-config');
+    if (!configEl) return null;
+
+    try {
+      var rawConfig = configEl.content ? configEl.content.textContent : configEl.textContent;
+      return JSON.parse(rawConfig);
+    } catch (error) {
+      console.error('Invalid SAP sandbox config: ', error);
+      return null;
+    }
+  }
+
+  function interpolateSandboxText(value, fields) {
+    return String(value == null ? '' : value).replace(/\{([a-zA-Z0-9_-]+)\}/g, function (_, key) {
+      return fields[key] == null ? '' : fields[key];
+    });
+  }
+
+  function collectSandboxFields(sandbox, config) {
+    var fields = {};
+    var definitions = config.fields || {};
+
+    Object.keys(definitions).forEach(function (key) {
+      var input = sandbox.querySelector(definitions[key]);
+      fields[key] = input && 'value' in input ? input.value.trim() : '';
+    });
+
+    return fields;
+  }
+
+  function runConfiguredSandbox(sandbox, config, logEl, showSapError) {
+    if (!logEl) return;
+
+    logEl.innerHTML = '';
+    var fields = collectSandboxFields(sandbox, config);
+    var steps = config.steps || [];
+
+    steps.forEach(function (step) {
+      addConfiguredLogLine(logEl, step.label, step.type, interpolateSandboxText(step.text, fields));
+    });
+
+    var validations = config.validations || [];
+    for (var i = 0; i < validations.length; i++) {
+      var rule = validations[i];
+      var fieldValue = fields[rule.field] || '';
+      if (!isSandboxRuleValid(fieldValue, rule)) {
+        addConfiguredLogLine(logEl, rule.label || 'Error', 'error', interpolateSandboxText(rule.text, fields));
+        showSapError(interpolateSandboxText(rule.modal || rule.text, fields));
+        return;
+      }
+    }
+
+    (config.successSteps || []).forEach(function (step) {
+      addConfiguredLogLine(logEl, step.label, step.type, interpolateSandboxText(step.text, fields));
+    });
+
+    renderConfiguredSandboxResult(logEl, config.result, fields);
+  }
+
+  function isSandboxRuleValid(value, rule) {
+    if (rule.test === 'required') return value.length > 0;
+    if (rule.test === 'numeric') return value === '' || !isNaN(value);
+    if (rule.test === 'num4') return /^[0-9]{4}$/.test(value);
+    if (rule.test === 'prefix') return value.toUpperCase().indexOf(String(rule.value || '').toUpperCase()) === 0;
+    if (rule.test === 'regex') return new RegExp(rule.pattern).test(value);
+    if (rule.test === 'equals') return value === String(rule.value == null ? '' : rule.value);
+    return true;
+  }
+
+  function renderConfiguredSandboxResult(logEl, result, fields) {
+    if (!result) return;
+
+    if (result.text) {
+      addConfiguredLogLine(logEl, result.label || 'Result', result.type || 'info', interpolateSandboxText(result.text, fields));
+    }
+
+    var columns = result.columns || [];
+    var rows = result.rows || [];
+    if (!columns.length || !rows.length) return;
+
+    var tableHtml = '<table class="sap-alv-table"><thead><tr>' +
+      columns.map(function (col) { return '<th>' + escapeHtml(col.head || col.key) + '</th>'; }).join('') +
+      '</tr></thead><tbody>';
+
+    rows.forEach(function (row) {
+      tableHtml += '<tr>' + columns.map(function (col) {
+        return '<td>' + escapeHtml(interpolateSandboxText(row[col.key], fields)) + '</td>';
+      }).join('') + '</tr>';
+    });
+
+    tableHtml += '</tbody></table>';
+    logEl.innerHTML += '<div class="sap-log-line info">' + tableHtml + '</div>';
+  }
+
+  function addConfiguredLogLine(logEl, label, type, text) {
+    var line = document.createElement('div');
+    line.className = 'sap-log-line ' + (type || 'info');
+    line.innerHTML = '[' + escapeHtml(label || 'System') + '] ' + escapeHtml(text || '');
+    logEl.appendChild(line);
+    logEl.scrollTop = logEl.scrollHeight;
   }
 
   // 6. 점진적 빌드업 탭 제어 함수 (Incremental Build-Up Tabs)
