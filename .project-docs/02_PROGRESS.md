@@ -1,6 +1,6 @@
 # 02. PROGRESS — 목표 진행 현황 · 작업 claim 보드
 
-> 📅 **최종수정: 2026-06-16 10:28 KST**
+> 📅 **최종수정: 2026-06-16 10:35 KST**
 > 🎯 **목적:** 단일 목표(Track 1 v3 리빌딩)가 어디까지 진행됐는지, 지금 누가 무엇을 잡고 있는지 한눈에. 다음 단계 결정과 충돌 방지의 SSOT.
 > 📖 **읽을 때:** 작업 **시작 직전(필수)** 과 종료 시. 목표 → [01_AI_SYNC](01_AI_SYNC.md).
 > ⚡ **TL;DR:**
@@ -23,7 +23,7 @@
 |---|---|---|---|
 | 01 | ✅ | 6 / 6 | Chapter 1 완료 (THEORY-01-M01~M06) |
 | 02 | ✅ | 6 / 6 | Chapter 2 완료 (THEORY-02-M01~M06, ABAP 기본 문법과 WRITE 출력) |
-| 03 | 🔄 | 1 / 4 | THEORY-03-M01 완료, 다음 THEORY-03-M02 예정 |
+| 03 | 🔄 | 2 / 4 | THEORY-03-M02 완료, 다음 THEORY-03-M03 예정 |
 | 04 | ⬜ | 0 / — | |
 | 05 | ⬜ | 0 / — | |
 | 06 | ⬜ | 0 / — | |
@@ -59,6 +59,7 @@
 
 | Lesson | AI | 완료(KST) | 비고 |
 |---|---|---|---|
+| THEORY-03-M02 | Codex | 2026-06-16 10:35 KST | NotebookLM+SAP 공식 재검증, DEFAULT/OBLIGATORY 전후 비교·오류 흐름·실습/퀴즈 적용, 글로서리 0건, 콘솔 오류 0건 |
 | THEORY-03-M01 | Codex | 2026-06-16 10:28 KST | NotebookLM+SAP 공식 재검증, PARAMETERS 입력칸+변수 흐름/DATA 비교/Screen 1000/모바일 Selection Screen 보강, 글로서리 0건, 콘솔 오류 0건 |
 | THEORY-02-M06 | Claude Opus 4.8 | 2026-06-16 01:45 KST | 문자열/날짜/SY 필드. v3 상태그리드/비교/목업3/접이식/퀴즈/요약, 글로서리 0건, 콘솔 오류 0건, Chapter 2 완료 |
 | THEORY-02-M05 | Claude Opus 4.8 | 2026-06-16 01:45 KST | DO/WHILE/EXIT/CONTINUE. v3 상태그리드/탭/목업3/접이식/요약, 글로서리 0건, 콘솔 오류 0건 |
