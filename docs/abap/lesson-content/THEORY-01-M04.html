@@ -1,329 +1,297 @@
-<!-- lesson-content/THEORY-01-M04.html | 최종수정 2026-06-16 01:25 KST -->
+<!-- lesson-content/THEORY-01-M04.html | 최종수정 2026-06-17 01:28 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
   <div class="lesson-callout-content">
     <h4>학습 목표</h4>
-    <p>이번 Lesson에서는 낱개 <span class="glossary-term" data-glossary="DataElement">Data Element</span>를 모아 한 줄짜리 데이터 모양을 만드는 <span class="glossary-term" data-glossary="Structure">Structure</span>를 배웁니다. Structure 안의 <span class="glossary-term" data-glossary="Component">Component</span>, 프로그램 메모리의 <span class="glossary-term" data-glossary="WorkArea">Work Area</span>, 여러 곳에서 공유하는 <span class="glossary-term" data-glossary="ReusableType">Reusable Type</span>을 구분하고, Structure가 <span class="glossary-term" data-glossary="TransparentTable">Transparent Table</span>과 어떻게 다른지 설명할 수 있게 됩니다.</p>
+    <p>이번 Lesson에서는 낱개 <span class="glossary-term" data-glossary="DataElement">Data Element</span>를 모아 한 줄짜리 데이터 모양을 만드는 <span class="glossary-term" data-glossary="Structure">Structure</span>를 설계합니다. <span class="glossary-term" data-glossary="Component">Component</span>, <span class="glossary-term" data-glossary="WorkArea">Work Area</span>, <span class="glossary-term" data-glossary="ReusableType">Reusable Type</span>을 구분하고, <span class="glossary-term" data-glossary="SE11">SE11</span>에서 Structure를 생성·<span class="glossary-term" data-glossary="Activation">활성화</span>하는 흐름을 직접 시뮬레이션합니다.</p>
   </div>
 </div>
 
 <section class="lesson-section">
-  <h2>1. 낱개 필드는 결국 한 줄로 묶인다</h2>
+  <h2>1. Structure는 한 줄 데이터의 설계도다</h2>
   <p>
-    지금까지 Domain으로 재질을 정하고, Data Element로 의미와 라벨을 붙였습니다. 하지만 실제 업무 데이터는 낱개 필드 하나만으로 움직이지 않습니다. 항공편 한 건에는 항공사 코드, 편명, 출발일, 출발지, 도착지가 함께 필요합니다.
+    지금까지는 Domain으로 재질을 정하고 Data Element로 의미와 라벨을 붙였습니다. 하지만 실제 업무 데이터는 필드 하나만으로 움직이지 않습니다. 주문 한 건에는 주문번호, 고객번호, 주문일, 상태가 함께 필요합니다.
   </p>
   <p>
-    Structure는 이렇게 함께 움직이는 필드들을 정해진 순서로 묶는 DDIC 타입입니다. SAP Help는 Structure가 Component로 이루어진 structured type이며, Component는 Data Element나 직접 타입, 다른 Structure, Table Type 등을 참조할 수 있다고 설명합니다.
+    Structure는 이렇게 함께 움직이는 Component를 정해진 순서로 묶은 Dictionary 타입입니다. SAP 공식 문서 기준으로 Structure는 다른 데이터 타입을 Component로 포함하는 structured type이며, ABAP 코드의 변수나 파라미터 타입으로 사용할 수 있습니다.
   </p>
   <blockquote>
-    Structure는 “한 줄 데이터가 어떤 칸을 가져야 하는가”를 정의하는 재사용 가능한 타입입니다.
+    Structure는 데이터 저장소가 아니라 “한 줄 값이 어떤 칸을 가져야 하는가”를 정하는 재사용 가능한 타입입니다.
   </blockquote>
+  <div class="viz-visual">
+    <p class="viz-visual-title">Chapter 1 조립 흐름</p>
+    <div class="viz-relation">
+      <div class="viz-concept">
+        <span class="viz-concept-label">Domain</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td>기술 재질</td></tr>
+            <tr><td>타입, 길이, 값 범위</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-arrow">→</div>
+      <div class="viz-concept">
+        <span class="viz-concept-label">Data Element</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td>업무 의미</td></tr>
+            <tr><td>라벨, F1 설명</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-arrow">→</div>
+      <div class="viz-concept">
+        <span class="viz-concept-label">Structure</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td>한 줄 모양</td></tr>
+            <tr><td>여러 Component 묶음</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section class="lesson-section">
   <h2>2. Structure 안에는 Component가 들어간다</h2>
   <p>
-    Structure를 표처럼 생각하면 이해가 쉽습니다. Structure 자체는 한 줄의 모양이고, 그 안의 각 칸이 Component입니다. Component는 보통 의미가 붙은 Data Element를 타입으로 참조합니다.
+    Structure를 표의 한 행처럼 생각하면 쉽습니다. Structure 자체는 한 줄의 모양이고, 그 안의 각 칸이 Component입니다. Component type에는 Data Element를 자주 사용합니다. 그래야 기술 타입뿐 아니라 라벨과 의미 정보도 따라옵니다.
   </p>
   <div class="viz-visual">
-    <p class="viz-visual-title">항공편 한 줄 Structure 예시</p>
-    <div class="viz-relation">
-      <div class="viz-concept">
-        <span class="viz-concept-label">Structure</span>
-        <table class="viz-table">
-          <tbody>
-            <tr><td><code>ZSFLIGHT_LINE</code></td></tr>
-            <tr><td>항공편 한 줄 모양</td></tr>
-            <tr><td>DB 저장소 아님</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="viz-arrow">→</div>
-      <div class="viz-concept">
-        <span class="viz-concept-label">Components</span>
-        <table class="viz-table">
-          <tbody>
-            <tr><td><code>CARRID</code> : 항공사 코드</td></tr>
-            <tr><td><code>CONNID</code> : 편명</td></tr>
-            <tr><td><code>FLDATE</code> : 출발일</td></tr>
-            <tr><td><code>PRICE</code> : 요금</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="viz-arrow">→</div>
-      <div class="viz-concept">
-        <span class="viz-concept-label">Component Type</span>
-        <table class="viz-table">
-          <tbody>
-            <tr><td>Data Element 권장</td></tr>
-            <tr><td>직접 타입 입력 가능</td></tr>
-            <tr><td>다른 Structure도 가능</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <p class="viz-note">Data Element를 쓰면 라벨과 F1/F4 같은 의미 정보까지 함께 따라올 수 있습니다.</p>
+    <p class="viz-visual-title">주문 한 줄 Structure 예시</p>
+    <table class="viz-table">
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Component Type</th>
+          <th>의미</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>ORDER_ID</code></td>
+          <td><code>ZDE_ORDER_ID</code></td>
+          <td>주문 번호</td>
+        </tr>
+        <tr>
+          <td><code>CUSTOMER_ID</code></td>
+          <td><code>ZDE_CUSTOMER_ID</code></td>
+          <td>고객 번호</td>
+        </tr>
+        <tr>
+          <td><code>ORDER_DATE</code></td>
+          <td><code>ZDE_ORDER_DATE</code></td>
+          <td>주문일</td>
+        </tr>
+        <tr>
+          <td><code>STATUS</code></td>
+          <td><code>ZDE_ORDER_STATUS</code></td>
+          <td>주문 상태</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="viz-note">Component 이름은 Structure 안에서 보이는 칸 이름이고, Component Type은 그 칸이 어떤 Data Element나 타입을 참조하는지입니다.</p>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>3. Structure와 Work Area는 설계도와 실제 변수다</h2>
+  <h2>3. 직접 해보기: SE11에서 Structure 만들기</h2>
   <p>
-    초심자가 가장 자주 헷갈리는 지점은 DDIC Structure와 ABAP 프로그램 안의 Work Area입니다. Structure는 타입이고, Work Area는 그 타입으로 만든 실제 변수입니다.
+    SAP GUI 명령창에 <span class="glossary-term" data-glossary="SE11">SE11</span> 또는 <code>/nSE11</code>을 입력하고 Data Type을 선택한 뒤 Structure 이름을 입력합니다. Create에서 Structure를 고르면 Component 목록을 입력하는 화면으로 이동합니다. 아래 sandbox에서 한 줄 타입을 직접 구성해 보세요.
+  </p>
+  <div class="interactive-sap-sandbox">
+    <div class="sap-gui-header">
+      <div class="sap-tcode-bar">T-Code: <span class="tcode-val">SE11 Structure</span></div>
+    </div>
+    <div class="sap-gui-title-bar">ABAP Dictionary: Structure Maintenance</div>
+    <div class="sap-selection-screen">
+      <div class="sap-field-row">
+        <label>Structure</label>
+        <input type="text" class="sap-input sap-input-medium" id="m04-structure" value="ZST_ORDER_LINE" maxlength="30">
+      </div>
+      <div class="sap-field-row">
+        <label>Component 1</label>
+        <input type="text" class="sap-input sap-input-medium" id="m04-comp1" value="ORDER_ID : ZDE_ORDER_ID" maxlength="60">
+      </div>
+      <div class="sap-field-row">
+        <label>Component 2</label>
+        <input type="text" class="sap-input sap-input-medium" id="m04-comp2" value="CUSTOMER_ID : ZDE_CUSTOMER_ID" maxlength="60">
+      </div>
+      <div class="sap-field-row">
+        <label>Component 3</label>
+        <input type="text" class="sap-input sap-input-medium" id="m04-comp3" value="ORDER_DATE : ZDE_ORDER_DATE" maxlength="60">
+      </div>
+      <div class="sap-field-row">
+        <label>Component 4</label>
+        <input type="text" class="sap-input sap-input-medium" id="m04-comp4" value="STATUS : ZDE_ORDER_STATUS" maxlength="60">
+      </div>
+      <button class="sap-btn-execute" type="button">검사 후 활성화 (Ctrl+F3)</button>
+    </div>
+    <div class="sap-result-log">
+      <div class="sap-log-placeholder">버튼을 누르면 Structure 활성화 결과와 ABAP Work Area preview가 출력됩니다.</div>
+    </div>
+    <template class="sandbox-config">
+{
+  "fields": {
+    "structure": "#m04-structure",
+    "comp1": "#m04-comp1",
+    "comp2": "#m04-comp2",
+    "comp3": "#m04-comp3",
+    "comp4": "#m04-comp4"
+  },
+  "steps": [
+    { "label": "SE11", "type": "event", "text": "Data Type에서 Structure {structure} 생성 화면을 엽니다." },
+    { "label": "Components", "type": "info", "text": "Component 목록을 입력했습니다: {comp1}, {comp2}, {comp3}, {comp4}" },
+    { "label": "Save", "type": "info", "text": "{structure}를 저장했습니다. 아직 DB 테이블은 생성되지 않았습니다." }
+  ],
+  "validations": [
+    { "field": "structure", "test": "required", "label": "Name Check", "text": "Structure 이름이 비어 있습니다.", "modal": "Structure 이름을 입력하세요." },
+    { "field": "structure", "test": "regex", "pattern": "^(Z|Y)[A-Z0-9_]{3,29}$", "label": "Name Check", "text": "{structure}은 고객 네임스페이스 이름 규칙에 맞지 않습니다.", "modal": "Structure 이름은 Z 또는 Y로 시작하고 대문자·숫자·언더스코어를 사용하세요." },
+    { "field": "comp1", "test": "required", "label": "Component Check", "text": "첫 번째 Component가 비어 있습니다.", "modal": "최소 하나 이상의 Component를 입력하세요." },
+    { "field": "comp2", "test": "required", "label": "Component Check", "text": "두 번째 Component가 비어 있습니다.", "modal": "한 줄 타입으로 의미 있는 Component 목록을 채우세요." }
+  ],
+  "successSteps": [
+    { "label": "Check", "type": "event", "text": "Component 이름과 Component Type 참조를 검사했습니다." },
+    { "label": "Activate", "type": "event", "text": "{structure}이 활성화되어 ABAP 코드에서 TYPE으로 참조할 수 있습니다." }
+  ],
+  "result": {
+    "label": "Preview",
+    "type": "info",
+    "text": "Structure는 코드 타입으로 사용되고 DB 저장소는 만들지 않습니다.",
+    "columns": [
+      { "key": "where", "head": "위치" },
+      { "key": "value", "head": "보이는 값" },
+      { "key": "meaning", "head": "의미" }
+    ],
+    "rows": [
+      { "where": "ABAP Code", "value": "DATA gs_order TYPE {structure}.", "meaning": "Structure 타입으로 Work Area를 만듭니다." },
+      { "where": "Memory", "value": "{comp1} / {comp2} / {comp3} / {comp4}", "meaning": "프로그램 실행 중 한 줄 값이 이 Component 모양으로 잡힙니다." },
+      { "where": "Database", "value": "No table created", "meaning": "Structure 활성화만으로 영구 저장 테이블은 생기지 않습니다." }
+    ]
+  }
+}
+    </template>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>4. Structure와 Transparent Table은 닮았지만 다르다</h2>
+  <p>
+    Structure와 <span class="glossary-term" data-glossary="TransparentTable">Transparent Table</span>은 모두 필드 목록처럼 보입니다. 하지만 Structure는 타입이고, Transparent Table은 데이터베이스 저장 대상입니다.
   </p>
   <div class="viz-visual">
-    <p class="viz-visual-title">설계도와 실체 구분</p>
+    <p class="viz-visual-title">저장 여부로 구분하기</p>
     <div class="viz-compare">
       <div class="viz-compare-before">
         <span class="viz-compare-label">Structure</span>
         <div class="viz-compare-body">
           <ul>
-            <li>DDIC에 저장되는 타입 정의입니다.</li>
-            <li>필드 이름, 순서, Component 타입을 정의합니다.</li>
-            <li>그 자체가 프로그램 실행 중 값을 담는 변수는 아닙니다.</li>
+            <li>한 줄 데이터 타입입니다.</li>
+            <li>ABAP 변수, 메서드 파라미터, Table Type row로 재사용합니다.</li>
+            <li><span class="viz-badge fail">영구 저장소 아님</span></li>
           </ul>
         </div>
       </div>
       <div class="viz-compare-after">
-        <span class="viz-compare-label">Work Area</span>
+        <span class="viz-compare-label">Transparent Table</span>
         <div class="viz-compare-body">
           <ul>
-            <li>ABAP 프로그램 메모리에 생기는 실제 데이터 객체입니다.</li>
-            <li>Structure 타입을 사용해 한 줄 값을 담습니다.</li>
-            <li><code>wa_flight-carrid</code>처럼 하이픈으로 Component에 접근합니다.</li>
+            <li>DB 테이블 정의입니다.</li>
+            <li>Key, Client, Technical Settings 같은 저장 관련 설계가 필요합니다.</li>
+            <li><span class="viz-badge success">영구 저장 가능</span></li>
           </ul>
         </div>
       </div>
     </div>
-    <p class="viz-note"><code>DATA wa_flight TYPE zsflight_line.</code>에서 <code>zsflight_line</code>은 타입, <code>wa_flight</code>는 실제 Work Area입니다.</p>
-  </div>
-  <details class="foldable">
-    <summary>Structure 자체가 메모리를 차지할까?</summary>
-    <p>Structure 정의 자체는 설계도입니다. 프로그램에서 그 타입으로 변수나 파라미터를 선언할 때 실제 데이터 객체가 생깁니다. “타입”과 “변수”를 구분해야 합니다.</p>
-  </details>
-</section>
-
-<section class="lesson-section">
-  <h2>4. Structure는 저장소가 아니다</h2>
-  <p>
-    Structure와 Transparent Table은 둘 다 필드 목록처럼 보입니다. 하지만 결정적인 차이는 물리 데이터베이스 저장소를 만드는가입니다.
-  </p>
-  <div class="viz-visual">
-    <p class="viz-visual-title">Structure와 Transparent Table 비교</p>
-    <table class="viz-table">
-      <thead>
-        <tr>
-          <th>구분</th>
-          <th>Structure</th>
-          <th>Transparent Table</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>정체</td>
-          <td>한 줄 데이터 타입</td>
-          <td>데이터베이스 테이블 정의</td>
-        </tr>
-        <tr>
-          <td>활성화 결과</td>
-          <td>Structure 런타임 타입 생성</td>
-          <td>DB 저장 대상과 연결</td>
-        </tr>
-        <tr>
-          <td>데이터 저장</td>
-          <td><span class="viz-badge fail">영구 저장 안 함</span></td>
-          <td><span class="viz-badge success">영구 저장 가능</span></td>
-        </tr>
-        <tr>
-          <td>사용 예</td>
-          <td>Work Area, 메서드 파라미터, Table Type row</td>
-          <td><code>SELECT</code>, <code>INSERT</code> 대상</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="lesson-callout warn">
-    <div class="lesson-callout-icon">⚠️</div>
-    <div class="lesson-callout-content">
-      <h4><code>SELECT * FROM 구조체</code>는 안 됩니다</h4>
-      <p>Structure는 물리 데이터가 없으므로 조회 대상이 아닙니다. Structure는 데이터를 읽어오는 대상이 아니라, 읽어온 값을 담거나 전달하는 타입으로 사용합니다.</p>
-    </div>
+    <p class="viz-note"><code>SELECT * FROM 구조체</code>라고 생각하면 안 됩니다. 조회 대상은 DB 테이블이고, Structure는 조회 결과를 담거나 전달하는 타입입니다.</p>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>5. Reusable Type으로 쓰는 기준</h2>
+  <h2>5. Work Area와 Reusable Type을 구분한다</h2>
   <p>
-    DDIC Structure를 만들면 시스템 여러 곳에서 같은 이름으로 참조할 수 있습니다. 그래서 반복해서 쓰는 데이터 모양에는 Reusable Type으로 가치가 있습니다.
+    Structure 정의 자체는 설계도입니다. ABAP 프로그램에서 <code>DATA gs_order TYPE zst_order_line.</code>처럼 선언할 때 실제 메모리의 Work Area가 생깁니다.
   </p>
   <div class="viz-visual">
-    <p class="viz-visual-title">Structure 사용처 판단</p>
+    <p class="viz-visual-title">타입과 실제 값 구분</p>
     <div class="viz-state-grid">
       <div class="viz-state">
-        <span class="viz-state-label">좋은 후보</span>
+        <span class="viz-state-label">Structure</span>
         <table class="viz-table">
           <tbody>
-            <tr><td>여러 프로그램에서 같은 한 줄 모양을 씁니다.</td></tr>
-            <tr><td>화면·함수·메서드 인터페이스에서 공유합니다.</td></tr>
-            <tr><td>Table Type의 row type으로 재사용합니다.</td></tr>
+            <tr><td><strong>정체</strong></td><td>DDIC에 저장된 한 줄 타입</td></tr>
+            <tr><td><strong>예</strong></td><td><code>ZST_ORDER_LINE</code></td></tr>
           </tbody>
         </table>
       </div>
       <div class="viz-state">
-        <span class="viz-state-label">주의 후보</span>
+        <span class="viz-state-label">Work Area</span>
         <table class="viz-table">
           <tbody>
-            <tr><td>한 클래스 안에서만 쓰는 임시 타입입니다.</td></tr>
-            <tr><td>DDIC 라벨이나 확장성이 필요 없습니다.</td></tr>
-            <tr><td>public type으로 충분할 수 있습니다.</td></tr>
+            <tr><td><strong>정체</strong></td><td>프로그램 실행 중 생기는 변수</td></tr>
+            <tr><td><strong>예</strong></td><td><code>gs_order</code></td></tr>
           </tbody>
         </table>
       </div>
       <div class="viz-state">
-        <span class="viz-state-label">나쁜 후보</span>
+        <span class="viz-state-label">Reusable Type</span>
         <table class="viz-table">
           <tbody>
-            <tr><td>데이터 저장소를 기대하고 만듭니다.</td></tr>
-            <tr><td>테이블 키와 저장 설정이 필요합니다.</td></tr>
-            <tr><td>이 경우 다음 Lesson의 Transparent Table을 검토합니다.</td></tr>
+            <tr><td><strong>정체</strong></td><td>여러 화면·프로그램·인터페이스가 공유하는 타입</td></tr>
+            <tr><td><strong>주의</strong></td><td>한 클래스 안에서만 쓰면 로컬 타입도 검토</td></tr>
           </tbody>
         </table>
       </div>
     </div>
   </div>
   <details class="foldable">
-    <summary>DDIC Structure 대신 클래스 public type을 써도 될까?</summary>
-    <p>가능합니다. SAP Learning도 새 Dictionary 객체를 만들기 전에 global class나 interface의 public structure type을 검토하라고 안내합니다. 여러 도구와 화면에서 DDIC 의미 정보가 필요할 때 Dictionary Structure의 가치가 커집니다.</p>
+    <summary>Flat, Nested, Deep은 지금 어디까지 알면 될까?</summary>
+    <p>이번 Lesson의 중심은 Component가 주로 Data Element 같은 elementary type을 참조하는 flat structure입니다. Component가 또 다른 Structure를 참조하면 nested, table type이나 reference 같은 깊은 Component를 포함하면 deep structure로 확장됩니다.</p>
   </details>
 </section>
 
 <section class="lesson-section">
-  <h2>6. Flat, Nested, Include, Deep은 지금 이렇게만 구분한다</h2>
+  <h2>6. 공식 문서로 더 확인하기</h2>
   <p>
-    Structure에는 더 깊은 주제도 많지만, 지금은 이름만 보고 겁먹지 않을 정도로만 구분하면 충분합니다. 이번 Lesson의 중심은 flat structure입니다.
-  </p>
-  <div class="viz-visual">
-    <p class="viz-visual-title">Structure 형태 구분</p>
-    <table class="viz-table">
-      <thead>
-        <tr>
-          <th>형태</th>
-          <th>초급 설명</th>
-          <th>지금 할 일</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Flat Structure</td>
-          <td>Component가 주로 Data Element 같은 elementary type을 참조합니다.</td>
-          <td><span class="viz-badge success">오늘의 중심</span></td>
-        </tr>
-        <tr>
-          <td>Nested Structure</td>
-          <td>Component가 또 다른 Structure를 참조해 계층이 생깁니다.</td>
-          <td><span class="viz-badge fail">개념만</span></td>
-        </tr>
-        <tr>
-          <td>Include Structure</td>
-          <td>다른 Structure의 Component를 같은 레벨로 펼쳐 넣습니다.</td>
-          <td><span class="viz-badge fail">오해 방지</span></td>
-        </tr>
-        <tr>
-          <td>Deep Structure</td>
-          <td>Table Type, string, reference처럼 깊은 Component를 포함합니다.</td>
-          <td><span class="viz-badge fail">후속 학습</span></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <details class="foldable">
-    <summary>Include와 Nested는 왜 헷갈릴까?</summary>
-    <p>Include는 다른 Structure의 Component가 같은 레벨로 들어온 것처럼 보입니다. Nested는 하위 Structure 이름 아래로 한 단계 더 들어갑니다. 그래서 접근도 <code>wa-city</code>와 <code>wa-address-city</code>처럼 달라질 수 있습니다.</p>
-  </details>
-</section>
-
-<section class="lesson-section">
-  <h2>7. 생성 흐름: Component를 채우고 활성화한다</h2>
-  <p>
-    SAP GUI와 ADT의 화면은 다르지만, 기본 흐름은 같습니다. 이름을 만들고, Component를 채우고, 타입을 지정하고, 활성화합니다.
-  </p>
-  <div class="viz-visual">
-    <p class="viz-visual-title">Structure 생성 흐름</p>
-    <div class="viz-flow">
-      <div class="viz-flow-step"><strong>1. Structure 생성</strong><span><code>ZSFLIGHT_LINE</code>처럼 한 줄 타입 이름을 정한다.</span></div>
-      <div class="viz-flow-step"><strong>2. 설명 입력</strong><span>나중에 찾기 쉬운 short text를 적는다.</span></div>
-      <div class="viz-flow-step"><strong>3. Component 추가</strong><span><code>CARRID</code>, <code>CONNID</code>, <code>FLDATE</code> 등을 순서대로 둔다.</span></div>
-      <div class="viz-flow-step"><strong>4. Component Type 지정</strong><span>Data Element, 직접 타입, 다른 Structure 등을 선택한다.</span></div>
-      <div class="viz-flow-step"><strong>5. 활성화</strong><span>검사 통과 후 프로그램과 인터페이스에서 사용할 수 있다.</span></div>
-    </div>
-  </div>
-  <details class="foldable">
-    <summary>Component 순서는 중요할까?</summary>
-    <p>중요합니다. 이름 기반 이동을 쓰는 경우도 있지만, 초급 단계에서는 Structure의 Component 이름, 순서, 타입을 업무 의미에 맞게 안정적으로 정하는 습관이 필요합니다.</p>
-  </details>
-</section>
-
-<section class="lesson-section">
-  <h2>8. 미니 실습: 항공편 한 줄 타입 설계하기</h2>
-  <p>
-    실제 시스템이 없어도 Structure 설계 판단은 연습할 수 있습니다. 아래 조건을 보고 한 줄 타입을 설계해 보세요.
-  </p>
-  <div class="lesson-callout">
-    <div class="lesson-callout-icon">🧪</div>
-    <div class="lesson-callout-content">
-      <h4>실습 과제</h4>
-      <ol>
-        <li>Structure 이름을 정합니다. 예: <code>ZSFLIGHT_LINE</code></li>
-        <li>Component 5개를 정합니다. 예: <code>CARRID</code>, <code>CONNID</code>, <code>FLDATE</code>, <code>FROM_AIRP</code>, <code>TO_AIRP</code></li>
-        <li>각 Component가 참조할 Data Element 또는 직접 타입을 적습니다.</li>
-        <li>이 Structure로 Work Area를 만들 때의 선언 문장을 한 줄로 적습니다.</li>
-        <li>이 Structure가 DB에 데이터를 저장하지 않는다는 점을 한 문장으로 설명합니다.</li>
-      </ol>
-      <p><strong>완료 조건:</strong> Component 목록, 타입 연결, Work Area 선언, “저장소가 아니다” 설명이 모두 있으면 성공입니다.</p>
-    </div>
-  </div>
-</section>
-
-<section class="lesson-section">
-  <h2>9. 공식 문서로 더 확인하기</h2>
-  <p>
-    이번 Lesson은 NotebookLM 노트와 아래 SAP 공식 자료를 교차 확인해 재구성했습니다. Structure를 Table처럼 외우지 말고, Dictionary type으로 보는 것이 핵심입니다.
+    이번 Lesson은 NotebookLM 노트와 SAP 공식 자료를 교차 확인해 재구성했습니다. Structure를 Table처럼 외우지 말고, Dictionary type으로 보는 것이 핵심입니다.
   </p>
   <div class="link-list">
-    <a href="https://learning.sap.com/courses/building-data-models-with-the-abap-dictionary-and-abap-core-data-services/defining-dictionary-structures_f49fdfa0-b063-4697-a795-cbdcc38aff6a" target="_blank" rel="noopener">SAP Learning: Defining Dictionary Structures<span>Structure, Component, Nested/Include 구조의 차이를 확인합니다.</span></a>
-    <a href="https://learning.sap.com/courses/building-data-models-with-the-abap-dictionary-and-abap-core-data-services/using-dictionary-objects-as-data-types_e28df7c3-7686-414e-9827-673dceeb21fb" target="_blank" rel="noopener">SAP Learning: Using Dictionary Objects as Data Types<span>Dictionary Structure가 ABAP 타입으로 쓰이는 맥락을 확인합니다.</span></a>
-    <a href="https://help.sap.com/saphelp_SNC700_ehp01/helpdata/en/90/8d7301b1af11d194f600a0c929b3c3/content.htm?no_cache=true" target="_blank" rel="noopener">SAP Help Portal: Structures<span>Structure가 Component로 이루어진 structured type이라는 설명을 확인합니다.</span></a>
-    <a href="https://help.sap.com/saphelp_ewm900/helpdata/en/90/8d7310b1af11d194f600a0c929b3c3/content.htm?no_cache=true" target="_blank" rel="noopener">SAP Help Portal: Creating Structures<span>Structure 생성 절차와 Component 타입 지정 방식을 확인합니다.</span></a>
+    <a href="https://learning.sap.com/courses/building-data-models-with-the-abap-dictionary-and-abap-core-data-services/defining-dictionary-structures_f49fdfa0-b063-4697-a795-cbdcc38aff6a" target="_blank" rel="noopener">SAP Learning: Defining Dictionary Structures<span>Dictionary Structure의 Component와 코드 타입 호환성을 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/abenddic_structures.html" target="_blank" rel="noopener">SAP Help Portal: DDIC Structures<span>Structure가 Component를 포함하는 structured type이라는 정의를 확인합니다.</span></a>
+    <a href="https://learning.sap.com/courses/building-data-models-with-the-abap-dictionary-and-abap-core-data-services/using-dictionary-objects-as-data-types_e28df7c3-7686-414e-9827-673dceeb21fb" target="_blank" rel="noopener">SAP Learning: Using Dictionary Objects as Data Types<span>Structure가 ABAP 변수와 파라미터 타입으로 쓰이는 맥락을 확인합니다.</span></a>
+    <a href="https://help.sap.com/docs/SAP_NETWEAVER_700/12a2d87e6c531014bec0e63ea0208c21/908d7310b1af11d194f600a0c929b3c3.html" target="_blank" rel="noopener">SAP Help Portal: Creating Structures<span>SE11에서 Structure를 만들고 Component를 입력하는 절차를 확인합니다.</span></a>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>10. 확인 퀴즈</h2>
+  <h2>7. 확인 퀴즈</h2>
   <ol>
     <li>Structure를 활성화하면 실제 DB 테이블이 자동으로 만들어질까요?</li>
     <li>Structure 안의 낱개 필드는 무엇이라고 부르나요?</li>
-    <li><code>DATA wa_flight TYPE zsflight_line.</code>에서 타입과 변수는 각각 무엇인가요?</li>
+    <li><code>DATA gs_order TYPE zst_order_line.</code>에서 타입과 변수는 각각 무엇인가요?</li>
     <li>Structure와 Transparent Table의 가장 큰 차이는 무엇인가요?</li>
-    <li>Flat Structure와 Nested Structure를 한 문장으로 구분해보세요.</li>
+    <li>Component type에 Data Element를 쓰면 어떤 장점이 있나요?</li>
   </ol>
   <details class="foldable">
     <summary>정답/해설 보기</summary>
     <ol>
-      <li><strong>아니요.</strong> Structure는 DB 저장소가 아니라 DDIC 타입입니다.</li>
-      <li><strong>Component</strong>입니다. Component마다 Data Element, 직접 타입, 다른 Structure 등을 지정할 수 있습니다.</li>
-      <li><strong><code>zsflight_line</code>은 타입, <code>wa_flight</code>는 변수입니다.</strong> 변수는 프로그램 메모리에 생기는 Work Area입니다.</li>
+      <li><strong>아니요.</strong> Structure는 DB 저장소가 아니라 Dictionary 타입입니다.</li>
+      <li><strong>Component</strong>입니다. 각 Component는 Data Element나 직접 타입을 참조할 수 있습니다.</li>
+      <li><strong><code>zst_order_line</code>은 타입, <code>gs_order</code>는 변수입니다.</strong> 변수는 프로그램 메모리에 생기는 Work Area입니다.</li>
       <li><strong>영구 저장 여부입니다.</strong> Structure는 한 줄 타입이고, Transparent Table은 DB 저장 대상입니다.</li>
-      <li><strong>Flat은 Component가 같은 레벨에 있고, Nested는 Component 안에 또 다른 Structure 계층이 있습니다.</strong></li>
+      <li><strong>라벨과 의미 정보까지 재사용하기 쉽습니다.</strong> 기술 타입만 맞추는 것보다 화면과 문서 연결이 좋아집니다.</li>
     </ol>
   </details>
 </section>
 
 <section class="lesson-section">
-  <h2>11. 한눈에 정리</h2>
+  <h2>8. 한눈에 정리</h2>
   <div class="recap-grid">
     <div class="recap-card"><strong>Structure</strong>여러 Component를 묶어 한 줄 데이터 모양을 만드는 DDIC 타입입니다.</div>
-    <div class="recap-card"><strong>Component</strong>Structure 안의 낱개 필드이며 Data Element나 직접 타입을 참조합니다.</div>
+    <div class="recap-card"><strong>Component</strong>Structure 안의 낱개 칸이며 Data Element나 직접 타입을 참조합니다.</div>
     <div class="recap-card"><strong>Work Area</strong>Structure 타입으로 만든 실제 ABAP 메모리 변수입니다.</div>
     <div class="recap-card"><strong>저장소 아님</strong>Structure는 DB 테이블이 아닙니다. 영구 저장은 Transparent Table의 역할입니다.</div>
   </div>
@@ -331,7 +299,7 @@
     <div class="lesson-callout-icon">➡️</div>
     <div class="lesson-callout-content">
       <h4>다음 Lesson 예고</h4>
-      <p>다음 Lesson <strong>Transparent Table 기본 생성</strong>에서는 Structure처럼 생겼지만 실제 데이터를 오래 저장하는 DB 테이블 정의를 만듭니다.</p>
+      <p>다음 Lesson에서는 Structure처럼 필드 목록을 갖지만 실제 데이터를 오래 저장하는 Transparent Table 기본 생성을 다룹니다.</p>
     </div>
   </div>
 </section>
