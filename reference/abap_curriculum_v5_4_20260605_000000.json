@@ -1,12 +1,12 @@
 {
-  "curriculum_name": "Ultimate SAP ABAP Enterprise Master Curriculum v5.3 (Sequence Refined, Section Expanded, Bilingual)",
+  "curriculum_name": "Ultimate SAP ABAP Enterprise Master Curriculum v5.4 (Sequence Refined, Section Expanded, Learning-Friendly, Bilingual)",
   "curriculum_version": "2026.6-v5.4-learning-friendly",
   "generated_at": "2026-06-05",
   "description": {
-    "ko": "v5.3은 지금까지 합의된 교육 선후수 기준을 반영해 Track 1을 21개 Section으로 세분화하고, Track 2를 실무 응용 중심 13개 Section으로 재정렬한 ABAP 엔터프라이즈 커리큘럼이다. 사용자별 학습친화 스타일을 추가해 Lesson 핵심 내용을 전문 표현과 쉬운 문장으로 전환할 수 있다.",
-    "en": "v5.3 refines the agreed prerequisite-based pedagogy by expanding Track 1 into 21 sections and reorganizing Track 2 into 13 practical application sections."
+    "ko": "v5.4는 지금까지 합의된 교육 선후수 기준을 반영해 Track 1을 21개 Section으로 세분화하고, Track 2를 실무 응용 중심 13개 Section으로 재정렬한 ABAP 엔터프라이즈 커리큘럼이다. 사용자별 학습친화 스타일을 추가해 Lesson 핵심 내용을 전문 표현과 쉬운 문장으로 전환할 수 있다.",
+    "en": "v5.4 refines the agreed prerequisite-based pedagogy by expanding Track 1 into 21 sections and reorganizing Track 2 into 13 practical application sections, with learning-friendly lesson text fields."
   },
-  "design_principles_v5_3": {
+  "design_principles_v5_4": {
     "ko": [
       "DDIC는 테이블 생성, 관계/F4, Classic View/Maintenance View로 3단계 분리한다.",
       "PARAMETERS는 초반 맛보기로 두고 SELECT-OPTIONS는 Internal Table과 Open SQL 기본 조회 이후에 배치한다.",
@@ -18084,7 +18084,7 @@
   },
   "source_files": [
     "abap_enterprise_curriculum_v5_2_pedagogical_sequence_refined.json",
-    "Conversation-agreed v5.3 sequence refinements"
+    "Conversation-agreed sequence refinements incorporated into v5.4"
   ],
   "learning_friendly_policy": {
     "ko": "각 Lesson의 쉬운 문장은 같은 Chapter 안의 앞뒤 Lesson 흐름을 고려한다. ABAP 핵심 용어는 유지하되, 문장 구조를 짧고 친근하게 만들어 초급 학습자가 이전 내용과 다음 내용을 자연스럽게 연결하도록 돕는다.",

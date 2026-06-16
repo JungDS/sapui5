@@ -1,6 +1,6 @@
 # 05. PITFALLS — 자주 깨지는 함정
 
-> 📅 **최종수정: 2026-06-17 02:11 KST**
+> 📅 **최종수정: 2026-06-17 04:13 KST**
 > 🎯 **목적:** 실제로 크게 데었던 지점만 모음. 안정 ID(P1~)로 참조.
 > 📖 **읽을 때:** 작업 중 막혔을 때, 구조 변경/멀티-AI 작업 전.
 > ⚡ **TL;DR:**
@@ -17,7 +17,7 @@
 ## 🟠 데이터 동기화
 - **P5 문서 목록 다중 관리** — SSOT는 `assets/shell.js`의 `DOCS`. `data/site-map.json`·`document-catalog.json`은 수동 동기화라 어긋나기 쉽다. `document_count` 등 수치는 신뢰 전 `DOCS`(preparing 제외)로 재확인.
 - **P6 data JSON 참조 착시** — `data/`의 audit류 JSON은 런타임 fetch 대상이 **아니다**. `common.js`/`shell.js`에 보이는 `final-audit-report` 등은 문서 링크(`DOCS` 항목)일 뿐.
-- **P7 커리큘럼 데이터 출처** — 커리큘럼 엔진은 `data/`가 아니라 `reference/abap_curriculum_v5_3_20260602_010000.json`을 fetch. `tools/build-*.mjs`도 `reference/`를 읽는다.
+- **P7 커리큘럼 데이터 출처** — 커리큘럼 엔진은 `data/`가 아니라 `reference/abap_curriculum_v5_4_20260605_000000.json`을 fetch. `tools/build-*.mjs`도 v5.4 파일을 읽는다. v5.4 이전 커리큘럼 파일은 archive 보존본이며 사용하지 않는다.
 
 ## ⚪ 자산·용어
 - **P8 샘플 정리 시 asset 연쇄** — `assets/abap-curriculum-codex-v*`·`explorer`·`codex-samples`는 `docs/roadmap`의 orphan 샘플 HTML만 참조. 샘플을 archive로 옮기면 그 asset도 미사용 → **한 묶음으로** 정리.

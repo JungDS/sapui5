@@ -1,9 +1,10 @@
 #!/usr/bin/env node
+// ABAP Curriculum Master-Detail Page Generator | 최종수정 2026-06-17 04:13 KST | v1.1
 /**
  * ABAP Curriculum Master-Detail Page Generator
  *
  * Purpose:
- * - Read reference/abap_curriculum_20260529_180000.json (rich, 4-level bilingual curriculum)
+ * - Read reference/abap_curriculum_v5_4_20260605_000000.json (rich, 4-level bilingual curriculum)
  * - Emit a self-contained static master-detail page under docs/roadmap/
  *   Layout: top tabs = track / left list = section / right = sub_2 compact rows
  *           (sub_1 as group subheaders) / inline expand = rich body + depth_3.
@@ -21,7 +22,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const repoRoot = process.cwd();
-const SRC = path.join(repoRoot, 'reference', 'abap_curriculum_20260529_180000.json');
+const SRC = path.join(repoRoot, 'reference', 'abap_curriculum_v5_4_20260605_000000.json');
 const OUT_DIR = path.join(repoRoot, 'docs', 'roadmap');
 
 /* ---------- helpers ---------- */
@@ -419,7 +420,7 @@ function buildPage(data, stats) {
   data-active-category="roadmap"
   data-doc-id="abap-curriculum-claude"
   data-doc-title="ABAP 엔터프라이즈 커리큘럼 탐색기"
-  data-doc-version="5.3"
+  data-doc-version="5.4"
   data-doc-created-at="${esc(nowIso)}"
   data-doc-updated-at="${esc(nowIso)}"
   data-prose-root="true">

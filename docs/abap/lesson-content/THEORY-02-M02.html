@@ -1,4 +1,4 @@
-<!-- lesson-content/THEORY-02-M02.html | 최종수정 2026-06-17 01:18 KST -->
+<!-- lesson-content/THEORY-02-M02.html | 최종수정 2026-06-17 04:13 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
@@ -41,11 +41,11 @@
   </div>
   <div class="abap-editor-body">
     <div class="abap-editor-line-numbers">
-      1<br>2<br>3<br>4<br>5<br>6
+      1<br>2<br>3<br>4<br>5
     </div>
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">DATA</span> lv_count <span class="abap-token-keyword">TYPE</span> i.                 <span class="abap-token-comment">" 정수 그릇, 초기값 0</span>
-<span class="abap-token-keyword">DATA</span> lv_name  <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> 10.       <span class="abap-token-comment">" 10글자 문자 그릇</span>
-<span class="abap-token-keyword">DATA</span> lv_price <span class="abap-token-keyword">TYPE</span> p <span class="abap-token-keyword">LENGTH</span> 8 <span class="abap-token-keyword">DECIMALS</span> 2. <span class="abap-token-comment">" 소수 2자리 금액</span>
+<span class="abap-token-keyword">DATA</span> lv_name  <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> <span class="abap-token-number">10</span>.       <span class="abap-token-comment">" 10글자 문자 그릇</span>
+<span class="abap-token-keyword">DATA</span> lv_price <span class="abap-token-keyword">TYPE</span> p <span class="abap-token-keyword">LENGTH</span> <span class="abap-token-number">8</span> DECIMALS <span class="abap-token-number">2</span>. <span class="abap-token-comment">" 소수 2자리 금액</span>
 
 <span class="abap-token-keyword">DATA</span> lv_msg <span class="abap-token-keyword">TYPE</span> string <span class="abap-token-keyword">VALUE</span> <span class="abap-token-string">'안녕'</span>.  <span class="abap-token-comment">" VALUE로 초기값 지정</span></code></pre>
   </div>
@@ -146,10 +146,10 @@
   </div>
   <div class="abap-editor-body">
     <div class="abap-editor-line-numbers">
-      1<br>2<br>3<br>4<br>5
+      1<br>2<br>3<br>4<br>5<br>6
     </div>
     <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">* 내 타입(설계도)을 한 번 정의</span>
-<span class="abap-token-keyword">TYPES</span> ty_amount <span class="abap-token-keyword">TYPE</span> p <span class="abap-token-keyword">LENGTH</span> 8 <span class="abap-token-keyword">DECIMALS</span> 2.
+<span class="abap-token-keyword">TYPES</span> ty_amount <span class="abap-token-keyword">TYPE</span> p <span class="abap-token-keyword">LENGTH</span> <span class="abap-token-number">8</span> DECIMALS <span class="abap-token-number">2</span>.
 
 <span class="abap-token-comment">* 여러 변수에서 같은 설계도를 재사용</span>
 <span class="abap-token-keyword">DATA</span> lv_price <span class="abap-token-keyword">TYPE</span> ty_amount.
@@ -210,8 +210,8 @@
     <div class="abap-editor-line-numbers">
       1<br>2
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">CONSTANTS</span> gc_vat_rate <span class="abap-token-keyword">TYPE</span> p <span class="abap-token-keyword">LENGTH</span> 3 <span class="abap-token-keyword">DECIMALS</span> 2 <span class="abap-token-keyword">VALUE</span> <span class="abap-token-string">'0.10'</span>.
-<span class="abap-token-keyword">CONSTANTS</span> gc_airline <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> 2 <span class="abap-token-keyword">VALUE</span> <span class="abap-token-string">'LH'</span>.</code></pre>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">CONSTANTS</span> gc_vat_rate <span class="abap-token-keyword">TYPE</span> p <span class="abap-token-keyword">LENGTH</span> <span class="abap-token-number">3</span> DECIMALS <span class="abap-token-number">2</span> <span class="abap-token-keyword">VALUE</span> <span class="abap-token-string">'0.10'</span>.
+<span class="abap-token-keyword">CONSTANTS</span> gc_airline <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> <span class="abap-token-number">2</span> <span class="abap-token-keyword">VALUE</span> <span class="abap-token-string">'LH'</span>.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -344,7 +344,7 @@
       1<br>2<br>3
     </div>
     <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">START-OF-SELECTION</span>.
-  <span class="abap-token-keyword">DATA</span>(lv_year) = sy-datum(4).   <span class="abap-token-comment">" 값을 보고 타입을 자동 추론</span>
+  <span class="abap-token-keyword">DATA</span>(lv_year) = sy-datum(<span class="abap-token-number">4</span>).   <span class="abap-token-comment">" 값을 보고 타입을 자동 추론</span>
   <span class="abap-token-keyword">WRITE</span> lv_year.</code></pre>
   </div>
 </div>

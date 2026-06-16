@@ -1,6 +1,6 @@
 # 03. ARCHITECTURE — 폴더 역할 · 상대경로 · 셸 SSOT
 
-> 📅 **최종수정: 2026-06-15 11:01 KST**
+> 📅 **최종수정: 2026-06-17 04:13 KST**
 > 🎯 **목적:** 저장소 구조와 셸 동작 원리. "무엇이 어디에 있고, 어디에 두는가".
 > 📖 **읽을 때:** 파일 위치/경로/내비게이션이 헷갈릴 때, 새 파일을 만들기 전.
 > ⚡ **TL;DR:**
@@ -59,5 +59,5 @@
 ## 관련 엔진 / 데이터 (assets · reference)
 - `abap-lesson-viewer.js/css` — **Lesson 단일 뷰어 엔진**. 브레드크럼·사이드바·Pager 동적 생성.
 - `abap-glossary.js/css` — 용어 툴팁. `data-glossary` 스캔 → `reference/abap_glossary.json` fetch, 호버 팝업 + 클릭 고정/복사. 구 `common.js`의 `data-term` 모달과 **별도 네임스페이스**([05 P9](05_PITFALLS.md)).
-- 커리큘럼 엔진(`abap-curriculum-*`)은 `reference/abap_curriculum_v5_3_20260602_010000.json`을 fetch.
+- 커리큘럼 엔진(`abap-curriculum-*`)은 `reference/abap_curriculum_v5_4_20260605_000000.json`을 fetch. v5.4 이전 커리큘럼 파일은 archive 보존본이며 사용하지 않는다.
 - 디자인 토큰: `reference/design_variants.json`(SSOT) + `sample/learning-methods-v3/design-choices.json`.
