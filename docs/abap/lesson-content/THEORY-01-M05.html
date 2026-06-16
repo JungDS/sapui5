@@ -1,41 +1,34 @@
-<!-- lesson-content/THEORY-01-M05.html | 최종수정 2026-06-16 01:33 KST -->
+<!-- lesson-content/THEORY-01-M05.html | 최종수정 2026-06-17 01:38 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
   <div class="lesson-callout-content">
     <h4>학습 목표</h4>
-    <p>이번 Lesson에서는 데이터를 실제 DB에 오래 저장하는 <span class="glossary-term" data-glossary="TransparentTable">Transparent Table</span>을 배웁니다. 지난 Lesson의 <span class="glossary-term" data-glossary="Structure">Structure</span>와 무엇이 다른지, <span class="glossary-term" data-glossary="KeyField">Key Field</span>가 왜 필요한지, <span class="glossary-term" data-glossary="MANDT">MANDT</span>와 <span class="glossary-term" data-glossary="ClientDependent">Client-Dependent</span>가 SAP 데이터 분리에 어떤 역할을 하는지 잡습니다.</p>
+    <p>이번 Lesson에서는 데이터를 실제 DB에 오래 저장하는 <span class="glossary-term" data-glossary="TransparentTable">Transparent Table</span>을 만듭니다. 지난 Lesson의 <span class="glossary-term" data-glossary="Structure">Structure</span>와 무엇이 다른지, <span class="glossary-term" data-glossary="KeyField">Key Field</span>가 왜 필요한지, <span class="glossary-term" data-glossary="MANDT">MANDT</span>가 client-dependent 데이터 분리에 어떤 역할을 하는지 잡습니다.</p>
   </div>
 </div>
 
 <section class="lesson-section">
-  <h2>1. 한 줄 모양에서 데이터 창고로 넘어간다</h2>
+  <h2>1. Structure에서 저장소로 넘어간다</h2>
   <p>
-    Structure는 한 줄 데이터의 모양을 정의했지만, 데이터를 영구 저장하지는 않았습니다. 프로그램이 끝나면 Work Area의 값도 사라집니다. 반대로 Transparent Table은 ABAP Dictionary에서 정의하고 실제 데이터베이스에 데이터를 저장하는 대상입니다.
+    Structure는 한 줄 데이터의 모양을 정의했지만 값을 오래 저장하지는 않았습니다. 프로그램이 끝나면 Work Area의 값은 사라집니다. Transparent Table은 ABAP Dictionary에서 정의하고 실제 데이터베이스에 데이터를 저장하는 대상입니다.
   </p>
   <p>
-    SAP Learning은 database table definition이 field list와 additional table properties를 가지고, 활성화 후 ABAP SQL이 접근할 수 있는 DB 테이블로 이어진다고 설명합니다. 그래서 Transparent Table은 단순한 필드 목록이 아니라 운영 데이터의 창고입니다.
+    SAP Learning은 database table definition이 field list와 additional table properties를 가지며, 활성화 후 ABAP SQL이 접근할 수 있는 DB 테이블로 이어진다고 설명합니다. 그래서 Transparent Table은 단순한 필드 목록이 아니라 운영 데이터의 창고입니다.
   </p>
   <blockquote>
     Structure는 모양입니다. Transparent Table은 그 모양의 여러 줄을 오래 보관하는 저장소입니다.
   </blockquote>
-</section>
-
-<section class="lesson-section">
-  <h2>2. Structure와 Transparent Table의 결정적 차이</h2>
-  <p>
-    둘 다 필드 목록처럼 보이기 때문에 처음에는 비슷해 보입니다. 하지만 “데이터베이스에 저장 공간을 만드는가?”라는 질문으로 바로 구분할 수 있습니다.
-  </p>
   <div class="viz-visual">
-    <p class="viz-visual-title">한 줄 타입과 DB 테이블 비교</p>
+    <p class="viz-visual-title">한 줄 타입과 DB 저장소 비교</p>
     <div class="viz-compare">
       <div class="viz-compare-before">
         <span class="viz-compare-label">Structure</span>
         <div class="viz-compare-body">
           <ul>
-            <li>한 줄 데이터의 타입입니다.</li>
+            <li>한 줄 데이터 타입입니다.</li>
             <li>DB에 물리 저장소를 만들지 않습니다.</li>
-            <li>Work Area, 파라미터, Table Type의 row type으로 자주 씁니다.</li>
+            <li>Work Area, 파라미터, Table Type의 row type으로 씁니다.</li>
           </ul>
         </div>
       </div>
@@ -45,19 +38,19 @@
           <ul>
             <li>DB에 저장되는 테이블 정의입니다.</li>
             <li>활성화 후 데이터를 읽고 쓸 대상이 됩니다.</li>
-            <li>Key, client dependency, technical settings까지 함께 고려합니다.</li>
+            <li>Key, client, technical settings까지 함께 고려합니다.</li>
           </ul>
         </div>
       </div>
     </div>
-    <p class="viz-note"><code>SELECT</code>의 대상은 Transparent Table입니다. Structure는 <code>INTO</code> 쪽의 타입으로 쓰일 수는 있지만 <code>FROM</code> 대상이 아닙니다.</p>
+    <p class="viz-note"><code>SELECT</code>의 대상은 Transparent Table입니다. Structure는 조회 결과를 담는 타입으로 쓰일 수 있지만 <code>FROM</code> 대상은 아닙니다.</p>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>3. Field List는 Data Element 중심으로 만든다</h2>
+  <h2>2. Field List는 Data Element 중심으로 만든다</h2>
   <p>
-    Transparent Table의 각 열은 Table Field입니다. SAP Learning은 field list를 편집할 때 Data Element 사용을 권장하며, Domain을 field list에 직접 사용할 수 없다고 설명합니다. Domain은 Data Element 아래의 기술 기반입니다.
+    Transparent Table의 각 열은 Table Field입니다. SAP Learning은 field list 편집 시 <span class="glossary-term" data-glossary="DataElement">Data Element</span> 사용을 권장하며, Domain은 field list에 직접 사용할 수 없다고 설명합니다. Domain은 Data Element 아래의 기술 기반입니다.
   </p>
   <div class="viz-visual">
     <p class="viz-visual-title">테이블 필드가 의미를 받는 흐름</p>
@@ -76,7 +69,7 @@
         <span class="viz-concept-label">Data Element</span>
         <table class="viz-table">
           <tbody>
-            <tr><td>업무 의미, 라벨, F1 도움말</td></tr>
+            <tr><td>업무 의미, 라벨, F1 설명</td></tr>
             <tr><td>테이블 필드 타입으로 사용</td></tr>
           </tbody>
         </table>
@@ -86,26 +79,22 @@
         <span class="viz-concept-label">Table Field</span>
         <table class="viz-table">
           <tbody>
-            <tr><td><code>CARRID</code>, <code>CONNID</code>, <code>FLDATE</code></td></tr>
+            <tr><td><code>ORDER_ID</code>, <code>CUSTOMER_ID</code>, <code>STATUS</code></td></tr>
             <tr><td>DB 테이블의 실제 열</td></tr>
           </tbody>
         </table>
       </div>
     </div>
   </div>
-  <details class="foldable">
-    <summary>직접 타입을 쓰면 항상 나쁠까?</summary>
-    <p>항상 나쁘지는 않습니다. 최신 ADT 기반 테이블 정의에서는 내장 타입을 직접 쓰는 예도 있습니다. 다만 화면 라벨, F1 설명, 재사용 의미가 중요한 업무 필드는 Data Element를 먼저 검토하는 것이 안전합니다.</p>
-  </details>
 </section>
 
 <section class="lesson-section">
-  <h2>4. Key Field는 한 줄을 유일하게 찾는 기준이다</h2>
+  <h2>3. Key Field는 한 줄을 유일하게 찾는 기준이다</h2>
   <p>
     Transparent Table에는 각 row를 식별할 수 있는 Primary Key가 필요합니다. 이 Primary Key를 이루는 필드가 Key Field입니다. SAP Learning은 모든 database table에 primary key가 필요하고, key field는 field list의 시작 부분에 모여 있어야 한다고 설명합니다.
   </p>
   <div class="viz-visual">
-    <p class="viz-visual-title">항공편 일정 테이블 키 설계</p>
+    <p class="viz-visual-title">주문 테이블 key 설계</p>
     <table class="viz-table">
       <thead>
         <tr>
@@ -119,47 +108,41 @@
         <tr class="viz-current-row">
           <td>1</td>
           <td><code>MANDT</code></td>
-          <td>클라이언트 구분</td>
+          <td>client 구분</td>
           <td><span class="viz-badge success">Key</span></td>
         </tr>
         <tr class="viz-current-row">
           <td>2</td>
-          <td><code>CARRID</code></td>
-          <td>항공사 코드</td>
-          <td><span class="viz-badge success">Key</span></td>
-        </tr>
-        <tr class="viz-current-row">
-          <td>3</td>
-          <td><code>CONNID</code></td>
-          <td>편명</td>
-          <td><span class="viz-badge success">Key</span></td>
-        </tr>
-        <tr class="viz-current-row">
-          <td>4</td>
-          <td><code>FLDATE</code></td>
-          <td>출발일</td>
+          <td><code>ORDER_ID</code></td>
+          <td>주문 번호</td>
           <td><span class="viz-badge success">Key</span></td>
         </tr>
         <tr>
-          <td>5</td>
-          <td><code>PRICE</code></td>
-          <td>요금</td>
+          <td>3</td>
+          <td><code>CUSTOMER_ID</code></td>
+          <td>고객 번호</td>
+          <td><span class="viz-badge fail">일반 필드</span></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><code>STATUS</code></td>
+          <td>주문 상태</td>
           <td><span class="viz-badge fail">일반 필드</span></td>
         </tr>
       </tbody>
     </table>
-    <p class="viz-note">같은 <code>MANDT + CARRID + CONNID + FLDATE</code> 조합은 한 테이블 안에서 두 번 존재할 수 없습니다.</p>
+    <p class="viz-note">같은 <code>MANDT + ORDER_ID</code> 조합은 한 테이블 안에서 두 번 존재할 수 없습니다.</p>
   </div>
   <details class="foldable">
     <summary>Key Field 사이에 일반 필드를 넣어도 될까?</summary>
-    <p>안 됩니다. SAP Learning 기준으로 key fields는 field list의 시작 부분에 함께 있어야 하며, key field 사이에 non-key field가 들어가면 안 됩니다. 초급 단계에서는 “키 먼저, 일반 필드 나중”으로 기억하세요.</p>
+    <p>안 됩니다. Key field는 field list의 시작 부분에 함께 있어야 합니다. 초급 단계에서는 “키 먼저, 일반 필드 나중”으로 기억하세요.</p>
   </details>
 </section>
 
 <section class="lesson-section">
-  <h2>5. MANDT는 클라이언트 칸막이다</h2>
+  <h2>4. MANDT는 client 칸막이다</h2>
   <p>
-    SAP 업무 테이블에서 <code>MANDT</code>는 보통 첫 번째 Key Field입니다. 이것은 “이 row가 어느 client의 데이터인가?”를 표시합니다. SAP 공식 자료는 CLNT 타입 key field가 자동으로 client field로 취급되고, 기본 접근은 로그인 client로 제한된다고 설명합니다.
+    SAP 업무 테이블에서 <code>MANDT</code>는 보통 첫 번째 Key Field입니다. 이것은 “이 row가 어느 client의 데이터인가?”를 표시합니다. CLNT 타입 key field가 첫 번째에 있으면 client field로 취급되고, 기본 접근은 로그인 client 기준으로 제한됩니다.
   </p>
   <div class="viz-visual">
     <p class="viz-visual-title">같은 시스템 안의 client 분리</p>
@@ -169,7 +152,7 @@
         <table class="viz-table">
           <tbody>
             <tr><td><code>MANDT = 100</code></td></tr>
-            <tr><td>개발/교육 데이터</td></tr>
+            <tr><td>교육 데이터</td></tr>
             <tr><td>100번 로그인 사용자가 기본 조회</td></tr>
           </tbody>
         </table>
@@ -185,7 +168,7 @@
         </table>
       </div>
       <div class="viz-state">
-        <span class="viz-state-label">Client-Independent</span>
+        <span class="viz-state-label">Client-independent</span>
         <table class="viz-table">
           <tbody>
             <tr><td><code>MANDT</code> 없음</td></tr>
@@ -200,24 +183,101 @@
     <div class="lesson-callout-icon">⚠️</div>
     <div class="lesson-callout-content">
       <h4>MANDT는 회사 코드가 아닙니다</h4>
-      <p><code>MANDT</code>는 SAP client를 구분하는 시스템 필드입니다. 회사 코드 같은 업무 조직 필드와 섞어 외우면 안 됩니다. 대부분의 업무 데이터는 client-dependent를 기본 출발점으로 두고, client-independent는 명확한 공유 이유가 있을 때만 선택합니다.</p>
+      <p><code>MANDT</code>는 SAP client를 구분하는 시스템 필드입니다. 회사 코드 같은 업무 조직 필드와 섞어 외우면 안 됩니다. 대부분의 업무 데이터는 <span class="glossary-term" data-glossary="ClientDependent">client-dependent</span>를 기본 출발점으로 둡니다.</p>
     </div>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>6. 활성화와 Technical Settings까지 이어진다</h2>
+  <h2>5. 직접 해보기: SE11에서 투명 테이블 만들기</h2>
   <p>
-    Table Field와 Key를 채웠다고 끝이 아닙니다. Transparent Table은 실제 DB 저장 대상이므로 활성화와 <span class="glossary-term" data-glossary="TechnicalSettings">Technical Settings</span>가 중요합니다. M06에서 자세히 다루지만, 지금은 연결만 잡아둡니다.
+    SAP GUI 명령창에 <span class="glossary-term" data-glossary="SE11">SE11</span> 또는 <code>/nSE11</code>을 입력합니다. Database Table을 선택하고 테이블 이름을 입력한 뒤 Create를 누르면 필드 목록과 테이블 속성을 입력하는 화면으로 들어갑니다. 아래 sandbox에서 key와 일반 필드를 구분해 보세요.
+  </p>
+  <div class="interactive-sap-sandbox">
+    <div class="sap-gui-header">
+      <div class="sap-tcode-bar">T-Code: <span class="tcode-val">SE11 Database Table</span></div>
+    </div>
+    <div class="sap-gui-title-bar">ABAP Dictionary: Transparent Table Maintenance</div>
+    <div class="sap-selection-screen">
+      <div class="sap-field-row">
+        <label>Table</label>
+        <input type="text" class="sap-input sap-input-medium" id="m05-table" value="ZTB_ORDER" maxlength="30">
+      </div>
+      <div class="sap-field-row">
+        <label>Key Fields</label>
+        <input type="text" class="sap-input sap-input-medium" id="m05-keys" value="MANDT, ORDER_ID" maxlength="80">
+      </div>
+      <div class="sap-field-row">
+        <label>Normal Fields</label>
+        <input type="text" class="sap-input sap-input-medium" id="m05-fields" value="CUSTOMER_ID, ORDER_DATE, STATUS" maxlength="100">
+      </div>
+      <div class="sap-field-row">
+        <label>Technical Settings</label>
+        <input type="text" class="sap-input sap-input-medium" id="m05-tech" value="APPL0 / Size 0 / No buffering" maxlength="80">
+      </div>
+      <button class="sap-btn-execute" type="button">검사 후 활성화 (Ctrl+F3)</button>
+    </div>
+    <div class="sap-result-log">
+      <div class="sap-log-placeholder">버튼을 누르면 key 검사, client field 확인, 중복 key 오류 예시가 출력됩니다.</div>
+    </div>
+    <template class="sandbox-config">
+{
+  "fields": {
+    "table": "#m05-table",
+    "keys": "#m05-keys",
+    "fields": "#m05-fields",
+    "tech": "#m05-tech"
+  },
+  "steps": [
+    { "label": "SE11", "type": "event", "text": "Database Table {table} 생성 화면을 엽니다." },
+    { "label": "Fields", "type": "info", "text": "Key Fields={keys}; Normal Fields={fields}" },
+    { "label": "Technical Settings", "type": "info", "text": "{tech} 설정을 입력했습니다." },
+    { "label": "Save", "type": "info", "text": "{table}을 저장했습니다. 활성화 전에는 운영 기준 객체가 아닙니다." }
+  ],
+  "validations": [
+    { "field": "table", "test": "required", "label": "Name Check", "text": "테이블 이름이 비어 있습니다.", "modal": "테이블 이름을 입력하세요." },
+    { "field": "table", "test": "regex", "pattern": "^(Z|Y)[A-Z0-9_]{3,29}$", "label": "Name Check", "text": "{table}은 고객 네임스페이스 이름 규칙에 맞지 않습니다.", "modal": "테이블 이름은 Z 또는 Y로 시작하고 대문자·숫자·언더스코어를 사용하세요." },
+    { "field": "keys", "test": "regex", "pattern": "MANDT", "label": "Client Check", "text": "Key Fields에 MANDT가 없습니다.", "modal": "초급 업무 테이블은 보통 MANDT를 첫 번째 key로 둡니다." },
+    { "field": "fields", "test": "required", "label": "Field Check", "text": "일반 필드가 비어 있습니다.", "modal": "저장할 업무 필드를 최소 하나 입력하세요." },
+    { "field": "tech", "test": "required", "label": "Technical Settings", "text": "Technical Settings가 비어 있습니다.", "modal": "활성화 전 Technical Settings를 확인하세요." }
+  ],
+  "successSteps": [
+    { "label": "Check", "type": "event", "text": "Key field가 앞에 모였고 MANDT client field가 포함되어 있습니다." },
+    { "label": "Activate", "type": "event", "text": "{table}이 활성화되어 ABAP SQL이 접근할 수 있는 Transparent Table이 됩니다." }
+  ],
+  "result": {
+    "label": "Preview",
+    "type": "info",
+    "text": "Transparent Table 활성화 후 예상 동작",
+    "columns": [
+      { "key": "case", "head": "상황" },
+      { "key": "result", "head": "결과" },
+      { "key": "why", "head": "이유" }
+    ],
+    "rows": [
+      { "case": "INSERT {keys}=100/0001", "result": "성공", "why": "처음 들어오는 key 조합입니다." },
+      { "case": "INSERT {keys}=100/0001 again", "result": "오류", "why": "같은 primary key 조합은 중복될 수 없습니다." },
+      { "case": "SELECT FROM {table}", "result": "조회 가능", "why": "Structure가 아니라 실제 DB 저장 테이블입니다." }
+    ]
+  }
+}
+    </template>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. Technical Settings까지 이어진다</h2>
+  <p>
+    Table Field와 Key를 채웠다고 끝이 아닙니다. Transparent Table은 실제 DB 저장 대상이므로 <span class="glossary-term" data-glossary="TechnicalSettings">Technical Settings</span>가 중요합니다. M06에서 자세히 다루지만, 지금은 연결만 잡아둡니다.
   </p>
   <div class="viz-visual">
     <p class="viz-visual-title">Transparent Table 생성 흐름</p>
     <div class="viz-flow">
       <div class="viz-flow-step"><strong>1. Table 생성</strong><span>이름, 설명, delivery 성격을 정한다.</span></div>
-      <div class="viz-flow-step"><strong>2. Field List</strong><span>client field, key field, 일반 field를 배치한다.</span></div>
+      <div class="viz-flow-step"><strong>2. Field List</strong><span>MANDT, key field, 일반 field를 배치한다.</span></div>
       <div class="viz-flow-step"><strong>3. 타입 지정</strong><span>Data Element를 우선 검토하고 필요하면 직접 타입을 쓴다.</span></div>
       <div class="viz-flow-step"><strong>4. Technical Settings</strong><span>저장 특성, 크기, 버퍼링 같은 DB 운영 힌트를 확인한다.</span></div>
-      <div class="viz-flow-step"><strong>5. Activate</strong><span>검사 통과 후 ABAP SQL이 접근할 수 있는 기준이 된다.</span></div>
+      <div class="viz-flow-step"><strong>5. 활성화</strong><span><span class="glossary-term" data-glossary="Activation">활성화</span> 후 ABAP SQL 접근 대상이 된다.</span></div>
     </div>
   </div>
   <details class="foldable">
@@ -227,87 +287,26 @@
 </section>
 
 <section class="lesson-section">
-  <h2>7. 운영 테이블 변경은 무겁게 본다</h2>
+  <h2>7. 공식 문서로 더 확인하기</h2>
   <p>
-    Transparent Table은 실제 데이터가 쌓이는 창고입니다. 그래서 운영 데이터가 들어간 뒤 키나 필드 길이를 바꾸는 것은 단순한 문구 수정이 아닙니다.
-  </p>
-  <div class="viz-visual">
-    <p class="viz-visual-title">변경 위험도 감각</p>
-    <table class="viz-table">
-      <thead>
-        <tr>
-          <th>변경</th>
-          <th>위험도</th>
-          <th>이유</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>뒤쪽에 신규 일반 필드 추가</td>
-          <td><span class="viz-badge success">상대적으로 낮음</span></td>
-          <td>기존 key와 데이터 식별 기준을 크게 흔들지 않습니다.</td>
-        </tr>
-        <tr>
-          <td>필드 길이 줄이기</td>
-          <td><span class="viz-badge fail">높음</span></td>
-          <td>기존 값이 새 길이에 맞지 않을 수 있습니다.</td>
-        </tr>
-        <tr>
-          <td>Key Field 추가/변경</td>
-          <td><span class="viz-badge fail">매우 높음</span></td>
-          <td>row 유일성 기준과 기존 데이터 중복 여부가 바뀝니다.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <details class="foldable">
-    <summary>버퍼링은 무조건 성능을 올릴까?</summary>
-    <p>아닙니다. 자주 바뀌는 트랜잭션 데이터에 버퍼링을 켜면 최신성 관리와 무효화 비용 때문에 오히려 문제가 될 수 있습니다. 버퍼링은 M06에서 Technical Settings와 함께 따로 판단합니다.</p>
-  </details>
-</section>
-
-<section class="lesson-section">
-  <h2>8. 미니 실습: 항공편 일정 테이블 키 설계하기</h2>
-  <p>
-    아래 요구사항을 보고 Transparent Table의 key와 일반 필드를 나눠보세요. 실제 시스템이 없어도 설계 판단은 충분히 연습할 수 있습니다.
-  </p>
-  <div class="lesson-callout">
-    <div class="lesson-callout-icon">🧪</div>
-    <div class="lesson-callout-content">
-      <h4>실습 과제</h4>
-      <ol>
-        <li>테이블 이름을 정합니다. 예: <code>ZSFLIGHT_SCHEDULE</code></li>
-        <li><code>MANDT</code>를 첫 번째 key로 둘지 결정하고 이유를 적습니다.</li>
-        <li>항공편 한 줄을 유일하게 찾을 key 조합을 적습니다.</li>
-        <li>일반 필드 2개를 적습니다. 예: <code>PRICE</code>, <code>CURRENCY</code></li>
-        <li>같은 key 조합으로 두 번 저장하려는 오류 케이스를 설명합니다.</li>
-      </ol>
-      <p><strong>완료 조건:</strong> key field와 일반 field가 구분되어 있고, 중복 key 오류가 왜 필요한지 설명할 수 있으면 성공입니다.</p>
-    </div>
-  </div>
-</section>
-
-<section class="lesson-section">
-  <h2>9. 공식 문서로 더 확인하기</h2>
-  <p>
-    이번 Lesson은 NotebookLM 노트와 아래 SAP 공식 자료를 교차 확인해 재구성했습니다. Field List와 Key Field 규칙은 공식 문서 기준으로 확인하세요.
+    이번 Lesson은 NotebookLM 노트와 SAP 공식 자료를 교차 확인해 재구성했습니다. Field List와 Key Field 규칙은 공식 문서 기준으로 확인하세요.
   </p>
   <div class="link-list">
     <a href="https://learning.sap.com/courses/building-data-models-with-the-abap-dictionary-and-abap-core-data-services/creating-database-tables_ebc1477d-96ed-414b-82d4-4171da43f4a6" target="_blank" rel="noopener">SAP Learning: Creating Database Tables<span>Field list, key field, client field, technical settings, include structure를 확인합니다.</span></a>
     <a href="https://learning.sap.com/courses/building-data-models-with-the-abap-dictionary-and-abap-core-data-services/defining-domains-and-data-elements_b65b511a-4ad1-4437-80f5-5ad689cab833" target="_blank" rel="noopener">SAP Learning: Defining Domains and Data Elements<span>CLNT key field가 client field로 처리되는 설명을 확인합니다.</span></a>
-    <a href="https://help.sap.com/docs/SUPPORT_CONTENT/abaptools/3362709555.html" target="_blank" rel="noopener">SAP Help Portal: ABAP Dictionary FAQ<span>Client-dependent table과 CLNT 첫 key field 조건을 확인합니다.</span></a>
-    <a href="https://learning.sap.com/courses/basic-abap-programming/exploring-the-architecture-of-rap_cdfbb8b8-9d94-4c33-bc5d-3d29d8206724" target="_blank" rel="noopener">SAP Learning: Exploring the Architecture<span>modern ABAP 예시에서 client field와 key definition을 확인합니다.</span></a>
+    <a href="https://help.sap.com/docs/SUPPORT_CONTENT/abaptools/3362709555.html" target="_blank" rel="noopener">SAP Help Portal: ABAP Dictionary FAQ<span>Transparent table과 client-dependent table 기준을 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENDDIC_DATABASE_TABLES.html" target="_blank" rel="noopener">SAP Help Portal: DDIC Database Tables<span>ABAP Dictionary database table의 기본 역할을 확인합니다.</span></a>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>10. 확인 퀴즈</h2>
+  <h2>8. 확인 퀴즈</h2>
   <ol>
     <li>Structure와 Transparent Table의 가장 큰 차이는 무엇인가요?</li>
     <li>Primary Key를 이루는 필드는 무엇이라고 부르나요?</li>
     <li>Key Field는 field list의 어디에 있어야 하나요?</li>
     <li><code>MANDT</code>는 회사 코드와 같은 업무 필드인가요?</li>
-    <li>운영 데이터가 쌓인 뒤 key를 바꾸는 일이 왜 위험한가요?</li>
+    <li>같은 key 조합으로 두 row를 저장하려고 하면 왜 막혀야 할까요?</li>
   </ol>
   <details class="foldable">
     <summary>정답/해설 보기</summary>
@@ -316,13 +315,13 @@
       <li><strong>Key Field</strong>입니다. Key Field 조합은 table row를 유일하게 식별합니다.</li>
       <li><strong>Field list의 시작 부분에 모여 있어야 합니다.</strong> key 사이에 non-key field를 끼우면 안 됩니다.</li>
       <li><strong>아니요.</strong> MANDT는 SAP client를 구분하는 시스템 필드입니다. 회사 코드와 다릅니다.</li>
-      <li><strong>row 유일성 기준이 바뀌기 때문입니다.</strong> 기존 데이터가 새 key 기준에서 중복되거나 변환에 실패할 수 있습니다.</li>
+      <li><strong>row 유일성이 깨지기 때문입니다.</strong> 같은 key 조합이 두 개 있으면 어떤 row가 대상인지 구분할 수 없습니다.</li>
     </ol>
   </details>
 </section>
 
 <section class="lesson-section">
-  <h2>11. 한눈에 정리</h2>
+  <h2>9. 한눈에 정리</h2>
   <div class="recap-grid">
     <div class="recap-card"><strong>Transparent Table</strong>DDIC에서 정의하고 DB에 데이터를 영구 저장하는 테이블입니다.</div>
     <div class="recap-card"><strong>Field List</strong>Table Field는 Data Element를 우선 참조해 의미와 기술 속성을 함께 받습니다.</div>
@@ -333,7 +332,7 @@
     <div class="lesson-callout-icon">➡️</div>
     <div class="lesson-callout-content">
       <h4>다음 Lesson 예고</h4>
-      <p>다음 Lesson <strong>Technical Settings와 데이터 확인 기초</strong>에서는 테이블의 물리 운영 설정을 확인하고, <span class="glossary-term" data-glossary="DataBrowser">Data Browser</span>로 실제 데이터를 조회해봅니다.</p>
+      <p>다음 Lesson에서는 Technical Settings를 확인하고, 생성한 테이블의 데이터를 조회하는 기초 흐름을 다룹니다.</p>
     </div>
   </div>
 </section>
