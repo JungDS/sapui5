@@ -470,6 +470,11 @@
   color: inherit !important;
 }
 
+.lesson-content-body :not(pre) > code {
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
 .code-tour-accordion .accordion-content {
   white-space: normal !important;
 }
@@ -1685,6 +1690,17 @@
   grid-template-columns: 180px minmax(100px, 300px);
   align-items: center;
   gap: 12px;
+}
+
+@media (max-width: 640px) {
+  .sap-selection-screen {
+    padding: 16px;
+  }
+
+  .sap-field-row {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
 }
 
 .sap-field-row label {
