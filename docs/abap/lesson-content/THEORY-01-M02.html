@@ -1,4 +1,4 @@
-<!-- lesson-content/THEORY-01-M02.html | 최종수정 2026-06-16 01:05 KST -->
+<!-- lesson-content/THEORY-01-M02.html | 최종수정 2026-06-16 09:34 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
@@ -26,49 +26,53 @@
   <p>
     초급 단계에서는 Domain 화면을 아래 네 칸으로 줄여서 보면 충분합니다. 모든 항목을 외우기보다, 각 항목이 어떤 질문에 답하는지 먼저 잡으세요.
   </p>
-  <div class="viz-visual">
+  <div class="viz-visual domain-board-visual">
     <p class="viz-visual-title">Domain 속성 판단표</p>
-    <div class="viz-state-grid">
-      <div class="viz-state">
-        <span class="viz-state-label">Data Type</span>
-        <table class="viz-table">
-          <tbody>
-            <tr><td><strong>질문</strong></td><td>값의 종류는?</td></tr>
-            <tr><td><strong>예</strong></td><td><code>CHAR</code>, <code>NUMC</code>, <code>DATS</code>, <code>CURR</code></td></tr>
-            <tr><td><strong>판단</strong></td><td>계산할 숫자인지, 코드처럼 보이는 문자인지 구분한다.</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="viz-state">
-        <span class="viz-state-label">Length</span>
-        <table class="viz-table">
-          <tbody>
-            <tr><td><strong>질문</strong></td><td>저장 가능한 최대 자릿수는?</td></tr>
-            <tr><td><strong>예</strong></td><td>항공사 코드 <code>CHAR 3</code>, 사번 <code>NUMC 8</code></td></tr>
-            <tr><td><strong>판단</strong></td><td>실제 업무 코드 길이를 확인한 뒤 정한다.</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="viz-state">
-        <span class="viz-state-label">Output Length</span>
-        <table class="viz-table">
-          <tbody>
-            <tr><td><strong>질문</strong></td><td>화면·리스트 표시 폭은?</td></tr>
-            <tr><td><strong>예</strong></td><td>날짜처럼 내부 길이와 표시 폭이 달라질 수 있다.</td></tr>
-            <tr><td><strong>판단</strong></td><td>저장 길이와 같은 값이라고 단정하지 않는다.</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="viz-state">
-        <span class="viz-state-label">Fixed Value</span>
-        <table class="viz-table">
-          <tbody>
-            <tr><td><strong>질문</strong></td><td>허용값이 작고 고정적인가?</td></tr>
-            <tr><td><strong>예</strong></td><td><code>Y</code>/<code>N</code>, <code>A</code>/<code>B</code>/<code>C</code></td></tr>
-            <tr><td><strong>판단</strong></td><td>값이 많거나 자주 늘면 별도 테이블 쪽을 검토한다.</td></tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="domain-board-grid">
+      <article class="domain-board-card">
+        <header>
+          <span class="domain-board-icon domain-board-icon-blue">T</span>
+          <h3>Data Type</h3>
+        </header>
+        <div class="domain-board-rows">
+          <div class="domain-board-row"><span class="domain-board-row-label">질문</span><span>값의 종류는?</span></div>
+          <div class="domain-board-row"><span class="domain-board-row-label">예</span><span><code>CHAR</code>, <code>NUMC</code>, <code>DATS</code>, <code>CURR</code></span></div>
+          <div class="domain-board-row"><span class="domain-board-row-label">판단</span><span>계산할 숫자인지, 코드처럼 보이는 문자인지 구분한다.</span></div>
+        </div>
+      </article>
+      <article class="domain-board-card">
+        <header>
+          <span class="domain-board-icon domain-board-icon-green">L</span>
+          <h3>Length</h3>
+        </header>
+        <div class="domain-board-rows">
+          <div class="domain-board-row"><span class="domain-board-row-label">질문</span><span>저장 가능한 최대 자릿수는?</span></div>
+          <div class="domain-board-row"><span class="domain-board-row-label">예</span><span>항공사 코드 <code>CHAR 3</code>, 사번 <code>NUMC 8</code></span></div>
+          <div class="domain-board-row"><span class="domain-board-row-label">판단</span><span>실제 업무 코드 길이를 확인한 뒤 정한다.</span></div>
+        </div>
+      </article>
+      <article class="domain-board-card">
+        <header>
+          <span class="domain-board-icon domain-board-icon-amber">O</span>
+          <h3>Output Length</h3>
+        </header>
+        <div class="domain-board-rows">
+          <div class="domain-board-row"><span class="domain-board-row-label">질문</span><span>화면·리스트 표시 폭은?</span></div>
+          <div class="domain-board-row"><span class="domain-board-row-label">예</span><span>날짜처럼 내부 길이와 표시 폭이 달라질 수 있다.</span></div>
+          <div class="domain-board-row"><span class="domain-board-row-label">판단</span><span>저장 길이와 같은 값이라고 단정하지 않는다.</span></div>
+        </div>
+      </article>
+      <article class="domain-board-card">
+        <header>
+          <span class="domain-board-icon domain-board-icon-rose">F</span>
+          <h3>Fixed Value</h3>
+        </header>
+        <div class="domain-board-rows">
+          <div class="domain-board-row"><span class="domain-board-row-label">질문</span><span>허용값이 작고 고정적인가?</span></div>
+          <div class="domain-board-row"><span class="domain-board-row-label">예</span><span><code>Y</code>/<code>N</code>, <code>A</code>/<code>B</code>/<code>C</code></span></div>
+          <div class="domain-board-row"><span class="domain-board-row-label">판단</span><span>값이 많거나 자주 늘면 별도 테이블 쪽을 검토한다.</span></div>
+        </div>
+      </article>
     </div>
     <p class="viz-note">Domain 설계는 “타입 → 길이 → 표시 폭 → 허용값” 순서로 검토하면 초반 실수가 줄어듭니다.</p>
   </div>

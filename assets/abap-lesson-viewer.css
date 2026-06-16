@@ -1,4 +1,4 @@
-/* ABAP Lesson Viewer UI | 최종수정 2026-06-16 01:34 KST | v1.2 */
+/* ABAP Lesson Viewer UI | 최종수정 2026-06-16 09:34 KST | v1.2 */
 @import url('https://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css');
 
 .lesson-loading {
@@ -619,6 +619,100 @@
 .itab-highlight-row,
 .viz-highlight-row {
   background: #fff7db;
+}
+
+.domain-board-visual {
+  background: #f8fbff;
+}
+
+.domain-board-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.domain-board-card {
+  min-width: 0;
+  border: 1px solid #d7e1ee;
+  border-radius: 8px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.domain-board-card header {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.75rem 0.85rem;
+  border-bottom: 1px solid #e7edf5;
+  background: #f6f9fd;
+}
+
+.domain-board-card h3 {
+  margin: 0;
+  color: #17375f;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.domain-board-icon {
+  display: grid;
+  place-items: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.domain-board-icon-blue {
+  background: #2563eb;
+}
+
+.domain-board-icon-green {
+  background: #15803d;
+}
+
+.domain-board-icon-amber {
+  background: #a16207;
+}
+
+.domain-board-icon-rose {
+  background: #be123c;
+}
+
+.domain-board-row {
+  display: grid;
+  grid-template-columns: 5.4rem minmax(0, 1fr);
+  gap: 0.75rem;
+  padding: 0.7rem 0.85rem;
+  border-bottom: 1px solid #edf1f7;
+  color: #2c3b50;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.domain-board-row:last-child {
+  border-bottom: 0;
+}
+
+.domain-board-row-label {
+  color: #26364c;
+  font-weight: 800;
+}
+
+@media (max-width: 760px) {
+  .domain-board-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .domain-board-row {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
 }
 
 .itab-current-row,

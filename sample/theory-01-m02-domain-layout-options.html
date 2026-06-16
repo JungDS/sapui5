@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>THEORY-01-M02 Domain 네 칸 대안 샘플</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+
+  :root {
+    --bg: #f4f7fb;
+    --panel: #ffffff;
+    --ink: #13233a;
+    --muted: #596b82;
+    --line: #d7e2f0;
+    --soft-line: #e8eef6;
+    --blue: #1d64c8;
+    --teal: #0f766e;
+    --green: #15803d;
+    --amber: #a16207;
+    --rose: #be123c;
+    --soft-blue: #eef6ff;
+    --soft-teal: #edfafa;
+    --soft-green: #f0f9f3;
+    --soft-amber: #fff7e6;
+    --soft-rose: #fff1f4;
+  }
+
+  html, body { max-width: 100%; overflow-x: hidden; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", Arial, sans-serif;
+    line-height: 1.65;
+  }
+
+  .sample-shell {
+    width: min(1120px, calc(100% - 32px));
+    margin: 32px auto 72px;
+  }
+
+  .sample-header {
+    margin-bottom: 18px;
+  }
+
+  .sample-header p {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .eyebrow {
+    color: var(--blue);
+    font-weight: 800;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin: 4px 0 8px;
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+
+  h2 {
+    margin: 0 0 8px;
+    font-size: 1.26rem;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  .sample-note {
+    border: 1px solid #c9d9ef;
+    border-left: 5px solid var(--blue);
+    border-radius: 8px;
+    background: #f8fbff;
+    padding: 14px 16px;
+    margin: 16px 0 24px;
+    color: #344762;
+  }
+
+  .option {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 22px;
+    margin: 18px 0;
+    box-shadow: 0 10px 28px rgba(35, 57, 86, 0.06);
+  }
+
+  .option-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .option-head p {
+    margin: 4px 0 0;
+    color: var(--muted);
+  }
+
+  .option-badge {
+    flex: 0 0 auto;
+    border: 1px solid #bcd4f4;
+    border-radius: 999px;
+    padding: 5px 10px;
+    color: var(--blue);
+    background: var(--soft-blue);
+    font-weight: 800;
+    font-size: 0.82rem;
+  }
+
+  .domain-chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .domain-chip {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #ffd1dc;
+    border-radius: 6px;
+    background: #fff4f7;
+    color: #a31545;
+    padding: 1px 7px;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 0.82rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .kicker {
+    margin: 16px 0 0;
+    color: var(--muted);
+    font-size: 0.94rem;
+  }
+
+  .label-blue { color: var(--blue); }
+  .label-teal { color: var(--teal); }
+  .label-green { color: var(--green); }
+  .label-amber { color: var(--amber); }
+  .label-rose { color: var(--rose); }
+
+  /* Option A: 2x2 board */
+  .board-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .board-card {
+    min-width: 0;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+    overflow: hidden;
+  }
+
+  .board-card header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--soft-line);
+    background: #f6f9fd;
+  }
+
+  .board-icon {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 900;
+  }
+
+  .board-icon.blue { background: var(--blue); }
+  .board-icon.green { background: var(--green); }
+  .board-icon.amber { background: var(--amber); }
+  .board-icon.rose { background: var(--rose); }
+
+  .board-rows {
+    display: grid;
+  }
+
+  .board-row {
+    display: grid;
+    grid-template-columns: 86px minmax(0, 1fr);
+    gap: 12px;
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--soft-line);
+  }
+
+  .board-row:last-child { border-bottom: 0; }
+
+  .row-label {
+    font-weight: 800;
+    color: #26364c;
+  }
+
+  .row-value {
+    min-width: 0;
+    color: #27384d;
+  }
+
+  /* Option B: vertical decision rail */
+  .decision-rail {
+    display: grid;
+    gap: 10px;
+  }
+
+  .decision-item {
+    display: grid;
+    grid-template-columns: 82px minmax(0, 1fr);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+    overflow: hidden;
+  }
+
+  .decision-step {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    padding: 14px 12px;
+    border-right: 1px solid var(--soft-line);
+    background: #f7fafc;
+    text-align: center;
+  }
+
+  .decision-step strong {
+    font-size: 1.28rem;
+    line-height: 1;
+  }
+
+  .decision-step span {
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .decision-body {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: minmax(150px, 0.9fr) minmax(0, 1.1fr) minmax(0, 1.1fr);
+    gap: 12px;
+    padding: 14px;
+    align-items: start;
+  }
+
+  .decision-title {
+    display: grid;
+    gap: 4px;
+  }
+
+  .decision-title strong {
+    font-size: 1.02rem;
+  }
+
+  .decision-text {
+    color: #2c3b50;
+  }
+
+  .mini-label {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  /* Option C: question table */
+  .question-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .question-table th,
+  .question-table td {
+    padding: 13px 14px;
+    border-bottom: 1px solid var(--soft-line);
+    text-align: left;
+    vertical-align: top;
+    overflow-wrap: anywhere;
+    word-break: keep-all;
+  }
+
+  .question-table th {
+    background: #f6f9fd;
+    color: #2b3f58;
+    font-size: 0.86rem;
+  }
+
+  .question-table tr:last-child td { border-bottom: 0; }
+
+  .question-table .attr {
+    width: 18%;
+    font-weight: 900;
+    color: var(--ink);
+  }
+
+  .question-table .question { width: 25%; }
+  .question-table .example { width: 27%; }
+  .question-table .judge { width: 30%; }
+
+  .attr-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px;
+    height: 24px;
+    border-radius: 6px;
+    margin-right: 8px;
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 900;
+  }
+
+  .mark-blue { background: var(--blue); }
+  .mark-green { background: var(--green); }
+  .mark-amber { background: var(--amber); }
+  .mark-rose { background: var(--rose); }
+
+  .compact-summary {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .summary-pill {
+    min-width: 0;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+    padding: 9px 10px;
+    color: #33455e;
+    font-size: 0.9rem;
+  }
+
+  .summary-pill strong {
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  @media (max-width: 860px) {
+    .board-grid,
+    .compact-summary {
+      grid-template-columns: 1fr;
+    }
+
+    .decision-item,
+    .decision-body {
+      grid-template-columns: 1fr;
+    }
+
+    .decision-step {
+      border-right: 0;
+      border-bottom: 1px solid var(--soft-line);
+      text-align: left;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .question-table,
+    .question-table thead,
+    .question-table tbody,
+    .question-table tr,
+    .question-table th,
+    .question-table td {
+      display: block;
+      width: 100%;
+    }
+
+    .question-table thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    .question-table tr {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .question-table tr:last-child {
+      border-bottom: 0;
+    }
+
+    .question-table td {
+      border-bottom: 1px solid var(--soft-line);
+    }
+
+    .question-table td::before {
+      content: attr(data-label);
+      display: block;
+      margin-bottom: 4px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .sample-shell {
+      width: min(100% - 20px, 1120px);
+      margin-top: 20px;
+    }
+
+    .option {
+      padding: 16px;
+    }
+
+    .option-head {
+      display: block;
+    }
+
+    .option-badge {
+      display: inline-flex;
+      margin-bottom: 10px;
+    }
+
+    .board-row {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+  }
+</style>
+</head>
+<body>
+  <main class="sample-shell">
+    <header class="sample-header">
+      <p class="eyebrow">THEORY-01-M02 section 2 design options</p>
+      <h1>Domain 설계의 네 칸 대안 샘플</h1>
+      <p>현재 4개 카드가 한 줄에 모두 배치되어 답답하게 보이는 문제를 줄이기 위한 선택지입니다. 세 안 모두 가로 스크롤 없이 반응형으로 줄어듭니다.</p>
+    </header>
+
+    <div class="sample-note">
+      실제 Lesson에 적용할 때는 선택한 안의 HTML 구조를 <strong>THEORY-01-M02 2번 섹션</strong>에 넣고, 필요한 CSS만 <strong>assets/abap-lesson-viewer.css</strong>로 옮기면 됩니다.
+    </div>
+
+    <section class="option" aria-labelledby="option-a-title">
+      <div class="option-head">
+        <div>
+          <span class="option-badge">Option A</span>
+          <h2 id="option-a-title">2x2 판단 보드</h2>
+          <p>한 줄 4칸 대신 2열 2행으로 넓이를 확보합니다. 기존 카드형 UI와 가장 가깝고 적용 비용이 낮습니다.</p>
+        </div>
+      </div>
+
+      <div class="board-grid">
+        <article class="board-card">
+          <header><span class="board-icon blue">T</span><h3>Data Type</h3></header>
+          <div class="board-rows">
+            <div class="board-row"><span class="row-label">질문</span><span class="row-value">값의 종류는?</span></div>
+            <div class="board-row"><span class="row-label">예</span><span class="row-value domain-chip-row"><code class="domain-chip">CHAR</code><code class="domain-chip">NUMC</code><code class="domain-chip">DATS</code><code class="domain-chip">CURR</code></span></div>
+            <div class="board-row"><span class="row-label">판단</span><span class="row-value">계산할 숫자인지, 코드처럼 보이는 문자인지 구분한다.</span></div>
+          </div>
+        </article>
+        <article class="board-card">
+          <header><span class="board-icon green">L</span><h3>Length</h3></header>
+          <div class="board-rows">
+            <div class="board-row"><span class="row-label">질문</span><span class="row-value">저장 가능한 최대 자릿수는?</span></div>
+            <div class="board-row"><span class="row-label">예</span><span class="row-value domain-chip-row">항공사 코드 <code class="domain-chip">CHAR 3</code> 사번 <code class="domain-chip">NUMC 8</code></span></div>
+            <div class="board-row"><span class="row-label">판단</span><span class="row-value">실제 업무 코드 길이를 확인한 뒤 정한다.</span></div>
+          </div>
+        </article>
+        <article class="board-card">
+          <header><span class="board-icon amber">O</span><h3>Output Length</h3></header>
+          <div class="board-rows">
+            <div class="board-row"><span class="row-label">질문</span><span class="row-value">화면·리스트 표시 폭은?</span></div>
+            <div class="board-row"><span class="row-label">예</span><span class="row-value">날짜처럼 내부 길이와 표시 폭이 달라질 수 있다.</span></div>
+            <div class="board-row"><span class="row-label">판단</span><span class="row-value">저장 길이와 같은 값이라고 단정하지 않는다.</span></div>
+          </div>
+        </article>
+        <article class="board-card">
+          <header><span class="board-icon rose">F</span><h3>Fixed Value</h3></header>
+          <div class="board-rows">
+            <div class="board-row"><span class="row-label">질문</span><span class="row-value">허용값이 작고 고정적인가?</span></div>
+            <div class="board-row"><span class="row-label">예</span><span class="row-value domain-chip-row"><code class="domain-chip">Y</code><code class="domain-chip">N</code><code class="domain-chip">A</code><code class="domain-chip">B</code><code class="domain-chip">C</code></span></div>
+            <div class="board-row"><span class="row-label">판단</span><span class="row-value">값이 많거나 자주 늘면 별도 테이블 쪽을 검토한다.</span></div>
+          </div>
+        </article>
+      </div>
+      <p class="kicker">추천 상황: 현재 디자인의 익숙함은 유지하되, 카드 폭만 넓혀 읽기 피로를 줄이고 싶을 때.</p>
+    </section>
+
+    <section class="option" aria-labelledby="option-b-title">
+      <div class="option-head">
+        <div>
+          <span class="option-badge">Option B</span>
+          <h2 id="option-b-title">세로 의사결정 레일</h2>
+          <p>Domain 설계를 실제 검토 순서처럼 위에서 아래로 읽게 만듭니다. “타입 → 길이 → 표시 폭 → 허용값” 흐름을 가장 강하게 보여줍니다.</p>
+        </div>
+      </div>
+
+      <div class="decision-rail">
+        <article class="decision-item">
+          <div class="decision-step"><strong class="label-blue">01</strong><span>Type</span></div>
+          <div class="decision-body">
+            <div class="decision-title"><strong>Data Type</strong><span class="mini-label">질문</span><span>값의 종류는?</span></div>
+            <div class="decision-text"><span class="mini-label">예</span><span class="domain-chip-row"><code class="domain-chip">CHAR</code><code class="domain-chip">NUMC</code><code class="domain-chip">DATS</code><code class="domain-chip">CURR</code></span></div>
+            <div class="decision-text"><span class="mini-label">판단</span>계산할 숫자인지, 코드처럼 보이는 문자인지 구분한다.</div>
+          </div>
+        </article>
+        <article class="decision-item">
+          <div class="decision-step"><strong class="label-green">02</strong><span>Length</span></div>
+          <div class="decision-body">
+            <div class="decision-title"><strong>Length</strong><span class="mini-label">질문</span><span>저장 가능한 최대 자릿수는?</span></div>
+            <div class="decision-text"><span class="mini-label">예</span>항공사 코드 <code class="domain-chip">CHAR 3</code>, 사번 <code class="domain-chip">NUMC 8</code></div>
+            <div class="decision-text"><span class="mini-label">판단</span>실제 업무 코드 길이를 확인한 뒤 정한다.</div>
+          </div>
+        </article>
+        <article class="decision-item">
+          <div class="decision-step"><strong class="label-amber">03</strong><span>Display</span></div>
+          <div class="decision-body">
+            <div class="decision-title"><strong>Output Length</strong><span class="mini-label">질문</span><span>화면·리스트 표시 폭은?</span></div>
+            <div class="decision-text"><span class="mini-label">예</span>날짜처럼 내부 길이와 표시 폭이 달라질 수 있다.</div>
+            <div class="decision-text"><span class="mini-label">판단</span>저장 길이와 같은 값이라고 단정하지 않는다.</div>
+          </div>
+        </article>
+        <article class="decision-item">
+          <div class="decision-step"><strong class="label-rose">04</strong><span>Range</span></div>
+          <div class="decision-body">
+            <div class="decision-title"><strong>Fixed Value</strong><span class="mini-label">질문</span><span>허용값이 작고 고정적인가?</span></div>
+            <div class="decision-text"><span class="mini-label">예</span><span class="domain-chip-row"><code class="domain-chip">Y</code><code class="domain-chip">N</code><code class="domain-chip">A</code><code class="domain-chip">B</code><code class="domain-chip">C</code></span></div>
+            <div class="decision-text"><span class="mini-label">판단</span>값이 많거나 자주 늘면 별도 테이블 쪽을 검토한다.</div>
+          </div>
+        </article>
+      </div>
+      <p class="kicker">추천 상황: 초급자가 검토 순서를 따라가게 하고, 화면 중앙에 여백을 더 만들고 싶을 때.</p>
+    </section>
+
+    <section class="option" aria-labelledby="option-c-title">
+      <div class="option-head">
+        <div>
+          <span class="option-badge">Option C</span>
+          <h2 id="option-c-title">질문 중심 매트릭스</h2>
+          <p>카드를 없애고 행 단위 표로 압축합니다. 한눈에 비교는 잘 되지만, 카드형보다 조금 더 문서/체크리스트 느낌입니다.</p>
+        </div>
+      </div>
+
+      <table class="question-table">
+        <thead>
+          <tr>
+            <th>속성</th>
+            <th>질문</th>
+            <th>예</th>
+            <th>판단</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="attr" data-label="속성"><span class="attr-mark mark-blue">T</span>Data Type</td>
+            <td class="question" data-label="질문">값의 종류는?</td>
+            <td class="example" data-label="예"><span class="domain-chip-row"><code class="domain-chip">CHAR</code><code class="domain-chip">NUMC</code><code class="domain-chip">DATS</code><code class="domain-chip">CURR</code></span></td>
+            <td class="judge" data-label="판단">계산할 숫자인지, 코드처럼 보이는 문자인지 구분한다.</td>
+          </tr>
+          <tr>
+            <td class="attr" data-label="속성"><span class="attr-mark mark-green">L</span>Length</td>
+            <td class="question" data-label="질문">저장 가능한 최대 자릿수는?</td>
+            <td class="example" data-label="예">항공사 코드 <code class="domain-chip">CHAR 3</code>, 사번 <code class="domain-chip">NUMC 8</code></td>
+            <td class="judge" data-label="판단">실제 업무 코드 길이를 확인한 뒤 정한다.</td>
+          </tr>
+          <tr>
+            <td class="attr" data-label="속성"><span class="attr-mark mark-amber">O</span>Output Length</td>
+            <td class="question" data-label="질문">화면·리스트 표시 폭은?</td>
+            <td class="example" data-label="예">날짜처럼 내부 길이와 표시 폭이 달라질 수 있다.</td>
+            <td class="judge" data-label="판단">저장 길이와 같은 값이라고 단정하지 않는다.</td>
+          </tr>
+          <tr>
+            <td class="attr" data-label="속성"><span class="attr-mark mark-rose">F</span>Fixed Value</td>
+            <td class="question" data-label="질문">허용값이 작고 고정적인가?</td>
+            <td class="example" data-label="예"><span class="domain-chip-row"><code class="domain-chip">Y</code><code class="domain-chip">N</code><code class="domain-chip">A</code><code class="domain-chip">B</code><code class="domain-chip">C</code></span></td>
+            <td class="judge" data-label="판단">값이 많거나 자주 늘면 별도 테이블 쪽을 검토한다.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="compact-summary" aria-label="Domain 설계 순서 요약">
+        <div class="summary-pill"><strong>1. 타입</strong>값의 재질</div>
+        <div class="summary-pill"><strong>2. 길이</strong>저장 크기</div>
+        <div class="summary-pill"><strong>3. 표시 폭</strong>화면 폭</div>
+        <div class="summary-pill"><strong>4. 허용값</strong>작은 목록</div>
+      </div>
+      <p class="kicker">추천 상황: 섹션 높이를 줄이고, 네 속성을 비교표처럼 빠르게 스캔하게 만들고 싶을 때.</p>
+    </section>
+  </main>
+</body>
+</html>
