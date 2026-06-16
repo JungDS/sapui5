@@ -1,6 +1,6 @@
 # 01. AI SYNC — 단일 목표 · 완료 정의 · 행동 규칙
 
-> 📅 **최종수정: 2026-06-16 19:05 KST**
+> 📅 **최종수정: 2026-06-17 02:11 KST**
 > 🎯 **목적:** 지금 무엇을, 어떤 제약 아래 해야 하는지. AI 인계 허브.
 > 📖 **읽을 때:** 모든 작업 시작 전 (필수, 최우선). 다른 AI가 투입돼도 여기부터.
 > ⚡ **TL;DR:**
@@ -45,6 +45,8 @@ Track 1(THEORY-01~21)의 모든 Lesson 페이지를 `sample/learning-methods-v3`
 
 ## 🧰 도구 (Tools) — load-bearing, 변경 금지
 - **NotebookLM 노트 ID**: `ad0e9cde-4dca-451e-b455-de200a9ed7b7` — Lesson 작업 전 반드시 질의해 내용 보강 근거로 삼는다. (SAP 공식 문서로 재검증)
+  - **질의 방법(권장): `nlm` CLI.** `nlm notebook query ad0e9cde-4dca-451e-b455-de200a9ed7b7 "<질문>"` (`--json`, 후속질문은 `-c <conversation_id>`로 세션 유지). 응답에 citation·`cited_text`까지 와서 SAP 교재(BC100/S4D40x 등) 근거 추적이 된다.
+  - ⚠️ **NotebookLM MCP(`mcp__notebooklm__*`)는 멀티-AI 동시작업 시 헤드리스 Chrome 프로필 잠김으로 실패**할 수 있다(→ [05 P16](05_PITFALLS.md)). `nlm` CLI는 브라우저를 안 띄우고 RPC를 직접 호출해 충돌이 없다 — **여러 AI가 동시에 써도 안전**하니 기본으로 `nlm`을 쓴다.
 - **UI 템플릿**: [`sample/learning-methods-v3`](../sample/learning-methods-v3/README.md) — 44개 시각화/실습/퀴즈/코드 다이어그램. 고를 때 → [06_LEARNING_METHODS.md](06_LEARNING_METHODS.md).
 - **디자인 토큰 SSOT**: `reference/design_variants.json` (+ v3의 `design-choices.json`). **무조건 준수.**
 - **T-code 시스템 (단일목표의 일부)**:

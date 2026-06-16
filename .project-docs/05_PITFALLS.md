@@ -1,6 +1,6 @@
 # 05. PITFALLS — 자주 깨지는 함정
 
-> 📅 **최종수정: 2026-06-15 11:01 KST**
+> 📅 **최종수정: 2026-06-17 02:11 KST**
 > 🎯 **목적:** 실제로 크게 데었던 지점만 모음. 안정 ID(P1~)로 참조.
 > 📖 **읽을 때:** 작업 중 막혔을 때, 구조 변경/멀티-AI 작업 전.
 > ⚡ **TL;DR:**
@@ -32,3 +32,4 @@
 - **P13 로컬 Fetch 캐시** — `fetch()`로 `lesson-content/*.html`을 불러올 때 브라우저 캐시가 강해 옛 파일이 보일 수 있음. 동적 로더는 `fetch(url + '?v=' + Date.now())` Cache Buster 권장.
 - **P14 Lesson 뷰어는 SSOT 미등록 템플릿** — `docs/abap/lesson-viewer.html`은 `DOCS`에 **없다**(찾지 말 것). 라우팅은 `?lesson=<ID>` ↔ `lesson-content/<ID>.html` + 커리큘럼 JSON으로 자체 처리.
 - **P15 신규 자산 헤더 누락** — 신규 `.css/.js/.mjs`는 [04 R1·R7](04_CONVENTIONS.md)의 `최종수정 … HH:MM KST | v…` 헤더 필수. 기존 자산은 수정 시점에 부여/갱신.
+- **P16 NotebookLM MCP 프로필 잠김** — `mcp__notebooklm__*`는 헤드리스 Chrome을 단일 `chrome_profile`로 띄우는데, Chromium 영구 프로필은 프로세스 1개만 열 수 있다. **두 번째 AI가 동시에 호출하면 잠김으로 즉시 실패**(`launchPersistentContext ... has been closed`)한다. ✅ 회피: **`nlm` CLI로 질의**(브라우저 미기동, RPC 직접 호출 → 동시 안전). 사용법·노트북 ID → [01 §도구](01_AI_SYNC.md).
