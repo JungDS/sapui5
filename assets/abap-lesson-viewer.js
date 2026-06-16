@@ -1,4 +1,4 @@
-// ABAP Curriculum Lesson Viewer | 최종수정 2026-06-10 13:17 KST | v1.2
+// ABAP Curriculum Lesson Viewer | 최종수정 2026-06-16 19:05 KST | v1.4
 //
 // Reads `?lesson=THEORY-01-M01` from the URL, loads the curriculum JSON to find metadata,
 // and fetches the actual lesson content from `lesson-content/THEORY-01-M01.html`.
@@ -6,7 +6,9 @@
   "use strict";
 
   var DATA_URL = "../../reference/abap_curriculum_v5_4_20260605_000000.json";
-  
+  var GLOSSARY_URL = "../../reference/abap_glossary.json";
+  var glossaryData = null;
+
   function getParam(name) {
     var match = new RegExp("[?&]" + name + "=([^&]*)").exec(location.search);
     return match ? decodeURIComponent(match[1].replace(/\+/g, " ")) : "";
@@ -87,7 +89,7 @@
     var breadcrumb = document.querySelector("[data-lesson-breadcrumb]");
     if (breadcrumb) {
       breadcrumb.innerHTML = '<a href="../../index.html">Home</a><span>›</span>' +
-        '<a href="abap-curriculum.html">ABAP 커리큘럼</a><span>›</span>' +
+        '<a href="../roadmap/abap-curriculum.html">ABAP 커리큘럼</a><span>›</span>' +
         '<a href="../roadmap/abap-curriculum-section-detail.html?section=' + encodeURIComponent(section.section_id) + '">' + escapeHtml(section.section_name) + '</a><span>›</span>' +
         '<span>' + escapeHtml(unit.sub_2_name) + '</span>';
     }
@@ -178,7 +180,8 @@
         '<div class="lesson-current-chapter">' + escapeHtml(context.section.section_name) + '</div>' +
         '<nav class="stage7-local-toc secdetail-toc" aria-label="이 Chapter 안에서">' + tocLinks + "</nav>" +
         '<div class="stage7-related-docs lesson-related-docs"><div class="stage7-side-heading">이동</div>' +
-        '<a href="' + backHref + '">↑ Chapter 요약으로 돌아가기</a></div>';
+        '<a href="' + backHref + '">↑ Chapter 요약으로 돌아가기</a>' +
+        '<a href="tcode-map.html?upto=' + encodeURIComponent(context.current.unit.sub_2_id) + '">⌨️ 지금까지 배운 T-code</a></div>';
     }
 
     if (pathPanel) {
@@ -249,6 +252,7 @@
       })
       .then(function (html) {
         root.innerHTML = html;
+        renderTcodeBar(root, lessonId);
         setupCodeCopyButtons(root);
         initializeInteractiveWidgets(root);
         if (window.mermaid) {
@@ -332,7 +336,14 @@
     return;
   }
 
-  fetch(DATA_URL)
+  // 글로서리는 T-code 칩 바 생성에 쓰인다. 실패해도 본문 렌더링은 막지 않는다(비치명적).
+  fetch(GLOSSARY_URL)
+    .then(function (response) { return response.ok ? response.json() : null; })
+    .catch(function () { return null; })
+    .then(function (glossary) {
+      glossaryData = glossary;
+      return fetch(DATA_URL);
+    })
     .then(function (response) {
       if (!response.ok) throw new Error("JSON 데이터를 불러올 수 없습니다.");
       return response.json();
@@ -343,7 +354,7 @@
         renderError("'" + escapeHtml(requestedLesson) + "' 에 해당하는 Lesson을 찾지 못했습니다.");
         return;
       }
-      
+
       renderHero(context);
       renderPager(context);
       populateSideNav(context);
@@ -352,6 +363,66 @@
     .catch(function (error) {
       renderError(error.message);
     });
+
+  // 이번 Lesson에서 등장하는 T-code(트랜잭션 코드)를 본문 data-glossary에서 수집해
+  // 본문 맨 위에 칩 바로 정리한다. 글로서리에서 category="tcode"인 용어만 대상.
+  // used_in_lessons의 첫 Lesson이면 "신규", 아니면 "복습"으로 구분해 중복 노출을 가볍게 만든다.
+  function firstSentence(text) {
+    var str = String(text == null ? "" : text);
+    var m = str.match(/^[\s\S]*?다\.|^[\s\S]*?\./);
+    var out = m ? m[0] : str;
+    return out.length > 60 ? out.slice(0, 59) + "…" : out;
+  }
+
+  function renderTcodeBar(root, lessonId) {
+    if (!glossaryData || !root) return;
+    var nodes = root.querySelectorAll("[data-glossary]");
+    var seen = {};
+    var tcodes = [];
+
+    nodes.forEach(function (el) {
+      var key = el.getAttribute("data-glossary");
+      if (!key || seen[key]) return;
+      var entry = glossaryData[key];
+      if (!entry || entry.category !== "tcode") return;
+      seen[key] = true;
+
+      var lessons = (entry.used_in_lessons || []).slice().sort();
+      var isNew = lessons.length === 0 || lessons[0] === lessonId;
+      tcodes.push({
+        code: entry.tcode || key,
+        desc: firstSentence(entry.desc),
+        isNew: isNew
+      });
+    });
+
+    if (!tcodes.length) return; // T-code 없는 Lesson은 칩 바 자체를 띄우지 않는다.
+
+    // 신규를 앞으로, 복습을 뒤로 정렬.
+    tcodes.sort(function (a, b) { return (a.isNew === b.isNew) ? 0 : (a.isNew ? -1 : 1); });
+
+    var chips = tcodes.map(function (t) {
+      var flag = t.isNew
+        ? '<span class="lesson-tcode-chip-flag new">🆕 신규</span>'
+        : '<span class="lesson-tcode-chip-flag review">🔁 복습</span>';
+      return '<div class="lesson-tcode-chip ' + (t.isNew ? "is-new" : "is-review") + '">' +
+        flag +
+        '<span class="lesson-tcode-chip-code">' + escapeHtml(t.code) + '</span>' +
+        '<span class="lesson-tcode-chip-desc">' + escapeHtml(t.desc) + '</span>' +
+        '</div>';
+    }).join("");
+
+    var bar = document.createElement("div");
+    bar.className = "lesson-tcode-bar";
+    bar.setAttribute("data-tcode-bar", "");
+    bar.innerHTML = '<div class="lesson-tcode-bar-head">' +
+        '<span class="lesson-tcode-bar-icon">⌨️</span>' +
+        '<span class="lesson-tcode-bar-title">이번 Lesson에서 다루는 트랜잭션 코드</span>' +
+      '</div>' +
+      '<div class="lesson-tcode-chips">' + chips + '</div>';
+
+    root.insertBefore(bar, root.firstChild);
+  }
 
   // 5대 인터랙티브 학습 위젯 초기화 통합 함수 (+ 점진적 이벤트 탭 위젯 추가)
   function initializeInteractiveWidgets(scope) {

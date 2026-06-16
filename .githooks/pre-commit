@@ -1,0 +1,7 @@
+#!/bin/sh
+# .githooks/pre-commit
+# 커밋 직전, staged 파일의 R1 타임스탬프 헤더를 현재 KST로 자동 갱신한다.
+# 어떤 도구(Claude / Codex / Antigravity / 사람)로 편집했든 git 커밋 시 공통 적용된다.
+# 근거: .project-docs/04_CONVENTIONS.md R1. 상세 로직은 stamp-staged.mjs.
+node .githooks/stamp-staged.mjs
+exit 0

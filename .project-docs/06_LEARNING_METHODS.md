@@ -1,18 +1,33 @@
 # 06. LEARNING METHODS — v3 학습수단 카탈로그
 
-> 📅 **최종수정: 2026-06-15 11:01 KST**
+> 📅 **최종수정: 2026-06-16 19:05 KST**
 > 🎯 **목적:** Lesson을 만들 때 텍스트만 나열하지 않고, 주제에 맞는 시각화·실습·퀴즈·코드 컴포넌트를 고르는 가이드.
 > 📖 **읽을 때:** Lesson 콘텐츠를 설계할 때(본문 쓰기 전에 흐름부터 설계).
 > ⚡ **TL;DR:**
 > - 흐름 설계: **읽기 → 보기 → 조작하기 → 풀어보기 → 정리하기**.
-> - 한 Lesson = 핵심 시각자료 1~3개 + 실습 + 확인 퀴즈. 모든 곳에 무거운 인터랙션 불필요.
+> - 한 Lesson = 핵심 시각자료 1~3개 + 실습 + 확인 퀴즈.
+> - **🚨 코드가 나오면 = 그 페이지에서 시뮬레이션 실습 필수**(아래 §1.5). "정적 코드 블록만"은 미완([01 DoD](01_AI_SYNC.md)).
 > - 실제 구현 샘플(44개)은 [`sample/learning-methods-v3`](../sample/learning-methods-v3/README.md). 디자인 토큰은 `reference/design_variants.json`.
 
 ## 1. 핵심 원칙
 - 텍스트는 뼈대, 학습수단은 이해를 고정하는 장치.
+- **이론 ↔ 실습 병행이 기본값**: 개념을 설명했으면 곧바로 그 페이지에서 직접 해보게 한다.
 - 복잡한 개념일수록 단계 흐름(읽기→보기→조작→풀기→정리)을 만든다.
-- 개념 난도·상태 변화·분기·실습 가치가 클 때만 무거운 인터랙션 사용.
+- 상태 변화·분기·런타임 흐름은 무거운 인터랙션으로 보상이 크다.
 - `docs/abap/lesson-content/*.html`은 fragment → `<script>`/`<style>`/인라인 `style` 금지. 동작은 `assets/abap-lesson-viewer.js`, 스타일은 `assets/abap-lesson-viewer.css`로([04 R11](04_CONVENTIONS.md)).
+
+## 1.5 🚨 코드 = 실습 시뮬레이션 (필수 규칙)
+본문에 ABAP/SQL/설정 코드가 **1줄이라도** 나오면, 사용자가 **그 코드를 이 페이지 안에서 직접 실행·조작**하는 시뮬레이션을 반드시 함께 넣는다. 목적은 "흥미 유도 + 손으로 익히기". 코드 성격에 따라 아래에서 고른다:
+
+| 코드 성격 | 추천 시뮬레이션 수단 (v3) |
+|---|---|
+| T-code 진입·화면 입력·실행 흐름 (예: SE38/SE80로 첫 프로그램) | 가상 SAP GUI Sandbox `interactive-sandbox-simulator`, ABAP Editor Mockup `abap-editor-mockup` |
+| 실행 순서·이벤트·루프·분기 추적 | Step Debugger Timeline `step-debugger-timeline`, Breakpoint 체크리스트, 예상 로그 비교 `expected-log-comparison` |
+| 구문 익히기·키워드 채우기 | 빈칸 코드 `fill-blank-code`, 코드 라인 매칭 `code-line-matching`, 코드 키워드 아코디언 |
+| 안티패턴·디버깅 감각 | 오류 찾기 `bug-hunt-mission`, Bad/Good Hover Mapping, 성능 프로파일러 모의 |
+
+- **정적 `shiki-copy-wrapper` 코드 블록만** 있고 위 시뮬레이션이 없으면 그 Lesson은 **미완**이다.
+- 동작 로직은 이미 `abap-lesson-viewer.js`에 있다(`initSapSandbox`·`initDebugger`·`initPuzzleQuiz`·`initCodeTour`·`initEventTabs` 등) — 새 로직보다 기존 위젯 재사용을 우선한다.
 
 ## 2. v3 샘플 카테고리 (구현 출처)
 `sample/learning-methods-v3/<category>/`에 standalone 샘플로 존재. 각 페이지 상단 A/B/C 시안 → `design-choices.json` 누적.

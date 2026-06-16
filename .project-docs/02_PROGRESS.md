@@ -1,6 +1,7 @@
 # 02. PROGRESS — 목표 진행 현황 · 작업 claim 보드
 
-> 📅 **최종수정: 2026-06-16 10:49 KST**
+> 📅 **최종수정: 2026-06-16 19:05 KST**
+> 🧹 **2026-06-16 기준선 리셋:** DoD 상향(T-code 노출 + 코드 실습 시뮬레이션 필수 → [01_AI_SYNC](01_AI_SYNC.md))으로 모든 진행률을 **0으로 초기화**했다. 구 Chapter 1~4(THEORY-01~04, 22 Lesson)는 새 기준 미충족이라 미착수로 되돌렸다. 이전 완료 이력은 git log로 확인한다.
 > 🎯 **목적:** 단일 목표(Track 1 v3 리빌딩)가 어디까지 진행됐는지, 지금 누가 무엇을 잡고 있는지 한눈에. 다음 단계 결정과 충돌 방지의 SSOT.
 > 📖 **읽을 때:** 작업 **시작 직전(필수)** 과 종료 시. 목표 → [01_AI_SYNC](01_AI_SYNC.md).
 > ⚡ **TL;DR:**
@@ -21,10 +22,10 @@
 
 | Chapter | 상태 | 완료/전체 Lesson | 메모 |
 |---|---|---|---|
-| 01 | ✅ | 6 / 6 | Chapter 1 완료 (THEORY-01-M01~M06) |
-| 02 | ✅ | 6 / 6 | Chapter 2 완료 (THEORY-02-M01~M06, ABAP 기본 문법과 WRITE 출력) |
-| 03 | ✅ | 4 / 4 | Chapter 3 완료 (THEORY-03-M01~M04, PARAMETERS 기반 Selection Screen 맛보기) |
-| 04 | ⬜ | 0 / — | |
+| 01 | ⬜ | 0 / 6 | (리셋) 재빌딩 대상 — 상향 DoD 적용 |
+| 02 | ⬜ | 0 / 6 | (리셋) 재빌딩 대상. ⚠️ 구 02-M01 SE38/SE80 설명·실습 부족 → 보강 필수 |
+| 03 | ⬜ | 0 / 4 | (리셋) 재빌딩 대상 — 상향 DoD 적용 |
+| 04 | ⬜ | 0 / 6 | (리셋) 재빌딩 대상 — 상향 DoD 적용 |
 | 05 | ⬜ | 0 / — | |
 | 06 | ⬜ | 0 / — | |
 | 07 | ⬜ | 0 / — | |
@@ -43,7 +44,7 @@
 | 20 | ⬜ | 0 / — | |
 | 21 | ⬜ | 0 / — | |
 
-> 현재 전체: **16 / 137 Lesson 리빌딩 완료**. (이전 라운드 산출물은 백지화 대상이므로 진행률에 포함하지 않는다.)
+> 현재 전체: **0 / 137 Lesson 리빌딩 완료** (2026-06-16 기준선 리셋). 이전 라운드 산출물은 상향 DoD 미충족이라 진행률에 포함하지 않는다.
 
 ## 🔄 진행 중 (Active Claims)
 
@@ -53,25 +54,11 @@
 |---|---|---|---|
 | _(없음)_ | | | |
 
-> ⏸️ Chapter 4(THEORY-04) 작업은 **NotebookLM MCP 연동 불가**로 보류(2026-06-16 01:13 KST). 셋업·계획은 [plans/202606/0616_0108_theory-04/](plans/202606/0616_0108_theory-04/)에 `planned`로 보존. 연동 복구 후 재개.
-
 ## ✅ 완료 로그 (최신 위)
+
+> **2026-06-16 기준선 리셋으로 비움.** 상향된 DoD(T-code 노출 + 코드 실습 시뮬레이션) 아래에서 완료된 Lesson만 여기 기록한다.
+> 리셋 이전 22개 Lesson(THEORY-01~04)의 완료 이력은 **git log**에서 확인한다(`git log -- .project-docs/02_PROGRESS.md`).
 
 | Lesson | AI | 완료(KST) | 비고 |
 |---|---|---|---|
-| THEORY-03-M04 | Codex | 2026-06-16 10:49 KST | NotebookLM+SAP 공식 재검증, BEGIN/END BLOCK·WITH FRAME TITLE·static Block 목업·범위 밖 항목 정리, 글로서리 0건, 콘솔 오류 0건, Chapter 3 완료 |
-| THEORY-03-M03 | Codex | 2026-06-16 10:43 KST | NotebookLM+SAP 공식 재검증, 화면→메모리→List Output 흐름/정적 SAP 목업/출력 오해 정리, 글로서리 0건, 콘솔 오류 0건 |
-| THEORY-03-M02 | Codex | 2026-06-16 10:35 KST | NotebookLM+SAP 공식 재검증, DEFAULT/OBLIGATORY 전후 비교·오류 흐름·실습/퀴즈 적용, 글로서리 0건, 콘솔 오류 0건 |
-| THEORY-03-M01 | Codex | 2026-06-16 10:28 KST | NotebookLM+SAP 공식 재검증, PARAMETERS 입력칸+변수 흐름/DATA 비교/Screen 1000/모바일 Selection Screen 보강, 글로서리 0건, 콘솔 오류 0건 |
-| THEORY-02-M06 | Claude Opus 4.8 | 2026-06-16 01:45 KST | 문자열/날짜/SY 필드. v3 상태그리드/비교/목업3/접이식/퀴즈/요약, 글로서리 0건, 콘솔 오류 0건, Chapter 2 완료 |
-| THEORY-02-M05 | Claude Opus 4.8 | 2026-06-16 01:45 KST | DO/WHILE/EXIT/CONTINUE. v3 상태그리드/탭/목업3/접이식/요약, 글로서리 0건, 콘솔 오류 0건 |
-| THEORY-02-M04 | Claude Opus 4.8 | 2026-06-16 01:45 KST | IF/CASE 분기. v3 연산자표/탭(IF vs CASE)/비교/접이식/요약, 글로서리 0건, 콘솔 오류 0건 |
-| THEORY-02-M03 | Claude Opus 4.8 | 2026-06-16 01:45 KST | WRITE 출력/서식. v3 목업/기호표/서식표/비교/접이식/요약, 글로서리 0건, 콘솔 오류 0건 |
-| THEORY-02-M02 | Claude Opus 4.8 | 2026-06-16 01:45 KST | DATA/CONSTANTS/TYPES. v3 3분류 그리드/치트시트/관계도/탭/접이식/요약, 글로서리 0건, 콘솔 오류 0건 |
-| THEORY-01-M06 | Codex | 2026-06-16 01:43 KST | NotebookLM+SAP 공식 재검증, v3 상태그리드/비교/흐름/실습/접이식/요약 적용, 콘솔 오류 0건, Chapter 1 완료 |
-| THEORY-01-M05 | Codex | 2026-06-16 01:34 KST | NotebookLM+SAP 공식 재검증, v3 비교/관계도/키표/상태그리드/흐름/접이식/요약 적용, 콘솔 오류 0건 |
-| THEORY-02-M01 | Claude Opus 4.8 | 2026-06-16 01:34 KST | Chapter 2 시작. SAP 공식+커리큘럼 근거(NotebookLM 미인증 보류), v3 코드목업/관계도/플로우/탭/비교/접이식/퀴즈/요약, 글로서리 0건, 콘솔 오류 0건 |
-| THEORY-01-M04 | Codex | 2026-06-16 01:24 KST | NotebookLM+SAP 공식 재검증, v3 관계도/비교/판단표/흐름/접이식/요약 적용, 콘솔 오류 0건 |
-| THEORY-01-M03 | Codex | 2026-06-16 01:18 KST | NotebookLM+SAP 공식 재검증, v3 관계도/판단표/비교/흐름/접이식/요약 적용, 콘솔 오류 0건 |
-| THEORY-01-M02 | Codex | 2026-06-16 01:07 KST | NotebookLM+SAP 공식 재검증, v3 판단표/플로우/비교/접이식/요약 적용, 콘솔 오류 0건 |
-| THEORY-01-M01 | Codex | 2026-06-16 00:15 KST | NotebookLM+SAP 공식 재검증, v3 탭/플로우/접이식/요약 적용, 콘솔 오류 0건 |
+| _(없음 — 리셋 후 첫 완료 대기)_ | | | |

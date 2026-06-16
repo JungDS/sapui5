@@ -1,0 +1,150 @@
+/* SAP T-code 지도 (T-code Map) | 최종수정 2026-06-16 19:05 KST | v1.0 */
+
+.tcode-upto-note {
+  margin: 0 0 1.25rem 0;
+  padding: 0.85rem 1.1rem;
+  border-radius: 10px;
+  background: #fff8e6;
+  border: 1px solid #f3e2b3;
+  font-size: 0.95rem;
+  color: #6b5a23;
+}
+.tcode-upto-note a { color: #0056b3; font-weight: 600; text-decoration: none; white-space: nowrap; }
+.tcode-upto-note a:hover { text-decoration: underline; }
+
+.tcode-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.98rem;
+  color: #444;
+  margin-bottom: 1rem;
+}
+.tcode-summary strong { color: #0056b3; font-size: 1.1rem; }
+.tcode-summary-sep { color: #c5ccd3; }
+
+.tcode-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 2rem;
+}
+.tcode-search {
+  flex: 1 1 320px;
+  padding: 0.7rem 0.95rem;
+  border: 1px solid #d6dde4;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.tcode-search:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.12);
+}
+.tcode-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  color: #444;
+  cursor: pointer;
+  user-select: none;
+}
+
+.tcode-group { margin: 0 0 2.5rem 0; }
+.tcode-group-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0a3d70;
+  margin: 0 0 1rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e3edf9;
+}
+.tcode-group-count {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #0056b3;
+  background: #e4f0fd;
+  border-radius: 999px;
+  padding: 0.1rem 0.6rem;
+}
+
+.tcode-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 0.9rem;
+}
+
+.tcode-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0.95rem 1.05rem;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid #e9ecef;
+  border-left: 4px solid #c5ccd3;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.tcode-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 86, 179, 0.1);
+}
+.tcode-card.is-learned { border-left-color: #0056b3; }
+
+.tcode-card-code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #111;
+}
+.tcode-card-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #0a3d70;
+}
+.tcode-card-desc {
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: #5a636b;
+  flex: 1;
+}
+
+.tcode-card-lessons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.2rem;
+}
+.tcode-lesson-badge {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #0056b3;
+  background: #eef4fc;
+  border-radius: 999px;
+  padding: 0.12rem 0.55rem;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+.tcode-lesson-badge:hover { background: #d8e7fa; }
+.tcode-lesson-badge.first {
+  color: #fff;
+  background: #0056b3;
+}
+.tcode-lesson-badge.first:hover { background: #00408a; }
+.tcode-lesson-none {
+  font-size: 0.74rem;
+  color: #9aa3ab;
+  font-style: italic;
+}
+
+.tcode-empty { color: #6b757e; }
+
+@media (max-width: 520px) {
+  .tcode-grid { grid-template-columns: 1fr; }
+}

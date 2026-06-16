@@ -1,143 +1,30 @@
-<!-- lesson-content/THEORY-04-M05.html -->
+<!-- lesson-content/THEORY-04-M05.html | 최종수정 2026-06-16 19:05 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
   <div class="lesson-callout-content">
     <h4>학습 목표</h4>
-    <p>지난 Lesson까지 DDIC의 <span class="glossary-term" data-glossary="SearchHelp">Search Help</span>를 배웠습니다. 이번에는 ABAP <span class="glossary-term" data-glossary="PARAMETERSStatement">PARAMETERS</span> 입력칸이 <span class="glossary-term" data-glossary="DataElement">Data Element</span>와 DDIC 연결을 통해 어떻게 <span class="glossary-term" data-glossary="F4Help">F4 Help</span>를 얻는지 확인합니다.</p>
+    <p>지금까지 DDIC에서 입력 도움말(Search Help)과 관계(Foreign Key)를 만들어 봤습니다. 이번 Lesson에서는 그렇게 만든 입력 도움말을 실제 프로그램의 <span class="glossary-term" data-glossary="PARAMETERSStatement">PARAMETERS</span> 입력 필드에 <strong>연결</strong>해, 우리가 만든 화면에서 <span class="glossary-term" data-glossary="F4Help">F4</span>가 동작하게 만드는 법을 배웁니다. 핵심은 “<span class="glossary-term" data-glossary="DataElement">Data Element</span>를 참조하면 F4가 공짜로 따라온다”는 상속 원리입니다.</p>
   </div>
 </div>
 
 <section class="lesson-section">
-  <h2>1. 지난 시간 연결: Search Help를 만들었는데 어디에 보일까? 🧩</h2>
+  <h2>1. 지난 Lesson 연결: 만든 F4를 내 화면에 붙이기 🔌</h2>
   <p>
-    Search Help를 만들었다고 해서 모든 입력칸에 자동으로 뜨는 것은 아닙니다. F4 Help가 나타나려면 입력 필드가 DDIC 정보와 연결되어 있어야 합니다.
+    Chapter 4 내내 “잘못된 값을 막고(Foreign Key), 고를 수 있게 돕는(Search Help)” DDIC 장치를 만들었습니다. 그런데 이게 실제로 <strong>내가 짠 보고서 프로그램의 입력칸</strong>에서 동작하지 않으면 의미가 없죠.
   </p>
   <p>
-    ABAP Report의 PARAMETERS도 타입을 어떻게 선언하느냐에 따라 DDIC의 도움을 받을 수 있습니다. 특히 Data Element를 타입으로 사용하면, 그 Data Element에 연결된 Search Help나 관련 DDIC 정보가 입력 도움말로 이어질 수 있습니다.
+    좋은 소식은, 대부분의 경우 <strong>코드를 거의 안 써도 F4가 자동으로 붙는다</strong>는 것입니다. 비결은 PARAMETERS를 선언할 때 타입을 어떻게 주느냐에 있습니다.
   </p>
   <blockquote>
-    PARAMETERS가 DDIC 타입을 입으면, 단순 입력칸이 아니라 DDIC 지식을 아는 입력칸이 됩니다.
+    “코드 한 줄 쳤는데 돋보기(F4) 버튼이 알아서 생기는 마법”의 정체는 DDIC 속성의 자동 상속입니다.
   </blockquote>
 </section>
 
 <section class="lesson-section">
-  <h2>2. TYPE c LENGTH 3와 Data Element 타입의 차이 🔍</h2>
+  <h2>2. 자동 상속: Data Element를 참조하면 F4가 따라온다 ✨</h2>
   <p>
-    아래 두 선언은 화면에서 비슷한 입력칸처럼 보일 수 있지만, DDIC 정보 연결 면에서는 차이가 있습니다.
-  </p>
-  <!-- ABAP_MOCKUP_START -->
-<div class="abap-editor-mockup shiki-copy-wrapper">
-  <div class="abap-editor-header">
-    <div class="abap-editor-mac-buttons">
-      <span class="abap-editor-mac-btn red"></span>
-      <span class="abap-editor-mac-btn yellow"></span>
-      <span class="abap-editor-mac-btn green"></span>
-    </div>
-    <div class="abap-editor-title">ABAP</div>
-    <div class="abap-editor-actions">
-      <button class="shiki-copy-button" data-copied="false">Copy</button>
-    </div>
-  </div>
-  <div class="abap-editor-body">
-    <div class="abap-editor-line-numbers">
-      1<br>2
-    </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">PARAMETERS</span> p_raw  <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> <span class="abap-token-number">3</span>.
-<span class="abap-token-keyword">PARAMETERS</span> p_carr <span class="abap-token-keyword">TYPE</span> zde_carrid.</code></pre>
-  </div>
-</div>
-<!-- ABAP_MOCKUP_END -->
-  <ul>
-    <li><code>p_raw TYPE c LENGTH 3</code>: 그냥 3자리 문자 입력칸입니다. 업무 의미나 Search Help 연결 정보가 없습니다.</li>
-    <li><code>p_carr TYPE zde_carrid</code>: Data Element를 타입으로 사용합니다. Data Element의 의미, 라벨, Search Help 연결을 활용할 수 있습니다.</li>
-  </ul>
-  <p>
-    여기서 <code>zde_carrid</code>는 예시 Data Element 이름입니다. 실제 프로젝트에서는 표준 Data Element나 고객사 네이밍 규칙에 맞는 Data Element를 사용합니다.
-  </p>
-  <div class="viz-visual">
-    <p class="viz-visual-title">같은 입력칸, 다른 능력 — 선언 방식 비교</p>
-    <div class="viz-compare">
-      <div class="viz-compare-before">
-        <span class="viz-compare-label">p_raw TYPE c LENGTH 3</span>
-        <div class="viz-compare-body">
-          <table class="viz-table">
-            <tbody>
-              <tr><td>화면 라벨</td><td>변수명 그대로</td></tr>
-              <tr><td>업무 의미</td><td>없음 (그냥 3자리 문자)</td></tr>
-              <tr><td>F4 Help</td><td><span class="viz-badge fail">연결 없음</span></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="viz-compare-after">
-        <span class="viz-compare-label">p_carr TYPE zde_carrid</span>
-        <div class="viz-compare-body">
-          <table class="viz-table">
-            <tbody>
-              <tr><td>화면 라벨</td><td>Data Element 라벨 재사용</td></tr>
-              <tr><td>업무 의미</td><td>"항공사 코드"라는 의미 보유</td></tr>
-              <tr><td>F4 Help</td><td><span class="viz-badge success">DDIC 연결 활용</span></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-    <p class="viz-note">두 입력칸은 겉보기에 비슷하지만, DDIC 타입을 입은 쪽만 라벨·의미·입력 도움말을 재사용할 수 있습니다.</p>
-  </div>
-</section>
-
-<section class="lesson-section">
-  <h2>3. DDIC F4 Help 연결 흐름 🧭</h2>
-  <p>
-    PARAMETERS와 DDIC F4 Help가 이어지는 대표 흐름은 아래처럼 볼 수 있습니다.
-  </p>
-  <ol>
-    <li>Domain이 데이터 타입과 길이를 정의합니다.</li>
-    <li>Data Element가 의미와 라벨을 붙입니다.</li>
-    <li>Data Element 또는 관련 DDIC 관계에 Search Help가 연결됩니다.</li>
-    <li>ABAP PARAMETERS가 그 Data Element를 타입으로 사용합니다.</li>
-    <li>사용자가 입력칸에서 F4를 누르면 DDIC 기반 후보 목록이 나타납니다.</li>
-  </ol>
-  <div class="lesson-callout tip">
-    <div class="lesson-callout-icon">💡</div>
-    <div class="lesson-callout-content">
-      <h4>왜 DDIC를 재사용하나요?</h4>
-      <p>프로그램마다 F4 Help를 따로 만들면 유지보수가 힘듭니다. Data Element와 Search Help에 의미를 모아두면 여러 프로그램이 같은 입력 도움말을 재사용할 수 있습니다.</p>
-    </div>
-  </div>
-  <div class="viz-visual">
-    <p class="viz-visual-title">F4를 누르면 시스템은 이 순서로 도움말을 찾는다</p>
-    <div class="viz-flow">
-      <div class="viz-flow-step">
-        <strong>1. 화면 로직</strong>
-        <span>Dynpro의 값 요청 이벤트가 있는가?</span>
-      </div>
-      <div class="viz-flow-step">
-        <strong>2. 필드 Search Help</strong>
-        <span>필드/테이블에 연결된 Search Help가 있는가?</span>
-      </div>
-      <div class="viz-flow-step">
-        <strong>3. Check Table</strong>
-        <span>Foreign Key의 기준표 키 목록을 보여줄 수 있는가?</span>
-      </div>
-      <div class="viz-flow-step">
-        <strong>4. Data Element</strong>
-        <span>Data Element에 붙은 Search Help가 있는가?</span>
-      </div>
-      <div class="viz-flow-step">
-        <strong>5. Fixed Value</strong>
-        <span>Domain의 고정값 목록이 있는가?</span>
-      </div>
-    </div>
-    <p class="viz-note">위에서 아래로 내려가다 처음 걸리는 곳에서 F4 팝업이 만들어집니다. 그래서 별도 Search Help가 없어도 Check Table만 있으면 기준표 키 목록이 F4로 나타날 수 있습니다.</p>
-  </div>
-</section>
-
-<section class="lesson-section">
-  <h2>4. 최소 실습: Data Element 타입으로 PARAMETERS 선언하기 🧪</h2>
-  <p>
-    아래 예제는 직접 F4 로직을 코딩하지 않고, DDIC 타입을 통해 입력 도움말을 기대하는 흐름입니다.
+    PARAMETERS를 <code>TYPE</code>/<code>LIKE</code>로 <span class="glossary-term" data-glossary="DDIC">DDIC</span> 객체(Data Element나 테이블 필드)를 참조해 선언하면, 런타임이 그 필드에 맞는 입력 도움말(F4)을 <strong>자동으로</strong> 제공합니다. 기본 타입(<code>TYPE c LENGTH 10</code>)으로 선언하면 이런 상속이 일어나지 않습니다.
   </p>
   <!-- ABAP_MOCKUP_START -->
 <div class="abap-editor-mockup shiki-copy-wrapper">
@@ -156,35 +43,87 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zparam_ddic_f4.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">* 권장하지 않음: 기본 타입 — F4도, 선택 텍스트도, F1 문서도 없음</span>
+<span class="abap-token-keyword">PARAMETERS</span> p_id <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> <span class="abap-token-number">3</span>.
 
-<span class="abap-token-keyword">PARAMETERS</span> p_carr <span class="abap-token-keyword">TYPE</span> zde_carrid <span class="abap-token-keyword">OBLIGATORY</span>.
+<span class="abap-token-comment">* 권장: Data Element 참조 — F4 / 선택 텍스트 / F1 문서가 자동으로 따라옴</span>
+<span class="abap-token-keyword">PARAMETERS</span> p_carr <span class="abap-token-keyword">TYPE</span> s_carr_id.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">💡</div>
+    <div class="lesson-callout-content">
+      <h4>Data Element 참조가 좋은 3가지 “일관성 상속”</h4>
+      <ul>
+        <li><strong>의미(Field Label):</strong> Data Element의 라벨이 화면의 선택 텍스트(Selection Text)로 자동 반영 → 전사 통일된 용어.</li>
+        <li><strong>F4(Search Help):</strong> Data Element/Domain에 붙은 검색 도움말·고정값을 코딩 없이 그대로 상속.</li>
+        <li><strong>F1(문서):</strong> 사용자가 F1을 누르면 Data Element에 작성된 표준 설명이 팝업으로 표시.</li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-<span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'선택한 항공사:'</span>, p_carr.</code></pre>
+<section class="lesson-section">
+  <h2>3. 시스템이 F4를 찾는 우선순위 계층 🪜</h2>
+  <p>
+    사용자가 F4를 누르면(내부적으로 <code>PROCESS ON VALUE-REQUEST</code>), 시스템은 정해진 <strong>우선순위</strong>를 따라 가장 적절한 도움말을 찾아 띄웁니다. 위에서부터 먼저 확인합니다.
+  </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">F4 입력 도움말 탐색 순서 (위가 우선)</p>
+    <div class="viz-flow">
+      <div class="viz-flow-step"><strong>1. 화면 필드 직접 연결</strong><span>Screen Painter에서 그 필드에 직접 붙인 Search Help</span></div>
+      <div class="viz-flow-step"><strong>2. Check Table</strong><span><span class="glossary-term" data-glossary="ForeignKey">Foreign Key</span>로 연결된 <span class="glossary-term" data-glossary="CheckTable">Check Table</span> 기반 도움말</span></div>
+      <div class="viz-flow-step"><strong>3. Data Element</strong><span>참조한 Data Element에 붙은 Search Help</span></div>
+      <div class="viz-flow-step"><strong>4. Domain 고정값</strong><span><span class="glossary-term" data-glossary="Domain">Domain</span>의 Fixed Values → 드롭다운</span></div>
+      <div class="viz-flow-step"><strong>5. 달력/시계</strong><span>타입이 날짜(DATS)·시간(TIMS)이면 기본 달력·시계</span></div>
+    </div>
+    <p class="viz-note">그래서 Foreign Key만 잘 걸어둬도(2번) 별도 Search Help 없이 F4가 동작하는 경우가 많습니다.</p>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 특정 Search Help 강제 지정: MATCHCODE OBJECT 🎯</h2>
+  <p>
+    자동 상속이 훌륭하지만, 어떤 보고서에서는 “상속된 기본 F4 말고 <strong>이 검색 도움말을 띄워라</strong>”라고 강제하고 싶을 때가 있습니다. 이때 <code>MATCHCODE OBJECT</code> 구문으로 특정 Search Help를 명시합니다.
+  </p>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-comment">* 상속된 기본 F4를 무시하고, 지정한 Search Help(zsh_order)를 강제로 연결</span>
+<span class="abap-token-keyword">PARAMETERS</span> p_ord <span class="abap-token-keyword">LIKE</span> vbak-vbeln MATCHCODE <span class="abap-token-keyword">OBJECT</span> zsh_order.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
   <p>
-    실습 포인트는 코드가 짧다는 점입니다. F4 후보 목록을 직접 SELECT해서 팝업으로 만드는 것이 아니라, DDIC에 이미 정의된 Data Element와 Search Help 관계를 활용합니다.
+    이 방식은 Data Element나 테이블 구조 <strong>자체를 수정하지 않고</strong>, 특정 프로그램에서만 검색 경로를 덮어쓸 수 있어 실무에서 자주 쓰입니다.
   </p>
-  <ul>
-    <li>Data Element에 Search Help가 연결되어 있는지 확인합니다.</li>
-    <li>PARAMETERS가 해당 Data Element를 타입으로 사용하는지 확인합니다.</li>
-    <li>Selection Screen에서 F4를 눌러 후보 목록이 나오는지 확인합니다.</li>
-  </ul>
 </section>
 
 <section class="lesson-section">
-  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
+  <h2>5. Foreign Key의 Check Table이 주는 똑똑한 F4 🧠</h2>
+  <p>
+    지난 Lesson의 Check Table은 “잘못된 값을 막는 방패”였지만, F4를 누를 때는 “친절한 안내자”도 됩니다. 필드에 Check Table이 지정돼 있으면, F4 시 그 테이블의 키 값을 읽어 목록으로 보여줍니다.
+  </p>
   <ul>
-    <li>✅ <strong>정상 흐름:</strong> PARAMETERS가 Search Help가 연결된 Data Element를 사용하고, F4 목록이 표시됩니다.</li>
-    <li>✅ <strong>재사용 흐름:</strong> 같은 Data Element를 다른 프로그램에서도 쓰면 동일한 의미와 입력 도움말을 활용할 수 있습니다.</li>
-    <li>❌ <strong>단순 타입 선언:</strong> <code>TYPE c LENGTH 3</code>처럼만 선언하면 DDIC 의미와 F4 연결이 부족할 수 있습니다.</li>
-    <li>❌ <strong>연결 누락:</strong> Data Element는 사용했지만 Search Help나 Foreign Key 관계가 없다면 기대한 F4가 안 보일 수 있습니다.</li>
+    <li><strong>키 목록 표시:</strong> 예) <code>CARRID</code>에 Check Table <code>SCARR</code>이 있으면 항공사 코드 목록을 F4로 제공.</li>
+    <li><strong>텍스트 테이블 자동 결합:</strong> Check Table에 텍스트 테이블이 연결돼 있으면, 코드뿐 아니라 <strong>로그인 언어에 맞는 설명</strong>까지 자동으로 조인해 보여줍니다.</li>
+    <li><strong>더 풍부한 도움말:</strong> Check Table 자체에 별도 Search Help가 있으면, 키만 보여주는 수준을 넘어 여러 조건을 입력받는 팝업을 띄웁니다.</li>
   </ul>
-  <blockquote>
-    F4 Help가 안 뜰 때는 “프로그램 코드”만 보지 말고 Data Element, Domain, Foreign Key, Search Help 연결을 함께 봐야 합니다.
-  </blockquote>
 </section>
 
 <section class="lesson-section">
@@ -192,74 +131,75 @@
   <div class="lesson-callout warn">
     <div class="lesson-callout-icon">⚠️</div>
     <div class="lesson-callout-content">
-      <h4>F4 Help는 입력 편의이지 최종 업무 검증이 아닙니다</h4>
-      <p>사용자가 F4에서 값을 골랐다고 해서 모든 업무 조건이 만족되는 것은 아닙니다. 선택한 값이 현재 사용자에게 허용되는지, 특정 기간에 사용할 수 있는지, 상태가 유효한지는 프로그램 검증이나 권한 체크가 필요할 수 있습니다.</p>
+      <h4>“F4에서 골랐으니 올바른 값이다”는 착각</h4>
+      <p>F4 팝업은 “이런 값들이 있어요”라고 <strong>보여주는 편의 기능</strong>일 뿐, 최종 검증의 문지기가 아닙니다. 사용자가 F4를 무시하고 키보드로 엉뚱한 값을 타이핑한 뒤 엔터를 치면, Foreign Key/Check Table 제약이나 별도 입력 검증이 없는 한 그 잘못된 값이 그대로 프로그램으로 들어옵니다. <strong>편의(Search Help)와 검증(Input Check)은 분리해서</strong> 설계하세요.</p>
     </div>
   </div>
-  <p>
-    또한 표준 Data Element를 쓸 수 있는데 새 Data Element를 만들면 F4 Help와 라벨 재사용 기회를 잃을 수 있습니다. 의미가 같다면 표준 재사용을 먼저 검토하세요.
-  </p>
+  <details class="foldable">
+    <summary>ABAP Cloud / Fiori에서는 PARAMETERS와 MATCHCODE가 어떻게 되나?</summary>
+    <p>SAP GUI 기반에서는 <code>PARAMETERS</code>와 <code>MATCHCODE OBJECT</code>가 화면 렌더링과 F4를 지배했습니다. 하지만 <strong>ABAP Cloud·S/4HANA Clean Core(RAP)</strong>에서는 화면을 그리는 <code>PARAMETERS</code> 명령 자체가 금지(obsolete)되었습니다. 대신 Fiori 화면을 위해 <strong>CDS View</strong>에서 값 도움말을 제공합니다. 필드에 Value Help를 주려면 <code>MATCHCODE OBJECT</code>가 아니라 CDS 프로젝션에서 <code>@Consumption.valueHelpDefinition</code> 어노테이션으로 다른 CDS View(Value Help Provider)와 연결합니다.</p>
+  </details>
 </section>
 
 <section class="lesson-section">
-  <h2>7. 미니 실습: 두 가지 선언으로 차이 체험하기 🧪</h2>
+  <h2>7. 미니 실습: 내 PARAMETERS에 F4 붙이기 🧪</h2>
   <div class="lesson-callout">
     <div class="lesson-callout-icon">✍️</div>
     <div class="lesson-callout-content">
       <h4>실습 과제</h4>
       <ol>
-        <li><code>p_raw TYPE c LENGTH 3</code>와 Data Element 타입 입력칸을 가진 Report를 만듭니다. (시스템에 항공사 예제가 있다면 표준 Data Element <code>S_CARR_ID</code>를 활용해도 좋습니다.)</li>
-        <li>Selection Screen에서 두 입력칸의 라벨이 어떻게 다르게 보이는지 기록합니다.</li>
-        <li>각 입력칸에서 F4를 눌러 후보 목록이 뜨는지/안 뜨는지 비교합니다.</li>
-        <li>F4가 뜬 경우, 위 폭포수 흐름 중 몇 번째 단계에서 걸렸을지 추측해 적어봅니다.</li>
+        <li>항공사 코드를 입력받는 <code>PARAMETERS</code>를 <code>TYPE c LENGTH 3</code>으로 선언했을 때와, Data Element(<code>s_carr_id</code>)를 참조했을 때 화면이 어떻게 달라질지 적습니다(F4·선택텍스트·F1 관점).</li>
+        <li>이 필드에 Foreign Key/Check Table(<code>SCARR</code>)이 걸려 있다면, 별도 Search Help 없이도 F4가 동작하는 이유를 우선순위 계층으로 설명합니다.</li>
+        <li>특정 보고서에서만 다른 검색 도움말을 띄우려면 어떤 구문을 쓰는지 적습니다.</li>
+        <li>“F4로 골랐으니 검증은 끝났다”가 왜 위험한지 한 줄로 적습니다.</li>
       </ol>
-      <p><strong>완료 조건:</strong> “F4가 안 뜨면 코드가 아니라 Data Element/Foreign Key/Search Help 연결을 본다”는 점검 순서를 말할 수 있으면 성공입니다.</p>
+      <p><strong>완료 조건:</strong> “Data Element 참조 → F4·라벨·문서 자동 상속”과 “F4는 편의일 뿐 검증은 별도”를 설명할 수 있으면 성공입니다.</p>
     </div>
   </div>
 </section>
 
 <section class="lesson-section">
   <h2>8. 공식 문서로 더 확인하기 🔗</h2>
-  <ul>
-    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS.html" target="_blank" rel="noopener">SAP Help Portal: PARAMETERS</a> - PARAMETERS 문장에서 DDIC 타입을 사용하는 공식 문법을 확인합니다.</li>
-    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDATA_ELEMENT_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: DDIC Data Element</a> - Data Element가 의미·라벨·도움말의 재사용 단위라는 점을 확인합니다.</li>
-    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINPUT_HELP_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Input Help</a> - F4 입력 도움말이 만들어지는 공식 메커니즘을 확인합니다.</li>
-  </ul>
+  <p>이번 Lesson은 SAP 공식 교육 과정(TAW10 Unit 9 / S4D437)과 아래 공식 문서를 기준으로 작성했습니다.</p>
+  <div class="link-list">
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS.html" target="_blank" rel="noopener">SAP Help Portal: PARAMETERS<span>입력 필드를 선언하는 PARAMETERS 문의 공식 정의를 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS_HELP.html" target="_blank" rel="noopener">SAP Help Portal: PARAMETERS ... MATCHCODE OBJECT<span>특정 Search Help를 명시 지정하는 구문을 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINPUT_HELP.html" target="_blank" rel="noopener">SAP Help Portal: Input Help (F4)<span>F4 입력 도움말의 우선순위 메커니즘을 확인합니다.</span></a>
+  </div>
 </section>
 
 <section class="lesson-section">
-  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <h2>9. 확인 퀴즈 ✅</h2>
   <ol>
-    <li><code>TYPE c LENGTH 3</code>와 Data Element 타입 선언의 가장 큰 차이는 무엇인가요?</li>
-    <li>별도의 Search Help를 만들지 않았는데도 F4 목록이 뜨는 경우가 있습니다. 어떤 경우일까요?</li>
-    <li>F4에서 값을 선택했다면 그 입력값에 대한 업무 검증은 끝난 것일까요?</li>
+    <li>PARAMETERS에 F4가 자동으로 붙게 하려면 타입을 어떻게 선언하는 것이 좋은가요?</li>
+    <li>F4 탐색 우선순위에서 Check Table과 Data Element 중 어느 쪽을 먼저 확인하나요?</li>
+    <li>상속된 기본 F4 대신 특정 Search Help를 강제로 띄우는 구문은?</li>
+    <li>F4 목록에서 값을 고르면 입력 검증이 끝난 것인가요?</li>
   </ol>
-  <details>
+  <details class="foldable">
     <summary>정답/해설 보기</summary>
     <ol>
-      <li>단순 타입은 형태만 정하지만, <strong>Data Element 타입은 업무 의미·화면 라벨·DDIC 연결(F4 등)</strong>까지 함께 가져옵니다.</li>
-      <li><strong>Check Table(Foreign Key)이나 Domain Fixed Value가 연결된 경우</strong>입니다. F4는 화면 로직 → Search Help → Check Table → Data Element → Fixed Value 순서로 도움말을 찾기 때문입니다.</li>
-      <li><strong>아니요.</strong> F4는 입력 편의 기능이므로 권한, 기간, 상태 같은 업무 조건은 프로그램 검증이 따로 필요합니다.</li>
+      <li><strong>Data Element를 참조</strong>(<code>TYPE &lt;data_element&gt;</code>)해 선언합니다. 의미·F4·F1이 함께 상속됩니다.</li>
+      <li><strong>Check Table을 먼저</strong> 확인합니다(2번 → 3번 순서). 화면 직접 연결(1번)이 가장 우선입니다.</li>
+      <li><strong><code>MATCHCODE OBJECT</code></strong> 구문입니다. DDIC 수정 없이 프로그램 단위로 덮어씁니다.</li>
+      <li><strong>아니요.</strong> F4는 편의일 뿐입니다. 검증은 Foreign Key/Check Table·입력 검증 로직이 담당합니다.</li>
     </ol>
   </details>
 </section>
 
 <section class="lesson-section">
   <h2>10. 한눈에 정리 🏁</h2>
+  <div class="recap-grid">
+    <div class="recap-card"><strong>자동 상속</strong>PARAMETERS가 Data Element를 참조하면 F4·라벨·F1이 공짜로 따라온다.</div>
+    <div class="recap-card"><strong>우선순위</strong>화면직접 → Check Table → Data Element → Domain 고정값 → 달력/시계.</div>
+    <div class="recap-card"><strong>MATCHCODE OBJECT</strong>DDIC 수정 없이 특정 Search Help를 프로그램에서 강제 지정.</div>
+    <div class="recap-card"><strong>편의 ≠ 검증</strong>F4 선택은 편의일 뿐, 차단은 Foreign Key·검증 로직의 몫.</div>
+  </div>
   <div class="lesson-callout tip">
-    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-icon">➡️</div>
     <div class="lesson-callout-content">
-      <h4>오늘의 핵심만 딱 잡기</h4>
-      <ul>
-        <li><strong>PARAMETERS</strong>는 Data Element 타입을 사용해 DDIC 의미와 입력 도움말을 활용할 수 있습니다.</li>
-        <li><code>TYPE c LENGTH 3</code> 같은 단순 타입은 업무 의미와 F4 연결이 부족할 수 있습니다.</li>
-        <li><strong>Data Element</strong>에 Search Help나 관계가 연결되어 있으면 F4 Help로 이어질 수 있습니다.</li>
-        <li>F4 Help가 안 뜨면 코드뿐 아니라 DDIC 연결을 함께 확인해야 합니다.</li>
-        <li>F4 Help는 편의 기능이며 권한과 복잡한 업무 검증을 모두 대신하지는 않습니다.</li>
-      </ul>
+      <h4>다음 Lesson 예고</h4>
+      <p>다음 Lesson <strong>DDIC 검증과 프로그램 검증의 역할 분리</strong>에서는 이번에 계속 강조한 “편의 ≠ 검증”을 정리하며, DDIC가 자동으로 해주는 검증과 프로그램이 직접 해야 하는 검증(<span class="glossary-term" data-glossary="MESSAGEStatement">MESSAGE</span> 등)을 어떻게 나눠 설계하는지 배웁니다.</p>
     </div>
   </div>
-  <p>
-    다음 Lesson <strong>DDIC 검증과 프로그램 검증의 역할 분리</strong>에서는 DDIC가 맡을 검증과 ABAP 코드가 맡을 검증을 나누어 생각해봅니다.
-  </p>
 </section>

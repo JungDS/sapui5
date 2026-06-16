@@ -1,4 +1,4 @@
-/* ABAP Lesson Viewer UI | 최종수정 2026-06-16 09:34 KST | v1.2 */
+/* ABAP Lesson Viewer UI | 최종수정 2026-06-16 19:05 KST | v1.3 */
 @import url('https://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css');
 
 .lesson-loading {
@@ -256,6 +256,104 @@
   font-size: 1rem;
   line-height: 1.7;
   color: #444;
+}
+
+/* ── T-code 칩 바 (본문 맨 위, viewer.js renderTcodeBar가 주입) ───────────── */
+.lesson-tcode-bar {
+  margin: 0 0 2rem 0;
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  background: #f6f9fd;
+  border: 1px solid #e3edf9;
+  border-left: 6px solid #0056b3;
+}
+
+.lesson-tcode-bar-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.9rem;
+}
+
+.lesson-tcode-bar-icon {
+  font-size: 1.2rem;
+}
+
+.lesson-tcode-bar-title {
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #0a3d70;
+  letter-spacing: -0.01em;
+}
+
+.lesson-tcode-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.lesson-tcode-chip {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid #e9ecef;
+  min-width: 200px;
+  flex: 1 1 220px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lesson-tcode-chip:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 86, 179, 0.1);
+}
+
+.lesson-tcode-chip.is-new {
+  border-left: 4px solid #0056b3;
+}
+
+.lesson-tcode-chip.is-review {
+  border-left: 4px solid #c5ccd3;
+  background: #fbfcfd;
+}
+
+.lesson-tcode-chip-flag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  width: fit-content;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+}
+
+.lesson-tcode-chip-flag.new {
+  color: #0056b3;
+  background: #e4f0fd;
+}
+
+.lesson-tcode-chip-flag.review {
+  color: #6b757e;
+  background: #eef1f4;
+}
+
+.lesson-tcode-chip-code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #111;
+}
+
+.lesson-tcode-chip-desc {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #5a636b;
+}
+
+@media (max-width: 600px) {
+  .lesson-tcode-chip {
+    min-width: 100%;
+  }
 }
 
 /* Sidebar Tree Navigation Styles */
