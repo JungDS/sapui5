@@ -1,6 +1,6 @@
 # 00. INDEX — 여기서 시작 (AI 부팅 진입점)
 
-> 📅 **최종수정: 2026-06-15 11:01 KST**
+> 📅 **최종수정: 2026-06-17 00:42 KST**
 > 🎯 **목적:** 이 저장소에 투입된 AI가 가장 먼저 읽고 부팅하는 진입점.
 > 📖 **읽을 때:** 항상 맨 처음. 작업 시작 전 1순위.
 > ⚡ **TL;DR:**
@@ -17,6 +17,7 @@
 5. **[05_PITFALLS.md](05_PITFALLS.md)** — 깨지기 쉬운 지점. 작업 중 막히면 즉시.
 6. **[06_LEARNING_METHODS.md](06_LEARNING_METHODS.md)** — Lesson 콘텐츠를 만들 때. v3 학습수단 고르기.
 7. **[07_BROWSER_TESTING.md](07_BROWSER_TESTING.md)** — 브라우저로 화면을 검증해야 할 때.
+8. **[08_REBUILD_PROMPT.md](08_REBUILD_PROMPT.md)** — 특정 Chapter 리빌딩을 **발주할 때** 쓰는 범위 지정형 표준 프롬프트(사람이 복붙).
 
 > 작업 계획·진행·결과는 [plans/INDEX.md](plans/INDEX.md) 에서 시작한다. **문서 번호 순이 곧 읽기 우선순위다.**
 
@@ -31,10 +32,11 @@
 | [05_PITFALLS.md](05_PITFALLS.md) | 자주 깨지는 함정(P1~) | 막혔을 때 |
 | [06_LEARNING_METHODS.md](06_LEARNING_METHODS.md) | v3 학습수단 카탈로그 + 샘플 매핑 | Lesson 콘텐츠 설계 시 |
 | [07_BROWSER_TESTING.md](07_BROWSER_TESTING.md) | Playwright 로컬 테스트 우회 | 브라우저 검증 막힐 때 |
+| [08_REBUILD_PROMPT.md](08_REBUILD_PROMPT.md) | 범위 지정형 Chapter 리빌딩 발주 프롬프트 (사람 복붙) | Chapter 리빌딩을 시킬 때 |
 | [plans/](plans/) | 진행 계획 · 태스크 · 결과 (changelogs 대체) | 작업 단위 시작/종료 |
 
 ## 📐 이 폴더의 설계 원칙 (왜 이렇게 생겼나)
-- **번호 규칙**: 모든 문서는 `NN_TITLE.md` 2자리 숫자 prefix([04 R4](04_CONVENTIONS.md)). **번호 순 = 읽기 우선순위**(00→07).
+- **번호 규칙**: 모든 문서는 `NN_TITLE.md` 2자리 숫자 prefix([04 R4](04_CONVENTIONS.md)). **번호 순 = 읽기 우선순위**(00→08).
 - **무중복 SSOT**: 한 사실은 한 문서에만. 재진술 금지, 상대링크로 참조.
 - **점진적 공개**: 모든 문서 상단 4줄 헤더(목적/읽을 때/TL;DR)만 읽고 관련성 판단.
 - **기계 스캔**: 산문보다 표·체크리스트·안정 ID(`R1`,`P3`).
