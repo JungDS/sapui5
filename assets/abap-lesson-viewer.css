@@ -1632,7 +1632,8 @@
 
 
 /* 5. 가상 Selection Screen & T-Code 샌드박스 (Mock SAP UI Sandbox) */
-.interactive-sap-sandbox {
+.interactive-sap-sandbox,
+.sap-static-sandbox {
   background: #cbd5e1;
   border: 2px solid #64748b;
   border-radius: 8px;
