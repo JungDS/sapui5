@@ -22,4 +22,8 @@
       return (vars[k] === undefined || vars[k] === "") ? "(미입력)" : vars[k];
     });
   }
-})
+
+  // 다른 모듈(sandbox.js 등)이 전역으로 호출하므로 window에 노출한다.
+  window.parseJSON = parseJSON;
+  window.interpolate = interpolate;
+})();

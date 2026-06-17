@@ -1,8 +1,9 @@
 #!/usr/bin/env node
+// ABAP Curriculum sample builder / inliner | 최종수정 2026-06-17 04:13 KST | v1.1
 /*
  * ABAP Curriculum sample builder / inliner.
  *
- * Reads the v5.3 curriculum JSON and emits 4 harmonized sample pages, each driven by
+ * Reads the v5.4 curriculum JSON and emits 4 harmonized sample pages, each driven by
  * the shared engine (assets/abap-curriculum-explorer.js) with a different skin layout.
  * The JSON is inlined as <script type="application/json" data-curriculum-data> so the
  * pages open directly via file:// (the engine falls back to fetch when served).
@@ -18,7 +19,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 const repoRoot = process.cwd();
-const SRC = path.join(repoRoot, "reference", "abap_curriculum_v5_3_20260602_010000.json");
+const SRC = path.join(repoRoot, "reference", "abap_curriculum_v5_4_20260605_000000.json");
 const OUT_DIR = path.join(repoRoot, "docs", "roadmap");
 
 const versionArg = process.argv.find((a) => a.startsWith("--version="));

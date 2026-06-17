@@ -1,65 +1,58 @@
-<!-- lesson-content/THEORY-04-M01.html -->
+<!-- lesson-content/THEORY-04-M01.html | 최종수정 2026-06-16 19:05 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
   <div class="lesson-callout-content">
     <h4>학습 목표</h4>
-    <p>지난 Chapter에서 <span class="glossary-term" data-glossary="PARAMETERSStatement">PARAMETERS</span>로 사용자가 값을 입력하는 흐름을 배웠습니다. 이번에는 잘못된 값을 줄이기 위해 <span class="glossary-term" data-glossary="DDIC">DDIC</span>에서 관계를 거는 방법을 봅니다. <span class="glossary-term" data-glossary="ForeignKey">Foreign Key</span>, <span class="glossary-term" data-glossary="CheckTable">Check Table</span>, <span class="glossary-term" data-glossary="Cardinality">Cardinality</span>의 역할을 처음부터 차근차근 익힙니다.</p>
+    <p>지난 Chapter에서 <span class="glossary-term" data-glossary="PARAMETERSStatement">PARAMETERS</span>로 사용자에게 값을 입력받는 화면을 만들어 봤습니다. 그런데 “입력칸”만 있으면 사용자가 아무 값이나 넣을 수 있죠. 이번 Lesson에서는 잘못된 값을 입력 단계에서 걸러내는 <span class="glossary-term" data-glossary="DDIC">DDIC</span>의 관계 장치 — <span class="glossary-term" data-glossary="ForeignKey">Foreign Key</span>, <span class="glossary-term" data-glossary="CheckTable">Check Table</span>, <span class="glossary-term" data-glossary="Cardinality">Cardinality</span> — 를 초심자 눈높이로 처음부터 익힙니다.</p>
   </div>
 </div>
 
 <section class="lesson-section">
-  <h2>1. 지난 Chapter 연결: 입력칸은 만들었는데, 값이 맞는지는 누가 볼까? 🤔</h2>
+  <h2>1. 지난 Chapter 연결: 입력칸은 만들었는데, 값이 진짜인지는 누가 보나? 🤔</h2>
   <p>
-    Chapter 3에서 Selection Screen 입력칸을 만들었습니다. 사용자는 항공사 코드나 날짜 같은 값을 직접 입력할 수 있었죠. 그런데 사용자가 <code>KE</code> 대신 <code>XXX</code>를 입력하면 어떻게 될까요?
+    Chapter 3에서 <span class="glossary-term" data-glossary="SelectionScreen">Selection Screen</span> 입력칸을 만들었습니다. 사용자는 항공사 코드 같은 값을 직접 타이핑할 수 있었죠. 그런데 항공사 코드 타입이 <code>CHAR 3</code>이라면, 사용자가 <code>KE</code> 대신 <code>XXX</code>를 넣어도 글자 수만 맞으면 기술적으로는 들어갑니다.
   </p>
   <p>
-    타입이 <code>CHAR 3</code>이라면 <code>XXX</code>도 기술적으로는 들어갈 수 있습니다. 하지만 업무적으로 실제 항공사 코드가 아니라면 잘못된 값입니다. 이런 상황에서 DDIC 관계가 도움을 줍니다.
+    문제는 <code>XXX</code>가 <strong>업무적으로 존재하지 않는 항공사</strong>라는 점입니다. 이런 “타입은 맞지만 실제로는 없는 값”을 입력 단계에서 막아주는 것이 이번 Chapter의 핵심입니다.
   </p>
   <blockquote>
-    Foreign Key는 “이 필드의 값은 저 기준표에 실제로 존재해야 해요”라고 DDIC에 연결선을 긋는 설정입니다.
+    Foreign Key는 “이 필드에 들어올 값은 저 기준표에 실제로 존재해야 해요”라고 DDIC에 연결선을 긋는 약속입니다.
   </blockquote>
 </section>
 
 <section class="lesson-section">
   <h2>2. Check Table: 정답 목록을 담은 기준표 📋</h2>
   <p>
-    <span class="glossary-term" data-glossary="CheckTable">Check Table</span>은 입력 가능한 값의 기준 목록을 담은 테이블입니다. 예를 들어 항공사 코드가 유효한지 확인하려면, 항공사 마스터 테이블 같은 기준표에 그 코드가 존재하는지 봐야 합니다.
+    <span class="glossary-term" data-glossary="CheckTable">Check Table</span>은 “이 값들만 허용된다”는 기준 목록을 담은 마스터 테이블입니다. SAP 표준 예제로 보면 이해가 빠릅니다. 예약 데이터를 담는 <code>SBOOK</code> 테이블에 항공사 코드(<code>CARRID</code>)를 넣을 때, 그 코드가 진짜인지 확인하려면 <strong>항공사 마스터 테이블 <code>SCARR</code></strong>과 대조해야 합니다. 이때 기준이 되는 <code>SCARR</code>이 바로 Check Table입니다.
   </p>
   <ul>
-    <li><strong>기준표:</strong> 항공사 코드와 항공사 이름을 가진 테이블</li>
-    <li><strong>검사 대상 필드:</strong> 예약 테이블의 항공사 코드 필드</li>
-    <li><strong>검사 의미:</strong> 예약 테이블에 들어가는 항공사 코드는 기준표에 있어야 함</li>
+    <li><strong>기준표(Check Table):</strong> 항공사 코드와 이름을 가진 마스터 테이블 (<code>SCARR</code>)</li>
+    <li><strong>검사 대상 필드(Check Field):</strong> 예약 테이블의 항공사 코드 필드 (<code>SBOOK-CARRID</code>)</li>
+    <li><strong>검사 의미:</strong> 예약에 들어가는 항공사 코드는 반드시 마스터 목록에 있어야 함</li>
   </ul>
   <p>
-    일상으로 치면 학교 출석부가 Check Table입니다. 출석 체크할 때 이름이 출석부에 있어야 진짜 학생으로 인정되는 것처럼, 입력값도 기준표에 있어야 유효한 값으로 볼 수 있습니다.
-  </p>
-</section>
-
-<section class="lesson-section">
-  <h2>3. Foreign Key: 필드와 기준표를 연결하는 약속 🔗</h2>
-  <p>
-    <span class="glossary-term" data-glossary="ForeignKey">Foreign Key</span>는 현재 테이블의 필드가 Check Table의 키 필드를 참조하도록 만드는 관계입니다. 단순히 “비슷한 이름의 필드가 있다”가 아니라, DDIC에 실제 관계로 등록하는 것이 중요합니다.
+    일상으로 치면 학교 <strong>출석부</strong>가 Check Table입니다. 출석을 부를 때 이름이 출석부에 있어야 진짜 우리 반 학생으로 인정되는 것처럼, 입력값도 기준표에 있어야 유효한 값으로 봅니다.
   </p>
   <div class="lesson-callout">
     <div class="lesson-callout-icon">💡</div>
     <div class="lesson-callout-content">
-      <h4>예시 관계</h4>
-      <ul>
-        <li>예약 테이블 <code>ZBOOKING-CARRID</code>: 사용자가 입력하는 항공사 코드</li>
-        <li>항공사 기준표 <code>ZCARRIER-CARRID</code>: 존재 가능한 항공사 코드 목록</li>
-        <li>Foreign Key 설정: <code>ZBOOKING-CARRID</code>는 <code>ZCARRIER-CARRID</code>에 존재해야 함</li>
-      </ul>
+      <h4>한 가지 규칙: 검사 대상 필드는 Check Table의 “기본 키”와 연결된다</h4>
+      <p>Foreign Key를 걸 때, 검사 대상 필드(Check Field)는 아무 필드가 아니라 <strong>Check Table의 기본 키(Primary Key)</strong> 영역에 속한 필드와 매핑됩니다. 그래야 “이 코드 한 개”를 기준표에서 유일하게 찾아 존재 여부를 판단할 수 있기 때문입니다.</p>
     </div>
   </div>
+</section>
+
+<section class="lesson-section">
+  <h2>3. Foreign Key: 필드와 기준표를 잇는 약속 🔗</h2>
   <p>
-    이 관계가 있으면 화면 입력이나 테이블 유지보수 상황에서 DDIC 기반 검증과 입력 도움말이 훨씬 자연스럽게 연결됩니다. 프로그램마다 같은 검사를 따로 만드는 부담도 줄어듭니다.
+    <span class="glossary-term" data-glossary="ForeignKey">Foreign Key</span>는 현재 테이블의 필드가 Check Table의 키를 참조하도록 만드는 <strong>논리적 관계</strong>입니다. 단순히 “비슷한 이름의 필드가 양쪽에 있다”가 아니라, DDIC에 실제 관계로 <strong>등록</strong>해야 시스템이 그 연결을 인식합니다.
   </p>
   <div class="viz-visual">
     <p class="viz-visual-title">Foreign Key 검증 관계 한눈에 보기</p>
     <div class="viz-relation">
       <div class="viz-concept">
-        <span class="viz-concept-label">업무 테이블 ZBOOKING</span>
+        <span class="viz-concept-label">업무 테이블 SBOOK (Foreign Key Table)</span>
         <table class="viz-table">
           <thead>
             <tr><th>BOOKID</th><th>CARRID</th></tr>
@@ -75,18 +68,18 @@
         <span class="viz-concept-label">Foreign Key 검사</span>
         <table class="viz-table">
           <tbody>
-            <tr><td>"CARRID 값이 기준표에 있나요?"</td></tr>
+            <tr><td>“CARRID 값이 기준표에 있나요?”</td></tr>
             <tr><td><span class="viz-badge success">KE 있음 → 통과</span></td></tr>
-            <tr><td><span class="viz-badge fail">XXX 없음 → 차단</span></td></tr>
+            <tr><td><span class="viz-badge fail">XXX 없음 → Insertion not allowed!</span></td></tr>
           </tbody>
         </table>
       </div>
       <div class="viz-arrow">→</div>
       <div class="viz-concept">
-        <span class="viz-concept-label">Check Table ZCARRIER</span>
+        <span class="viz-concept-label">Check Table SCARR (기준표)</span>
         <table class="viz-table">
           <thead>
-            <tr><th>CARRID</th><th>CARRNAME</th></tr>
+            <tr><th>CARRID (Key)</th><th>CARRNAME</th></tr>
           </thead>
           <tbody>
             <tr class="viz-current-row"><td>KE</td><td>대한항공</td></tr>
@@ -95,28 +88,27 @@
         </table>
       </div>
     </div>
-    <p class="viz-note">사용자가 입력한 CARRID 값은 Check Table의 키 목록과 대조됩니다. 기준표에 있으면 통과, 없으면 화면 입력 단계에서 막힙니다.</p>
+    <p class="viz-note">사용자가 입력한 CARRID는 Check Table의 키 목록과 대조됩니다. 있으면 통과, 없으면 화면 입력 단계에서 막힙니다.</p>
+  </div>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">🧲</div>
+    <div class="lesson-callout-content">
+      <h4>Domain에 Value Table이 있으면, 시스템이 Check Table을 제안해 준다</h4>
+      <p>검사 대상 필드의 <span class="glossary-term" data-glossary="Domain">Domain</span>에 <span class="glossary-term" data-glossary="ValueTable">Value Table</span>이 미리 지정돼 있으면, Foreign Key를 만들 때 시스템이 그 테이블을 Check Table 후보로 <strong>자동 제안</strong>합니다. Value Table과 Check Table이 왜 같은 게 아닌지는 <strong>다음 Lesson</strong>에서 자세히 다룹니다.</p>
+    </div>
   </div>
 </section>
 
 <section class="lesson-section">
   <h2>4. Cardinality: 관계의 숫자 감각 잡기 🔢</h2>
   <p>
-    <span class="glossary-term" data-glossary="Cardinality">Cardinality</span>는 두 테이블이 어떤 숫자 관계를 갖는지 표현합니다. 초심자 단계에서는 복잡하게 외우기보다 “한 기준값이 여러 업무 데이터에서 반복될 수 있다”는 감각부터 잡으면 됩니다.
+    <span class="glossary-term" data-glossary="Cardinality">Cardinality</span>(다중성)는 “Check Table의 한 줄이 업무 테이블의 몇 줄과 연결될 수 있는가”를 나타내는 수량 관계입니다. 초심자는 복잡하게 외우기보다 “<strong>기준값 하나가 업무 데이터 여러 곳에서 반복될 수 있다</strong>”는 감각부터 잡으면 됩니다.
   </p>
-  <ul>
-    <li>항공사 기준표에는 <code>KE</code>가 한 번만 존재합니다.</li>
-    <li>예약 테이블에는 <code>KE</code>를 쓰는 예약이 수천 건 있을 수 있습니다.</li>
-    <li>즉, 기준표 한 줄이 업무 테이블 여러 줄과 연결될 수 있습니다.</li>
-  </ul>
-  <blockquote>
-    Cardinality는 관계의 지도입니다. “하나가 여러 개와 연결되는가?”, “반드시 있어야 하는가?” 같은 설계 의도를 보여줍니다.
-  </blockquote>
   <div class="viz-visual">
-    <p class="viz-visual-title">1:N 관계 감각 — 기준표 한 줄, 업무 데이터 여러 줄</p>
+    <p class="viz-visual-title">1:N 감각 — 기준표 한 줄, 업무 데이터 여러 줄</p>
     <div class="viz-state-grid">
       <div class="viz-state">
-        <span class="viz-state-label">Check Table (1쪽)</span>
+        <span class="viz-state-label">Check Table SCARR (1쪽)</span>
         <table class="viz-table">
           <thead>
             <tr><th>CARRID</th><th>CARRNAME</th></tr>
@@ -127,7 +119,7 @@
         </table>
       </div>
       <div class="viz-state">
-        <span class="viz-state-label">업무 테이블 (N쪽)</span>
+        <span class="viz-state-label">업무 테이블 SBOOK (N쪽)</span>
         <table class="viz-table">
           <thead>
             <tr><th>BOOKID</th><th>CARRID</th></tr>
@@ -140,38 +132,100 @@
         </table>
       </div>
     </div>
-    <p class="viz-note">기준표의 <code>KE</code> 한 줄이 예약 여러 줄과 연결됩니다. Classic DDIC에서 Cardinality는 강제 차단 장치라기보다 관계 설계를 문서화하고 시스템이 관계를 이해하도록 돕는 정보에 가깝습니다.</p>
+    <p class="viz-note">기준표의 <code>KE</code> 한 줄이 예약 여러 줄과 연결됩니다. 왼쪽(1)이 Check Table, 오른쪽(N)이 참조하는 업무 테이블입니다.</p>
+  </div>
+  <div class="viz-visual">
+    <p class="viz-visual-title">Cardinality 표기 — Classic vs Modern</p>
+    <div class="viz-compare">
+      <div class="viz-compare-before">
+        <span class="viz-compare-label">Classic ABAP 표기 (Check : Foreign)</span>
+        <div class="viz-compare-body">
+          <ul>
+            <li><strong>1:1</strong> — 마스터 1개당 종속 데이터 정확히 1개</li>
+            <li><strong>1:N</strong> — 1개당 여러 개 (가장 흔한 1:다)</li>
+            <li><strong>1:C</strong> — 1개당 최대 1개 또는 0개(Conditional)</li>
+            <li><strong>1:CN</strong> — 1개당 0개 또는 여러 개</li>
+          </ul>
+        </div>
+      </div>
+      <div class="viz-compare-after">
+        <span class="viz-compare-label">Modern ABAP 표기 [min..max]</span>
+        <div class="viz-compare-body">
+          <ul>
+            <li><strong>[1..1]</strong> — 정확히 1개</li>
+            <li><strong>[0..1]</strong> — 0개 또는 최대 1개</li>
+            <li><strong>[1..*]</strong> — 적어도 1개 이상</li>
+            <li><strong>[0..*]</strong> — 0개 이상 어떤 수든</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <p class="viz-note">표기법만 다를 뿐 뜻은 짝이 맞습니다. 예: Classic <code>1:CN</code> ≈ Modern <code>[0..*]</code>. 최신 테이블 문법에서는 <code>with foreign key [0..*,1]</code>처럼 적습니다.</p>
+  </div>
+  <blockquote>
+    Cardinality는 강제 차단 장치라기보다, 관계 설계를 <strong>문서화</strong>해 시스템과 동료가 데이터 모델을 이해하도록 돕는 정보에 가깝습니다.
+  </blockquote>
+</section>
+
+<section class="lesson-section">
+  <h2>5. 정상 흐름과 오류 흐름을 함께 보기 🔎</h2>
+  <p>
+    ABAP 초반 실력은 거창한 로직보다 “어디서 왜 막혔는지 읽는 습관”에서 자랍니다. 같은 입력을 정상·오류 케이스로 나눠 봅시다.
+  </p>
+  <div class="viz-visual event-tabs-container is-compact">
+    <p class="viz-visual-title">입력값에 따른 동작 흐름</p>
+    <div class="event-tab-buttons">
+      <button class="tab-btn active" data-tab="m01-tab-1">✅ 정상 흐름</button>
+      <button class="tab-btn" data-tab="m01-tab-2">❌ 없는 코드</button>
+      <button class="tab-btn" data-tab="m01-tab-3">❌ 관계 누락</button>
+    </div>
+    <div class="tabs-content">
+      <div class="event-tab-panel active" id="m01-tab-1">
+        <div class="viz-flow">
+          <div class="viz-flow-step"><strong>입력</strong><span>사용자가 화면에 <code>CARRID = KE</code> 입력</span></div>
+          <div class="viz-flow-step"><strong>검사</strong><span>Foreign Key가 Check Table에서 <code>KE</code> 조회</span></div>
+          <div class="viz-flow-step"><strong>결과</strong><span><span class="viz-badge success">존재 → 통과</span> 저장 진행</span></div>
+        </div>
+      </div>
+      <div class="event-tab-panel" id="m01-tab-2">
+        <div class="viz-flow">
+          <div class="viz-flow-step"><strong>입력</strong><span>사용자가 <code>CARRID = XXX</code> 입력</span></div>
+          <div class="viz-flow-step"><strong>검사</strong><span>Check Table에 <code>XXX</code> 없음</span></div>
+          <div class="viz-flow-step"><strong>결과</strong><span><span class="viz-badge fail">차단</span> 화면에서 입력 거부 메시지</span></div>
+        </div>
+      </div>
+      <div class="event-tab-panel" id="m01-tab-3">
+        <div class="viz-flow">
+          <div class="viz-flow-step"><strong>설정</strong><span>기준표는 있는데 Foreign Key 관계를 안 걸었다</span></div>
+          <div class="viz-flow-step"><strong>검사</strong><span>시스템은 그 필드가 기준표를 봐야 하는지 모름</span></div>
+          <div class="viz-flow-step"><strong>결과</strong><span><span class="viz-badge fail">검증 없음</span> <code>XXX</code>도 그냥 통과</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="viz-note">기준표가 “있다”와 Foreign Key가 “걸렸다”는 다릅니다. 관계를 등록해야 비로소 그 기준표가 Check Table로 동작합니다.</p>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
-  <ul>
-    <li>✅ <strong>정상 흐름:</strong> 사용자가 <code>KE</code>를 입력했고 Check Table에 <code>KE</code>가 존재하면 입력이 통과합니다.</li>
-    <li>❌ <strong>오류 흐름:</strong> 사용자가 <code>XXX</code>를 입력했는데 기준표에 없으면 DDIC 기반 검사에서 막힐 수 있습니다.</li>
-    <li>❌ <strong>관계 누락:</strong> 기준표가 있어도 Foreign Key 관계를 걸지 않으면, 시스템은 그 필드가 기준표를 봐야 한다는 사실을 모릅니다.</li>
-    <li>❌ <strong>키 불일치:</strong> Check Table의 키 구조와 현재 필드 매핑이 맞지 않으면 관계 설정이나 검증이 어긋날 수 있습니다.</li>
-  </ul>
-  <p>
-    미니 실습으로는 작은 코드 기준표와 업무 테이블을 상상하고, 업무 테이블의 코드 필드에 Check Table을 연결하는 흐름을 따라가면 충분합니다. 실제 데이터 입력 시 “있는 코드”와 “없는 코드”를 각각 넣어보면 차이가 확실히 보입니다.
-  </p>
-</section>
-
-<section class="lesson-section">
-  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <h2>6. 가장 중요한 사실: DDIC Foreign Key는 DB 제약이 아니다 🚨</h2>
   <div class="lesson-callout warn">
     <div class="lesson-callout-icon">⚠️</div>
     <div class="lesson-callout-content">
-      <h4>표준 관계를 무시하고 새로 만들지 마세요</h4>
-      <p>SAP 표준 테이블과 Data Element에는 이미 검증된 관계가 많이 들어 있습니다. 표준 필드와 같은 의미라면 새 관계를 억지로 만들기보다 표준 객체의 의미와 관계를 먼저 확인하세요. 고객사 관행으로 별도 테이블을 만들더라도, 표준 동작과 커스텀 설계를 섞어 외우면 나중에 유지보수가 어려워집니다.</p>
+      <h4>“DDIC에 Foreign Key를 걸면 DB가 막아준다”는 흔한 오해</h4>
+      <p>초심자가 가장 자주 하는 오해입니다. SAP DDIC의 Foreign Key는 <strong>데이터베이스(RDBMS) 레벨의 물리적 제약 조건을 만들지 않습니다.</strong> DB 계층에서의 자동 일관성 검사도 수행하지 않습니다. 오직 <strong>화면(Dynpro) 입력 단계에서의 암묵적 입력 점검과 F4 입력 도움말</strong>을 제공하는 용도로 동작합니다.</p>
     </div>
   </div>
   <p>
-    또한 Foreign Key는 입력값의 존재 여부를 도와주지만, 모든 업무 규칙을 대신하지는 않습니다. 예를 들어 “이 사용자가 이 회사 코드를 볼 권한이 있는가?” 같은 판단은 별도 권한과 프로그램 로직이 필요합니다.
+    그래서 개발자가 프로그램 안에서 <code>INSERT</code>/<code>UPDATE</code> 같은 Open SQL로 데이터를 직접 밀어 넣으면, DB는 Foreign Key 설정을 무시하고 잘못된 값도 그대로 저장합니다. 화면을 거치지 않는 배치 인터페이스나 직접 삽입 경로에는 <strong>프로그램 차원의 별도 검증</strong>이 반드시 필요합니다.
   </p>
-  <p>
-    한 가지 더 중요한 사실이 있습니다. DDIC의 Foreign Key는 데이터베이스 자체의 물리적 제약 조건이 아니라 <strong>Application Server 화면 입력 단계에서 동작하는 논리적 검증</strong>입니다. 그래서 화면을 거치지 않는 프로그램 내부의 직접 INSERT나 배치 인터페이스에서는 검사가 자동으로 일어나지 않을 수 있고, 그런 경로에는 별도의 검증 로직이 필요합니다.
-  </p>
+  <details class="foldable">
+    <summary>환경별로 Foreign Key를 쓰는 이유가 어떻게 진화했나?</summary>
+    <ul>
+      <li><strong>Classic ABAP (SAP GUI):</strong> 화면에서 오타를 사전 차단하고 필드 옆 F4 도움말을 띄우는 <em>UI 제어</em>의 핵심 기능. 반드시 설정.</li>
+      <li><strong>Modern ABAP (S/4HANA):</strong> 직접 삽입으로 뚫릴 수 있음을 전제로, 테이블 간 관계를 시스템에 알려주는 <em>관계 문서화</em> 목적으로 지정.</li>
+      <li><strong>ABAP Cloud (Clean Core · RAP):</strong> 전통적 화면 에러 메시지의 의미는 사라지고, 이 관계를 바탕으로 CDS View의 연관(association)을 설계. 실제 강한 검증은 RAP의 Behavior Definition(BDEF) 비즈니스 로직에서 수행.</li>
+    </ul>
+  </details>
 </section>
 
 <section class="lesson-section">
@@ -182,57 +236,68 @@
       <h4>실습 과제</h4>
       <ol>
         <li>항공사 기준표(코드, 이름)와 예약 테이블(예약번호, 항공사 코드)을 종이에 그립니다.</li>
-        <li>예약 테이블의 항공사 코드 필드에 Foreign Key를 건다면 Check Table은 무엇이 되는지 적어봅니다.</li>
-        <li>기준표에 있는 코드(<code>KE</code>)와 없는 코드(<code>XXX</code>)를 입력했을 때 각각 어떤 일이 일어나는지 위 관계도를 따라 말로 설명합니다.</li>
-        <li>기준표 한 줄이 예약 몇 줄과 연결될 수 있는지(1:N) 자신의 예로 바꿔 말해봅니다.</li>
+        <li>예약 테이블의 항공사 코드 필드에 Foreign Key를 건다면 Check Table은 무엇이 되는지, 그 필드는 Check Table의 어떤 키와 연결되는지 적습니다.</li>
+        <li>기준표에 있는 코드(<code>KE</code>)와 없는 코드(<code>XXX</code>)를 화면에 입력했을 때 각각 어떤 일이 일어나는지 위 흐름을 따라 말로 설명합니다.</li>
+        <li>같은 <code>XXX</code>를 프로그램에서 <code>INSERT</code>로 직접 넣으면 어떻게 될지도 한 줄로 적어봅니다.</li>
       </ol>
-      <p><strong>완료 조건:</strong> “Check Table은 기준 목록, Foreign Key는 그 목록을 검사하도록 거는 연결”이라고 자신의 말로 설명할 수 있으면 성공입니다.</p>
+      <p><strong>완료 조건:</strong> “Check Table은 기준 목록, Foreign Key는 그 목록을 검사하도록 거는 연결, 단 화면 입력에서만 동작”이라고 자신의 말로 설명할 수 있으면 성공입니다.</p>
     </div>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
+  <h2>8. 실무에서 조심해야 할 점</h2>
   <ul>
-    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFOREIGN_KEY_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Foreign Key</a> - Foreign Key의 공식 정의와 역할을 확인합니다.</li>
-    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCHECK_TABLE_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Check Table</a> - Check Table이 무엇을 기준으로 입력값을 검사하는지 확인합니다.</li>
-    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDATA_ELEMENT_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: DDIC Data Element</a> - 필드 의미를 담는 Data Element와 관계 설정의 연결 고리를 확인합니다.</li>
+    <li><strong>표준 관계를 무시하고 새로 만들지 않기:</strong> SAP 표준 테이블·Data Element에는 이미 검증된 관계가 많습니다. 표준과 같은 의미라면 표준 객체의 관계를 먼저 확인하세요.</li>
+    <li><strong>Foreign Key는 “존재 검사”까지:</strong> “이 사용자가 이 코드를 볼 권한이 있는가” 같은 업무 규칙은 별도 권한·로직이 필요합니다.</li>
+    <li><strong>화면 밖 경로는 직접 검증:</strong> 배치·인터페이스·직접 <code>INSERT</code>에는 프로그램 검증을 따로 둡니다.</li>
   </ul>
 </section>
 
 <section class="lesson-section">
-  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <h2>9. 공식 문서로 더 확인하기 🔗</h2>
+  <p>
+    이번 Lesson은 SAP 공식 교육 과정(BC430 / S4D430)과 아래 공식 문서를 기준으로 작성했습니다.
+  </p>
+  <div class="link-list">
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFOREIGN_KEY_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Foreign Key<span>Foreign Key의 공식 정의와 데이터 일관성 역할을 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCHECK_TABLE_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Check Table<span>Check Table이 입력값을 무엇과 대조하는지 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDATA_ELEMENT_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: DDIC Data Element<span>필드 의미를 담는 Data Element와 관계 설정의 연결 고리를 확인합니다.</span></a>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>10. 확인 퀴즈 ✅</h2>
   <ol>
     <li>기준표(Check Table 후보)가 존재하기만 하면 입력값 검증이 자동으로 동작할까요?</li>
     <li>DDIC Foreign Key는 데이터베이스의 물리적 제약 조건일까요?</li>
-    <li>Cardinality 1:N에서 “1쪽”과 “N쪽”은 각각 어떤 테이블인가요?</li>
+    <li>Cardinality <code>1:N</code>에서 “1쪽”과 “N쪽”은 각각 어떤 테이블인가요?</li>
+    <li>검사 대상 필드(Check Field)는 Check Table의 어떤 영역과 연결되나요?</li>
   </ol>
-  <details>
+  <details class="foldable">
     <summary>정답/해설 보기</summary>
     <ol>
-      <li><strong>아니요.</strong> 기준표가 있어도 업무 테이블 필드에 <strong>Foreign Key 관계를 실제로 설정해야</strong> 그 기준표가 Check Table로 동작합니다.</li>
-      <li><strong>아니요.</strong> DDIC Foreign Key는 <strong>Application Server의 화면 입력 단계에서 동작하는 논리적 검증</strong>입니다. 화면을 거치지 않는 입력 경로에서는 별도 검증이 필요합니다.</li>
-      <li><strong>1쪽은 기준표(Check Table), N쪽은 업무 테이블</strong>입니다. 기준표의 <code>KE</code> 한 줄이 예약 테이블의 여러 줄과 연결될 수 있습니다.</li>
+      <li><strong>아니요.</strong> 기준표가 있어도 업무 테이블 필드에 <strong>Foreign Key 관계를 실제로 등록해야</strong> 그 기준표가 Check Table로 동작합니다.</li>
+      <li><strong>아니요.</strong> DDIC Foreign Key는 <strong>화면(Dynpro) 입력 단계의 논리적 검증</strong>일 뿐, DB 물리 제약이 아닙니다. 직접 <code>INSERT</code>는 우회됩니다.</li>
+      <li><strong>1쪽 = 기준표(Check Table), N쪽 = 업무 테이블</strong>입니다. 기준표 <code>KE</code> 한 줄이 예약 여러 줄과 연결됩니다.</li>
+      <li><strong>Check Table의 기본 키(Primary Key)</strong>와 연결됩니다. 그래야 값을 유일하게 찾아 존재를 판단합니다.</li>
     </ol>
   </details>
 </section>
 
 <section class="lesson-section">
-  <h2>10. 한눈에 정리 🏁</h2>
+  <h2>11. 한눈에 정리 🏁</h2>
+  <div class="recap-grid">
+    <div class="recap-card"><strong>Check Table</strong>허용 가능한 값의 기준 목록을 담은 마스터 테이블(예: SCARR).</div>
+    <div class="recap-card"><strong>Foreign Key</strong>현재 필드가 Check Table의 기본 키를 참조하도록 거는 논리적 관계.</div>
+    <div class="recap-card"><strong>Cardinality</strong>1:1 / 1:N / 1:C / 1:CN (Modern은 [min..max]). 관계를 문서화.</div>
+    <div class="recap-card"><strong>핵심 한계</strong>DB 제약이 아니라 화면 입력 검증·F4 전용. 직접 INSERT는 우회됨.</div>
+  </div>
   <div class="lesson-callout tip">
-    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-icon">➡️</div>
     <div class="lesson-callout-content">
-      <h4>오늘의 핵심만 딱 잡기</h4>
-      <ul>
-        <li><strong>Check Table</strong>은 허용 가능한 값의 기준 목록을 담은 테이블입니다.</li>
-        <li><strong>Foreign Key</strong>는 현재 필드가 Check Table의 값을 참조하도록 연결하는 관계입니다.</li>
-        <li><strong>Cardinality</strong>는 기준표와 업무 테이블 사이의 숫자 관계를 표현합니다.</li>
-        <li>기준표가 있어도 Foreign Key 관계를 걸지 않으면 자동 검증으로 이어지지 않습니다.</li>
-        <li>Foreign Key는 존재 여부를 돕지만 권한이나 복잡한 업무 규칙을 모두 대신하지는 않습니다.</li>
-      </ul>
+      <h4>다음 Lesson 예고</h4>
+      <p>다음 Lesson <strong>Value Table과 Foreign Key의 차이</strong>에서는 Domain에 적는 <span class="glossary-term" data-glossary="ValueTable">Value Table</span>이 왜 실제 검증을 담당하는 Check Table과 다른지, 둘을 헷갈리면 어떤 일이 생기는지 정리합니다.</p>
     </div>
   </div>
-  <p>
-    다음 Lesson <strong>Value Table과 Foreign Key의 차이</strong>에서는 Domain에 적는 Value Table이 왜 실제 검증과 다를 수 있는지 정리합니다.
-  </p>
 </section>

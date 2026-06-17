@@ -1,62 +1,121 @@
-<!-- lesson-content/THEORY-04-M06.html -->
+<!-- lesson-content/THEORY-04-M06.html | 최종수정 2026-06-16 19:05 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
   <div class="lesson-callout-content">
     <h4>학습 목표</h4>
-    <p>Chapter 4의 마무리로 <span class="glossary-term" data-glossary="DDICValidation">DDIC Validation</span>과 프로그램 안의 <span class="glossary-term" data-glossary="InputCheck">Input Check</span> 역할을 나눠봅니다. 어디까지는 DDIC가 막아주고, 어디부터는 ABAP 코드와 <span class="glossary-term" data-glossary="MESSAGEStatement">MESSAGE</span>로 처리해야 하는지 초심자 기준으로 정리합니다.</p>
+    <p>Chapter 4 내내 “편의(F4) ≠ 검증”을 반복했습니다. 이번 마지막 Lesson에서는 <span class="glossary-term" data-glossary="DDICValidation">DDIC 검증</span>이 자동으로 해주는 것과, 프로그램이 직접 해야 하는 검증(<span class="glossary-term" data-glossary="MESSAGEStatement">MESSAGE</span>, <span class="glossary-term" data-glossary="InputCheck">Input Check</span>)을 <strong>역할 분리</strong> 관점에서 정리합니다. 두 검증을 2단 방어선으로 설계하는 법을 잡습니다.</p>
   </div>
 </div>
 
 <section class="lesson-section">
-  <h2>1. 지난 시간 연결: F4로 골랐는데도 검증이 더 필요할까? 🤔</h2>
+  <h2>1. 지난 흐름 정리: 두 종류의 검증이 있다 🛡️</h2>
   <p>
-    이전 Lesson에서 PARAMETERS 입력칸이 DDIC Data Element와 Search Help를 통해 F4 Help를 얻을 수 있다고 배웠습니다. 그러면 이제 모든 입력 검증이 끝난 걸까요? 아쉽지만 그렇지는 않습니다.
-  </p>
-  <p>
-    DDIC는 데이터의 기술적 형태와 기본 관계를 매우 잘 관리합니다. 하지만 “이 사용자가 이 값을 처리할 수 있는가?”, “이 날짜가 회사 마감일 이후인가?”, “이 상태에서는 수정하면 안 되는가?” 같은 업무 판단은 프로그램 로직이 맡아야 할 때가 많습니다.
+    Foreign Key/Check Table, Search Help를 배우며 계속 강조한 사실이 있죠. DDIC가 화면에서 자동으로 막아주는 부분이 있고, 그것만으로는 부족한 부분이 있습니다. 후자는 <strong>프로그램이 직접</strong> 검증해야 합니다.
   </p>
   <blockquote>
-    DDIC는 공통 규칙을 지키는 문지기이고, 프로그램 검증은 상황별 업무 판단을 담당하는 안내자입니다.
+    DDIC 검증은 “화면 앞단의 1차 문지기”, 프로그램 검증은 “백엔드의 최후 수호자”입니다. 둘은 경쟁이 아니라 <strong>역할 분담</strong>입니다.
   </blockquote>
 </section>
 
 <section class="lesson-section">
-  <h2>2. DDIC Validation이 잘하는 일 🧱</h2>
-  <p>
-    <span class="glossary-term" data-glossary="DDICValidation">DDIC Validation</span>은 DDIC에 정의된 타입, 고정값, 관계를 바탕으로 입력값의 기본 품질을 높입니다.
-  </p>
-  <ul>
-    <li><strong>타입과 길이:</strong> <code>CHAR 3</code>, 날짜, 숫자처럼 기술적으로 맞는 값을 유도합니다.</li>
-    <li><strong>Fixed Value:</strong> <code>Y</code>/<code>N</code>처럼 허용된 작은 목록만 받게 할 수 있습니다.</li>
-    <li><strong>Foreign Key:</strong> 기준표에 존재하는 값인지 확인하는 데 도움을 줍니다.</li>
-    <li><strong>Search Help:</strong> 사용자가 올바른 후보를 쉽게 고르게 도와줍니다.</li>
-  </ul>
-  <p>
-    이런 규칙은 여러 프로그램에서 공통으로 재사용되기 좋습니다. 그래서 DDIC에 둘 수 있는 기본 규칙은 DDIC에 두는 편이 유지보수에 유리합니다.
-  </p>
+  <h2>2. DDIC 자동 검증: 무엇을 해주고, 어디서 멈추나 🚧</h2>
+  <div class="viz-visual">
+    <p class="viz-visual-title">DDIC가 자동으로 막아주는 것 vs 한계</p>
+    <div class="viz-compare">
+      <div class="viz-compare-before">
+        <span class="viz-compare-label">자동으로 해주는 것</span>
+        <div class="viz-compare-body">
+          <ul>
+            <li><strong>타입/길이:</strong> 문자칸에 넘치는 숫자, 날짜칸에 문자 방어</li>
+            <li><strong><span class="glossary-term" data-glossary="Domain">Domain</span> 고정값:</strong> 정해진 값 외 차단(드롭다운)</li>
+            <li><strong><span class="glossary-term" data-glossary="ForeignKey">Foreign Key</span>/<span class="glossary-term" data-glossary="CheckTable">Check Table</span>:</strong> 마스터에 없는 코드 차단</li>
+          </ul>
+        </div>
+      </div>
+      <div class="viz-compare-after">
+        <span class="viz-compare-label">치명적 한계</span>
+        <div class="viz-compare-body">
+          <ul>
+            <li>오직 <strong>화면(Dynpro/Selection Screen)</strong> 입력에서만 동작</li>
+            <li>DB 물리 제약이 아님</li>
+            <li>프로그램 <code>INSERT</code>/<code>UPDATE</code>·인터페이스는 <strong>우회</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <p class="viz-note">DDIC 검증은 “키보드로 화면에 칠 때”만 방패가 됩니다. 화면을 거치지 않으면 방패가 사라집니다.</p>
+  </div>
 </section>
 
 <section class="lesson-section">
-  <h2>3. Program Input Check가 필요한 일 🧠</h2>
-  <p>
-    <span class="glossary-term" data-glossary="InputCheck">Input Check</span>는 프로그램의 업무 문맥에 맞춰 입력값을 확인하는 로직입니다. 같은 회사 코드라도 프로그램 목적에 따라 허용 여부가 달라질 수 있습니다.
-  </p>
-  <ul>
-    <li><strong>업무 기간:</strong> 조회 시작일이 종료일보다 늦으면 안 됩니다.</li>
-    <li><strong>권한:</strong> 사용자가 특정 회사 코드나 조직 데이터를 볼 수 있는지 확인해야 합니다.</li>
-    <li><strong>상태:</strong> 이미 마감된 문서는 수정할 수 없을 수 있습니다.</li>
-    <li><strong>조합 조건:</strong> 항공사 코드와 노선 코드가 서로 맞는 조합인지 확인해야 할 수 있습니다.</li>
-  </ul>
-  <p>
-    이런 규칙은 단순히 Domain이나 Foreign Key만으로 표현하기 어렵습니다. 그래서 ABAP 코드에서 조건문과 메시지를 사용해 확인합니다.
-  </p>
+  <h2>3. 프로그램 검증이 반드시 필요한 경우 🧩</h2>
+  <div class="viz-visual">
+    <p class="viz-visual-title">DDIC로는 못 막는 3가지</p>
+    <div class="viz-relation">
+      <div class="viz-concept">
+        <span class="viz-concept-label">① 화면 밖 경로</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td>Excel 업로드, RFC, BAPI, IDoc</td></tr>
+            <tr><td>실무 데이터의 다수가 인터페이스 유입</td></tr>
+            <tr><td>DDIC 방어막 미작동 → 수동 검증</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-concept">
+        <span class="viz-concept-label">② 복합 업무 규칙</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td>필드 간 교차 검증</td></tr>
+            <tr><td>예: 등급=VIP일 때만 할인율 20%↑</td></tr>
+            <tr><td>DDIC는 단일 필드만 봄</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-concept">
+        <span class="viz-concept-label">③ 권한</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td>이 사용자가 이 회사코드를 바꿀 자격?</td></tr>
+            <tr><td><code>AUTHORITY-CHECK</code></td></tr>
+            <tr><td>DDIC로 불가 → 프로그램 로직</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="viz-note">화면을 거치지 않거나, 여러 필드를 함께 보거나, 권한을 따지는 검증은 모두 프로그램의 몫입니다.</p>
+  </div>
 </section>
 
 <section class="lesson-section">
-  <h2>4. MESSAGE로 사용자에게 알려주기 📣</h2>
+  <h2>4. MESSAGE 문: 6가지 타입과 흐름 제어 📣</h2>
   <p>
-    <span class="glossary-term" data-glossary="MESSAGEStatement">MESSAGE</span>는 사용자에게 오류, 경고, 정보 메시지를 보여주는 ABAP 문법입니다. 여기서는 가장 단순한 감각만 잡습니다.
+    프로그램이 “이 값 잘못됐어요”를 사용자에게 알리고 흐름을 통제하는 수단이 <span class="glossary-term" data-glossary="MESSAGEStatement">MESSAGE</span> 문입니다. <strong>타입에 따라 프로그램이 멈출지 말지</strong>가 달라집니다.
+  </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">메시지 타입별 동작</p>
+    <table class="viz-table">
+      <thead>
+        <tr><th>타입</th><th>표시</th><th>흐름</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>E</strong> 에러</td><td>빨간 상태바</td><td><span class="viz-badge fail">중단</span> 재입력 강제</td></tr>
+        <tr><td><strong>W</strong> 경고</td><td>노란 상태바</td><td>엔터 한 번 더 누르면 통과</td></tr>
+        <tr><td><strong>I</strong> 정보</td><td>팝업</td><td>확인 후 계속 진행</td></tr>
+        <tr><td><strong>S</strong> 성공</td><td>다음 화면 상태바</td><td>방해 없이 진행</td></tr>
+        <tr><td><strong>A</strong> 중단</td><td>팝업</td><td><span class="viz-badge fail">강제 종료</span></td></tr>
+        <tr><td><strong>X</strong> 덤프</td><td>런타임 에러</td><td><span class="viz-badge fail">Short Dump</span></td></tr>
+      </tbody>
+    </table>
+    <p class="viz-note">절대 뚫리면 안 되는 검증은 <strong>E</strong>를 씁니다. W는 사용자가 무시하고 진행할 수 있습니다.</p>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>5. AT SELECTION-SCREEN: 실행 직전의 입력 검증 ✋</h2>
+  <p>
+    사용자가 <span class="glossary-term" data-glossary="PARAMETERSStatement">PARAMETERS</span>에 값을 넣고 실행(F8)을 누르면, 메인 로직으로 넘어가기 <strong>직전</strong>에 <code>AT SELECTION-SCREEN</code> 이벤트가 호출됩니다. 여기서 <span class="glossary-term" data-glossary="SelectionScreen">Selection Screen</span> 입력값을 검증하기 좋습니다.
   </p>
   <!-- ABAP_MOCKUP_START -->
 <div class="abap-editor-mockup shiki-copy-wrapper">
@@ -73,146 +132,140 @@
   </div>
   <div class="abap-editor-body">
     <div class="abap-editor-line-numbers">
-      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9
+      1<br>2<br>3<br>4<br>5<br>6
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zinput_check.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">PARAMETERS</span> p_date <span class="abap-token-keyword">TYPE</span> sy-datum.
 
-<span class="abap-token-keyword">PARAMETERS</span> p_days <span class="abap-token-keyword">TYPE</span> i <span class="abap-token-keyword">DEFAULT</span> <span class="abap-token-number">7</span>.
-
-<span class="abap-token-keyword">IF</span> p_days &gt; <span class="abap-token-number">30</span>.
-  MESSAGE <span class="abap-token-string">'조회 일수는 30일을 넘길 수 없습니다.'</span> <span class="abap-token-keyword">TYPE</span> <span class="abap-token-string">'E'</span>.
-<span class="abap-token-keyword">ENDIF</span>.
-
-<span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'조회 일수:'</span>, p_days.</code></pre>
+<span class="abap-token-keyword">AT</span> <span class="abap-token-keyword">SELECTION-SCREEN</span>.
+  <span class="abap-token-keyword">IF</span> p_date &lt; sy-datum.
+    MESSAGE e001(zmsg).   <span class="abap-token-comment">" 과거 날짜 → 에러: 선택화면으로 되돌려 재입력 강제</span>
+  <span class="abap-token-keyword">ENDIF</span>.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
   <p>
-    위 예제는 조회 일수가 30보다 크면 오류 메시지를 보여줍니다. 실제 Selection Screen 검증 이벤트인 <code>AT SELECTION-SCREEN</code>은 나중에 더 깊게 다룹니다. 지금은 “업무 조건을 코드로 확인하고 사용자에게 메시지를 줄 수 있다”는 감각만 가져가면 됩니다.
+    <code>E</code>(에러) 메시지를 던지면 메인 로직(<code>START-OF-SELECTION</code>)으로 넘어가지 못하고, <strong>입력 화면으로 되돌아가</strong> 사용자가 값을 고치도록 강제합니다. DDIC가 못 막는 “과거 날짜 금지” 같은 업무 규칙을 여기서 처리합니다.
   </p>
 </section>
 
 <section class="lesson-section">
-  <h2>5. 역할 분리 예시: 어디에 둘까? 🔍</h2>
-  <ul>
-    <li>✅ <strong>DDIC에 두기 좋은 것:</strong> 항공사 코드는 3자리 문자, 사용 여부는 <code>Y/N</code>, 회사 코드는 회사 기준표에 있어야 함</li>
-    <li>✅ <strong>프로그램에 두기 좋은 것:</strong> 조회 기간은 최대 30일, 로그인 사용자는 특정 조직만 조회 가능, 마감된 데이터는 수정 금지</li>
-    <li>❌ <strong>나쁜 흐름:</strong> 모든 검증을 프로그램마다 복사해서 만들기. 공통 규칙이 흩어져 유지보수가 어려워집니다.</li>
-    <li>❌ <strong>반대 흐름:</strong> DDIC가 모든 업무 규칙을 해결해줄 것이라 기대하기. 상황별 판단은 코드가 필요합니다.</li>
-  </ul>
-  <blockquote>
-    좋은 설계는 “공통 규칙은 DDIC, 상황별 규칙은 프로그램”으로 책임을 나눕니다.
-  </blockquote>
+  <h2>6. 2단 방어선으로 설계하기 🧱</h2>
   <div class="viz-visual">
-    <p class="viz-visual-title">검증 책임 나누기 — 같은 입력값, 두 개의 관문</p>
-    <div class="viz-compare">
-      <div class="viz-compare-before">
-        <span class="viz-compare-label">1차 관문: DDIC Validation (공통 규칙)</span>
-        <div class="viz-compare-body">
-          <table class="viz-table">
-            <tbody>
-              <tr><td>타입/길이</td><td><code>CHAR 3</code>, 날짜, 숫자 형태</td></tr>
-              <tr><td>Fixed Value</td><td><code>Y</code>/<code>N</code>만 허용</td></tr>
-              <tr><td>Foreign Key</td><td>기준표에 있는 값인가</td></tr>
-              <tr><td>강점</td><td><span class="viz-badge">여러 프로그램에서 재사용</span></td></tr>
-            </tbody>
-          </table>
-        </div>
+    <p class="viz-visual-title">역할 분리 — 상호 보완하는 두 계층</p>
+    <div class="viz-relation">
+      <div class="viz-concept">
+        <span class="viz-concept-label">1계층 · DDIC (화면 앞단)</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td>타입/길이, Domain 고정값</td></tr>
+            <tr><td>단일 마스터 존재 검사(Check Table)</td></tr>
+            <tr><td>즉각적인 1차 오타 차단</td></tr>
+          </tbody>
+        </table>
       </div>
-      <div class="viz-compare-after">
-        <span class="viz-compare-label">2차 관문: Program Input Check (업무 문맥)</span>
-        <div class="viz-compare-body">
-          <table class="viz-table">
-            <tbody>
-              <tr><td>기간</td><td>시작일 ≤ 종료일, 최대 30일</td></tr>
-              <tr><td>권한</td><td>이 사용자가 볼 수 있는 조직인가</td></tr>
-              <tr><td>상태/조합</td><td>마감 문서 수정 금지, 코드 조합 확인</td></tr>
-              <tr><td>강점</td><td><span class="viz-badge">상황별 업무 판단 가능</span></td></tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="viz-arrow">→</div>
+      <div class="viz-concept">
+        <span class="viz-concept-label">2계층 · Program (백엔드)</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td>업무 규칙·교차 검증</td></tr>
+            <tr><td>권한(AUTHORITY-CHECK)</td></tr>
+            <tr><td>인터페이스 유입 데이터 검증</td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
-    <p class="viz-note">입력값은 DDIC의 공통 관문을 먼저 지나고, 프로그램의 업무 관문에서 한 번 더 확인됩니다. 한쪽이 다른 쪽을 대신하지 못합니다.</p>
+    <p class="viz-note">1계층이 가벼운 오타를 화면에서 걸러주고, 2계층이 그걸 통과했거나 우회해 들어온 데이터를 정밀 검증합니다.</p>
   </div>
+  <details class="foldable">
+    <summary>ABAP Cloud / RAP에서는 이 역할 분리가 어떻게 진화하나?</summary>
+    <p>Clean Core(RAP)에서는 화면을 통제하던 <code>AT SELECTION-SCREEN</code>·Dynpro 로직이 사라집니다. 대신 <strong>1계층</strong>은 CDS View Entity가 타입·Domain을 OData 메타데이터로 Fiori UI에 넘겨주고, <strong>2계층</strong>의 강한 비즈니스 검증은 RAP의 <strong>Behavior Definition(BDEF)</strong> 안 Validations 로직에 캡슐화됩니다. 화면에서 들어오든 OData API로 꽂히든 <strong>백엔드 코어가 동일한 검증</strong>을 타도록 통일된 것이 핵심입니다.</p>
+  </details>
 </section>
 
 <section class="lesson-section">
-  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
+  <h2>7. 자주 하는 오해 🚨</h2>
   <div class="lesson-callout warn">
     <div class="lesson-callout-icon">⚠️</div>
     <div class="lesson-callout-content">
-      <h4>DDIC 검증과 프로그램 검증을 서로 대체품처럼 보지 마세요</h4>
-      <p>DDIC 검증을 무시하면 같은 검사를 여러 프로그램에 중복 구현하게 됩니다. 반대로 프로그램 검증을 생략하면 권한, 기간, 상태 같은 업무 규칙을 놓칠 수 있습니다. 둘은 경쟁 관계가 아니라 역할이 다른 협업 관계입니다.</p>
+      <h4>오해 1: “Foreign Key 걸었으니 인터페이스 데이터도 안전하겠지”</h4>
+      <p>가장 큰 사고의 원인입니다. Check Table은 DB 무결성 제약이 아니라 화면 검증입니다. BAPI·RFC·업로드로 들어오는 데이터는 화면 방어막을 거치지 않으므로, <strong>프로그램에서 직접 검증(예: BAPI Return 메시지 파싱)</strong>해야 합니다.</p>
     </div>
   </div>
-  <p>
-    또한 운영 환경에서는 메시지 문구도 사용자 경험의 일부입니다. “오류입니다”처럼 막연한 메시지보다, 무엇을 어떻게 고쳐야 하는지 알려주는 메시지가 훨씬 좋습니다.
-  </p>
-  <p>
-    그리고 DDIC 기반 검증은 화면 입력 경로에서 동작한다는 점을 기억하세요. 배치 인터페이스나 프로그램 내부의 직접 INSERT처럼 화면을 거치지 않는 경로에서는 DDIC 검증이 자동으로 막아주지 않으므로, 그런 로직에는 프로그램 검증을 반드시 넣어야 합니다.
-  </p>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>오해 2: “Warning(W)이면 끝까지 막을 수 있다”</h4>
+      <p>W는 사용자가 엔터를 한 번 더 치면 그대로 통과됩니다. <strong>절대 통과시키면 안 되는 검증은 E(에러)</strong>를 쓰세요.</p>
+    </div>
+  </div>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>오해 3: “에러 메시지를 띄우면 잘못된 값이 알아서 지워진다”</h4>
+      <p>메시지를 띄우는 것과 변수를 비우는 것은 별개입니다. 에러를 띄워도 변수에는 잘못된 값이 남아 있을 수 있으니, 재입력·재처리 시 변수 처리에 주의하세요.</p>
+    </div>
+  </div>
 </section>
 
 <section class="lesson-section">
-  <h2>7. 미니 실습: 검증 배치도 그리기 🧪</h2>
+  <h2>8. 미니 실습: 검증 책임 나누기 🧪</h2>
   <div class="lesson-callout">
     <div class="lesson-callout-icon">✍️</div>
     <div class="lesson-callout-content">
       <h4>실습 과제</h4>
       <ol>
-        <li>위 예제 <code>zinput_check</code>를 만들어 실행하고, <code>p_days</code>에 31을 넣었을 때 오류 메시지가 뜨는지 확인합니다.</li>
-        <li>기준 일수를 30에서 14로 바꾸고 동작 차이를 확인합니다.</li>
-        <li>다음 네 가지 규칙을 DDIC와 프로그램 중 어디에 둘지 분류합니다: ① 통화 코드는 3자리 ② 조회 기간 최대 30일 ③ 사용 여부는 Y/N만 ④ 마감된 전표 수정 금지</li>
-        <li>오류 메시지 문구를 “무엇을 어떻게 고쳐야 하는지” 알 수 있게 직접 다듬어봅니다.</li>
+        <li>“항공사 코드는 마스터에 있어야 한다 / 출발일은 오늘 이후여야 한다 / 이 사용자가 해당 노선을 변경할 권한이 있어야 한다” 세 규칙을 1계층(DDIC)과 2계층(프로그램)으로 분류합니다.</li>
+        <li>출발일 검증을 <code>AT SELECTION-SCREEN</code>에서 처리한다면 메시지 타입은 무엇을 쓸지, 그 이유(흐름 중단)를 적습니다.</li>
+        <li>같은 데이터가 화면이 아니라 Excel 업로드로 들어온다면 어떤 검증이 추가로 필요한지 적습니다.</li>
       </ol>
-      <p><strong>완료 조건:</strong> ①③은 DDIC, ②④는 프로그램 검증으로 분류하고 그 이유를 설명할 수 있으면 성공입니다.</p>
+      <p><strong>완료 조건:</strong> “DDIC=화면 1차, 프로그램=업무·권한·인터페이스 2차”로 책임을 나누고, 필수 차단엔 E를 쓰는 이유를 설명하면 성공입니다.</p>
     </div>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
-  <ul>
-    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMESSAGE.html" target="_blank" rel="noopener">SAP Help Portal: MESSAGE</a> - MESSAGE 문장의 공식 문법과 메시지 타입을 확인합니다.</li>
-    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFOREIGN_KEY_GLOSRY.html" target="_blank" rel="noopener">SAP Help Portal: Foreign Key</a> - DDIC가 담당하는 관계 기반 검증의 공식 정의를 확인합니다.</li>
-    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS.html" target="_blank" rel="noopener">SAP Help Portal: PARAMETERS</a> - 입력칸 선언과 검증 흐름의 출발점을 확인합니다.</li>
-  </ul>
+  <h2>9. 공식 문서로 더 확인하기 🔗</h2>
+  <p>이번 Lesson은 SAP 공식 교육 과정(BC400 Unit 3 · Unit 7)과 아래 공식 문서를 기준으로 작성했습니다.</p>
+  <div class="link-list">
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMESSAGE.html" target="_blank" rel="noopener">SAP Help Portal: MESSAGE<span>메시지 타입(E/W/I/S/A/X)과 동작의 공식 정의를 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPAT_SELECTION-SCREEN.html" target="_blank" rel="noopener">SAP Help Portal: AT SELECTION-SCREEN<span>실행 직전 입력 검증 이벤트의 공식 정의를 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPAUTHORITY-CHECK.html" target="_blank" rel="noopener">SAP Help Portal: AUTHORITY-CHECK<span>프로그램에서 권한을 검증하는 구문을 확인합니다.</span></a>
+  </div>
 </section>
 
 <section class="lesson-section">
-  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <h2>10. 확인 퀴즈 ✅</h2>
   <ol>
-    <li>“조회 시작일이 종료일보다 늦으면 안 된다”는 규칙은 DDIC와 프로그램 중 어디에 두는 것이 적합한가요?</li>
-    <li>DDIC 검증(Foreign Key 등)을 잘 설정했다면 배치 인터페이스 코드에서는 검증을 생략해도 될까요?</li>
-    <li><code>MESSAGE '...' TYPE 'E'</code>에서 <code>'E'</code>는 무엇을 의미하나요?</li>
+    <li>DDIC의 Foreign Key 검증은 프로그램의 직접 <code>INSERT</code>에도 동작하나요?</li>
+    <li>필드 간 교차 검증(예: 등급에 따른 할인율 제한)은 어디서 해야 하나요?</li>
+    <li>반드시 통과시키면 안 되는 검증에는 어떤 MESSAGE 타입을 써야 하나요?</li>
+    <li>Selection Screen 입력값을 실행 직전에 검증하는 이벤트는 무엇인가요?</li>
   </ol>
-  <details>
+  <details class="foldable">
     <summary>정답/해설 보기</summary>
     <ol>
-      <li><strong>프로그램 검증</strong>입니다. 두 입력값의 조합 조건은 Domain이나 Foreign Key만으로 표현하기 어렵습니다.</li>
-      <li><strong>아니요.</strong> DDIC 검증은 주로 화면 입력 단계에서 동작하므로, 화면을 거치지 않는 경로에는 프로그램 검증을 별도로 넣어야 합니다.</li>
-      <li><strong>Error(오류) 타입</strong>입니다. 사용자에게 오류로 표시되고 진행이 중단되는 메시지 유형입니다.</li>
+      <li><strong>아니요.</strong> DDIC 검증은 화면 입력에서만 동작하며 직접 <code>INSERT</code>는 우회됩니다. 프로그램 검증이 필요합니다.</li>
+      <li><strong>프로그램(2계층)</strong>에서 합니다. DDIC는 단일 필드만 보므로 교차 검증을 못 합니다.</li>
+      <li><strong>E(에러)</strong>입니다. W(경고)는 사용자가 엔터를 다시 치면 통과됩니다.</li>
+      <li><strong><code>AT SELECTION-SCREEN</code></strong> 이벤트입니다. 여기서 E를 던지면 선택화면으로 되돌립니다.</li>
     </ol>
   </details>
 </section>
 
 <section class="lesson-section">
-  <h2>10. 한눈에 정리 🏁</h2>
+  <h2>11. 한눈에 정리 — Chapter 4 마무리 🏁</h2>
+  <div class="recap-grid">
+    <div class="recap-card"><strong>DDIC 검증</strong>타입·Domain 고정값·Foreign Key. 화면 입력 1차 방어. 직접 INSERT는 우회.</div>
+    <div class="recap-card"><strong>프로그램 검증</strong>업무 규칙·교차검증·권한·인터페이스 데이터. 백엔드 최후 방어.</div>
+    <div class="recap-card"><strong>MESSAGE</strong>E=중단, W=무시 가능, I/S=진행, A=종료, X=덤프. 필수 차단엔 E.</div>
+    <div class="recap-card"><strong>2단 설계</strong>DDIC(1차)+Program(2차). RAP에선 CDS 메타+BDEF Validations로 진화.</div>
+  </div>
   <div class="lesson-callout tip">
-    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-icon">🎉</div>
     <div class="lesson-callout-content">
-      <h4>Chapter 4 마무리 핵심</h4>
-      <ul>
-        <li><strong>DDIC Validation</strong>은 타입, 길이, 고정값, Foreign Key, Search Help 같은 공통 규칙에 강합니다.</li>
-        <li><strong>Program Input Check</strong>는 기간, 권한, 상태, 조합 조건 같은 업무 문맥을 확인합니다.</li>
-        <li><strong>MESSAGE</strong>는 사용자에게 오류나 안내를 전달하는 ABAP 문법입니다.</li>
-        <li>공통 규칙은 DDIC에, 상황별 규칙은 프로그램에 두는 것이 유지보수에 좋습니다.</li>
-        <li>F4 Help와 DDIC 검증이 있어도 최종 업무 검증을 생략하면 안 됩니다.</li>
-      </ul>
+      <h4>Chapter 4 완료 · 다음 Chapter 예고</h4>
+      <p>이로써 <strong>DDIC 2차: 관계와 입력 도움말</strong>(Foreign Key·Value Table·Search Help·F4 연결·검증 역할분리)을 마칩니다. 다음 Chapter <strong>ABAP 모듈화 기초</strong>에서는 코드를 재사용 가능한 단위(Subroutine·Function Module 등)로 나누는 법을 배웁니다.</p>
     </div>
   </div>
-  <p>
-    이제 DDIC 관계와 입력 도움말의 기본 그림을 잡았습니다. 다음 Chapter <strong>ABAP 모듈화 기초</strong>에서는 프로그램 안의 코드를 더 작고 읽기 좋은 단위로 나누는 방법을 배웁니다.
-  </p>
 </section>

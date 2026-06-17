@@ -39,17 +39,26 @@
     "desc": "최신 ABAP 개발을 위해 이클립스(Eclipse) 플랫폼 위에 설치하여 사용하는 통합 개발 환경(IDE)입니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 예전에는 글을 쓸 때 타자기(SE11)를 썼다면, 이제는 자동완성과 맞춤법 검사가 완벽히 지원되는 최신 노트북(ADT)으로 글을 쓰는 것과 같습니다.",
     "used_in_lessons": [
-      "THEORY-01-M01"
+      "THEORY-01-M01",
+      "THEORY-01-M02"
     ],
     "design_theme": "info",
     "html_content": ""
   },
   "SE11": {
     "title": "트랜잭션 SE11",
+    "category": "tcode",
+    "tcode": "SE11",
     "desc": "SAP GUI 화면에서 DDIC(SAP Dictionary) 객체를 생성하고 조회할 때 사용하는 전통적인 명령어(트랜잭션 코드)입니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 윈도우에서 '제어판'을 띄우기 위해 실행창에 입력하는 단축어와 같습니다.",
     "used_in_lessons": [
-      "THEORY-01-M01"
+      "THEORY-01-M01",
+      "THEORY-01-M02",
+      "THEORY-01-M03",
+      "THEORY-01-M04",
+      "THEORY-01-M05",
+      "THEORY-01-M06",
+      "THEORY-02-M02"
     ],
     "design_theme": "warn",
     "html_content": "<p>최신 SAP 환경(ABAP Cloud 등)에서는 SE11 대신 <strong>ADT</strong> 사용을 권장합니다.</p>"
@@ -69,6 +78,7 @@
     "desc": "데이터의 기술적 형태(데이터 타입·길이·소수 자릿수)와 허용 값(고정값)을 정의하는 DDIC의 가장 밑바닥 부품입니다. 의미가 아니라 '재질'만 책임집니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 옷을 만들 때 '면 100%, 두께 3mm 원단' 같은 원단 규격서와 같아요. 이 원단으로 티셔츠를 만들지 바지를 만들지(=의미)는 아직 정하지 않은 상태입니다.",
     "used_in_lessons": [
+      "THEORY-01-M01",
       "THEORY-01-M02",
       "THEORY-01-M03"
     ],
@@ -122,8 +132,11 @@
     "desc": "Domain의 '재질' 위에 의미(Semantic)와 화면 라벨(Field Label), F1 도움말을 입히는 부품입니다. 테이블 필드는 Domain이 아니라 이 Data Element를 직접 참조합니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 같은 '검은색 원단(Domain)'이라도 거기에 '교복 명찰'을 달면 교복이 되는 것처럼, 재질에 이름표와 용도를 붙여주는 단계예요.",
     "used_in_lessons": [
+      "THEORY-01-M01",
+      "THEORY-01-M02",
       "THEORY-01-M03",
       "THEORY-01-M04",
+      "THEORY-01-M05",
       "THEORY-04-M05"
     ],
     "design_theme": "primary",
@@ -164,6 +177,7 @@
     "desc": "여러 필드(컴포넌트)를 정해진 순서로 묶은 DDIC 타입입니다. 데이터를 영구 저장하지 않고, 프로그램이 한 줄씩 처리하는 '그릇(Work Area)' 모양을 정의합니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 칸이 나뉜 도시락 통과 같아요. 밥·반찬·국 자리가 정해져 있지만, 통 자체는 음식을 영구 보관하지 않고 담았다 비우는 그릇이죠.",
     "used_in_lessons": [
+      "THEORY-01-M01",
       "THEORY-01-M04",
       "THEORY-01-M05"
     ],
@@ -207,6 +221,8 @@
     "desc": "데이터를 영구 저장하는 DDIC 테이블로, 실제 데이터베이스의 물리 테이블 1개와 1:1로 그대로 대응됩니다. 그래서 '투명(비쳐 보인다)'이라고 부릅니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 설계도(DDIC)와 실제로 지어진 창고(DB 테이블)가 완전히 똑같은 것과 같아요. 설계도를 고치고 '활성화'하면 진짜 창고도 그대로 바뀝니다.",
     "used_in_lessons": [
+      "THEORY-01-M01",
+      "THEORY-01-M04",
       "THEORY-01-M05",
       "THEORY-01-M06"
     ],
@@ -218,7 +234,8 @@
     "desc": "테이블의 각 행을 유일하게 구분하는 기준 필드입니다. 키로 지정한 필드들의 조합은 테이블 안에서 중복될 수 없으며, 항상 테이블 정의 맨 앞에 모여 있어야 합니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 학교에서 학번과 같아요. 이름은 같은 사람이 있어도 학번은 절대 겹치지 않아서, 학번만 알면 한 사람을 정확히 찾을 수 있죠.",
     "used_in_lessons": [
-      "THEORY-01-M05"
+      "THEORY-01-M05",
+      "THEORY-01-M06"
     ],
     "design_theme": "warn",
     "html_content": ""
@@ -228,7 +245,8 @@
     "desc": "대부분의 업무 테이블 맨 앞에 오는 필드로, 하나의 SAP 시스템 안에서 여러 회사·환경의 데이터를 칸막이로 분리합니다. 로그인한 클라이언트의 데이터만 Open SQL이 자동으로 보여줍니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 한 건물(시스템) 안의 여러 회사가 층(클라이언트)으로 나뉘어 있는 것과 같아요. 3층 직원은 3층 자료만 보게 되고, 다른 층 자료는 자동으로 가려집니다.",
     "used_in_lessons": [
-      "THEORY-01-M05"
+      "THEORY-01-M05",
+      "THEORY-01-M06"
     ],
     "design_theme": "info",
     "html_content": ""
@@ -248,6 +266,7 @@
     "desc": "Transparent Table을 활성화하기 위해 채우는 운영 설정입니다. 데이터 클래스(저장 영역), 크기 범주(예상 데이터 양), 버퍼링(캐싱 여부) 등을 지정합니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 창고를 지을 때 '어느 부지에, 얼마나 큰 규모로, 자주 찾는 물건은 입구 가까이' 같은 운영 방침을 정하는 것과 같아요.",
     "used_in_lessons": [
+      "THEORY-01-M05",
       "THEORY-01-M06"
     ],
     "design_theme": "info",
@@ -285,6 +304,8 @@
   },
   "DataBrowser": {
     "title": "Data Browser (SE16 / SE16N)",
+    "category": "tcode",
+    "tcode": "SE16 / SE16N",
     "desc": "테이블에 실제로 담긴 데이터를 표 형태로 조회하는 도구입니다. SE11이 테이블의 '구조(설계도)'를 본다면, Data Browser는 그 안의 '내용물(데이터)'을 봅니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 설계도(SE11)를 보는 게 아니라, 실제 창고 문을 열고 안에 무슨 물건이 몇 개 있는지 들여다보는 것과 같아요.",
     "used_in_lessons": [
@@ -338,6 +359,11 @@
     "desc": "저장된 ABAP 객체를 문법과 참조 기준으로 검사해 실행·재사용 가능한 활성 버전으로 만드는 과정입니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 과제를 저장만 하는 것이 아니라 제출 전에 맞춤법과 누락 항목을 검사하고 최종 제출하는 단계와 비슷해요.",
     "used_in_lessons": [
+      "THEORY-01-M01",
+      "THEORY-01-M02",
+      "THEORY-01-M03",
+      "THEORY-01-M04",
+      "THEORY-01-M05",
       "THEORY-02-M01"
     ],
     "design_theme": "warn",
@@ -358,6 +384,7 @@
     "desc": "ABAP 프로그램 안에서 실행 중 값이 바뀔 수 있는 변수를 선언하는 문법입니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 물이나 주스를 담았다 비울 수 있는 컵을 준비하는 것과 같아요.",
     "used_in_lessons": [
+      "THEORY-01-M01",
       "THEORY-02-M02"
     ],
     "design_theme": "code",
@@ -671,6 +698,7 @@
     "desc": "현재 테이블의 필드가 다른 기준 테이블의 키 값을 참조하도록 DDIC에 설정하는 관계입니다. 입력값 존재 여부와 F4 도움말 연결에 영향을 줍니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 동아리 신청서의 회원번호가 실제 회원 명단에 있어야 인정되는 것과 같아요.",
     "used_in_lessons": [
+      "THEORY-01-M02",
       "THEORY-04-M01",
       "THEORY-04-M02"
     ],
@@ -703,6 +731,7 @@
     "desc": "Domain에 지정하는 기준 테이블 후보입니다. Foreign Key 생성 시 참고될 수 있지만, 그 자체만으로 특정 테이블 필드의 실제 검증 관계가 완성되지는 않습니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: '이 과목은 보통 이 참고서를 봅니다'라는 안내문과 같아요. 실제 시험 채점 기준으로 연결하려면 별도 약속이 필요합니다.",
     "used_in_lessons": [
+      "THEORY-01-M02",
       "THEORY-04-M02"
     ],
     "design_theme": "warn",
@@ -713,6 +742,8 @@
     "desc": "사용자가 F4를 눌렀을 때 후보 목록을 보여주기 위해 DDIC에서 정의하는 입력 도움말 객체입니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 검색창 자동완성 후보 목록과 같아요. 정확한 값을 외우지 않아도 목록에서 고를 수 있습니다.",
     "used_in_lessons": [
+      "THEORY-01-M02",
+      "THEORY-01-M03",
       "THEORY-04-M03",
       "THEORY-04-M05"
     ],
@@ -734,6 +765,8 @@
     "desc": "SAP 입력 필드에서 F4 키를 눌렀을 때 가능한 값 후보를 보여주는 기능입니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 온라인 쇼핑몰 검색창에서 추천 검색어가 펼쳐지는 것과 같아요.",
     "used_in_lessons": [
+      "THEORY-01-M01",
+      "THEORY-01-M03",
       "THEORY-04-M03",
       "THEORY-04-M05"
     ],
@@ -1005,6 +1038,8 @@
   },
   "SE24Transaction": {
     "title": "SE24 (Class Builder)",
+    "category": "tcode",
+    "tcode": "SE24",
     "desc": "SAP GUI에서 Global Class를 조회, 생성, 변경할 때 사용하는 전통적인 트랜잭션 코드입니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 공용 도구함의 설계도와 사용 설명서를 열어보는 관리 화면과 같아요.",
     "used_in_lessons": [
@@ -2144,6 +2179,8 @@
   },
   "SM30": {
     "title": "트랜잭션 SM30 (Table Maintenance)",
+    "category": "tcode",
+    "tcode": "SM30",
     "desc": "TMG(Table Maintenance Generator)로 만들어진 테이블이나 뷰의 데이터 유지보수 화면을 실행하여 실제 테이블 데이터를 입력, 수정, 삭제할 수 있는 SAP 표준 트랜잭션입니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 자동으로 만들어진 설문지(TMG)를 띄워두고 실제로 설문 내용을 타이핑해 제출하는 '설문지 응답 페이지'와 같아요.",
     "used_in_lessons": [
@@ -3582,5 +3619,737 @@
     ],
     "design_theme": "warn",
     "html_content": ""
+  },
+  "DATA": {
+    "title": "DATA (변수 선언)",
+    "desc": "프로그램이 실행되는 동안 값을 담아 두는 변수를 만드는 선언문입니다. TYPE을 붙여 어떤 종류의 값을 담을지 정합니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 책상 위에 '이름표 붙인 빈 상자'를 하나 놓는 것과 같아요. 상자(변수)에 나중에 값을 넣고 꺼내 씁니다.",
+    "used_in_lessons": [
+      "THEORY-02-M02"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "CONSTANTS": {
+    "title": "CONSTANTS (상수 선언)",
+    "desc": "한 번 정하면 실행 중에 바뀌지 않는 값을 선언합니다. VALUE로 초기값을 반드시 지정하며, 코드 중간에서 다시 대입할 수 없습니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 벽에 박아 둔 '고정 팻말'과 같아요. 한 번 적어 두면 누구도 중간에 못 바꿉니다.",
+    "used_in_lessons": [
+      "THEORY-02-M02"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "TYPES": {
+    "title": "TYPES (타입 선언)",
+    "desc": "값을 담는 그릇이 아니라 '값의 모양(타입)' 자체를 정의합니다. 정의한 타입은 여러 변수가 재사용할 수 있습니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 쿠키 반죽을 찍는 '틀'을 만드는 것과 같아요. 틀(타입) 하나로 같은 모양 쿠키(변수)를 여러 개 찍습니다.",
+    "used_in_lessons": [
+      "THEORY-02-M02"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "WRITE": {
+    "title": "WRITE (출력문)",
+    "desc": "값이나 문자열을 기본 출력 목록(Output List) 화면에 찍는 가장 기본적인 출력 문장입니다. 통화·날짜 등은 형식을 함께 지정할 수 있습니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 종이에 한 줄씩 '받아쓰기' 하는 것과 같아요. WRITE를 만날 때마다 결과 화면에 한 항목씩 적힙니다.",
+    "used_in_lessons": [
+      "THEORY-02-M03"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "IF": {
+    "title": "IF (조건 분기)",
+    "desc": "조건이 참일 때만 특정 코드를 실행하는 분기문입니다. ELSEIF로 조건을 추가하고 ELSE로 나머지를 처리하며 ENDIF로 닫습니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: '비가 오면 우산을 챙긴다'처럼 상황에 따라 다른 행동을 고르는 갈림길과 같아요.",
+    "used_in_lessons": [
+      "THEORY-02-M04"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "CASE": {
+    "title": "CASE (값 분기)",
+    "desc": "하나의 값을 여러 WHEN 후보와 차례로 비교해 일치하는 가지를 실행합니다. 어디에도 안 맞으면 WHEN OTHERS로 처리하고 ENDCASE로 닫습니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 자판기에서 '버튼 번호'에 따라 다른 음료가 나오는 것과 같아요. 값 하나로 갈 길을 고릅니다.",
+    "used_in_lessons": [
+      "THEORY-02-M04"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "DO": {
+    "title": "DO (횟수 반복)",
+    "desc": "정해진 횟수만큼 같은 블록을 반복 실행합니다. TIMES로 횟수를 지정하며 ENDDO로 닫습니다. 반복 횟수는 시스템 필드 SY-INDEX로 알 수 있습니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: '팔 굽혀 펴기 10번'처럼 정해진 횟수를 세며 같은 동작을 반복하는 것과 같아요.",
+    "used_in_lessons": [
+      "THEORY-02-M05"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "WHILE": {
+    "title": "WHILE (조건 반복)",
+    "desc": "조건이 참인 동안 블록을 계속 반복합니다. 조건이 거짓이 되면 멈추며 ENDWHILE로 닫습니다. 조건이 영원히 참이면 무한 루프가 됩니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: '물이 끓을 때까지 계속 기다린다'처럼, 조건이 만족될 때까지 같은 동작을 반복하는 것과 같아요.",
+    "used_in_lessons": [
+      "THEORY-02-M05"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "EXIT": {
+    "title": "EXIT (반복 탈출)",
+    "desc": "반복문 안에서 즉시 루프를 빠져나가는 명령입니다. 더 돌 필요가 없을 때 남은 반복을 건너뛰고 루프 다음으로 이동합니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 찾던 물건을 발견하면 '그만 찾고 바로 방을 나가는' 것과 같아요.",
+    "used_in_lessons": [
+      "THEORY-02-M05"
+    ],
+    "design_theme": "warn",
+    "html_content": ""
+  },
+  "CONTINUE": {
+    "title": "CONTINUE (다음 반복으로)",
+    "desc": "현재 반복 회차의 남은 코드를 건너뛰고 곧바로 다음 반복으로 넘어가는 명령입니다. 루프 자체는 계속됩니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 줄을 서다 '이번 사람은 통과시키고 다음 사람'으로 넘어가는 것과 같아요. 줄(루프)은 계속됩니다.",
+    "used_in_lessons": [
+      "THEORY-02-M05"
+    ],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "SyDatum": {
+    "title": "SY-DATUM (시스템 날짜)",
+    "desc": "현재 애플리케이션 서버 기준의 오늘 날짜를 담고 있는 시스템 필드입니다. YYYYMMDD 8자리 형식이며 읽기 전용으로 사용합니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 사무실 벽에 걸린 '오늘 날짜 달력'과 같아요. 코드 어디서나 오늘이 며칠인지 바로 확인합니다.",
+    "used_in_lessons": [
+      "THEORY-02-M06"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "SyUname": {
+    "title": "SY-UNAME (로그인 사용자)",
+    "desc": "현재 프로그램을 실행 중인 SAP 로그인 사용자 ID를 담고 있는 시스템 필드입니다. 로그·변경 이력 기록 등에 자주 씁니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 출입증에 찍힌 '지금 들어온 사람 이름'과 같아요. 누가 이 작업을 했는지 시스템이 늘 들고 있습니다.",
+    "used_in_lessons": [
+      "THEORY-02-M06"
+    ],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "SySubrc": {
+    "title": "SY-SUBRC (실행 결과 코드)",
+    "desc": "직전 문장이 성공했는지를 나타내는 시스템 필드입니다. 보통 0이면 성공, 0이 아니면 실패나 '결과 없음'을 뜻하므로 실행 직후 확인해야 합니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 시험 직후 받는 'O/X 채점 결과'와 같아요. 0이면 통과, 아니면 무언가 어긋났다는 신호입니다.",
+    "used_in_lessons": [
+      "THEORY-02-M06"
+    ],
+    "design_theme": "warn",
+    "html_content": ""
+  },
+  "SE80": {
+    "title": "트랜잭션 SE80 (Object Navigator)",
+    "category": "tcode",
+    "tcode": "SE80",
+    "desc": "프로그램, 클래스, 함수, 화면, 패키지 등 여러 Repository Object를 한 화면의 트리에서 통합으로 탐색하고 생성·편집하는 개발 통합 환경입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 폴더 트리로 프로젝트 전체 파일을 한눈에 펼쳐 보며 작업하는 파일 탐색기와 같아요.",
+    "used_in_lessons": [
+      "THEORY-01-M01",
+      "THEORY-02-M01"
+    ],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "SE38": {
+    "title": "트랜잭션 SE38 (ABAP Editor)",
+    "category": "tcode",
+    "tcode": "SE38",
+    "desc": "ABAP 프로그램(리포트)의 소스 코드를 작성·편집하고 바로 실행·디버깅할 수 있는 전통적인 편집기입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 글을 쓰고 곧바로 '실행' 버튼을 눌러 결과를 보는 문서 편집기와 같아요.",
+    "used_in_lessons": [
+      "THEORY-01-M01",
+      "THEORY-02-M01",
+      "THEORY-02-M02",
+      "THEORY-02-M03",
+      "THEORY-02-M05",
+      "THEORY-03-M01"
+    ],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "SA38": {
+    "title": "트랜잭션 SA38 (ABAP 프로그램 실행)",
+    "category": "tcode",
+    "tcode": "SA38",
+    "desc": "소스를 편집하지 않고 프로그램 이름만으로 리포트를 실행만 하는 화면입니다. 편집 권한 없이 실행할 때 씁니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 앱 내부를 고치지 않고 실행 버튼만 누르는 런처와 같아요.",
+    "used_in_lessons": [
+      "THEORY-02-M01"
+    ],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "SE37": {
+    "title": "트랜잭션 SE37 (Function Builder)",
+    "category": "tcode",
+    "tcode": "SE37",
+    "desc": "Function Module을 만들고 시그니처를 정의하며 단독 테스트까지 할 수 있는 도구입니다. Function Group 단위로 관리됩니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 자주 쓰는 도구를 공구함에 미리 만들어 두고 필요할 때 꺼내 쓰는 곳과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "SE91": {
+    "title": "트랜잭션 SE91 (Message Maintenance)",
+    "category": "tcode",
+    "tcode": "SE91",
+    "desc": "프로그램·화면에서 띄우는 오류·경고·정보 메시지를 메시지 클래스 단위로 등록·관리하는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 안내 방송 문구를 미리 등록해 두고 번호로 불러 내보내는 방송실과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "SE93": {
+    "title": "트랜잭션 SE93 (Transaction Maintenance)",
+    "category": "tcode",
+    "tcode": "SE93",
+    "desc": "새 트랜잭션 코드를 정의해 특정 프로그램이나 화면에 연결하는 도구입니다. 사용자가 그 코드를 입력하면 해당 기능으로 바로 진입합니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 긴 메뉴 경로 대신 누르면 바로 가는 단축키를 새로 만드는 곳과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "SE51": {
+    "title": "트랜잭션 SE51 (Screen Painter)",
+    "category": "tcode",
+    "tcode": "SE51",
+    "desc": "화면(Dynpro)의 레이아웃과 입력 필드를 시각적으로 배치하고 흐름 로직(PBO/PAI)을 설계하는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 입력 양식의 칸을 드래그로 배치하는 폼 디자이너와 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "SE41": {
+    "title": "트랜잭션 SE41 (Menu Painter)",
+    "category": "tcode",
+    "tcode": "SE41",
+    "desc": "프로그램의 GUI 상태(메뉴 바, 툴바, 기능키 할당)를 설계하는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 프로그램 상단의 메뉴와 버튼을 어디에 둘지 짜 맞추는 곳과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "SE54": {
+    "title": "트랜잭션 SE54 (Table Maintenance Generator)",
+    "category": "tcode",
+    "tcode": "SE54",
+    "desc": "테이블이나 뷰의 데이터를 입력·수정할 수 있는 유지보수 화면(SM30에서 호출됨)을 자동 생성하는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 데이터를 채워 넣을 입력 양식을 자동으로 찍어내는 양식 생성기와 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "ST22": {
+    "title": "트랜잭션 ST22 (ABAP Dump Analysis)",
+    "category": "tcode",
+    "tcode": "ST22",
+    "desc": "런타임 오류(쇼트 덤프)가 발생했을 때 원인, 발생 위치, 호출 스택을 분석해 보여 주는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 사고 직후 블랙박스를 열어 무슨 일이 있었는지 되짚어 보는 것과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "warn",
+    "html_content": ""
+  },
+  "DebuggerH": {
+    "title": "ABAP Debugger 호출 (/h)",
+    "category": "tcode",
+    "tcode": "/h",
+    "desc": "명령창에 /h를 입력해 디버거를 켜 두면, 다음 화면 동작부터 코드가 한 줄씩 멈추며 실행되어 변수와 흐름을 추적할 수 있습니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 다음 발걸음부터 슬로모션으로 보겠다고 미리 거는 스위치와 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "warn",
+    "html_content": ""
+  },
+  "SAT": {
+    "title": "트랜잭션 SAT (Runtime Analysis)",
+    "category": "tcode",
+    "tcode": "SAT",
+    "desc": "프로그램 실행 시간을 구간별로 측정해 어디서 시간이 많이 쓰이는지(성능 병목)를 찾는 도구입니다. 과거의 SE30을 대체합니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 구간마다 기록을 재서 어디서 느려지는지 찾는 스톱워치와 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "ST05": {
+    "title": "트랜잭션 ST05 (Performance Trace)",
+    "category": "tcode",
+    "tcode": "ST05",
+    "desc": "DB 접근(SQL), 버퍼, RFC 등 실제 실행 내역을 추적해 느린 쿼리나 비효율 접근을 찾아내는 트레이스 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 어디서 돈(시간)이 새는지 항목별로 적어 보는 가계부와 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "SLIN": {
+    "title": "트랜잭션 SLIN (Extended Program Check)",
+    "category": "tcode",
+    "tcode": "SLIN",
+    "desc": "단순 구문 검사보다 깊은 정적 점검을 수행해 잠재적 오류나 위험 요소를 미리 잡아 주는 확장 검사입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 맞춤법을 넘어 문맥까지 살피는 정밀 교정과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "SCI": {
+    "title": "트랜잭션 SCI (Code Inspector)",
+    "category": "tcode",
+    "tcode": "SCI",
+    "desc": "성능, 보안, 코딩 표준 준수 등 여러 검사 항목을 한 번에 돌려 코드 품질을 점검하는 정적 분석 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 출고 전 여러 항목을 한꺼번에 점검하는 품질 검사대와 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "ATC": {
+    "title": "트랜잭션 ATC (ABAP Test Cockpit)",
+    "category": "tcode",
+    "tcode": "ATC",
+    "desc": "Code Inspector를 감싸 품질 게이트로 운영하는 통합 점검 프레임워크입니다. 정해진 기준을 통과해야 이송을 허용하는 방식으로 자주 씁니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 통과해야만 다음 단계로 넘어갈 수 있는 품질 검문소와 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "SM21": {
+    "title": "트랜잭션 SM21 (System Log)",
+    "category": "tcode",
+    "tcode": "SM21",
+    "desc": "시스템 레벨에서 발생한 오류·경고 로그를 시간순으로 조회하는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 건물 전체에서 일어난 일을 시간순으로 적어 둔 경비 일지와 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "warn",
+    "html_content": ""
+  },
+  "SM50": {
+    "title": "트랜잭션 SM50 (Work Process Overview)",
+    "category": "tcode",
+    "tcode": "SM50",
+    "desc": "현재 애플리케이션 서버의 작업 프로세스(Work Process)가 무엇을 처리 중인지 상태를 보여 주는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 주방의 요리사들이 지금 각자 무슨 요리를 하고 있는지 보는 현황판과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "SM12": {
+    "title": "트랜잭션 SM12 (Lock Entries)",
+    "category": "tcode",
+    "tcode": "SM12",
+    "desc": "현재 시스템에 걸려 있는 락(Enqueue)을 조회하고, 비정상적으로 남은 락을 해제할 수 있는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 지금 누가 어느 사물함을 잠가 두었는지 보여 주는 목록과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "warn",
+    "html_content": ""
+  },
+  "SM13": {
+    "title": "트랜잭션 SM13 (Update Requests)",
+    "category": "tcode",
+    "tcode": "SM13",
+    "desc": "비동기 업데이트(Update Task)의 처리 또는 실패 상태를 확인하는 도구입니다. 저장이 실제로 반영됐는지 추적할 때 씁니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 예약 발송한 택배가 잘 갔는지 확인하는 송장 목록과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "warn",
+    "html_content": ""
+  },
+  "SE09": {
+    "title": "트랜잭션 SE09 / SE10 (Transport Organizer)",
+    "category": "tcode",
+    "tcode": "SE09 / SE10",
+    "desc": "변경 요청(Transport Request)을 만들고 개발 객체를 담아 다른 시스템으로 이송하는 과정을 관리하는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 개발물을 상자에 담아 다음 사무실로 보내는 이삿짐 송장과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "STMS": {
+    "title": "트랜잭션 STMS (Transport Management System)",
+    "category": "tcode",
+    "tcode": "STMS",
+    "desc": "시스템 환경(landscape) 전체의 이송 경로를 설정하고, 변경 요청을 다음 시스템으로 임포트하는 것을 관리하는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 택배가 어느 허브를 거쳐 어디로 가는지 관리하는 물류 관제실과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "SM36": {
+    "title": "트랜잭션 SM36 (Define Background Job)",
+    "category": "tcode",
+    "tcode": "SM36",
+    "desc": "백그라운드에서 자동 실행될 잡(Job)을 정의하고 실행 시각·주기를 예약하는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 정해진 시간에 자동으로 작동하도록 맞춰 두는 알람 예약과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "SM37": {
+    "title": "트랜잭션 SM37 (Job Overview)",
+    "category": "tcode",
+    "tcode": "SM37",
+    "desc": "예약·실행된 백그라운드 잡의 상태, 로그, 결과를 모니터링하는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 예약해 둔 작업이 끝났는지, 잘 돌았는지 보는 진행 현황판과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "SP01": {
+    "title": "트랜잭션 SP01 (Spool Requests)",
+    "category": "tcode",
+    "tcode": "SP01",
+    "desc": "인쇄나 출력으로 생성된 스풀 요청을 조회하고 출력 상태를 관리하는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 프린터에 걸려 있는 출력 대기열 목록과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "SE18": {
+    "title": "트랜잭션 SE18 (Enhancement Spot / BAdI 정의)",
+    "category": "tcode",
+    "tcode": "SE18",
+    "desc": "표준 코드에 사용자 로직을 끼워 넣을 수 있는 확장 지점(BAdI)을 정의·조회하는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 나중에 부품을 끼울 수 있도록 미리 만들어 둔 확장 슬롯과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "SE19": {
+    "title": "트랜잭션 SE19 (BAdI Implementation)",
+    "category": "tcode",
+    "tcode": "SE19",
+    "desc": "SE18에서 정의된 BAdI에 실제 사용자 로직을 구현하는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 만들어 둔 확장 슬롯에 실제 부품을 꽂아 기능을 더하는 일과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "CMOD": {
+    "title": "트랜잭션 CMOD (Enhancement Project)",
+    "category": "tcode",
+    "tcode": "CMOD",
+    "desc": "고전적 Enhancement(Customer Exit 등 SMOD 구성 요소)를 프로젝트로 묶어 활성화·관리하는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 여러 추가 기능을 한 프로젝트 폴더에 모아 켜고 끄는 곳과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "SMOD": {
+    "title": "트랜잭션 SMOD (SAP Enhancement Management)",
+    "category": "tcode",
+    "tcode": "SMOD",
+    "desc": "SAP가 표준에 미리 마련해 둔 고전 확장(Customer Exit)의 구성 요소를 조회·관리하는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 제조사가 미리 뚫어 둔 개조 포인트들의 목록과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "SMARTFORMS": {
+    "title": "트랜잭션 SMARTFORMS (Smart Forms)",
+    "category": "tcode",
+    "tcode": "SMARTFORMS",
+    "desc": "송장·주문서 같은 인쇄 출력 양식을 그래픽 도구로 설계하는 출력 폼 솔루션입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 워드의 양식 템플릿을 시각적으로 디자인하는 곳과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "SE71": {
+    "title": "트랜잭션 SE71 (SAPscript Form Painter)",
+    "category": "tcode",
+    "tcode": "SE71",
+    "desc": "전통적인 SAPscript 방식의 출력 양식을 한 칸씩 설계하는 도구입니다. Smart Forms 이전 세대 기술입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 옛날식 인쇄 양식을 칸칸이 직접 그리는 제도판과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "SFP": {
+    "title": "트랜잭션 SFP (Form Builder / Adobe Forms)",
+    "category": "tcode",
+    "tcode": "SFP",
+    "desc": "Adobe 기반의 PDF 출력 양식(인터랙티브 폼 포함)을 설계하는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: PDF로 인쇄되는 양식을 디자인하는 곳과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "SEGW": {
+    "title": "트랜잭션 SEGW (Gateway Service Builder)",
+    "category": "tcode",
+    "tcode": "SEGW",
+    "desc": "외부 앱이 데이터를 주고받을 수 있는 OData 서비스를 모델링·구현하는 전통적 도구입니다. 최신 환경에서는 ADT 기반 RAP 방식을 권장합니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 외부 앱이 데이터를 꺼내 갈 수 있도록 창구를 만들어 두는 곳과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "info",
+    "html_content": "<p>최신 SAP 환경에서는 SEGW 대신 <strong>RAP(ADT 기반)</strong> 방식의 서비스 정의를 권장합니다.</p>"
+  },
+  "SQVI": {
+    "title": "트랜잭션 SQVI (QuickViewer)",
+    "category": "tcode",
+    "tcode": "SQVI",
+    "desc": "코딩 없이 테이블과 조인을 끌어다 놓아 간단한 조회 리포트를 만드는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 끌어다 놓기만으로 만드는 간단 보고서와 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "SHDB": {
+    "title": "트랜잭션 SHDB (Batch Input Recorder)",
+    "category": "tcode",
+    "tcode": "SHDB",
+    "desc": "화면 입력 과정을 녹화해 BDC(배치 입력) 프로그램의 기본 틀을 자동으로 만들어 주는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 반복되는 입력 과정을 매크로처럼 녹화해 두는 도구와 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "SU53": {
+    "title": "트랜잭션 SU53 (권한 검사 분석)",
+    "category": "tcode",
+    "tcode": "SU53",
+    "desc": "직전에 실패한 권한 검사 내역을 보여 주어, 어떤 권한 객체가 부족해 막혔는지 진단하게 해 주는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 출입이 거부된 직후 어느 문에서 무슨 권한이 없어 막혔는지 보여 주는 기록과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "warn",
+    "html_content": ""
+  },
+  "UI2_FLP": {
+    "title": "트랜잭션 /UI2/FLP (Fiori Launchpad)",
+    "category": "tcode",
+    "tcode": "/UI2/FLP",
+    "desc": "사용자가 타일을 눌러 여러 앱으로 진입하는 단일 진입점인 SAP Fiori Launchpad를 브라우저로 실행·테스트하는 트랜잭션입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 모든 앱 아이콘이 모인 스마트폰 홈 화면을 직접 열어 보는 것과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "UI2_FLPD_CUST": {
+    "title": "트랜잭션 /UI2/FLPD_CUST (Launchpad Designer · 고객/client-specific)",
+    "category": "tcode",
+    "tcode": "/UI2/FLPD_CUST",
+    "desc": "Fiori Launchpad의 카탈로그·그룹·타일·타겟 매핑을 만드는 설계 도구입니다. client-specific(고객 customizing) 영역을 다룹니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 홈 화면에 어떤 앱 아이콘을 어느 폴더에 둘지 직접 배치하는 편집 모드와 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "UI2_FLPD_CONF": {
+    "title": "트랜잭션 /UI2/FLPD_CONF (Launchpad Designer · 공통/cross-client)",
+    "category": "tcode",
+    "tcode": "/UI2/FLPD_CONF",
+    "desc": "Launchpad Designer와 같은 카탈로그·타일 설계 도구지만, 전 클라이언트 공통(configuration) 영역을 다룹니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 모든 사용자에게 공통으로 보일 기본 홈 화면 배치를 짜는 모드와 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "UI2_FLPCM_CUST": {
+    "title": "트랜잭션 /UI2/FLPCM_CUST (Launchpad Content Manager · 고객)",
+    "category": "tcode",
+    "tcode": "/UI2/FLPCM_CUST",
+    "desc": "카탈로그·그룹·타일을 목록형 UI에서 한눈에 관리하는 최신 Fiori Launchpad Content Manager 도구입니다(고객 customizing 영역).",
+    "everyday_analogy": "쉽게 말해 일상 비유: 아이콘을 표 형태 목록에서 한꺼번에 정리하는 관리 화면과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "UI2_FLPCM_CONF": {
+    "title": "트랜잭션 /UI2/FLPCM_CONF (Launchpad Content Manager · 공통)",
+    "category": "tcode",
+    "tcode": "/UI2/FLPCM_CONF",
+    "desc": "Launchpad Content Manager와 동일하나 전 클라이언트 공통(configuration) 영역의 카탈로그·타일을 관리합니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 모두에게 공통으로 적용될 아이콘 목록을 표에서 정리하는 화면과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "LPD_CUST": {
+    "title": "트랜잭션 LPD_CUST (Launchpad Customizing)",
+    "category": "tcode",
+    "tcode": "LPD_CUST",
+    "desc": "런치패드와 타겟 매핑(어떤 타일이 어떤 애플리케이션을 호출하는지)을 정의하는 전통적 도구입니다. NWBC·Fiori 양쪽에서 쓰입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 버튼을 누르면 어느 앱이 열릴지 그 연결을 정의하는 곳과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "UI2_THEME_DESIGNER": {
+    "title": "트랜잭션 /UI2/THEME_DESIGNER (UI Theme Designer)",
+    "category": "tcode",
+    "tcode": "/UI2/THEME_DESIGNER",
+    "desc": "색상·로고·글꼴 등 Fiori UI 테마를 시각적으로 만들고 시스템에 배포하는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 홈 화면 배경과 색 테마를 내 취향대로 꾸미는 테마 편집기와 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "UI2_SEMOBJ": {
+    "title": "트랜잭션 /UI2/SEMOBJ (Semantic Object · 고객)",
+    "category": "tcode",
+    "tcode": "/UI2/SEMOBJ",
+    "desc": "인텐트 기반 내비게이션의 기준이 되는 Semantic Object(예: 주문, 자재)를 정의·관리하는 도구입니다(고객 customizing 영역).",
+    "everyday_analogy": "쉽게 말해 일상 비유: '주문'이라는 이름표를 등록해 여러 앱이 같은 대상을 가리키게 만드는 명칭 등록과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "UI2_SEMOBJ_CONF": {
+    "title": "트랜잭션 /UI2/SEMOBJ_CONF (Semantic Object · 공통)",
+    "category": "tcode",
+    "tcode": "/UI2/SEMOBJ_CONF",
+    "desc": "Semantic Object를 전 클라이언트 공통(configuration) 영역에서 정의·관리하는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 모든 앱이 공통으로 쓸 이름표 목록을 공통 영역에 등록하는 곳과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "UI2_INVALIDATE_GLOBAL_CACHES": {
+    "title": "트랜잭션 /UI2/INVALIDATE_GLOBAL_CACHES (FLP 캐시 무효화)",
+    "category": "tcode",
+    "tcode": "/UI2/INVALIDATE_GLOBAL_CACHES",
+    "desc": "카탈로그·타일 변경이 사용자 화면에 즉시 반영되도록 Fiori Launchpad의 전역 캐시를 비우는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 화면이 옛 정보로 보일 때 새로고침으로 캐시를 싹 지우는 것과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "warn",
+    "html_content": ""
+  },
+  "UI2_CHIP": {
+    "title": "트랜잭션 /UI2/CHIP (CHIP 등록·관리)",
+    "category": "tcode",
+    "tcode": "/UI2/CHIP",
+    "desc": "타일과 페이지를 구성하는 재사용 가능한 UI 부품(CHIP)을 등록·관리하는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 홈 화면에 끼울 수 있는 위젯 부품을 미리 등록해 두는 곳과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "code",
+    "html_content": ""
+  },
+  "SICF": {
+    "title": "트랜잭션 SICF (HTTP 서비스 / ICF 노드 관리)",
+    "category": "tcode",
+    "tcode": "SICF",
+    "desc": "OData 서비스, BSP 애플리케이션, 웹 앱 등의 ICF 서비스 노드를 활성/비활성하고 경로를 관리하는 도구입니다. Fiori·Gateway가 동작하기 위한 전제 작업입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 외부에서 들어오는 웹 요청의 문을 열고 닫는 수위실과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "IWFND_MAINT_SERVICE": {
+    "title": "트랜잭션 /IWFND/MAINT_SERVICE (OData V2 서비스 활성화 · 프론트엔드)",
+    "category": "tcode",
+    "tcode": "/IWFND/MAINT_SERVICE",
+    "desc": "백엔드에서 만든 OData V2 서비스를 SAP Gateway(프론트엔드/Hub)에 등록·활성화하는 핵심 트랜잭션입니다. 'Activate and Maintain Services'.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 백엔드가 만든 데이터 창구를 외부에 실제로 개통하는 접수처와 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "IWFND_GW_CLIENT": {
+    "title": "트랜잭션 /IWFND/GW_CLIENT (Gateway Client · 프론트엔드)",
+    "category": "tcode",
+    "tcode": "/IWFND/GW_CLIENT",
+    "desc": "OData V2 서비스에 직접 요청을 보내 응답(메타데이터·데이터)을 확인하며 서비스를 테스트하는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 우편함이 잘 작동하는지 시험 편지를 직접 넣어 보는 것과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "IWFND_ERROR_LOG": {
+    "title": "트랜잭션 /IWFND/ERROR_LOG (Gateway 오류 로그 · 프론트엔드)",
+    "category": "tcode",
+    "tcode": "/IWFND/ERROR_LOG",
+    "desc": "프론트엔드(Hub)에서 발생한 OData 호출 실패의 원인과 상세를 조회하는 오류 로그입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 접수처에서 반려된 요청들의 사유를 모아 둔 기록과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "warn",
+    "html_content": ""
+  },
+  "IWFND_CACHE_CLEANUP": {
+    "title": "트랜잭션 /IWFND/CACHE_CLEANUP (메타데이터 캐시 정리 · 프론트엔드)",
+    "category": "tcode",
+    "tcode": "/IWFND/CACHE_CLEANUP",
+    "desc": "서비스 모델 변경이 반영되도록 프론트엔드의 OData 메타데이터 캐시를 비우는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 접수처가 들고 있던 옛 안내문을 새 것으로 갈아 끼우는 것과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "warn",
+    "html_content": ""
+  },
+  "IWFND_APPS_LOG": {
+    "title": "트랜잭션 /IWFND/APPS_LOG (애플리케이션 로그 · 프론트엔드)",
+    "category": "tcode",
+    "tcode": "/IWFND/APPS_LOG",
+    "desc": "프론트엔드 Gateway 운영 중 남은 애플리케이션 로그를 조회하는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 운영하면서 남긴 활동 일지를 들춰 보는 것과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "IWFND_TRACES": {
+    "title": "트랜잭션 /IWFND/TRACES (트레이스 · 프론트엔드)",
+    "category": "tcode",
+    "tcode": "/IWFND/TRACES",
+    "desc": "OData 요청/응답 본문(payload)과 성능을 추적해 문제를 진단하는 프론트엔드 트레이스 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 주고받은 소포의 내용물과 배송 시간을 적어 둔 추적표와 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "IWBEP_REG_SERVICE": {
+    "title": "트랜잭션 /IWBEP/REG_SERVICE (서비스 등록 · 백엔드)",
+    "category": "tcode",
+    "tcode": "/IWBEP/REG_SERVICE",
+    "desc": "SEGW로 구현한 OData V2 서비스를 백엔드 시스템에 등록하는 도구입니다(프론트엔드와 백엔드가 같은 시스템인 co-deployment 등에서 사용).",
+    "everyday_analogy": "쉽게 말해 일상 비유: 창고에서 만든 물건을 출고 대장에 정식으로 등록하는 것과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "primary",
+    "html_content": ""
+  },
+  "IWBEP_ERROR_LOG": {
+    "title": "트랜잭션 /IWBEP/ERROR_LOG (오류 로그 · 백엔드)",
+    "category": "tcode",
+    "tcode": "/IWBEP/ERROR_LOG",
+    "desc": "백엔드에서 OData 서비스 구현(데이터 제공) 중 발생한 오류의 원인을 조회하는 로그입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 창고 안쪽에서 물건을 꺼내다 생긴 문제의 사유를 모아 둔 기록과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "warn",
+    "html_content": ""
+  },
+  "IWBEP_TRACES": {
+    "title": "트랜잭션 /IWBEP/TRACES (트레이스 · 백엔드)",
+    "category": "tcode",
+    "tcode": "/IWBEP/TRACES",
+    "desc": "백엔드 OData 처리의 본문과 성능을 추적하는 트레이스 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 창고 작업의 처리 과정과 소요 시간을 적어 둔 추적표와 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "info",
+    "html_content": ""
+  },
+  "IWBEP_CACHE_CLEANUP": {
+    "title": "트랜잭션 /IWBEP/CACHE_CLEANUP (캐시 정리 · 백엔드)",
+    "category": "tcode",
+    "tcode": "/IWBEP/CACHE_CLEANUP",
+    "desc": "백엔드 OData 모델 변경이 반영되도록 백엔드 캐시를 비우는 도구입니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: 창고가 들고 있던 옛 재고표를 새 것으로 갈아 끼우는 것과 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "warn",
+    "html_content": ""
+  },
+  "IWFND_V4_ADMIN": {
+    "title": "트랜잭션 /IWFND/V4_ADMIN (OData V4 서비스 관리)",
+    "category": "tcode",
+    "tcode": "/IWFND/V4_ADMIN",
+    "desc": "OData V4 서비스 그룹을 게시·관리하는 프론트엔드 관리 도구입니다. 최신 RAP 방식에서는 ADT의 Service Binding으로 V4 서비스를 게시하는 흐름과 함께 이해하면 좋습니다.",
+    "everyday_analogy": "쉽게 말해 일상 비유: V4 방식 데이터 창구들을 묶어 개통하고 관리하는 접수처와 같아요.",
+    "used_in_lessons": [],
+    "design_theme": "info",
+    "html_content": "<p>최신 환경에서 OData V4 서비스는 주로 <strong>ADT 기반 RAP</strong>의 Service Definition·Service Binding으로 게시합니다.</p>"
   }
 }

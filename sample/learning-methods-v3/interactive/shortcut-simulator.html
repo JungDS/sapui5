@@ -73,37 +73,6 @@
   <script src="../assets/quiz.js"></script>
   <script src="../assets/sandbox.js"></script>
   <script src="../assets/variants.js"></script>
-  <script>
-    document.querySelectorAll('.shortcut-input').forEach(input => {
-      input.addEventListener('keydown', e => {
-        e.preventDefault();
-        const keys = [];
-        if(e.ctrlKey) keys.push('Ctrl');
-        if(e.shiftKey) keys.push('Shift');
-        if(e.altKey) keys.push('Alt');
-        
-        if(e.key !== 'Control' && e.key !== 'Shift' && e.key !== 'Alt') {
-          keys.push(e.key.toUpperCase());
-        }
-        
-        const keyString = keys.join('+');
-        if(keys.length > 0 && e.key !== 'Control' && e.key !== 'Shift' && e.key !== 'Alt') {
-          input.value = keyString;
-          const target = input.getAttribute('data-target');
-          const msg = input.nextElementSibling;
-          
-          if(keyString.toUpperCase() === target.toUpperCase()) {
-            msg.className = 'shortcut-msg success';
-            msg.textContent = '정답입니다! (' + target + ')';
-            msg.style.display = 'block';
-          } else {
-            msg.className = 'shortcut-msg error';
-            msg.textContent = '틀렸습니다. 다시 시도하세요.';
-            msg.style.display = 'block';
-          }
-        }
-      });
-    });
-  </script>
+  <!-- 단축키 판정은 variants.js 의 initShortcut(input의 data-target 기준)이 담당한다. -->
 </body>
 </html>

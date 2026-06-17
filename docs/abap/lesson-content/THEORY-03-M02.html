@@ -1,27 +1,52 @@
-<!-- lesson-content/THEORY-03-M02.html -->
+<!-- lesson-content/THEORY-03-M02.html | 최종수정 2026-06-16 10:35 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
   <div class="lesson-callout-content">
     <h4>학습 목표</h4>
-    <p>지난 Lesson에서 <span class="glossary-term" data-glossary="PARAMETERSStatement">PARAMETERS</span>로 입력칸을 만들었습니다. 이번에는 입력칸에 미리 값을 채우는 <span class="glossary-term" data-glossary="DEFAULTOption">DEFAULT</span>, 반드시 입력하게 만드는 <span class="glossary-term" data-glossary="OBLIGATORYOption">OBLIGATORY</span>, 실행 시작 시점의 <span class="glossary-term" data-glossary="InitialValue">Initial Value</span> 감각을 익힙니다.</p>
+    <p>이번 Lesson에서는 <span class="glossary-term" data-glossary="PARAMETERSStatement">PARAMETERS 문</span>에 붙는 <span class="glossary-term" data-glossary="DEFAULTOption">DEFAULT 옵션</span>과 <span class="glossary-term" data-glossary="OBLIGATORYOption">OBLIGATORY 옵션</span>을 구분합니다. <code>DEFAULT</code>는 처음 보이는 값이고, <code>OBLIGATORY</code>는 빈 값 실행을 막는 검증이라는 기준을 잡습니다.</p>
   </div>
 </div>
 
 <section class="lesson-section">
-  <h2>1. 지난 시간 연결: 입력칸은 만들었지만 아직 불친절하다 🧭</h2>
+  <h2>1. 입력칸은 만들었지만 아직 불친절하다</h2>
   <p>
-    이전 Lesson에서 <code>PARAMETERS p_name TYPE string.</code>처럼 입력칸을 만들었습니다. 그런데 매번 사용자가 같은 값을 입력해야 하거나, 꼭 필요한 값을 비워두고 실행해버리면 프로그램 사용성이 떨어집니다.
+    M01에서 <code>PARAMETERS</code>가 Selection Screen 입력칸과 프로그램 변수를 동시에 만든다는 점을 배웠습니다. 그런데 입력칸만 있다고 좋은 화면은 아닙니다. 매번 같은 값을 다시 입력해야 하거나, 꼭 필요한 값을 비운 채 실행할 수 있으면 사용자는 쉽게 실수합니다.
   </p>
   <p>
-    좋은 Selection Screen은 사용자에게 필요한 만큼 친절해야 합니다. 자주 쓰는 값은 미리 채워두고, 꼭 필요한 값은 비워두지 못하게 막아야 합니다. 이때 쓰는 옵션이 <code>DEFAULT</code>와 <code>OBLIGATORY</code>입니다.
+    이때 선택 화면을 조금 더 친절하고 안전하게 만드는 두 옵션이 <code>DEFAULT</code>와 <code>OBLIGATORY</code>입니다. 이름은 같이 나오지만 역할은 완전히 다릅니다.
   </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">두 옵션의 역할 분리</p>
+    <div class="viz-compare">
+      <div class="viz-compare-before">
+        <span class="viz-compare-label"><code>DEFAULT</code>: 편의</span>
+        <div class="viz-compare-body">
+          <ul>
+            <li>Selection Screen에 처음 표시될 값을 넣습니다.</li>
+            <li>사용자는 값을 그대로 써도 되고 바꿔도 됩니다.</li>
+            <li>값을 지우는 행동까지 막지는 않습니다.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="viz-compare-after">
+        <span class="viz-compare-label"><code>OBLIGATORY</code>: 방어</span>
+        <div class="viz-compare-body">
+          <ul>
+            <li>입력 필드를 필수 입력으로 만듭니다.</li>
+            <li>빈 값으로 Execute(F8)를 누르면 화면에서 멈춥니다.</li>
+            <li>값의 업무적 유효성까지 보장하지는 않습니다.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section class="lesson-section">
-  <h2>2. DEFAULT: 자주 쓰는 값을 미리 채워두기 ✨</h2>
+  <h2>2. DEFAULT: 처음 보이는 시작값</h2>
   <p>
-    <span class="glossary-term" data-glossary="DEFAULTOption">DEFAULT</span>는 PARAMETERS 입력칸에 기본값을 넣어줍니다. 사용자는 필요하면 그대로 실행하고, 필요하면 다른 값으로 바꿀 수 있습니다.
+    <span class="glossary-term" data-glossary="DEFAULTOption">DEFAULT</span>는 입력칸에 미리 채워둘 시작값입니다. SAP 공식 문서에서도 <code>DEFAULT</code>가 없으면 타입의 <span class="glossary-term" data-glossary="InitialValue">Initial Value</span>가 start value로 쓰인다고 설명합니다. 즉, <code>DEFAULT</code>는 “빈 출발점 대신 내가 정한 값으로 시작하자”는 뜻입니다.
   </p>
   <!-- ABAP_MOCKUP_START -->
 <div class="abap-editor-mockup shiki-copy-wrapper">
@@ -38,28 +63,39 @@
   </div>
   <div class="abap-editor-body">
     <div class="abap-editor-line-numbers">
-      1<br>2<br>3<br>4<br>5
+      1<br>2<br>3<br>4<br>5<br>6
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zparam_default.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> z_demo_param_m02_default.
 
-<span class="abap-token-keyword">PARAMETERS</span> p_carr <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> <span class="abap-token-number">3</span> <span class="abap-token-keyword">DEFAULT</span> <span class="abap-token-string">'KE'</span>.
+<span class="abap-token-keyword">PARAMETERS</span> p_curr(<span class="abap-token-number">3</span>) <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">DEFAULT</span> <span class="abap-token-string">'KRW'</span>.
 
-<span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'항공사 코드:'</span>, p_carr.</code></pre>
+<span class="abap-token-keyword">START-OF-SELECTION</span>.
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'통화:'</span>, p_curr.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
-  <p>
-    위 프로그램을 실행하면 Selection Screen의 <code>p_carr</code> 칸에 <code>KE</code>가 미리 들어 있습니다. 사용자가 대한항공 데이터를 자주 조회한다면 꽤 편하겠죠. 하지만 다른 항공사를 보고 싶으면 값을 바꾸면 됩니다.
-  </p>
+  <div class="interactive-sap-sandbox">
+    <div class="sap-gui-header">
+      <div class="sap-tcode-bar">Program <span class="tcode-val">Z_DEMO_PARAM_M02_DEFAULT</span></div>
+    </div>
+    <div class="sap-gui-title-bar">DEFAULT만 사용한 Selection Screen</div>
+    <div class="sap-selection-screen">
+      <div class="sap-field-row">
+        <label>P_CURR</label>
+        <div class="sap-input">KRW</div>
+      </div>
+      <button class="sap-btn-execute" type="button">Execute (F8)</button>
+    </div>
+  </div>
   <blockquote>
-    DEFAULT는 “추천값”에 가깝습니다. 사용자가 바꿀 수 있는 기본 출발점입니다.
+    <code>DEFAULT</code>는 추천 시작값입니다. 사용자가 지우거나 다른 값으로 바꾸면 그 변경값이 프로그램으로 들어갑니다.
   </blockquote>
 </section>
 
 <section class="lesson-section">
-  <h2>3. OBLIGATORY: 빈칸 실행을 막는 안전장치 🔒</h2>
+  <h2>3. OBLIGATORY: 빈 값 실행 방지</h2>
   <p>
-    <span class="glossary-term" data-glossary="OBLIGATORYOption">OBLIGATORY</span>는 입력 필드를 필수값으로 만듭니다. 사용자가 값을 비워두고 실행하려 하면 Selection Screen 단계에서 오류가 나고, 프로그램 본문으로 넘어가지 않습니다.
+    <span class="glossary-term" data-glossary="OBLIGATORYOption">OBLIGATORY</span>는 입력 필드를 필수 입력으로 만듭니다. 사용자가 해당 칸을 비운 채 Execute(F8)를 누르면 Selection Screen에서 멈추고, 프로그램 본문으로 넘어가지 않습니다.
   </p>
   <!-- ABAP_MOCKUP_START -->
 <div class="abap-editor-mockup shiki-copy-wrapper">
@@ -76,52 +112,95 @@
   </div>
   <div class="abap-editor-body">
     <div class="abap-editor-line-numbers">
-      1<br>2<br>3<br>4<br>5
+      1<br>2<br>3<br>4<br>5<br>6
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zparam_required.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> z_demo_param_m02_required.
 
-<span class="abap-token-keyword">PARAMETERS</span> p_carr <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> <span class="abap-token-number">3</span> <span class="abap-token-keyword">OBLIGATORY</span>.
+<span class="abap-token-keyword">PARAMETERS</span> p_carr(<span class="abap-token-number">3</span>) <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">OBLIGATORY</span>.
 
-<span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'항공사 코드:'</span>, p_carr.</code></pre>
+<span class="abap-token-keyword">START-OF-SELECTION</span>.
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'항공사:'</span>, p_carr.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
-  <p>
-    항공사 코드 없이 실행되면 의미가 없는 프로그램이라면 이렇게 필수 입력으로 만드는 것이 좋습니다. 사용자가 실수로 빈값 실행을 누르는 상황을 화면에서 먼저 막아줍니다.
-  </p>
+  <div class="interactive-sap-sandbox">
+    <div class="sap-gui-header">
+      <div class="sap-tcode-bar">Program <span class="tcode-val">Z_DEMO_PARAM_M02_REQUIRED</span></div>
+    </div>
+    <div class="sap-gui-title-bar">OBLIGATORY만 사용한 Selection Screen</div>
+    <div class="sap-selection-screen">
+      <div class="sap-field-row">
+        <label>P_CARR <span class="viz-badge fail">required</span></label>
+        <div class="sap-input"></div>
+      </div>
+      <button class="sap-btn-execute" type="button">Execute (F8)</button>
+      <p><span class="viz-badge fail">stop</span> 필수 입력값이 비어 있어 Selection Screen에서 실행이 막힙니다.</p>
+    </div>
+  </div>
   <div class="lesson-callout warn">
     <div class="lesson-callout-icon">⚠️</div>
     <div class="lesson-callout-content">
-      <h4>OBLIGATORY는 “값 존재”만 막아줍니다</h4>
-      <p>필수 입력이라고 해서 그 값이 실제로 존재하는 항공사 코드인지까지 확인해주지는 않습니다. 빈칸은 막지만, 잘못된 코드 검증은 별도의 로직이나 DDIC 입력 도움말, Check Table 같은 후속 주제가 필요합니다.</p>
+      <h4>필수 입력은 값 존재만 본다</h4>
+      <p><code>OBLIGATORY</code>는 비어 있는지를 확인하는 장치입니다. 존재하지 않는 항공사 코드 <code>ZZZ</code>가 실제 업무상 올바른지까지 확인하지는 않습니다. 그런 유효성 검증은 Dictionary 관계, Value Help, <code>AT SELECTION-SCREEN</code> 같은 후속 범위에서 다룹니다.</p>
     </div>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>4. Initial Value: 아무것도 넣지 않았을 때의 시작값 🌱</h2>
+  <h2>4. 세 조합을 화면 흐름으로 비교하기</h2>
   <p>
-    <span class="glossary-term" data-glossary="InitialValue">Initial Value</span>는 변수가 처음 만들어졌을 때 갖는 기본 빈값입니다. 타입마다 느낌이 조금 다릅니다.
+    초급 단계에서는 옵션을 문법으로 외우기보다 “화면에 처음 어떻게 보이고, Execute를 눌렀을 때 어디서 멈추는가”로 구분하는 편이 안전합니다.
   </p>
-  <ul>
-    <li>문자 타입은 공백처럼 시작할 수 있습니다.</li>
-    <li>정수 타입은 <code>0</code>으로 시작할 수 있습니다.</li>
-    <li>날짜 타입은 빈 날짜 상태로 시작할 수 있습니다.</li>
-  </ul>
-  <p>
-    DEFAULT를 쓰면 이 시작값 대신 내가 지정한 값이 Selection Screen에 먼저 보입니다. OBLIGATORY를 쓰면 사용자가 빈 초기값 상태로 실행하지 못하게 막습니다.
-  </p>
-  <div class="lesson-callout tip">
-    <div class="lesson-callout-icon">💡</div>
-    <div class="lesson-callout-content">
-      <h4>DEFAULT와 OBLIGATORY를 같이 쓰면?</h4>
-      <p><code>PARAMETERS p_carr TYPE c LENGTH 3 DEFAULT 'KE' OBLIGATORY.</code>처럼 둘을 함께 쓸 수 있습니다. 기본값은 미리 채워주고, 사용자가 지워버리면 실행을 막는 조합입니다.</p>
-    </div>
+  <div class="viz-visual">
+    <p class="viz-visual-title">DEFAULT / OBLIGATORY 조합별 판단표</p>
+    <table class="viz-table">
+      <thead>
+        <tr>
+          <th>선언</th>
+          <th>처음 보이는 값</th>
+          <th>사용자가 비우고 실행하면</th>
+          <th>판단</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>PARAMETERS p_a(3) TYPE c.</code></td>
+          <td>공백</td>
+          <td>그대로 실행될 수 있음</td>
+          <td>가장 기본형</td>
+        </tr>
+        <tr>
+          <td><code>... DEFAULT 'KRW'.</code></td>
+          <td><code>KRW</code></td>
+          <td>그대로 실행될 수 있음</td>
+          <td>편의값 제공</td>
+        </tr>
+        <tr>
+          <td><code>... OBLIGATORY.</code></td>
+          <td>공백</td>
+          <td>Selection Screen에서 멈춤</td>
+          <td>빈 값 방어</td>
+        </tr>
+        <tr>
+          <td><code>... DEFAULT 'KRW' OBLIGATORY.</code></td>
+          <td><code>KRW</code></td>
+          <td>지우면 Selection Screen에서 멈춤</td>
+          <td>편의 + 방어</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+  <details class="foldable">
+    <summary>DEFAULT가 있으면 OBLIGATORY는 필요 없나요?</summary>
+    <p>필요할 수 있습니다. <code>DEFAULT</code>로 값이 처음 채워져도 사용자는 화면에서 그 값을 지울 수 있습니다. 빈 값으로 실행되면 안 되는 조건이라면 <code>OBLIGATORY</code>를 함께 둬야 합니다. <code>DEFAULT</code>는 편의, <code>OBLIGATORY</code>는 방어입니다.</p>
+  </details>
 </section>
 
 <section class="lesson-section">
-  <h2>5. 정상 흐름과 오류 흐름으로 확인하기 🔎</h2>
+  <h2>5. 실무형 조합: 기본값은 주고, 지우면 막기</h2>
+  <p>
+    아래 예시는 자주 쓰는 통화는 <code>KRW</code>로 미리 보여주고, 조회 시작일은 반드시 입력하게 하는 형태입니다. 두 옵션이 같은 필드에 함께 붙을 수도 있고, 서로 다른 필드에 나뉘어 붙을 수도 있습니다.
+  </p>
   <!-- ABAP_MOCKUP_START -->
 <div class="abap-editor-mockup shiki-copy-wrapper">
   <div class="abap-editor-header">
@@ -137,105 +216,102 @@
   </div>
   <div class="abap-editor-body">
     <div class="abap-editor-line-numbers">
-      1<br>2<br>3<br>4<br>5<br>6<br>7
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zparam_options.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> z_demo_param_m02.
 
-<span class="abap-token-keyword">PARAMETERS</span> p_carr <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> <span class="abap-token-number">3</span> <span class="abap-token-keyword">DEFAULT</span> <span class="abap-token-string">'KE'</span> <span class="abap-token-keyword">OBLIGATORY</span>.
-<span class="abap-token-keyword">PARAMETERS</span> p_days <span class="abap-token-keyword">TYPE</span> i <span class="abap-token-keyword">DEFAULT</span> <span class="abap-token-number">7</span>.
+<span class="abap-token-keyword">PARAMETERS</span> p_curr(<span class="abap-token-number">3</span>) <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">DEFAULT</span> <span class="abap-token-string">'KRW'</span> <span class="abap-token-keyword">OBLIGATORY</span>.
+<span class="abap-token-keyword">PARAMETERS</span> p_date    <span class="abap-token-keyword">TYPE</span> d <span class="abap-token-keyword">OBLIGATORY</span>.
+<span class="abap-token-keyword">PARAMETERS</span> p_days    <span class="abap-token-keyword">TYPE</span> i <span class="abap-token-keyword">DEFAULT</span> <span class="abap-token-number">7</span>.
 
-<span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'항공사:'</span>, p_carr,
-       / <span class="abap-token-string">'조회 일수:'</span>, p_days.</code></pre>
+<span class="abap-token-keyword">START-OF-SELECTION</span>.
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'통화:'</span>, p_curr,
+         / <span class="abap-token-string">'시작일:'</span>, p_date,
+         / <span class="abap-token-string">'조회 일수:'</span>, p_days.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
-  <ul>
-    <li>✅ <strong>정상 흐름:</strong> 기본값 <code>KE</code>와 <code>7</code>이 미리 들어 있고, 사용자가 실행하면 그대로 출력됩니다.</li>
-    <li>✅ <strong>수정 흐름:</strong> 사용자가 <code>p_carr</code>를 <code>AA</code>로 바꾸면 변경된 값이 출력됩니다.</li>
-    <li>❌ <strong>빈 필수값:</strong> 사용자가 <code>p_carr</code> 값을 지우고 실행하면 필수 입력 오류가 납니다.</li>
-    <li>❌ <strong>타입 오류:</strong> <code>p_days TYPE i</code>에 문자를 넣으면 숫자 타입에 맞지 않아 오류가 날 수 있습니다.</li>
-  </ul>
-  <p>
-    미니 실습에서는 기본값 그대로 실행해보고, 값을 바꿔 실행해보고, 마지막으로 OBLIGATORY 필드를 비워 실행해보세요. 정상과 오류 흐름이 눈에 확 들어옵니다.
-  </p>
-</section>
-
-<section class="lesson-section">
-  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
-  <div class="lesson-callout warn">
-    <div class="lesson-callout-icon">⚠️</div>
-    <div class="lesson-callout-content">
-      <h4>기본값은 편하지만 잘못된 선입견을 줄 수 있습니다</h4>
-      <p>DEFAULT가 들어 있으면 사용자는 그 값이 “권장값”이라고 느낄 수 있습니다. 테스트 편의를 위해 넣은 기본값이 운영 프로그램에 남아 있으면 잘못된 조회나 처리로 이어질 수 있습니다. 기본값은 업무적으로 안전하고 자주 쓰이는 값인지 확인해야 합니다.</p>
-    </div>
-  </div>
-  <p>
-    또한 OBLIGATORY를 너무 많이 붙이면 사용자는 입력할 값이 많아져 피곤해집니다. 꼭 필요한 값만 필수로 만들고, 나머지는 기본값이나 선택 입력으로 두는 균형이 필요합니다.
-  </p>
-</section>
-
-<section class="lesson-section">
-  <h2>7. 미니 실습: 기본값과 필수값 체감하기 🧪</h2>
-  <p>
-    이번 실습에서는 같은 입력 필드에 <code>DEFAULT</code>와 <code>OBLIGATORY</code>를 붙였을 때 실행 흐름이 어떻게 달라지는지 비교합니다. 정상 실행과 오류 실행을 둘 다 남겨야 감각이 잡힙니다.
-  </p>
-  <div class="lesson-callout">
-    <div class="lesson-callout-icon">✍️</div>
-    <div class="lesson-callout-content">
-      <h4>실습 과제</h4>
-      <ol>
-        <li><code>p_carr TYPE c LENGTH 3 DEFAULT 'KE' OBLIGATORY</code>를 선언합니다.</li>
-        <li><code>p_days TYPE i DEFAULT 7</code>를 추가하고 두 값을 <code>WRITE</code>로 출력합니다.</li>
-        <li>기본값 그대로 실행한 결과와 값을 바꿔 실행한 결과를 비교합니다.</li>
-        <li><code>p_carr</code> 값을 지운 뒤 실행해 필수 입력 오류가 나는지 확인합니다.</li>
-      </ol>
-      <p><strong>완료 조건:</strong> <span class="glossary-term" data-glossary="DEFAULTOption">DEFAULT</span>는 추천 시작값이고, <span class="glossary-term" data-glossary="OBLIGATORYOption">OBLIGATORY</span>는 빈값 실행 방지라는 차이를 설명할 수 있으면 성공입니다.</p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">실행 전후 흐름</p>
+    <div class="viz-flow">
+      <div class="viz-flow-step"><strong>1. 화면 표시</strong><span><code>P_CURR</code>는 <code>KRW</code>, <code>P_DAYS</code>는 <code>7</code>로 보인다.</span></div>
+      <div class="viz-flow-step"><strong>2. 사용자 수정</strong><span>필요하면 기본값을 바꾸거나 날짜를 입력한다.</span></div>
+      <div class="viz-flow-step"><strong>3. 필수 검증</strong><span><code>P_CURR</code> 또는 <code>P_DATE</code>가 비면 화면에서 멈춘다.</span></div>
+      <div class="viz-flow-step"><strong>4. 프로그램 실행</strong><span>필수값이 있으면 <code>START-OF-SELECTION</code> 이후 로직으로 넘어간다.</span></div>
     </div>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
-  <ul>
-    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS.html" target="_blank" rel="noopener">SAP Help Portal: PARAMETERS</a> - <code>DEFAULT</code>, <code>OBLIGATORY</code> 같은 <code>PARAMETERS</code> 추가 옵션의 공식 위치를 확인합니다.</li>
-    <li><a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN.html" target="_blank" rel="noopener">SAP Help Portal: SELECTION-SCREEN</a> - 입력 화면 구성 문장과 Selection Screen 계열 문법을 함께 봅니다.</li>
-    <li><a href="https://learning.sap.com/courses/basic-abap-programming/debugging-an-abap-program_d070e545-efd5-4d87-8b75-20f18d7b7d3b" target="_blank" rel="noopener">SAP Learning: ABAP 디버깅</a> - 입력값이 프로그램 실행 흐름에 들어오는 시점을 디버깅 관점에서 확인합니다.</li>
-  </ul>
+  <h2>6. 이번 범위 밖으로 빼기</h2>
+  <div class="recap-grid">
+    <div class="recap-card">
+      <strong><code>INITIALIZATION</code></strong>
+      <span>동적으로 기본값을 넣는 이벤트 흐름은 아직 다루지 않습니다.</span>
+    </div>
+    <div class="recap-card">
+      <strong><code>AT SELECTION-SCREEN</code></strong>
+      <span>존재 여부, 권한, 복합 조건 검증은 후속 검증 주제입니다.</span>
+    </div>
+    <div class="recap-card">
+      <strong>Variant</strong>
+      <span>사용자별 입력값 저장 기능은 별도 운영 주제로 분리합니다.</span>
+    </div>
+    <div class="recap-card">
+      <strong><code>SELECT-OPTIONS</code></strong>
+      <span>여러 값과 범위 입력은 이번 Chapter의 맛보기 범위를 넘깁니다.</span>
+    </div>
+  </div>
 </section>
 
 <section class="lesson-section">
-  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <h2>7. 7분 미니 실습</h2>
   <ol>
-    <li><code>DEFAULT</code>가 들어간 값은 사용자가 실행 전에 바꿀 수 있나요?</li>
-    <li><code>OBLIGATORY</code>는 입력값이 실제 업무 마스터에 존재하는지까지 검증하나요?</li>
-    <li><code>DEFAULT</code>와 <code>OBLIGATORY</code>를 함께 쓰는 경우의 장점은 무엇인가요?</li>
+    <li><code>p_curr(3) TYPE c DEFAULT 'KRW' OBLIGATORY</code>를 선언합니다.</li>
+    <li><code>p_date TYPE d OBLIGATORY</code>와 <code>p_days TYPE i DEFAULT 7</code>을 추가합니다.</li>
+    <li>기본값 그대로 실행해 Output List에 값이 출력되는지 확인합니다.</li>
+    <li><code>KRW</code>를 <code>USD</code>로 바꿔 실행하고 출력값이 바뀌는지 확인합니다.</li>
+    <li><code>p_curr</code> 또는 <code>p_date</code>를 비우고 실행해 Selection Screen에서 멈추는지 확인합니다.</li>
   </ol>
-  <details>
+  <details class="foldable">
+    <summary>실습 후 한 문장으로 정리하기</summary>
+    <p><code>DEFAULT</code>는 사용자가 바꿀 수 있는 시작값이고, <code>OBLIGATORY</code>는 비워 둔 채 실행하지 못하게 막는 필수 입력 검증입니다.</p>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 공식 문서로 더 확인하기</h2>
+  <div class="link-list">
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS_VALUE.html" target="_blank" rel="noopener">SAP Help: PARAMETERS value_options <span><code>DEFAULT</code>가 start value와 어떻게 연결되는지 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/LATEST/en-US/ABAPPARAMETERS_SCREEN.html" target="_blank" rel="noopener">SAP Help: PARAMETERS screen_options <span><code>OBLIGATORY</code>가 required field와 Execute(F8) 흐름에 미치는 영향을 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSELECTION_SCREEN_OVERVIEW.html" target="_blank" rel="noopener">SAP Help: Selection Screens Overview <span>Selection Screen 처리 흐름 안에서 입력값 검사가 일어나는 위치를 확인합니다.</span></a>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 확인 퀴즈</h2>
+  <ol>
+    <li><code>DEFAULT 'KRW'</code>가 있는 입력칸에서 사용자는 값을 바꿀 수 있나요?</li>
+    <li><code>OBLIGATORY</code>는 <code>ZZZ</code> 같은 존재하지 않는 업무 코드까지 막아주나요?</li>
+    <li><code>DEFAULT</code>와 <code>OBLIGATORY</code>를 함께 쓰는 이유는 무엇인가요?</li>
+  </ol>
+  <details class="foldable">
     <summary>정답/해설 보기</summary>
     <ol>
-      <li><strong>네.</strong> <code>DEFAULT</code>는 미리 채워주는 시작값일 뿐이고, 사용자는 실행 전에 값을 바꿀 수 있습니다.</li>
-      <li><strong>아니요.</strong> <code>OBLIGATORY</code>는 빈 값 실행을 막는 옵션입니다. 값의 업무적 존재 여부는 추가 검증이나 DDIC 관계로 확인해야 합니다.</li>
-      <li><strong>자주 쓰는 값을 미리 제안하면서도 사용자가 지운 채 실행하는 실수는 막을 수 있습니다.</strong> 단, 기본값이 운영 업무에 안전한지는 별도로 판단해야 합니다.</li>
+      <li>네. <code>DEFAULT</code>는 처음 표시되는 값일 뿐이고, 사용자는 실행 전에 수정할 수 있습니다.</li>
+      <li>아니요. <code>OBLIGATORY</code>는 빈 값 여부만 막습니다. 값의 업무적 존재 여부는 별도 검증 범위입니다.</li>
+      <li>자주 쓰는 값을 미리 제안하면서도, 사용자가 그 값을 지워 빈 값으로 실행하는 실수를 막기 위해서입니다.</li>
     </ol>
   </details>
 </section>
 
 <section class="lesson-section">
-  <h2>10. 한눈에 정리 🏁</h2>
+  <h2>10. 한눈에 정리</h2>
   <div class="lesson-callout tip">
     <div class="lesson-callout-icon">📝</div>
     <div class="lesson-callout-content">
-      <h4>오늘의 핵심만 딱 잡기</h4>
-      <ul>
-        <li><strong>DEFAULT</strong>는 Selection Screen 입력칸에 기본값을 미리 채워줍니다.</li>
-        <li><strong>OBLIGATORY</strong>는 빈 값으로 실행하지 못하게 막는 필수 입력 옵션입니다.</li>
-        <li><strong>Initial Value</strong>는 아무 값도 넣지 않았을 때 타입이 갖는 시작값입니다.</li>
-        <li>DEFAULT와 OBLIGATORY는 함께 사용할 수 있습니다.</li>
-        <li>기본값과 필수값은 사용성을 높이지만, 업무적으로 안전한지 확인해야 합니다.</li>
-      </ul>
+      <h4>오늘의 기준 문장</h4>
+      <p><code>DEFAULT</code>는 Selection Screen에 처음 보여줄 시작값이고, <code>OBLIGATORY</code>는 값을 비운 채 실행하지 못하게 하는 필수 입력 검증입니다. 편의와 방어를 같은 기능으로 섞어 외우지 마세요.</p>
     </div>
   </div>
-  <p>
-    다음 Lesson <strong>PARAMETER 입력값을 WRITE로 출력</strong>에서는 사용자가 입력한 값을 프로그램이 받아 실제 출력 결과로 보여주는 흐름을 더 자연스럽게 연결해봅니다.
-  </p>
 </section>

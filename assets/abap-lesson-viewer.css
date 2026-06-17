@@ -1,4 +1,4 @@
-/* ABAP Lesson Viewer UI | 최종수정 2026-06-10 13:17 KST | v1.2 */
+/* ABAP Lesson Viewer UI | 최종수정 2026-06-18 01:29 KST | v1.3 */
 @import url('https://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css');
 
 .lesson-loading {
@@ -258,6 +258,110 @@
   color: #444;
 }
 
+/* ── T-code 칩 바 (본문 맨 위, viewer.js renderTcodeBar가 주입) ───────────── */
+.lesson-tcode-bar {
+  margin: 0 0 2rem 0;
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  background: #f6f9fd;
+  border: 1px solid #e3edf9;
+  border-left: 6px solid #0056b3;
+}
+
+.lesson-tcode-bar-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.9rem;
+}
+
+.lesson-tcode-bar-icon {
+  font-size: 1.2rem;
+}
+
+.lesson-tcode-bar-title {
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #0a3d70;
+  letter-spacing: -0.01em;
+}
+
+.lesson-tcode-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.lesson-tcode-chip {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid #e9ecef;
+  min-width: 220px;
+  max-width: 360px;
+  flex: 0 1 360px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lesson-tcode-chip:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 86, 179, 0.1);
+}
+
+.lesson-tcode-chip.is-new {
+  border-left: 4px solid #0056b3;
+}
+
+.lesson-tcode-chip.is-review {
+  border-left: 4px solid #c5ccd3;
+  background: #fbfcfd;
+}
+
+.lesson-tcode-chip-flag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  width: fit-content;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+}
+
+.lesson-tcode-chip-flag.new {
+  color: #0056b3;
+  background: #e4f0fd;
+}
+
+.lesson-tcode-chip-flag.review {
+  color: #6b757e;
+  background: #eef1f4;
+}
+
+.lesson-tcode-chip-code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #111;
+}
+
+.lesson-tcode-chip-desc {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: #5a636b;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+  .lesson-tcode-chip {
+    min-width: 100%;
+  }
+}
+
 /* Sidebar Tree Navigation Styles */
 .secdetail-toc {
   display: flex;
@@ -470,6 +574,11 @@
   color: inherit !important;
 }
 
+.lesson-content-body :not(pre) > code {
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
 .code-tour-accordion .accordion-content {
   white-space: normal !important;
 }
@@ -621,6 +730,100 @@
   background: #fff7db;
 }
 
+.domain-board-visual {
+  background: #f8fbff;
+}
+
+.domain-board-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.domain-board-card {
+  min-width: 0;
+  border: 1px solid #d7e1ee;
+  border-radius: 8px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.domain-board-card header {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.75rem 0.85rem;
+  border-bottom: 1px solid #e7edf5;
+  background: #f6f9fd;
+}
+
+.domain-board-card h3 {
+  margin: 0;
+  color: #17375f;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.domain-board-icon {
+  display: grid;
+  place-items: center;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.domain-board-icon-blue {
+  background: #2563eb;
+}
+
+.domain-board-icon-green {
+  background: #15803d;
+}
+
+.domain-board-icon-amber {
+  background: #a16207;
+}
+
+.domain-board-icon-rose {
+  background: #be123c;
+}
+
+.domain-board-row {
+  display: grid;
+  grid-template-columns: 5.4rem minmax(0, 1fr);
+  gap: 0.75rem;
+  padding: 0.7rem 0.85rem;
+  border-bottom: 1px solid #edf1f7;
+  color: #2c3b50;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.domain-board-row:last-child {
+  border-bottom: 0;
+}
+
+.domain-board-row-label {
+  color: #26364c;
+  font-weight: 800;
+}
+
+@media (max-width: 760px) {
+  .domain-board-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .domain-board-row {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+}
+
 .itab-current-row,
 .viz-current-row {
   background: #eaf9f4;
@@ -688,6 +891,7 @@
 .viz-arrow {
   color: #0056b3;
   font-weight: 900;
+  pointer-events: none;
 }
 
 .itab-relation,
@@ -709,6 +913,94 @@
   margin-top: 0.9rem;
   color: #56657a;
   font-size: 0.95rem;
+}
+
+/* === v3 Foundation Components: foldable, official links, recap === */
+.foldable {
+  margin: 1rem 0;
+  border: 1px solid #d7e1ee;
+  border-radius: 8px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.foldable summary {
+  cursor: pointer;
+  padding: 0.85rem 1rem;
+  background: #f6f8fb;
+  color: #17375f;
+  font-weight: 800;
+}
+
+.foldable > :not(summary) {
+  padding: 0 1rem 1rem;
+}
+
+/* 펼침 답안의 리스트는 번호/불릿이 왼쪽 테두리에 붙지 않도록 들여쓰기 확보 */
+.foldable > ol,
+.foldable > ul {
+  padding-left: 2.6rem;
+}
+
+.foldable > ol > li,
+.foldable > ul > li {
+  margin-bottom: 0.4rem;
+  line-height: 1.6;
+}
+
+.link-list {
+  display: grid;
+  gap: 0.75rem;
+  margin: 1.25rem 0;
+}
+
+.link-list a {
+  display: block;
+  padding: 0.9rem 1rem;
+  border: 1px solid #d7e1ee;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #17477e;
+  text-decoration: none;
+  font-weight: 800;
+  transition: all 0.2s ease;
+}
+
+.link-list a:hover {
+  border-color: #0056b3;
+  background: #f8fbff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 86, 179, 0.1);
+}
+
+.link-list span {
+  display: block;
+  margin-top: 0.25rem;
+  color: #56657a;
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+.recap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.9rem;
+  margin: 1.25rem 0;
+}
+
+.recap-card {
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid #d7e1ee;
+  border-left: 5px solid #00a884;
+  border-radius: 0 8px 8px 0;
+  background: #ffffff;
+}
+
+.recap-card strong {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: #12365f;
 }
 
 /* === 전/후 비교 (Before/After Compare) === */
@@ -1336,6 +1628,33 @@
   transform: translateY(-50%) scale(1.1);
 }
 
+/* === 에디터 외형 + 행 추적 디버거 (is-editor-style) ===
+   기존 abap-editor-mockup 외형(네이비 헤더·맥버튼·라인번호·문법색)에
+   step-debugger의 현재 실행 행 하이라이트를 결합한 학습 수단. */
+.interactive-debugger.is-editor-style .debugger-code-panel {
+  padding: 0 !important;
+  background: transparent;
+  border-right: none;
+}
+.interactive-debugger.is-editor-style .abap-editor-mockup {
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  height: 100%;
+}
+.is-editor-style .editor-line {
+  transition: background 0.15s ease;
+}
+.is-editor-style .editor-line.active .editor-line-content {
+  background: #fff7d6;
+  box-shadow: inset 3px 0 0 #eab308;
+}
+.is-editor-style .editor-line.active .editor-line-number {
+  background: #fde68a;
+  color: #854d0e;
+  font-weight: 700;
+}
+
 .debugger-monitor-panel {
   display: flex;
   flex-direction: column;
@@ -1456,7 +1775,8 @@
 
 
 /* 5. 가상 Selection Screen & T-Code 샌드박스 (Mock SAP UI Sandbox) */
-.interactive-sap-sandbox {
+.interactive-sap-sandbox,
+.sap-static-sandbox {
   background: #cbd5e1;
   border: 2px solid #64748b;
   border-radius: 8px;
@@ -1516,6 +1836,17 @@
   gap: 12px;
 }
 
+@media (max-width: 640px) {
+  .sap-selection-screen {
+    padding: 16px;
+  }
+
+  .sap-field-row {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+}
+
 .sap-field-row label {
   font-size: 0.85rem;
   color: #475569;
@@ -1536,6 +1867,71 @@
 .sap-input:focus {
   border-color: #2563eb;
   box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+/* === SE11 시뮬레이터 보강: 와이드 콤보 · 정보 팝오버 · 툴바 · Fields 편집/자동 구분 === */
+.sap-input-wide { width: 540px; max-width: 100%; }
+.sap-field-row.row-wide { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.sap-field-row.row-wide > label,
+.sap-field-row.row-wide > .sap-info-label { flex: 0 0 auto; }
+
+.sap-info-label {
+  background: none; border: none; padding: 0; cursor: pointer;
+  font-size: 0.85rem; font-weight: bold; color: #1d4ed8; text-align: left;
+  text-decoration: underline dotted; text-underline-offset: 3px;
+}
+.sap-info-label .info-i { font-size: 0.8rem; opacity: 0.85; }
+
+.sap-popover {
+  margin: auto; max-width: 560px; padding: 16px 18px;
+  border: 1px solid #cbd5e1; border-radius: 10px;
+  background: #ffffff; color: #1e293b; font-size: 0.85rem; line-height: 1.6;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+}
+.sap-popover::backdrop { background: rgba(15, 23, 42, 0.35); }
+.sap-popover h4 { margin: 0 0 8px; font-size: 0.95rem; }
+.sap-popover.ok { border-left: 4px solid #16a34a; }
+.sap-popover.err { border-left: 4px solid #dc2626; }
+.sap-popover.info { border-left: 4px solid #2563eb; }
+.sap-popover table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+.sap-popover th, .sap-popover td { border: 1px solid #e2e8f0; padding: 4px 8px; text-align: left; vertical-align: top; }
+
+.sap-toolbar {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  padding: 8px 12px; background: #eef2f7;
+  border: 1px solid #cbd5e1; border-bottom: none; border-radius: 6px 6px 0 0;
+}
+.sap-toolbar-btn {
+  background: #ffffff; border: 1px solid #94a3b8; border-radius: 4px;
+  padding: 6px 14px; font-size: 0.83rem; font-weight: bold; color: #1e293b; cursor: pointer;
+}
+.sap-toolbar-btn:hover { background: #f1f5f9; }
+.sap-toolbar .toolbar-goto { margin-left: auto; }
+
+.fields-grid .cell-edit { background: #ffffff; }
+.fields-grid .cell-auto { background: #f1f5f9; color: #64748b; }
+.fields-grid th.col-auto { color: #64748b; font-weight: normal; }
+.fields-legend { display: flex; gap: 18px; font-size: 0.8rem; margin: 8px 0; align-items: center; color: #475569; }
+.fields-legend .swatch { display: inline-block; width: 14px; height: 14px; border: 1px solid #cbd5e1; border-radius: 3px; vertical-align: middle; margin-right: 5px; }
+.fields-legend .swatch.edit { background: #ffffff; }
+.fields-legend .swatch.auto { background: #f1f5f9; }
+
+.sap-screen-block {
+  margin: 0;
+  padding: 18px 16px 16px;
+  border: 1px solid #94a3b8;
+  border-radius: 6px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sap-screen-block legend {
+  padding: 0 8px;
+  color: #12365f;
+  font-weight: 800;
+  font-size: 0.9rem;
 }
 
 .sap-btn-execute {
@@ -1803,6 +2199,10 @@
   min-height: 480px; /* 고정 최소 높이로 레이아웃 흔들림 최소화 */
 }
 
+.event-tabs-container.is-compact .tabs-content {
+  min-height: 0;
+}
+
 /* 탭 전환 시 Mermaid SVG 찌그러짐 방지 기법 */
 .event-tab-panel {
   height: 0;
@@ -1861,6 +2261,21 @@
 }
 
 @media (min-width: 901px) and (max-width: 1500px) {
+  body:not(.stage7-doc-nav-collapsed) .viz-visual,
+  body:not(.stage7-doc-nav-collapsed) .recap-grid,
+  body:not(.stage7-doc-nav-collapsed) .link-list,
+  body:not(.stage7-doc-nav-collapsed) .foldable {
+    max-width: min(100%, calc(100vw - 560px));
+  }
+
+  body:not(.stage7-doc-nav-collapsed) .viz-relation {
+    grid-template-columns: 1fr;
+  }
+
+  body:not(.stage7-doc-nav-collapsed) .viz-relation .viz-arrow {
+    transform: rotate(90deg);
+  }
+
   body:not(.stage7-doc-nav-collapsed) .event-tabs-container {
     max-width: min(100%, calc(100vw - 560px));
   }

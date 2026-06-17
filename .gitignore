@@ -7,8 +7,14 @@
 .DS_Store
 Thumbs.db
 
+# IDE 생성 파일
+.vs/
+
 # 로컬 pre-edit 스냅샷(커밋 전 복원용 안전망, 영구 이력은 git이 보관)
 archive/_local/
 
 # AI 가상 브라우저 테스트를 위한 파일
 playwright_test/
+
+# AI 파일럿 임시 산출물(스크래치, 영구 보관 대상 아님)
+.pilot_tmp/

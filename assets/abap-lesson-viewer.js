@@ -1,4 +1,4 @@
-// ABAP Curriculum Lesson Viewer | 최종수정 2026-06-10 13:17 KST | v1.2
+// ABAP Curriculum Lesson Viewer | 최종수정 2026-06-18 01:29 KST | v1.4
 //
 // Reads `?lesson=THEORY-01-M01` from the URL, loads the curriculum JSON to find metadata,
 // and fetches the actual lesson content from `lesson-content/THEORY-01-M01.html`.
@@ -6,7 +6,9 @@
   "use strict";
 
   var DATA_URL = "../../reference/abap_curriculum_v5_4_20260605_000000.json";
-  
+  var GLOSSARY_URL = "../../reference/abap_glossary.json";
+  var glossaryData = null;
+
   function getParam(name) {
     var match = new RegExp("[?&]" + name + "=([^&]*)").exec(location.search);
     return match ? decodeURIComponent(match[1].replace(/\+/g, " ")) : "";
@@ -87,7 +89,7 @@
     var breadcrumb = document.querySelector("[data-lesson-breadcrumb]");
     if (breadcrumb) {
       breadcrumb.innerHTML = '<a href="../../index.html">Home</a><span>›</span>' +
-        '<a href="abap-curriculum.html">ABAP 커리큘럼</a><span>›</span>' +
+        '<a href="../roadmap/abap-curriculum.html">ABAP 커리큘럼</a><span>›</span>' +
         '<a href="../roadmap/abap-curriculum-section-detail.html?section=' + encodeURIComponent(section.section_id) + '">' + escapeHtml(section.section_name) + '</a><span>›</span>' +
         '<span>' + escapeHtml(unit.sub_2_name) + '</span>';
     }
@@ -178,7 +180,8 @@
         '<div class="lesson-current-chapter">' + escapeHtml(context.section.section_name) + '</div>' +
         '<nav class="stage7-local-toc secdetail-toc" aria-label="이 Chapter 안에서">' + tocLinks + "</nav>" +
         '<div class="stage7-related-docs lesson-related-docs"><div class="stage7-side-heading">이동</div>' +
-        '<a href="' + backHref + '">↑ Chapter 요약으로 돌아가기</a></div>';
+        '<a href="' + backHref + '">↑ Chapter 요약으로 돌아가기</a>' +
+        '<a href="tcode-map.html?upto=' + encodeURIComponent(context.current.unit.sub_2_id) + '">⌨️ 지금까지 배운 T-code</a></div>';
     }
 
     if (pathPanel) {
@@ -249,6 +252,7 @@
       })
       .then(function (html) {
         root.innerHTML = html;
+        renderTcodeBar(root, lessonId);
         setupCodeCopyButtons(root);
         initializeInteractiveWidgets(root);
         if (window.mermaid) {
@@ -332,7 +336,14 @@
     return;
   }
 
-  fetch(DATA_URL)
+  // 글로서리는 T-code 칩 바 생성에 쓰인다. 실패해도 본문 렌더링은 막지 않는다(비치명적).
+  fetch(GLOSSARY_URL)
+    .then(function (response) { return response.ok ? response.json() : null; })
+    .catch(function () { return null; })
+    .then(function (glossary) {
+      glossaryData = glossary;
+      return fetch(DATA_URL);
+    })
     .then(function (response) {
       if (!response.ok) throw new Error("JSON 데이터를 불러올 수 없습니다.");
       return response.json();
@@ -343,7 +354,7 @@
         renderError("'" + escapeHtml(requestedLesson) + "' 에 해당하는 Lesson을 찾지 못했습니다.");
         return;
       }
-      
+
       renderHero(context);
       renderPager(context);
       populateSideNav(context);
@@ -352,6 +363,66 @@
     .catch(function (error) {
       renderError(error.message);
     });
+
+  // 이번 Lesson에서 등장하는 T-code(트랜잭션 코드)를 본문 data-glossary에서 수집해
+  // 본문 맨 위에 칩 바로 정리한다. 글로서리에서 category="tcode"인 용어만 대상.
+  // used_in_lessons의 첫 Lesson이면 "신규", 아니면 "복습"으로 구분해 중복 노출을 가볍게 만든다.
+  function firstSentence(text) {
+    var str = String(text == null ? "" : text);
+    var m = str.match(/^[\s\S]*?다\.|^[\s\S]*?\./);
+    var out = m ? m[0] : str;
+    return out.length > 60 ? out.slice(0, 59) + "…" : out;
+  }
+
+  function renderTcodeBar(root, lessonId) {
+    if (!glossaryData || !root) return;
+    var nodes = root.querySelectorAll("[data-glossary]");
+    var seen = {};
+    var tcodes = [];
+
+    nodes.forEach(function (el) {
+      var key = el.getAttribute("data-glossary");
+      if (!key || seen[key]) return;
+      var entry = glossaryData[key];
+      if (!entry || entry.category !== "tcode") return;
+      seen[key] = true;
+
+      var lessons = (entry.used_in_lessons || []).slice().sort();
+      var isNew = lessons.length === 0 || lessons[0] === lessonId;
+      tcodes.push({
+        code: entry.tcode || key,
+        desc: String(entry.desc == null ? "" : entry.desc),
+        isNew: isNew
+      });
+    });
+
+    if (!tcodes.length) return; // T-code 없는 Lesson은 칩 바 자체를 띄우지 않는다.
+
+    // 신규를 앞으로, 복습을 뒤로 정렬.
+    tcodes.sort(function (a, b) { return (a.isNew === b.isNew) ? 0 : (a.isNew ? -1 : 1); });
+
+    var chips = tcodes.map(function (t) {
+      var flag = t.isNew
+        ? '<span class="lesson-tcode-chip-flag new">🆕 신규</span>'
+        : '<span class="lesson-tcode-chip-flag review">🔁 복습</span>';
+      return '<div class="lesson-tcode-chip ' + (t.isNew ? "is-new" : "is-review") + '">' +
+        flag +
+        '<span class="lesson-tcode-chip-code">' + escapeHtml(t.code) + '</span>' +
+        '<span class="lesson-tcode-chip-desc">' + escapeHtml(t.desc) + '</span>' +
+        '</div>';
+    }).join("");
+
+    var bar = document.createElement("div");
+    bar.className = "lesson-tcode-bar";
+    bar.setAttribute("data-tcode-bar", "");
+    bar.innerHTML = '<div class="lesson-tcode-bar-head">' +
+        '<span class="lesson-tcode-bar-icon">⌨️</span>' +
+        '<span class="lesson-tcode-bar-title">이번 Lesson에서 다루는 트랜잭션 코드</span>' +
+      '</div>' +
+      '<div class="lesson-tcode-chips">' + chips + '</div>';
+
+    root.insertBefore(bar, root.firstChild);
+  }
 
   // 5대 인터랙티브 학습 위젯 초기화 통합 함수 (+ 점진적 이벤트 탭 위젯 추가)
   function initializeInteractiveWidgets(scope) {
@@ -590,17 +661,24 @@
     debuggers.forEach(function (dbg) {
       var btnStart = dbg.querySelector('.btn-dbg-start');
       var btnNext = dbg.querySelector('.btn-dbg-next');
-      var lines = dbg.querySelectorAll('.db-line');
+      var lines = dbg.querySelectorAll('.db-line, .editor-line[data-line]');
       var monitorVals = {
         event: dbg.querySelector('.val-event'),
         subrc: dbg.querySelector('.val-subrc'),
         tabix: dbg.querySelector('.val-tabix')
       };
       var consoleOut = dbg.querySelector('.monitor-console-output');
-      
+      var monitorCard = dbg.querySelector('.monitor-state-card');
+
+      // 데이터 주도형 디버거: 레슨에 <template class="debugger-config">가 있으면 그 steps를 사용한다.
+      // 없으면(기존 레슨) 아래 하드코딩 이벤트 데모로 폴백한다.
+      var cfgEl = dbg.querySelector('.debugger-config');
+      var cfg = null;
+      if (cfgEl) { try { cfg = JSON.parse(cfgEl.content ? cfgEl.content.textContent : cfgEl.textContent); } catch (e) { cfg = null; } }
+
       var currentStep = -1;
-      
-      var steps = [
+
+      var steps = (cfg && cfg.steps && cfg.steps.length) ? cfg.steps : [
         { line: 1, event: 'LOAD-OF-PROGRAM', subrc: '0', tabix: '0', console: '[LOAD-OF-PROGRAM] 프로그램 로드 완료.' },
         { line: 9, event: 'INITIALIZATION', subrc: '0', tabix: '0', console: '[LOAD-OF-PROGRAM] 프로그램 로드 완료.\n\n-> INITIALIZATION 이벤트 블록 점프.' },
         { line: 10, event: 'INITIALIZATION', subrc: '0', tabix: '0', console: '[LOAD-OF-PROGRAM] 프로그램 로드 완료.\n[1] INITIALIZATION 실행 (초기화)' },
@@ -639,12 +717,19 @@
         var step = steps[currentStep];
         if (!step) return;
         
-        var activeLine = dbg.querySelector('.db-line[data-line="' + step.line + '"]');
+        var activeLine = dbg.querySelector('.db-line[data-line="' + step.line + '"], .editor-line[data-line="' + step.line + '"]');
         if (activeLine) activeLine.classList.add('active');
         
-        if (monitorVals.event) monitorVals.event.textContent = step.event;
-        if (monitorVals.subrc) monitorVals.subrc.textContent = step.subrc;
-        if (monitorVals.tabix) monitorVals.tabix.textContent = step.tabix;
+        if (cfg && step.vars && monitorCard) {
+          monitorCard.innerHTML = Object.keys(step.vars).map(function (k) {
+            return '<div class="monitor-val-row"><span class="monitor-val-label">' + escapeHtml(k) +
+              '</span><span class="monitor-val-value">' + escapeHtml(String(step.vars[k])) + '</span></div>';
+          }).join('');
+        } else {
+          if (monitorVals.event) monitorVals.event.textContent = step.event;
+          if (monitorVals.subrc) monitorVals.subrc.textContent = step.subrc;
+          if (monitorVals.tabix) monitorVals.tabix.textContent = step.tabix;
+        }
         if (consoleOut) {
           consoleOut.textContent = '=== 디버거 추적 중 ===\n' + step.console;
           consoleOut.scrollTop = consoleOut.scrollHeight;
@@ -659,6 +744,9 @@
     sandboxes.forEach(function (sandbox) {
       var btnExec = sandbox.querySelector('.sap-btn-execute');
       var logEl = sandbox.querySelector('.sap-result-log');
+      if (!btnExec) return;
+
+      var config = parseSandboxConfig(sandbox);
       var yearInput = sandbox.querySelector('#sb-year');
       var empInput = sandbox.querySelector('#sb-emp-no');
       
@@ -677,6 +765,13 @@
       modalBtn.addEventListener('click', function () {
         modalOverlay.style.display = 'none';
       });
+
+      if (config) {
+        btnExec.addEventListener('click', function () {
+          runConfiguredSandbox(sandbox, config, logEl, showSapError);
+        });
+        return;
+      }
       
       var empDb = [
         { id: '1000', name: '정훈영', dept: 'SD개발팀', year: '2026' },
@@ -686,7 +781,7 @@
       ];
       
       btnExec.addEventListener('click', function () {
-        if (!logEl) return;
+        if (!logEl || !yearInput || !empInput) return;
         logEl.innerHTML = '';
         var yearVal = yearInput.value.trim();
         var empVal = empInput.value.trim();
@@ -761,26 +856,138 @@
     });
   }
 
+  function parseSandboxConfig(sandbox) {
+    var configEl = sandbox.querySelector('template.sandbox-config, script.sandbox-config');
+    if (!configEl) return null;
+
+    try {
+      var rawConfig = configEl.content ? configEl.content.textContent : configEl.textContent;
+      return JSON.parse(rawConfig);
+    } catch (error) {
+      console.error('Invalid SAP sandbox config: ', error);
+      return null;
+    }
+  }
+
+  function interpolateSandboxText(value, fields) {
+    return String(value == null ? '' : value).replace(/\{([a-zA-Z0-9_-]+)\}/g, function (_, key) {
+      return fields[key] == null ? '' : fields[key];
+    });
+  }
+
+  function collectSandboxFields(sandbox, config) {
+    var fields = {};
+    var definitions = config.fields || {};
+
+    Object.keys(definitions).forEach(function (key) {
+      var input = sandbox.querySelector(definitions[key]);
+      fields[key] = input && 'value' in input ? input.value.trim() : '';
+    });
+
+    return fields;
+  }
+
+  function runConfiguredSandbox(sandbox, config, logEl, showSapError) {
+    if (!logEl) return;
+
+    logEl.innerHTML = '';
+    var fields = collectSandboxFields(sandbox, config);
+    var steps = config.steps || [];
+
+    steps.forEach(function (step) {
+      addConfiguredLogLine(logEl, step.label, step.type, interpolateSandboxText(step.text, fields));
+    });
+
+    var validations = config.validations || [];
+    for (var i = 0; i < validations.length; i++) {
+      var rule = validations[i];
+      var fieldValue = fields[rule.field] || '';
+      if (!isSandboxRuleValid(fieldValue, rule)) {
+        addConfiguredLogLine(logEl, rule.label || 'Error', 'error', interpolateSandboxText(rule.text, fields));
+        showSapError(interpolateSandboxText(rule.modal || rule.text, fields));
+        return;
+      }
+    }
+
+    (config.successSteps || []).forEach(function (step) {
+      addConfiguredLogLine(logEl, step.label, step.type, interpolateSandboxText(step.text, fields));
+    });
+
+    renderConfiguredSandboxResult(logEl, config.result, fields);
+  }
+
+  function isSandboxRuleValid(value, rule) {
+    if (rule.test === 'required') return value.length > 0;
+    if (rule.test === 'numeric') return value === '' || !isNaN(value);
+    if (rule.test === 'num4') return /^[0-9]{4}$/.test(value);
+    if (rule.test === 'prefix') return value.toUpperCase().indexOf(String(rule.value || '').toUpperCase()) === 0;
+    if (rule.test === 'regex') return new RegExp(rule.pattern).test(value);
+    if (rule.test === 'equals') return value === String(rule.value == null ? '' : rule.value);
+    return true;
+  }
+
+  function renderConfiguredSandboxResult(logEl, result, fields) {
+    if (!result) return;
+
+    if (result.text) {
+      addConfiguredLogLine(logEl, result.label || 'Result', result.type || 'info', interpolateSandboxText(result.text, fields));
+    }
+
+    var columns = result.columns || [];
+    var rows = result.rows || [];
+    if (!columns.length || !rows.length) return;
+
+    var tableHtml = '<table class="sap-alv-table"><thead><tr>' +
+      columns.map(function (col) { return '<th>' + escapeHtml(col.head || col.key) + '</th>'; }).join('') +
+      '</tr></thead><tbody>';
+
+    rows.forEach(function (row) {
+      tableHtml += '<tr>' + columns.map(function (col) {
+        return '<td>' + escapeHtml(interpolateSandboxText(row[col.key], fields)) + '</td>';
+      }).join('') + '</tr>';
+    });
+
+    tableHtml += '</tbody></table>';
+    logEl.innerHTML += '<div class="sap-log-line info">' + tableHtml + '</div>';
+  }
+
+  function addConfiguredLogLine(logEl, label, type, text) {
+    var line = document.createElement('div');
+    line.className = 'sap-log-line ' + (type || 'info');
+    line.innerHTML = '[' + escapeHtml(label || 'System') + '] ' + escapeHtml(text || '');
+    logEl.appendChild(line);
+    logEl.scrollTop = logEl.scrollHeight;
+  }
+
   // 6. 점진적 빌드업 탭 제어 함수 (Incremental Build-Up Tabs)
+  //    컨테이너 단위로 스코프하여 한 페이지에 여러 탭 그룹/중첩 탭스트립이 독립 동작한다.
   function initEventTabs(scope) {
-    var tabButtons = scope.querySelectorAll('.event-tab-buttons .tab-btn');
-    var tabPanels = scope.querySelectorAll('.tabs-content .event-tab-panel');
+    var containers = scope.querySelectorAll('.event-tabs-container');
+    containers.forEach(function (container) {
+      var btnBar = container.querySelector(':scope > .event-tab-buttons');
+      var content = container.querySelector(':scope > .tabs-content');
+      if (!btnBar || !content) return;
+      var tabButtons = btnBar.querySelectorAll(':scope > .tab-btn');
+      var tabPanels = content.querySelectorAll(':scope > .event-tab-panel');
 
-    tabButtons.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var targetId = btn.getAttribute('data-tab');
+      tabButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var targetId = btn.getAttribute('data-tab');
+          tabButtons.forEach(function (b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          tabPanels.forEach(function (panel) {
+            panel.classList.toggle('active', panel.getAttribute('id') === targetId);
+          });
+        });
+      });
 
-        // 모든 버튼 비활성화 및 클릭된 버튼 활성화
-        tabButtons.forEach(function (b) { b.classList.remove('active'); });
-        btn.classList.add('active');
-
-        // 모든 패널 비활성화 및 타겟 패널 활성화
-        tabPanels.forEach(function (panel) {
-          if (panel.getAttribute('id') === targetId) {
-            panel.classList.add('active');
-          } else {
-            panel.classList.remove('active');
-          }
+      // [data-goto-tab]: 패널 안의 버튼으로 같은 컨테이너의 다른 탭으로 이동 (예: Create → 다음 단계)
+      container.querySelectorAll('[data-goto-tab]').forEach(function (link) {
+        if (link.closest('.event-tabs-container') !== container) return;
+        link.addEventListener('click', function () {
+          var goId = link.getAttribute('data-goto-tab');
+          var target = btnBar.querySelector(':scope > .tab-btn[data-tab="' + goId + '"]');
+          if (target) target.click();
         });
       });
     });

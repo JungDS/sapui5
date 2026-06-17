@@ -1,4 +1,4 @@
-// 공통 셸(헤더·우측 Navigation·ScrollSpy·이전/다음) + 문서 SSOT(DOCS/LEARNING_PATHS) | 최종수정 2026-06-05 00:00 KST | v1.1
+// 공통 셸(헤더·우측 Navigation·ScrollSpy·이전/다음) + 문서 SSOT(DOCS/LEARNING_PATHS) | 최종수정 2026-06-16 19:05 KST | v1.1
 // Opt-in helper. body[data-page-type]가 있을 때만 동작. 전역: window.SAPShell
 (function () {
   "use strict";
@@ -29,9 +29,9 @@
     "cts-transport": { title: "Transport Request / CTS 입문", category: "roadmap", href: "docs/roadmap/cts-transport-intro.html", preparing: true, skeleton: true, group: "학습 가이드" },
     "debug": { title: "SAP 개발 디버깅 / 트러블슈팅 통합 가이드", category: "roadmap", href: "docs/roadmap/dev-debugging.html", aliases: ["debugging"], group: "학습 가이드" },
     "abap-curriculum": { title: "ABAP 엔터프라이즈 커리큘럼", category: "roadmap", href: "docs/roadmap/abap-curriculum.html", group: "학습 가이드" },
-    "abap-curriculum-claude": { title: "ABAP 엔터프라이즈 커리큘럼 탐색기", category: "roadmap", href: "docs/roadmap/abap-curriculum-claude-20260602-114249.html", group: "학습 가이드" },
 
     // Area B: ABAP 개발 (ABAP)
+    "tcode-map": { title: "SAP T-code 지도", category: "abap", href: "docs/abap/tcode-map.html", group: "SAP GUI 참조" },
     "abap-as-abap-overview": { title: "SAP AS ABAP 개요 & 아키텍처 기초", category: "abap", href: "docs/abap/abap-as-abap-overview.html", preparing: true, group: "1단계. 아키텍처 기초" },
     "abap-basic-syntax": { title: "ABAP 기본 문법 및 메모리 처리", category: "abap", href: "docs/abap/abap-basic-syntax.html", preparing: true, group: "2단계. 기본 문법" },
     "abap-ddic-basics": { title: "ABAP Dictionary (DDIC) 설계", category: "abap", href: "docs/abap/abap-ddic-basics.html", preparing: true, group: "3단계. DDIC 설계" },
@@ -128,7 +128,7 @@
         "abap-db-luw-lock", "abap-screen-dynpro", "abap-object-oriented", "abap-debugging-analysis",
         "abap-enhancement-badi", "abap-new-syntax", "abap-clean-unit-test", "cds-odata",
         "odata-export", "gateway-odata-v2-crud", "rap-e2e", "rap-action",
-        "abap-cloud", "abap-rfc-bapi", "abap-idoc-intro", "abap-amdp-tuning", "abap-smart-adobe-forms"
+        "abap-cloud", "abap-rfc-bapi", "abap-idoc-intro", "abap-amdp-tuning", "abap-smart-adobe-forms", "tcode-map"
       ]
     },
     ui5: {

@@ -45,30 +45,31 @@
         <p class="ex-topic">예시 1 · 시스템 랜드스케이프 구성</p>
         <h3>컴포넌트 배치 미션</h3>
         
-        <div class="interactive-puzzle-quiz" style="margin-top:1.5rem;">
+        <div class="card-sort" data-success="🎉 <strong>정답입니다!</strong> 사용자의 요청이 Presentation을 거쳐 Application에서 처리되고 DB에 접근하는 3-Tier 구조가 완성되었습니다." style="margin-top:1.5rem;">
           <h4 class="puzzle-question">다음 요소들을 올바른 계층으로 드래그 앤 드롭하세요.</h4>
-          
-          <div class="puzzle-drop-zones">
-            <div class="drop-zone" data-accept="gui">
-              <div class="zone-label">Presentation Layer</div>
+
+          <div class="cardsort-pool">
+            <div class="drag-item" draggable="true" data-cat="app">ABAP Dispatcher</div>
+            <div class="drag-item" draggable="true" data-cat="gui">SAP GUI for Windows</div>
+            <div class="drag-item" draggable="true" data-cat="db">HANA Database</div>
+            <div class="drag-item" draggable="true" data-cat="app">Work Process (DIA/BGD)</div>
+            <div class="drag-item" draggable="true" data-cat="gui">Fiori Launchpad (Web)</div>
+          </div>
+
+          <div class="cardsort-zones">
+            <div class="cardsort-zone" data-cat="gui">
+              <span class="zone-label">Presentation Layer</span>
             </div>
-            <div class="drop-zone" data-accept="app">
-              <div class="zone-label">Application Layer</div>
+            <div class="cardsort-zone" data-cat="app">
+              <span class="zone-label">Application Layer</span>
             </div>
-            <div class="drop-zone" data-accept="db">
-              <div class="zone-label">Database Layer</div>
+            <div class="cardsort-zone" data-cat="db">
+              <span class="zone-label">Database Layer</span>
             </div>
           </div>
-          
-          <div class="puzzle-drag-items">
-            <div class="drag-item" draggable="true" data-type="app">ABAP Dispatcher</div>
-            <div class="drag-item" draggable="true" data-type="gui">SAP GUI for Windows</div>
-            <div class="drag-item" draggable="true" data-type="db">HANA Database</div>
-            <div class="drag-item" draggable="true" data-type="app">Work Process (DIA/BGD)</div>
-            <div class="drag-item" draggable="true" data-type="gui">Fiori Launchpad (Web)</div>
-          </div>
-          
-          <div class="puzzle-feedback success">정답입니다! 사용자의 요청이 Presentation을 거쳐 Application에서 처리되고 DB에 접근하는 3-Tier 구조가 완성되었습니다.</div>
+
+          <button class="btn" data-cardsort-check style="margin-top:16px">채점</button>
+          <div class="cardsort-feedback puzzle-feedback"></div>
         </div>
         
         <div class="ai-note" style="margin-top:2rem;"><strong>AI 작성 메모:</strong> 아키텍처는 추상적이어서 글만으로는 와닿지 않습니다. 직접 'GUI'를 최상단에, 'DB'를 최하단에 놓는 행위를 통해 3-Tier의 물리적, 논리적 구분을 체화하게 됩니다.</div>

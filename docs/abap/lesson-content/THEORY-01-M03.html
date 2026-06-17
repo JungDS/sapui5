@@ -1,177 +1,368 @@
-<!-- lesson-content/THEORY-01-M03.html -->
+<!-- lesson-content/THEORY-01-M03.html | 최종수정 2026-06-17 01:11 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
   <div class="lesson-callout-content">
     <h4>학습 목표</h4>
-    <p>지난 Lesson에서 만든 <span class="glossary-term" data-glossary="Domain">Domain</span> 위에 <span class="glossary-term" data-glossary="SemanticMeaning">Semantic Meaning</span>과 <span class="glossary-term" data-glossary="FieldLabel">Field Label</span>을 입히는 <span class="glossary-term" data-glossary="DataElement">Data Element</span>를 배웁니다. “왜 그냥 Domain을 바로 테이블에 쓰면 안 되나요?”라는 초보자의 자연스러운 질문에 답할 수 있게 되는 것이 오늘의 목표입니다.</p>
+    <p>이번 Lesson에서는 <span class="glossary-term" data-glossary="Domain">Domain</span> 위에 <span class="glossary-term" data-glossary="SemanticMeaning">업무 의미</span>, <span class="glossary-term" data-glossary="FieldLabel">Field Label</span>, <span class="glossary-term" data-glossary="F1Help">F1 Help</span>를 얹는 <span class="glossary-term" data-glossary="DataElement">Data Element</span>를 설계합니다. 목표는 “같은 기술 재질이라도 왜 다른 이름표가 필요할 수 있는가?”를 설명하고, <span class="glossary-term" data-glossary="SE11">SE11</span>에서 Data Element를 직접 생성·<span class="glossary-term" data-glossary="Activation">활성화</span>하는 흐름을 시뮬레이션하는 것입니다.</p>
   </div>
 </div>
 
 <section class="lesson-section">
-  <h2>1. 지난 시간 연결: 재질만으로는 부족하다 🏷️</h2>
+  <h2>1. Data Element는 값에 업무 이름표를 붙인다</h2>
   <p>
-    이전 Lesson에서 우리는 Domain을 만들며 “항공사 코드는 <code>CHAR 3</code>이다”처럼 데이터의 재질을 정했습니다. 그런데 여기서 살짝 멈춰볼게요. <code>CHAR 3</code>이라는 정보만 보고 사람이 그 값의 뜻을 바로 알 수 있을까요?
+    지난 Lesson의 Domain은 값의 재질을 정했습니다. 예를 들어 <code>CHAR 3</code>이라는 규격만 있으면 시스템은 세 자리 문자를 저장할 수 있다는 사실은 알지만, 사용자는 그 값이 항공사인지 공항인지 회사 코드인지 알 수 없습니다.
   </p>
   <p>
-    <code>KE</code>가 항공사 코드인지, 국가 코드인지, 내부 부서 코드인지 Domain만 보고는 모릅니다. <span class="glossary-term" data-glossary="DataType">Data Type</span>과 길이는 기술적으로 중요하지만, 화면을 보는 사용자에게는 “이 칸에 무엇을 입력해야 하는지”가 더 중요합니다.
+    Data Element는 이 빈칸을 채웁니다. 기술 속성은 Domain에서 가져오고, 그 위에 업무 의미, 화면 라벨, F1 설명을 붙여 테이블 필드와 프로그램이 재사용할 수 있는 의미 있는 타입으로 만듭니다.
   </p>
   <blockquote>
-    Domain이 “이 칸은 3자리 문자야”라고 말한다면, Data Element는 “이 칸은 항공사 코드야. 화면에는 항공사 코드라고 보여줘”라고 말합니다.
+    Domain은 재질, Data Element는 의미입니다. 테이블 필드와 ABAP 변수는 보통 의미가 붙은 Data Element를 통해 타입을 참조합니다.
   </blockquote>
+  <div class="viz-visual">
+    <p class="viz-visual-title">재질과 의미의 분리</p>
+    <div class="viz-relation">
+      <div class="viz-concept">
+        <span class="viz-concept-label">Domain</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td><code>CHAR 3</code></td></tr>
+            <tr><td>값 범위와 출력 길이</td></tr>
+            <tr><td>기술적 재질</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-arrow">→</div>
+      <div class="viz-concept">
+        <span class="viz-concept-label">Data Element</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td>항공사 코드</td></tr>
+            <tr><td>Field Label, F1 Help</td></tr>
+            <tr><td>업무 의미</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-arrow">→</div>
+      <div class="viz-concept">
+        <span class="viz-concept-label">Table Field / Code</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td><code>ZBOOKING-CARRID</code></td></tr>
+            <tr><td><code>PARAMETERS p_carr TYPE zde_carrid</code></td></tr>
+            <tr><td>입력 화면과 코드에서 재사용</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p class="viz-note">SAP Learning은 Data Element, Structure, Database Table 같은 Dictionary 객체를 ABAP 코드 타입으로 사용할 수 있지만 Domain은 Data Element의 기반으로만 쓰인다고 설명합니다.</p>
+  </div>
 </section>
 
 <section class="lesson-section">
-  <h2>2. Data Element는 의미와 이름표를 붙이는 단계 💬</h2>
+  <h2>2. Data Element 설계는 세 묶음으로 본다</h2>
   <p>
-    <span class="glossary-term" data-glossary="DataElement">Data Element</span>는 Domain 위에 사람이 이해할 수 있는 <strong>의미</strong>를 붙입니다. SAP 문서에서는 이런 의미를 <span class="glossary-term" data-glossary="SemanticMeaning">Semantic Meaning</span>이라고 부릅니다. 어렵게 들리지만, 쉽게 말하면 “이 값이 업무적으로 무엇을 뜻하는가?”입니다.
+    Data Element 화면은 항목이 많아 보이지만 초급 단계에서는 아래 세 묶음만 잡으면 됩니다. 어떤 기술 타입을 받을지, 화면에 어떤 텍스트를 줄지, 사용자가 F1을 눌렀을 때 무엇을 보여줄지가 핵심입니다.
   </p>
-  <ul>
-    <li><strong>Domain:</strong> 기술적 재질입니다. 예: <code>CHAR 3</code></li>
-    <li><strong>Data Element:</strong> 업무적 의미입니다. 예: <code>항공사 코드</code></li>
-    <li><strong>Table Field:</strong> 실제 테이블의 한 칸입니다. 예: 항공편 테이블의 <code>CARRID</code></li>
-  </ul>
-  <div class="lesson-callout">
-    <div class="lesson-callout-icon">🔗</div>
-    <div class="lesson-callout-content">
-      <h4>조립 순서 다시 보기</h4>
-      <p><strong>Domain → Data Element → Table Field</strong> 순서로 올라갑니다. 이 구조를 이해하면 DDIC가 갑자기 복잡한 미로가 아니라, 레고처럼 차근차근 쌓는 조립 방식으로 보이기 시작합니다.</p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">Data Element 설계 판단표</p>
+    <div class="viz-state-grid">
+      <div class="viz-state">
+        <span class="viz-state-label">Type Source</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td><strong>질문</strong></td><td>기술 타입은 어디서 받을까?</td></tr>
+            <tr><td><strong>선택</strong></td><td>기존 Domain, 새 Domain, 직접 Dictionary 타입</td></tr>
+            <tr><td><strong>주의</strong></td><td>재사용할 규격이면 Domain을 먼저 검토합니다.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-state">
+        <span class="viz-state-label">Field Labels</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td><strong>질문</strong></td><td>화면과 리스트에는 어떤 이름으로 보일까?</td></tr>
+            <tr><td><strong>선택</strong></td><td>Short, Medium, Long, Heading</td></tr>
+            <tr><td><strong>주의</strong></td><td>번역 대상 텍스트이므로 개발자 약어를 남발하지 않습니다.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="viz-state">
+        <span class="viz-state-label">Documentation</span>
+        <table class="viz-table">
+          <tbody>
+            <tr><td><strong>질문</strong></td><td>사용자가 의미를 물으면 무엇을 설명할까?</td></tr>
+            <tr><td><strong>선택</strong></td><td>F1 Help 문서, 짧은 설명</td></tr>
+            <tr><td><strong>주의</strong></td><td>값 찾기 기능과 의미 설명 기능을 섞어 외우지 않습니다.</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>3. Field Label 4종: 화면에 자동으로 뜨는 이름표 📋</h2>
+  <h2>3. Field Label 4종은 화면 공간별 이름표다</h2>
   <p>
-    Data Element에서 초심자가 꼭 봐야 하는 칸이 <span class="glossary-term" data-glossary="FieldLabel">Field Label</span>입니다. 화면이나 리포트에 필드를 보여줄 때, SAP는 Data Element에 저장된 라벨을 가져와 자동으로 제목을 붙입니다.
+    SAP Help의 Data Element 생성 절차는 Field label 탭에서 short, medium, long field label과 title을 관리한다고 설명합니다. 즉 하나의 의미를 화면 공간에 맞게 여러 길이로 준비하는 것입니다.
   </p>
-  <ul>
-    <li><strong>Short:</strong> 아주 좁은 칸에서 쓰는 짧은 라벨입니다. 예: <code>항공사</code></li>
-    <li><strong>Medium:</strong> 일반 입력 화면에서 자주 쓰는 기본 라벨입니다. 예: <code>항공사 코드</code></li>
-    <li><strong>Long:</strong> 설명을 조금 더 자세히 보여줄 여유가 있을 때 씁니다. 예: <code>항공편의 항공사 코드</code></li>
-    <li><strong>Heading:</strong> 리스트나 ALV의 컬럼 제목으로 자주 쓰입니다. 예: <code>항공사</code></li>
-  </ul>
-  <p>
-    이 라벨은 작은 기능처럼 보이지만, 실무에서는 엄청난 생산성 차이를 만듭니다. 같은 Data Element를 100개 화면에서 쓰고 있다면, 라벨 하나를 바꾸는 것만으로 100개 화면의 제목이 함께 정리될 수 있습니다. 이것이 DDIC 재사용의 맛입니다.
-  </p>
-  <div class="lesson-callout tip">
-    <div class="lesson-callout-icon">✨</div>
-    <div class="lesson-callout-content">
-      <h4>학습지 포인트</h4>
-      <p>처음에는 Short, Medium, Long, Heading의 차이가 귀찮아 보여도 괜찮습니다. “화면 공간에 따라 SAP가 적당한 이름표를 골라 쓰려고 4종류를 준비해 둔다”라고 기억하면 충분합니다.</p>
-    </div>
+  <div class="viz-visual">
+    <p class="viz-visual-title">할인율 Data Element 라벨 예시</p>
+    <table class="viz-table">
+      <thead>
+        <tr>
+          <th>라벨</th>
+          <th>예시</th>
+          <th>쓰이는 상황</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Short</td>
+          <td><code>할인</code></td>
+          <td>공간이 매우 좁은 입력 필드</td>
+        </tr>
+        <tr>
+          <td>Medium</td>
+          <td><code>할인율(%)</code></td>
+          <td>일반 Selection Screen 필드 라벨</td>
+        </tr>
+        <tr>
+          <td>Long</td>
+          <td><code>고객 특별 할인율</code></td>
+          <td>상세 화면처럼 설명 폭이 충분한 곳</td>
+        </tr>
+        <tr>
+          <td>Heading</td>
+          <td><code>할인%</code></td>
+          <td>리스트, 테이블, ALV 컬럼 제목</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-</section>
-
-<section class="lesson-section">
-  <h2>4. F1 Help와 문서화: 사용자를 위한 작은 설명서 📖</h2>
-  <p>
-    Data Element는 라벨만 담당하지 않습니다. 사용자가 SAP 화면에서 어떤 필드에 커서를 두고 <span class="glossary-term" data-glossary="F1Help">F1 Help</span>를 누르면, 그 필드의 설명 문서가 나타날 수 있습니다. 이 설명도 Data Element의 Documentation 영역에서 관리합니다.
-  </p>
-  <p>
-    예를 들어 <code>CARRID</code> 필드에 “항공편을 운항하는 항공사를 식별하는 코드입니다”라고 문서를 달아두면, 개발자뿐 아니라 현업 사용자도 도움말을 통해 의미를 확인할 수 있습니다. 단순히 코드를 짜는 것이 아니라, <strong>사용자가 덜 헤매게 만드는 친절함</strong>까지 DDIC에 담는 셈입니다.
-  </p>
-  <ul>
-    <li>✅ <strong>정상 흐름:</strong> Data Element에 라벨과 Documentation을 입력합니다. 화면 필드가 자동으로 읽기 쉬운 이름과 도움말을 갖습니다.</li>
-    <li>❌ <strong>부족한 흐름:</strong> 라벨을 비워두거나 너무 짧게 적습니다. 화면에는 애매한 약어가 뜨고, 사용자는 “이 칸이 뭐지?” 하고 멈춥니다.</li>
-  </ul>
-</section>
-
-<section class="lesson-section">
-  <h2>5. 왜 Domain을 바로 쓰지 않을까? 🤔</h2>
-  <p>
-    이 질문은 아주 좋습니다. 처음 배우는 입장에서는 Domain도 있고 Data Element도 있으니 “왜 굳이 두 번 만들지?”라는 생각이 자연스럽습니다. 답은 <strong>분업</strong>과 <strong>재사용</strong>입니다.
-  </p>
-  <ul>
-    <li><strong>재질만 같고 의미가 다른 경우:</strong> 출발 공항과 도착 공항은 둘 다 <code>CHAR 3</code>일 수 있습니다. 하지만 화면 라벨과 의미가 다르므로 Data Element는 나누는 것이 좋습니다.</li>
-    <li><strong>의미까지 같은 경우:</strong> 회사 코드처럼 SAP 표준 Data Element가 의미와 라벨까지 딱 맞는다면, 새로 만들지 말고 표준을 재사용하는 것이 좋습니다.</li>
-    <li><strong>라벨만 바꾸고 싶은 경우:</strong> Data Element만 수정하면 됩니다. 굳이 Domain의 기술적 재질을 건드릴 필요가 없습니다.</li>
-  </ul>
-  <blockquote>
-    핵심은 이겁니다. Domain은 기계가 이해할 규칙에 가깝고, Data Element는 사람과 화면이 이해할 설명에 가깝습니다.
-  </blockquote>
-</section>
-
-<section class="lesson-section">
-  <h2>6. 실무에서 조심해야 할 점 🚨</h2>
   <div class="lesson-callout warn">
     <div class="lesson-callout-icon">⚠️</div>
     <div class="lesson-callout-content">
-      <h4>길이가 같다고 같은 Data Element를 쓰면 안 됩니다</h4>
-      <p><code>출발 공항</code>과 <code>도착 공항</code>은 둘 다 3자리 문자일 수 있습니다. 하지만 두 필드의 의미는 다릅니다. 같은 Data Element를 쓰면 화면 라벨도 같아지고, 도움말도 같아져서 사용자가 헷갈릴 수 있습니다. 재질이 같아도 업무 의미가 다르면 Data Element를 분리하세요.</p>
+      <h4>라벨은 “예쁜 이름”이 아니라 재사용 자산입니다</h4>
+      <p>한 Data Element를 여러 화면과 리포트가 참조할 수 있습니다. 라벨 하나를 대충 쓰면 같은 객체를 쓰는 다른 화면의 사용자 경험까지 같이 나빠질 수 있습니다.</p>
     </div>
   </div>
-  <p>
-    반대로, SAP 표준 Data Element의 의미와 라벨이 내가 원하는 것과 정확히 맞는다면 커스텀으로 새로 만들 필요가 없습니다. 표준을 재사용하면 다른 프로그램과 용어가 맞아지고, 나중에 유지보수할 사람도 훨씬 빨리 이해합니다.
-  </p>
 </section>
 
 <section class="lesson-section">
-  <h2>7. 미니 실습: Data Element 이름표 설계하기 🧪</h2>
+  <h2>4. SE11에서 Data Element를 만들고 코드 화면을 미리 본다</h2>
   <p>
-    이번에는 Domain 위에 의미와 라벨을 얹는 연습을 해봅니다. 지난 Lesson의 <code>ZCARRID</code> Domain을 이미 만들었다고 가정하고, 항공사 코드를 위한 Data Element를 설계해보세요.
+    SAP GUI 상단 명령창에 <span class="glossary-term" data-glossary="SE11">SE11</span> 또는 <code>/nSE11</code>을 입력합니다. 초기 화면에서 Data Type을 선택하고 Data Element 이름을 입력한 뒤 Create를 누르면 Data Element 유지보수 화면으로 들어갑니다. 아래 sandbox는 이 흐름을 줄인 실습입니다.
   </p>
-  <div class="lesson-callout">
-    <div class="lesson-callout-icon">✍️</div>
-    <div class="lesson-callout-content">
-      <h4>실습 과제</h4>
-      <ol>
-        <li>Data Element 이름을 정합니다. 예: <code>ZDE_CARRID</code></li>
-        <li>참조할 Domain을 적습니다. 예: <code>ZCARRID</code></li>
-        <li>Short, Medium, Long, Heading 라벨을 각각 적습니다.</li>
-        <li><span class="glossary-term" data-glossary="F1Help">F1 Help</span>에 들어갈 한 문장 설명을 작성합니다.</li>
-        <li>의미가 다른데 같은 Data Element를 쓰면 생길 오류 케이스를 1개 적습니다.</li>
-      </ol>
-      <p><strong>완료 조건:</strong> 라벨 4종과 F1 Help 문장이 모두 있고, “재질은 같지만 의미가 다른 필드” 예시를 하나 설명할 수 있으면 성공입니다.</p>
+  <div class="interactive-sap-sandbox">
+    <div class="sap-gui-header">
+      <div class="sap-tcode-bar">T-Code: <span class="tcode-val">SE11 Data Element</span></div>
+    </div>
+    <div class="sap-gui-title-bar">ABAP Dictionary: Data Element Maintenance</div>
+    <div class="sap-selection-screen">
+      <div class="sap-field-row">
+        <label>Data Element</label>
+        <input type="text" class="sap-input sap-input-medium" id="m03-element" value="ZDE_DISCOUNT" maxlength="30">
+      </div>
+      <div class="sap-field-row">
+        <label>Domain</label>
+        <input type="text" class="sap-input sap-input-medium" id="m03-domain" value="ZDO_PERCENT" maxlength="30">
+      </div>
+      <div class="sap-field-row">
+        <label>Short Label</label>
+        <input type="text" class="sap-input sap-input-medium" id="m03-short" value="할인" maxlength="20">
+      </div>
+      <div class="sap-field-row">
+        <label>Medium Label</label>
+        <input type="text" class="sap-input sap-input-medium" id="m03-medium" value="할인율(%)" maxlength="30">
+      </div>
+      <div class="sap-field-row">
+        <label>Long Label</label>
+        <input type="text" class="sap-input sap-input-medium" id="m03-long" value="고객 특별 할인율" maxlength="40">
+      </div>
+      <div class="sap-field-row">
+        <label>Heading</label>
+        <input type="text" class="sap-input sap-input-medium" id="m03-heading" value="할인%" maxlength="20">
+      </div>
+      <div class="sap-field-row">
+        <label>F1 Text</label>
+        <input type="text" class="sap-input sap-input-medium" id="m03-f1" value="고객 주문에 적용할 할인율을 백분율로 입력합니다." maxlength="80">
+      </div>
+      <button class="sap-btn-execute" type="button">검사 후 활성화 (Ctrl+F3)</button>
+    </div>
+    <div class="sap-result-log">
+      <div class="sap-log-placeholder">버튼을 누르면 Data Element 활성화 결과와 ABAP 코드/화면 라벨 미리보기가 출력됩니다.</div>
+    </div>
+    <template class="sandbox-config">
+{
+  "fields": {
+    "element": "#m03-element",
+    "domain": "#m03-domain",
+    "short": "#m03-short",
+    "medium": "#m03-medium",
+    "long": "#m03-long",
+    "heading": "#m03-heading",
+    "f1": "#m03-f1"
+  },
+  "steps": [
+    { "label": "SE11", "type": "event", "text": "Data Type에서 Data Element {element} 생성 화면을 엽니다." },
+    { "label": "Data Type", "type": "info", "text": "{element}가 Domain {domain}의 기술 속성을 참조합니다." },
+    { "label": "Field Label", "type": "info", "text": "Short={short}, Medium={medium}, Long={long}, Heading={heading} 라벨을 입력했습니다." },
+    { "label": "Documentation", "type": "info", "text": "F1 Help 문서: {f1}" }
+  ],
+  "validations": [
+    { "field": "element", "test": "required", "label": "Name Check", "text": "Data Element 이름이 비어 있습니다.", "modal": "Data Element 이름을 입력하세요." },
+    { "field": "element", "test": "regex", "pattern": "^(Z|Y)[A-Z0-9_]{3,29}$", "label": "Name Check", "text": "{element}은 고객 네임스페이스 이름 규칙에 맞지 않습니다.", "modal": "Data Element 이름은 Z 또는 Y로 시작하고 대문자·숫자·언더스코어를 사용하세요." },
+    { "field": "domain", "test": "regex", "pattern": "^(Z|Y)[A-Z0-9_]{3,29}$", "label": "Domain Check", "text": "{domain}은 활성 Domain 이름처럼 보이지 않습니다.", "modal": "먼저 활성화된 Z/Y Domain 이름을 입력하세요." },
+    { "field": "medium", "test": "required", "label": "Label Check", "text": "Medium Label이 비어 있습니다.", "modal": "일반 화면에 보일 Medium Label을 입력하세요." },
+    { "field": "f1", "test": "required", "label": "Help Check", "text": "F1 Help 설명이 비어 있습니다.", "modal": "사용자가 F1을 눌렀을 때 볼 설명을 입력하세요." }
+  ],
+  "successSteps": [
+    { "label": "Check", "type": "event", "text": "이름 규칙, Domain 참조, 라벨, F1 설명을 검사했습니다." },
+    { "label": "Activate", "type": "event", "text": "{element}이 활성화되어 테이블 필드와 ABAP 코드에서 타입으로 참조할 수 있습니다." }
+  ],
+  "result": {
+    "label": "Preview",
+    "type": "info",
+    "text": "Data Element가 코드와 화면에 전달하는 값",
+    "columns": [
+      { "key": "where", "head": "위치" },
+      { "key": "value", "head": "보이는 값" },
+      { "key": "meaning", "head": "의미" }
+    ],
+    "rows": [
+      { "where": "ABAP Code", "value": "PARAMETERS p_disc TYPE {element}.", "meaning": "코드는 Data Element 이름으로 타입을 참조합니다." },
+      { "where": "Selection Screen", "value": "{medium}", "meaning": "화면은 Field Label을 라벨로 재사용합니다." },
+      { "where": "F1 Help", "value": "{f1}", "meaning": "사용자는 필드 의미 설명을 확인합니다." }
+    ]
+  }
+}
+    </template>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>5. F1 Help와 F4 Help는 질문이 다르다</h2>
+  <p>
+    <span class="glossary-term" data-glossary="F1Help">F1 Help</span>는 “이 필드가 무슨 뜻인가?”에 답합니다. Data Element 문서와 짧은 설명은 사용자가 필드 의미를 이해하는 데 도움을 줍니다.
+  </p>
+  <p>
+    <span class="glossary-term" data-glossary="F4Help">F4 Help</span>는 “어떤 값을 고를 수 있는가?”에 답합니다. 값 후보를 찾게 하려면 <span class="glossary-term" data-glossary="SearchHelp">Search Help</span>, Fixed Value, Foreign Key 같은 값 도움 설계를 따로 봐야 합니다.
+  </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">사용자 질문으로 구분하기</p>
+    <div class="viz-compare">
+      <div class="viz-compare-before">
+        <span class="viz-compare-label">F1 Help</span>
+        <div class="viz-compare-body">
+          <ul>
+            <li>질문: 이 입력칸은 무엇을 뜻하나요?</li>
+            <li>내용: 필드 의미, 업무 기준, 입력 시 주의점</li>
+            <li>위치: Data Element documentation</li>
+          </ul>
+        </div>
+      </div>
+      <div class="viz-compare-after">
+        <span class="viz-compare-label">F4 Help</span>
+        <div class="viz-compare-body">
+          <ul>
+            <li>질문: 어떤 값 중에서 고르면 되나요?</li>
+            <li>내용: 후보 값 목록, 검색 조건, 텍스트 설명</li>
+            <li>위치: Search Help 또는 DDIC 값 도움 연결</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. 같은 Domain, 다른 Data Element가 필요한 순간</h2>
   <p>
-    NotebookLM 자료에서도 Data Element는 기술 규격보다 의미와 화면 텍스트를 담당하는 객체로 정리됩니다. 그래서 실습의 핵심은 <code>CHAR 3</code>을 다시 외우는 것이 아니라, 사용자가 보는 이름표를 정확히 만드는 것입니다.
+    실무 판단의 핵심은 “기술 규격만 같은가, 의미까지 같은가?”입니다. 기술 규격만 같으면 Domain을 재사용할 수 있지만, 화면 라벨과 업무 설명이 다르면 Data Element는 분리해야 합니다.
   </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">재사용 판단 예시</p>
+    <table class="viz-table">
+      <thead>
+        <tr>
+          <th>상황</th>
+          <th>Domain 판단</th>
+          <th>Data Element 판단</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>출발 공항과 도착 공항</td>
+          <td><span class="viz-badge success">재사용 가능</span> 둘 다 공항 코드 재질</td>
+          <td><span class="viz-badge fail">분리</span> 라벨과 F1 설명이 다릅니다.</td>
+        </tr>
+        <tr>
+          <td>여러 테이블의 회사 코드</td>
+          <td><span class="viz-badge success">재사용</span> 표준 코드 규격</td>
+          <td><span class="viz-badge success">표준 우선</span> 의미까지 같으면 표준 Data Element를 찾습니다.</td>
+        </tr>
+        <tr>
+          <td>개발자 내부 임시 변수</td>
+          <td><span class="viz-badge fail">주의</span> 전역 DDIC 객체가 과할 수 있음</td>
+          <td><span class="viz-badge fail">주의</span> 로컬 타입이나 클래스 public type이 더 적합할 수 있습니다.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <details class="foldable">
+    <summary>표준 Data Element의 라벨을 직접 바꿔도 될까?</summary>
+    <p>가볍게 보면 안 됩니다. 같은 Data Element를 쓰는 다른 화면까지 영향을 받을 수 있습니다. 표준 텍스트를 조정해야 하는 상황은 별도 확장·텍스트 보강 절차와 영향 범위를 확인해야 합니다.</p>
+  </details>
 </section>
 
 <section class="lesson-section">
-  <h2>8. 공식 문서로 더 확인하기 🔗</h2>
-  <ul>
-    <li><a href="https://learning.sap.com/courses/building-data-models-with-the-abap-dictionary-and-abap-core-data-services/defining-domains-and-data-elements_b65b511a-4ad1-4437-80f5-5ad689cab833" target="_blank" rel="noopener">SAP Learning: Domain과 Data Element 정의</a> — Data Element가 Domain 위에 의미와 텍스트를 얹는 흐름을 확인합니다.</li>
-    <li><a href="https://learning.sap.com/courses/building-data-models-with-the-abap-dictionary-and-abap-core-data-services/using-dictionary-objects-as-data-types_e28df7c3-7686-414e-9827-673dceeb21fb" target="_blank" rel="noopener">SAP Learning: Dictionary Object를 데이터 타입으로 사용하기</a> — Data Element, Structure, Database Table을 타입으로 재사용하는 방식을 함께 봅니다.</li>
-    <li><a href="https://help.sap.com/docs/SAP_NETWEAVER_702/ff5206fc6c551014a1d28b076487e7df/908d7307b1af11d194f600a0c929b3c3.html" target="_blank" rel="noopener">SAP Help Portal: Creating Data Elements</a> — Data Element 생성 절차를 공식 도움말 관점에서 확인합니다.</li>
-  </ul>
+  <h2>7. 공식 문서로 더 확인하기</h2>
+  <p>
+    이번 Lesson은 NotebookLM 노트와 SAP 공식 자료를 교차 확인해 재구성했습니다. 특히 Data Element의 라벨과 문서가 사용자 화면·F1 Help로 이어지는 지점을 확인하세요.
+  </p>
+  <div class="link-list">
+    <a href="https://learning.sap.com/courses/building-data-models-with-the-abap-dictionary-and-abap-core-data-services/defining-domains-and-data-elements_b65b511a-4ad1-4437-80f5-5ad689cab833" target="_blank" rel="noopener">SAP Learning: Defining Domains and Data Elements<span>Data Element가 Domain 위에 의미와 필드 라벨을 제공하는 구조를 확인합니다.</span></a>
+    <a href="https://help.sap.com/docs/ABAP_PLATFORM_NEW/ec1c9c8191b74de98feb94001a95dd76/908d7307b1af11d194f600a0c929b3c3.html?version=202310.001" target="_blank" rel="noopener">SAP Help Portal: Creating Data Elements<span>SE11 생성 절차, Field label 탭, 활성화 로그를 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENDDIC_DATA_ELEMENTS_SEMA.html" target="_blank" rel="noopener">SAP Help Portal: Semantic Properties of Data Elements<span>짧은 텍스트, 필드 라벨, 문서가 번역 도구와 연결되는 점을 확인합니다.</span></a>
+    <a href="https://learning.sap.com/courses/building-data-models-with-the-abap-dictionary-and-abap-core-data-services/using-dictionary-objects-as-data-types_e28df7c3-7686-414e-9827-673dceeb21fb" target="_blank" rel="noopener">SAP Learning: Using Dictionary Objects as Data Types<span>Data Element는 타입으로 쓸 수 있고 Domain은 직접 타입으로 쓸 수 없다는 경계를 확인합니다.</span></a>
+  </div>
 </section>
 
 <section class="lesson-section">
-  <h2>9. 확인 퀴즈와 정답/해설 ✅</h2>
+  <h2>8. 확인 퀴즈</h2>
   <ol>
-    <li>Data Element의 핵심 역할은 Data Type과 Length를 새로 정하는 것일까요, 업무 의미와 화면 라벨을 붙이는 것일까요?</li>
-    <li>출발 공항과 도착 공항이 둘 다 <code>CHAR 3</code>이면 반드시 같은 Data Element를 써야 할까요?</li>
-    <li>사용자가 필드 의미를 몰라 F1을 눌렀을 때 도움을 주는 설명은 어느 DDIC 객체 쪽에서 관리할 수 있을까요?</li>
+    <li>Domain과 Data Element를 “재질”과 “의미”로 나눠 설명해보세요.</li>
+    <li>Field Label 4종은 어떤 화면 문제를 해결하나요?</li>
+    <li>F1 Help와 F4 Help의 질문 차이는 무엇인가요?</li>
+    <li>같은 <code>CHAR 3</code> 규격이면 항상 같은 Data Element를 써야 할까요?</li>
+    <li>ABAP 코드에서 Domain을 직접 타입으로 쓰는 것이 왜 맞지 않을까요?</li>
   </ol>
-  <details>
+  <details class="foldable">
     <summary>정답/해설 보기</summary>
     <ol>
-      <li><strong>업무 의미와 화면 라벨</strong>입니다. 기술 규격은 보통 Domain에서 물려받습니다.</li>
-      <li><strong>아니요.</strong> 재질은 같아도 의미가 다르면 라벨과 도움말이 달라야 하므로 Data Element를 분리하는 것이 안전합니다.</li>
-      <li><strong>Data Element</strong>입니다. Data Element의 문서화 영역을 통해 F1 Help 설명을 제공할 수 있습니다.</li>
+      <li><strong>Domain은 기술 재질, Data Element는 업무 의미입니다.</strong> Domain은 타입과 길이, Data Element는 라벨과 설명을 담당합니다.</li>
+      <li><strong>화면 공간별 이름표 문제입니다.</strong> 좁은 필드, 일반 입력 화면, 상세 화면, 컬럼 제목에 맞는 텍스트를 중앙에서 제공합니다.</li>
+      <li><strong>F1은 의미 설명, F4는 값 찾기입니다.</strong> 하나는 문서, 하나는 후보 값 탐색입니다.</li>
+      <li><strong>아니요.</strong> 기술 규격만 같고 업무 의미가 다르면 Data Element는 분리합니다.</li>
+      <li><strong>Domain은 Data Element의 기반 객체이기 때문입니다.</strong> 코드와 필드는 의미가 붙은 Dictionary 타입을 참조합니다.</li>
     </ol>
   </details>
 </section>
 
 <section class="lesson-section">
-  <h2>10. 한눈에 정리 🏁</h2>
+  <h2>9. 한눈에 정리</h2>
+  <div class="recap-grid">
+    <div class="recap-card"><strong>Data Element</strong>Domain 위에 업무 의미, 라벨, F1 설명을 얹는 DDIC 의미 객체입니다.</div>
+    <div class="recap-card"><strong>Field Label</strong>Short, Medium, Long, Heading으로 화면 공간에 맞는 이름표를 제공합니다.</div>
+    <div class="recap-card"><strong>F1/F4</strong>F1은 필드 설명, F4는 값 찾기입니다. 목적을 섞지 않습니다.</div>
+    <div class="recap-card"><strong>재사용 판단</strong>재질만 같으면 Domain 재사용, 의미까지 같으면 Data Element 재사용을 검토합니다.</div>
+  </div>
   <div class="lesson-callout tip">
-    <div class="lesson-callout-icon">📝</div>
+    <div class="lesson-callout-icon">➡️</div>
     <div class="lesson-callout-content">
-      <h4>오늘의 핵심만 딱 잡기</h4>
-      <ul>
-        <li><strong>Data Element</strong>는 Domain의 재질 위에 업무 의미와 화면 라벨을 붙입니다.</li>
-        <li><strong>Semantic Meaning</strong>은 “이 값이 업무적으로 무엇인가?”라는 뜻입니다.</li>
-        <li><strong>Field Label</strong>은 Short, Medium, Long, Heading 4종류로 화면 표시를 도와줍니다.</li>
-        <li><strong>F1 Help</strong> 문서화를 통해 사용자와 개발자에게 필드 설명을 제공할 수 있습니다.</li>
-        <li>재질이 같아도 의미가 다르면 Data Element를 분리하고, 의미까지 같으면 표준을 먼저 재사용합니다.</li>
-      </ul>
+      <h4>다음 Lesson 예고</h4>
+      <p>다음 Lesson에서는 Data Element로 의미를 입힌 필드들을 모아 Structure를 만드는 기본 흐름을 다룹니다.</p>
     </div>
   </div>
-  <p>
-    이제 낱개 필드에 재질과 의미를 모두 붙였습니다. 다음 Lesson <strong>Structure 기본 생성</strong>에서는 이렇게 만든 필드들을 한 줄짜리 데이터 꾸러미로 묶어보겠습니다.
-  </p>
 </section>

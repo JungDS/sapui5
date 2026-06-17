@@ -1,4 +1,11 @@
-# 가상 브라우저 검증 우회 가이드 (virtual_browser_test_guide.md) 📖
+# 07. BROWSER TESTING — 가상 브라우저 검증 우회
+
+> 📅 **최종수정: 2026-06-15 10:46 KST**
+> 🎯 **목적:** 내장 가상 브라우저가 안 될 때 로컬 Playwright로 화면 검증을 우회하는 절차.
+> 📖 **읽을 때:** Lesson UI 렌더링/인터랙션을 브라우저로 검증해야 하는데 `browser_subagent`가 실패할 때.
+> ⚡ **TL;DR:**
+> - 루트에서 정적 서버 구동(`npx http-server -p 8888 --cors`) → 스크래치에 Playwright 설치 → `test_browser.js`로 스크린샷.
+> - 검증 대상 예: `index.html`, `lesson-viewer.html?lesson=<ID>`.
 
 본 문서는 내장 가상 브라우저 도구(`browser_subagent`)가 환경 제약(CDP 루프백 주소 `127.0.0.1` 해석 오류)으로 인해 실행되지 않을 때, 로컬 NodeJS 웹 서버와 로컬 Playwright 패키지를 이용해 테스트를 정상적으로 우회 수행하기 위한 가이드라인입니다.
 
