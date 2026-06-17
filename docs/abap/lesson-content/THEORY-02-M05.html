@@ -1,10 +1,11 @@
-<!-- lesson-content/THEORY-02-M05.html | 최종수정 2026-06-16 01:55 KST -->
+<!-- THEORY-02-M05.html | 최종수정 2026-06-18 01:29 KST -->
+<!-- lesson-content/THEORY-02-M05.html | GOLD (Claude pilot · GPT v4 payload) | 2026-06-17 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
   <div class="lesson-callout-content">
     <h4>학습 목표</h4>
-    <p>이번 Lesson에서는 같은 작업을 여러 번 반복하는 방법을 배웁니다. 정해진 횟수만큼 도는 <span class="glossary-term" data-glossary="DO">DO</span>, 조건이 참인 동안 도는 <span class="glossary-term" data-glossary="WHILE">WHILE</span>, 그리고 반복 중 빠져나오는 <span class="glossary-term" data-glossary="EXIT">EXIT</span>와 건너뛰는 <span class="glossary-term" data-glossary="CONTINUE">CONTINUE</span>를 익힙니다.</p>
+    <p>이번 Lesson에서는 같은 작업을 여러 번 반복하는 방법을 배웁니다. 정해진 횟수만큼 도는 <span class="glossary-term" data-glossary="DO">DO</span>, 조건이 참인 동안 도는 <span class="glossary-term" data-glossary="WHILE">WHILE</span>, 그리고 반복 중 빠져나오는 <span class="glossary-term" data-glossary="EXIT">EXIT</span>와 건너뛰는 <span class="glossary-term" data-glossary="CONTINUE">CONTINUE</span>를 익힙니다. 모든 예제는 <span class="glossary-term" data-glossary="SE38">SE38</span>(ABAP Editor)에서 작성하고 실행(F8)합니다.</p>
   </div>
 </div>
 
@@ -21,33 +22,53 @@
 <section class="lesson-section">
   <h2>2. DO: 정해진 횟수만큼 반복</h2>
   <p>
-    <code>DO n TIMES.</code>는 블록을 n번 반복하고 <code>ENDDO</code>로 닫습니다. 지금 몇 번째인지는 시스템 필드 <code>sy-index</code>가 알려 줍니다.
+    <code>DO n TIMES.</code>는 블록을 n번 반복하고 <code>ENDDO</code>로 닫습니다. 지금 몇 번째인지는 시스템 필드 <code>sy-index</code>가 알려 줍니다. 아래 디버거에서 <strong>디버그 시작 → Next Step</strong>을 누르며 실행 중인 행과 <code>sy-index</code> 값이 어떻게 바뀌는지 추적해 보세요.
   </p>
-  <!-- ABAP_MOCKUP_START -->
-<div class="abap-editor-mockup shiki-copy-wrapper">
-  <div class="abap-editor-header">
-    <div class="abap-editor-mac-buttons">
-      <span class="abap-editor-mac-btn red"></span>
-      <span class="abap-editor-mac-btn yellow"></span>
-      <span class="abap-editor-mac-btn green"></span>
+  <div class="interactive-debugger is-editor-style">
+    <div class="debugger-code-panel">
+      <div class="abap-editor-mockup">
+        <div class="abap-editor-header">
+          <div class="abap-editor-mac-buttons">
+            <span class="abap-editor-mac-btn red"></span>
+            <span class="abap-editor-mac-btn yellow"></span>
+            <span class="abap-editor-mac-btn green"></span>
+          </div>
+          <div class="abap-editor-title">ABAP</div>
+        </div>
+        <div class="abap-editor-body">
+          <div class="abap-editor-body-lines">
+            <div class="editor-line" data-line="1"><span class="editor-line-number">1</span><div class="editor-line-content"><code><span class="abap-token-keyword">REPORT</span> zdo_demo.</code></div></div>
+            <div class="editor-line" data-line="2"><span class="editor-line-number">2</span><div class="editor-line-content"><code></code></div></div>
+            <div class="editor-line" data-line="3"><span class="editor-line-number">3</span><div class="editor-line-content"><code><span class="abap-token-keyword">DO</span> <span class="abap-token-number">3</span> <span class="abap-token-keyword">TIMES</span>.</code></div></div>
+            <div class="editor-line" data-line="4"><span class="editor-line-number">4</span><div class="editor-line-content"><code>  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'반복 회차:'</span>, sy-<span class="abap-token-keyword">index</span>.</code></div></div>
+            <div class="editor-line" data-line="5"><span class="editor-line-number">5</span><div class="editor-line-content"><code><span class="abap-token-keyword">ENDDO</span>.</code></div></div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="abap-editor-title">ABAP</div>
-    <div class="abap-editor-actions">
-      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    <div class="debugger-monitor-panel">
+      <div class="monitor-header">⚙️ ABAP Debugger Monitor</div>
+      <div class="monitor-controls">
+        <button class="debugger-btn btn-dbg-start">디버그 시작</button>
+        <button class="debugger-btn btn-dbg-next" disabled>Next Step (F6)</button>
+      </div>
+      <div class="monitor-state-card"></div>
+      <div class="debugger-output-label">출력 스트림 (Console Output)</div>
+      <div class="monitor-console-output">디버깅이 대기 중입니다. [디버그 시작]을 눌러 주세요.</div>
     </div>
+    <template class="debugger-config">{"steps":[
+      {"line":1,"vars":{"sy-index":"-","방금 한 일":"REPORT — 프로그램 시작"},"console":""},
+      {"line":3,"vars":{"sy-index":"1","방금 한 일":"DO 진입 (1회차)"},"console":""},
+      {"line":4,"vars":{"sy-index":"1","방금 한 일":"WRITE 출력"},"console":"반복 회차: 1"},
+      {"line":5,"vars":{"sy-index":"1","방금 한 일":"ENDDO — 1회차 끝, DO로 복귀"},"console":"반복 회차: 1"},
+      {"line":3,"vars":{"sy-index":"2","방금 한 일":"DO (2회차)"},"console":"반복 회차: 1"},
+      {"line":4,"vars":{"sy-index":"2","방금 한 일":"WRITE 출력"},"console":"반복 회차: 1\n반복 회차: 2"},
+      {"line":5,"vars":{"sy-index":"2","방금 한 일":"ENDDO — 2회차 끝, DO로 복귀"},"console":"반복 회차: 1\n반복 회차: 2"},
+      {"line":3,"vars":{"sy-index":"3","방금 한 일":"DO (3회차)"},"console":"반복 회차: 1\n반복 회차: 2"},
+      {"line":4,"vars":{"sy-index":"3","방금 한 일":"WRITE 출력"},"console":"반복 회차: 1\n반복 회차: 2\n반복 회차: 3"},
+      {"line":5,"vars":{"sy-index":"3","방금 한 일":"ENDDO — 3회 완료 → 프로그램 종료"},"console":"반복 회차: 1\n반복 회차: 2\n반복 회차: 3"}
+    ]}</template>
   </div>
-  <div class="abap-editor-body">
-    <div class="abap-editor-line-numbers">
-      1<br>2<br>3<br>4<br>5
-    </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zdo_demo.
-
-<span class="abap-token-keyword">DO</span> <span class="abap-token-number">3</span> <span class="abap-token-keyword">TIMES</span>.
-  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'반복 회차:'</span>, sy-<span class="abap-token-keyword">index</span>.
-<span class="abap-token-keyword">ENDDO</span>.</code></pre>
-  </div>
-</div>
-<!-- ABAP_MOCKUP_END -->
   <div class="lesson-callout">
     <div class="lesson-callout-icon">💡</div>
     <div class="lesson-callout-content">
@@ -60,36 +81,61 @@
 <section class="lesson-section">
   <h2>3. WHILE: 조건이 참인 동안 반복</h2>
   <p>
-    횟수를 미리 모르고 “어떤 조건이 만족될 때까지” 돌려야 하면 <code>WHILE 조건.</code> … <code>ENDWHILE.</code>를 씁니다. 조건이 거짓이 되는 순간 반복이 멈춥니다.
+    횟수를 미리 모르고 “어떤 조건이 만족될 때까지” 돌려야 하면 <code>WHILE 조건.</code> … <code>ENDWHILE.</code>를 씁니다. 조건이 거짓이 되는 순간 반복이 멈춥니다. 디버거에서 <code>lv_i</code>가 4가 되어 조건이 거짓이 될 때 비로소 루프가 끝나는 것을 행 추적으로 확인하세요.
   </p>
-  <!-- ABAP_MOCKUP_START -->
-<div class="abap-editor-mockup shiki-copy-wrapper">
-  <div class="abap-editor-header">
-    <div class="abap-editor-mac-buttons">
-      <span class="abap-editor-mac-btn red"></span>
-      <span class="abap-editor-mac-btn yellow"></span>
-      <span class="abap-editor-mac-btn green"></span>
+  <div class="interactive-debugger is-editor-style">
+    <div class="debugger-code-panel">
+      <div class="abap-editor-mockup">
+        <div class="abap-editor-header">
+          <div class="abap-editor-mac-buttons">
+            <span class="abap-editor-mac-btn red"></span>
+            <span class="abap-editor-mac-btn yellow"></span>
+            <span class="abap-editor-mac-btn green"></span>
+          </div>
+          <div class="abap-editor-title">ABAP</div>
+        </div>
+        <div class="abap-editor-body">
+          <div class="abap-editor-body-lines">
+            <div class="editor-line" data-line="1"><span class="editor-line-number">1</span><div class="editor-line-content"><code><span class="abap-token-keyword">REPORT</span> zwhile_demo.</code></div></div>
+            <div class="editor-line" data-line="2"><span class="editor-line-number">2</span><div class="editor-line-content"><code></code></div></div>
+            <div class="editor-line" data-line="3"><span class="editor-line-number">3</span><div class="editor-line-content"><code><span class="abap-token-keyword">DATA</span> lv_i <span class="abap-token-keyword">TYPE</span> i <span class="abap-token-keyword">VALUE</span> <span class="abap-token-number">1</span>.</code></div></div>
+            <div class="editor-line" data-line="4"><span class="editor-line-number">4</span><div class="editor-line-content"><code></code></div></div>
+            <div class="editor-line" data-line="5"><span class="editor-line-number">5</span><div class="editor-line-content"><code><span class="abap-token-keyword">WHILE</span> lv_i &lt;= <span class="abap-token-number">3</span>.</code></div></div>
+            <div class="editor-line" data-line="6"><span class="editor-line-number">6</span><div class="editor-line-content"><code>  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'값:'</span>, lv_i.</code></div></div>
+            <div class="editor-line" data-line="7"><span class="editor-line-number">7</span><div class="editor-line-content"><code>  lv_i = lv_i + <span class="abap-token-number">1</span>.</code></div></div>
+            <div class="editor-line" data-line="8"><span class="editor-line-number">8</span><div class="editor-line-content"><code><span class="abap-token-keyword">ENDWHILE</span>.</code></div></div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="abap-editor-title">ABAP</div>
-    <div class="abap-editor-actions">
-      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    <div class="debugger-monitor-panel">
+      <div class="monitor-header">⚙️ ABAP Debugger Monitor</div>
+      <div class="monitor-controls">
+        <button class="debugger-btn btn-dbg-start">디버그 시작</button>
+        <button class="debugger-btn btn-dbg-next" disabled>Next Step (F6)</button>
+      </div>
+      <div class="monitor-state-card"></div>
+      <div class="debugger-output-label">출력 스트림 (Console Output)</div>
+      <div class="monitor-console-output">디버깅이 대기 중입니다. [디버그 시작]을 눌러 주세요.</div>
     </div>
+    <template class="debugger-config">{"steps":[
+      {"line":1,"vars":{"lv_i":"-","방금 한 일":"REPORT — 프로그램 시작"},"console":""},
+      {"line":3,"vars":{"lv_i":"1","방금 한 일":"lv_i를 1로 초기화"},"console":""},
+      {"line":5,"vars":{"lv_i":"1","방금 한 일":"조건 검사: 1 ≤ 3 → 참"},"console":""},
+      {"line":6,"vars":{"lv_i":"1","방금 한 일":"WRITE 출력"},"console":"값: 1"},
+      {"line":7,"vars":{"lv_i":"2","방금 한 일":"lv_i 증가 → 2 (조건을 바꾸는 줄)"},"console":"값: 1"},
+      {"line":8,"vars":{"lv_i":"2","방금 한 일":"ENDWHILE — 조건으로 복귀"},"console":"값: 1"},
+      {"line":5,"vars":{"lv_i":"2","방금 한 일":"조건 재검사: 2 ≤ 3 → 참"},"console":"값: 1"},
+      {"line":6,"vars":{"lv_i":"2","방금 한 일":"WRITE 출력"},"console":"값: 1\n값: 2"},
+      {"line":7,"vars":{"lv_i":"3","방금 한 일":"lv_i 증가 → 3"},"console":"값: 1\n값: 2"},
+      {"line":8,"vars":{"lv_i":"3","방금 한 일":"ENDWHILE — 조건으로 복귀"},"console":"값: 1\n값: 2"},
+      {"line":5,"vars":{"lv_i":"3","방금 한 일":"조건 재검사: 3 ≤ 3 → 참"},"console":"값: 1\n값: 2"},
+      {"line":6,"vars":{"lv_i":"3","방금 한 일":"WRITE 출력"},"console":"값: 1\n값: 2\n값: 3"},
+      {"line":7,"vars":{"lv_i":"4","방금 한 일":"lv_i 증가 → 4"},"console":"값: 1\n값: 2\n값: 3"},
+      {"line":8,"vars":{"lv_i":"4","방금 한 일":"ENDWHILE — 조건으로 복귀"},"console":"값: 1\n값: 2\n값: 3"},
+      {"line":5,"vars":{"lv_i":"4","방금 한 일":"조건 재검사: 4 ≤ 3 아님 → 거짓, 루프 종료"},"console":"값: 1\n값: 2\n값: 3"}
+    ]}</template>
   </div>
-  <div class="abap-editor-body">
-    <div class="abap-editor-line-numbers">
-      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8
-    </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zwhile_demo.
-
-<span class="abap-token-keyword">DATA</span> lv_i <span class="abap-token-keyword">TYPE</span> i <span class="abap-token-keyword">VALUE</span> <span class="abap-token-number">1</span>.
-
-<span class="abap-token-keyword">WHILE</span> lv_i &lt;= <span class="abap-token-number">3</span>.
-  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'값:'</span>, lv_i.
-  lv_i = lv_i + <span class="abap-token-number">1</span>.       <span class="abap-token-comment">" 조건을 바꾸는 줄이 반드시 필요</span>
-<span class="abap-token-keyword">ENDWHILE</span>.</code></pre>
-  </div>
-</div>
-<!-- ABAP_MOCKUP_END -->
   <div class="lesson-callout warn">
     <div class="lesson-callout-icon">⚠️</div>
     <div class="lesson-callout-content">
@@ -105,58 +151,104 @@
     반복 도중 흐름을 조절하는 두 명령이 있습니다. <code>EXIT</code>는 루프를 즉시 끝내고, <code>CONTINUE</code>는 이번 회차의 남은 코드를 건너뛰고 다음 회차로 갑니다.
   </p>
   <div class="viz-visual">
-    <p class="viz-visual-title">EXIT vs CONTINUE</p>
-    <div class="viz-state-grid">
-      <div class="viz-state">
-        <span class="viz-state-label">EXIT</span>
-        <table class="viz-table"><tbody>
-          <tr><td><strong>동작</strong></td><td>루프 전체를 즉시 종료</td></tr>
-          <tr><td><strong>이후</strong></td><td>반복문 다음 줄로 이동</td></tr>
-          <tr><td><strong>비유</strong></td><td>찾던 걸 찾으면 방을 나감</td></tr>
-        </tbody></table>
+    <p class="viz-visual-title">EXIT vs CONTINUE 한눈 비교</p>
+    <table class="viz-table">
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>EXIT</th>
+          <th>CONTINUE</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>동작</strong></td>
+          <td>루프 <strong>전체</strong>를 즉시 종료</td>
+          <td>이번 회차의 <strong>남은 코드만</strong> 건너뜀</td>
+        </tr>
+        <tr>
+          <td><strong>이후 흐름</strong></td>
+          <td>반복문(<code>ENDDO</code>/<code>ENDWHILE</code>) 다음 줄로 이동</td>
+          <td>같은 루프의 다음 회차로 (루프는 계속)</td>
+        </tr>
+        <tr>
+          <td><strong>비유</strong></td>
+          <td>찾던 걸 찾으면 방을 나감</td>
+          <td>이번 사람만 통과시키고 줄은 계속</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    아래 코드는 <code>DO 5 TIMES</code> 안에서 3회차는 <code>CONTINUE</code>로 건너뛰고, 5회차에서 <code>EXIT</code>로 종료합니다. 디버거로 행을 추적하면 <strong>왜 출력이 1·2·4뿐인지</strong> 눈으로 확인할 수 있습니다.
+  </p>
+  <div class="interactive-debugger is-editor-style">
+    <div class="debugger-code-panel">
+      <div class="abap-editor-mockup">
+        <div class="abap-editor-header">
+          <div class="abap-editor-mac-buttons">
+            <span class="abap-editor-mac-btn red"></span>
+            <span class="abap-editor-mac-btn yellow"></span>
+            <span class="abap-editor-mac-btn green"></span>
+          </div>
+          <div class="abap-editor-title">ABAP</div>
+        </div>
+        <div class="abap-editor-body">
+          <div class="abap-editor-body-lines">
+            <div class="editor-line" data-line="1"><span class="editor-line-number">1</span><div class="editor-line-content"><code><span class="abap-token-keyword">REPORT</span> zexit_continue.</code></div></div>
+            <div class="editor-line" data-line="2"><span class="editor-line-number">2</span><div class="editor-line-content"><code></code></div></div>
+            <div class="editor-line" data-line="3"><span class="editor-line-number">3</span><div class="editor-line-content"><code><span class="abap-token-keyword">DO</span> <span class="abap-token-number">5</span> <span class="abap-token-keyword">TIMES</span>.</code></div></div>
+            <div class="editor-line" data-line="4"><span class="editor-line-number">4</span><div class="editor-line-content"><code>  <span class="abap-token-keyword">IF</span> sy-<span class="abap-token-keyword">index</span> = <span class="abap-token-number">3</span>.</code></div></div>
+            <div class="editor-line" data-line="5"><span class="editor-line-number">5</span><div class="editor-line-content"><code>    <span class="abap-token-keyword">CONTINUE</span>.</code></div></div>
+            <div class="editor-line" data-line="6"><span class="editor-line-number">6</span><div class="editor-line-content"><code>  <span class="abap-token-keyword">ENDIF</span>.</code></div></div>
+            <div class="editor-line" data-line="7"><span class="editor-line-number">7</span><div class="editor-line-content"><code>  <span class="abap-token-keyword">IF</span> sy-<span class="abap-token-keyword">index</span> = <span class="abap-token-number">5</span>.</code></div></div>
+            <div class="editor-line" data-line="8"><span class="editor-line-number">8</span><div class="editor-line-content"><code>    <span class="abap-token-keyword">EXIT</span>.</code></div></div>
+            <div class="editor-line" data-line="9"><span class="editor-line-number">9</span><div class="editor-line-content"><code>  <span class="abap-token-keyword">ENDIF</span>.</code></div></div>
+            <div class="editor-line" data-line="10"><span class="editor-line-number">10</span><div class="editor-line-content"><code>  <span class="abap-token-keyword">WRITE</span>: / sy-<span class="abap-token-keyword">index</span>.</code></div></div>
+            <div class="editor-line" data-line="11"><span class="editor-line-number">11</span><div class="editor-line-content"><code><span class="abap-token-keyword">ENDDO</span>.</code></div></div>
+          </div>
+        </div>
       </div>
-      <div class="viz-state">
-        <span class="viz-state-label">CONTINUE</span>
-        <table class="viz-table"><tbody>
-          <tr><td><strong>동작</strong></td><td>이번 회차 남은 코드 건너뜀</td></tr>
-          <tr><td><strong>이후</strong></td><td>같은 루프의 다음 회차로</td></tr>
-          <tr><td><strong>비유</strong></td><td>이번 사람만 통과, 줄은 계속</td></tr>
-        </tbody></table>
+    </div>
+    <div class="debugger-monitor-panel">
+      <div class="monitor-header">⚙️ ABAP Debugger Monitor</div>
+      <div class="monitor-controls">
+        <button class="debugger-btn btn-dbg-start">디버그 시작</button>
+        <button class="debugger-btn btn-dbg-next" disabled>Next Step (F6)</button>
       </div>
+      <div class="monitor-state-card"></div>
+      <div class="debugger-output-label">출력 스트림 (Console Output)</div>
+      <div class="monitor-console-output">디버깅이 대기 중입니다. [디버그 시작]을 눌러 주세요.</div>
     </div>
+    <template class="debugger-config">{"steps":[
+      {"line":1,"vars":{"sy-index":"-","방금 한 일":"REPORT — 프로그램 시작"},"console":""},
+      {"line":3,"vars":{"sy-index":"1","방금 한 일":"DO 1회차"},"console":""},
+      {"line":4,"vars":{"sy-index":"1","방금 한 일":"IF sy-index = 3 ? 아니오"},"console":""},
+      {"line":7,"vars":{"sy-index":"1","방금 한 일":"IF sy-index = 5 ? 아니오"},"console":""},
+      {"line":10,"vars":{"sy-index":"1","방금 한 일":"WRITE 출력"},"console":"1"},
+      {"line":11,"vars":{"sy-index":"1","방금 한 일":"ENDDO — 1회차 끝"},"console":"1"},
+      {"line":3,"vars":{"sy-index":"2","방금 한 일":"DO 2회차"},"console":"1"},
+      {"line":4,"vars":{"sy-index":"2","방금 한 일":"IF sy-index = 3 ? 아니오"},"console":"1"},
+      {"line":7,"vars":{"sy-index":"2","방금 한 일":"IF sy-index = 5 ? 아니오"},"console":"1"},
+      {"line":10,"vars":{"sy-index":"2","방금 한 일":"WRITE 출력"},"console":"1\n2"},
+      {"line":11,"vars":{"sy-index":"2","방금 한 일":"ENDDO — 2회차 끝"},"console":"1\n2"},
+      {"line":3,"vars":{"sy-index":"3","방금 한 일":"DO 3회차"},"console":"1\n2"},
+      {"line":4,"vars":{"sy-index":"3","방금 한 일":"IF sy-index = 3 ? 예"},"console":"1\n2"},
+      {"line":5,"vars":{"sy-index":"3","방금 한 일":"CONTINUE — 남은 줄 건너뛰고 DO로 복귀"},"console":"1\n2"},
+      {"line":3,"vars":{"sy-index":"4","방금 한 일":"DO 4회차"},"console":"1\n2"},
+      {"line":4,"vars":{"sy-index":"4","방금 한 일":"IF sy-index = 3 ? 아니오"},"console":"1\n2"},
+      {"line":7,"vars":{"sy-index":"4","방금 한 일":"IF sy-index = 5 ? 아니오"},"console":"1\n2"},
+      {"line":10,"vars":{"sy-index":"4","방금 한 일":"WRITE 출력"},"console":"1\n2\n4"},
+      {"line":11,"vars":{"sy-index":"4","방금 한 일":"ENDDO — 4회차 끝"},"console":"1\n2\n4"},
+      {"line":3,"vars":{"sy-index":"5","방금 한 일":"DO 5회차"},"console":"1\n2\n4"},
+      {"line":4,"vars":{"sy-index":"5","방금 한 일":"IF sy-index = 3 ? 아니오"},"console":"1\n2\n4"},
+      {"line":7,"vars":{"sy-index":"5","방금 한 일":"IF sy-index = 5 ? 예"},"console":"1\n2\n4"},
+      {"line":8,"vars":{"sy-index":"5","방금 한 일":"EXIT — 루프 전체 즉시 종료"},"console":"1\n2\n4"}
+    ]}</template>
   </div>
-  <!-- ABAP_MOCKUP_START -->
-<div class="abap-editor-mockup shiki-copy-wrapper">
-  <div class="abap-editor-header">
-    <div class="abap-editor-mac-buttons">
-      <span class="abap-editor-mac-btn red"></span>
-      <span class="abap-editor-mac-btn yellow"></span>
-      <span class="abap-editor-mac-btn green"></span>
-    </div>
-    <div class="abap-editor-title">ABAP</div>
-    <div class="abap-editor-actions">
-      <button class="shiki-copy-button" data-copied="false">Copy</button>
-    </div>
-  </div>
-  <div class="abap-editor-body">
-    <div class="abap-editor-line-numbers">
-      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12
-    </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> zexit_continue.
-
-<span class="abap-token-keyword">DO</span> <span class="abap-token-number">5</span> <span class="abap-token-keyword">TIMES</span>.
-  <span class="abap-token-keyword">IF</span> sy-<span class="abap-token-keyword">index</span> = <span class="abap-token-number">3</span>.
-    <span class="abap-token-keyword">CONTINUE</span>.            <span class="abap-token-comment">" 3회차는 건너뛰고 다음으로</span>
-  <span class="abap-token-keyword">ENDIF</span>.
-  <span class="abap-token-keyword">IF</span> sy-<span class="abap-token-keyword">index</span> = <span class="abap-token-number">5</span>.
-    <span class="abap-token-keyword">EXIT</span>.                <span class="abap-token-comment">" 5회차에서 루프 종료</span>
-  <span class="abap-token-keyword">ENDIF</span>.
-  <span class="abap-token-keyword">WRITE</span>: / sy-<span class="abap-token-keyword">index</span>.
-<span class="abap-token-keyword">ENDDO</span>.
-<span class="abap-token-comment">" 출력: 1, 2, 4</span></code></pre>
-  </div>
-</div>
-<!-- ABAP_MOCKUP_END -->
+  <p class="debugger-note">
+    <code>CONTINUE</code>는 그 회차의 남은 줄만 건너뛰고 루프는 계속됩니다(그래서 3은 빠지고 4는 출력). <code>EXIT</code>는 루프 전체를 즉시 끝냅니다(그래서 5는 출력되지 않음).
+  </p>
 </section>
 
 <section class="lesson-section">

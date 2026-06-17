@@ -1,4 +1,5 @@
-<!-- lesson-content/THEORY-01-M05.html | 최종수정 2026-06-17 01:38 KST -->
+<!-- THEORY-01-M05.html | 최종수정 2026-06-18 01:29 KST -->
+<!-- lesson-content/THEORY-01-M05.html | GOLD (Claude pilot · GPT v4 payload) | 2026-06-17 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
@@ -11,13 +12,13 @@
 <section class="lesson-section">
   <h2>1. Structure에서 저장소로 넘어간다</h2>
   <p>
-    Structure는 한 줄 데이터의 모양을 정의했지만 값을 오래 저장하지는 않았습니다. 프로그램이 끝나면 Work Area의 값은 사라집니다. Transparent Table은 ABAP Dictionary에서 정의하고 실제 데이터베이스에 데이터를 저장하는 대상입니다.
+    지난 Lesson의 <span class="glossary-term" data-glossary="Structure">Structure</span>는 “데이터 한 줄이 <strong>어떤 모양인지</strong>”만 정해 둔 것이었습니다. 값을 보관하지는 않으므로, 프로그램이 끝나면 Work Area에 담겼던 값은 모두 사라집니다. 즉 Structure는 <strong>그릇의 설계도</strong>일 뿐 <strong>창고</strong>가 아닙니다.
   </p>
   <p>
-    SAP Learning은 database table definition이 field list와 additional table properties를 가지며, 활성화 후 ABAP SQL이 접근할 수 있는 DB 테이블로 이어진다고 설명합니다. 그래서 Transparent Table은 단순한 필드 목록이 아니라 운영 데이터의 창고입니다.
+    <span class="glossary-term" data-glossary="TransparentTable">Transparent Table</span>은 ABAP Dictionary에 두는 <strong>테이블 정의(설계도)</strong>입니다. 이것을 <span class="glossary-term" data-glossary="Activation">활성화</span>하면 데이터베이스 서버에 <strong>같은 이름의 실제 DB Table</strong>이 만들어지고, 데이터는 바로 그 <strong>DB Table</strong>에 저장됩니다. 즉 Transparent Table 자체가 데이터를 담는 게 아니라, <strong>담을 DB Table을 만들기 위한 정의</strong>입니다. (이 구분은 바로 아래 §2에서 자세히)
   </p>
   <blockquote>
-    Structure는 모양입니다. Transparent Table은 그 모양의 여러 줄을 오래 보관하는 저장소입니다.
+    한마디로 — <strong>Structure는 “한 줄 모양”, Transparent Table은 “그 줄들을 저장할 DB Table을 만드는 DDIC 설계도”</strong>입니다. 실제 저장은 동명 DB Table이 합니다.
   </blockquote>
   <div class="viz-visual">
     <p class="viz-visual-title">한 줄 타입과 DB 저장소 비교</p>
@@ -36,19 +37,60 @@
         <span class="viz-compare-label">Transparent Table</span>
         <div class="viz-compare-body">
           <ul>
-            <li>DB에 저장되는 테이블 정의입니다.</li>
-            <li>활성화 후 데이터를 읽고 쓸 대상이 됩니다.</li>
-            <li>Key, client, technical settings까지 함께 고려합니다.</li>
+            <li><strong>DB Table을 만드는 DDIC 정의</strong>입니다 (저장소 자체가 아님).</li>
+            <li>활성화하면 같은 이름의 DB Table이 생기고, 데이터는 그 <strong>DB Table</strong>에 저장됩니다.</li>
+            <li>변수 타입으로 쓰면 한 줄짜리 <strong>구조 변수</strong>가 됩니다.</li>
           </ul>
         </div>
       </div>
     </div>
-    <p class="viz-note"><code>SELECT</code>의 대상은 Transparent Table입니다. Structure는 조회 결과를 담는 타입으로 쓰일 수 있지만 <code>FROM</code> 대상은 아닙니다.</p>
+    <p class="viz-note">활성화하면 같은 이름의 <strong>실제 DB 테이블</strong>이 생겨 데이터를 오래 보관할 수 있습니다. 이 테이블을 실제로 <strong>조회·입력하는 구문(ABAP SQL)</strong>은 뒤 Chapter에서 배웁니다 — 지금은 “Structure는 모양, Transparent Table은 저장소”만 확실히 기억하면 됩니다.</p>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>2. Field List는 Data Element 중심으로 만든다</h2>
+  <h2>2. 중요한 오해 바로잡기: Transparent Table은 ‘DB Table’이 아니다</h2>
+  <p>
+    가장 흔한 오해부터 잡고 갑니다. <strong>Transparent Table은 데이터를 담는 테이블이 아닙니다.</strong> ABAP Dictionary(SE11)에 두는 <strong>‘테이블 정의(설계도)’</strong>일 뿐입니다. 활성화하면 SAP가 데이터베이스 서버에 <strong>같은 이름의 실제 DB Table</strong>을 만들고, 데이터는 그 <strong>DB Table</strong>에 저장됩니다. (아래 예시는 어느 교육 서버에나 있는 표준 항공사 테이블 <code>SCARR</code>로 봅니다.)
+  </p>
+  <div class="viz-visual">
+    <p class="viz-visual-title">세 개의 층으로 보기</p>
+    <div class="viz-state-grid">
+      <div class="viz-state">
+        <span class="viz-state-label">① ABAP Program</span>
+        <table class="viz-table"><tbody>
+          <tr><td><code>DATA gs TYPE scarr.</code></td></tr>
+          <tr><td>Transparent Table을 <strong>타입</strong>으로 쓰면 <code>gs</code>는 테이블이 아니라 <strong>한 줄짜리 구조(Structure) 변수</strong>가 됩니다.</td></tr>
+        </tbody></table>
+      </div>
+      <div class="viz-state">
+        <span class="viz-state-label">② ABAP Dictionary (SE11)</span>
+        <table class="viz-table"><tbody>
+          <tr><td><span class="glossary-term" data-glossary="TransparentTable">Transparent Table</span> <code>SCARR</code> 정의(설계도) — 표준 <strong>항공사</strong> 테이블</td></tr>
+          <tr><td>필드 목록 · Key · 속성만 정의. <strong>여기엔 데이터가 없습니다.</strong></td></tr>
+        </tbody></table>
+      </div>
+      <div class="viz-state">
+        <span class="viz-state-label">③ Database Server</span>
+        <table class="viz-table"><tbody>
+          <tr><td>동일 이름의 <strong>실제 DB Table</strong> <code>SCARR</code></td></tr>
+          <tr><td>SAP가 만들어 둔 실제 테이블. <strong>항공사 데이터</strong>(코드·이름·통화 등)가 들어 있습니다.</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+    <p class="viz-note">②를 <strong>활성화</strong>하면 ③이 같은 구조로 만들어집니다. SE11에서 Transparent Table로 데이터를 “조회”해 볼 수도 있지만, 그것은 Transparent Table에 든 데이터가 아니라 <strong>동명 DB Table(③)에서 읽어온 것</strong>입니다.</p>
+  </div>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>“타입으로 쓰면 테이블이 아니라 한 줄(구조)”</h4>
+      <p><code>DATA gs TYPE scarr.</code>처럼 Transparent Table 이름을 변수 타입으로 쓰면, <code>gs</code>는 테이블이 아니라 <strong>한 줄짜리 구조(Structure) 변수</strong>가 됩니다. 여러 줄을 담는 <strong>내부 테이블</strong>은 별도의 <strong>Table Type</strong>으로 만들고, 실제 DB 조회(<code>SELECT</code>)와 함께 <strong>뒤 Chapter</strong>에서 배웁니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>3. Field List는 Data Element 중심으로 만든다</h2>
   <p>
     Transparent Table의 각 열은 Table Field입니다. SAP Learning은 field list 편집 시 <span class="glossary-term" data-glossary="DataElement">Data Element</span> 사용을 권장하며, Domain은 field list에 직접 사용할 수 없다고 설명합니다. Domain은 Data Element 아래의 기술 기반입니다.
   </p>
@@ -89,7 +131,7 @@
 </section>
 
 <section class="lesson-section">
-  <h2>3. Key Field는 한 줄을 유일하게 찾는 기준이다</h2>
+  <h2>4. Key Field는 한 줄을 유일하게 찾는 기준이다</h2>
   <p>
     Transparent Table에는 각 row를 식별할 수 있는 Primary Key가 필요합니다. 이 Primary Key를 이루는 필드가 Key Field입니다. SAP Learning은 모든 database table에 primary key가 필요하고, key field는 field list의 시작 부분에 모여 있어야 한다고 설명합니다.
   </p>
@@ -98,36 +140,36 @@
     <table class="viz-table">
       <thead>
         <tr>
+          <th>Key?</th>
           <th>순서</th>
           <th>필드</th>
           <th>역할</th>
-          <th>Key?</th>
         </tr>
       </thead>
       <tbody>
         <tr class="viz-current-row">
+          <td><span class="viz-badge success">Key</span></td>
           <td>1</td>
           <td><code>MANDT</code></td>
           <td>client 구분</td>
-          <td><span class="viz-badge success">Key</span></td>
         </tr>
         <tr class="viz-current-row">
+          <td><span class="viz-badge success">Key</span></td>
           <td>2</td>
           <td><code>ORDER_ID</code></td>
           <td>주문 번호</td>
-          <td><span class="viz-badge success">Key</span></td>
         </tr>
         <tr>
+          <td><span class="viz-badge fail">일반</span></td>
           <td>3</td>
           <td><code>CUSTOMER_ID</code></td>
           <td>고객 번호</td>
-          <td><span class="viz-badge fail">일반 필드</span></td>
         </tr>
         <tr>
+          <td><span class="viz-badge fail">일반</span></td>
           <td>4</td>
           <td><code>STATUS</code></td>
           <td>주문 상태</td>
-          <td><span class="viz-badge fail">일반 필드</span></td>
         </tr>
       </tbody>
     </table>
@@ -140,7 +182,7 @@
 </section>
 
 <section class="lesson-section">
-  <h2>4. MANDT는 client 칸막이다</h2>
+  <h2>5. MANDT는 client 칸막이다</h2>
   <p>
     SAP 업무 테이블에서 <code>MANDT</code>는 보통 첫 번째 Key Field입니다. 이것은 “이 row가 어느 client의 데이터인가?”를 표시합니다. CLNT 타입 key field가 첫 번째에 있으면 client field로 취급되고, 기본 접근은 로그인 client 기준으로 제한됩니다.
   </p>
@@ -189,96 +231,281 @@
 </section>
 
 <section class="lesson-section">
-  <h2>5. 직접 해보기: SE11에서 투명 테이블 만들기</h2>
+  <h2>6. 직접 해보기: SE11에서 투명 테이블 만들기</h2>
   <p>
-    SAP GUI 명령창에 <span class="glossary-term" data-glossary="SE11">SE11</span> 또는 <code>/nSE11</code>을 입력합니다. Database Table을 선택하고 테이블 이름을 입력한 뒤 Create를 누르면 필드 목록과 테이블 속성을 입력하는 화면으로 들어갑니다. 아래 sandbox에서 key와 일반 필드를 구분해 보세요.
+    SAP GUI 명령창에 <span class="glossary-term" data-glossary="SE11">SE11</span>(또는 <code>/nSE11</code>)을 입력해 시작합니다. 아래 4단계 — <strong>① 초기 화면 → ② 생성 화면 → ③ Technical Settings → ④ Activate</strong> — 를 순서대로 따라가며 만들어 보세요. ① 화면의 <strong>Create</strong>를 누르면 ②로 이동합니다. (예시 테이블: <code>ZT00_TEST001</code>)
   </p>
-  <div class="interactive-sap-sandbox">
-    <div class="sap-gui-header">
-      <div class="sap-tcode-bar">T-Code: <span class="tcode-val">SE11 Database Table</span></div>
+  <div class="viz-visual event-tabs-container is-compact">
+    <p class="viz-visual-title">SE11 투명 테이블 생성 — 실제 화면 4단계</p>
+    <div class="event-tab-buttons">
+      <button class="tab-btn active" data-tab="m05o-1">① 초기 화면</button>
+      <button class="tab-btn" data-tab="m05o-2">② 생성 화면</button>
+      <button class="tab-btn" data-tab="m05o-3">③ Technical Settings</button>
+      <button class="tab-btn" data-tab="m05o-4">④ Activate</button>
     </div>
-    <div class="sap-gui-title-bar">ABAP Dictionary: Transparent Table Maintenance</div>
-    <div class="sap-selection-screen">
-      <div class="sap-field-row">
-        <label>Table</label>
-        <input type="text" class="sap-input sap-input-medium" id="m05-table" value="ZTB_ORDER" maxlength="30">
+    <div class="tabs-content">
+
+      <div class="event-tab-panel active" id="m05o-1">
+        <div class="sap-gui-header"><div class="sap-tcode-bar">T-Code: <span class="tcode-val">SE11</span></div></div>
+        <div class="sap-gui-title-bar">ABAP Dictionary: Initial Screen</div>
+        <div class="sap-selection-screen">
+          <div class="sap-field-row"><label>◉ Database table</label><input type="text" class="sap-input sap-input-medium" value="ZT00_TEST001" readonly></div>
+          <div class="sap-field-row"><label>○ View</label><input type="text" class="sap-input sap-input-medium" value="" readonly></div>
+          <div class="sap-field-row"><label>○ Data type</label><input type="text" class="sap-input sap-input-medium" value="" readonly></div>
+          <button class="sap-btn-execute" type="button" data-goto-tab="m05o-2">📄 Create → ② 생성 화면으로</button>
+        </div>
+        <div class="lesson-callout">
+          <div class="lesson-callout-icon">🔤</div>
+          <div class="lesson-callout-content">
+            <h4>실습 테이블 이름 규칙: <code>ZT##_TEST###</code></h4>
+            <table class="viz-table"><tbody>
+              <tr><td><code>1</code></td><td>Z / Y 로 시작 (고객 네임스페이스)</td></tr>
+              <tr><td><code>2</code></td><td><code>T</code> — Table을 의미</td></tr>
+              <tr><td><code>3~4</code></td><td>학습자 번호 (예: <code>00</code>)</td></tr>
+              <tr><td><code>5</code></td><td><code>_</code> 구분용 문자</td></tr>
+              <tr><td><code>6~9</code></td><td><code>TEST</code> — 목적(연습용 테이블)</td></tr>
+              <tr><td><code>10~12</code></td><td>6~9의 넘버링 (예: <code>001</code>)</td></tr>
+            </tbody></table>
+            <p class="viz-note">이름을 입력하고 <strong>Create</strong>를 누르면 ② 생성 화면으로 이동합니다.</p>
+          </div>
+        </div>
       </div>
-      <div class="sap-field-row">
-        <label>Key Fields</label>
-        <input type="text" class="sap-input sap-input-medium" id="m05-keys" value="MANDT, ORDER_ID" maxlength="80">
+
+      <div class="event-tab-panel" id="m05o-2">
+        <div class="sap-toolbar">
+          <button type="button" class="sap-toolbar-btn" popovertarget="m05-msg-save">💾 Save</button>
+          <button type="button" class="sap-toolbar-btn" popovertarget="m05-msg-check">✓ Check</button>
+          <button type="button" class="sap-toolbar-btn" popovertarget="m05-msg-activate">▶ Activate</button>
+          <button type="button" class="sap-toolbar-btn toolbar-goto" data-goto-tab="m05o-3">③ Technical Settings로 →</button>
+        </div>
+        <div class="sap-gui-title-bar">Dictionary: Change Table</div>
+        <div class="sap-selection-screen">
+          <div class="sap-field-row"><label>Transparent Table</label><input type="text" class="sap-input sap-input-medium" value="ZT00_TEST001  (New/Revised)" readonly></div>
+          <div class="sap-field-row"><label>Short Description</label><input type="text" class="sap-input sap-input-medium" value="[연습] 내 첫 테이블 생성하기" readonly></div>
+        </div>
+        <p class="viz-note">아래 <strong>탭스트립</strong>에서 속성·필드를 정의합니다. 위 툴바의 <strong>Save·Check는 통과</strong>하지만 <strong>Activate는 아직 실패</strong>합니다 — 다음 단계의 <strong>Technical Settings</strong>를 아직 안 했기 때문입니다. (각 버튼을 눌러 메시지를 확인해 보세요.)</p>
+        <div class="event-tabs-container is-compact">
+          <div class="event-tab-buttons">
+            <button class="tab-btn" data-tab="m05t-1">Attributes</button>
+            <button class="tab-btn active" data-tab="m05t-2">Delivery and Maintenance</button>
+            <button class="tab-btn" data-tab="m05t-3">Fields</button>
+            <button class="tab-btn" data-tab="m05t-4">Input Help/Check</button>
+            <button class="tab-btn" data-tab="m05t-5">Currency/Quantity Fields</button>
+            <button class="tab-btn" data-tab="m05t-6">Indexes</button>
+          </div>
+          <div class="tabs-content">
+            <div class="event-tab-panel" id="m05t-1">
+              <p>테이블의 기본 속성(설명·생성자·패키지 등)을 보는 탭입니다. 연습에서는 Short Description만 확인하고 넘어갑니다.</p>
+            </div>
+            <div class="event-tab-panel active" id="m05t-2">
+              <div class="sap-selection-screen">
+                <div class="sap-field-row row-wide">
+                  <button type="button" class="sap-info-label" popovertarget="m05-dc-info">Delivery Class <span class="info-i">ⓘ</span></button>
+                  <select class="sap-input sap-input-wide">
+                    <option selected>A — Application table (master and transaction data)</option>
+                    <option>C — Customizing, maintenance only by customer, no SAP imports</option>
+                    <option>L — Local data, delivered empty</option>
+                    <option>G — Customizing, protected against SAP updates, only INS allowed</option>
+                    <option>E — Control table, SAP and customer have separate key areas</option>
+                    <option>S — System table, edited only by SAP (change = modification)</option>
+                    <option>W — System table, contents transportable by separate TR objects</option>
+                  </select>
+                </div>
+                <div class="sap-field-row row-wide">
+                  <button type="button" class="sap-info-label" popovertarget="m05-db-info">Data Browser/Table View Editing <span class="info-i">ⓘ</span></button>
+                  <select class="sap-input sap-input-wide">
+                    <option selected>Display/Maintenance Allowed with Restrictions</option>
+                    <option>D — Only display allowed</option>
+                    <option>N — Display/Maintenance Not Allowed</option>
+                    <option>X — Display/Maintenance Allowed</option>
+                  </select>
+                </div>
+              </div>
+              <p class="viz-note">왼쪽 <strong>라벨(ⓘ)</strong>을 클릭하면 각 항목의 의미가 팝업으로 열립니다. 연습 테이블은 <strong>Delivery Class = A</strong>, <strong>Data Browser = “…with Restrictions”</strong>를 씁니다.</p>
+            </div>
+            <div class="event-tab-panel" id="m05t-3">
+              <div class="fields-legend"><span><span class="swatch edit"></span>직접 입력</span><span><span class="swatch auto"></span>Data Element에서 자동 채워짐 (수정 불가)</span></div>
+              <table class="viz-table fields-grid">
+                <thead><tr><th>Field</th><th>Key</th><th>Init</th><th>Data element</th><th class="col-auto">Type 🔒</th><th class="col-auto">Len 🔒</th><th class="col-auto">Dec 🔒</th><th class="col-auto">Short Description 🔒</th></tr></thead>
+                <tbody>
+                  <tr class="viz-current-row"><td class="cell-edit"><code>MANDT</code></td><td class="cell-edit">✓</td><td class="cell-edit"></td><td class="cell-edit">MANDT</td><td class="cell-auto">CLNT</td><td class="cell-auto">3</td><td class="cell-auto">0</td><td class="cell-auto">Client</td></tr>
+                  <tr class="viz-current-row"><td class="cell-edit"><code>KEY1</code></td><td class="cell-edit">✓</td><td class="cell-edit">✓</td><td class="cell-edit">KKACHR3</td><td class="cell-auto">CHAR</td><td class="cell-auto">3</td><td class="cell-auto">0</td><td class="cell-auto">3-Character Field</td></tr>
+                  <tr class="viz-current-row"><td class="cell-edit"><code>KEY2</code></td><td class="cell-edit">✓</td><td class="cell-edit">✓</td><td class="cell-edit">KKACHR6</td><td class="cell-auto">CHAR</td><td class="cell-auto">6</td><td class="cell-auto">0</td><td class="cell-auto">6-Character Field</td></tr>
+                  <tr><td class="cell-edit"><code>FIELD1</code></td><td class="cell-edit"></td><td class="cell-edit"></td><td class="cell-edit">INT4</td><td class="cell-auto">INT4</td><td class="cell-auto">10</td><td class="cell-auto">0</td><td class="cell-auto">4 Byte Signed Integer</td></tr>
+                  <tr><td class="cell-edit"><code>FIELD2</code></td><td class="cell-edit"></td><td class="cell-edit"></td><td class="cell-edit">WDR_FLTP</td><td class="cell-auto">FLTP</td><td class="cell-auto">16</td><td class="cell-auto">16</td><td class="cell-auto">Floating Point (8 Byte)</td></tr>
+                  <tr><td class="cell-edit"><code>FIELD3</code></td><td class="cell-edit"></td><td class="cell-edit"></td><td class="cell-edit">DEC8_3</td><td class="cell-auto">DEC</td><td class="cell-auto">14</td><td class="cell-auto">3</td><td class="cell-auto">Packed (8 bytes, 3 decimals)</td></tr>
+                  <tr><td class="cell-edit"><code>FIELD4</code></td><td class="cell-edit"></td><td class="cell-edit"></td><td class="cell-edit">DATS</td><td class="cell-auto">DATS</td><td class="cell-auto">8</td><td class="cell-auto">0</td><td class="cell-auto">Field of type DATS</td></tr>
+                </tbody>
+              </table>
+              <p class="viz-note"><strong>직접 입력</strong>: Field 이름 · Key · Init · Data element. <strong>Data element를 넣으면</strong> Type·Len·Dec·Short Description은 그 Data Element 정의에서 <strong>자동으로 채워져 수정할 수 없습니다</strong>(회색 🔒). 즉 “필드 타입”은 Data Element가 결정합니다.</p>
+            </div>
+            <div class="event-tab-panel" id="m05t-4">
+              <p>필드별 <strong>외래키(Foreign Key) · 검색도움말(Search Help)</strong>을 연결해 입력값 검증·F4 도움말을 구성하는 탭입니다. <em>(자세히는 Chapter 4)</em></p>
+            </div>
+            <div class="event-tab-panel" id="m05t-5">
+              <p>SAP에서 <strong>금액·수량 필드는 단독으로 존재할 수 없습니다.</strong> 반드시 “단위” 필드와 짝을 이뤄야 의미가 생기며, 이 탭에서 그 짝을 연결합니다.</p>
+              <table class="viz-table">
+                <thead><tr><th>데이터 필드</th><th>타입</th><th>짝지을 단위 필드</th><th>단위 타입</th><th>예시</th></tr></thead>
+                <tbody>
+                  <tr class="viz-current-row"><td>금액 (Amount)</td><td><code>CURR</code></td><td>통화 키 (Currency Key)</td><td><code>CUKY</code></td><td>1,000 + <code>KRW</code></td></tr>
+                  <tr class="viz-current-row"><td>수량 (Quantity)</td><td><code>QUAN</code></td><td>수량 단위 (Unit)</td><td><code>UNIT</code></td><td>5 + <code>EA</code></td></tr>
+                </tbody>
+              </table>
+              <p class="viz-note">예: 금액 <code>NETWR</code>(CURR)는 통화 <code>WAERS</code>(CUKY)와 함께 봐야 “1,000원”인지 “1,000달러”인지 구분됩니다. 만약 <code>CURR</code>/<code>QUAN</code> 필드를 넣었다면 이 탭에서 짝 단위 필드를 지정하지 않으면 활성화가 실패합니다. (이 연습 테이블엔 금액·수량 타입이 없어 비어 있습니다.)</p>
+            </div>
+            <div class="event-tab-panel" id="m05t-6">
+              <p><strong>보조 인덱스(Secondary Index)</strong>를 정의하는 탭입니다. 다만 <strong>SAP S/4HANA(SAP HANA DB)에서는 보조 인덱스를 일반적으로 권장하지 않습니다.</strong> HANA는 컬럼 기반 인메모리 저장이라 대부분의 조회를 인덱스 없이도 빠르게 처리하기 때문입니다. 꼭 필요하다고 <strong>측정으로 입증된 경우에만</strong> 신중히 추가합니다.</p>
+              <p class="viz-note">출처: SAP Help Portal — ABAP Dictionary / SAP HANA 가이드(컬럼 스토어에서는 불필요한 보조 인덱스를 피하라는 권고). 성능 주제는 후속 Chapter에서 다룹니다.</p>
+            </div>
+          </div>
+        </div>
+
+        <div popover id="m05-dc-info" class="sap-popover info">
+          <h4>Delivery Class — 테이블 데이터의 성격 / 이관 규칙</h4>
+          <table>
+            <thead><tr><th>코드</th><th>의미</th></tr></thead>
+            <tbody>
+              <tr><td>A</td><td>업무(마스터·트랜잭션) 데이터 — 연습/실무 대부분</td></tr>
+              <tr><td>C</td><td>커스터마이징 — 고객만 유지, SAP 이관 없음</td></tr>
+              <tr><td>L</td><td>임시/로컬 데이터 — 빈 상태로 배포</td></tr>
+              <tr><td>G</td><td>커스터마이징 — SAP 업데이트 보호, 신규 행 추가만</td></tr>
+              <tr><td>E</td><td>컨트롤 테이블 — SAP·고객 키 영역 분리</td></tr>
+              <tr><td>S</td><td>시스템 테이블 — SAP만 편집</td></tr>
+              <tr><td>W</td><td>시스템 테이블 — 내용이 TR로 이관</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div popover id="m05-db-info" class="sap-popover info">
+          <h4>Data Browser/Table View Editing — SE16 등에서 데이터 표시/편집 허용 범위</h4>
+          <table>
+            <thead><tr><th>코드</th><th>의미</th></tr></thead>
+            <tbody>
+              <tr><td>(기본)</td><td>제한적 표시/유지보수 허용</td></tr>
+              <tr><td>D</td><td>표시만 허용 (편집 불가)</td></tr>
+              <tr><td>N</td><td>표시·유지보수 모두 불가</td></tr>
+              <tr><td>X</td><td>표시/유지보수 모두 허용</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div popover id="m05-msg-save" class="sap-popover ok"><h4>💾 저장 완료</h4>비활성 버전이 저장되었습니다. 아직 DB 서버에는 테이블이 없습니다(활성화 전).</div>
+        <div popover id="m05-msg-check" class="sap-popover ok"><h4>✓ 구문 검사 통과</h4>Key 위치·타입에 이상이 없습니다.</div>
+        <div popover id="m05-msg-activate" class="sap-popover err"><h4>▶ 활성화 실패</h4>아직 <strong>Technical Settings(저장특성·크기)</strong>를 설정하지 않았습니다. <strong>③ Technical Settings</strong> 단계에서 설정한 뒤 <strong>④ Activate</strong>에서 다시 시도하세요.</div>
       </div>
-      <div class="sap-field-row">
-        <label>Normal Fields</label>
-        <input type="text" class="sap-input sap-input-medium" id="m05-fields" value="CUSTOMER_ID, ORDER_DATE, STATUS" maxlength="100">
+
+      <div class="event-tab-panel" id="m05o-3">
+        <div class="sap-gui-title-bar">Dictionary: Maintain Technical Settings — ZT00_TEST001</div>
+        <div class="sap-selection-screen">
+          <div class="sap-field-row row-wide"><label>Data Class (저장특성)</label><input type="text" class="sap-input sap-input-wide" value="APPL0 — Master data (마스터 데이터)" readonly></div>
+          <div class="sap-field-row"><label>Size Category (크기)</label><input type="text" class="sap-input sap-input-medium" value="0" readonly></div>
+        </div>
+        <div class="lesson-callout">
+          <div class="lesson-callout-icon">⚙️</div>
+          <div class="lesson-callout-content">
+            <h4>지금은 활성화에 필요한 두 가지만</h4>
+            <ul>
+              <li><strong>Data Class(저장특성)</strong> = 데이터의 성격. 연습에선 <strong>마스터 데이터(APPL0)</strong>로 둡니다.</li>
+              <li><strong>Size Category(크기)</strong> = 예상 데이터 양 등급. 연습용 소량이므로 <strong>0</strong>으로 둡니다.</li>
+            </ul>
+            <p><strong>버퍼링(Buffering)</strong> 등 나머지 옵션은 <strong>다음 Lesson(M06)</strong>에서 자세히 다룹니다. 지금은 활성화에 필요한 이 둘만 채우면 됩니다.</p>
+          </div>
+        </div>
       </div>
-      <div class="sap-field-row">
-        <label>Technical Settings</label>
-        <input type="text" class="sap-input sap-input-medium" id="m05-tech" value="APPL0 / Size 0 / No buffering" maxlength="80">
+
+      <div class="event-tab-panel" id="m05o-4">
+        <div class="sap-toolbar">
+          <button type="button" class="sap-toolbar-btn" popovertarget="m05-msg-save2">💾 Save</button>
+          <button type="button" class="sap-toolbar-btn" popovertarget="m05-msg-check2">✓ Check</button>
+          <button type="button" class="sap-toolbar-btn" popovertarget="m05-msg-activate2">▶ Activate</button>
+        </div>
+        <div class="sap-gui-title-bar">Dictionary: Change Table — ZT00_TEST001</div>
+        <p class="viz-note">이제 Technical Settings까지 마쳤으니 <strong>Activate</strong>가 성공합니다. (▶ Activate를 눌러 확인해 보세요.)</p>
+        <div popover id="m05-msg-save2" class="sap-popover ok"><h4>💾 저장 완료</h4>비활성 버전이 저장되었습니다.</div>
+        <div popover id="m05-msg-check2" class="sap-popover ok"><h4>✓ 구문 검사 통과</h4>이상 없음.</div>
+        <div popover id="m05-msg-activate2" class="sap-popover ok"><h4>▶ 활성화 성공! 🎉</h4>DB 서버에 <code>ZT00_TEST001</code> 테이블이 실제로 생성되었습니다. 이제 레코드 <strong>CRUD(생성·조회·수정·삭제)</strong>가 가능합니다.</div>
+        <div class="lesson-callout tip">
+          <div class="lesson-callout-icon">✅</div>
+          <div class="lesson-callout-content">
+            <h4>활성화 성공 = 진짜 테이블 탄생</h4>
+            <p>활성화가 끝나면 같은 이름의 실제 DB 테이블이 생겨 레코드를 CRUD할 수 있습니다. 저장(Save)만으로는 아직 만들어지지 않는다는 점을 꼭 기억하세요.</p>
+          </div>
+        </div>
       </div>
-      <button class="sap-btn-execute" type="button">검사 후 활성화 (Ctrl+F3)</button>
+
     </div>
-    <div class="sap-result-log">
-      <div class="sap-log-placeholder">버튼을 누르면 key 검사, client field 확인, 중복 key 오류 예시가 출력됩니다.</div>
+  </div>
+  <div class="viz-visual">
+    <p class="viz-visual-title">테이블 설계에서 가장 흔한 두 실수</p>
+    <div class="viz-compare">
+      <div class="viz-compare-before">
+        <span class="viz-compare-label">❌ 안티패턴</span>
+        <div class="viz-compare-body">
+          <ul>
+            <li><strong>MANDT 누락:</strong> 첫 필드에 <code>MANDT</code>가 없으면 client-independent가 되어 개발·테스트·운영 데이터가 한 저장소에 뒤섞입니다.</li>
+            <li><strong>Key 비연속 배치:</strong> <code>MANDT(Key) → ZNAME(일반) → ZID(Key)</code>처럼 key 사이에 일반 필드를 끼우면 활성화 시 “Key fields must be at the beginning” 오류가 납니다.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="viz-compare-after">
+        <span class="viz-compare-label">✅ 올바른 설계</span>
+        <div class="viz-compare-body">
+          <ul>
+            <li>1번 필드 = <code>MANDT</code> (Data Element도 <code>MANDT</code>, Key 체크).</li>
+            <li>Key는 <code>MANDT → ZID</code>처럼 <strong>맨 앞에 연속</strong> 배치한 뒤 일반 필드를 둡니다.</li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <template class="sandbox-config">
-{
-  "fields": {
-    "table": "#m05-table",
-    "keys": "#m05-keys",
-    "fields": "#m05-fields",
-    "tech": "#m05-tech"
-  },
-  "steps": [
-    { "label": "SE11", "type": "event", "text": "Database Table {table} 생성 화면을 엽니다." },
-    { "label": "Fields", "type": "info", "text": "Key Fields={keys}; Normal Fields={fields}" },
-    { "label": "Technical Settings", "type": "info", "text": "{tech} 설정을 입력했습니다." },
-    { "label": "Save", "type": "info", "text": "{table}을 저장했습니다. 활성화 전에는 운영 기준 객체가 아닙니다." }
-  ],
-  "validations": [
-    { "field": "table", "test": "required", "label": "Name Check", "text": "테이블 이름이 비어 있습니다.", "modal": "테이블 이름을 입력하세요." },
-    { "field": "table", "test": "regex", "pattern": "^(Z|Y)[A-Z0-9_]{3,29}$", "label": "Name Check", "text": "{table}은 고객 네임스페이스 이름 규칙에 맞지 않습니다.", "modal": "테이블 이름은 Z 또는 Y로 시작하고 대문자·숫자·언더스코어를 사용하세요." },
-    { "field": "keys", "test": "regex", "pattern": "MANDT", "label": "Client Check", "text": "Key Fields에 MANDT가 없습니다.", "modal": "초급 업무 테이블은 보통 MANDT를 첫 번째 key로 둡니다." },
-    { "field": "fields", "test": "required", "label": "Field Check", "text": "일반 필드가 비어 있습니다.", "modal": "저장할 업무 필드를 최소 하나 입력하세요." },
-    { "field": "tech", "test": "required", "label": "Technical Settings", "text": "Technical Settings가 비어 있습니다.", "modal": "활성화 전 Technical Settings를 확인하세요." }
-  ],
-  "successSteps": [
-    { "label": "Check", "type": "event", "text": "Key field가 앞에 모였고 MANDT client field가 포함되어 있습니다." },
-    { "label": "Activate", "type": "event", "text": "{table}이 활성화되어 ABAP SQL이 접근할 수 있는 Transparent Table이 됩니다." }
-  ],
-  "result": {
-    "label": "Preview",
-    "type": "info",
-    "text": "Transparent Table 활성화 후 예상 동작",
-    "columns": [
-      { "key": "case", "head": "상황" },
-      { "key": "result", "head": "결과" },
-      { "key": "why", "head": "이유" }
-    ],
-    "rows": [
-      { "case": "INSERT {keys}=100/0001", "result": "성공", "why": "처음 들어오는 key 조합입니다." },
-      { "case": "INSERT {keys}=100/0001 again", "result": "오류", "why": "같은 primary key 조합은 중복될 수 없습니다." },
-      { "case": "SELECT FROM {table}", "result": "조회 가능", "why": "Structure가 아니라 실제 DB 저장 테이블입니다." }
-    ]
-  }
-}
-    </template>
+    <p class="viz-note">규칙: Key 필드는 반드시 테이블 <strong>시작 부분에 연속</strong>으로 모여 있어야 합니다 (중간에 일반 필드를 끼우면 활성화 시 오류).</p>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>6. Technical Settings까지 이어진다</h2>
+  <h2>7. Technical Settings까지 이어진다</h2>
   <p>
     Table Field와 Key를 채웠다고 끝이 아닙니다. Transparent Table은 실제 DB 저장 대상이므로 <span class="glossary-term" data-glossary="TechnicalSettings">Technical Settings</span>가 중요합니다. M06에서 자세히 다루지만, 지금은 연결만 잡아둡니다.
   </p>
   <div class="viz-visual">
     <p class="viz-visual-title">Transparent Table 생성 흐름</p>
-    <div class="viz-flow">
-      <div class="viz-flow-step"><strong>1. Table 생성</strong><span>이름, 설명, delivery 성격을 정한다.</span></div>
-      <div class="viz-flow-step"><strong>2. Field List</strong><span>MANDT, key field, 일반 field를 배치한다.</span></div>
-      <div class="viz-flow-step"><strong>3. 타입 지정</strong><span>Data Element를 우선 검토하고 필요하면 직접 타입을 쓴다.</span></div>
-      <div class="viz-flow-step"><strong>4. Technical Settings</strong><span>저장 특성, 크기, 버퍼링 같은 DB 운영 힌트를 확인한다.</span></div>
-      <div class="viz-flow-step"><strong>5. 활성화</strong><span><span class="glossary-term" data-glossary="Activation">활성화</span> 후 ABAP SQL 접근 대상이 된다.</span></div>
+    <div class="mermaid">
+%%{init: {'flowchart': {'rankSpacing': 22, 'nodeSpacing': 50}}}%%
+flowchart TD
+  Start([테이블 만들기 시작])
+  N1("<div class='node-content-wrapper'>
+    <div class='node-badge badge-p1'>1단계 · 입력</div><br><b>테이블 생성</b><br>
+    <div class='node-desc'>테이블 이름만 입력 (ZT##_TEST###)</div>
+  </div>")
+  N2("<div class='node-content-wrapper'>
+    <div class='node-badge badge-p2'>2단계 · 정의</div><br><b>생성 화면 (Change Table)</b><br>
+    <div class='node-desc'>Short Description + 탭스트립(Delivery·Fields·Input·Currency) · 저장은 되지만 DB엔 아직 미생성</div>
+  </div>")
+  N3("<div class='node-content-wrapper'>
+    <div class='node-badge badge-p3'>3단계 · 설정</div><br><b>Technical Settings</b><br>
+    <div class='node-desc'>저장특성 · 크기 · 버퍼링</div>
+  </div>")
+  N4["<div class='node-content-wrapper'>
+    <div class='node-badge badge-screen'>4단계 · 검사</div><br><b>Activate 시도</b><br>
+    <div class='node-desc'>Check + Activate (구문 · 키 검사)</div>
+  </div>"]
+  N5("<div class='node-content-wrapper'>
+    <div class='node-badge badge-p6'>5단계 · 완료</div><br><b>DB 서버에 실제 Table 생성</b><br>
+    <div class='node-desc'>이제 Record CRUD 가능</div>
+  </div>")
+
+  Start --> N1
+  N1 --> N2
+  N2 --> N3
+  N3 --> N4
+  N4 -->|"성공"| N5
+  N4 -.->|"실패: 2번으로 돌아가 점검"| N2
+
+  style Start fill:#f1f5f9,stroke:#64748b,color:#0f172a
+  style N1 fill:#ffffff,stroke:#fb7185,color:#1e293b
+  style N2 fill:#ffffff,stroke:#eab308,color:#1e293b
+  style N3 fill:#ffffff,stroke:#a855f7,color:#1e293b
+  style N4 fill:#f0f9ff,stroke:#0284c7,stroke-width:4px,color:#0f172a
+  style N5 fill:#ffffff,stroke:#22c55e,color:#1e293b
     </div>
+    <p class="viz-note">저장만으로는 DB 테이블이 생기지 않습니다. <span class="glossary-term" data-glossary="Activation">활성화</span>가 성공해야 런타임 오브젝트가 만들어지고 ABAP SQL이 접근할 수 있습니다. 구문 오류가 있으면 활성화가 실패해 다시 정의로 돌아갑니다.</p>
   </div>
   <details class="foldable">
     <summary>저장만 하면 DB 테이블이 생길까?</summary>
@@ -287,7 +514,7 @@
 </section>
 
 <section class="lesson-section">
-  <h2>7. 공식 문서로 더 확인하기</h2>
+  <h2>8. 공식 문서로 더 확인하기</h2>
   <p>
     이번 Lesson은 NotebookLM 노트와 SAP 공식 자료를 교차 확인해 재구성했습니다. Field List와 Key Field 규칙은 공식 문서 기준으로 확인하세요.
   </p>
@@ -300,7 +527,7 @@
 </section>
 
 <section class="lesson-section">
-  <h2>8. 확인 퀴즈</h2>
+  <h2>9. 확인 퀴즈</h2>
   <ol>
     <li>Structure와 Transparent Table의 가장 큰 차이는 무엇인가요?</li>
     <li>Primary Key를 이루는 필드는 무엇이라고 부르나요?</li>
@@ -321,9 +548,9 @@
 </section>
 
 <section class="lesson-section">
-  <h2>9. 한눈에 정리</h2>
+  <h2>10. 한눈에 정리</h2>
   <div class="recap-grid">
-    <div class="recap-card"><strong>Transparent Table</strong>DDIC에서 정의하고 DB에 데이터를 영구 저장하는 테이블입니다.</div>
+    <div class="recap-card"><strong>Transparent Table</strong>DDIC에 두는 <strong>테이블 정의(설계도)</strong>. 활성화하면 동명 DB Table이 생기고 데이터는 그 DB Table에 저장됩니다. 타입으로 쓰면 구조(한 줄) 변수.</div>
     <div class="recap-card"><strong>Field List</strong>Table Field는 Data Element를 우선 참조해 의미와 기술 속성을 함께 받습니다.</div>
     <div class="recap-card"><strong>Key Field</strong>row를 유일하게 찾는 기준이며 field list 시작 부분에 모여야 합니다.</div>
     <div class="recap-card"><strong>MANDT</strong>Client-dependent 테이블의 칸막이 역할을 하는 client field입니다.</div>

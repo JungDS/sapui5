@@ -1,4 +1,4 @@
-// ABAP Curriculum Lesson Viewer | 최종수정 2026-06-17 00:31 KST | v1.4
+// ABAP Curriculum Lesson Viewer | 최종수정 2026-06-18 01:29 KST | v1.4
 //
 // Reads `?lesson=THEORY-01-M01` from the URL, loads the curriculum JSON to find metadata,
 // and fetches the actual lesson content from `lesson-content/THEORY-01-M01.html`.
@@ -391,7 +391,7 @@
       var isNew = lessons.length === 0 || lessons[0] === lessonId;
       tcodes.push({
         code: entry.tcode || key,
-        desc: firstSentence(entry.desc),
+        desc: String(entry.desc == null ? "" : entry.desc),
         isNew: isNew
       });
     });
@@ -661,17 +661,24 @@
     debuggers.forEach(function (dbg) {
       var btnStart = dbg.querySelector('.btn-dbg-start');
       var btnNext = dbg.querySelector('.btn-dbg-next');
-      var lines = dbg.querySelectorAll('.db-line');
+      var lines = dbg.querySelectorAll('.db-line, .editor-line[data-line]');
       var monitorVals = {
         event: dbg.querySelector('.val-event'),
         subrc: dbg.querySelector('.val-subrc'),
         tabix: dbg.querySelector('.val-tabix')
       };
       var consoleOut = dbg.querySelector('.monitor-console-output');
-      
+      var monitorCard = dbg.querySelector('.monitor-state-card');
+
+      // 데이터 주도형 디버거: 레슨에 <template class="debugger-config">가 있으면 그 steps를 사용한다.
+      // 없으면(기존 레슨) 아래 하드코딩 이벤트 데모로 폴백한다.
+      var cfgEl = dbg.querySelector('.debugger-config');
+      var cfg = null;
+      if (cfgEl) { try { cfg = JSON.parse(cfgEl.content ? cfgEl.content.textContent : cfgEl.textContent); } catch (e) { cfg = null; } }
+
       var currentStep = -1;
-      
-      var steps = [
+
+      var steps = (cfg && cfg.steps && cfg.steps.length) ? cfg.steps : [
         { line: 1, event: 'LOAD-OF-PROGRAM', subrc: '0', tabix: '0', console: '[LOAD-OF-PROGRAM] 프로그램 로드 완료.' },
         { line: 9, event: 'INITIALIZATION', subrc: '0', tabix: '0', console: '[LOAD-OF-PROGRAM] 프로그램 로드 완료.\n\n-> INITIALIZATION 이벤트 블록 점프.' },
         { line: 10, event: 'INITIALIZATION', subrc: '0', tabix: '0', console: '[LOAD-OF-PROGRAM] 프로그램 로드 완료.\n[1] INITIALIZATION 실행 (초기화)' },
@@ -710,12 +717,19 @@
         var step = steps[currentStep];
         if (!step) return;
         
-        var activeLine = dbg.querySelector('.db-line[data-line="' + step.line + '"]');
+        var activeLine = dbg.querySelector('.db-line[data-line="' + step.line + '"], .editor-line[data-line="' + step.line + '"]');
         if (activeLine) activeLine.classList.add('active');
         
-        if (monitorVals.event) monitorVals.event.textContent = step.event;
-        if (monitorVals.subrc) monitorVals.subrc.textContent = step.subrc;
-        if (monitorVals.tabix) monitorVals.tabix.textContent = step.tabix;
+        if (cfg && step.vars && monitorCard) {
+          monitorCard.innerHTML = Object.keys(step.vars).map(function (k) {
+            return '<div class="monitor-val-row"><span class="monitor-val-label">' + escapeHtml(k) +
+              '</span><span class="monitor-val-value">' + escapeHtml(String(step.vars[k])) + '</span></div>';
+          }).join('');
+        } else {
+          if (monitorVals.event) monitorVals.event.textContent = step.event;
+          if (monitorVals.subrc) monitorVals.subrc.textContent = step.subrc;
+          if (monitorVals.tabix) monitorVals.tabix.textContent = step.tabix;
+        }
         if (consoleOut) {
           consoleOut.textContent = '=== 디버거 추적 중 ===\n' + step.console;
           consoleOut.scrollTop = consoleOut.scrollHeight;
@@ -946,25 +960,34 @@
   }
 
   // 6. 점진적 빌드업 탭 제어 함수 (Incremental Build-Up Tabs)
+  //    컨테이너 단위로 스코프하여 한 페이지에 여러 탭 그룹/중첩 탭스트립이 독립 동작한다.
   function initEventTabs(scope) {
-    var tabButtons = scope.querySelectorAll('.event-tab-buttons .tab-btn');
-    var tabPanels = scope.querySelectorAll('.tabs-content .event-tab-panel');
+    var containers = scope.querySelectorAll('.event-tabs-container');
+    containers.forEach(function (container) {
+      var btnBar = container.querySelector(':scope > .event-tab-buttons');
+      var content = container.querySelector(':scope > .tabs-content');
+      if (!btnBar || !content) return;
+      var tabButtons = btnBar.querySelectorAll(':scope > .tab-btn');
+      var tabPanels = content.querySelectorAll(':scope > .event-tab-panel');
 
-    tabButtons.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var targetId = btn.getAttribute('data-tab');
+      tabButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var targetId = btn.getAttribute('data-tab');
+          tabButtons.forEach(function (b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          tabPanels.forEach(function (panel) {
+            panel.classList.toggle('active', panel.getAttribute('id') === targetId);
+          });
+        });
+      });
 
-        // 모든 버튼 비활성화 및 클릭된 버튼 활성화
-        tabButtons.forEach(function (b) { b.classList.remove('active'); });
-        btn.classList.add('active');
-
-        // 모든 패널 비활성화 및 타겟 패널 활성화
-        tabPanels.forEach(function (panel) {
-          if (panel.getAttribute('id') === targetId) {
-            panel.classList.add('active');
-          } else {
-            panel.classList.remove('active');
-          }
+      // [data-goto-tab]: 패널 안의 버튼으로 같은 컨테이너의 다른 탭으로 이동 (예: Create → 다음 단계)
+      container.querySelectorAll('[data-goto-tab]').forEach(function (link) {
+        if (link.closest('.event-tabs-container') !== container) return;
+        link.addEventListener('click', function () {
+          var goId = link.getAttribute('data-goto-tab');
+          var target = btnBar.querySelector(':scope > .tab-btn[data-tab="' + goId + '"]');
+          if (target) target.click();
         });
       });
     });

@@ -1,4 +1,4 @@
-/* ABAP Lesson Viewer UI | 최종수정 2026-06-16 19:05 KST | v1.3 */
+/* ABAP Lesson Viewer UI | 최종수정 2026-06-18 01:29 KST | v1.3 */
 @import url('https://cdn.jsdelivr.net/gh/joungkyun/font-d2coding/d2coding.css');
 
 .lesson-loading {
@@ -300,8 +300,9 @@
   border-radius: 10px;
   background: #fff;
   border: 1px solid #e9ecef;
-  min-width: 200px;
-  flex: 1 1 220px;
+  min-width: 220px;
+  max-width: 360px;
+  flex: 0 1 360px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -346,8 +347,13 @@
 
 .lesson-tcode-chip-desc {
   font-size: 0.85rem;
-  line-height: 1.5;
+  line-height: 1.55;
   color: #5a636b;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
 }
 
 @media (max-width: 600px) {
@@ -928,6 +934,18 @@
 
 .foldable > :not(summary) {
   padding: 0 1rem 1rem;
+}
+
+/* 펼침 답안의 리스트는 번호/불릿이 왼쪽 테두리에 붙지 않도록 들여쓰기 확보 */
+.foldable > ol,
+.foldable > ul {
+  padding-left: 2.6rem;
+}
+
+.foldable > ol > li,
+.foldable > ul > li {
+  margin-bottom: 0.4rem;
+  line-height: 1.6;
 }
 
 .link-list {
@@ -1610,6 +1628,33 @@
   transform: translateY(-50%) scale(1.1);
 }
 
+/* === 에디터 외형 + 행 추적 디버거 (is-editor-style) ===
+   기존 abap-editor-mockup 외형(네이비 헤더·맥버튼·라인번호·문법색)에
+   step-debugger의 현재 실행 행 하이라이트를 결합한 학습 수단. */
+.interactive-debugger.is-editor-style .debugger-code-panel {
+  padding: 0 !important;
+  background: transparent;
+  border-right: none;
+}
+.interactive-debugger.is-editor-style .abap-editor-mockup {
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  height: 100%;
+}
+.is-editor-style .editor-line {
+  transition: background 0.15s ease;
+}
+.is-editor-style .editor-line.active .editor-line-content {
+  background: #fff7d6;
+  box-shadow: inset 3px 0 0 #eab308;
+}
+.is-editor-style .editor-line.active .editor-line-number {
+  background: #fde68a;
+  color: #854d0e;
+  font-weight: 700;
+}
+
 .debugger-monitor-panel {
   display: flex;
   flex-direction: column;
@@ -1823,6 +1868,53 @@
   border-color: #2563eb;
   box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
 }
+
+/* === SE11 시뮬레이터 보강: 와이드 콤보 · 정보 팝오버 · 툴바 · Fields 편집/자동 구분 === */
+.sap-input-wide { width: 540px; max-width: 100%; }
+.sap-field-row.row-wide { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.sap-field-row.row-wide > label,
+.sap-field-row.row-wide > .sap-info-label { flex: 0 0 auto; }
+
+.sap-info-label {
+  background: none; border: none; padding: 0; cursor: pointer;
+  font-size: 0.85rem; font-weight: bold; color: #1d4ed8; text-align: left;
+  text-decoration: underline dotted; text-underline-offset: 3px;
+}
+.sap-info-label .info-i { font-size: 0.8rem; opacity: 0.85; }
+
+.sap-popover {
+  margin: auto; max-width: 560px; padding: 16px 18px;
+  border: 1px solid #cbd5e1; border-radius: 10px;
+  background: #ffffff; color: #1e293b; font-size: 0.85rem; line-height: 1.6;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+}
+.sap-popover::backdrop { background: rgba(15, 23, 42, 0.35); }
+.sap-popover h4 { margin: 0 0 8px; font-size: 0.95rem; }
+.sap-popover.ok { border-left: 4px solid #16a34a; }
+.sap-popover.err { border-left: 4px solid #dc2626; }
+.sap-popover.info { border-left: 4px solid #2563eb; }
+.sap-popover table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+.sap-popover th, .sap-popover td { border: 1px solid #e2e8f0; padding: 4px 8px; text-align: left; vertical-align: top; }
+
+.sap-toolbar {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  padding: 8px 12px; background: #eef2f7;
+  border: 1px solid #cbd5e1; border-bottom: none; border-radius: 6px 6px 0 0;
+}
+.sap-toolbar-btn {
+  background: #ffffff; border: 1px solid #94a3b8; border-radius: 4px;
+  padding: 6px 14px; font-size: 0.83rem; font-weight: bold; color: #1e293b; cursor: pointer;
+}
+.sap-toolbar-btn:hover { background: #f1f5f9; }
+.sap-toolbar .toolbar-goto { margin-left: auto; }
+
+.fields-grid .cell-edit { background: #ffffff; }
+.fields-grid .cell-auto { background: #f1f5f9; color: #64748b; }
+.fields-grid th.col-auto { color: #64748b; font-weight: normal; }
+.fields-legend { display: flex; gap: 18px; font-size: 0.8rem; margin: 8px 0; align-items: center; color: #475569; }
+.fields-legend .swatch { display: inline-block; width: 14px; height: 14px; border: 1px solid #cbd5e1; border-radius: 3px; vertical-align: middle; margin-right: 5px; }
+.fields-legend .swatch.edit { background: #ffffff; }
+.fields-legend .swatch.auto { background: #f1f5f9; }
 
 .sap-screen-block {
   margin: 0;
