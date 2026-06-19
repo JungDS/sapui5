@@ -1,6 +1,6 @@
 # plans/ — 진행 계획 색인
 
-> 📅 **최종수정: 2026-06-19 09:17 KST**
+> 📅 **최종수정: 2026-06-19 23:34 KST**
 > 🎯 **목적:** 모든 작업 계획을 한 줄로 색인. git 고고학 없이 활성/완료 플랜 탐색.
 > 📖 **읽을 때:** 작업을 시작/종료할 때. 진행 중인 게 있는지 확인할 때.
 > ⚡ **TL;DR:** 새 작업 = `_TEMPLATE/`를 `YYYYMM/MMDD_HHMM_<slug>/`로 복사해 시작 → 아래 표에 한 줄 추가. 규칙 → [04 R10](../04_CONVENTIONS.md).
@@ -14,6 +14,23 @@
 
 | status | 경로 | 목표 |
 |---|---|---|
+| done | [202606/0619_1520_theory-04-m01/](202606/0619_1520_theory-04-m01/) | THEORY-04-M01 Foreign Key와 Check Table DoD 기준 v3 리빌딩 착수 |
+| done | [202606/0619_1514_theory-03-m04/](202606/0619_1514_theory-03-m04/) | THEORY-03-M04 Selection Screen Block 기초 맛보기 DoD 기준 v3 리빌딩 착수 |
+| done | [202606/0619_1507_theory-03-m03/](202606/0619_1507_theory-03-m03/) | THEORY-03-M03 PARAMETER 입력값을 WRITE로 출력 DoD 기준 v3 리빌딩 착수 |
+| done | [202606/0619_1453_theory-03-m02/](202606/0619_1453_theory-03-m02/) | THEORY-03-M02 DEFAULT / OBLIGATORY 사용 DoD 기준 v3 리빌딩 착수 |
+| done | [202606/0619_1256_theory-03-m01/](202606/0619_1256_theory-03-m01/) | THEORY-03-M01 PARAMETERS 기본 선언 DoD 기준 v3 리빌딩 착수 |
+| done | [202606/0619_1250_theory-02-m06/](202606/0619_1250_theory-02-m06/) | THEORY-02-M06 문자열, 날짜, 시스템 필드 기초 DoD 기준 v3 리빌딩 착수 |
+| done | [202606/0619_1243_theory-02-m05/](202606/0619_1243_theory-02-m05/) | THEORY-02-M05 DO / WHILE 반복 처리 DoD 기준 v3 리빌딩 착수 |
+| done | [202606/0619_1236_theory-02-m04/](202606/0619_1236_theory-02-m04/) | THEORY-02-M04 IF / CASE 조건 분기 DoD 기준 v3 리빌딩 착수 |
+| done | [202606/0619_1230_theory-02-m03/](202606/0619_1230_theory-02-m03/) | THEORY-02-M03 WRITE 기본 출력 DoD 기준 v3 리빌딩 착수 |
+| done | [202606/0619_1215_theory-02-m02/](202606/0619_1215_theory-02-m02/) | THEORY-02-M02 DATA / CONSTANTS / TYPES 선언 DoD 기준 v3 리빌딩 착수 |
+| done | [202606/0619_1207_theory-02-m01/](202606/0619_1207_theory-02-m01/) | THEORY-02-M01 ABAP Program 기본 구조와 주석 DoD 기준 v3 리빌딩 착수 |
+| done | [202606/0619_1202_theory-01-m06/](202606/0619_1202_theory-01-m06/) | THEORY-01-M06 Technical Settings와 데이터 확인 기초 DoD 기준 v3 리빌딩 착수 |
+| done | [202606/0619_1158_theory-01-m05/](202606/0619_1158_theory-01-m05/) | THEORY-01-M05 Transparent Table 기본 생성 DoD 기준 v3 리빌딩 착수 |
+| done | [202606/0619_1154_theory-01-m04/](202606/0619_1154_theory-01-m04/) | THEORY-01-M04 Structure 기본 생성 DoD 기준 v3 리빌딩 착수 |
+| done | [202606/0619_1147_theory-01-m03/](202606/0619_1147_theory-01-m03/) | THEORY-01-M03 Data Element 기본 설계 DoD 기준 v3 리빌딩 착수 |
+| done | [202606/0619_1124_track1-pipeline-automation/](202606/0619_1124_track1-pipeline-automation/) | Track 1 전체 Lesson 반복 완료 파이프라인 자동화 |
+| done | [202606/0619_1057_theory-01-m02/](202606/0619_1057_theory-01-m02/) | THEORY-01-M02 Domain 기본 설계 DoD 기준 v3 리빌딩 착수 |
 | done | [202606/0618_0004_theory-01-m01/](202606/0618_0004_theory-01-m01/) | THEORY-01-M01 리셋 이후 DoD 재검토·보강 |
 | done | [202606/0617_0138_theory-01-m06/](202606/0617_0138_theory-01-m06/) | THEORY-01-M06 상향 DoD 기준 v3 재빌딩 |
 | done | [202606/0617_0129_theory-01-m05/](202606/0617_0129_theory-01-m05/) | THEORY-01-M05 상향 DoD 기준 v3 재빌딩 |
