@@ -1,6 +1,6 @@
 # 06. LEARNING METHODS — 학습수단·샘플 SSOT
 
-> 📅 **최종수정: 2026-06-20 02:56 KST**
+> 📅 **최종수정: 2026-06-20 03:08 KST**
 > 🎯 **목적:** Lesson UI, 실습 방식, 샘플 선택, v4 정책을 이 문서 하나로 판단한다.
 > 📖 **읽을 때:** Lesson 콘텐츠 흐름을 설계하거나 샘플을 고를 때.
 > ⚡ **TL;DR:** Academy 샘플 우선, v4는 선별 표준화, v3는 fallback. 코드가 나오면 페이지 안 조작형 시뮬레이션이 필요하다.
@@ -180,8 +180,13 @@ v4는 만드는 편이 좋다. 단, 전체 복사가 아니라 반복 사용될 
 | 운영 이식 | 공통 `abap-lesson-viewer.css/js`로 분리한다. |
 | 검증 | 샘플 카탈로그, 대표 Lesson 1개, 모바일 폭에서 콘솔/인터랙션을 확인한다. |
 
-## 공통 시각화 클래스
+## 운영 fragment 공통 클래스
+
+아래 클래스는 Academy 샘플 카탈로그가 아니라 현재 `assets/abap-lesson-viewer.css/js`에 이미 정의된 운영 Lesson fragment용 공통 클래스다. Academy 샘플을 이식할 때 같은 표현이 이미 있으면 재사용하고, 없으면 샘플의 구조·상태 전이를 공통 CSS/JS로 정리한다.
 
 `viz-state-grid`, `viz-state`, `viz-table`, `viz-relation`, `viz-concept`, `viz-flow`, `viz-flow-step`, `viz-compare-before`, `viz-compare-after`, `viz-badge`, `viz-current-row`, `viz-svg`, `abap-editor-mockup`, `shiki-copy-wrapper`, `lesson-callout`, `<details><summary>`.
 
-운영 Lesson 적용 시 최종 기준은 `reference/design_variants.json`이다.
+## 디자인 기준
+
+Academy 샘플은 자체 디자인 톤과 상호작용 패턴을 우선 참고한다.
+`sample/learning-methods-v3`를 사용할 때만 `reference/design_variants.json`을 참고해 적용할 디자인을 결정한다.
