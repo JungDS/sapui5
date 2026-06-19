@@ -1,6 +1,6 @@
 # 06. LEARNING METHODS — 학습수단·샘플 SSOT
 
-> 📅 **최종수정: 2026-06-20 03:30 KST**
+> 📅 **최종수정: 2026-06-20 03:35 KST**
 > 🎯 **목적:** Lesson UI, 실습 방식, 샘플 선택, v4 정책을 이 문서 하나로 판단한다.
 > 📖 **읽을 때:** Lesson 콘텐츠 흐름을 설계하거나 샘플을 고를 때.
 > ⚡ **TL;DR:** 검증된 v4가 있으면 v4 우선, 없으면 Academy 샘플을 탐색하고, v3는 fallback. 코드가 나오면 페이지 안 조작형 시뮬레이션이 필요하다.
@@ -11,7 +11,7 @@
 2. `C:\ui5\study\sap-dev-academy\sample` — v4에 적절한 패턴이 없거나 새 패턴을 탐색할 때
 3. `sample/learning-methods-v3` — v4/Academy에 적절한 항목이 없을 때의 fallback
 
-`sample/learning-methods`와 `sample/learning-methods-v2`는 archive/fallback 성격으로만 본다. 외부 샘플 전체 복사는 하지 않는다. v4는 Academy보다 낮은 후보가 아니라 Academy에서 선별·검증되어 운영 이식 기준이 된 표준 패턴으로 본다.
+`sample/learning-methods`와 `sample/learning-methods-v2`는 archive/fallback 성격으로만 본다. 외부 샘플 전체 복사는 하지 않는다. v4는 Academy보다 낮은 후보가 아니라 Academy, v3 fallback, 운영 이식 경험 중 반복 가치가 검증된 패턴을 모은 표준 후보로 본다.
 
 ## Academy 샘플 사용 절차
 
@@ -24,7 +24,7 @@
 ## 샘플 선택 기록과 재사용 색인
 
 - 개별 Lesson의 선택 근거는 plan `RESULTS.md`나 완료 보고에 `선택 샘플 경로 + 선택 이유 + 제외한 주요 후보` 정도만 짧게 남긴다.
-- 재사용 추적이 필요한 Academy/v4 샘플·패턴은 `.project-plans/SAMPLE_USAGE_INDEX.md`에도 1줄 갱신한다.
+- 재사용 추적이 필요한 Academy/v3/v4 샘플·패턴은 `.project-plans/SAMPLE_USAGE_INDEX.md`에도 1줄 갱신한다.
 - v4 또는 공통 패턴 승격 판단은 여러 plan 폴더를 뒤져서 하지 않고, 위 색인의 `Sample / Pattern / Lessons / Count / Decision`만 보고 판단한다.
 - `Decision`은 `local`, `watch`, `consider-v4`, `common-candidate`, `promoted` 중 하나로 짧게 둔다.
 
@@ -194,7 +194,7 @@ Academy 샘플을 운영 Lesson으로 이식할 때 기존 공통 클래스/JS�
 
 ## v4 생성 기준
 
-v4는 만드는 편이 좋다. 단, 전체 복사가 아니라 반복 사용될 우수 샘플만 선별한다. 3개 이상 Lesson에서 재사용될 패턴이거나 공통 viewer에 없는 새 interaction type일 때 v4를 만든다. 이 판단은 `.project-plans/SAMPLE_USAGE_INDEX.md`의 `Count`와 `Decision`을 기준으로 한다. 단발 Lesson 전용이면 Academy/v3 구조를 바로 운영 공통 패턴으로 이식한다.
+v4는 만드는 편이 좋다. 단, 전체 복사가 아니라 Academy/v3 fallback/운영 구현에서 반복 사용 가치가 검증된 패턴만 선별한다. 3개 이상 Lesson에서 재사용될 패턴이거나 공통 viewer에 없는 새 interaction type일 때 v4를 만든다. 이 판단은 `.project-plans/SAMPLE_USAGE_INDEX.md`의 `Count`와 `Decision`을 기준으로 한다. 단발 Lesson 전용이면 원본 샘플 구조를 바로 운영 공통 패턴으로 이식한다.
 
 | 단계 | 기준 |
 |---|---|

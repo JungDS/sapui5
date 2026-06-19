@@ -1,6 +1,6 @@
 # 03. ARCHITECTURE — 폴더 역할 · 상대경로 · 셸 SSOT
 
-> 📅 **최종수정: 2026-06-20 03:30 KST**
+> 📅 **최종수정: 2026-06-20 03:35 KST**
 > 🎯 **목적:** 저장소 구조와 셸 동작 원리. "무엇이 어디에 있고, 어디에 두는가".
 > 📖 **읽을 때:** 파일 위치/경로/내비게이션이 헷갈릴 때, 새 파일을 만들기 전.
 > ⚡ **TL;DR:**
@@ -61,4 +61,4 @@
 - `abap-lesson-viewer.js/css` — **Lesson 단일 뷰어 엔진**. 브레드크럼·사이드바·Pager 동적 생성.
 - `abap-glossary.js/css` — 용어 툴팁. `data-glossary` 스캔 → `reference/abap_glossary.json` fetch, 호버 팝업 + 클릭 고정/복사. 구 `common.js`의 `data-term` 모달과 **별도 네임스페이스**([05 P9](05_PITFALLS.md)).
 - 커리큘럼 엔진(`abap-curriculum-*`)은 `reference/abap_curriculum_v5_4_20260605_000000.json`을 fetch. v5.4 이전 커리큘럼 파일은 archive 보존본이며 사용하지 않는다.
-- v3 디자인 선택 보조: `reference/design_variants.json`. Academy/v4 샘플 선택과 디자인 기준은 [06_LEARNING_METHODS.md](06_LEARNING_METHODS.md)를 따른다. 운영 Lesson에는 공통 CSS/JS로 이식하고, 샘플/v4 실험 단계에서는 빠른 검토를 위해 standalone 구조를 허용한다.
+- v3 디자인 선택 보조: `reference/design_variants.json`. v4/Academy 샘플 선택과 디자인 기준은 [06_LEARNING_METHODS.md](06_LEARNING_METHODS.md)를 따른다. 운영 Lesson에는 공통 CSS/JS로 이식하고, 샘플/v4 실험 단계에서는 빠른 검토를 위해 standalone 구조를 허용한다.

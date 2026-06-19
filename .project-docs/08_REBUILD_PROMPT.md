@@ -1,6 +1,6 @@
 # 08. REBUILD PROMPT — Chapter 리빌딩 발주문
 
-> 📅 **최종수정: 2026-06-20 02:28 KST**
+> 📅 **최종수정: 2026-06-20 03:35 KST**
 > 🎯 **목적:** 사람이 특정 Chapter 리빌딩을 AI에게 맡길 때 쓰는 짧은 복붙 프롬프트.
 > 📖 **읽을 때:** 새 AI에게 Track 1 Chapter 작업을 발주할 때.
 > ⚡ **TL;DR:** 대상 Chapter와 추가 지시만 채운다. 세부 규칙은 `01/02/04/06`에서 런타임 도출한다.
@@ -14,11 +14,12 @@
 추측하지 말고 프로젝트 SSOT 문서를 읽고 행동한다.
 
 ## 0. 부팅
-먼저 아래 문서를 읽는다.
-- .project-docs/00_INDEX.md
+먼저 아래 문서를 순서대로 읽는다.
 - .project-docs/01_AI_SYNC.md
 - .project-docs/02_PROGRESS.md
 - .project-docs/04_CONVENTIONS.md
+
+문서 위치나 읽기 범위가 헷갈리면 `.project-docs/00_INDEX.md`를 라우터로 확인한다.
 
 필요할 때만 추가로 읽는다.
 - 구조/경로: .project-docs/03_ARCHITECTURE.md

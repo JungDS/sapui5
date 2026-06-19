@@ -1,6 +1,6 @@
 # 04. CONVENTIONS — 파일 수정 규칙
 
-> 📅 **최종수정: 2026-06-20 02:28 KST**
+> 📅 **최종수정: 2026-06-20 03:35 KST**
 > 🎯 **목적:** 파일을 만들거나 고칠 때 반드시 지키는 규칙.
 > 📖 **읽을 때:** 실제 수정 직전.
 > ⚡ **TL;DR:** 타임스탬프, 운영 fragment 인라인 금지, 명시적 git add, 작업 중 `git pull/fetch` 금지.
@@ -50,7 +50,7 @@
 
 ## R6 샘플/실험 파일
 
-`sample/`과 `sample/learning-methods-v4` standalone 실험 파일은 빠른 검토를 위해 인라인 CSS/JS를 허용한다. 운영 Lesson으로 승격할 때만 R5를 적용해 공통 CSS/JS로 분리한다.
+`sample/`과 `sample/learning-methods-v4` standalone 실험 파일은 빠른 검토를 위해 인라인 CSS/JS를 허용한다. 외부 Academy 샘플(`C:\ui5\study\sap-dev-academy\sample`)은 참고 전용이며, 필요한 실험은 v4 또는 운영 공통 자산으로 옮겨 진행한다. 운영 Lesson으로 승격할 때만 R5를 적용해 공통 CSS/JS로 분리한다.
 
 ## R7 plans
 
