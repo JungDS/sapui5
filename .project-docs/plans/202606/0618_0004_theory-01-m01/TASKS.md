@@ -1,6 +1,6 @@
 # TASKS — THEORY-01-M01
 
-> 📅 **최종수정: 2026-06-18 01:29 KST**
+> 📅 **최종수정: 2026-06-19 09:17 KST**
 > 상태 플래그만. 산문 금지.
 
 - [x] claim (02_PROGRESS 🔄)
@@ -13,6 +13,6 @@
 - [x] 디자인 토큰 준수 (`reference/design_variants.json`)
 - [x] T-code 글로서리 used_in_lessons 확인
 - [x] 글로서리 패리티 (미정의 0건)
-- [ ] 검증 (콘솔 오류 0건 + 칩 바 + 인터랙션 동작)
-- [ ] 02_PROGRESS 완료 이동 + 챕터 표 갱신
-- [ ] commit + push
+- [x] 검증 (콘솔 오류 0건 + 칩 바 + 인터랙션 동작)
+- [x] 02_PROGRESS 완료 이동 + 챕터 표 갱신
+- [x] commit + push
