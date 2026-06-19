@@ -1,119 +1,239 @@
-<!-- THEORY-03-M01.html | 최종수정 2026-06-17 02:11 KST -->
-<!-- 2026-06-17 02:15 KST -->
+<!-- lesson-content/THEORY-03-M01.html | 최종수정 2026-06-19 23:33 KST -->
+
 <div class="lesson-callout tip">
-  <div class="callout-title">학습 목표</div>
-  <p><span class="glossary-term" data-glossary="PARAMETERSStatement">PARAMETERS</span>가 어떻게 내부 변수와 UI(화면 입력칸)를 동시에 만드는지 그 <strong>이중(Dual) 구조</strong>를 이해하고, 화면 이벤트에 따른 올바른 검증 위치를 익힙니다.</p>
+  <div class="lesson-callout-icon">🎯</div>
+  <div class="lesson-callout-content">
+    <h4>학습 목표</h4>
+    <p><span class="glossary-term" data-glossary="PARAMETERSStatement">PARAMETERS</span>가 내부 변수와 <span class="glossary-term" data-glossary="SelectionScreen">Selection Screen</span> 입력칸을 동시에 만드는 구조를 이해하고, 단일 값 입력은 <span class="glossary-term" data-glossary="ElementaryInput">Elementary Input</span>으로 처리한다는 기준을 익힙니다.</p>
+  </div>
 </div>
 
-<section id="s1" class="section">
-  <h2 id="s1-1">1. PARAMETERS의 마법: 변수와 화면의 동시 생성</h2>
-  <p>ABAP 초보자들이 리포트 프로그램(Executable Program)을 작성할 때 가장 신기해하는 부분은 화면을 그리는 툴 없이 코드 한 줄로 입력 화면이 만들어진다는 점입니다.</p>
-  <p><span class="glossary-term" data-glossary="SE38">SE38</span>에서 <code>PARAMETERS pa_name TYPE sflight-carrid.</code>이라고 선언하면 두 가지 마법이 동시에 일어납니다.</p>
+<section class="lesson-section">
+  <h2>1. 지난 Chapter 연결: 이제 프로그램이 사용자에게 값을 묻는다</h2>
+  <p>
+    Chapter 2에서는 값 선언, 출력, 분기, 반복, 시스템 필드를 익혔습니다. 지금부터는 리포트가 실행될 때 사용자에게 조건을 입력받는 <strong>선택 화면</strong>을 다룹니다. Classic ABAP Report에서 가장 기본적인 입력 방식이 <code>PARAMETERS</code>입니다.
+  </p>
+  <blockquote>
+    핵심 한 줄: <strong><code>PARAMETERS</code>는 변수 하나와 화면 입력칸 하나를 동시에 만든다.</strong>
+  </blockquote>
+</section>
 
-  <div class="viz-compare-before-after">
-    <div class="viz-panel before">
-      <h4>백엔드 (Memory)</h4>
-      <p>프로그램 내부에 사용자가 입력할 값을 담아둘 <strong>데이터 컨테이너(변수)</strong>가 생성됩니다.</p>
-      <p><code>DATA</code> 선언과 유사하게 값을 임시 저장하지만, 화면과 직접 연결된다는 차이가 있습니다.</p>
+<section class="lesson-section">
+  <h2>2. PARAMETERS의 이중 구조: 메모리 변수 + 화면 필드</h2>
+  <p>
+    <span class="glossary-term" data-glossary="SE38">SE38</span>에서 리포트 코드를 작성하고 <code>PARAMETERS p_carr TYPE sflight-carrid.</code>를 선언하면, ABAP 런타임은 두 가지를 자동으로 준비합니다.
+  </p>
+  <div class="viz-compare">
+    <div class="viz-compare-before">
+      <span class="viz-compare-label">Memory</span>
+      <div class="viz-compare-body">
+        <ul>
+          <li><code>p_carr</code>라는 전역 데이터 오브젝트 생성</li>
+          <li>사용자가 입력한 단일 값을 저장</li>
+          <li><code>START-OF-SELECTION</code>에서 일반 변수처럼 사용</li>
+        </ul>
+      </div>
     </div>
-    <div class="viz-panel after">
-      <h4>프론트엔드 (UI)</h4>
-      <p>시스템이 <code>Screen 1000</code>이라는 <strong>표준 선택 화면(<span class="glossary-term" data-glossary="SelectionScreen">Selection Screen</span>)</strong>을 렌더링하고, <span class="glossary-term" data-glossary="ScreenInput">입력 필드</span>를 자동으로 그려줍니다.</p>
+    <div class="viz-compare-after">
+      <span class="viz-compare-label">Screen 1000</span>
+      <div class="viz-compare-body">
+        <ul>
+          <li>표준 선택 화면에 <span class="glossary-term" data-glossary="ScreenInput">입력 필드</span> 자동 렌더링</li>
+          <li>DDIC 타입이면 필드 라벨과 도움말을 활용</li>
+          <li>사용자는 값을 입력한 뒤 다시 F8로 실행</li>
+        </ul>
+      </div>
     </div>
   </div>
-  
-  <details>
-    <summary>심화 팁: 기본 타입보다 DDIC 참조하기</summary>
-    <p>초보자는 <code>TYPE string</code>이나 <code>TYPE c LENGTH 3</code>처럼 기본 타입을 자주 사용하지만, 실무에서는 <code>TYPE sflight-carrid</code>처럼 ABAP Dictionary의 Data Element나 테이블 필드를 참조해야 합니다. 이렇게 하면 필드 라벨(Field Label)과 검색 도움말(Search Help, F4) 기능을 공짜로 상속받아 사용자 편의성이 극대화됩니다.</p>
+  <details class="foldable">
+    <summary><code>DATA p_carr ...</code>를 또 선언해야 하나요?</summary>
+    <p>아닙니다. <code>PARAMETERS</code> 자체가 데이터 오브젝트 선언입니다. 같은 이름으로 <code>DATA</code>를 다시 선언하면 중복 선언이 됩니다. 화면 입력값은 곧바로 <code>p_carr</code> 변수에 들어옵니다.</p>
   </details>
 </section>
 
-<section id="s2" class="section">
-  <h2 id="s2-1">2. 프로그램 실행 이벤트와 유효성 검증</h2>
-  <p>PARAMETERS로 만들어진 화면은 단순히 입력만 받는 것이 아니라, 정해진 <strong>이벤트 흐름(Event Flow)</strong>에 따라 엄격하게 제어됩니다.</p>
+<section class="lesson-section">
+  <h2>3. 기본 문법: 타입은 명시하고, 단일 값만 받는다</h2>
+  <p>
+    가장 작은 형태는 <code>PARAMETERS p_name TYPE c LENGTH 10.</code>입니다. 타입과 길이를 명시하지 않으면 초보자가 의도한 입력칸보다 훨씬 작은 필드가 만들어질 수 있으니, 처음부터 명확하게 적습니다.
+  </p>
+  <!-- ABAP_MOCKUP_START -->
+<div class="abap-editor-mockup shiki-copy-wrapper">
+  <div class="abap-editor-header">
+    <div class="abap-editor-mac-buttons">
+      <span class="abap-editor-mac-btn red"></span>
+      <span class="abap-editor-mac-btn yellow"></span>
+      <span class="abap-editor-mac-btn green"></span>
+    </div>
+    <div class="abap-editor-title">ABAP</div>
+    <div class="abap-editor-actions">
+      <button class="shiki-copy-button" data-copied="false">Copy</button>
+    </div>
+  </div>
+  <div class="abap-editor-body">
+    <div class="abap-editor-line-numbers">
+      1<br>2<br>3<br>4<br>5<br>6
+    </div>
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> z_param_basic.
+
+<span class="abap-token-keyword">PARAMETERS</span> p_carr <span class="abap-token-keyword">TYPE</span> sflight-carrid.
+
+<span class="abap-token-keyword">START-OF-SELECTION</span>.
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'입력 항공사:'</span>, p_carr.</code></pre>
+  </div>
+</div>
+<!-- ABAP_MOCKUP_END -->
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>범위 조건은 PARAMETERS가 아닙니다</h4>
+      <p><code>PARAMETERS</code>는 단일 값 입력 전용입니다. “날짜 From~To”, “여러 회사코드”, “제외 조건”처럼 범위·다중값이 필요하면 뒤에서 배울 <code>SELECT-OPTIONS</code>를 사용합니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>4. 이벤트 흐름: 입력 검증은 화면 단계에서 끝낸다</h2>
+  <p>
+    사용자가 선택 화면에서 값을 입력하고 F8을 누르면, ABAP 리포트는 입력값을 검증하는 <span class="glossary-term" data-glossary="AtSelectionScreen">AT SELECTION-SCREEN</span>을 거친 뒤 실제 로직인 <span class="glossary-term" data-glossary="StartOfSelection">START-OF-SELECTION</span>으로 들어갑니다.
+  </p>
   <div class="viz-flow">
-    <div class="viz-flow-step">
-      <strong>INITIALIZATION</strong>
-      <span>화면 출력 전 동적 초기값 세팅</span>
-    </div>
-    <div class="viz-flow-step highlight">
-      <strong>AT SELECTION-SCREEN</strong>
-      <span>사용자 입력값 사전 유효성 검증</span>
-    </div>
-    <div class="viz-flow-step">
-      <strong>START-OF-SELECTION</strong>
-      <span>검증 통과 후 메인 비즈니스 로직 실행</span>
-    </div>
+    <div class="viz-flow-step"><strong>INITIALIZATION</strong><span>선택 화면 출력 전 기본값 준비</span></div>
+    <div class="viz-flow-step"><strong>Selection Screen</strong><span>사용자 입력</span></div>
+    <div class="viz-flow-step"><strong>AT SELECTION-SCREEN</strong><span>입력값 검증, 오류 시 화면으로 복귀</span></div>
+    <div class="viz-flow-step"><strong>START-OF-SELECTION</strong><span>검증 통과 후 메인 처리</span></div>
   </div>
-
-  <div class="lesson-callout warn">
-    <div class="callout-title">초보자의 흔한 오류: 검증 타이밍 놓치기</div>
-    <p>입력된 값을 검사하는 로직을 <code>START-OF-SELECTION</code> 안에 작성하면 큰일납니다. 에러 메시지를 띄우더라도 이미 입력 화면(Selection Screen) 단계를 벗어났기 때문에, <strong>사용자가 곧바로 값을 수정하고 다시 실행할 수 없는 치명적 흐름 오류</strong>가 발생합니다. 유효성 검증과 에러(<code>TYPE 'E'</code>) 처리는 반드시 <code>AT SELECTION-SCREEN</code> 블록 내에서 수행해야 합니다.</p>
-  </div>
+  <details class="foldable">
+    <summary>왜 <code>START-OF-SELECTION</code>에서 검증하면 안 좋나요?</summary>
+    <p>그 시점은 이미 선택 화면 처리를 통과한 뒤입니다. 사용자가 값을 바로 고쳐 재실행하는 흐름을 만들려면 <code>AT SELECTION-SCREEN</code>에서 오류 메시지를 내고 선택 화면에 머물게 해야 합니다.</p>
+  </details>
 </section>
 
-<section id="s3" class="section">
-  <h2 id="s3-1">3. 직접 해보는 실습 시뮬레이션</h2>
-  <p>아래 가상 Sandbox를 통해 <span class="glossary-term" data-glossary="ElementaryInput">단일 기본 입력</span>을 받고 실행 버튼(F8)을 눌렀을 때 이벤트 흐름이 어떻게 진행되는지 <strong>직접 조작</strong>해 보세요. (에러 발생 조건을 테스트해 볼 수 있습니다!)</p>
-  
+<section class="lesson-section">
+  <h2>5. 직접 해보기: Selection Screen 시뮬레이터</h2>
+  <p>
+    아래 sandbox는 <code>PARAMETERS p_carr TYPE sflight-carrid.</code>가 변수와 입력칸을 동시에 만들고, F8 실행 시 이벤트가 어떤 순서로 흐르는지 보여 줍니다. 항공사 코드를 비우거나 지원하지 않는 값으로 바꿔 검증 흐름을 확인하세요.
+  </p>
   <div class="interactive-sap-sandbox">
-    <div class="sap-gui-header"><div class="sap-tcode-bar">T-Code: <span class="tcode-val">SE38 (ZPARAM_DEMO)</span></div></div>
-    <div class="sap-gui-title-bar">파라미터 입력 및 이벤트 흐름 시뮬레이터</div>
-    <div class="sap-selection-screen">
-      <div class="sap-field-row"><label>항공사 코드 (PA_CARR)</label><input type="text" class="sap-input sap-input-short" id="sb1-carr" placeholder="예: LH, AA, DL"></div>
-      <button class="sap-btn-execute">실행 (F8)</button>
+    <div class="sap-gui-header">
+      <div class="sap-tcode-bar">T-Code: <span class="tcode-val"><span class="glossary-term" data-glossary="SE38">SE38</span> (ZPARAM_DEMO)</span></div>
     </div>
-    <div class="sap-result-log"><div class="sap-log-placeholder">실행(F8) 버튼을 누르면 SAP 내부 이벤트 흐름이 로그로 출력됩니다…</div></div>
-    <script type="application/json" class="sandbox-config">
-    {
-      "fields": { "carr": "#sb1-carr" },
-      "steps": [
-        { "label": "LOAD-OF-PROGRAM", "type": "event", "text": "프로그램이 메모리에 로드되었습니다." },
-        { "label": "INITIALIZATION", "type": "event", "text": "초기화 작업: 기본값 등 세팅." },
-        { "label": "AT SELECTION-SCREEN", "type": "event", "text": "사용자 입력값({carr}) 유효성 검증 시작." }
-      ],
-      "validations": [
-        { "field": "carr", "test": "required", "label": "Error", "text": "검증 실패: 항공사 코드는 필수 입력란입니다.", "modal": "항공사 코드를 입력해 주세요." }
-      ],
-      "selectStep": { "label": "START-OF-SELECTION", "type": "event", "text": "검증 통과. 비즈니스 로직을 실행합니다." },
-      "db": [
-        { "id": "1", "carrid": "LH", "name": "Lufthansa" },
-        { "id": "2", "carrid": "AA", "name": "American Airlines" },
-        { "id": "3", "carrid": "DL", "name": "Delta Air Lines" }
-      ],
-      "match": { "carrid": "carr" },
-      "selectResult": { "text": "처리 완료." },
-      "columns": [ {"key":"id","head":"순번"}, {"key":"carrid","head":"항공사 코드"}, {"key":"name","head":"항공사명"} ],
-      "endStep": { "label": "END-OF-SELECTION", "type": "event", "text": "출력 화면을 준비합니다." },
-      "emptyText": "AT SELECTION-SCREEN 검증 실패: 지원하지 않는 항공사 코드입니다 (LH, AA, DL만 허용). 화면으로 복귀합니다."
-    }
-    </script>
-  </div>
-  
-  <div class="lesson-callout warn">
-    <div class="callout-title">실무 주의사항: 범위 검색에는 쓰지 마세요!</div>
-    <p><code>PARAMETERS</code>는 오직 <strong>'단일 값(단건)' 입력 전용</strong>입니다. 다중 값이나 "2026년 1월부터 12월까지"처럼 범위 조건을 받아야 할 때는 다음에 배울 <code>SELECT-OPTIONS</code>를 사용해야 합니다. 범위 요건에 PARAMETERS를 2개(시작, 끝) 선언하는 것은 대표적인 초보적 안티패턴입니다.</p>
+    <div class="sap-gui-title-bar">PARAMETERS 입력 및 이벤트 흐름</div>
+    <div class="sap-selection-screen">
+      <div class="sap-field-row">
+        <label>항공사 코드(P_CARR)</label>
+        <input type="text" class="sap-input sap-input-short" id="m301-carr" value="LH" maxlength="3">
+      </div>
+      <div class="sap-field-row">
+        <label>검증 위치</label>
+        <select class="sap-input sap-input-medium" id="m301-validation-place">
+          <option value="at-selection" selected>AT SELECTION-SCREEN</option>
+          <option value="start-of-selection">START-OF-SELECTION에 둔 오류</option>
+        </select>
+      </div>
+      <button class="sap-btn-execute" type="button">실행(F8)</button>
+    </div>
+    <div class="sap-result-log">
+      <div class="sap-log-placeholder">실행(F8)을 누르면 Selection Screen 이벤트 흐름이 표시됩니다.</div>
+    </div>
+    <template class="sandbox-config">
+{
+  "fields": {
+    "carr": "#m301-carr",
+    "validationPlace": "#m301-validation-place"
+  },
+  "steps": [
+    { "label": "LOAD-OF-PROGRAM", "type": "event", "text": "리포트 프로그램이 메모리에 로드됩니다." },
+    { "label": "PARAMETERS", "type": "info", "text": "p_carr 데이터 오브젝트와 Screen 1000 입력 필드가 동시에 준비됩니다." },
+    { "label": "INITIALIZATION", "type": "event", "text": "선택 화면 출력 전 기본값을 준비합니다." },
+    { "label": "AT SELECTION-SCREEN", "type": "event", "text": "입력값 '{carr}'을 화면 단계에서 검증합니다." }
+  ],
+  "validations": [
+    { "field": "carr", "test": "required", "label": "Error", "text": "항공사 코드는 필수 입력입니다.", "modal": "항공사 코드를 입력해 주세요." },
+    { "field": "carr", "test": "regex", "pattern": "^(LH|AA|DL)$", "label": "Error", "text": "지원하지 않는 항공사 코드입니다. LH, AA, DL만 허용합니다.", "modal": "AT SELECTION-SCREEN에서 오류가 발생해 선택 화면으로 복귀합니다." },
+    { "field": "validationPlace", "test": "notRegex", "pattern": "^start-of-selection$", "label": "Flow Error", "text": "검증 로직을 START-OF-SELECTION에 두면 사용자가 입력 화면에서 바로 수정하는 흐름이 깨집니다.", "modal": "입력 검증은 START-OF-SELECTION이 아니라 AT SELECTION-SCREEN에서 처리하세요." }
+  ],
+  "successSteps": [
+    { "label": "START-OF-SELECTION", "type": "event", "text": "검증 통과. p_carr = '{carr}' 값을 사용해 메인 로직을 실행합니다." },
+    { "label": "WRITE", "type": "info", "text": "Output List에 선택한 항공사 정보를 출력합니다." }
+  ],
+  "result": {
+    "label": "Output List",
+    "type": "info",
+    "text": "PARAMETERS 결과 — 단일 입력값이 변수 p_carr에 들어와 출력됩니다.",
+    "columns": [
+      { "key": "item", "head": "항목" },
+      { "key": "detail", "head": "내용" }
+    ],
+    "rows": [
+      { "item": "Screen Field", "detail": "P_CARR 입력칸" },
+      { "item": "Memory Object", "detail": "p_carr = '{carr}'" },
+      { "item": "Input Type", "detail": "단일 값 Elementary Input" },
+      { "item": "Validation", "detail": "AT SELECTION-SCREEN에서 통과" }
+    ]
+  }
+}
+    </template>
   </div>
 </section>
 
-<section id="s4" class="section">
-  <h2 id="s4-1">한눈에 정리</h2>
-  <div class="viz-state-grid">
-    <div class="grid-cell">
-      <span class="cell-label">이중 생성 구조</span>
-      <strong>변수 메모리 할당 + UI 렌더링</strong>
+<section class="lesson-section">
+  <h2>6. 실무에서 조심해야 할 점</h2>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">🚨</div>
+    <div class="lesson-callout-content">
+      <h4>단일 값인지, 범위 조건인지 먼저 결정하세요</h4>
+      <p>요구사항이 “회사코드 하나”이면 <code>PARAMETERS</code>가 맞습니다. 하지만 기간, 복수 코드, 제외 조건처럼 범위가 필요하면 <code>SELECT-OPTIONS</code>를 고려해야 합니다. 입력 구조가 곧 SQL 조건과 사용자 경험을 결정합니다.</p>
     </div>
-    <div class="grid-cell">
-      <span class="cell-label">입력 형태</span>
-      <strong>단일 값 (Elementary Input)</strong>
-    </div>
-    <div class="grid-cell">
-      <span class="cell-label">검증 타이밍</span>
-      <strong>반드시 AT SELECTION-SCREEN에서!</strong>
-    </div>
-    <div class="grid-cell">
-      <span class="cell-label">DDIC 참조</span>
-      <strong>TYPE c 대신 TYPE sflight-carrid</strong>
+  </div>
+  <ul>
+    <li><strong>타입 명시:</strong> <code>TYPE c LENGTH 3</code> 또는 DDIC 참조처럼 입력 길이와 의미를 분명히 둡니다.</li>
+    <li><strong>검증 위치:</strong> 값 검증은 <code>AT SELECTION-SCREEN</code>, 조회·가공은 <code>START-OF-SELECTION</code>에 둡니다.</li>
+    <li><strong>과확장 금지:</strong> <code>DEFAULT</code>, <code>OBLIGATORY</code>, 블록/라인 디자인은 다음 Lesson에서 깊게 다룹니다.</li>
+  </ul>
+</section>
+
+<section class="lesson-section">
+  <h2>7. 공식 문서로 더 확인하기</h2>
+  <div class="link-list">
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS.html" target="_blank" rel="noopener">SAP Help Portal: PARAMETERS<span>선택 화면 파라미터와 데이터 오브젝트 선언 규칙을 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPAT_SELECTION-SCREEN.html" target="_blank" rel="noopener">SAP Help Portal: AT SELECTION-SCREEN<span>선택 화면 입력값 검증 이벤트를 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSTART-OF-SELECTION.html" target="_blank" rel="noopener">SAP Help Portal: START-OF-SELECTION<span>검증 후 메인 처리 이벤트를 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECT-OPTIONS.html" target="_blank" rel="noopener">SAP Help Portal: SELECT-OPTIONS<span>범위 입력은 PARAMETERS가 아니라 SELECT-OPTIONS 영역임을 확인합니다.</span></a>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>8. 확인 퀴즈</h2>
+  <ol>
+    <li><code>PARAMETERS</code> 한 줄이 동시에 만드는 두 가지는 무엇인가요?</li>
+    <li>입력값 검증은 어느 이벤트 블록에 두는 것이 맞나요?</li>
+    <li>검증이 통과한 뒤 메인 로직이 실행되는 이벤트는 무엇인가요?</li>
+    <li>범위나 다중값 입력이 필요하면 어떤 구문으로 확장하나요?</li>
+  </ol>
+  <details class="foldable">
+    <summary>정답/해설 보기</summary>
+    <ol>
+      <li><strong>메모리 데이터 오브젝트와 Selection Screen 입력 필드</strong>입니다.</li>
+      <li><strong><code>AT SELECTION-SCREEN</code></strong>입니다.</li>
+      <li><strong><code>START-OF-SELECTION</code></strong>입니다.</li>
+      <li><strong><code>SELECT-OPTIONS</code></strong>입니다.</li>
+    </ol>
+  </details>
+</section>
+
+<section class="lesson-section">
+  <h2>9. 한눈에 정리</h2>
+  <div class="recap-grid">
+    <div class="recap-card"><strong>PARAMETERS</strong>단일 입력값을 받을 변수와 화면 입력칸을 동시에 만듭니다.</div>
+    <div class="recap-card"><strong>Selection Screen</strong>리포트 실행 전 사용자가 조건을 입력하는 표준 화면입니다.</div>
+    <div class="recap-card"><strong>검증 위치</strong><code>AT SELECTION-SCREEN</code>에서 막고, 통과하면 <code>START-OF-SELECTION</code>으로 갑니다.</div>
+    <div class="recap-card"><strong>다음 확장</strong><code>DEFAULT</code>, <code>OBLIGATORY</code>, 화면 구성 옵션을 이어서 다룹니다.</div>
+  </div>
+  <div class="lesson-callout tip">
+    <div class="lesson-callout-icon">➡️</div>
+    <div class="lesson-callout-content">
+      <h4>다음 Lesson 예고</h4>
+      <p>다음 Lesson에서는 <code>DEFAULT</code>, <code>OBLIGATORY</code>, 필드 텍스트 같은 PARAMETERS 기본 옵션을 사용해 선택 화면을 더 실무적으로 다듬습니다.</p>
     </div>
   </div>
 </section>

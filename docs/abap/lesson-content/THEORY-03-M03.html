@@ -1,45 +1,45 @@
-<!-- lesson-content/THEORY-03-M03.html | 최종수정 2026-06-16 10:43 KST -->
+<!-- lesson-content/THEORY-03-M03.html | 최종수정 2026-06-19 23:33 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
   <div class="lesson-callout-content">
     <h4>학습 목표</h4>
-    <p>이번 Lesson에서는 <span class="glossary-term" data-glossary="SelectionScreen">Selection Screen</span>에서 입력한 값이 같은 이름의 <span class="glossary-term" data-glossary="PARAMETERSStatement">PARAMETERS 변수</span>에 담기고, <span class="glossary-term" data-glossary="WRITEStatement">WRITE 문</span>으로 <span class="glossary-term" data-glossary="OutputList">Output List</span>에 출력되는 흐름을 완성합니다.</p>
+    <p><span class="glossary-term" data-glossary="SelectionScreen">Selection Screen</span>에서 입력한 값이 같은 이름의 <span class="glossary-term" data-glossary="PARAMETERSStatement">PARAMETERS</span> 변수로 전달되고, <span class="glossary-term" data-glossary="StartOfSelection">START-OF-SELECTION</span> 이후 <span class="glossary-term" data-glossary="WRITEStatement">WRITE</span>가 <span class="glossary-term" data-glossary="OutputList">Output List</span>에 결과를 쓰는 흐름을 완성합니다.</p>
   </div>
 </div>
 
 <section class="lesson-section">
-  <h2>1. 입력만 받고 끝나면 프로그램이 아니다</h2>
+  <h2>1. 지난 Lesson 연결: 입력값을 결과로 보여준다</h2>
   <p>
-    M01에서는 입력칸을 만들었고, M02에서는 기본값과 필수값을 붙였습니다. 이제 사용자가 넣은 값을 프로그램이 실제로 읽고 결과 화면에 보여줘야 합니다. 초급 Report의 가장 작은 대화는 “값을 묻고, 받은 값을 보여주는 것”입니다.
+    M01에서는 입력칸을 만들었고, M02에서는 기본값과 필수 입력을 붙였습니다. 이제 사용자가 넣은 값이 실제 프로그램 변수로 넘어와 결과 화면에 출력되는지 확인해야 합니다. 초급 Report의 가장 작은 완성형은 “값을 묻고, 받은 값을 보여주는 것”입니다.
   </p>
   <blockquote>
-    화면 입력값은 Execute(F8)를 누른 뒤 같은 이름의 프로그램 변수로 넘어오고, <code>WRITE</code>는 그 값을 List Output에 씁니다.
+    핵심 한 줄: <strong>Selection Screen 값 → PARAMETERS 변수 → WRITE Output List</strong> 순서로 읽습니다.
   </blockquote>
 </section>
 
 <section class="lesson-section">
-  <h2>2. 화면 → 메모리 → 출력</h2>
+  <h2>2. 화면, 메모리, 출력은 다른 단계다</h2>
   <p>
-    이번 Lesson의 핵심은 <span class="glossary-term" data-glossary="InputOutputFlow">Input Output</span> 흐름입니다. 복잡한 조회나 ALV를 몰라도, Report가 어떤 순서로 사용자와 대화하는지 먼저 잡아야 합니다.
+    이번 Lesson의 핵심은 <span class="glossary-term" data-glossary="InputOutputFlow">Input Output</span> 흐름입니다. 초보자가 자주 하는 오해는 <code>WRITE</code>가 Selection Screen 아래에 바로 글자를 추가한다고 생각하는 것입니다. 실제로는 Execute(F8) 후 메인 처리로 넘어가고, 결과는 별도 Output List 화면에 표시됩니다.
   </p>
-  <div class="viz-visual">
-    <p class="viz-visual-title">PARAMETERS 값이 출력으로 가는 4단계</p>
-    <div class="viz-flow">
-      <div class="viz-flow-step"><strong>1. 입력칸 생성</strong><span><code>PARAMETERS p_name(20) TYPE c.</code>가 Selection Screen 필드를 만든다.</span></div>
-      <div class="viz-flow-step"><strong>2. 사용자 입력</strong><span>사용자가 <code>P_NAME</code>에 값을 넣고 Execute(F8)를 누른다.</span></div>
-      <div class="viz-flow-step"><strong>3. 메모리 전달</strong><span>입력값이 프로그램 변수 <code>p_name</code>에 담긴다.</span></div>
-      <div class="viz-flow-step"><strong>4. List Output</strong><span><code>WRITE</code>가 현재 List에 값을 출력한다.</span></div>
-    </div>
+  <div class="viz-flow">
+    <div class="viz-flow-step"><strong>1. PARAMETERS</strong><span>입력 필드와 같은 이름의 전역 변수를 만듭니다.</span></div>
+    <div class="viz-flow-step"><strong>2. Execute(F8)</strong><span>사용자 입력값이 프로그램 변수로 전달됩니다.</span></div>
+    <div class="viz-flow-step"><strong>3. START-OF-SELECTION</strong><span>검증 이후 본 실행 로직이 시작됩니다.</span></div>
+    <div class="viz-flow-step"><strong>4. WRITE</strong><span>현재 list에 변수값과 문자열을 출력합니다.</span></div>
   </div>
   <details class="foldable">
-    <summary>WRITE는 Selection Screen 아래에 출력하나요?</summary>
-    <p>아닙니다. Execute(F8) 후 프로그램 본문이 실행되면 입력 화면이 그대로 확장되는 것이 아니라, 결과를 보여주는 List Output 화면으로 전환됩니다. 그래서 입력 화면과 출력 화면을 서로 다른 단계로 보는 것이 중요합니다.</p>
+    <summary>입력 화면과 출력 화면을 왜 나눠 봐야 하나요?</summary>
+    <p>Selection Screen은 조건을 받는 화면이고, Output List는 실행 결과를 보여주는 화면입니다. 이 구분을 놓치면 “입력값이 어디서 변수로 바뀌었는지”, “왜 F8을 두 번 누르는지”를 이해하기 어렵습니다.</p>
   </details>
 </section>
 
 <section class="lesson-section">
   <h2>3. 가장 작은 입력과 출력 예제</h2>
+  <p>
+    아래 코드는 <code>P_NAME</code> 입력값을 받아 인사 문장으로 출력합니다. <span class="glossary-term" data-glossary="DEFAULTOption">DEFAULT</span>가 있으므로 처음에는 <code>ABAP</code>이 보이고, <span class="glossary-term" data-glossary="OBLIGATORYOption">OBLIGATORY</span>가 있으므로 이름을 비운 채 실행할 수 없습니다.
+  </p>
   <!-- ABAP_MOCKUP_START -->
 <div class="abap-editor-mockup shiki-copy-wrapper">
   <div class="abap-editor-header">
@@ -57,9 +57,9 @@
     <div class="abap-editor-line-numbers">
       1<br>2<br>3<br>4<br>5<br>6<br>7
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> z_demo_param_m03_hello.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> z_param_m03_hello.
 
-<span class="abap-token-keyword">PARAMETERS</span> p_name(<span class="abap-token-number">20</span>) <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">DEFAULT</span> <span class="abap-token-string">'ABAP'</span> <span class="abap-token-keyword">OBLIGATORY</span>.
+<span class="abap-token-keyword">PARAMETERS</span> p_name <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> <span class="abap-token-number">20</span> <span class="abap-token-keyword">DEFAULT</span> <span class="abap-token-string">'ABAP'</span> <span class="abap-token-keyword">OBLIGATORY</span>.
 
 <span class="abap-token-keyword">START-OF-SELECTION</span>.
   <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'안녕하세요,'</span>, p_name,
@@ -67,53 +67,15 @@
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
-  <div class="viz-visual">
-    <p class="viz-visual-title">실행 전과 실행 후</p>
-    <div class="viz-compare">
-      <div class="viz-compare-before">
-        <span class="viz-compare-label">실행 전: Selection Screen</span>
-        <div class="viz-compare-body">
-          <div class="sap-static-sandbox">
-            <div class="sap-gui-header">
-              <div class="sap-tcode-bar">Program <span class="tcode-val">Z_DEMO_PARAM_M03_HELLO</span></div>
-            </div>
-            <div class="sap-gui-title-bar">Standard Selection Screen 1000</div>
-            <div class="sap-selection-screen">
-              <div class="sap-field-row">
-                <label>P_NAME <span class="viz-badge fail">required</span></label>
-                <div class="sap-input">ABAP</div>
-              </div>
-              <button class="sap-btn-execute" type="button">Execute (F8)</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="viz-compare-after">
-        <span class="viz-compare-label">실행 후: List Output</span>
-        <div class="viz-compare-body">
-          <div class="sap-static-sandbox">
-            <div class="sap-gui-header">
-              <div class="sap-tcode-bar">List <span class="tcode-val">Z_DEMO_PARAM_M03_HELLO</span></div>
-            </div>
-            <div class="sap-gui-title-bar">Output List</div>
-            <div class="sap-result-log">
-              <div>안녕하세요, ABAP</div>
-              <div>ABAP 학습을 시작합니다.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
   <p>
-    사용자가 기본값 <code>ABAP</code>을 <code>JISU</code>로 바꾸면 출력도 <code>안녕하세요, JISU</code>로 바뀝니다. 같은 코드라도 입력값이 달라지면 결과가 달라집니다.
+    사용자가 <code>ABAP</code>을 <code>JISU</code>로 바꾸면 Output List도 <code>안녕하세요, JISU</code>로 바뀝니다. 같은 코드라도 입력값이 달라지면 결과가 달라집니다.
   </p>
 </section>
 
 <section class="lesson-section">
   <h2>4. 여러 입력값도 같은 방식으로 읽는다</h2>
   <p>
-    <code>PARAMETERS</code>를 여러 개 선언해도 흐름은 같습니다. 화면 필드마다 같은 이름의 프로그램 변수가 있고, <code>WRITE</code>는 그 변수들을 읽어 출력합니다.
+    <code>PARAMETERS</code>를 여러 개 선언해도 흐름은 같습니다. 화면 필드마다 같은 이름의 프로그램 변수가 있고, <code>WRITE</code>는 그 변수들을 읽어 순서대로 list에 씁니다.
   </p>
   <!-- ABAP_MOCKUP_START -->
 <div class="abap-editor-mockup shiki-copy-wrapper">
@@ -130,17 +92,18 @@
   </div>
   <div class="abap-editor-body">
     <div class="abap-editor-line-numbers">
-      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> z_demo_param_m03_summary.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> z_param_m03_io.
 
-<span class="abap-token-keyword">PARAMETERS</span> p_carr(<span class="abap-token-number">3</span>) <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">DEFAULT</span> <span class="abap-token-string">'KE'</span> <span class="abap-token-keyword">OBLIGATORY</span>.
-<span class="abap-token-keyword">PARAMETERS</span> p_days    <span class="abap-token-keyword">TYPE</span> i <span class="abap-token-keyword">DEFAULT</span> <span class="abap-token-number">7</span>.
+<span class="abap-token-keyword">PARAMETERS</span> p_name <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> <span class="abap-token-number">20</span> <span class="abap-token-keyword">DEFAULT</span> <span class="abap-token-string">'ABAP'</span> <span class="abap-token-keyword">OBLIGATORY</span>.
+<span class="abap-token-keyword">PARAMETERS</span> p_carr <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> <span class="abap-token-number">3</span>  <span class="abap-token-keyword">DEFAULT</span> <span class="abap-token-string">'KE'</span>.
+<span class="abap-token-keyword">PARAMETERS</span> p_days <span class="abap-token-keyword">TYPE</span> i <span class="abap-token-keyword">DEFAULT</span> <span class="abap-token-number">7</span>.
 
 <span class="abap-token-keyword">START-OF-SELECTION</span>.
-  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'항공사 코드:'</span>, p_carr,
-         / <span class="abap-token-string">'조회 일수:'</span>, p_days,
-         / <span class="abap-token-string">'위 조건으로 조회를 시작합니다.'</span>.</code></pre>
+  <span class="abap-token-keyword">WRITE</span>: / <span class="abap-token-string">'이름:'</span>, p_name,
+         / <span class="abap-token-string">'항공사:'</span>, p_carr,
+         / <span class="abap-token-string">'조회 일수:'</span>, p_days.</code></pre>
   </div>
 </div>
 <!-- ABAP_MOCKUP_END -->
@@ -156,9 +119,14 @@
       </thead>
       <tbody>
         <tr>
+          <td><code>P_NAME</code>에 <code>ABAP</code></td>
+          <td><code>p_name = 'ABAP'</code></td>
+          <td><code>이름: ABAP</code></td>
+        </tr>
+        <tr>
           <td><code>P_CARR</code>에 <code>KE</code></td>
           <td><code>p_carr = 'KE'</code></td>
-          <td><code>항공사 코드: KE</code></td>
+          <td><code>항공사: KE</code></td>
         </tr>
         <tr>
           <td><code>P_DAYS</code>에 <code>7</code></td>
@@ -168,13 +136,97 @@
       </tbody>
     </table>
   </div>
-  <blockquote>
-    실무에서도 복잡한 조회를 만들기 전에 입력값을 출력해 보면, 내가 받은 값이 맞는지 빠르게 확인할 수 있습니다.
-  </blockquote>
 </section>
 
 <section class="lesson-section">
-  <h2>5. DEFAULT와 OBLIGATORY가 출력에 미치는 영향</h2>
+  <h2>5. 직접 해보기: 입력 → 변수 → Output List</h2>
+  <p>
+    <span class="glossary-term" data-glossary="SE38">SE38</span>에서 <code>Z_PARAM_M03_IO</code>를 실행한 상황입니다. 값을 바꾼 뒤 실행해 Output List가 즉시 달라지는지 확인하세요. 필수 입력 모드를 끄면 빈 이름도 출력 단계로 넘어가는 차이를 볼 수 있습니다.
+  </p>
+  <div class="interactive-sap-sandbox">
+    <div class="sap-gui-header">
+      <div class="sap-tcode-bar">T-Code: <span class="tcode-val"><span class="glossary-term" data-glossary="SE38">SE38</span> (Z_PARAM_M03_IO)</span></div>
+    </div>
+    <div class="sap-gui-title-bar">Selection Screen 1000 - 입력값 출력 실습</div>
+    <div class="sap-selection-screen">
+      <div class="sap-field-row">
+        <label>이름(P_NAME) <span class="viz-badge fail">required</span></label>
+        <input type="text" class="sap-input sap-input-medium" id="m303-name" value="ABAP" maxlength="20">
+      </div>
+      <div class="sap-field-row">
+        <label>항공사(P_CARR)</label>
+        <input type="text" class="sap-input sap-input-short" id="m303-carr" value="KE" maxlength="3">
+      </div>
+      <div class="sap-field-row">
+        <label>조회 일수(P_DAYS)</label>
+        <input type="text" class="sap-input sap-input-short" id="m303-days" value="7" maxlength="3">
+      </div>
+      <div class="sap-field-row">
+        <label>필수 입력 모드</label>
+        <select class="sap-input sap-input-medium" id="m303-required-mode">
+          <option value="obligatory" selected>OBLIGATORY 적용</option>
+          <option value="optional">필수 해제 비교</option>
+        </select>
+      </div>
+      <button class="sap-btn-execute" type="button">실행(F8)</button>
+    </div>
+    <div class="sap-result-log">
+      <div class="sap-log-placeholder">실행(F8)을 누르면 화면값이 변수로 전달되고 Output List가 표시됩니다.</div>
+    </div>
+    <template class="sandbox-config">
+{
+  "fields": {
+    "name": "#m303-name",
+    "carr": "#m303-carr",
+    "days": "#m303-days",
+    "requiredMode": "#m303-required-mode"
+  },
+  "derivedFields": [
+    {
+      "key": "requiredModeText",
+      "from": "requiredMode",
+      "map": {
+        "obligatory": "OBLIGATORY가 켜져 있어 P_NAME이 비면 START-OF-SELECTION으로 넘어가지 않습니다.",
+        "optional": "필수 입력을 해제한 비교 상태라 빈 이름도 변수 p_name으로 넘어갈 수 있습니다."
+      },
+      "default": "필수 입력 비교"
+    }
+  ],
+  "steps": [
+    { "label": "SELECTION SCREEN", "type": "event", "text": "사용자가 P_NAME='{name}', P_CARR='{carr}', P_DAYS='{days}'를 입력했습니다." },
+    { "label": "REQUIRED CHECK", "type": "info", "text": "{requiredModeText}" }
+  ],
+  "validations": [
+    { "field": "name", "test": "regexIf", "pattern": ".+", "whenField": "requiredMode", "whenValue": "obligatory", "label": "Required Field", "text": "P_NAME은 OBLIGATORY 필드라 비워 둔 채 실행할 수 없습니다.", "modal": "필수 필드를 모두 입력하십시오. P_NAME이 비어 있습니다." },
+    { "field": "days", "test": "numeric", "label": "Format", "text": "P_DAYS는 숫자 입력 예시입니다. 숫자 또는 공백만 입력하세요.", "modal": "P_DAYS에는 숫자를 입력하세요." }
+  ],
+  "successSteps": [
+    { "label": "TRANSPORT", "type": "event", "text": "화면값이 같은 이름의 프로그램 변수 p_name, p_carr, p_days로 전달됩니다." },
+    { "label": "START-OF-SELECTION", "type": "event", "text": "메인 처리 블록에 진입합니다." },
+    { "label": "WRITE", "type": "info", "text": "WRITE가 현재 list에 변수값을 한 줄씩 씁니다." }
+  ],
+  "result": {
+    "label": "Output List",
+    "type": "info",
+    "text": "Selection Screen이 아니라 Output List 화면에 결과가 표시됩니다.",
+    "columns": [
+      { "key": "line", "head": "라인" },
+      { "key": "output", "head": "출력값" }
+    ],
+    "rows": [
+      { "line": "1", "output": "이름: {name}" },
+      { "line": "2", "output": "항공사: {carr}" },
+      { "line": "3", "output": "조회 일수: {days}" },
+      { "line": "4", "output": "입력 → 실행 → 출력 흐름 확인" }
+    ]
+  }
+}
+    </template>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. DEFAULT와 OBLIGATORY가 출력에 미치는 영향</h2>
   <div class="recap-grid">
     <div class="recap-card">
       <strong><code>DEFAULT</code></strong>
@@ -182,81 +234,72 @@
     </div>
     <div class="recap-card">
       <strong><code>OBLIGATORY</code></strong>
-      <span>필수값이 비어 있으면 Selection Screen에서 멈추므로, 해당 경우에는 <code>WRITE</code>까지 가지 않습니다.</span>
+      <span>필수값이 비어 있으면 Selection Screen에서 멈추므로, <code>WRITE</code>까지 가지 않습니다.</span>
     </div>
     <div class="recap-card">
       <strong>빈 값 출력</strong>
-      <span><code>OBLIGATORY</code>가 없으면 빈 값도 프로그램 변수로 넘어올 수 있고, 출력에는 공백처럼 보일 수 있습니다.</span>
+      <span><code>OBLIGATORY</code>가 없으면 빈 값도 변수로 넘어와 공백처럼 출력될 수 있습니다.</span>
     </div>
   </div>
   <details class="foldable">
-    <summary>결과 화면에서 뒤로 가면 입력값은 사라지나요?</summary>
-    <p>일반적으로 같은 실행 흐름 안에서는 뒤로 돌아갔을 때 방금 입력한 값이 Selection Screen에 남아 있는 것을 볼 수 있습니다. 중요한 점은 화면이 바뀌어도 프로그램 실행 컨텍스트 안에서 입력값을 기준으로 출력이 만들어졌다는 사실입니다.</p>
+    <summary><code>START-OF-SELECTION</code>을 꼭 적어야 하나요?</summary>
+    <p>짧은 레거시 예제에서는 생략된 형태를 볼 수 있지만, 초급 학습에서는 선언부와 실행부를 명확히 나누기 위해 적는 습관이 좋습니다. 이후 검증 이벤트와 조회 로직이 붙으면 이 구분이 더 중요해집니다.</p>
   </details>
 </section>
 
 <section class="lesson-section">
-  <h2>6. 이번 범위 밖으로 빼기</h2>
+  <h2>7. 실무에서 조심할 점</h2>
   <div class="lesson-callout warn">
     <div class="lesson-callout-icon">⚠️</div>
     <div class="lesson-callout-content">
-      <h4>출력은 확인용으로만 단순하게</h4>
-      <p>이번 Lesson은 입력값이 프로그램 변수로 넘어왔는지 확인하는 단계입니다. <code>WRITE</code> 색상, 위치, 통화 서식, ALV, <code>AT SELECTION-SCREEN</code> 검증, <code>SELECT-OPTIONS</code> 범위 입력은 아직 다루지 않습니다.</p>
+      <h4>입력값을 그대로 출력해도 되는지 확인</h4>
+      <p>학습 예제에서는 입력값을 그대로 출력하지만, 실무에서는 개인정보, 내부 코드, 권한 관련 값처럼 화면에 그대로 보여주면 안 되는 값이 있을 수 있습니다. 운영 화면에 남겨도 되는 정보인지 먼저 판단해야 합니다.</p>
     </div>
   </div>
   <p>
-    또한 학습 예제에서는 입력값을 그대로 출력하지만, 실무에서는 개인정보나 내부 코드처럼 화면에 그대로 보여주면 안 되는 값이 있을 수 있습니다. 운영 화면에 남겨도 되는 정보인지 항상 확인해야 합니다.
+    <span class="glossary-term" data-glossary="SE38">SE38</span> 실습에서는 코드 작성 후 F8로 프로그램을 실행하고, Selection Screen에서 값을 입력한 뒤 다시 F8을 눌러 Output List로 넘어갑니다. 결과를 확인한 뒤 이전 입력 화면으로 돌아가려면 Back(F3)을 사용합니다.
   </p>
 </section>
 
 <section class="lesson-section">
-  <h2>7. 7분 미니 실습</h2>
+  <h2>8. 7분 미니 실습</h2>
   <ol>
-    <li><code>p_name(20) TYPE c DEFAULT 'ABAP' OBLIGATORY</code>를 선언합니다.</li>
-    <li><code>p_carr(3) TYPE c DEFAULT 'KE'</code>와 <code>p_days TYPE i DEFAULT 7</code>을 추가합니다.</li>
-    <li>세 값을 <code>WRITE</code>로 한 줄씩 출력합니다.</li>
-    <li>Selection Screen에서 값을 바꿔 실행하고, Output List가 바뀌는지 확인합니다.</li>
-    <li><code>p_name</code>을 비우고 실행해 <code>WRITE</code>까지 가지 않는지 확인합니다.</li>
+    <li><span class="glossary-term" data-glossary="SE38">SE38</span>에서 <code>Z_PARAM_M03_IO</code> Report를 만들고 위 코드를 입력합니다.</li>
+    <li><code>P_NAME</code>, <code>P_CARR</code>, <code>P_DAYS</code> 값을 바꿔 실행합니다.</li>
+    <li>Output List에서 세 줄의 출력이 입력값과 일치하는지 확인합니다.</li>
+    <li><code>P_NAME</code>을 비운 뒤 <code>OBLIGATORY</code> 때문에 <code>WRITE</code>까지 가지 않는지 확인합니다.</li>
+    <li><code>OBLIGATORY</code>를 잠시 제거하면 빈 이름이 공백으로 출력될 수 있음을 비교합니다.</li>
   </ol>
   <details class="foldable">
     <summary>확인 질문</summary>
-    <p><code>P_NAME</code>이라는 화면 필드와 <code>p_name</code>이라는 프로그램 변수는 어떻게 연결되나요? 답은 “<code>PARAMETERS</code> 선언 하나가 둘을 같은 입력 파라미터로 묶어 준다”입니다.</p>
+    <p><code>P_NAME</code> 화면 필드와 <code>p_name</code> 프로그램 변수는 어떻게 연결되나요? 답은 “<code>PARAMETERS</code> 선언 하나가 둘을 같은 입력 파라미터로 묶어 준다”입니다.</p>
   </details>
 </section>
 
 <section class="lesson-section">
-  <h2>8. 공식 문서로 더 확인하기</h2>
+  <h2>9. 공식 문서로 더 확인하기</h2>
   <div class="link-list">
-    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS.html" target="_blank" rel="noopener">SAP Help: PARAMETERS <span>Selection Screen 입력 파라미터 선언과 프로그램 데이터 객체 역할을 확인합니다.</span></a>
-    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSELECTION_SCREEN_OVERVIEW.html" target="_blank" rel="noopener">SAP Help: Selection Screens Overview <span>Execute 후 Selection Screen 처리와 프로그램 실행 흐름을 확인합니다.</span></a>
-    <a href="https://help.sap.com/saphelp_em92/helpdata/en/4a/49ea1bea8b1c46e10000000a42189c/content.htm" target="_blank" rel="noopener">SAP Help: The WRITE Statement <span><code>WRITE</code>가 data object를 current list에 쓰는 기본 역할을 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS.html" target="_blank" rel="noopener">SAP Help: PARAMETERS <span>Selection parameter가 프로그램 data object와 selection screen input field에 연결되는 규칙을 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSTART-OF-SELECTION.html" target="_blank" rel="noopener">SAP Help: START-OF-SELECTION <span>사용자가 실행한 뒤 본 처리 블록이 시작되는 위치를 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPWRITE-.html" target="_blank" rel="noopener">SAP Help: WRITE <span><code>WRITE</code>가 data object 내용을 current list에 쓰는 기본 역할을 확인합니다.</span></a>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>9. 확인 퀴즈</h2>
+  <h2>10. 확인 퀴즈</h2>
   <ol>
-    <li><code>PARAMETERS p_carr(3) TYPE c.</code>에서 사용자가 <code>KE</code>를 입력하면 프로그램 본문에서는 어떤 이름으로 값을 읽나요?</li>
+    <li><code>PARAMETERS p_carr TYPE c LENGTH 3.</code>에서 사용자가 <code>KE</code>를 입력하면 본문에서는 어떤 이름으로 값을 읽나요?</li>
     <li><code>WRITE</code> 출력은 Selection Screen 아래에 붙나요, 아니면 다른 결과 화면에 보이나요?</li>
     <li><code>OBLIGATORY</code>가 없고 입력값이 비어 있으면 <code>WRITE</code>는 항상 오류를 내나요?</li>
+    <li><code>START-OF-SELECTION</code>을 명시하면 어떤 점이 좋아지나요?</li>
   </ol>
   <details class="foldable">
     <summary>정답/해설 보기</summary>
     <ol>
-      <li><code>p_carr</code> 변수로 읽습니다. 화면 필드의 기술 이름과 프로그램 변수 이름이 같은 선언에서 나옵니다.</li>
-      <li>다른 결과 단계인 List Output에 보입니다. Selection Screen을 꾸미는 출력이 아닙니다.</li>
+      <li><code>p_carr</code> 변수로 읽습니다. 화면 필드와 프로그램 변수는 같은 <code>PARAMETERS</code> 선언에서 나옵니다.</li>
+      <li>다른 결과 단계인 Output List에 보입니다. Selection Screen을 꾸미는 출력이 아닙니다.</li>
       <li>아니요. 빈 값이 변수에 들어오면 공백처럼 출력될 수 있습니다. 빈 값 실행을 막으려면 <code>OBLIGATORY</code>가 필요합니다.</li>
+      <li>선언부와 실행부가 분리되어 이후 검증, 조회, 출력 로직을 읽고 유지보수하기 쉬워집니다.</li>
     </ol>
   </details>
-</section>
-
-<section class="lesson-section">
-  <h2>10. 한눈에 정리</h2>
-  <div class="lesson-callout tip">
-    <div class="lesson-callout-icon">📝</div>
-    <div class="lesson-callout-content">
-      <h4>오늘의 기준 문장</h4>
-      <p>Selection Screen에서 입력한 값은 같은 이름의 <code>PARAMETERS</code> 변수에 담기고, <code>WRITE</code>는 그 값을 List Output에 씁니다. “화면 → 메모리 → 출력” 순서를 잃지 않으면 Report의 기본 흐름을 읽을 수 있습니다.</p>
-    </div>
-  </div>
 </section>

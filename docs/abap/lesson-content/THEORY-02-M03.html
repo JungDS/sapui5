@@ -1,4 +1,4 @@
-<!-- lesson-content/THEORY-02-M03.html | 최종수정 2026-06-17 02:15 KST -->
+<!-- lesson-content/THEORY-02-M03.html | 최종수정 2026-06-19 23:33 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
@@ -140,7 +140,7 @@
 <section class="lesson-section">
   <h2>5. 직접 해보기: WRITE 출력 미리보기</h2>
   <p>
-    아래 sandbox는 <span class="glossary-term" data-glossary="SE38">SE38</span>에서 <code>WRITE: /</code>로 여러 줄을 출력하는 모습을 미리 보는 실습입니다. 값을 바꿔 실행하면 <strong>슬래시 <code>/</code>가 각 줄을 새 줄로 나눠</strong> 출력 리스트에 표시되는 것을 볼 수 있습니다.
+    아래 sandbox는 <span class="glossary-term" data-glossary="SE38">SE38</span>에서 <code>WRITE</code>가 출력 리스트에 기록되는 방식을 미리 보는 실습입니다. 같은 값이라도 <strong><code>/</code> 줄바꿈, <code>:</code> 체이닝, <code>NO-ZERO</code>, <code>AT</code> 위치 지정</strong>을 어떻게 쓰느냐에 따라 화면 결과가 달라집니다.
   </p>
   <div class="interactive-sap-sandbox">
     <div class="sap-gui-header">
@@ -160,6 +160,16 @@
         <label>수량(lv_qty)</label>
         <input type="text" class="sap-input sap-input-medium" id="m03-qty" value="3" maxlength="10">
       </div>
+      <div class="sap-field-row">
+        <label>출력 모드</label>
+        <select class="sap-input sap-input-medium" id="m03-mode">
+          <option value="slash" selected>WRITE: / 줄바꿈</option>
+          <option value="single">/ 없이 한 줄</option>
+          <option value="no-zero">NO-ZERO 적용</option>
+          <option value="at">AT /10(8) 위치/길이</option>
+          <option value="syntax-error">콜론 없이 쉼표 사용(오류)</option>
+        </select>
+      </div>
       <button class="sap-btn-execute" type="button">WRITE 실행(F8)</button>
     </div>
     <div class="sap-result-log">
@@ -170,16 +180,22 @@
   "fields": {
     "name": "#m03-name",
     "city": "#m03-city",
-    "qty": "#m03-qty"
+    "qty": "#m03-qty",
+    "mode": "#m03-mode"
   },
   "steps": [
-    { "label": "Editor", "type": "info", "text": "WRITE: / '이름:', {name}, / '도시:', {city}, / '수량:', {qty}. 를 작성합니다." }
+    { "label": "Editor", "type": "info", "text": "출력 모드 '{mode}' 기준으로 WRITE 문을 구성합니다." },
+    { "label": "List Buffer", "type": "info", "text": "WRITE 결과는 먼저 출력 리스트 버퍼에 기록되고, 처리 블록 종료 후 화면에 렌더링됩니다." }
   ],
   "validations": [
-    { "field": "name", "test": "required", "label": "Error", "text": "출력할 이름이 비어 있습니다.", "modal": "이름을 입력하세요." }
+    { "field": "name", "test": "required", "label": "Error", "text": "출력할 이름이 비어 있습니다.", "modal": "이름을 입력하세요." },
+    { "field": "city", "test": "required", "label": "Error", "text": "출력할 도시가 비어 있습니다.", "modal": "도시를 입력하세요." },
+    { "field": "qty", "test": "required", "label": "Error", "text": "수량이 비어 있습니다.", "modal": "수량을 입력하세요." },
+    { "field": "qty", "test": "numeric", "label": "Error", "text": "수량은 숫자로 입력해야 합니다.", "modal": "수량은 숫자로 입력하세요. 예: 0, 3, 00123" },
+    { "field": "mode", "test": "notRegex", "pattern": "^syntax-error$", "label": "Syntax Error", "text": "콜론 없이 쉼표로 여러 항목을 나열하면 WRITE 체이닝 구문 오류가 납니다.", "modal": "WRITE lv_a, lv_b.가 아니라 WRITE: lv_a, lv_b.처럼 콜론(:)을 먼저 써야 합니다." }
   ],
   "successSteps": [
-    { "label": "START-OF-SELECTION", "type": "event", "text": "WRITE 문이 출력 리스트(버퍼)에 3줄을 기록합니다." },
+    { "label": "START-OF-SELECTION", "type": "event", "text": "선택한 출력 모드에 맞게 WRITE 문이 출력 리스트(버퍼)에 기록됩니다." },
     { "label": "Execute (F8)", "type": "event", "text": "블록 종료 후 런타임이 출력 리스트를 화면에 렌더링합니다." }
   ],
   "result": {
@@ -194,6 +210,40 @@
       { "line": "1", "content": "이름: {name}" },
       { "line": "2", "content": "도시: {city}" },
       { "line": "3", "content": "수량: {qty}" }
+    ],
+    "variants": [
+      {
+        "whenField": "mode",
+        "whenValue": "single",
+        "text": "출력 리스트 — 슬래시(/)를 빼면 모든 항목이 같은 줄에 이어집니다.",
+        "rows": [
+          { "line": "1", "content": "이름: {name} 도시: {city} 수량: {qty}" }
+        ]
+      },
+      {
+        "whenField": "mode",
+        "whenValue": "no-zero",
+        "text": "출력 리스트 — NO-ZERO는 출력 화면에서 의미 없는 0을 숨깁니다. 원본 변수 값은 바꾸지 않습니다.",
+        "rows": [
+          { "line": "1", "content": "이름: {name}" },
+          { "line": "2", "content": "도시: {city}" },
+          { "line": "3", "content": "수량: {qty} → NO-ZERO 적용(0이면 공백, 선행 0은 숨김)" }
+        ]
+      },
+      {
+        "whenField": "mode",
+        "whenValue": "at",
+        "text": "출력 리스트 — AT /10(8)은 다음 줄 10번째 열부터 8자리 길이로 출력합니다.",
+        "columns": [
+          { "key": "line", "head": "줄" },
+          { "key": "content", "head": "화면 출력" }
+        ],
+        "rows": [
+          { "line": "1", "content": "         이름: {name}" },
+          { "line": "2", "content": "         도시: {city}" },
+          { "line": "3", "content": "         수량: {qty}" }
+        ]
+      }
     ]
   }
 }
@@ -202,6 +252,10 @@
   <details class="foldable">
     <summary>슬래시(/)를 빼면 출력이 어떻게 달라지나요?</summary>
     <p><code>WRITE: '이름:', lv_name, '도시:', lv_city.</code>처럼 <code>/</code> 없이 쓰면 모두 <strong>한 줄에 이어서</strong> 출력됩니다(<code>이름: 정훈영 도시: 서울</code>). 줄을 나누고 싶은 항목 앞에 <code>/</code>를 붙이세요.</p>
+  </details>
+  <details class="foldable">
+    <summary><code>NO-ZERO</code>는 데이터 값을 바꾸나요?</summary>
+    <p>아닙니다. <code>NO-ZERO</code>는 출력 모양만 바꿉니다. 예를 들어 <code>lv_qty</code>에 <code>00123</code>이 들어 있어도 출력 리스트에는 <code>123</code>처럼 보일 수 있지만, 메모리 안의 원본 값은 그대로 유지됩니다.</p>
   </details>
 </section>
 
@@ -246,9 +300,10 @@
   <h2>7. 공식 문서로 더 확인하기</h2>
   <p>이번 Lesson은 NotebookLM(연결된 SAP 교육 자료 BC405 등)으로 보강한 뒤 SAP 공식 문서로 WRITE 문법과 옵션을 재확인했습니다.</p>
   <div class="link-list">
-    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapwrite.htm" target="_blank" rel="noopener">SAP Help Portal: WRITE statement<span>출력 리스트로 데이터를 출력하는 WRITE의 공식 정의입니다.</span></a>
-    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapwrite_options.htm" target="_blank" rel="noopener">SAP Help Portal: WRITE - format options<span>NO-ZERO·정렬·날짜·통화·EDIT MASK 등 포맷 옵션을 확인합니다.</span></a>
-    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abenabap_lists.htm" target="_blank" rel="noopener">SAP Help Portal: ABAP Lists<span>클래식 리스트(출력 리스트)의 구조를 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/LATEST/en-US/ABAPWRITE-.html" target="_blank" rel="noopener">SAP Help Portal: WRITE statement<span>출력 리스트로 데이터를 출력하는 WRITE의 공식 정의입니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPWRITE_INT_OPTIONS.html" target="_blank" rel="noopener">SAP Help Portal: WRITE format options<span>NO-ZERO·정렬·날짜·통화·EDIT MASK 등 포맷 옵션을 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENWRITE_OUTPUT_LENGTH.html" target="_blank" rel="noopener">SAP Help Portal: WRITE output length<span>AT 위치와 출력 길이가 리스트 버퍼에 미치는 영향을 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_DYNPRO_LIST.html" target="_blank" rel="noopener">SAP Help Portal: Classic Lists<span>클래식 리스트와 리스트 버퍼의 구조를 확인합니다.</span></a>
     <a href="https://learning.sap.com/courses/abap-basics" target="_blank" rel="noopener">SAP Learning: ABAP Basics<span>간단한 리스트 출력과 기본 ABAP 구문을 다룹니다.</span></a>
   </div>
 </section>

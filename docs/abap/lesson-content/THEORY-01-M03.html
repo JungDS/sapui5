@@ -1,4 +1,4 @@
-<!-- lesson-content/THEORY-01-M03.html | 최종수정 2026-06-17 01:11 KST -->
+<!-- lesson-content/THEORY-01-M03.html | 최종수정 2026-06-19 23:33 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
@@ -153,6 +153,7 @@
   <h2>4. SE11에서 Data Element를 만들고 코드 화면을 미리 본다</h2>
   <p>
     SAP GUI 상단 명령창에 <span class="glossary-term" data-glossary="SE11">SE11</span> 또는 <code>/nSE11</code>을 입력합니다. 초기 화면에서 Data Type을 선택하고 Data Element 이름을 입력한 뒤 Create를 누르면 Data Element 유지보수 화면으로 들어갑니다. 아래 sandbox는 이 흐름을 줄인 실습입니다.
+    <code>ABAP TYPE Target</code>에 Domain 이름을 넣어 실패시킨 뒤, Data Element 이름으로 되돌려 활성화해 보세요. 코드에서 직접 타입으로 쓰는 이름은 Domain이 아니라 Data Element입니다.
   </p>
   <div class="interactive-sap-sandbox">
     <div class="sap-gui-header">
@@ -167,6 +168,10 @@
       <div class="sap-field-row">
         <label>Domain</label>
         <input type="text" class="sap-input sap-input-medium" id="m03-domain" value="ZDO_PERCENT" maxlength="30">
+      </div>
+      <div class="sap-field-row">
+        <label>ABAP TYPE Target</label>
+        <input type="text" class="sap-input sap-input-medium" id="m03-abap-type" value="ZDE_DISCOUNT" maxlength="30">
       </div>
       <div class="sap-field-row">
         <label>Short Label</label>
@@ -198,6 +203,7 @@
   "fields": {
     "element": "#m03-element",
     "domain": "#m03-domain",
+    "abapType": "#m03-abap-type",
     "short": "#m03-short",
     "medium": "#m03-medium",
     "long": "#m03-long",
@@ -208,13 +214,19 @@
     { "label": "SE11", "type": "event", "text": "Data Type에서 Data Element {element} 생성 화면을 엽니다." },
     { "label": "Data Type", "type": "info", "text": "{element}가 Domain {domain}의 기술 속성을 참조합니다." },
     { "label": "Field Label", "type": "info", "text": "Short={short}, Medium={medium}, Long={long}, Heading={heading} 라벨을 입력했습니다." },
-    { "label": "Documentation", "type": "info", "text": "F1 Help 문서: {f1}" }
+    { "label": "Documentation", "type": "info", "text": "F1 Help 문서: {f1}" },
+    { "label": "ABAP Preview", "type": "info", "text": "코드에서는 PARAMETERS p_disc TYPE {abapType}. 형태로 Data Element를 참조합니다." }
   ],
   "validations": [
     { "field": "element", "test": "required", "label": "Name Check", "text": "Data Element 이름이 비어 있습니다.", "modal": "Data Element 이름을 입력하세요." },
     { "field": "element", "test": "regex", "pattern": "^(Z|Y)[A-Z0-9_]{3,29}$", "label": "Name Check", "text": "{element}은 고객 네임스페이스 이름 규칙에 맞지 않습니다.", "modal": "Data Element 이름은 Z 또는 Y로 시작하고 대문자·숫자·언더스코어를 사용하세요." },
     { "field": "domain", "test": "regex", "pattern": "^(Z|Y)[A-Z0-9_]{3,29}$", "label": "Domain Check", "text": "{domain}은 활성 Domain 이름처럼 보이지 않습니다.", "modal": "먼저 활성화된 Z/Y Domain 이름을 입력하세요." },
+    { "field": "abapType", "test": "required", "label": "ABAP Type Check", "text": "ABAP TYPE 대상이 비어 있습니다.", "modal": "ABAP 코드에서 참조할 Data Element 이름을 입력하세요." },
+    { "field": "abapType", "test": "equalsField", "otherField": "element", "label": "ABAP Type Check", "text": "ABAP TYPE 대상 {abapType}은 Data Element {element}와 같아야 합니다. Domain {domain}은 직접 TYPE로 쓰지 않습니다.", "modal": "Domain 이름을 TYPE 대상으로 쓰지 말고 Data Element 이름을 입력하세요." },
+    { "field": "short", "test": "required", "label": "Label Check", "text": "Short Label이 비어 있습니다.", "modal": "좁은 화면을 위한 Short Label을 입력하세요." },
     { "field": "medium", "test": "required", "label": "Label Check", "text": "Medium Label이 비어 있습니다.", "modal": "일반 화면에 보일 Medium Label을 입력하세요." },
+    { "field": "long", "test": "required", "label": "Label Check", "text": "Long Label이 비어 있습니다.", "modal": "상세 화면을 위한 Long Label을 입력하세요." },
+    { "field": "heading", "test": "required", "label": "Label Check", "text": "Heading이 비어 있습니다.", "modal": "리스트/ALV 컬럼 제목에 쓸 Heading을 입력하세요." },
     { "field": "f1", "test": "required", "label": "Help Check", "text": "F1 Help 설명이 비어 있습니다.", "modal": "사용자가 F1을 눌렀을 때 볼 설명을 입력하세요." }
   ],
   "successSteps": [
@@ -231,7 +243,7 @@
       { "key": "meaning", "head": "의미" }
     ],
     "rows": [
-      { "where": "ABAP Code", "value": "PARAMETERS p_disc TYPE {element}.", "meaning": "코드는 Data Element 이름으로 타입을 참조합니다." },
+      { "where": "ABAP Code", "value": "PARAMETERS p_disc TYPE {abapType}.", "meaning": "코드는 Domain이 아니라 Data Element 이름으로 타입을 참조합니다." },
       { "where": "Selection Screen", "value": "{medium}", "meaning": "화면은 Field Label을 라벨로 재사용합니다." },
       { "where": "F1 Help", "value": "{f1}", "meaning": "사용자는 필드 의미 설명을 확인합니다." }
     ]

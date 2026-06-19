@@ -1,4 +1,4 @@
-// ABAP Curriculum Lesson Viewer | 최종수정 2026-06-18 01:29 KST | v1.4
+// ABAP Curriculum Lesson Viewer | 최종수정 2026-06-19 23:33 KST | v1.11
 //
 // Reads `?lesson=THEORY-01-M01` from the URL, loads the curriculum JSON to find metadata,
 // and fetches the actual lesson content from `lesson-content/THEORY-01-M01.html`.
@@ -277,9 +277,15 @@
 
   function copyText(text) {
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      return navigator.clipboard.writeText(text);
+      return navigator.clipboard.writeText(text).catch(function () {
+        return copyTextFallback(text);
+      });
     }
 
+    return copyTextFallback(text);
+  }
+
+  function copyTextFallback(text) {
     return new Promise(function (resolve, reject) {
       var textarea = document.createElement("textarea");
       textarea.className = "lesson-copy-buffer";
@@ -314,11 +320,13 @@
 
         var originalText = btn.dataset.originalText || btn.textContent;
         btn.dataset.originalText = originalText;
-        btn.textContent = "✓ Copied!";
-        btn.classList.add("is-copied");
 
-        copyText(codeEl.innerText).catch(function (err) {
-          console.error("Failed to copy text: ", err);
+        copyText(codeEl.innerText).then(function () {
+          btn.textContent = "✓ Copied!";
+          btn.classList.add("is-copied");
+        }).catch(function (err) {
+          btn.textContent = "Copy unavailable";
+          console.warn("Copy unavailable: ", err);
         }).finally(function () {
           setTimeout(function () {
             btn.textContent = originalText;
@@ -884,7 +892,20 @@
       fields[key] = input && 'value' in input ? input.value.trim() : '';
     });
 
+    applySandboxDerivedFields(fields, config);
+
     return fields;
+  }
+
+  function applySandboxDerivedFields(fields, config) {
+    (config.derivedFields || []).forEach(function (definition) {
+      var source = fields[definition.from] == null ? '' : fields[definition.from];
+      var mapped = definition.map && Object.prototype.hasOwnProperty.call(definition.map, source)
+        ? definition.map[source]
+        : definition.default;
+
+      fields[definition.key] = mapped == null ? '' : mapped;
+    });
   }
 
   function runConfiguredSandbox(sandbox, config, logEl, showSapError) {
@@ -902,7 +923,7 @@
     for (var i = 0; i < validations.length; i++) {
       var rule = validations[i];
       var fieldValue = fields[rule.field] || '';
-      if (!isSandboxRuleValid(fieldValue, rule)) {
+      if (!isSandboxRuleValid(fieldValue, rule, fields)) {
         addConfiguredLogLine(logEl, rule.label || 'Error', 'error', interpolateSandboxText(rule.text, fields));
         showSapError(interpolateSandboxText(rule.modal || rule.text, fields));
         return;
@@ -916,18 +937,37 @@
     renderConfiguredSandboxResult(logEl, config.result, fields);
   }
 
-  function isSandboxRuleValid(value, rule) {
+  function isSandboxRuleValid(value, rule, fields) {
     if (rule.test === 'required') return value.length > 0;
     if (rule.test === 'numeric') return value === '' || !isNaN(value);
     if (rule.test === 'num4') return /^[0-9]{4}$/.test(value);
     if (rule.test === 'prefix') return value.toUpperCase().indexOf(String(rule.value || '').toUpperCase()) === 0;
     if (rule.test === 'regex') return new RegExp(rule.pattern).test(value);
+    if (rule.test === 'notRegex') return !new RegExp(rule.pattern).test(value);
+    if (rule.test === 'regexIf') {
+      var actual = fields ? fields[rule.whenField] : '';
+      var expected = String(rule.whenValue == null ? '' : rule.whenValue);
+      if (actual !== expected) return true;
+      return new RegExp(rule.pattern).test(value);
+    }
+    if (rule.test === 'notRegexIf') {
+      var notRegexActual = fields ? fields[rule.whenField] : '';
+      var notRegexExpected = String(rule.whenValue == null ? '' : rule.whenValue);
+      if (notRegexActual !== notRegexExpected) return true;
+      return !new RegExp(rule.pattern).test(value);
+    }
+    if (rule.test === 'equalsField') {
+      var other = fields ? fields[rule.otherField] : '';
+      return value === String(other == null ? '' : other);
+    }
     if (rule.test === 'equals') return value === String(rule.value == null ? '' : rule.value);
     return true;
   }
 
   function renderConfiguredSandboxResult(logEl, result, fields) {
     if (!result) return;
+
+    result = resolveSandboxResultVariant(result, fields);
 
     if (result.text) {
       addConfiguredLogLine(logEl, result.label || 'Result', result.type || 'info', interpolateSandboxText(result.text, fields));
@@ -949,6 +989,24 @@
 
     tableHtml += '</tbody></table>';
     logEl.innerHTML += '<div class="sap-log-line info">' + tableHtml + '</div>';
+  }
+
+  function resolveSandboxResultVariant(result, fields) {
+    var variants = result.variants || [];
+    for (var i = 0; i < variants.length; i++) {
+      var variant = variants[i];
+      if (fields && fields[variant.whenField] === String(variant.whenValue == null ? '' : variant.whenValue)) {
+        var merged = {};
+        Object.keys(result).forEach(function (key) {
+          if (key !== 'variants') merged[key] = result[key];
+        });
+        Object.keys(variant).forEach(function (key) {
+          if (key !== 'whenField' && key !== 'whenValue') merged[key] = variant[key];
+        });
+        return merged;
+      }
+    }
+    return result;
   }
 
   function addConfiguredLogLine(logEl, label, type, text) {

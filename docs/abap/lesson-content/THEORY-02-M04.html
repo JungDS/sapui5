@@ -1,4 +1,4 @@
-<!-- lesson-content/THEORY-02-M04.html | 최종수정 2026-06-16 01:55 KST -->
+<!-- lesson-content/THEORY-02-M04.html | 최종수정 2026-06-19 23:33 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
@@ -200,6 +200,141 @@
       <p><strong>완료 조건:</strong> 같은 문제를 IF와 CASE 중 무엇으로 푸는 게 좋은지 이유와 함께 고를 수 있으면 성공입니다.</p>
     </div>
   </div>
+  <div class="interactive-sap-sandbox">
+    <div class="sap-gui-header">
+      <div class="sap-tcode-bar">T-Code: <span class="tcode-val"><span class="glossary-term" data-glossary="SE38">SE38</span> (ABAP Editor)</span></div>
+    </div>
+    <div class="sap-gui-title-bar">IF / CASE 분기 실행 추적</div>
+    <div class="sap-selection-screen">
+      <div class="sap-field-row">
+        <label>점수(lv_score)</label>
+        <select class="sap-input sap-input-medium" id="m04-score">
+          <option value="95">95 - 첫 IF 실행</option>
+          <option value="85" selected>85 - 두 번째 ELSEIF 실행</option>
+          <option value="75">75 - 세 번째 ELSEIF 실행</option>
+          <option value="0">0 - ELSE 실행</option>
+        </select>
+      </div>
+      <div class="sap-field-row">
+        <label>IF 조건 순서</label>
+        <select class="sap-input sap-input-medium" id="m04-order">
+          <option value="normal" selected>좁은 조건부터 검사</option>
+          <option value="broad-first">넓은 조건을 먼저 둔 버그</option>
+          <option value="missing-endif">ENDIF 누락 오류</option>
+        </select>
+      </div>
+      <div class="sap-field-row">
+        <label>등급(lv_grade)</label>
+        <select class="sap-input sap-input-medium" id="m04-grade">
+          <option value="A">A - 우수</option>
+          <option value="B" selected>B - 양호</option>
+          <option value="C">C - 보통</option>
+          <option value="Z">Z - WHEN OTHERS</option>
+        </select>
+      </div>
+      <div class="sap-field-row">
+        <label>메모 변수(lv_note)</label>
+        <select class="sap-input sap-input-medium" id="m04-empty">
+          <option value="initial" selected>초기값</option>
+          <option value="filled">값 있음</option>
+        </select>
+      </div>
+      <button class="sap-btn-execute" type="button">분기 추적 실행(F8)</button>
+    </div>
+    <div class="sap-result-log">
+      <div class="sap-log-placeholder">버튼을 누르면 IF 평가 순서와 CASE 선택 결과가 출력 리스트처럼 표시됩니다.</div>
+    </div>
+    <template class="sandbox-config">
+{
+  "fields": {
+    "score": "#m04-score",
+    "orderMode": "#m04-order",
+    "grade": "#m04-grade",
+    "empty": "#m04-empty"
+  },
+  "derivedFields": [
+    {
+      "key": "scoreOutcome",
+      "from": "score",
+      "map": {
+        "95": "IF lv_score > 90. 이 먼저 참이어서 '우수'를 출력하고 나머지 ELSEIF는 평가하지 않습니다.",
+        "85": "첫 IF는 거짓, ELSEIF lv_score >= 80. 이 참이어서 '양호'를 출력합니다. 아래 >= 70 조건은 평가하지 않습니다.",
+        "75": "앞 조건은 거짓, ELSEIF lv_score >= 70. 이 참이어서 '보통'을 출력합니다.",
+        "0": "모든 IF/ELSEIF가 거짓이라 ELSE 가지에서 '재검토'를 출력합니다."
+      }
+    },
+    {
+      "key": "broadOutcome",
+      "from": "score",
+      "map": {
+        "95": "IF lv_score >= 70. 이 먼저 참이 되어 '보통 이상'만 출력됩니다. 90 초과 우수 조건은 평가 기회를 잃습니다.",
+        "85": "IF lv_score >= 70. 이 먼저 참이 되어 '보통 이상'만 출력됩니다. 80 이상 양호 조건은 평가되지 않습니다.",
+        "75": "첫 조건 >= 70이 참이므로 결과는 우연히 맞지만 조건 순서가 여전히 위험합니다.",
+        "0": "첫 조건도 거짓이라 ELSE로 이동합니다. 버그가 드러나지 않는 입력값도 있습니다."
+      }
+    },
+    {
+      "key": "gradeOutcome",
+      "from": "grade",
+      "map": {
+        "A": "CASE lv_grade. WHEN 'A'. 가지가 실행되어 '우수'를 출력합니다.",
+        "B": "CASE lv_grade. WHEN 'B'. 가지가 실행되어 '양호'를 출력합니다.",
+        "C": "CASE lv_grade. WHEN 'C'. 가지가 실행되어 '보통'을 출력합니다.",
+        "Z": "명시된 WHEN에 없으므로 WHEN OTHERS. 가지가 실행되어 '미분류'를 출력합니다."
+      }
+    },
+    {
+      "key": "emptyOutcome",
+      "from": "empty",
+      "map": {
+        "initial": "lv_note IS INITIAL 이 참입니다. 타입별 초기값을 안전하게 확인합니다.",
+        "filled": "lv_note IS INITIAL 이 거짓입니다. 값이 있으므로 빈 값 처리 블록을 건너뜁니다."
+      }
+    }
+  ],
+  "steps": [
+    { "label": "Editor", "type": "info", "text": "IF/ELSEIF/ELSE 블록과 CASE/WHEN/WHEN OTHERS 블록을 작성합니다." },
+    { "label": "Input", "type": "info", "text": "선택값: score={score}, grade={grade}, note={empty}, order={orderMode}" }
+  ],
+  "validations": [
+    { "field": "orderMode", "test": "notRegex", "pattern": "^missing-endif$", "label": "Syntax Error", "text": "IF 블록은 ENDIF로 닫아야 합니다.", "modal": "ENDIF가 누락되면 구문 검사를 통과할 수 없습니다. 블록 마지막에 ENDIF.를 추가하세요." }
+  ],
+  "successSteps": [
+    { "label": "Check (Ctrl+F2)", "type": "info", "text": "닫는 키워드와 분기 구조가 정상입니다." },
+    { "label": "Runtime", "type": "event", "text": "ABAP 런타임은 위에서 아래로 평가하고 첫 번째 참 분기 하나만 실행합니다." }
+  ],
+  "result": {
+    "label": "Branch Trace",
+    "type": "info",
+    "text": "정상 조건 순서 — 좁은 조건을 먼저 두면 의도한 분기가 실행됩니다.",
+    "columns": [
+      { "key": "item", "head": "검사" },
+      { "key": "detail", "head": "실행 결과" }
+    ],
+    "rows": [
+      { "item": "IS INITIAL", "detail": "{emptyOutcome}" },
+      { "item": "IF/ELSEIF", "detail": "{scoreOutcome}" },
+      { "item": "CASE/WHEN", "detail": "{gradeOutcome}" },
+      { "item": "선택 기준", "detail": "범위·복합 조건은 IF, 한 값의 여러 후보 비교는 CASE가 읽기 좋습니다." }
+    ],
+    "variants": [
+      {
+        "whenField": "orderMode",
+        "whenValue": "broad-first",
+        "label": "Branch Trace",
+        "text": "조건 순서 버그 — 넓은 조건을 위에 두면 아래의 구체적인 조건이 평가되지 않습니다.",
+        "rows": [
+          { "item": "잘못된 IF 순서", "detail": "{broadOutcome}" },
+          { "item": "교훈", "detail": "좁고 구체적인 조건을 위로, 넓은 조건을 아래로 배치합니다." },
+          { "item": "CASE/WHEN", "detail": "{gradeOutcome}" },
+          { "item": "IS INITIAL", "detail": "{emptyOutcome}" }
+        ]
+      }
+    ]
+  }
+}
+    </template>
+  </div>
   <details class="foldable">
     <summary>한 가지만 비교하는데 IF를 길게 늘어놓아도 되나?</summary>
     <p>동작은 합니다. 다만 같은 값에 대한 동등 비교(<code>grade = 'A'</code>, <code>= 'B'</code> …)가 3개 이상 이어지면 <code>CASE</code>가 훨씬 읽기 좋고 실수도 줄어듭니다. “돌아가는 코드”와 “읽기 좋은 코드”는 다릅니다.</p>
@@ -225,9 +360,9 @@
 <section class="lesson-section">
   <h2>8. 공식 문서로 더 확인하기</h2>
   <div class="link-list">
-    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapif.htm" target="_blank" rel="noopener">SAP Help Portal: IF<span><code>IF/ELSEIF/ELSE/ENDIF</code> 분기문의 공식 정의입니다.</span></a>
-    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapcase.htm" target="_blank" rel="noopener">SAP Help Portal: CASE<span><code>CASE/WHEN/WHEN OTHERS/ENDCASE</code> 분기문을 확인합니다.</span></a>
-    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abenlogical_expressions.htm" target="_blank" rel="noopener">SAP Help Portal: Logical Expressions<span>비교·논리 연산자와 <code>IS INITIAL</code>·<code>BETWEEN</code> 등을 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/abapif.html" target="_blank" rel="noopener">SAP Help Portal: IF<span><code>IF/ELSEIF/ELSE/ENDIF</code> 분기문의 공식 정의입니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCASE.html" target="_blank" rel="noopener">SAP Help Portal: CASE<span><code>CASE/WHEN/WHEN OTHERS/ENDCASE</code> 분기문을 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLOGEXP.html" target="_blank" rel="noopener">SAP Help Portal: Logical Expressions<span>비교·논리 연산자와 <code>IS INITIAL</code>·<code>BETWEEN</code> 등을 확인합니다.</span></a>
   </div>
 </section>
 

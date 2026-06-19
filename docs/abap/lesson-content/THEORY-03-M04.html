@@ -1,30 +1,30 @@
-<!-- lesson-content/THEORY-03-M04.html | 최종수정 2026-06-16 10:49 KST -->
+<!-- lesson-content/THEORY-03-M04.html | 최종수정 2026-06-19 23:33 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
   <div class="lesson-callout-content">
     <h4>학습 목표</h4>
-    <p>Chapter 3의 마지막 Lesson에서는 여러 입력칸을 읽기 좋게 묶는 <span class="glossary-term" data-glossary="SelectionScreenBlock">Selection Screen Block</span>을 맛봅니다. <span class="glossary-term" data-glossary="SelectionScreenBeginBlock">SELECTION-SCREEN BEGIN OF BLOCK</span>, <code>END OF BLOCK</code>, <span class="glossary-term" data-glossary="FrameTitle">FRAME TITLE</span>의 역할을 코드와 화면 목업으로 연결합니다.</p>
+    <p>Chapter 3의 마지막 Lesson에서는 여러 입력칸을 읽기 좋게 묶는 <span class="glossary-term" data-glossary="SelectionScreenBlock">Selection Screen Block</span>을 맛봅니다. <span class="glossary-term" data-glossary="SelectionScreenBeginBlock">SELECTION-SCREEN BEGIN OF BLOCK</span>, <code>END OF BLOCK</code>, <span class="glossary-term" data-glossary="FrameTitle">FRAME TITLE</span>이 코드와 화면에 각각 어떤 영향을 주는지 확인합니다.</p>
   </div>
 </div>
 
 <section class="lesson-section">
-  <h2>1. 입력칸이 많아지면 묶음이 필요하다</h2>
+  <h2>1. Chapter 3 연결: 입력 화면을 읽기 좋게 정리한다</h2>
   <p>
-    M01~M03에서는 <code>PARAMETERS</code> 입력값을 만들고, 기본값과 필수값을 붙이고, <code>WRITE</code>로 출력했습니다. 입력칸이 한두 개면 나열만 해도 충분하지만, 실제 Report는 회사 코드, 기간, 상태, 담당자처럼 여러 조건을 받을 수 있습니다.
+    M01~M03에서는 <span class="glossary-term" data-glossary="PARAMETERSStatement">PARAMETERS</span> 입력칸을 만들고, 기본값과 필수값을 붙이고, 입력값을 <code>WRITE</code>로 출력했습니다. 입력칸이 한두 개면 나열해도 충분하지만, 실제 Report는 회사 코드, 기간, 상태, 담당자처럼 여러 조건을 받습니다.
   </p>
   <p>
-    Selection Screen Block은 관련 입력 필드를 하나의 화면 영역으로 묶어 주는 장치입니다. 값을 검증하거나 데이터 구조를 바꾸는 기능이 아니라, 사용자가 화면을 더 빨리 읽도록 돕는 시각적 구조입니다.
+    Block은 관련 입력 필드를 하나의 <span class="glossary-term" data-glossary="SelectionScreen">Selection Screen</span> 영역으로 묶어 주는 장치입니다. 값을 검증하거나 데이터 구조를 바꾸는 기능이 아니라, 사용자가 화면을 더 빨리 읽도록 돕는 시각적 구조입니다.
   </p>
   <blockquote>
-    Block은 메모리 구조가 아니라 화면 정리 도구입니다. 선을 그리고 제목을 붙여 “이 입력값들은 한 묶음”이라고 보여줍니다.
+    핵심 한 줄: <strong>Block은 메모리 구조가 아니라 화면 정리 도구다.</strong>
   </blockquote>
 </section>
 
 <section class="lesson-section">
   <h2>2. BEGIN과 END는 반드시 짝이다</h2>
   <p>
-    Block은 시작과 끝이 있는 범위입니다. <code>SELECTION-SCREEN BEGIN OF BLOCK b_cond</code>로 시작했다면, 같은 이름으로 <code>SELECTION-SCREEN END OF BLOCK b_cond</code>를 써서 닫아야 합니다.
+    Block은 시작과 끝이 있는 범위입니다. <code>SELECTION-SCREEN BEGIN OF BLOCK b_cond</code>로 시작했다면, 같은 이름으로 <code>SELECTION-SCREEN END OF BLOCK b_cond</code>를 써서 닫아야 합니다. 이름이 다르면 구문 오류가 납니다.
   </p>
   <!-- ABAP_MOCKUP_START -->
 <div class="abap-editor-mockup shiki-copy-wrapper">
@@ -41,13 +41,13 @@
   </div>
   <div class="abap-editor-body">
     <div class="abap-editor-line-numbers">
-      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10
+      1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11
     </div>
-    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> z_demo_param_m04.
+    <pre class="shiki abap-editor-code"><code><span class="abap-token-keyword">REPORT</span> z_param_m04_block.
 
 <span class="abap-token-keyword">SELECTION-SCREEN</span> <span class="abap-token-keyword">BEGIN OF BLOCK</span> b_cond <span class="abap-token-keyword">WITH</span> <span class="abap-token-keyword">FRAME TITLE</span> text-<span class="abap-token-number">001</span>.
-  <span class="abap-token-keyword">PARAMETERS</span> p_carr(<span class="abap-token-number">3</span>) <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">DEFAULT</span> <span class="abap-token-string">'KE'</span> <span class="abap-token-keyword">OBLIGATORY</span>.
-  <span class="abap-token-keyword">PARAMETERS</span> p_date    <span class="abap-token-keyword">TYPE</span> d <span class="abap-token-keyword">OBLIGATORY</span>.
+  <span class="abap-token-keyword">PARAMETERS</span> p_carr <span class="abap-token-keyword">TYPE</span> c <span class="abap-token-keyword">LENGTH</span> <span class="abap-token-number">3</span> <span class="abap-token-keyword">DEFAULT</span> <span class="abap-token-string">'KE'</span> <span class="abap-token-keyword">OBLIGATORY</span>.
+  <span class="abap-token-keyword">PARAMETERS</span> p_date <span class="abap-token-keyword">TYPE</span> d <span class="abap-token-keyword">OBLIGATORY</span>.
 <span class="abap-token-keyword">SELECTION-SCREEN</span> <span class="abap-token-keyword">END OF BLOCK</span> b_cond.
 
 <span class="abap-token-keyword">START-OF-SELECTION</span>.
@@ -70,22 +70,22 @@
         <tr>
           <td><code>b_cond</code></td>
           <td>Block 이름</td>
-          <td>시작과 끝에서 같은 이름을 쓴다. 공식 문서 기준 최대 20자.</td>
+          <td>시작과 끝에서 같은 이름을 씁니다. 공식 문서 기준 최대 20자입니다.</td>
         </tr>
         <tr>
           <td><code>WITH FRAME</code></td>
           <td>테두리 표시</td>
-          <td>비어 있지 않은 Block 주위에 프레임을 그린다.</td>
+          <td>비어 있지 않은 Block 주위에 프레임을 그립니다.</td>
         </tr>
         <tr>
           <td><code>TITLE text-001</code></td>
           <td>프레임 제목</td>
-          <td>Text Symbol의 문구가 프레임 왼쪽 위에 표시된다.</td>
+          <td>Text Symbol의 문구가 프레임 왼쪽 위에 표시됩니다.</td>
         </tr>
         <tr>
           <td>사이의 <code>PARAMETERS</code></td>
           <td>Block에 포함되는 화면 요소</td>
-          <td>화면에서 같은 프레임 안에 보인다.</td>
+          <td>화면에서 같은 프레임 안에 보입니다.</td>
         </tr>
       </tbody>
     </table>
@@ -95,31 +95,33 @@
 <section class="lesson-section">
   <h2>3. 코드가 화면에서 어떻게 보이는가</h2>
   <p>
-    위 코드에서 <code>text-001</code>에 “조회 조건”이라는 Text Symbol을 유지보수했다고 가정하면, Selection Screen은 아래처럼 보입니다. 중요한 점은 입력 변수 <code>p_carr</code>, <code>p_date</code>가 합쳐진 것이 아니라 같은 프레임 안에 배치될 뿐이라는 사실입니다.
+    <code>text-001</code>에 “조회 조건”이라는 Text Symbol을 유지보수했다고 가정하면, <code>P_CARR</code>와 <code>P_DATE</code>는 같은 프레임 안에 보입니다. 중요한 점은 입력 변수들이 합쳐진 것이 아니라, 화면 배치만 함께 묶였다는 사실입니다.
   </p>
-  <div class="sap-static-sandbox">
-    <div class="sap-gui-header">
-      <div class="sap-tcode-bar">Program <span class="tcode-val">Z_DEMO_PARAM_M04</span></div>
+  <div class="viz-compare">
+    <div class="viz-compare-before">
+      <span class="viz-compare-label">코드 범위</span>
+      <div class="viz-compare-body">
+        <ul>
+          <li><code>BEGIN OF BLOCK b_cond</code>가 묶음 시작입니다.</li>
+          <li>사이에 있는 <code>PARAMETERS</code>가 프레임 안에 배치됩니다.</li>
+          <li><code>END OF BLOCK b_cond</code>가 묶음 끝입니다.</li>
+        </ul>
+      </div>
     </div>
-    <div class="sap-gui-title-bar">Standard Selection Screen 1000</div>
-    <div class="sap-selection-screen">
-      <fieldset class="sap-screen-block">
-        <legend>조회 조건</legend>
-        <div class="sap-field-row">
-          <label>P_CARR <span class="viz-badge fail">required</span></label>
-          <div class="sap-input">KE</div>
-        </div>
-        <div class="sap-field-row">
-          <label>P_DATE <span class="viz-badge fail">required</span></label>
-          <div class="sap-input">20260616</div>
-        </div>
-      </fieldset>
-      <button class="sap-btn-execute" type="button">Execute (F8)</button>
+    <div class="viz-compare-after">
+      <span class="viz-compare-label">화면 결과</span>
+      <div class="viz-compare-body">
+        <ul>
+          <li>프레임 제목은 “조회 조건”처럼 사용자가 읽는 문구입니다.</li>
+          <li><code>P_CARR</code>, <code>P_DATE</code>는 같은 상자 안에 보입니다.</li>
+          <li><code>p_carr</code>, <code>p_date</code> 변수는 여전히 독립입니다.</li>
+        </ul>
+      </div>
     </div>
   </div>
   <details class="foldable">
-    <summary>WITH FRAME을 빼면 문법 오류인가요?</summary>
-    <p>아닙니다. Block 자체는 정의할 수 있지만 사용자 눈에 보이는 사각형 테두리는 나타나지 않습니다. 이번 Lesson에서는 화면 정리 효과를 보기 위해 <code>WITH FRAME TITLE</code> 조합을 기준으로 익힙니다.</p>
+    <summary><code>WITH FRAME</code>을 빼면 문법 오류인가요?</summary>
+    <p>아닙니다. Block 범위 자체는 정의할 수 있지만 사용자가 볼 수 있는 사각형 테두리는 나타나지 않습니다. 이번 Lesson에서는 화면 정리 효과를 보기 위해 <code>WITH FRAME TITLE</code> 조합을 기준으로 익힙니다.</p>
   </details>
 </section>
 
@@ -128,35 +130,151 @@
   <p>
     <span class="glossary-term" data-glossary="FrameTitle">FRAME TITLE</span>은 프레임 왼쪽 위에 표시되는 제목입니다. 실습에서는 보통 <code>text-001</code> 같은 Text Symbol을 연결합니다. 이렇게 하면 나중에 번역과 문구 관리를 코드와 분리하기 쉽습니다.
   </p>
-  <div class="viz-visual">
-    <p class="viz-visual-title">이름과 제목을 분리해서 보기</p>
-    <div class="viz-compare">
-      <div class="viz-compare-before">
-        <span class="viz-compare-label">기술 이름</span>
-        <div class="viz-compare-body">
-          <ul>
-            <li><code>b_cond</code>는 ABAP 코드에서 쓰는 Block 이름입니다.</li>
-            <li>시작과 끝을 맞추고, 이벤트나 내부 식별에 쓰일 수 있습니다.</li>
-            <li>사용자에게 그대로 보이게 하려는 문구가 아닙니다.</li>
-          </ul>
-        </div>
+  <div class="lesson-callout warn">
+    <div class="lesson-callout-icon">⚠️</div>
+    <div class="lesson-callout-content">
+      <h4>Text Symbol을 비우면 제목도 비어 보인다</h4>
+      <p><code>TITLE text-001</code>을 적어도 <span class="glossary-term" data-glossary="SE38">SE38</span>의 Text Elements에서 <code>001</code> 문구를 등록하고 활성화하지 않으면, 프레임 제목이 기대처럼 보이지 않을 수 있습니다.</p>
+    </div>
+  </div>
+  <div class="viz-compare">
+    <div class="viz-compare-before">
+      <span class="viz-compare-label">기술 이름</span>
+      <div class="viz-compare-body">
+        <ul>
+          <li><code>b_cond</code>는 ABAP 코드에서 쓰는 Block 이름입니다.</li>
+          <li>시작과 끝을 맞추는 내부 식별자입니다.</li>
+          <li>사용자에게 그대로 보이게 하려는 문구가 아닙니다.</li>
+        </ul>
       </div>
-      <div class="viz-compare-after">
-        <span class="viz-compare-label">화면 제목</span>
-        <div class="viz-compare-body">
-          <ul>
-            <li><code>text-001</code>의 실제 문구는 “조회 조건”처럼 사용자가 읽습니다.</li>
-            <li>짧고 업무 의미가 드러나는 제목이 좋습니다.</li>
-            <li>“b1”, “cond” 같은 내부 이름을 제목으로 쓰지 않습니다.</li>
-          </ul>
-        </div>
+    </div>
+    <div class="viz-compare-after">
+      <span class="viz-compare-label">화면 제목</span>
+      <div class="viz-compare-body">
+        <ul>
+          <li><code>text-001</code>의 실제 문구는 “조회 조건”처럼 사용자가 읽습니다.</li>
+          <li>짧고 업무 의미가 드러나는 제목이 좋습니다.</li>
+          <li>“b1”, “cond” 같은 내부 이름을 제목으로 쓰지 않습니다.</li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
 <section class="lesson-section">
-  <h2>5. Block이 바꾸는 것과 바꾸지 않는 것</h2>
+  <h2>5. 직접 해보기: Block 렌더링 시뮬레이터</h2>
+  <p>
+    아래 sandbox에서 Block 이름, 종료 이름, 프레임 사용 여부, 제목 문구를 바꿔 보세요. <span class="glossary-term" data-glossary="SE38">SE38</span>에서 Check/Activate할 때 잡히는 이름 불일치와, 화면에 보이는 프레임 차이를 함께 확인합니다.
+  </p>
+  <div class="interactive-sap-sandbox">
+    <div class="sap-gui-header">
+      <div class="sap-tcode-bar">T-Code: <span class="tcode-val"><span class="glossary-term" data-glossary="SE38">SE38</span> (Z_PARAM_M04_BLOCK)</span></div>
+    </div>
+    <div class="sap-gui-title-bar">Selection Screen Block Builder</div>
+    <div class="sap-selection-screen">
+      <div class="sap-field-row">
+        <label>BEGIN Block 이름</label>
+        <input type="text" class="sap-input sap-input-medium" id="m304-begin" value="b_cond" maxlength="20">
+      </div>
+      <div class="sap-field-row">
+        <label>END Block 이름</label>
+        <input type="text" class="sap-input sap-input-medium" id="m304-end" value="b_cond" maxlength="20">
+      </div>
+      <div class="sap-field-row">
+        <label>프레임 옵션</label>
+        <select class="sap-input sap-input-medium" id="m304-frame">
+          <option value="with-frame" selected>WITH FRAME TITLE</option>
+          <option value="no-frame">프레임 없이 비교</option>
+        </select>
+      </div>
+      <div class="sap-field-row">
+        <label>text-001 제목</label>
+        <input type="text" class="sap-input sap-input-medium" id="m304-title" value="조회 조건" maxlength="20">
+      </div>
+      <div class="sap-field-row">
+        <label>항공사(P_CARR)</label>
+        <input type="text" class="sap-input sap-input-short" id="m304-carr" value="KE" maxlength="3">
+      </div>
+      <div class="sap-field-row">
+        <label>기준일(P_DATE)</label>
+        <input type="text" class="sap-input sap-input-medium" id="m304-date" value="20260619" maxlength="8">
+      </div>
+      <button class="sap-btn-execute" type="button">Check / Render</button>
+    </div>
+    <div class="sap-result-log">
+      <div class="sap-log-placeholder">Check / Render를 누르면 BEGIN/END 검증과 화면 렌더링 결과가 표시됩니다.</div>
+    </div>
+    <template class="sandbox-config">
+{
+  "fields": {
+    "beginName": "#m304-begin",
+    "endName": "#m304-end",
+    "frameMode": "#m304-frame",
+    "titleText": "#m304-title",
+    "carr": "#m304-carr",
+    "date": "#m304-date"
+  },
+  "derivedFields": [
+    {
+      "key": "frameText",
+      "from": "frameMode",
+      "map": {
+        "with-frame": "WITH FRAME TITLE text-001이 있어 프레임과 제목이 보입니다.",
+        "no-frame": "Block 범위는 유지되지만 화면 프레임과 제목은 보이지 않습니다."
+      },
+      "default": "Block 렌더링"
+    },
+    {
+      "key": "frameDisplay",
+      "from": "frameMode",
+      "map": {
+        "with-frame": "프레임과 제목 표시",
+        "no-frame": "프레임 없음"
+      },
+      "default": "프레임 상태"
+    }
+  ],
+  "steps": [
+    { "label": "BEGIN OF BLOCK", "type": "event", "text": "Block '{beginName}' 범위를 시작합니다." },
+    { "label": "PARAMETERS", "type": "info", "text": "P_CARR='{carr}', P_DATE='{date}' 입력 필드가 Block 범위 안에 배치됩니다." },
+    { "label": "END OF BLOCK", "type": "event", "text": "Block '{endName}' 범위를 닫으려 합니다." }
+  ],
+  "validations": [
+    { "field": "beginName", "test": "required", "label": "Syntax Error", "text": "Block 이름은 비워 둘 수 없습니다.", "modal": "BEGIN OF BLOCK 이름을 입력하세요." },
+    { "field": "beginName", "test": "regex", "pattern": "^[A-Za-z][A-Za-z0-9_]{0,19}$", "label": "Syntax Error", "text": "Block 이름은 문자로 시작하고 20자 이하의 식별자로 두세요.", "modal": "Block 이름 형식을 확인하세요." },
+    { "field": "endName", "test": "equalsField", "otherField": "beginName", "label": "Syntax Error", "text": "BEGIN 이름 '{beginName}'과 END 이름 '{endName}'이 다릅니다.", "modal": "SELECTION-SCREEN END OF BLOCK 이름은 BEGIN과 같아야 합니다." },
+    { "field": "titleText", "test": "regexIf", "pattern": ".+", "whenField": "frameMode", "whenValue": "with-frame", "label": "Text Symbol", "text": "WITH FRAME TITLE을 선택했다면 text-001 문구를 유지보수해야 합니다.", "modal": "text-001 제목 문구를 입력하고 활성화하세요." },
+    { "field": "carr", "test": "required", "label": "Required Field", "text": "P_CARR는 예제상 필수 입력입니다.", "modal": "P_CARR를 입력하세요." },
+    { "field": "date", "test": "regex", "pattern": "^[0-9]{8}$", "label": "Format", "text": "P_DATE는 내부 날짜 형식 YYYYMMDD 8자리로 입력하세요.", "modal": "P_DATE에는 YYYYMMDD 8자리 숫자를 입력하세요." }
+  ],
+  "successSteps": [
+    { "label": "WITH FRAME", "type": "info", "text": "{frameText}" },
+    { "label": "MEMORY", "type": "event", "text": "Block은 화면 묶음일 뿐 p_carr, p_date 변수 접근 방식은 바꾸지 않습니다." },
+    { "label": "START-OF-SELECTION", "type": "event", "text": "실행 로직에서는 p_carr='{carr}', p_date='{date}'를 그대로 읽습니다." }
+  ],
+  "result": {
+    "label": "Selection Screen Render",
+    "type": "info",
+    "text": "Block 적용 결과를 화면 구조 관점에서 확인합니다.",
+    "columns": [
+      { "key": "item", "head": "항목" },
+      { "key": "detail", "head": "결과" }
+    ],
+    "rows": [
+      { "item": "Block 범위", "detail": "{beginName} 안에 P_CARR, P_DATE 배치" },
+      { "item": "프레임", "detail": "{frameDisplay}" },
+      { "item": "제목 문구", "detail": "{titleText}" },
+      { "item": "변수 접근", "detail": "p_carr / p_date 그대로 사용. {beginName}-p_carr 아님" },
+      { "item": "역할", "detail": "검증이나 데이터 구조 변경이 아니라 화면 정리" }
+    ]
+  }
+}
+    </template>
+  </div>
+</section>
+
+<section class="lesson-section">
+  <h2>6. Block이 바꾸는 것과 바꾸지 않는 것</h2>
   <div class="recap-grid">
     <div class="recap-card">
       <strong>바꾸는 것</strong>
@@ -182,7 +300,7 @@
 </section>
 
 <section class="lesson-section">
-  <h2>6. 이번 범위 밖으로 빼기</h2>
+  <h2>7. 이번 범위 밖으로 빼기</h2>
   <div class="lesson-callout warn">
     <div class="lesson-callout-icon">⚠️</div>
     <div class="lesson-callout-content">
@@ -196,13 +314,13 @@
 </section>
 
 <section class="lesson-section">
-  <h2>7. 7분 미니 실습</h2>
+  <h2>8. 7분 미니 실습</h2>
   <ol>
-    <li>기존 M03 예제의 <code>p_carr</code>, <code>p_days</code>, <code>p_date</code>를 준비합니다.</li>
-    <li><code>SELECTION-SCREEN BEGIN OF BLOCK b_cond WITH FRAME TITLE text-001.</code>와 <code>END OF BLOCK b_cond.</code> 사이에 세 입력 필드를 넣습니다.</li>
-    <li><code>text-001</code>의 문구를 “조회 조건”으로 등록합니다.</li>
+    <li><span class="glossary-term" data-glossary="SE38">SE38</span>에서 <code>Z_PARAM_M04_BLOCK</code> Report를 만들고 <code>p_carr</code>, <code>p_date</code>를 준비합니다.</li>
+    <li><code>SELECTION-SCREEN BEGIN OF BLOCK b_cond WITH FRAME TITLE text-001.</code>와 <code>END OF BLOCK b_cond.</code> 사이에 두 입력 필드를 넣습니다.</li>
+    <li><code>text-001</code>의 문구를 “조회 조건”으로 등록하고 활성화합니다.</li>
     <li><code>WITH FRAME</code>이 있을 때와 없을 때 화면 차이를 비교합니다.</li>
-    <li>Block이 값 검증을 추가하지 않는다는 점을 한 문장으로 정리합니다.</li>
+    <li><code>END OF BLOCK b_wrong</code>처럼 이름을 바꿔 구문 오류를 확인한 뒤 다시 고칩니다.</li>
   </ol>
   <details class="foldable">
     <summary>실습 완료 기준</summary>
@@ -211,29 +329,12 @@
 </section>
 
 <section class="lesson-section">
-  <h2>8. 공식 문서로 더 확인하기</h2>
+  <h2>9. 공식 문서로 더 확인하기</h2>
   <div class="link-list">
-    <a href="https://help.sap.com/doc/abapdocu_751_index_htm/7.51/en-us/abapselection-screen_block.htm" target="_blank" rel="noopener">SAP Help: SELECTION-SCREEN - BLOCK <span>Block 이름, BEGIN/END, WITH FRAME, TITLE의 공식 동작을 확인합니다.</span></a>
-    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSELECTION_SCREEN_OVERVIEW.html" target="_blank" rel="noopener">SAP Help: Selection Screens Overview <span>Selection Screen 요소가 실행 프로그램의 표준 화면에서 어떻게 구성되는지 확인합니다.</span></a>
-    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS.html" target="_blank" rel="noopener">SAP Help: PARAMETERS <span>Block 안에 들어가는 단일 입력 필드 선언을 다시 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECTION-SCREEN_LAYOUT.html" target="_blank" rel="noopener">SAP Help: SELECTION-SCREEN screen_elements <span>BEGIN OF BLOCK, WITH FRAME, TITLE, END OF BLOCK의 최신 구문을 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSELECTION_SCREEN_OVERVIEW.html" target="_blank" rel="noopener">SAP Help: Selection Screens Overview <span>Selection Screen이 실행 프로그램에서 어떤 UI 역할을 하는지 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPPARAMETERS.html" target="_blank" rel="noopener">SAP Help: PARAMETERS <span>Block 안에 배치되는 단일 입력 필드 선언을 다시 확인합니다.</span></a>
   </div>
-</section>
-
-<section class="lesson-section">
-  <h2>9. 확인 퀴즈</h2>
-  <ol>
-    <li><code>BEGIN OF BLOCK b_cond</code>로 시작했다면 어떤 이름으로 닫아야 하나요?</li>
-    <li><code>WITH FRAME</code>은 무엇을 추가하나요?</li>
-    <li>Block으로 묶으면 <code>p_carr</code>와 <code>p_date</code>가 하나의 구조체가 되나요?</li>
-  </ol>
-  <details class="foldable">
-    <summary>정답/해설 보기</summary>
-    <ol>
-      <li><code>SELECTION-SCREEN END OF BLOCK b_cond.</code>처럼 같은 Block 이름으로 닫아야 합니다.</li>
-      <li>비어 있지 않은 Block 주위에 화면 프레임을 그립니다. <code>TITLE</code>이 있으면 프레임 제목도 표시됩니다.</li>
-      <li>아니요. Block은 화면 묶음입니다. 프로그램 변수들은 각각 독립적으로 남습니다.</li>
-    </ol>
-  </details>
 </section>
 
 <section class="lesson-section">
@@ -245,7 +346,7 @@
       <ul>
         <li><code>PARAMETERS</code>는 입력칸과 변수를 함께 만듭니다.</li>
         <li><code>DEFAULT</code>는 처음 보이는 값, <code>OBLIGATORY</code>는 빈 값 실행 방지입니다.</li>
-        <li>입력값은 같은 이름의 변수로 넘어가고 <code>WRITE</code>로 List Output에 출력됩니다.</li>
+        <li>입력값은 같은 이름의 변수로 넘어가고 <code>WRITE</code>로 Output List에 출력됩니다.</li>
         <li><code>SELECTION-SCREEN BEGIN OF BLOCK</code>은 관련 입력칸을 프레임으로 묶어 화면을 읽기 좋게 만듭니다.</li>
       </ul>
     </div>
