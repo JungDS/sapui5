@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Track 1 Lesson pipeline automation | 최종수정 2026-06-20 02:28 KST | v1.1
+// Track 1 Lesson pipeline automation | 최종수정 2026-06-20 02:56 KST | v1.1
 import fs from "node:fs";
 import path from "node:path";
 import { execSync } from "node:child_process";
@@ -333,6 +333,7 @@ ${notebookPrompt}
 - [ ] NotebookLM 질의 → 보강 포인트 확보
 - [ ] SAP 공식 문서 재검증 (문서 종류/URL/미확인 제한 기록)
 - [ ] 학습수단/샘플 선택 ([06](../../../.project-docs/06_LEARNING_METHODS.md))
+- [ ] 기존 운영 Lesson fragment 존재 시 archive 보관 필요 여부 확인
 - [ ] 본문 리빌딩/보강 (fragment, 인라인 style 금지)
 - [ ] 디자인 토큰 준수 (\`reference/design_variants.json\`)
 - [ ] T-code 글로서리 used_in_lessons 확인 (없으면 해당 없음)
@@ -351,7 +352,7 @@ ${notebookPrompt}
 | 리빌딩 범위 | ⬜ ${lesson.id} |
 | NotebookLM 보강 | ⬜ |
 | SAP 공식 재검증 | ⬜ 문서 종류/URL/제한 |
-| 학습수단/샘플 | ⬜ |
+| 학습수단/샘플 | ⬜ 선택 샘플 경로/이유/제외 후보 |
 | T-code 노출 | ⬜ |
 | 글로서리 미정의 | ⬜ |
 | 콘솔 오류 | ⬜ |
