@@ -1,14 +1,14 @@
 #!/usr/bin/env node
-// Track 1 Lesson pipeline automation | 최종수정 2026-06-19 23:34 KST | v1.1
+// Track 1 Lesson pipeline automation | 최종수정 2026-06-20 00:20 KST | v1.1
 import fs from "node:fs";
 import path from "node:path";
 import { execSync } from "node:child_process";
 
 const repoRoot = process.cwd();
 const progressPath = path.join(repoRoot, ".project-docs", "02_PROGRESS.md");
-const plansIndexPath = path.join(repoRoot, ".project-docs", "plans", "INDEX.md");
+const plansIndexPath = path.join(repoRoot, ".project-plans", "INDEX.md");
 const curriculumPath = path.join(repoRoot, "reference", "abap_curriculum_v5_4_20260605_000000.json");
-const plansRoot = path.join(repoRoot, ".project-docs", "plans");
+const plansRoot = path.join(repoRoot, ".project-plans");
 
 function parseArgs(argv) {
   const command = argv[0] && !argv[0].startsWith("--") ? argv[0] : "status";
@@ -313,7 +313,7 @@ Track 1 전체 자동화 큐에서 현재 작업 단위는 ${lesson.id}다. 기�
 5. 로컬 lesson-viewer에서 콘솔 오류, 칩 바, 주요 인터랙션을 검증한다.
 
 ## 완료 정의
-- Lesson 완료 기준 → [01_AI_SYNC DoD](../../../01_AI_SYNC.md).
+- Lesson 완료 기준 → [01_AI_SYNC DoD](../../../.project-docs/01_AI_SYNC.md).
 - 내부 ID는 사용자 화면에 추가 노출하지 않는다.
 - 코드/설정 흐름이 등장하면 페이지 내 조작형 시뮬레이션으로 연결한다.
 
@@ -328,11 +328,11 @@ ${notebookPrompt}
 > 상태 플래그만. 산문 금지.
 
 - [x] claim (02_PROGRESS 🔄)
-- [x] plans 폴더 생성
+- [x] .project-plans 폴더 생성
 - [x] 커리큘럼 JSON 목표 확인
 - [ ] NotebookLM 질의 → 보강 포인트 확보
 - [ ] SAP 공식 문서 재검증
-- [ ] v3 학습수단 선택 ([06](../../../06_LEARNING_METHODS.md))
+- [ ] v3 학습수단 선택 ([06](../../../.project-docs/06_LEARNING_METHODS.md))
 - [ ] 본문 리빌딩/보강 (fragment, 인라인 style 금지)
 - [ ] 디자인 토큰 준수 (\`reference/design_variants.json\`)
 - [ ] T-code 글로서리 used_in_lessons 확인
@@ -384,7 +384,7 @@ function startLesson(state, args, stamp, dryRun) {
   const nextProgress = stampMarkdown(state.progress, stamp, "02_PROGRESS.md").replace(tableHeader, `${tableHeader}\n${claimRow}`);
   const indexHeader = "| status | 경로 | 목표 |\n|---|---|---|";
   const indexRow = `| active | [${planDir.relativeDir}/](${planDir.relativeDir}/) | ${lesson.id} ${lesson.title} DoD 기준 v3 리빌딩 착수 |`;
-  const nextPlansIndex = stampMarkdown(state.plansIndex, stamp, "plans/INDEX.md").replace(indexHeader, `${indexHeader}\n${indexRow}`);
+  const nextPlansIndex = stampMarkdown(state.plansIndex, stamp, ".project-plans/INDEX.md").replace(indexHeader, `${indexHeader}\n${indexRow}`);
   const files = makePlanFiles({ lesson, stamp, branch });
 
   if (!dryRun) {
@@ -400,7 +400,7 @@ function startLesson(state, args, stamp, dryRun) {
     started: {
       lesson: lesson.id,
       title: lesson.title,
-      planDir: `.project-docs/plans/${planDir.relativeDir}/`
+      planDir: `.project-plans/${planDir.relativeDir}/`
     }
   };
 }
@@ -473,7 +473,7 @@ function finishLesson(state, args, stamp) {
 
   const activePlanDir = findActivePlanDir(state.plansIndex, lessonId);
   const planRowPattern = new RegExp(`^\\| active \\| \\[${escapeRegExp(activePlanDir)}\\/\\]\\(${escapeRegExp(activePlanDir)}\\/\\) \\| ([^|]+)\\|$`, "m");
-  let nextPlansIndex = stampMarkdown(state.plansIndex, stamp, "plans/INDEX.md");
+  let nextPlansIndex = stampMarkdown(state.plansIndex, stamp, ".project-plans/INDEX.md");
   if (activePlanDir && planRowPattern.test(nextPlansIndex)) {
     nextPlansIndex = nextPlansIndex.replace(planRowPattern, `| done | [${activePlanDir}/](${activePlanDir}/) | $1|`);
   }
@@ -484,7 +484,7 @@ function finishLesson(state, args, stamp) {
     finished: {
       lesson: lessonId,
       title: lesson.title,
-      planDir: activePlanDir ? `.project-docs/plans/${activePlanDir}/` : ""
+      planDir: activePlanDir ? `.project-plans/${activePlanDir}/` : ""
     }
   };
 }
@@ -519,7 +519,7 @@ function main() {
 
   if (args.command === "finish") {
     const result = finishLesson(state, args, stamp);
-    markPlanDone(result.finished.planDir.replace(".project-docs/plans/", "").replace(/\/$/, ""), stamp, args.dryRun);
+    markPlanDone(result.finished.planDir.replace(".project-plans/", "").replace(/\/$/, ""), stamp, args.dryRun);
 
     let progress = result.progress;
     let plansIndex = result.plansIndex;

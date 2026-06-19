@@ -1,14 +1,14 @@
 #!/usr/bin/env node
-// Track 1 Lesson work starter | 최종수정 2026-06-19 23:34 KST | v1.1
+// Track 1 Lesson work starter | 최종수정 2026-06-20 00:20 KST | v1.1
 import fs from "node:fs";
 import path from "node:path";
 import { execSync } from "node:child_process";
 
 const repoRoot = process.cwd();
 const progressPath = path.join(repoRoot, ".project-docs", "02_PROGRESS.md");
-const plansIndexPath = path.join(repoRoot, ".project-docs", "plans", "INDEX.md");
+const plansIndexPath = path.join(repoRoot, ".project-plans", "INDEX.md");
 const curriculumPath = path.join(repoRoot, "reference", "abap_curriculum_v5_4_20260605_000000.json");
-const plansRoot = path.join(repoRoot, ".project-docs", "plans");
+const plansRoot = path.join(repoRoot, ".project-plans");
 
 function parseArgs(argv) {
   const args = {
@@ -47,8 +47,8 @@ function printHelp() {
 What it does:
   - Infers the next Lesson from .project-docs/02_PROGRESS.md when --lesson is omitted.
   - Adds a 02_PROGRESS active claim.
-  - Creates .project-docs/plans/YYYYMM/MMDD_HHMM_<lesson>/ with PLAN/TASKS/RESULTS/assets.
-  - Adds the plan to .project-docs/plans/INDEX.md.
+  - Creates .project-plans/YYYYMM/MMDD_HHMM_<lesson>/ with PLAN/TASKS/RESULTS/assets.
+  - Adds the plan to .project-plans/INDEX.md.
 `);
 }
 
@@ -250,7 +250,7 @@ Track 1 기준선 리셋 이후 Chapter ${String(lesson.trackChapterNumber).padS
 5. 로컬 lesson-viewer에서 콘솔 오류, 칩 바, 주요 인터랙션을 검증한다.
 
 ## 완료 정의
-- Lesson 완료 기준 → [01_AI_SYNC DoD](../../../01_AI_SYNC.md).
+- Lesson 완료 기준 → [01_AI_SYNC DoD](../../../.project-docs/01_AI_SYNC.md).
 - 내부 ID는 사용자 화면에 추가 노출하지 않는다.
 - 코드/설정 흐름이 등장하면 페이지 내 조작형 시뮬레이션으로 연결한다.
 
@@ -266,11 +266,11 @@ ${notebookPrompt}
 > 상태 플래그만. 산문 금지.
 
 - [x] claim (02_PROGRESS 🔄)
-- [x] plans 폴더 생성
+- [x] .project-plans 폴더 생성
 - [x] 커리큘럼 JSON 목표 확인
 - [ ] NotebookLM 질의 → 보강 포인트 확보
 - [ ] SAP 공식 문서 재검증
-- [ ] v3 학습수단 선택 ([06](../../../06_LEARNING_METHODS.md))
+- [ ] v3 학습수단 선택 ([06](../../../.project-docs/06_LEARNING_METHODS.md))
 - [ ] 본문 리빌딩/보강 (fragment, 인라인 style 금지)
 - [ ] 디자인 토큰 준수 (\`reference/design_variants.json\`)
 - [ ] T-code 글로서리 used_in_lessons 확인
@@ -309,7 +309,7 @@ function updatePlansIndex(index, planDir, lesson, stamp) {
   const row = `| active | [${planDir.relativeDir}/](${planDir.relativeDir}/) | ${lesson.id} ${lesson.title} DoD 기준 v3 리빌딩 착수 |`;
   const tableHeader = "| status | 경로 | 목표 |\n|---|---|---|";
   if (!stamped.includes(tableHeader)) {
-    throw new Error("plans/INDEX.md table header not found.");
+    throw new Error(".project-plans/INDEX.md table header not found.");
   }
   return stamped.replace(tableHeader, `${tableHeader}\n${row}`);
 }
@@ -352,7 +352,7 @@ function main() {
   console.log(`Lesson: ${lesson.id} - ${lesson.title}`);
   console.log(`AI: ${args.ai}`);
   console.log(`Start: ${stamp}`);
-  console.log(`Plan: .project-docs/plans/${planDir.relativeDir}/`);
+  console.log(`Plan: .project-plans/${planDir.relativeDir}/`);
   console.log(`Branch: ${branch}`);
 
   if (args.dryRun) {
@@ -366,10 +366,10 @@ function main() {
 
   console.log("Updated:");
   console.log("  .project-docs/02_PROGRESS.md");
-  console.log("  .project-docs/plans/INDEX.md");
-  console.log(`  .project-docs/plans/${planDir.relativeDir}/PLAN.md`);
-  console.log(`  .project-docs/plans/${planDir.relativeDir}/TASKS.md`);
-  console.log(`  .project-docs/plans/${planDir.relativeDir}/RESULTS.md`);
+  console.log("  .project-plans/INDEX.md");
+  console.log(`  .project-plans/${planDir.relativeDir}/PLAN.md`);
+  console.log(`  .project-plans/${planDir.relativeDir}/TASKS.md`);
+  console.log(`  .project-plans/${planDir.relativeDir}/RESULTS.md`);
 }
 
 try {

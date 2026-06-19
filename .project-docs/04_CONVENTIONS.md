@@ -1,9 +1,9 @@
 # 04. CONVENTIONS — 파일 수정 규칙
 
-> 📅 **최종수정: 2026-06-20 00:04 KST**
+> 📅 **최종수정: 2026-06-20 00:20 KST**
 > 🎯 **목적:** 파일을 만들거나 고칠 때 반드시 지키는 규칙.
 > 📖 **읽을 때:** 실제 수정 직전.
-> ⚡ **TL;DR:** 타임스탬프, 운영 fragment 무인라인, 명시적 git add, `git pull/fetch` 금지.
+> ⚡ **TL;DR:** 타임스탬프, 운영 fragment 인라인 금지, 명시적 git add, 작업 중 `git pull/fetch` 금지.
 
 ## R1 타임스탬프
 
@@ -53,9 +53,9 @@
 
 ## R7 plans
 
-- 폴더: `plans/YYYYMM/MMDD_HHMM_<slug>/`
+- 폴더: `.project-plans/YYYYMM/MMDD_HHMM_<slug>/`
 - 파일: `PLAN.md`, `TASKS.md`, `RESULTS.md`
-- `plans/INDEX.md`에 한 줄 색인을 추가한다.
+- `.project-plans/INDEX.md`에 한 줄 색인을 추가한다.
 - 결과의 장기 SSOT는 git이다. plans는 가벼운 작업 스냅샷이다.
 
 ## R8 이미지
@@ -68,10 +68,11 @@
 ## R9 Git
 
 - 로컬 작업 디렉토리가 SSOT다.
-- `git pull`, `git fetch`, `git add -A` 금지.
+- 일반 작업 중 `git pull`, `git fetch`, `git add -A` 금지.
 - stage는 내가 수정/생성한 파일만 explicit path로 한다.
 - 커밋 본문에는 `AI-Author: <모델명>`을 남긴다.
 - PR은 브랜치에서 만든다. `main` 직접 수정은 하지 않는다.
+- 예외: 사용자가 "PR을 merge했다"고 알리고 로컬 동기화를 요청/동의한 경우에만, working tree clean + active claim 없음 확인 후 `main`을 원격 `main`에 fast-forward로 맞출 수 있다. 이때도 `git pull`은 쓰지 않고 `git fetch origin main` + `git merge --ff-only origin/main`처럼 목적이 보이는 명령만 쓴다. 충돌/비 fast-forward가 나오면 중단하고 사용자에게 보고한다.
 
 ## R10 수정 전 리딩
 

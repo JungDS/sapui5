@@ -1,6 +1,6 @@
 # 03. ARCHITECTURE — 폴더 역할 · 상대경로 · 셸 SSOT
 
-> 📅 **최종수정: 2026-06-20 00:04 KST**
+> 📅 **최종수정: 2026-06-20 00:20 KST**
 > 🎯 **목적:** 저장소 구조와 셸 동작 원리. "무엇이 어디에 있고, 어디에 두는가".
 > 📖 **읽을 때:** 파일 위치/경로/내비게이션이 헷갈릴 때, 새 파일을 만들기 전.
 > ⚡ **TL;DR:**
@@ -19,6 +19,7 @@
 | `index.html` | 홈 (page-type `home`) | 루트 최소 관리 |
 | `README.md` | 짧은 운영 대시보드 + 링크 | 루트 최소 관리 |
 | `.project-docs/` | **AI 부팅 컨텍스트 문서**(이 세트) | 최신본만, 린하게 |
+| `.project-plans/` | 작업 계획·결과 이력 | `INDEX.md` 먼저, 필요한 폴더만 |
 | `pages/` | 6개 영역 랜딩 (page-type `landing`) | index↔docs 중계 |
 | `docs/` | 운영 콘텐츠 본문 (page-type `doc`) | roadmap/abap/ui5/module/practice/reference |
 | `docs/abap/lesson-content/` | Lesson 단일 뷰어용 본문 조각(`<ID>.html`) | 뼈대 없는 순수 콘텐츠 |
