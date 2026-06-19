@@ -1,6 +1,6 @@
 # 01. AI SYNC — 현재 목표와 하드 제약
 
-> 📅 **최종수정: 2026-06-20 02:05 KST**
+> 📅 **최종수정: 2026-06-20 02:07 KST**
 > 🎯 **목적:** 지금 무엇을 해야 하고, 어떤 조건을 반드시 지켜야 하는지 정의한다.
 > 📖 **읽을 때:** 모든 작업 시작 전 최우선.
 > ⚡ **TL;DR:** Track 1 Lesson을 Academy 샘플 우선으로 리빌딩한다. Lesson은 이론+실습+시뮬레이션+T-code 연결까지 끝나야 완료다.
@@ -19,6 +19,7 @@ Track 1 `THEORY-01~21` Lesson을 처음부터 다시 만든다.
 Lesson 본문 1개는 아래를 모두 만족해야 완료다. 문서 정리, 샘플 정리, v4 제작, 공통 자산 작업에는 이 DoD를 그대로 적용하지 않는다.
 
 - NotebookLM 질의로 누락 개념·주의사항을 보강한다. 키워드·문법·명령을 소개할 때는 SAP 공식 문서를 최우선 기준으로 삼고, 해당 키워드의 주요 옵션/변형이 Lesson 범위에서 취급됐는지 NotebookLM과 대조 확인한다. Classic ABAP과 Modern ABAP은 문법·권장 패턴이 다를 수 있으므로, 현재 Lesson의 맥락에 맞게 구분한다. SAP 공식 재검증은 문장 전체가 아니라 syntax, runtime behavior, SAP GUI 절차, T-code 역할처럼 틀리면 학습을 망치는 핵심 주장에 적용한다.
+- 공식 문서는 상황 설명, 초심자용 예시, 실습 흐름, 시뮬레이션 설계가 부족할 수 있다. 이 부분은 AI가 직접 구성한 설명안과 NotebookLM 보강 내용을 교차비교해 완성도를 높이되, 공식 문서의 syntax/behavior와 충돌시키지 않는다.
 - 초반 Track 1은 Classic ABAP/SAP GUI 중심이다. `WRITE`, `REPORT`, List Processing처럼 Classic 문서에만 있는 항목은 Classic ABAP Keyword Documentation으로 확인하고, ABAP Cloud 문서에 없다는 이유로 제거하거나 축소하지 않는다.
 - [06](06_LEARNING_METHODS.md)의 추천 샘플/학습수단을 골라 텍스트 나열이 아닌 조작형 Lesson으로 만든다.
 - 코드, SQL, 설정, SAP GUI 절차가 나오면 페이지 안에서 직접 실행·조작하는 시뮬레이션을 넣는다. 정적 코드블록만 있으면 미완이다.
@@ -62,6 +63,7 @@ Lesson 본문 1개는 아래를 모두 만족해야 완료다. 문서 정리, �
 - 문서/샘플/v4 정리에는 NotebookLM/SAP 공식 재검증을 요구하지 않는다.
 - SAP 공식 재검증은 `help.sap.com`, SAP Learning, ABAP Keyword Documentation 등 공식 출처를 우선한다. 공식 출처를 바로 확보하지 못하면 `RESULTS.md`나 보고에 제한을 남긴다.
 - 문법·키워드·명령 설명의 출처 우선순위는 SAP 공식 문서가 1순위다. NotebookLM, 기존 Lesson, 샘플, 블로그가 공식 문서와 충돌하면 공식 문서를 따른다.
+- 교육적 설명, 상황 예시, 실습 과제, 페이지 내 시뮬레이션은 공식 문서만으로 부족하면 AI 작성안과 NotebookLM 응답을 서로 검증해 보강한다. 단, 보강 내용은 공식 문서로 확인한 문법/동작 범위를 넘겨 단정하지 않는다.
 - ABAP Keyword Documentation은 같은 제목으로 보여도 Classic(`abapdocu_latest_index_htm/latest`)과 ABAP Cloud(`abapdocu_cp_index_htm/CLOUD`)를 구분한다. Lesson이 Classic ABAP/SAP GUI 흐름이면 Classic 문서를 기본값으로 삼고, ABAP Cloud 문서는 호환성/제한 비교가 필요할 때만 보조로 본다.
 - 키워드 옵션 커버리지는 "모든 옵션을 본문에 나열"이 아니라 "공식 옵션 전체를 확인한 뒤, 현재 Lesson 범위에서 다룰 항목과 제외할 항목을 의도적으로 판단"하는 기준이다.
 - T-code는 초심자가 실제로 들어가야 하는 화면/도구일 때만 본문에 남긴다. 본문에 남긴 T-code는 글로서리/칩/지도 연결을 생략하지 않는다.
