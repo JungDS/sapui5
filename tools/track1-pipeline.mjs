@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Track 1 Lesson pipeline automation | 최종수정 2026-06-20 00:20 KST | v1.1
+// Track 1 Lesson pipeline automation | 최종수정 2026-06-20 02:28 KST | v1.1
 import fs from "node:fs";
 import path from "node:path";
 import { execSync } from "node:child_process";
@@ -58,7 +58,7 @@ Workflow:
   1. status      전체 Track 1 진행률, active claim, 다음 후보 확인
   2. start       한 Lesson만 claim + plans scaffold 생성
   3. lesson work NotebookLM/SAP 공식 재검증/본문 작성/브라우저 검증 수행
-  4. finish      완료 로그/챕터 표/plans 상태 갱신
+  4. finish      완료 Lesson/챕터 표/plans 상태 갱신
   5. --start-next 완료 직후 다음 Lesson claim + plans scaffold 생성
 `);
 }
@@ -163,7 +163,7 @@ function loadState() {
 }
 
 function getActiveClaims(progress) {
-  const section = progress.match(/## 🔄 진행 중 \(Active Claims\)[\s\S]*?(?=## ✅ 완료 로그)/);
+  const section = progress.match(/## 🔄 진행 중 \(Active Claims\)[\s\S]*?(?=## ✅ 완료)/);
   if (!section) throw new Error("Active Claims section not found in 02_PROGRESS.md.");
 
   return [...section[0].matchAll(/^\|\s*(THEORY-\d{2}-M\d{2})\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*([^|]*?)\s*\|$/gm)]
@@ -176,8 +176,8 @@ function getActiveClaims(progress) {
 }
 
 function getCompletedLessons(progress) {
-  const section = progress.match(/## ✅ 완료 로그 \(최신 위\)[\s\S]*$/);
-  if (!section) throw new Error("Completed log section not found in 02_PROGRESS.md.");
+  const section = progress.match(/## ✅ 완료 (?:Lesson|로그).*[\s\S]*$/);
+  if (!section) throw new Error("Completed Lesson section not found in 02_PROGRESS.md.");
   return new Set([...section[0].matchAll(/^\|\s*(THEORY-\d{2}-M\d{2})\s*\|/gm)].map((match) => match[1]));
 }
 
@@ -293,7 +293,7 @@ function makePlanFiles({ lesson, stamp, branch }) {
   return {
     plan: `---
 status: active
-goal: ${lesson.id} ${lesson.title} 리셋 이후 DoD 기준 v3 리빌딩
+goal: ${lesson.id} ${lesson.title} 리셋 이후 DoD 기준 Academy 우선 리빌딩
 scope: docs/abap/lesson-content/${lesson.id}.html + reference/abap_glossary.json + 필요 시 공통 자산
 branch: ${branch}
 ---
@@ -303,19 +303,19 @@ branch: ${branch}
 > 📅 **최종수정: ${stamp}**
 
 ## 배경
-Track 1 전체 자동화 큐에서 현재 작업 단위는 ${lesson.id}다. 기존 산출물은 참고만 하고, 현재 DoD 기준으로 NotebookLM 보강·v3 실습·T-code 연결·검증까지 다시 확인한다.
+Track 1 전체 자동화 큐에서 현재 작업 단위는 ${lesson.id}다. 기존 산출물은 참고만 하고, 현재 DoD 기준으로 공식 문서 검증·NotebookLM 보강·Academy 우선 샘플·T-code 연결·검증까지 다시 확인한다.
 
 ## 접근
 1. 커리큘럼 JSON에서 Lesson 목표와 범위를 확정한다.
-2. NotebookLM 질의 후 SAP 공식 문서로 핵심 사실을 재검증한다.
-3. v3 학습수단을 먼저 고르고, 코드/화면 흐름은 페이지 내 조작형 시뮬레이션으로 연결한다.
-4. 본문 T-code를 글로서리와 \`used_in_lessons\`에 연결하고, \`data-glossary\` 패리티를 점검한다.
-5. 로컬 lesson-viewer에서 콘솔 오류, 칩 바, 주요 인터랙션을 검증한다.
+2. SAP 공식 문서를 먼저 확인하고, NotebookLM으로 누락 설명·예시·시뮬레이션 아이디어를 보강한다.
+3. 06_LEARNING_METHODS 기준으로 Academy → v4 → v3 순서의 학습수단을 고르고, 핵심 코드/화면 흐름은 페이지 내 조작형 시뮬레이션으로 연결한다.
+4. 본문 T-code가 있으면 글로서리와 \`used_in_lessons\`에 연결하고, \`data-glossary\` 패리티를 점검한다.
+5. 로컬 lesson-viewer에서 콘솔 오류, T-code 칩 바/미노출, 주요 인터랙션을 검증한다.
 
 ## 완료 정의
 - Lesson 완료 기준 → [01_AI_SYNC DoD](../../../.project-docs/01_AI_SYNC.md).
 - 내부 ID는 사용자 화면에 추가 노출하지 않는다.
-- 코드/설정 흐름이 등장하면 페이지 내 조작형 시뮬레이션으로 연결한다.
+- 핵심 코드/설정 흐름이 등장하면 페이지 내 조작형 시뮬레이션으로 연결한다.
 
 ## NotebookLM 시작 질의
 \`\`\`powershell
@@ -331,15 +331,15 @@ ${notebookPrompt}
 - [x] .project-plans 폴더 생성
 - [x] 커리큘럼 JSON 목표 확인
 - [ ] NotebookLM 질의 → 보강 포인트 확보
-- [ ] SAP 공식 문서 재검증
-- [ ] v3 학습수단 선택 ([06](../../../.project-docs/06_LEARNING_METHODS.md))
+- [ ] SAP 공식 문서 재검증 (문서 종류/URL/미확인 제한 기록)
+- [ ] 학습수단/샘플 선택 ([06](../../../.project-docs/06_LEARNING_METHODS.md))
 - [ ] 본문 리빌딩/보강 (fragment, 인라인 style 금지)
 - [ ] 디자인 토큰 준수 (\`reference/design_variants.json\`)
-- [ ] T-code 글로서리 used_in_lessons 확인
+- [ ] T-code 글로서리 used_in_lessons 확인 (없으면 해당 없음)
 - [ ] 글로서리 패리티 (미정의 0건)
-- [ ] 검증 (콘솔 오류 0건 + 칩 바 + 인터랙션 동작)
+- [ ] 검증 (콘솔 오류 0건 + T-code 칩/미노출 + 인터랙션 동작)
 - [ ] 02_PROGRESS 완료 이동 + 챕터 표 갱신
-- [ ] commit + push
+- [ ] git 처리 필요 여부 확인 (사용자 요청/PR 준비 시에만)
 `,
     results: `# RESULTS — ${lesson.id}
 
@@ -350,13 +350,13 @@ ${notebookPrompt}
 |---|---|
 | 리빌딩 범위 | ⬜ ${lesson.id} |
 | NotebookLM 보강 | ⬜ |
-| SAP 공식 재검증 | ⬜ |
-| v3 학습수단 | ⬜ |
+| SAP 공식 재검증 | ⬜ 문서 종류/URL/제한 |
+| 학습수단/샘플 | ⬜ |
 | T-code 노출 | ⬜ |
 | 글로서리 미정의 | ⬜ |
 | 콘솔 오류 | ⬜ |
 | 인터랙션 동작 | ⬜ |
-| 커밋/푸시 | ⬜ |
+| git 처리 | ⬜ 요청 시 |
 
 ## 메모
 - 검증 예정 URL: \`http://127.0.0.1:8765/docs/abap/lesson-viewer.html?lesson=${lesson.id}\`
@@ -381,9 +381,11 @@ function startLesson(state, args, stamp, dryRun) {
   const branch = getCurrentBranch();
   const claimRow = `| ${lessonId} | ${args.ai} | ${stamp} | Track 1 pipeline 자동화 claim + plan 생성 |`;
   const tableHeader = "| Lesson | AI | 시작(KST) | 메모 |\n|---|---|---|---|";
+  if (!state.progress.includes(tableHeader)) throw new Error("Active Claims table header not found.");
   const nextProgress = stampMarkdown(state.progress, stamp, "02_PROGRESS.md").replace(tableHeader, `${tableHeader}\n${claimRow}`);
   const indexHeader = "| status | 경로 | 목표 |\n|---|---|---|";
-  const indexRow = `| active | [${planDir.relativeDir}/](${planDir.relativeDir}/) | ${lesson.id} ${lesson.title} DoD 기준 v3 리빌딩 착수 |`;
+  const indexRow = `| active | [${planDir.relativeDir}/](${planDir.relativeDir}/) | ${lesson.id} ${lesson.title} DoD 기준 Academy 우선 리빌딩 착수 |`;
+  if (!state.plansIndex.includes(indexHeader)) throw new Error(".project-plans/INDEX.md table header not found.");
   const nextPlansIndex = stampMarkdown(state.plansIndex, stamp, ".project-plans/INDEX.md").replace(indexHeader, `${indexHeader}\n${indexRow}`);
   const files = makePlanFiles({ lesson, stamp, branch });
 
@@ -411,11 +413,12 @@ function findActivePlanDir(plansIndex, lessonId) {
   return row ? row[1] : "";
 }
 
-function markPlanDone(planDir, stamp, dryRun) {
+function markPlanDone(planDir, stamp, dryRun, note = "") {
   if (!planDir) return;
   const absDir = path.join(plansRoot, planDir);
   const planPath = path.join(absDir, "PLAN.md");
   const tasksPath = path.join(absDir, "TASKS.md");
+  const resultsPath = path.join(absDir, "RESULTS.md");
 
   if (fs.existsSync(planPath)) {
     const plan = readRequired(planPath)
@@ -427,6 +430,16 @@ function markPlanDone(planDir, stamp, dryRun) {
     const tasks = stampMarkdown(readRequired(tasksPath), stamp, `${planDir}/TASKS.md`)
       .replace("- [ ] 02_PROGRESS 완료 이동 + 챕터 표 갱신", "- [x] 02_PROGRESS 완료 이동 + 챕터 표 갱신");
     writeFile(tasksPath, tasks, dryRun);
+  }
+
+  if (note && fs.existsSync(resultsPath)) {
+    let results = stampMarkdown(readRequired(resultsPath), stamp, `${planDir}/RESULTS.md`);
+    if (results.includes("## 메모")) {
+      results = results.replace("## 메모", `## 메모\n- 완료 메모: ${note}`);
+    } else {
+      results = `${results.trimEnd()}\n\n## 메모\n- 완료 메모: ${note}\n`;
+    }
+    writeFile(resultsPath, results, dryRun);
   }
 }
 
@@ -461,9 +474,9 @@ function finishLesson(state, args, stamp) {
 
   const activeRow = new RegExp(`^\\| ${lessonId} \\| [^|]+ \\| [^|]+ \\| [^|]* \\|\\r?\\n?`, "m");
   let nextProgress = stampMarkdown(state.progress, stamp, "02_PROGRESS.md").replace(activeRow, "");
-  const note = args.note || "DoD 완료";
-  const doneHeader = "| Lesson | AI | 완료(KST) | 비고 |\n|---|---|---|---|";
-  const doneRow = `| ${lessonId} | ${claim.ai} | ${stamp} | ${note} |`;
+  const doneHeader = "| Lesson | AI | 완료(KST) |\n|---|---|---|";
+  if (!nextProgress.includes(doneHeader)) throw new Error("Completed Lesson table header not found.");
+  const doneRow = `| ${lessonId} | ${claim.ai} | ${stamp} |`;
   nextProgress = nextProgress.replace(doneHeader, `${doneHeader}\n${doneRow}`);
 
   const completedAfter = new Set(completedBefore);
@@ -519,7 +532,7 @@ function main() {
 
   if (args.command === "finish") {
     const result = finishLesson(state, args, stamp);
-    markPlanDone(result.finished.planDir.replace(".project-plans/", "").replace(/\/$/, ""), stamp, args.dryRun);
+    markPlanDone(result.finished.planDir.replace(".project-plans/", "").replace(/\/$/, ""), stamp, args.dryRun, args.note);
 
     let progress = result.progress;
     let plansIndex = result.plansIndex;

@@ -1,6 +1,6 @@
 # 08. REBUILD PROMPT — Chapter 리빌딩 발주문
 
-> 📅 **최종수정: 2026-06-20 00:20 KST**
+> 📅 **최종수정: 2026-06-20 02:28 KST**
 > 🎯 **목적:** 사람이 특정 Chapter 리빌딩을 AI에게 맡길 때 쓰는 짧은 복붙 프롬프트.
 > 📖 **읽을 때:** 새 AI에게 Track 1 Chapter 작업을 발주할 때.
 > ⚡ **TL;DR:** 대상 Chapter와 추가 지시만 채운다. 세부 규칙은 `01/02/04/06`에서 런타임 도출한다.
@@ -41,9 +41,9 @@ Lesson 완료 기준은 01_AI_SYNC.md의 "Lesson 완료 정의"를 그대로 적
 ## 3. 작업 루프
 1. 02_PROGRESS.md에 대상 Lesson claim을 남긴다.
 2. 필요하면 `.project-plans/YYYYMM/MMDD_HHMM_<slug>/`를 만든다.
-3. NotebookLM 질의와 SAP 공식 재검증으로 보강 포인트를 확보한다. 공식 재검증은 핵심 기술 주장에 집중한다.
+3. SAP 공식 문서를 먼저 확인하고 NotebookLM으로 설명·예시·시뮬레이션 보강 포인트를 확보한다. 상세 출처 우선순위는 01_AI_SYNC.md를 따른다.
 4. Lesson fragment, glossary, 공통 CSS/JS를 수정한다.
-5. 브라우저에서 콘솔, T-code 칩, glossary, 시뮬레이션을 검증한다.
+5. 브라우저에서 콘솔, T-code 칩/해당 없음, glossary, 시뮬레이션을 검증한다.
 6. 02_PROGRESS.md와 plans 결과를 갱신한다.
 7. 사용자 요청 또는 PR 준비 시에만 explicit path로 stage/commit/push 한다.
 

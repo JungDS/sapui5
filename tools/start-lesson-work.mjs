@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Track 1 Lesson work starter | 최종수정 2026-06-20 00:20 KST | v1.1
+// Track 1 Lesson work starter | 최종수정 2026-06-20 02:28 KST | v1.1
 import fs from "node:fs";
 import path from "node:path";
 import { execSync } from "node:child_process";
@@ -148,12 +148,11 @@ function inferLessonId(progress) {
     return nextMatches[0];
   }
 
-  const completed = new Set(
-    [...progress.matchAll(/^\|\s*(THEORY-\d{2}-M\d{2})\s*\|/gm)].map((match) => match[1])
-  );
+  const completed = getCompletedLessons(progress);
+  const active = new Set(getActiveClaims(progress).map((claim) => claim.lesson));
   const curriculum = JSON.parse(readRequired(curriculumPath));
   const lessons = collectLessons(curriculum).filter((lesson) => /^THEORY-/.test(lesson.id));
-  const nextLesson = lessons.find((lesson) => !completed.has(lesson.id));
+  const nextLesson = lessons.find((lesson) => !completed.has(lesson.id) && !active.has(lesson.id));
   if (!nextLesson) {
     throw new Error("No next THEORY Lesson could be inferred from progress.");
   }
@@ -161,7 +160,7 @@ function inferLessonId(progress) {
 }
 
 function getActiveClaims(progress) {
-  const section = progress.match(/## 🔄 진행 중 \(Active Claims\)[\s\S]*?(?=## ✅ 완료 로그)/);
+  const section = progress.match(/## 🔄 진행 중 \(Active Claims\)[\s\S]*?(?=## ✅ 완료)/);
   if (!section) {
     throw new Error("Active Claims section not found in 02_PROGRESS.md.");
   }
@@ -172,6 +171,14 @@ function getActiveClaims(progress) {
       startedAt: match[3].trim(),
       memo: match[4].trim()
     }));
+}
+
+function getCompletedLessons(progress) {
+  const section = progress.match(/## ✅ 완료 (?:Lesson|로그).*[\s\S]*$/);
+  if (!section) {
+    throw new Error("Completed Lesson section not found in 02_PROGRESS.md.");
+  }
+  return new Set([...section[0].matchAll(/^\|\s*(THEORY-\d{2}-M\d{2})\s*\|/gm)].map((match) => match[1]));
 }
 
 function addActiveClaim(progress, lessonId, ai, stamp) {
@@ -230,7 +237,7 @@ function makePlanFiles({ lesson, stamp, branch }) {
 
   const plan = `---
 status: active
-goal: ${title} 리셋 이후 DoD 기준 v3 리빌딩
+goal: ${title} 리셋 이후 DoD 기준 Academy 우선 리빌딩
 scope: docs/abap/lesson-content/${lesson.id}.html + reference/abap_glossary.json + 필요 시 공통 자산
 branch: ${branch}
 ---
@@ -240,19 +247,19 @@ branch: ${branch}
 > 📅 **최종수정: ${stamp}**
 
 ## 배경
-Track 1 기준선 리셋 이후 Chapter ${String(lesson.trackChapterNumber).padStart(2, "0")}의 다음 작업은 ${lesson.id}다. 기존 산출물은 참고만 하고, 현재 DoD 기준으로 NotebookLM 보강·v3 실습·T-code 연결·검증까지 다시 확인한다.
+Track 1 기준선 리셋 이후 Chapter ${String(lesson.trackChapterNumber).padStart(2, "0")}의 다음 작업은 ${lesson.id}다. 기존 산출물은 참고만 하고, 현재 DoD 기준으로 공식 문서 검증·NotebookLM 보강·Academy 우선 샘플·T-code 연결·검증까지 다시 확인한다.
 
 ## 접근
 1. 커리큘럼 JSON에서 Lesson 목표와 범위를 확정한다.
-2. NotebookLM 질의 후 SAP 공식 문서로 핵심 사실을 재검증한다.
-3. v3 학습수단을 먼저 고르고, 코드/화면 흐름은 페이지 내 조작형 시뮬레이션으로 연결한다.
-4. 본문 T-code를 글로서리와 \`used_in_lessons\`에 연결하고, \`data-glossary\` 패리티를 점검한다.
-5. 로컬 lesson-viewer에서 콘솔 오류, 칩 바, 주요 인터랙션을 검증한다.
+2. SAP 공식 문서를 먼저 확인하고, NotebookLM으로 누락 설명·예시·시뮬레이션 아이디어를 보강한다.
+3. 06_LEARNING_METHODS 기준으로 Academy → v4 → v3 순서의 학습수단을 고르고, 핵심 코드/화면 흐름은 페이지 내 조작형 시뮬레이션으로 연결한다.
+4. 본문 T-code가 있으면 글로서리와 \`used_in_lessons\`에 연결하고, \`data-glossary\` 패리티를 점검한다.
+5. 로컬 lesson-viewer에서 콘솔 오류, T-code 칩 바/미노출, 주요 인터랙션을 검증한다.
 
 ## 완료 정의
 - Lesson 완료 기준 → [01_AI_SYNC DoD](../../../.project-docs/01_AI_SYNC.md).
 - 내부 ID는 사용자 화면에 추가 노출하지 않는다.
-- 코드/설정 흐름이 등장하면 페이지 내 조작형 시뮬레이션으로 연결한다.
+- 핵심 코드/설정 흐름이 등장하면 페이지 내 조작형 시뮬레이션으로 연결한다.
 
 ## NotebookLM 시작 질의
 \`\`\`powershell
@@ -269,15 +276,15 @@ ${notebookPrompt}
 - [x] .project-plans 폴더 생성
 - [x] 커리큘럼 JSON 목표 확인
 - [ ] NotebookLM 질의 → 보강 포인트 확보
-- [ ] SAP 공식 문서 재검증
-- [ ] v3 학습수단 선택 ([06](../../../.project-docs/06_LEARNING_METHODS.md))
+- [ ] SAP 공식 문서 재검증 (문서 종류/URL/미확인 제한 기록)
+- [ ] 학습수단/샘플 선택 ([06](../../../.project-docs/06_LEARNING_METHODS.md))
 - [ ] 본문 리빌딩/보강 (fragment, 인라인 style 금지)
 - [ ] 디자인 토큰 준수 (\`reference/design_variants.json\`)
-- [ ] T-code 글로서리 used_in_lessons 확인
+- [ ] T-code 글로서리 used_in_lessons 확인 (없으면 해당 없음)
 - [ ] 글로서리 패리티 (미정의 0건)
-- [ ] 검증 (콘솔 오류 0건 + 칩 바 + 인터랙션 동작)
+- [ ] 검증 (콘솔 오류 0건 + T-code 칩/미노출 + 인터랙션 동작)
 - [ ] 02_PROGRESS 완료 이동 + 챕터 표 갱신
-- [ ] commit + push
+- [ ] git 처리 필요 여부 확인 (사용자 요청/PR 준비 시에만)
 `;
 
   const results = `# RESULTS — ${lesson.id}
@@ -289,13 +296,13 @@ ${notebookPrompt}
 |---|---|
 | 리빌딩 범위 | ⬜ ${lesson.id} |
 | NotebookLM 보강 | ⬜ |
-| SAP 공식 재검증 | ⬜ |
-| v3 학습수단 | ⬜ |
+| SAP 공식 재검증 | ⬜ 문서 종류/URL/제한 |
+| 학습수단/샘플 | ⬜ |
 | T-code 노출 | ⬜ |
 | 글로서리 미정의 | ⬜ |
 | 콘솔 오류 | ⬜ |
 | 인터랙션 동작 | ⬜ |
-| 커밋/푸시 | ⬜ |
+| git 처리 | ⬜ 요청 시 |
 
 ## 메모
 - 검증 예정 URL: \`http://127.0.0.1:8765/docs/abap/lesson-viewer.html?lesson=${lesson.id}\`
@@ -306,7 +313,7 @@ ${notebookPrompt}
 
 function updatePlansIndex(index, planDir, lesson, stamp) {
   const stamped = stampMarkdown(index, stamp);
-  const row = `| active | [${planDir.relativeDir}/](${planDir.relativeDir}/) | ${lesson.id} ${lesson.title} DoD 기준 v3 리빌딩 착수 |`;
+  const row = `| active | [${planDir.relativeDir}/](${planDir.relativeDir}/) | ${lesson.id} ${lesson.title} DoD 기준 Academy 우선 리빌딩 착수 |`;
   const tableHeader = "| status | 경로 | 목표 |\n|---|---|---|";
   if (!stamped.includes(tableHeader)) {
     throw new Error(".project-plans/INDEX.md table header not found.");
@@ -337,6 +344,10 @@ function main() {
 
   if (!lesson) {
     throw new Error(`Lesson not found in curriculum: ${lessonId}`);
+  }
+  const completed = getCompletedLessons(progress);
+  if (completed.has(lessonId)) {
+    throw new Error(`${lessonId} is already completed.`);
   }
   if (!/^THEORY-\d{2}-M\d{2}$/.test(lessonId)) {
     throw new Error(`Only Track 1 THEORY lessons are supported: ${lessonId}`);

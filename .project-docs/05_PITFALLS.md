@@ -1,6 +1,6 @@
 # 05. PITFALLS — 자주 깨지는 함정
 
-> 📅 **최종수정: 2026-06-20 00:20 KST**
+> 📅 **최종수정: 2026-06-20 02:28 KST**
 > 🎯 **목적:** 실제로 크게 데었던 지점만 모음. 안정 ID(P1~)로 참조.
 > 📖 **읽을 때:** 작업 중 막혔을 때, 구조 변경/멀티-AI 작업 전.
 > ⚡ **TL;DR:**
@@ -33,4 +33,4 @@
 - **P14 Lesson 뷰어는 SSOT 미등록 템플릿** — `docs/abap/lesson-viewer.html`은 `DOCS`에 **없다**(찾지 말 것). 라우팅은 `?lesson=<ID>` ↔ `lesson-content/<ID>.html` + 커리큘럼 JSON으로 자체 처리.
 - **P15 신규 자산 헤더 누락** — 신규 `.css/.js/.mjs`는 [04 R1](04_CONVENTIONS.md)의 `최종수정 … HH:MM KST | v…` 헤더 필수. 기존 자산은 수정 시점에 부여/갱신.
 - **P16 NotebookLM MCP 프로필 잠김** — `mcp__notebooklm__*`는 헤드리스 Chrome을 단일 `chrome_profile`로 띄우는데, Chromium 영구 프로필은 프로세스 1개만 열 수 있다. **두 번째 AI가 동시에 호출하면 잠김으로 즉시 실패**(`launchPersistentContext ... has been closed`)한다. ✅ 회피: **`nlm` CLI로 질의**(브라우저 미기동, RPC 직접 호출 → 동시 안전). 사용법·노트북 ID → [01 §도구](01_AI_SYNC.md).
-- **P17 PR merge 후 로컬 기준점 혼동** — GitHub에서 PR을 merge하면 원격 `main`은 바뀌지만 로컬 작업 브랜치는 그대로다. 다음 작업을 이어가며 무심코 예전 브랜치에서 새 Lesson을 시작하면 PR diff가 섞인다. ✅ 회피: 사용자에게 merge 완료를 확인받은 뒤, working tree clean + active claim 없음 상태에서만 [04 R9](04_CONVENTIONS.md)의 fast-forward 동기화 예외를 사용한다. 충돌이 나면 동기화하지 않고 멈춘다.
+- **P17 PR merge 후 로컬 기준점 혼동** — GitHub에서 PR을 merge하면 원격 `main`은 바뀌지만 로컬 작업 브랜치는 그대로다. 다음 작업을 이어가며 무심코 예전 브랜치에서 새 Lesson을 시작하면 PR diff가 섞인다. ✅ 회피: 사용자에게 merge 완료를 확인받은 뒤, working tree clean + active claim 없음 상태에서 `git switch main` 후 [04 R9](04_CONVENTIONS.md)의 fast-forward 동기화 예외를 사용한다. 충돌이 나면 동기화하지 않고 멈춘다.

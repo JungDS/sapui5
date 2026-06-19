@@ -1,6 +1,6 @@
 # 04. CONVENTIONS — 파일 수정 규칙
 
-> 📅 **최종수정: 2026-06-20 00:20 KST**
+> 📅 **최종수정: 2026-06-20 02:28 KST**
 > 🎯 **목적:** 파일을 만들거나 고칠 때 반드시 지키는 규칙.
 > 📖 **읽을 때:** 실제 수정 직전.
 > ⚡ **TL;DR:** 타임스탬프, 운영 fragment 인라인 금지, 명시적 git add, 작업 중 `git pull/fetch` 금지.
@@ -17,6 +17,7 @@
 | `.html` | 최상단 주석 + 가능하면 `body[data-doc-updated-at]` |
 
 `.githooks/pre-commit`이 staged `.md/.css/.js/.mjs/.html`의 타임스탬프를 커밋 직전 자동 갱신한다. JSON은 주석 불가라 대상이 아니다.
+`.project-plans/**/PLAN.md`처럼 YAML frontmatter가 필요한 파일은 frontmatter 다음 제목 아래에 타임스탬프를 둔다.
 
 ## R2 운영 HTML 메타데이터
 
@@ -41,7 +42,7 @@
 대상: `docs/abap/lesson-content/*.html`
 
 - `<script>`, `<style>`, 인라인 `style` 금지.
-- 새 동작은 `assets/abap-lesson-viewer.js`, 새 스타일은 `assets/abap-lesson-viewer.css`에 둔다.
+- 새 동작은 공통 `assets/abap-lesson-viewer.js` 또는 명확히 네임스페이스된 viewer 보조 모듈에 둔다. 새 스타일은 공통 CSS에 두고, 단발 실험은 `sample/`/v4에서 먼저 검증한다.
 - 코드블록은 표준 `<pre><code>`를 사용하고, 필요 시 `tools/format-abap-code.mjs`를 실행한다.
 - 본문 `data-glossary` 용어는 `reference/abap_glossary.json`에 있어야 한다.
 - T-code는 `category:"tcode"`와 `used_in_lessons`까지 연결한다.
@@ -72,7 +73,7 @@
 - stage는 내가 수정/생성한 파일만 explicit path로 한다.
 - 커밋 본문에는 `AI-Author: <모델명>`을 남긴다.
 - PR은 브랜치에서 만든다. `main` 직접 수정은 하지 않는다.
-- 예외: 사용자가 "PR을 merge했다"고 알리고 로컬 동기화를 요청/동의한 경우에만, working tree clean + active claim 없음 확인 후 `main`을 원격 `main`에 fast-forward로 맞출 수 있다. 이때도 `git pull`은 쓰지 않고 `git fetch origin main` + `git merge --ff-only origin/main`처럼 목적이 보이는 명령만 쓴다. 충돌/비 fast-forward가 나오면 중단하고 사용자에게 보고한다.
+- 예외: 사용자가 "PR을 merge했다"고 알리고 로컬 동기화를 요청/동의한 경우에만, working tree clean + active claim 없음 확인 후 `main`을 원격 `main`에 fast-forward로 맞출 수 있다. 절차는 `git switch main` → `git fetch origin main` → `git merge --ff-only origin/main` → `git status --short` 확인 순서다. 이때도 `git pull`은 쓰지 않는다. 충돌/비 fast-forward가 나오면 중단하고 사용자에게 보고한다.
 
 ## R10 수정 전 리딩
 

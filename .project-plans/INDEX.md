@@ -1,14 +1,15 @@
 # .project-plans/ — 진행 계획 색인
 
-> 📅 **최종수정: 2026-06-20 00:04 KST**
+> 📅 **최종수정: 2026-06-20 02:28 KST**
 > 🎯 **목적:** 모든 작업 계획을 한 줄로 색인. git 고고학 없이 활성/완료 플랜 탐색.
-> 📖 **읽을 때:** 작업을 시작/종료할 때. 진행 중인 게 있는지 확인할 때.
+> 📖 **읽을 때:** plan을 생성·갱신하거나 과거 작업 결과 위치를 찾을 때. 현재 진행 판단은 `../.project-docs/02_PROGRESS.md`.
 > ⚡ **TL;DR:** 새 작업 = `_TEMPLATE/`를 `YYYYMM/MMDD_HHMM_<slug>/`로 복사해 시작 → 아래 표에 한 줄 추가. 규칙 → [04 R7](../.project-docs/04_CONVENTIONS.md).
 
 ## 폴더 규칙
 - 경로: `.project-plans/YYYYMM/MMDD_HHMM_<slug>/` (KST, 정렬 가능, 사람이 읽는 slug).
 - 구성: `PLAN.md`(frontmatter status/goal/scope/branch) · `TASKS.md`(체크박스) · `RESULTS.md`(표/플래그) · `assets/`.
 - 결과 SSOT는 git. RESULTS.md는 가벼운 스냅샷.
+- 아래 `status`는 plan 파일의 상태다. 2026-06-17 04:00 기준선 리셋 이후 현재 Lesson 완료 판단은 `02_PROGRESS.md`만 따른다.
 
 ## 색인 (최신 위)
 
