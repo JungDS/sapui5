@@ -1,0 +1,14 @@
+# TASKS — <짧은 제목>
+
+> 📅 **최종수정: 2026-06-20 03:30 KST**
+> 상태 플래그만. 산문 금지.
+
+- [ ] 범위 확인 (`01`, `02`, `04`)
+- [ ] Lesson이면 NotebookLM + SAP 공식 재검증
+- [ ] 학습수단/샘플 선택 ([06](../../.project-docs/06_LEARNING_METHODS.md))
+- [ ] 재사용 추적 필요 시 `.project-plans/SAMPLE_USAGE_INDEX.md` 갱신
+- [ ] 기존 운영 Lesson fragment 존재 시 archive 보관 필요 여부 확인
+- [ ] 운영 fragment 규칙 확인 (인라인 금지)
+- [ ] 글로서리/T-code 패리티 확인 (T-code 없으면 해당 없음)
+- [ ] 검증 (콘솔 오류 0건 + 주요 인터랙션)
+- [ ] 결과 기록 + git 처리 필요 여부 확인 (사용자 요청/PR 준비 시에만)

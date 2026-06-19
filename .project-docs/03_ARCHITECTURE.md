@@ -1,6 +1,6 @@
 # 03. ARCHITECTURE — 폴더 역할 · 상대경로 · 셸 SSOT
 
-> 📅 **최종수정: 2026-06-19 23:30 KST**
+> 📅 **최종수정: 2026-06-20 03:35 KST**
 > 🎯 **목적:** 저장소 구조와 셸 동작 원리. "무엇이 어디에 있고, 어디에 두는가".
 > 📖 **읽을 때:** 파일 위치/경로/내비게이션이 헷갈릴 때, 새 파일을 만들기 전.
 > ⚡ **TL;DR:**
@@ -19,13 +19,14 @@
 | `index.html` | 홈 (page-type `home`) | 루트 최소 관리 |
 | `README.md` | 짧은 운영 대시보드 + 링크 | 루트 최소 관리 |
 | `.project-docs/` | **AI 부팅 컨텍스트 문서**(이 세트) | 최신본만, 린하게 |
+| `.project-plans/` | 작업 계획·결과 이력 | `INDEX.md` 먼저, 필요한 폴더만 |
 | `pages/` | 6개 영역 랜딩 (page-type `landing`) | index↔docs 중계 |
 | `docs/` | 운영 콘텐츠 본문 (page-type `doc`) | roadmap/abap/ui5/module/practice/reference |
 | `docs/abap/lesson-content/` | Lesson 단일 뷰어용 본문 조각(`<ID>.html`) | 뼈대 없는 순수 콘텐츠 |
 | `assets/` | 공유 CSS/JS + images | 셸·공통 유틸·영역별 엔진 |
 | `data/` | 내비 카탈로그·이력 JSON (+ `*.md` 설명) | 운영 3종만 |
-| `reference/` | 커리큘럼 JSON·글로서리·디자인 토큰 | 런타임 fetch 대상 |
-| `sample/` | 개발용 샘플/프로토타입 | 샘플 선택은 [06](06_LEARNING_METHODS.md), 외부 경로·v4 정책은 [09](09_SAMPLE_LIBRARY.md) |
+| `reference/` | 커리큘럼 JSON·글로서리·v3 디자인 선택 보조 자료 | 런타임 fetch 대상 |
+| `sample/` | 개발용 샘플/프로토타입 | 샘플 선택·외부 경로·v4 정책은 [06](06_LEARNING_METHODS.md) |
 | `tools/` | 생성·일괄수정 스크립트 — 재사용 빌드/포맷(`.mjs`) + 일회성 정리(`.py`) | **완료된 일회성은 `archive/tools/<날짜>/`로** (언어 아닌 수명주기로 분리) |
 | `archive/` | 수정 전 원본·legacy·구 문서 보존 | **읽기 전용, 수정 금지** |
 
@@ -60,4 +61,4 @@
 - `abap-lesson-viewer.js/css` — **Lesson 단일 뷰어 엔진**. 브레드크럼·사이드바·Pager 동적 생성.
 - `abap-glossary.js/css` — 용어 툴팁. `data-glossary` 스캔 → `reference/abap_glossary.json` fetch, 호버 팝업 + 클릭 고정/복사. 구 `common.js`의 `data-term` 모달과 **별도 네임스페이스**([05 P9](05_PITFALLS.md)).
 - 커리큘럼 엔진(`abap-curriculum-*`)은 `reference/abap_curriculum_v5_4_20260605_000000.json`을 fetch. v5.4 이전 커리큘럼 파일은 archive 보존본이며 사용하지 않는다.
-- 디자인 토큰: `reference/design_variants.json`(SSOT). 운영 Lesson에는 공통 CSS/JS로 이식하고, 샘플/v4 실험 단계에서는 빠른 검토를 위해 standalone 구조를 허용한다.
+- v3 디자인 선택 보조: `reference/design_variants.json`. v4/Academy 샘플 선택과 디자인 기준은 [06_LEARNING_METHODS.md](06_LEARNING_METHODS.md)를 따른다. 운영 Lesson에는 공통 CSS/JS로 이식하고, 샘플/v4 실험 단계에서는 빠른 검토를 위해 standalone 구조를 허용한다.
