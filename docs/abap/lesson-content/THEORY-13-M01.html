@@ -1,4 +1,4 @@
-<!-- THEORY-13-M01.html | 최종수정 2026-06-17 00:51 KST -->
+<!-- THEORY-13-M01.html | 최종수정 2026-06-19 23:52 KST -->
 <!-- lesson-content/THEORY-13-M01.html -->
 
 <div class="lesson-callout tip">
@@ -52,7 +52,7 @@
               flowchart TD
               Start([Program Starts])
               SOS("<div class='node-content-wrapper'>
-                <div class='node-badge badge-p6'>1단계 · 로직</div><br><b>START-OF-SELECTION (생략됨)</b><br>
+                <div class='node-badge badge-p6'>1단계 · 로직</div><div class='node-title'>START-OF-SELECTION (생략됨)</div>
                 <div class='node-desc'>이벤트 블록 선언이 없어도 컴파일러가 암묵적으로 자동 실행하는 메인 로직</div>
               </div>")
               Ends([Program Ends])
@@ -96,11 +96,11 @@
               flowchart TD
               Start([Program Starts])
               INIT("<div class='node-content-wrapper'>
-                <div class='node-badge badge-p2'>1단계 · 로직</div><br><b>INITIALIZATION</b><br>
+                <div class='node-badge badge-p2'>1단계 · 로직</div><div class='node-title'>INITIALIZATION</div>
                 <div class='node-desc'>메인 로직 실행 전 데이터 및 변수 초기값 설정</div>
               </div>")
               SOS("<div class='node-content-wrapper'>
-                <div class='node-badge badge-p6'>2단계 · 로직</div><br><b>START-OF-SELECTION</b><br>
+                <div class='node-badge badge-p6'>2단계 · 로직</div><div class='node-title'>START-OF-SELECTION</div>
                 <div class='node-desc'>데이터베이스 조회 및 메인 비즈니스 로직 실행</div>
               </div>")
               Ends([Program Ends])
@@ -150,19 +150,19 @@
               flowchart TD
               Start([Program Starts])
               LOP("<div class='node-content-wrapper'>
-                <div class='node-badge badge-p1'>1단계 · 로직</div><br><b>LOAD-OF-PROGRAM</b><br>
+                <div class='node-badge badge-p1'>1단계 · 로직</div><div class='node-title'>LOAD-OF-PROGRAM</div>
                 <div class='node-desc'>프로그램 메모리 로드 및 초기화 수행</div>
               </div>")
               INIT("<div class='node-content-wrapper'>
-                <div class='node-badge badge-p2'>2단계 · 로직</div><br><b>INITIALIZATION</b><br>
+                <div class='node-badge badge-p2'>2단계 · 로직</div><div class='node-title'>INITIALIZATION</div>
                 <div class='node-desc'>변수 및 데이터 기본값 설정</div>
               </div>")
               SOS("<div class='node-content-wrapper'>
-                <div class='node-badge badge-p6'>3단계 · 로직</div><br><b>START-OF-SELECTION</b><br>
+                <div class='node-badge badge-p6'>3단계 · 로직</div><div class='node-title'>START-OF-SELECTION</div>
                 <div class='node-desc'>데이터베이스 조회 및 메인 비즈니스 로직 실행</div>
               </div>")
               EOS("<div class='node-content-wrapper'>
-                <div class='node-badge badge-p7'>4단계 · 로직</div><br><b>END-OF-SELECTION</b><br>
+                <div class='node-badge badge-p7'>4단계 · 로직</div><div class='node-title'>END-OF-SELECTION</div>
                 <div class='node-desc'>결과 데이터 출력 및 최종 마감 처리</div>
               </div>")
               Ends([Program Ends])
@@ -224,27 +224,27 @@
               flowchart TD
               Start([Program Starts])
               LOP("<div class='node-content-wrapper'>
-                <div class='node-badge badge-p1'>1단계 · 로직</div><br><b>LOAD-OF-PROGRAM</b><br>
+                <div class='node-badge badge-p1'>1단계 · 로직</div><div class='node-title'>LOAD-OF-PROGRAM</div>
                 <div class='node-desc'>프로그램 메모리 로드 및 초기화 수행</div>
               </div>")
               INIT("<div class='node-content-wrapper'>
-                <div class='node-badge badge-p2'>2단계 · 로직</div><br><b>INITIALIZATION</b><br>
+                <div class='node-badge badge-p2'>2단계 · 로직</div><div class='node-title'>INITIALIZATION</div>
                 <div class='node-desc'>선택 화면 기본값 설정</div>
               </div>")
               Screen["<div class='node-content-wrapper'>
-                <div class='node-badge badge-screen'>3단계 · 화면 출력</div><br><b>Selection Screen</b><br>
+                <div class='node-badge badge-screen'>3단계 · 화면 출력</div><div class='node-title'>Selection Screen</div>
                 <div class='node-desc'>⏳ 로직 실행 일시중단 및 사용자 입력 대기</div>
               </div>"]
               ASS("<div class='node-content-wrapper'>
-                <div class='node-badge badge-p5'>4단계 · 로직</div><br><b>AT SELECTION-SCREEN</b><br>
+                <div class='node-badge badge-p5'>4단계 · 로직</div><div class='node-title'>AT SELECTION-SCREEN</div>
                 <div class='node-desc'>사용자 입력값 유효성 검증 수행</div>
               </div>")
               SOS("<div class='node-content-wrapper'>
-                <div class='node-badge badge-p6'>5단계 · 로직</div><br><b>START-OF-SELECTION</b><br>
+                <div class='node-badge badge-p6'>5단계 · 로직</div><div class='node-title'>START-OF-SELECTION</div>
                 <div class='node-desc'>데이터베이스 조회 및 메인 비즈니스 로직 실행</div>
               </div>")
               EOS("<div class='node-content-wrapper'>
-                <div class='node-badge badge-p7'>6단계 · 로직</div><br><b>END-OF-SELECTION</b><br>
+                <div class='node-badge badge-p7'>6단계 · 로직</div><div class='node-title'>END-OF-SELECTION</div>
                 <div class='node-desc'>결과 데이터 출력 및 최종 마감 처리</div>
               </div>")
               Ends([Program Ends])
@@ -321,31 +321,31 @@
               flowchart TD
               Start([Program Starts])
               LOP("<div class='node-content-wrapper'>
-                <div class='node-badge badge-p1'>1단계 · 로직</div><br><b>LOAD-OF-PROGRAM</b><br>
+                <div class='node-badge badge-p1'>1단계 · 로직</div><div class='node-title'>LOAD-OF-PROGRAM</div>
                 <div class='node-desc'>프로그램 메모리 로드 및 초기화 수행</div>
               </div>")
               INIT("<div class='node-content-wrapper'>
-                <div class='node-badge badge-p2'>2단계 · 로직</div><br><b>INITIALIZATION</b><br>
+                <div class='node-badge badge-p2'>2단계 · 로직</div><div class='node-title'>INITIALIZATION</div>
                 <div class='node-desc'>선택 화면 기본값 설정</div>
               </div>")
               ASO("<div class='node-content-wrapper'>
-                <div class='node-badge badge-p3'>3단계 · 로직</div><br><b>AT SELECTION-SCREEN OUTPUT</b><br>
+                <div class='node-badge badge-p3'>3단계 · 로직</div><div class='node-title'>AT SELECTION-SCREEN OUTPUT</div>
                 <div class='node-desc'>선택 화면 표시 전 속성 및 레이아웃 제어</div>
               </div>")
               Screen["<div class='node-content-wrapper'>
-                <div class='node-badge badge-screen'>4단계 · 화면 출력</div><br><b>Selection Screen</b><br>
+                <div class='node-badge badge-screen'>4단계 · 화면 출력</div><div class='node-title'>Selection Screen</div>
                 <div class='node-desc'>⏳ 로직 실행 일시중단 및 사용자 입력 대기</div>
               </div>"]
               ASS("<div class='node-content-wrapper'>
-                <div class='node-badge badge-p5'>5단계 · 로직</div><br><b>AT SELECTION-SCREEN</b><br>
+                <div class='node-badge badge-p5'>5단계 · 로직</div><div class='node-title'>AT SELECTION-SCREEN</div>
                 <div class='node-desc'>사용자 입력값 유효성 검증 수행</div>
               </div>")
               SOS("<div class='node-content-wrapper'>
-                <div class='node-badge badge-p6'>6단계 · 로직</div><br><b>START-OF-SELECTION</b><br>
+                <div class='node-badge badge-p6'>6단계 · 로직</div><div class='node-title'>START-OF-SELECTION</div>
                 <div class='node-desc'>데이터베이스 조회 및 메인 비즈니스 로직 실행</div>
               </div>")
               EOS("<div class='node-content-wrapper'>
-                <div class='node-badge badge-p7'>7단계 · 로직</div><br><b>END-OF-SELECTION</b><br>
+                <div class='node-badge badge-p7'>7단계 · 로직</div><div class='node-title'>END-OF-SELECTION</div>
                 <div class='node-desc'>결과 데이터 출력 및 최종 마감 처리</div>
               </div>")
               Ends([Program Ends])

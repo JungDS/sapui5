@@ -1,0 +1,42 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"C:\\\\ui5\\\\study\\\\sapui5\\\\assets\\\\\" -File | Select-Object Name | Sort-Object Name)",
+      "Bash(grep -r \"stage7-shell\\\\.\" \"C:\\\\ui5\\\\study\\\\sapui5\" --include=\"*.html\" ! -path \"*/archive/*\")",
+      "Bash(git checkout *)",
+      "Bash(py --version)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(git commit -q -m 'docs: 재분석 문서 재구성 및 저위험 정리 *)",
+      "Bash(git commit -q -m 'refactor: stage7-shell 자산을 shell로 리네임하고 주석 헤더 도입 *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(gh pr *)",
+      "Bash(sed 's/.*class=\"//')",
+      "Bash(sed 's/\".*//')",
+      "Bash(sed 's/class=\"//')",
+      "Bash(sed 's/ .*//')",
+      "Bash(sed 's/^\\\\.//')",
+      "mcp__mcp-registry__search_mcp_registry",
+      "mcp__mcp-registry__list_connectors",
+      "WebSearch",
+      "mcp__Claude_in_Chrome__list_connected_browsers",
+      "WebFetch(domain:github.com)",
+      "PowerShell(node --version)",
+      "PowerShell(claude mcp add notebooklm -s user -- npx notebooklm-mcp@latest)",
+      "PowerShell($j = Get-Content \"$env:USERPROFILE\\\\.claude.json\" -Raw | ConvertFrom-Json; $j.PSObject.Properties.Name | Select-Object -First 30; \"---mcpServers---\"; $j.mcpServers | ConvertTo-Json -Depth 5)",
+      "PowerShell($j = Get-Content \"$env:USERPROFILE\\\\.claude.json\" -Raw | ConvertFrom-Json -AsHashtable; $j.Keys | Sort-Object | Select-Object -First 40; \"---\"; if \\($j.ContainsKey\\('mcpServers'\\)\\) { $j['mcpServers'] | ConvertTo-Json -Depth 5 } else { \"no top-level mcpServers\" })",
+      "PowerShell(npx -y notebooklm-mcp@latest --help 2>&1)",
+      "PowerShell(node \"$env:LOCALAPPDATA\\\\Temp\\\\nblm-auth.mjs\")",
+      "PowerShell(node \"$env:LOCALAPPDATA\\\\Temp\\\\nblm-register.mjs\")",
+      "Bash(touch docs/.gitkeep)",
+      "Read(//c/c/ui5/study/**)",
+      "Bash(gh repo *)",
+      "Bash(git -C /c/ui5/study/sap-dev-academy status -sb)",
+      "Bash(git -C /c/ui5/study/sap-dev-academy log --oneline)",
+      "Bash(git -C /c/ui5/study/sapui5 status -sb)",
+      "Bash(git -C /c/ui5/study/sapui5 rev-parse --short HEAD)",
+      "Bash(echo \"구 repo HEAD: $\\(git -C /c/ui5/study/sapui5 rev-parse --short HEAD\\) \\(이번 작업으로 새 커밋 없음\\)\")"
+    ]
+  }
+}
