@@ -1,6 +1,6 @@
 # 06. LEARNING METHODS — 학습수단·샘플 SSOT
 
-> 📅 **최종수정: 2026-06-20 03:08 KST**
+> 📅 **최종수정: 2026-06-20 03:25 KST**
 > 🎯 **목적:** Lesson UI, 실습 방식, 샘플 선택, v4 정책을 이 문서 하나로 판단한다.
 > 📖 **읽을 때:** Lesson 콘텐츠 흐름을 설계하거나 샘플을 고를 때.
 > ⚡ **TL;DR:** Academy 샘플 우선, v4는 선별 표준화, v3는 fallback. 코드가 나오면 페이지 안 조작형 시뮬레이션이 필요하다.
@@ -21,7 +21,12 @@
 4. 운영 Lesson에는 샘플의 구조, 데이터 속성, 상태 전이만 가져오고 인라인 CSS/JS는 공통 `abap-lesson-viewer.css/js`로 옮긴다.
 5. 샘플이 Lesson 전용이면 바로 운영 패턴으로 이식하고, 3개 이상 Lesson에서 재사용될 패턴이면 v4 후보로 승격한다.
 
-샘플 선택 결과는 plan `RESULTS.md`나 완료 보고에 `선택 샘플 경로 + 선택 이유 + 제외한 주요 후보` 정도만 짧게 남긴다.
+## 샘플 선택 기록과 재사용 색인
+
+- 개별 Lesson의 선택 근거는 plan `RESULTS.md`나 완료 보고에 `선택 샘플 경로 + 선택 이유 + 제외한 주요 후보` 정도만 짧게 남긴다.
+- 재사용 추적이 필요한 Academy 샘플/패턴은 `.project-plans/SAMPLE_USAGE_INDEX.md`에도 1줄 갱신한다. 이 파일이 없으면 첫 갱신 시 생성한다.
+- v4 또는 공통 패턴 승격 판단은 여러 plan 폴더를 뒤져서 하지 않고, 위 색인의 `Sample / Pattern / Lessons / Count / Decision`만 보고 판단한다.
+- `Decision`은 `local`, `watch`, `consider-v4`, `common-candidate`, `promoted` 중 하나로 짧게 둔다.
 
 ## Lesson 흐름
 
@@ -168,9 +173,28 @@
 
 운영 fragment로 옮길 때는 샘플 HTML의 구조, 데이터 속성, 상태 전이만 가져온다. 반복 스타일/동작은 공통 자산에 통합한다.
 
+## Academy 샘플 이식 네이밍
+
+Academy 샘플을 운영 Lesson으로 이식할 때 기존 공통 클래스/JS를 이름만 보고 재사용하지 않는다. 먼저 `assets/abap-lesson-viewer.css/js`의 정의와 기존 사용처를 확인한다.
+
+- 기존 클래스/함수를 재사용하거나 수정하면 근처에 출처·용도 주석을 남긴다.
+- `sample/learning-methods-v3` 유래 공통 클래스는 Academy 샘플 자동 재사용 대상으로 보지 않는다.
+- Academy 샘플에서 새로 이식하는 CSS class는 `academy-*` prefix를 쓴다.
+- Academy 샘플에서 새로 이식하는 JS data attribute는 `data-academy-pattern="..."` 형식을 쓴다.
+- Academy 샘플용 JS 초기화 함수는 `initAcademy...` 이름을 쓴다.
+
+출처 주석 예시:
+
+```css
+/* origin: sap-dev-academy/sample/code-learning/write-output-simulator.html
+   use: Classic WRITE 출력 시뮬레이션
+   namespace: academy-write-output */
+.academy-write-output { ... }
+```
+
 ## v4 생성 기준
 
-v4는 만드는 편이 좋다. 단, 전체 복사가 아니라 반복 사용될 우수 샘플만 선별한다. 3개 이상 Lesson에서 재사용될 패턴이거나 공통 viewer에 없는 새 interaction type일 때 v4를 만든다. 단발 Lesson 전용이면 Academy/v3 구조를 바로 운영 공통 패턴으로 이식한다.
+v4는 만드는 편이 좋다. 단, 전체 복사가 아니라 반복 사용될 우수 샘플만 선별한다. 3개 이상 Lesson에서 재사용될 패턴이거나 공통 viewer에 없는 새 interaction type일 때 v4를 만든다. 이 판단은 `.project-plans/SAMPLE_USAGE_INDEX.md`의 `Count`와 `Decision`을 기준으로 한다. 단발 Lesson 전용이면 Academy/v3 구조를 바로 운영 공통 패턴으로 이식한다.
 
 | 단계 | 기준 |
 |---|---|
@@ -182,7 +206,7 @@ v4는 만드는 편이 좋다. 단, 전체 복사가 아니라 반복 사용될 
 
 ## 운영 fragment 공통 클래스
 
-아래 클래스는 Academy 샘플 카탈로그가 아니라 현재 `assets/abap-lesson-viewer.css/js`에 이미 정의된 운영 Lesson fragment용 공통 클래스다. Academy 샘플을 이식할 때 같은 표현이 이미 있으면 재사용하고, 없으면 샘플의 구조·상태 전이를 공통 CSS/JS로 정리한다.
+아래 클래스는 Academy 샘플 카탈로그가 아니라 현재 `assets/abap-lesson-viewer.css/js`에 이미 정의된 운영 Lesson fragment용 공통 클래스다. Academy 샘플을 이식할 때는 이름만 보고 재사용하지 말고, 정의·기존 사용처·부작용 가능성을 확인한 뒤 의미가 맞을 때만 재사용한다. 의미가 다르면 샘플의 구조·상태 전이에 맞춰 공통 CSS/JS 또는 별도 네임스페이스 패턴으로 정리한다.
 
 `viz-state-grid`, `viz-state`, `viz-table`, `viz-relation`, `viz-concept`, `viz-flow`, `viz-flow-step`, `viz-compare-before`, `viz-compare-after`, `viz-badge`, `viz-current-row`, `viz-svg`, `abap-editor-mockup`, `shiki-copy-wrapper`, `lesson-callout`, `<details><summary>`.
 
