@@ -1,12 +1,12 @@
 # 04. CONVENTIONS — 규칙과 컨벤션
 
-> 📅 **최종수정: 2026-06-16 19:05 KST**
+> 📅 **최종수정: 2026-06-19 23:30 KST**
 > 🎯 **목적:** 파일을 만들거나 고칠 때 반드시 따르는 규칙(R1~).
 > 📖 **읽을 때:** 무엇이든 쓰기/수정하기 **직전**.
 > ⚡ **TL;DR:**
 > - **R1: 모든 파일은 수정 시 최상단에 `YYYY-MM-DD HH:MM KST`(시·분 필수) 기록.**
 > - 운영 HTML은 `body` 메타데이터 + footer 의무. `data-doc-id` = `shell.js` `DOCS` 키.
-> - Lesson 본문은 fragment — 인라인 `<script>/<style>/style` 금지, 공통 자산으로.
+> - 운영 Lesson fragment는 인라인 `<script>/<style>/style` 금지. `sample/`·v4 실험 파일은 예외로 허용.
 > - 진행 계획은 [plans/](plans/) 규칙(R10)을 따른다.
 
 ---
@@ -52,7 +52,7 @@
 - **`.project-docs/` 문서는 2자리 숫자 prefix 필수**: `NN_TITLE.md` (예외 없음). 새 문서는 다음 번호를 받고 [00_INDEX](00_INDEX.md) 지도에 등록한다. (plans 내부 산출물 `PLAN/TASKS/RESULTS`는 폴더로 묶이므로 제외.)
 - 운영 문서: `docs/<category>/<filename>.html` (legacy `v1/v2/v3/`는 금지 → archive).
 - 본문 섹션은 `id` 필수(ScrollSpy·TOC). 상대경로 규칙 → [03](03_ARCHITECTURE.md).
-- 인라인 `<style>`/`<script>` 금지 → 공유 CSS/JS로(현 예외 부채: `pages/abap.html`, `index.html`).
+- 운영 문서·운영 Lesson의 인라인 `<style>`/`<script>`는 공유 CSS/JS로 이관한다(현 예외 부채: `pages/abap.html`, `index.html`). 단, `sample/`과 v4 제작용 standalone 실험 파일은 인라인 CSS/JS를 허용한다.
 
 ## R5 버전 시맨틱
 | 변경 | 처리 |
@@ -66,6 +66,7 @@
 - `archive/`의 추적된 파일은 **절대 수정 금지**(읽기 전용).
 - 내부 운영 문서·자산 **일괄 정리/이동**은 `archive/<영역>/<YYYYMMDD>/` + **매핑 매니페스트** 동봉(예: `archive/project-docs/20260615/README.md`).
 - 커밋 전 잦은 편집 되돌리기는 PreToolUse 훅 `.claude/hooks/snapshot-before-edit.mjs`가 `archive/_local/`(gitignore)로 스냅샷.
+- `sample/learning-methods`, `sample/learning-methods-v2`, `sample/learning-methods-v3`는 샘플 archive 성격으로 보관한다. 샘플 선택 기준은 [06](06_LEARNING_METHODS.md), 외부 경로·v4·archive 정책은 [09](09_SAMPLE_LIBRARY.md)를 따른다. 물리 이동은 별도 정리 작업에서 매핑 매니페스트와 함께 처리한다.
 
 ## R7 코드 파일 주석 헤더 (R1과 함께)
 모든 `.css`·`.js`·`.mjs`는 최상단에 `<목적> | 최종수정 … KST | v…` 헤더(R1 표 참조). 수정 시 갱신.
@@ -76,7 +77,7 @@
 ## R9 이미지 자산 (구 09 흡수)
 - 보관: `assets/images/`.
 - 파일명: `ch[Chapter]-les[Lesson]-[일련]-[설명].png` (소문자+하이픈). 예 `ch01-les02-01-domain-creation.png`. Lesson 비종속 공통은 `common-[설명].png`.
-- 삽입: 반응형 `<img>` — `<img src="../../assets/images/<name>.png" alt="..." style="max-width:100%;border-radius:6px;margin:16px 0;" />`.
+- 삽입: 운영 Lesson fragment에서는 공통 이미지/figure 클래스를 우선 사용하고 인라인 `style`은 넣지 않는다. standalone `sample/`·v4 실험 파일에서는 빠른 검토용 인라인 스타일을 허용한다.
 
 ## R10 ★ plans/ 규칙 (changelogs 대체)
 진행 계획·작업·결과를 **한 곳에서** 관리. changelogs/ 폴더는 폐지.
@@ -90,14 +91,16 @@
 ## R11 Lesson 작성 규칙 (현 목표 핵심)
 대상: `docs/abap/lesson-content/<ID>.html`. 완료 정의 → [01_AI_SYNC §DoD](01_AI_SYNC.md).
 - **스타일**: 완전 초심자 + 캐주얼 톤. 흐름 `학습목표 콜아웃 → 지난 시간 연결 → 본문 → 실무 주의(warn) → 한눈에 정리`. 화면 표기는 **Chapter/Lesson**(JSON id는 키로 유지) — 사용자에게 `THEORY-01-M02` 같은 내부 ID 노출 금지.
-- **fragment 제약**: `<script>`/`<style>`/인라인 `style` 금지. 새 동작 → `assets/abap-lesson-viewer.js`, 새 스타일 → `assets/abap-lesson-viewer.css`.
-- **v3 디자인 토큰 강제**: `reference/design_variants.json` 확정 토큰 준수. 학습수단 선택 → [06](06_LEARNING_METHODS.md), 샘플 → `sample/learning-methods-v3`.
+- **운영 fragment 제약**: `docs/abap/lesson-content/*.html`에는 `<script>`/`<style>`/인라인 `style` 금지. 새 동작 → `assets/abap-lesson-viewer.js`, 새 스타일 → `assets/abap-lesson-viewer.css`.
+- **샘플 선택 SSOT**: 학습수단과 샘플 선택은 [06](06_LEARNING_METHODS.md)만 기준으로 삼는다.
+- **샘플/v4 예외**: `sample/`과 `sample/learning-methods-v4` 제작용 standalone 파일은 빠른 검토를 위해 인라인 `<style>/<script>`를 허용한다. 운영 Lesson으로 이식할 때만 공통 CSS/JS로 분리한다.
+- **디자인 토큰**: 운영 Lesson은 `reference/design_variants.json` 확정 토큰을 준수한다. 샘플 실험은 토큰 검토 전 단계로 둘 수 있다.
 - **글로서리 완전 패리티**: 본문 `data-glossary` 용어는 `reference/abap_glossary.json`에 등록(title/desc/everyday_analogy/used_in_lessons/design_theme). 섹션마다 **미정의 0건 검증**.
 - **코드블록**: 표준 `<pre><code>`로 작성 후 멱등 포맷터 `tools/format-abap-code.mjs` 1회 실행(Shiki 하이라이팅 + Copy). 인라인 style 주입 금지([05 P12](05_PITFALLS.md)).
 
 ## R12 Git 정책 / 멀티-AI
 - **로컬이 SSOT**: 모든 AI가 같은 컴퓨터·같은 작업 디렉토리에서 작업한다. **로컬 파일이 항상 최신·기준**.
 - 🚫 **`git pull`/`git fetch`로 가져오지 않는다** — GitHub는 소스 보관·퍼블리싱 전용. 원격을 가져오면 로컬과 꼬일 수 있다.
-- ✅ 작업 후: 내 파일만 `git add`(`-A` 금지) → `git commit`(본문에 `AI-Author: <모델명>`) → `git push`.
-- **충돌 방지**: 두 AI가 같은 Lesson을 동시에 작업하지 않는다. 시작 전 [02_PROGRESS](02_PROGRESS.md)에 claim(`🔄`)을 기록해 점유를 알린다. 상세 사고 → [05 P11](05_PITFALLS.md).
-- 퍼블리싱: 브랜치 → PR(한국어) → 리뷰 → 머지. main 직접 수정 금지. 구조 변경 PR과 콘텐츠 PR 분리.
+- ✅ git 작업은 사용자 요청 또는 PR 준비 시 수행한다. 단위는 **Lesson 완료 단위** 또는 **문서/공통 변경 묶음**으로 잡고, 내 파일만 `git add`한다(`-A` 금지). 커밋 본문에는 `AI-Author: <모델명>`을 남긴다.
+- **충돌 방지**: 두 AI가 같은 Lesson을 동시에 작업하지 않는다. Lesson 시작 전 [02_PROGRESS](02_PROGRESS.md)에 claim(`🔄`)을 기록한다. 공통 파일은 충돌 가능성이 있을 때 scope claim을 남긴다. 상세 사고 → [05 P11](05_PITFALLS.md).
+- 퍼블리싱: 브랜치 → PR(한국어) → 리뷰 → 머지. main 직접 수정 금지. 구조 변경 PR과 콘텐츠 PR은 가능하면 분리한다.

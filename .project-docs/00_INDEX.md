@@ -1,6 +1,6 @@
 # 00. INDEX — 여기서 시작 (AI 부팅 진입점)
 
-> 📅 **최종수정: 2026-06-17 00:42 KST**
+> 📅 **최종수정: 2026-06-19 23:30 KST**
 > 🎯 **목적:** 이 저장소에 투입된 AI가 가장 먼저 읽고 부팅하는 진입점.
 > 📖 **읽을 때:** 항상 맨 처음. 작업 시작 전 1순위.
 > ⚡ **TL;DR:**
@@ -15,9 +15,10 @@
 3. **[03_ARCHITECTURE.md](03_ARCHITECTURE.md)** — 폴더 역할·상대경로·셸 SSOT. "어디에 두는가"를 모를 때.
 4. **[04_CONVENTIONS.md](04_CONVENTIONS.md)** — 파일을 쓰기/고치기 직전. 타임스탬프·네이밍·git 정책·plans 규칙.
 5. **[05_PITFALLS.md](05_PITFALLS.md)** — 깨지기 쉬운 지점. 작업 중 막히면 즉시.
-6. **[06_LEARNING_METHODS.md](06_LEARNING_METHODS.md)** — Lesson 콘텐츠를 만들 때. v3 학습수단 고르기.
+6. **[06_LEARNING_METHODS.md](06_LEARNING_METHODS.md)** — Lesson UI·실습·샘플 선택의 단일 기준.
 7. **[07_BROWSER_TESTING.md](07_BROWSER_TESTING.md)** — 브라우저로 화면을 검증해야 할 때.
 8. **[08_REBUILD_PROMPT.md](08_REBUILD_PROMPT.md)** — 특정 Chapter 리빌딩을 **발주할 때** 쓰는 범위 지정형 표준 프롬프트(사람이 복붙).
+9. **[09_SAMPLE_LIBRARY.md](09_SAMPLE_LIBRARY.md)** — 외부 샘플 경로·v4·archive 정책만 확인할 때.
 
 > 작업 계획·진행·결과는 [plans/INDEX.md](plans/INDEX.md) 에서 시작한다. **문서 번호 순이 곧 읽기 우선순위다.**
 
@@ -28,15 +29,16 @@
 | [01_AI_SYNC.md](01_AI_SYNC.md) | **단일 목표 · DoD · AI 행동 규칙 · git 정책** | 항상 (최우선) |
 | [02_PROGRESS.md](02_PROGRESS.md) | **목표 진행 현황 · 작업 claim 보드** | 작업 시작·종료 시 (필수) |
 | [03_ARCHITECTURE.md](03_ARCHITECTURE.md) | 폴더 역할 · 상대경로 · 셸(DOCS) SSOT · Lesson 뷰어 | 구조가 헷갈릴 때 |
-| [04_CONVENTIONS.md](04_CONVENTIONS.md) | 타임스탬프 · 메타데이터 · 네이밍 · archive · 이미지 · Lesson 작성 · v3 · plans · git | 파일 쓰기 직전 |
+| [04_CONVENTIONS.md](04_CONVENTIONS.md) | 타임스탬프 · 메타데이터 · 네이밍 · archive · 이미지 · Lesson 작성 · plans · git | 파일 쓰기 직전 |
 | [05_PITFALLS.md](05_PITFALLS.md) | 자주 깨지는 함정(P1~) | 막혔을 때 |
-| [06_LEARNING_METHODS.md](06_LEARNING_METHODS.md) | v3 학습수단 카탈로그 + 샘플 매핑 | Lesson 콘텐츠 설계 시 |
+| [06_LEARNING_METHODS.md](06_LEARNING_METHODS.md) | 샘플 선택 SSOT: 상황별 추천 샘플 + v3 fallback + 이식 규칙 | Lesson 콘텐츠 설계 시 |
 | [07_BROWSER_TESTING.md](07_BROWSER_TESTING.md) | Playwright 로컬 테스트 우회 | 브라우저 검증 막힐 때 |
 | [08_REBUILD_PROMPT.md](08_REBUILD_PROMPT.md) | 범위 지정형 Chapter 리빌딩 발주 프롬프트 (사람 복붙) | Chapter 리빌딩을 시킬 때 |
+| [09_SAMPLE_LIBRARY.md](09_SAMPLE_LIBRARY.md) | 외부 샘플 경로 · v4 생성 · archive 정책 | 샘플 정책 판단 시 |
 | [plans/](plans/) | 진행 계획 · 태스크 · 결과 (changelogs 대체) | 작업 단위 시작/종료 |
 
 ## 📐 이 폴더의 설계 원칙 (왜 이렇게 생겼나)
-- **번호 규칙**: 모든 문서는 `NN_TITLE.md` 2자리 숫자 prefix([04 R4](04_CONVENTIONS.md)). **번호 순 = 읽기 우선순위**(00→08).
+- **번호 규칙**: 모든 문서는 `NN_TITLE.md` 2자리 숫자 prefix([04 R4](04_CONVENTIONS.md)). **번호 순 = 읽기 우선순위**(00→09).
 - **무중복 SSOT**: 한 사실은 한 문서에만. 재진술 금지, 상대링크로 참조.
 - **점진적 공개**: 모든 문서 상단 4줄 헤더(목적/읽을 때/TL;DR)만 읽고 관련성 판단.
 - **기계 스캔**: 산문보다 표·체크리스트·안정 ID(`R1`,`P3`).

@@ -1,10 +1,10 @@
 # 05. PITFALLS — 자주 깨지는 함정
 
-> 📅 **최종수정: 2026-06-17 04:13 KST**
+> 📅 **최종수정: 2026-06-19 23:30 KST**
 > 🎯 **목적:** 실제로 크게 데었던 지점만 모음. 안정 ID(P1~)로 참조.
 > 📖 **읽을 때:** 작업 중 막혔을 때, 구조 변경/멀티-AI 작업 전.
 > ⚡ **TL;DR:**
-> - 가장 크게 데인 것 → **P11 멀티-AI 동시 커밋 충돌**. 한 번에 한 AI만.
+> - 가장 크게 데인 것 → **P11 멀티-AI 동시 커밋 충돌**. 같은 Lesson/공통 파일을 동시에 건드리지 않는다.
 > - 셸이 안 뜨면 → **P1 상대경로**, 내비가 끊기면 → **P2 doc-id 불일치**.
 > - Lesson 뷰어는 `DOCS`에 **없다**(P14). 새 용어는 `data-glossary`(P9).
 
@@ -26,9 +26,9 @@
 
 ## 🔴 멀티-AI 동시 작업 (가장 크게 겪은 함정)
 - **P11 두 AI 동시 작업 → 충돌** — 여러 AI가 같은 작업 디렉토리에서 동시에 커밋해 **동일 커밋이 다른 해시로 중복**되고 ~90개 Lesson이 전부 충돌한 사고(2026-06-10). 원인: `git add -A`로 타 AI 미커밋 파일까지 휩쓸어 커밋.
-  - ✅ 회피([04 R12](04_CONVENTIONS.md)): ① 시작 전 [02_PROGRESS](02_PROGRESS.md)에 claim → 같은 Lesson 중복 점유 차단 ② 내 파일만 `git add`(`-A` 금지) ③ 로컬 기준 commit & push, **`git pull` 금지** ④ 범위 분리.
+  - ✅ 회피([04 R12](04_CONVENTIONS.md)): ① Lesson 작업은 시작 전 [02_PROGRESS](02_PROGRESS.md)에 claim ② 공통 파일은 충돌 가능 시 scope claim ③ 내 파일만 `git add`(`-A` 금지) ④ 로컬 기준, **`git pull` 금지** ⑤ 범위 분리.
   - 복구: 로컬이 기준이므로 `git restore`/`git checkout <rev> -- <path>`로 로컬에서 되돌린 뒤 재작업한다.
-- **P12 신규 Lesson 코드블록 서식** — 본문은 순수 `<pre><code>`로만. 작업 끝에 멱등 포맷터 `tools/format-abap-code.mjs` 1회 실행. 포맷터는 인라인 style을 하드코딩하지 않고 `assets/abap-lesson-viewer.css` 공통 클래스를 삽입 → 임의 인라인 style 주입 금지.
+- **P12 신규 Lesson 코드블록 서식** — 운영 Lesson 본문은 순수 `<pre><code>`로만. 작업 끝에 멱등 포맷터 `tools/format-abap-code.mjs` 1회 실행. 포맷터는 인라인 style을 하드코딩하지 않고 `assets/abap-lesson-viewer.css` 공통 클래스를 삽입 → 운영 Lesson의 임의 인라인 style 주입 금지. `sample/`·v4 standalone 실험 파일은 예외.
 - **P13 로컬 Fetch 캐시** — `fetch()`로 `lesson-content/*.html`을 불러올 때 브라우저 캐시가 강해 옛 파일이 보일 수 있음. 동적 로더는 `fetch(url + '?v=' + Date.now())` Cache Buster 권장.
 - **P14 Lesson 뷰어는 SSOT 미등록 템플릿** — `docs/abap/lesson-viewer.html`은 `DOCS`에 **없다**(찾지 말 것). 라우팅은 `?lesson=<ID>` ↔ `lesson-content/<ID>.html` + 커리큘럼 JSON으로 자체 처리.
 - **P15 신규 자산 헤더 누락** — 신규 `.css/.js/.mjs`는 [04 R1·R7](04_CONVENTIONS.md)의 `최종수정 … HH:MM KST | v…` 헤더 필수. 기존 자산은 수정 시점에 부여/갱신.
