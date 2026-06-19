@@ -1,13 +1,13 @@
 # 01. AI SYNC — 현재 목표와 하드 제약
 
-> 📅 **최종수정: 2026-06-20 02:28 KST**
+> 📅 **최종수정: 2026-06-20 03:30 KST**
 > 🎯 **목적:** 지금 무엇을 해야 하고, 어떤 조건을 반드시 지켜야 하는지 정의한다.
 > 📖 **읽을 때:** 모든 작업 시작 전 최우선.
-> ⚡ **TL;DR:** Track 1 Lesson을 Academy 샘플 우선으로 리빌딩한다. Lesson은 이론+실습+핵심 흐름 시뮬레이션까지 끝나야 완료다.
+> ⚡ **TL;DR:** Track 1 Lesson을 검증된 v4 우선, 없으면 Academy 샘플 기준으로 리빌딩한다. Lesson은 이론+실습+핵심 흐름 시뮬레이션까지 끝나야 완료다.
 
 ## 현재 단일 목표
 
-Track 1 `THEORY-01~21` Lesson을 처음부터 다시 만든다.
+Track 1 `THEORY-01~21` Lesson을 처음부터 다시 만든다. 학습수단 우선순위는 [06_LEARNING_METHODS.md](06_LEARNING_METHODS.md)를 따른다.
 
 - UI/학습수단 기준: [06_LEARNING_METHODS.md](06_LEARNING_METHODS.md)
 - 진행 상태/claim: [02_PROGRESS.md](02_PROGRESS.md)
@@ -25,7 +25,7 @@ Lesson 본문 1개는 아래를 모두 만족해야 완료다. 문서 정리, �
 - 핵심 코드, SQL, 설정, SAP GUI 절차가 나오면 페이지 안에서 직접 실행·조작하는 시뮬레이션을 넣는다. 보조 예시만 정적 코드블록으로 두는 것은 가능하지만, Lesson의 핵심 흐름이 정적 설명뿐이면 미완이다.
 - T-code를 본문에 노출하면 `reference/abap_glossary.json`에 `category:"tcode"`로 등록/확인하고, 본문 `data-glossary`와 `used_in_lessons`를 연결한다. 절차에 필요 없는 보조 T-code는 억지로 넣지 않는다.
 - 운영 Lesson fragment는 `docs/abap/lesson-content/<ID>.html`에 두고, 인라인 `<script>`, `<style>`, `style` 속성을 넣지 않는다.
-- `reference/design_variants.json` 토큰과 공통 `assets/abap-lesson-viewer.css/js` 패턴을 따른다.
+- 샘플/디자인 선택은 [06](06_LEARNING_METHODS.md)을 따르고, 운영 이식은 공통 `assets/abap-lesson-viewer.css/js` 패턴으로 정리한다.
 - 검증 결과는 콘솔 오류 0건, T-code 칩 바/미노출 판단, 주요 인터랙션/시뮬레이션 동작 확인까지 포함한다.
 
 ## Lesson 작업 루프
@@ -47,7 +47,7 @@ Lesson 본문 1개는 아래를 모두 만족해야 완료다. 문서 정리, �
 | NotebookLM 권장 실행 | `nlm notebook query <노트ID> "<질문>"` |
 | 커리큘럼 | `reference/abap_curriculum_v5_4_20260605_000000.json` |
 | 글로서리/T-code | `reference/abap_glossary.json` |
-| 디자인 토큰 | `reference/design_variants.json` |
+| v3 디자인 선택 보조 | `reference/design_variants.json` |
 | 샘플/학습수단 | [06_LEARNING_METHODS.md](06_LEARNING_METHODS.md) |
 | ABAP Keyword Documentation — Classic | [latest/en-US/ABENABAP.html](https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP.html) — Classic ABAP/SAP GUI Lesson 기본 기준 |
 | ABAP Keyword Documentation — ABAP Cloud | [CLOUD/en-US/ABENABAP.html](https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENABAP.html) — ABAP Cloud/RAP/Cloud 제한 확인용 |

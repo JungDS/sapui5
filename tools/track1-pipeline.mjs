@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Track 1 Lesson pipeline automation | 최종수정 2026-06-20 02:56 KST | v1.1
+// Track 1 Lesson pipeline automation | 최종수정 2026-06-20 03:30 KST | v1.1
 import fs from "node:fs";
 import path from "node:path";
 import { execSync } from "node:child_process";
@@ -293,7 +293,7 @@ function makePlanFiles({ lesson, stamp, branch }) {
   return {
     plan: `---
 status: active
-goal: ${lesson.id} ${lesson.title} 리셋 이후 DoD 기준 Academy 우선 리빌딩
+goal: ${lesson.id} ${lesson.title} 리셋 이후 DoD 기준 v4/Academy 리빌딩
 scope: docs/abap/lesson-content/${lesson.id}.html + reference/abap_glossary.json + 필요 시 공통 자산
 branch: ${branch}
 ---
@@ -303,12 +303,12 @@ branch: ${branch}
 > 📅 **최종수정: ${stamp}**
 
 ## 배경
-Track 1 전체 자동화 큐에서 현재 작업 단위는 ${lesson.id}다. 기존 산출물은 참고만 하고, 현재 DoD 기준으로 공식 문서 검증·NotebookLM 보강·Academy 우선 샘플·T-code 연결·검증까지 다시 확인한다.
+Track 1 전체 자동화 큐에서 현재 작업 단위는 ${lesson.id}다. 기존 산출물은 참고만 하고, 현재 DoD 기준으로 공식 문서 검증·NotebookLM 보강·v4/Academy 샘플·T-code 연결·검증까지 다시 확인한다.
 
 ## 접근
 1. 커리큘럼 JSON에서 Lesson 목표와 범위를 확정한다.
 2. SAP 공식 문서를 먼저 확인하고, NotebookLM으로 누락 설명·예시·시뮬레이션 아이디어를 보강한다.
-3. 06_LEARNING_METHODS 기준으로 Academy → v4 → v3 순서의 학습수단을 고르고, 핵심 코드/화면 흐름은 페이지 내 조작형 시뮬레이션으로 연결한다.
+3. 06_LEARNING_METHODS 기준으로 v4 → Academy → v3 순서의 학습수단을 고르고, 핵심 코드/화면 흐름은 페이지 내 조작형 시뮬레이션으로 연결한다.
 4. 본문 T-code가 있으면 글로서리와 \`used_in_lessons\`에 연결하고, \`data-glossary\` 패리티를 점검한다.
 5. 로컬 lesson-viewer에서 콘솔 오류, T-code 칩 바/미노출, 주요 인터랙션을 검증한다.
 
@@ -333,9 +333,10 @@ ${notebookPrompt}
 - [ ] NotebookLM 질의 → 보강 포인트 확보
 - [ ] SAP 공식 문서 재검증 (문서 종류/URL/미확인 제한 기록)
 - [ ] 학습수단/샘플 선택 ([06](../../../.project-docs/06_LEARNING_METHODS.md))
+- [ ] 재사용 추적 필요 시 \`.project-plans/SAMPLE_USAGE_INDEX.md\` 갱신
 - [ ] 기존 운영 Lesson fragment 존재 시 archive 보관 필요 여부 확인
 - [ ] 본문 리빌딩/보강 (fragment, 인라인 style 금지)
-- [ ] 디자인 토큰 준수 (\`reference/design_variants.json\`)
+- [ ] 디자인 기준 확인 (06, v3 사용 시 \`reference/design_variants.json\`)
 - [ ] T-code 글로서리 used_in_lessons 확인 (없으면 해당 없음)
 - [ ] 글로서리 패리티 (미정의 0건)
 - [ ] 검증 (콘솔 오류 0건 + T-code 칩/미노출 + 인터랙션 동작)
@@ -385,7 +386,7 @@ function startLesson(state, args, stamp, dryRun) {
   if (!state.progress.includes(tableHeader)) throw new Error("Active Claims table header not found.");
   const nextProgress = stampMarkdown(state.progress, stamp, "02_PROGRESS.md").replace(tableHeader, `${tableHeader}\n${claimRow}`);
   const indexHeader = "| status | 경로 | 목표 |\n|---|---|---|";
-  const indexRow = `| active | [${planDir.relativeDir}/](${planDir.relativeDir}/) | ${lesson.id} ${lesson.title} DoD 기준 Academy 우선 리빌딩 착수 |`;
+  const indexRow = `| active | [${planDir.relativeDir}/](${planDir.relativeDir}/) | ${lesson.id} ${lesson.title} DoD 기준 v4/Academy 리빌딩 착수 |`;
   if (!state.plansIndex.includes(indexHeader)) throw new Error(".project-plans/INDEX.md table header not found.");
   const nextPlansIndex = stampMarkdown(state.plansIndex, stamp, ".project-plans/INDEX.md").replace(indexHeader, `${indexHeader}\n${indexRow}`);
   const files = makePlanFiles({ lesson, stamp, branch });
