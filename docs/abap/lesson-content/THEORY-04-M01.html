@@ -1,4 +1,4 @@
-<!-- lesson-content/THEORY-04-M01.html | 최종수정 2026-06-16 19:05 KST -->
+<!-- lesson-content/THEORY-04-M01.html | 최종수정 2026-06-19 23:33 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
@@ -48,6 +48,16 @@
   <p>
     <span class="glossary-term" data-glossary="ForeignKey">Foreign Key</span>는 현재 테이블의 필드가 Check Table의 키를 참조하도록 만드는 <strong>논리적 관계</strong>입니다. 단순히 “비슷한 이름의 필드가 양쪽에 있다”가 아니라, DDIC에 실제 관계로 <strong>등록</strong>해야 시스템이 그 연결을 인식합니다.
   </p>
+  <p>
+    SAP GUI에서는 보통 <span class="glossary-term" data-glossary="SE11">SE11</span>에서 업무 테이블을 열고, 검사 대상 필드를 선택한 뒤 <strong>Foreign Keys</strong> 화면에서 Check Table과 키 매핑을 지정합니다. 예를 들어 <code>SBOOK-CARRID</code>에 Foreign Key를 걸 때는 Check Table로 <code>SCARR</code>를 지정하고, <code>SCARR-CARRID</code> 키와 연결합니다.
+  </p>
+  <div class="lesson-callout">
+    <div class="lesson-callout-icon">🧭</div>
+    <div class="lesson-callout-content">
+      <h4><span class="glossary-term" data-glossary="SE11">SE11</span>에서 확인하는 순서</h4>
+      <p><span class="glossary-term" data-glossary="SE11">SE11</span> &gt; 테이블 열기 &gt; 필드 선택 &gt; <strong>Foreign Keys</strong> &gt; Check Table 입력 &gt; <strong>Generate proposal</strong> &gt; <strong>Copy</strong> &gt; Activate 순서로 흐름을 잡으면 됩니다.</p>
+    </div>
+  </div>
   <div class="viz-visual">
     <p class="viz-visual-title">Foreign Key 검증 관계 한눈에 보기</p>
     <div class="viz-relation">
@@ -203,6 +213,132 @@
       </div>
     </div>
     <p class="viz-note">기준표가 “있다”와 Foreign Key가 “걸렸다”는 다릅니다. 관계를 등록해야 비로소 그 기준표가 Check Table로 동작합니다.</p>
+  </div>
+  <div class="interactive-sap-sandbox" id="m401-fk-sandbox">
+    <div class="sap-gui-header">
+      <div class="sap-tcode-bar">T-Code: <span class="tcode-val"><span class="glossary-term" data-glossary="SE11">SE11</span> (SBOOK-CARRID &gt; SCARR-CARRID)</span></div>
+    </div>
+    <div class="sap-gui-title-bar">Foreign Key Check Simulator</div>
+    <div class="sap-selection-screen">
+      <div class="sap-field-row">
+        <label>CARRID 입력값</label>
+        <input type="text" class="sap-input sap-input-short" id="m401-carr" value="KE" maxlength="3">
+      </div>
+      <div class="sap-field-row">
+        <label>관계 설정</label>
+        <select class="sap-input sap-input-medium" id="m401-mode">
+          <option value="fk-on" selected>Foreign Key 등록</option>
+          <option value="fk-off">Check Table만 있고 관계 없음</option>
+          <option value="direct-sql">Open SQL 직접 INSERT</option>
+        </select>
+      </div>
+      <div class="sap-field-row">
+        <label>키 매핑</label>
+        <select class="sap-input sap-input-medium" id="m401-mapping">
+          <option value="primary-key" selected>SCARR-CARRID 기본 키</option>
+          <option value="non-key">SCARR-CARRNAME 일반 필드</option>
+        </select>
+      </div>
+      <div class="sap-field-row">
+        <label>Cardinality</label>
+        <select class="sap-input sap-input-medium" id="m401-cardinality">
+          <option value="1:N" selected>1:N</option>
+          <option value="1:CN">1:CN</option>
+        </select>
+      </div>
+      <button class="sap-btn-execute" type="button">Check</button>
+    </div>
+    <div class="sap-result-log">
+      <div class="sap-log-placeholder">Check를 누르면 DDIC 관계 설정에 따른 입력 검증 결과가 표시됩니다.</div>
+    </div>
+    <template class="sandbox-config">
+{
+  "fields": {
+    "carr": "#m401-carr",
+    "mode": "#m401-mode",
+    "mapping": "#m401-mapping",
+    "cardinality": "#m401-cardinality"
+  },
+  "derivedFields": [
+    {
+      "key": "modeText",
+      "from": "mode",
+      "map": {
+        "fk-on": "Foreign Key 관계가 등록되어 화면 입력 단계에서 SCARR를 확인합니다.",
+        "fk-off": "기준표가 있어도 Foreign Key 관계가 없으면 시스템은 확인할 대상을 모릅니다.",
+        "direct-sql": "Open SQL 직접 경로는 Selection Screen과 Dynpro 검사를 거치지 않습니다."
+      },
+      "default": "DDIC 관계 설정을 확인합니다."
+    },
+    {
+      "key": "mappingText",
+      "from": "mapping",
+      "map": {
+        "primary-key": "SBOOK-CARRID가 SCARR-CARRID 기본 키와 연결되었습니다.",
+        "non-key": "SBOOK-CARRID가 SCARR-CARRNAME 같은 일반 필드와 연결되어 존재 검사를 안정적으로 수행할 수 없습니다."
+      },
+      "default": "키 매핑 확인"
+    }
+  ],
+  "steps": [
+    { "label": "DDIC", "type": "event", "text": "{modeText}" },
+    { "label": "Mapping", "type": "info", "text": "{mappingText}" },
+    { "label": "Input", "type": "event", "text": "사용자가 CARRID='{carr}'를 입력했습니다." }
+  ],
+  "validations": [
+    { "field": "carr", "test": "required", "label": "Required Field", "text": "CARRID는 비워 둘 수 없습니다.", "modal": "CARRID를 입력하세요." },
+    { "field": "mapping", "test": "equals", "value": "primary-key", "label": "Key Mapping", "text": "Check Field는 Check Table의 기본 키와 매핑해야 합니다.", "modal": "SE11 Foreign Key 제안에서 Check Table의 키 필드와 매핑하세요." },
+    { "field": "carr", "test": "regexIf", "pattern": "^(KE|LH|AA)$", "whenField": "mode", "whenValue": "fk-on", "label": "Foreign Key Check", "text": "SCARR Check Table에 CARRID='{carr}'가 없습니다.", "modal": "SCARR에 없는 항공사 코드입니다. KE, LH, AA 중 하나로 바꿔 보세요." }
+  ],
+  "successSteps": [
+    { "label": "Check Table", "type": "info", "text": "SCARR-CARRID 기준 목록과 비교합니다. 예시 기준값: KE, LH, AA" },
+    { "label": "Cardinality", "type": "event", "text": "Cardinality {cardinality}: 기준표 1건이 업무 테이블 여러 건에서 재사용될 수 있습니다." }
+  ],
+  "result": {
+    "label": "DDIC Result",
+    "type": "success",
+    "text": "통과: CARRID='{carr}'가 SCARR Check Table 기준을 만족했습니다.",
+    "columns": [
+      { "key": "item", "head": "항목" },
+      { "key": "detail", "head": "결과" }
+    ],
+    "rows": [
+      { "item": "경로", "detail": "SAP GUI 화면 입력" },
+      { "item": "검사 대상", "detail": "SBOOK-CARRID" },
+      { "item": "Check Table", "detail": "SCARR-CARRID" },
+      { "item": "판정", "detail": "기준표에 존재하므로 입력 통과" }
+    ],
+    "variants": [
+      {
+        "whenField": "mode",
+        "whenValue": "fk-off",
+        "label": "DDIC Result",
+        "type": "warn",
+        "text": "관계 미등록: CARRID='{carr}'도 DDIC Foreign Key 검사를 받지 않습니다.",
+        "rows": [
+          { "item": "경로", "detail": "SAP GUI 화면 입력" },
+          { "item": "기준표", "detail": "SCARR는 존재하지만 Foreign Key 관계가 없습니다." },
+          { "item": "검사 여부", "detail": "시스템이 어떤 기준표를 봐야 할지 몰라 존재 검사를 하지 않습니다." },
+          { "item": "판정", "detail": "화면 단계에서 통과될 수 있으므로 관계 등록이 필요합니다." }
+        ]
+      },
+      {
+        "whenField": "mode",
+        "whenValue": "direct-sql",
+        "label": "DDIC Result",
+        "type": "warn",
+        "text": "직접 INSERT: CARRID='{carr}'는 화면 검증을 우회했습니다.",
+        "rows": [
+          { "item": "경로", "detail": "Open SQL INSERT/UPDATE" },
+          { "item": "DDIC 관계", "detail": "Foreign Key가 있어도 DB 물리 제약으로 강제되지 않습니다." },
+          { "item": "검사 여부", "detail": "Selection Screen과 Dynpro 자동 검사를 거치지 않습니다." },
+          { "item": "판정", "detail": "프로그램 로직에서 별도 SELECT/검증이 필요합니다." }
+        ]
+      }
+    ]
+  }
+}
+    </template>
   </div>
 </section>
 

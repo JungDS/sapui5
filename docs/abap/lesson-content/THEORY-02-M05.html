@@ -1,4 +1,4 @@
-<!-- THEORY-02-M05.html | 최종수정 2026-06-18 01:29 KST -->
+<!-- THEORY-02-M05.html | 최종수정 2026-06-19 23:33 KST -->
 <!-- lesson-content/THEORY-02-M05.html | GOLD (Claude pilot · GPT v4 payload) | 2026-06-17 KST -->
 
 <div class="lesson-callout tip">
@@ -249,6 +249,10 @@
   <p class="debugger-note">
     <code>CONTINUE</code>는 그 회차의 남은 줄만 건너뛰고 루프는 계속됩니다(그래서 3은 빠지고 4는 출력). <code>EXIT</code>는 루프 전체를 즉시 끝냅니다(그래서 5는 출력되지 않음).
   </p>
+  <details class="foldable">
+    <summary><code>EXIT</code>와 <code>RETURN</code>은 같은 탈출인가요?</summary>
+    <p>아닙니다. 반복문만 빠져나오려면 <code>EXIT</code>를 씁니다. <code>RETURN</code>은 현재 처리 블록 자체를 끝내는 더 큰 범위의 탈출이라, 루프 뒤에 있는 후속 로직까지 건너뛸 수 있습니다. 이 Lesson에서는 루프 제어에 필요한 <code>EXIT</code>/<code>CONTINUE</code>만 실습합니다.</p>
+  </details>
 </section>
 
 <section class="lesson-section">
@@ -331,9 +335,10 @@
 <section class="lesson-section">
   <h2>8. 공식 문서로 더 확인하기</h2>
   <div class="link-list">
-    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapdo.htm" target="_blank" rel="noopener">SAP Help Portal: DO<span>횟수 기반 반복 <code>DO ... ENDDO</code>와 <code>sy-index</code>를 확인합니다.</span></a>
-    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapwhile.htm" target="_blank" rel="noopener">SAP Help Portal: WHILE<span>조건 기반 반복 <code>WHILE ... ENDWHILE</code>을 확인합니다.</span></a>
-    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapexit_loop.htm" target="_blank" rel="noopener">SAP Help Portal: EXIT / CONTINUE<span>반복 종료(<code>EXIT</code>)와 다음 회차로 건너뛰기(<code>CONTINUE</code>)를 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/LATEST/en-US/ABAPDO.html" target="_blank" rel="noopener">SAP Help Portal: DO<span>횟수 기반 반복 <code>DO ... ENDDO</code>와 <code>sy-index</code>를 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPWHILE.html" target="_blank" rel="noopener">SAP Help Portal: WHILE<span>조건 기반 반복 <code>WHILE ... ENDWHILE</code>을 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCONTINUE_SHORTREF.html" target="_blank" rel="noopener">SAP Help Portal: CONTINUE<span>현재 반복 회차를 종료하고 다음 회차로 이동하는 동작을 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_STATEMENTS_OVERVIEW.html" target="_blank" rel="noopener">SAP Help Portal: Statement Overview<span><code>EXIT</code>, <code>RETURN</code>, <code>CONTINUE</code>의 탈출 범위 차이를 확인합니다.</span></a>
   </div>
 </section>
 

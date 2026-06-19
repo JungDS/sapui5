@@ -1,4 +1,4 @@
-<!-- THEORY-01-M05.html | 최종수정 2026-06-18 01:29 KST -->
+<!-- THEORY-01-M05.html | 최종수정 2026-06-19 23:33 KST -->
 <!-- lesson-content/THEORY-01-M05.html | GOLD (Claude pilot · GPT v4 payload) | 2026-06-17 KST -->
 
 <div class="lesson-callout tip">
@@ -456,6 +456,12 @@
       </div>
     </div>
     <p class="viz-note">규칙: Key 필드는 반드시 테이블 <strong>시작 부분에 연속</strong>으로 모여 있어야 합니다 (중간에 일반 필드를 끼우면 활성화 시 오류).</p>
+    <div class="sap-toolbar">
+      <button type="button" class="sap-toolbar-btn" popovertarget="m05-msg-mandt-missing">MANDT 누락 검사</button>
+      <button type="button" class="sap-toolbar-btn" popovertarget="m05-msg-key-gap">Key 비연속 검사</button>
+    </div>
+    <div popover id="m05-msg-mandt-missing" class="sap-popover err"><h4>MANDT 누락 오류</h4>일반 업무 테이블에서 첫 번째 Key Field로 <code>MANDT</code>를 두지 않으면 client-independent 테이블이 되어 client별 데이터 분리가 깨질 수 있습니다.</div>
+    <div popover id="m05-msg-key-gap" class="sap-popover err"><h4>Key Field 위치 오류</h4>Key Field 사이에 일반 필드를 끼우면 활성화 시 key field가 시작 부분에 연속되어야 한다는 오류를 만나게 됩니다.</div>
   </div>
 </section>
 
@@ -471,23 +477,23 @@
 flowchart TD
   Start([테이블 만들기 시작])
   N1("<div class='node-content-wrapper'>
-    <div class='node-badge badge-p1'>1단계 · 입력</div><br><b>테이블 생성</b><br>
+    <div class='node-badge badge-p1'>1단계 · 입력</div><div class='node-title'>테이블 생성</div>
     <div class='node-desc'>테이블 이름만 입력 (ZT##_TEST###)</div>
   </div>")
   N2("<div class='node-content-wrapper'>
-    <div class='node-badge badge-p2'>2단계 · 정의</div><br><b>생성 화면 (Change Table)</b><br>
+    <div class='node-badge badge-p2'>2단계 · 정의</div><div class='node-title'>생성 화면 (Change Table)</div>
     <div class='node-desc'>Short Description + 탭스트립(Delivery·Fields·Input·Currency) · 저장은 되지만 DB엔 아직 미생성</div>
   </div>")
   N3("<div class='node-content-wrapper'>
-    <div class='node-badge badge-p3'>3단계 · 설정</div><br><b>Technical Settings</b><br>
+    <div class='node-badge badge-p3'>3단계 · 설정</div><div class='node-title'>Technical Settings</div>
     <div class='node-desc'>저장특성 · 크기 · 버퍼링</div>
   </div>")
   N4["<div class='node-content-wrapper'>
-    <div class='node-badge badge-screen'>4단계 · 검사</div><br><b>Activate 시도</b><br>
+    <div class='node-badge badge-screen'>4단계 · 검사</div><div class='node-title'>Activate 시도</div>
     <div class='node-desc'>Check + Activate (구문 · 키 검사)</div>
   </div>"]
   N5("<div class='node-content-wrapper'>
-    <div class='node-badge badge-p6'>5단계 · 완료</div><br><b>DB 서버에 실제 Table 생성</b><br>
+    <div class='node-badge badge-p6'>5단계 · 완료</div><div class='node-title'>DB 서버에 실제 Table 생성</div>
     <div class='node-desc'>이제 Record CRUD 가능</div>
   </div>")
 

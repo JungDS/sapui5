@@ -1,13 +1,13 @@
 ---
-status: active
+status: done
 goal: THEORY-01-M01 "SAP Dictionary의 목적과 개발 흐름" 리셋 이후 DoD 재검토·보강
-scope: docs/abap/lesson-content/THEORY-01-M01.html + reference/abap_glossary.json + 검증 문서
+scope: docs/abap/lesson-content/THEORY-01-M01.html + docs/abap/lesson-viewer.html + reference/abap_glossary.json + 검증 문서
 branch: docs/project-docs-ai-native-restructure
 ---
 
 # PLAN — THEORY-01-M01
 
-> 📅 **최종수정: 2026-06-18 01:29 KST**
+> 📅 **최종수정: 2026-06-19 09:17 KST**
 
 ## 배경
 2026-06-17 04:00 기준선 리셋 이후 Track 1 진행률이 0으로 초기화되었다. 첫 Lesson인 THEORY-01-M01을 현재 DoD 기준으로 다시 검토하고, NotebookLM 보강·SAP 공식 재검증·v3 실습·T-code 연결을 재확인한다.

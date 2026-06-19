@@ -1,6 +1,6 @@
 # 03. ARCHITECTURE — 폴더 역할 · 상대경로 · 셸 SSOT
 
-> 📅 **최종수정: 2026-06-17 04:13 KST**
+> 📅 **최종수정: 2026-06-19 23:30 KST**
 > 🎯 **목적:** 저장소 구조와 셸 동작 원리. "무엇이 어디에 있고, 어디에 두는가".
 > 📖 **읽을 때:** 파일 위치/경로/내비게이션이 헷갈릴 때, 새 파일을 만들기 전.
 > ⚡ **TL;DR:**
@@ -25,7 +25,7 @@
 | `assets/` | 공유 CSS/JS + images | 셸·공통 유틸·영역별 엔진 |
 | `data/` | 내비 카탈로그·이력 JSON (+ `*.md` 설명) | 운영 3종만 |
 | `reference/` | 커리큘럼 JSON·글로서리·디자인 토큰 | 런타임 fetch 대상 |
-| `sample/` | 개발용 샘플/프로토타입 | **`learning-methods-v3`가 현 목표의 UI 툴킷** |
+| `sample/` | 개발용 샘플/프로토타입 | 샘플 선택은 [06](06_LEARNING_METHODS.md), 외부 경로·v4 정책은 [09](09_SAMPLE_LIBRARY.md) |
 | `tools/` | 생성·일괄수정 스크립트 — 재사용 빌드/포맷(`.mjs`) + 일회성 정리(`.py`) | **완료된 일회성은 `archive/tools/<날짜>/`로** (언어 아닌 수명주기로 분리) |
 | `archive/` | 수정 전 원본·legacy·구 문서 보존 | **읽기 전용, 수정 금지** |
 
@@ -54,10 +54,10 @@
 ## Lesson 단일 뷰어 (현 목표의 무대)
 - `docs/abap/lesson-viewer.html`은 **`DOCS`에 등록하지 않는다**(템플릿 성격, [05 P14](05_PITFALLS.md)).
 - URL `?lesson=<ID>` → `docs/abap/lesson-content/<ID>.html` 본문 조각을 로드. 이전/다음·목차는 셸이 아니라 `assets/abap-lesson-viewer.js`가 커리큘럼 JSON을 읽어 동적 렌더.
-- 새 Lesson 추가 = HTML 뼈대 불필요. `lesson-content/<JSON_ID>.html`에 **순수 콘텐츠만**(`<script>`/`<style>`/인라인 style 금지 → 공통 자산으로).
+- 새 Lesson 추가 = HTML 뼈대 불필요. 운영 `lesson-content/<JSON_ID>.html`에는 **순수 콘텐츠만** 둔다(`<script>`/`<style>`/인라인 style 금지 → 공통 자산으로). `sample/`·v4 실험 파일은 이 제약의 예외다.
 
 ## 관련 엔진 / 데이터 (assets · reference)
 - `abap-lesson-viewer.js/css` — **Lesson 단일 뷰어 엔진**. 브레드크럼·사이드바·Pager 동적 생성.
 - `abap-glossary.js/css` — 용어 툴팁. `data-glossary` 스캔 → `reference/abap_glossary.json` fetch, 호버 팝업 + 클릭 고정/복사. 구 `common.js`의 `data-term` 모달과 **별도 네임스페이스**([05 P9](05_PITFALLS.md)).
 - 커리큘럼 엔진(`abap-curriculum-*`)은 `reference/abap_curriculum_v5_4_20260605_000000.json`을 fetch. v5.4 이전 커리큘럼 파일은 archive 보존본이며 사용하지 않는다.
-- 디자인 토큰: `reference/design_variants.json`(SSOT) + `sample/learning-methods-v3/design-choices.json`.
+- 디자인 토큰: `reference/design_variants.json`(SSOT). 운영 Lesson에는 공통 CSS/JS로 이식하고, 샘플/v4 실험 단계에서는 빠른 검토를 위해 standalone 구조를 허용한다.

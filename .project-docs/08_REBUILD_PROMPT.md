@@ -1,12 +1,12 @@
 # 08. REBUILD PROMPT — 단일목표 실행 표준 프롬프트 (범위 지정형)
 
-> 📅 **최종수정: 2026-06-17 00:42 KST**
+> 📅 **최종수정: 2026-06-19 23:30 KST**
 > 🎯 **목적:** 사람이 "특정 Chapter 리빌딩"을 AI에게 발주할 때 복붙하는 **표준 프롬프트**. 편의성·정확성·일관성 확보.
 > 📖 **읽을 때:** Track 1의 한 Chapter를 리빌딩시키려 할 때.
 > ⚡ **TL;DR:**
 > - 아래 **복붙 템플릿**에서 `<대상 Chapter>`(필수)와 `<추가 지시·주의>`(선택) **두 칸만** 채워 AI에게 준다.
 > - 나머지 정밀함(Lesson 목록·per-Lesson 주의·T-code·DoD)은 **AI가 SSOT에서 런타임 도출** → 누락 없음.
-> - 불변 규칙은 [01](01_AI_SYNC.md)/[04](04_CONVENTIONS.md)/[06](06_LEARNING_METHODS.md)을 **링크 참조**만(무중복 SSOT).
+> - 불변 규칙은 [01](01_AI_SYNC.md)/[04](04_CONVENTIONS.md)/[06](06_LEARNING_METHODS.md)을 **링크 참조**만(무중복 SSOT). 샘플 경로/v4 정책이 필요할 때만 [09](09_SAMPLE_LIBRARY.md)를 본다.
 
 ## 1. 사용법
 1. 아래 **복붙 템플릿** 코드블록을 복사한다.
@@ -28,7 +28,8 @@
 
 ## 0. 부팅 (착수 전 필수 통독)
 `.project-docs/` 를 번호 순으로 읽는다: 00_INDEX → 01_AI_SYNC(최우선 SSOT) → 02_PROGRESS
-→ 03_ARCHITECTURE → 04_CONVENTIONS → 05_PITFALLS → 06_LEARNING_METHODS → 07_BROWSER_TESTING.
+→ 03_ARCHITECTURE → 04_CONVENTIONS → 05_PITFALLS → 06_LEARNING_METHODS → 07_BROWSER_TESTING
+→ 08_REBUILD_PROMPT(현재 문서). 샘플 경로/v4/archive 정책이 필요하면 09_SAMPLE_LIBRARY도 본다.
 - 단일 목표·완료 정의(DoD)·하드 제약·git 정책의 SSOT는 위 문서다. 이 프롬프트와 충돌하면 "더 엄격한 쪽"을 따른다.
 - 02_PROGRESS `🔄 진행 중`을 확인한다. 다른 AI가 claim한 Lesson은 절대 건드리지 않는다.
 
@@ -42,7 +43,7 @@
 
 ## 2. 완료 정의(DoD) — 01_AI_SYNC §DoD를 그대로 적용. 한 Lesson은 아래 6가지 "모두" 충족 시에만 완료:
    ① 내용 보강(NotebookLM 노트 ad0e9cde-4dca-451e-b455-de200a9ed7b7 질의 + SAP 공식 재검증)
-   ② UI 혁신(sample/learning-methods-v3 컴포넌트, 텍스트 나열 금지)
+   ② UI 혁신(06_LEARNING_METHODS 기준으로 샘플/학습수단 선택, 텍스트 나열 금지)
    ③ 코드 = 실습 시뮬레이션(필수): 코드가 1줄이라도 나오면 그 페이지에서 직접 실행·조작하는
       시뮬레이션을 넣는다(SAP GUI Sandbox/Step Debugger/빈칸 코드/오류 찾기/예상 로그 비교/Editor Mockup 등).
       정적 코드블록만이면 미완.
@@ -58,15 +59,15 @@
 2) plans/YYYYMM/MMDD_HHMM_<slug>/ 생성(PLAN.md/TASKS.md/RESULTS.md, 04 R10).
 3) NotebookLM 질의 + SAP 공식 재검증 → 보강 포인트.
 4) 커리큘럼 JSON에서 이 Lesson 학습목표 확정 + (있으면) ⚠️ 보강 과제 반영.
-5) v3 학습수단 선택(06). 코드가 나오면 그 코드용 시뮬레이션 수단 1개 이상 필수 포함.
+5) 06_LEARNING_METHODS에서 학습수단 선택. 코드가 나오면 그 코드용 시뮬레이션 수단 1개 이상 필수 포함.
 6) 이 Lesson T-code 추출 → 글로서리 등록/확인 + used_in_lessons 갱신, 본문 data-glossary 연결.
-7) 본문 작성: docs/abap/lesson-content/<ID>.html (fragment; <script>/<style>/인라인 style 금지;
+7) 본문 작성: docs/abap/lesson-content/<ID>.html (운영 fragment; <script>/<style>/인라인 style 금지;
    동작은 abap-lesson-viewer.js, 스타일은 abap-lesson-viewer.css; 신규 파일이면 최상단 주석 헤더).
 8) 글로서리 패리티 점검(미정의 0건).
 9) 검증(07): 프로젝트 루트 정적 서버(.claude/launch.json "static", 포트 8765)로
    docs/abap/lesson-viewer.html?lesson=<ID> 열어 — 콘솔 0 + T-code 칩 바 + 시뮬레이션/인터랙션 동작 확인.
 10) 종료: 02_PROGRESS의 내 `🔄`를 `✅ 완료 로그`로 이동 + 챕터 표 상태 갱신. plans TASKS/RESULTS 갱신.
-11) git(04 R12): 내가 만든/고친 파일만 git add(`-A` 금지) → git commit(본문에 `AI-Author: <내 모델명>`) → git push.
+11) git(04 R12): 사용자 요청 또는 PR 준비 시, Lesson 완료 단위나 문서/공통 변경 묶음 단위로 내가 만든/고친 파일만 git add(`-A` 금지) → git commit(본문에 `AI-Author: <내 모델명>`) → git push.
     git pull/fetch 금지(로컬이 SSOT). 타임스탬프는 .githooks/pre-commit 훅이 커밋 시 자동 처리.
 
 ## 4. 착수 전 자가 점검 (모호하면 빌드 전에 질문)
@@ -74,12 +75,12 @@ Chapter 범위·Lesson 목록·`⚠️` 메모·커리큘럼을 다 파악했는
 빌드를 시작하지 말고 **먼저 사용자에게 질문**한다.
 
 ## 5. 보고
-- Lesson마다: 보강 근거(출처)·적용한 v3 수단·노출 T-code(신규/복습)·검증 결과를 요약.
+- Lesson마다: 보강 근거(출처)·적용한 샘플/학습수단·노출 T-code(신규/복습)·검증 결과를 요약.
 - Chapter 전체가 끝나면 02_PROGRESS 챕터 표를 ✅로 갱신하고 마무리 보고.
 
 ## 6. 하지 말 것
 다른 AI claim Lesson 수정 / git pull·fetch·add -A / 코드 임의 생략 / 공통 자산 미리딩 후 수정 /
-정적 코드블록만 두고 시뮬레이션 생략 / T-code를 글로서리·칩·지도에 연결하지 않고 본문에만 언급 /
+운영 fragment에 인라인 script/style/style 속성 삽입 / 정적 코드블록만 두고 시뮬레이션 생략 / T-code를 글로서리·칩·지도에 연결하지 않고 본문에만 언급 /
 내부 Lesson ID(THEORY-..-M..)를 사용자 화면에 노출.
 
 ## 7. 추가 지시·주의 (선택 — 없으면 무시)

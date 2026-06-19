@@ -1,4 +1,4 @@
-<!-- lesson-content/THEORY-01-M04.html | 최종수정 2026-06-17 01:28 KST -->
+<!-- lesson-content/THEORY-01-M04.html | 최종수정 2026-06-19 23:33 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
@@ -59,6 +59,7 @@
   <h2>2. Structure 안에는 Component가 들어간다</h2>
   <p>
     Structure를 표의 한 행처럼 생각하면 쉽습니다. Structure 자체는 한 줄의 모양이고, 그 안의 각 칸이 Component입니다. Component type에는 Data Element를 자주 사용합니다. 그래야 기술 타입뿐 아니라 라벨과 의미 정보도 따라옵니다.
+    SAP 공식 예시처럼 predefined Dictionary type이나 다른 Structure를 Component Type으로 쓰는 경우도 있지만, 이번 초급 실습에서는 앞 Lesson에서 만든 Data Element를 조립하는 흐름에 집중합니다. Domain 이름을 Component Type 자리에 직접 넣는 방식은 피합니다.
   </p>
   <div class="viz-visual">
     <p class="viz-visual-title">주문 한 줄 Structure 예시</p>
@@ -101,6 +102,7 @@
   <h2>3. 직접 해보기: SE11에서 Structure 만들기</h2>
   <p>
     SAP GUI 명령창에 <span class="glossary-term" data-glossary="SE11">SE11</span> 또는 <code>/nSE11</code>을 입력하고 Data Type을 선택한 뒤 Structure 이름을 입력합니다. Create에서 Structure를 고르면 Component 목록을 입력하는 화면으로 이동합니다. 아래 sandbox에서 한 줄 타입을 직접 구성해 보세요.
+    Component 4를 <code>STATUS : ZDO_ORDER_STATUS</code>로 바꿔 실패시킨 뒤, <code>STATUS : ZDE_ORDER_STATUS</code>로 되돌려 활성화하면 Data Element와 Domain의 조립 경계를 확인할 수 있습니다.
   </p>
   <div class="interactive-sap-sandbox">
     <div class="sap-gui-header">
@@ -151,7 +153,17 @@
     { "field": "structure", "test": "required", "label": "Name Check", "text": "Structure 이름이 비어 있습니다.", "modal": "Structure 이름을 입력하세요." },
     { "field": "structure", "test": "regex", "pattern": "^(Z|Y)[A-Z0-9_]{3,29}$", "label": "Name Check", "text": "{structure}은 고객 네임스페이스 이름 규칙에 맞지 않습니다.", "modal": "Structure 이름은 Z 또는 Y로 시작하고 대문자·숫자·언더스코어를 사용하세요." },
     { "field": "comp1", "test": "required", "label": "Component Check", "text": "첫 번째 Component가 비어 있습니다.", "modal": "최소 하나 이상의 Component를 입력하세요." },
-    { "field": "comp2", "test": "required", "label": "Component Check", "text": "두 번째 Component가 비어 있습니다.", "modal": "한 줄 타입으로 의미 있는 Component 목록을 채우세요." }
+    { "field": "comp2", "test": "required", "label": "Component Check", "text": "두 번째 Component가 비어 있습니다.", "modal": "한 줄 타입으로 의미 있는 Component 목록을 채우세요." },
+    { "field": "comp3", "test": "required", "label": "Component Check", "text": "세 번째 Component가 비어 있습니다.", "modal": "주문 한 줄에 필요한 Component를 모두 입력하세요." },
+    { "field": "comp4", "test": "required", "label": "Component Check", "text": "네 번째 Component가 비어 있습니다.", "modal": "상태 Component까지 입력해 한 줄 타입을 완성하세요." },
+    { "field": "comp1", "test": "regex", "pattern": "^[A-Z][A-Z0-9_]*\\s*:\\s*[A-Z_/][A-Z0-9_/]*$", "label": "Component Format", "text": "Component 1은 NAME : TYPE 형식이어야 합니다. 현재 입력: {comp1}", "modal": "Component는 ORDER_ID : ZDE_ORDER_ID처럼 이름과 타입을 콜론으로 나눠 입력하세요." },
+    { "field": "comp2", "test": "regex", "pattern": "^[A-Z][A-Z0-9_]*\\s*:\\s*[A-Z_/][A-Z0-9_/]*$", "label": "Component Format", "text": "Component 2는 NAME : TYPE 형식이어야 합니다. 현재 입력: {comp2}", "modal": "Component는 CUSTOMER_ID : ZDE_CUSTOMER_ID처럼 이름과 타입을 콜론으로 나눠 입력하세요." },
+    { "field": "comp3", "test": "regex", "pattern": "^[A-Z][A-Z0-9_]*\\s*:\\s*[A-Z_/][A-Z0-9_/]*$", "label": "Component Format", "text": "Component 3은 NAME : TYPE 형식이어야 합니다. 현재 입력: {comp3}", "modal": "Component는 ORDER_DATE : ZDE_ORDER_DATE처럼 이름과 타입을 콜론으로 나눠 입력하세요." },
+    { "field": "comp4", "test": "regex", "pattern": "^[A-Z][A-Z0-9_]*\\s*:\\s*[A-Z_/][A-Z0-9_/]*$", "label": "Component Format", "text": "Component 4는 NAME : TYPE 형식이어야 합니다. 현재 입력: {comp4}", "modal": "Component는 STATUS : ZDE_ORDER_STATUS처럼 이름과 타입을 콜론으로 나눠 입력하세요." },
+    { "field": "comp1", "test": "notRegex", "pattern": ":\\s*ZDO_", "label": "Component Type", "text": "Component Type에 Domain 이름을 직접 넣지 않습니다. 현재 입력: {comp1}", "modal": "초급 실습에서는 Domain이 아니라 Data Element를 Component Type으로 입력하세요." },
+    { "field": "comp2", "test": "notRegex", "pattern": ":\\s*ZDO_", "label": "Component Type", "text": "Component Type에 Domain 이름을 직접 넣지 않습니다. 현재 입력: {comp2}", "modal": "초급 실습에서는 Domain이 아니라 Data Element를 Component Type으로 입력하세요." },
+    { "field": "comp3", "test": "notRegex", "pattern": ":\\s*ZDO_", "label": "Component Type", "text": "Component Type에 Domain 이름을 직접 넣지 않습니다. 현재 입력: {comp3}", "modal": "초급 실습에서는 Domain이 아니라 Data Element를 Component Type으로 입력하세요." },
+    { "field": "comp4", "test": "notRegex", "pattern": ":\\s*ZDO_", "label": "Component Type", "text": "Component Type에 Domain 이름을 직접 넣지 않습니다. 현재 입력: {comp4}", "modal": "초급 실습에서는 Domain이 아니라 Data Element를 Component Type으로 입력하세요." }
   ],
   "successSteps": [
     { "label": "Check", "type": "event", "text": "Component 이름과 Component Type 참조를 검사했습니다." },

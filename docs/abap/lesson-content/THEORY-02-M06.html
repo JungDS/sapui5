@@ -1,4 +1,4 @@
-<!-- lesson-content/THEORY-02-M06.html | 최종수정 2026-06-16 01:55 KST -->
+<!-- lesson-content/THEORY-02-M06.html | 최종수정 2026-06-19 23:33 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
@@ -160,6 +160,119 @@ lv_full = |{ lv_first } { lv_last }|.    <span class="abap-token-comment">" 문�
       <p>검사할 문장 바로 다음 줄에서 확인해야 합니다. 중간에 다른 문장이 끼면 <code>sy-subrc</code>가 그 문장의 결과로 덮어써집니다. “읽자마자 바로 검사”가 원칙입니다.</p>
     </div>
   </div>
+  <div class="interactive-sap-sandbox">
+    <div class="sap-gui-header">
+      <div class="sap-tcode-bar">T-Code: <span class="tcode-val"><span class="glossary-term" data-glossary="SE38">SE38</span> (ABAP Editor)</span></div>
+    </div>
+    <div class="sap-gui-title-bar">String / SY-SUBRC 실행 추적</div>
+    <div class="sap-selection-screen">
+      <div class="sap-field-row">
+        <label>First String</label>
+        <input type="text" class="sap-input sap-input-medium" id="m06-first" value="Hello" maxlength="20">
+      </div>
+      <div class="sap-field-row">
+        <label>Second String</label>
+        <input type="text" class="sap-input sap-input-medium" id="m06-last" value="ABAP" maxlength="20">
+      </div>
+      <div class="sap-field-row">
+        <label>결합 방식</label>
+        <select class="sap-input sap-input-medium" id="m06-join">
+          <option value="template" selected>String Template |{ } { }|</option>
+          <option value="backtick">&& + 백틱 공백</option>
+          <option value="single-quote">작은따옴표 공백 혼동</option>
+        </select>
+      </div>
+      <div class="sap-field-row">
+        <label>FIND 검색어</label>
+        <select class="sap-input sap-input-medium" id="m06-find">
+          <option value="ABAP" selected>ABAP - 찾음</option>
+          <option value="World">World - 없음</option>
+          <option value="ZZ">ZZ - 없음</option>
+        </select>
+      </div>
+      <div class="sap-field-row">
+        <label>중간 문장</label>
+        <select class="sap-input sap-input-medium" id="m06-interference">
+          <option value="none" selected>없음 - 바로 sy-subrc 검사</option>
+          <option value="second-success">다른 FIND 성공으로 덮어쓰기</option>
+          <option value="second-fail">다른 FIND 실패로 덮어쓰기</option>
+        </select>
+      </div>
+      <button class="sap-btn-execute" type="button">문자열 처리 실행(F8)</button>
+    </div>
+    <div class="sap-result-log">
+      <div class="sap-log-placeholder">버튼을 누르면 문자열 결합, 시스템 필드 출력, FIND 후 SY-SUBRC 검사 흐름이 표시됩니다.</div>
+    </div>
+    <template class="sandbox-config">
+{
+  "fields": {
+    "first": "#m06-first",
+    "last": "#m06-last",
+    "join": "#m06-join",
+    "find": "#m06-find",
+    "interference": "#m06-interference"
+  },
+  "derivedFields": [
+    {
+      "key": "joinOutcome",
+      "from": "join",
+      "map": {
+        "template": "String Template은 |{ first } { last }|처럼 텍스트와 변수를 한 번에 조합합니다.",
+        "backtick": "&&와 백틱 공백(` `)을 쓰면 단어 사이 공백이 문자열로 안전하게 보존됩니다.",
+        "single-quote": "작은따옴표 리터럴은 고정 문자 취급이라 뒤쪽 공백 보존을 기대하면 혼동할 수 있습니다."
+      }
+    },
+    {
+      "key": "findOutcome",
+      "from": "find",
+      "map": {
+        "ABAP": "첫 FIND가 검색어 ABAP를 찾았으므로 sy-subrc = 0 입니다.",
+        "World": "첫 FIND가 검색어 World를 찾지 못했으므로 sy-subrc = 4 입니다.",
+        "ZZ": "첫 FIND가 검색어 ZZ를 찾지 못했으므로 sy-subrc = 4 입니다."
+      }
+    },
+    {
+      "key": "finalSubrc",
+      "from": "interference",
+      "map": {
+        "none": "중간 문장이 없으므로 바로 위 FIND 결과를 그대로 검사합니다.",
+        "second-success": "중간에 다른 FIND가 성공해 sy-subrc가 0으로 덮어써졌습니다. 첫 FIND 결과를 잃었습니다.",
+        "second-fail": "중간에 다른 FIND가 실패해 sy-subrc가 4로 덮어써졌습니다. 첫 FIND 결과를 잃었습니다."
+      }
+    }
+  ],
+  "steps": [
+    { "label": "String", "type": "info", "text": "{joinOutcome}" },
+    { "label": "System Fields", "type": "info", "text": "WRITE: / sy-datum, sy-uname. 으로 실행 날짜와 로그인 사용자를 출력합니다." },
+    { "label": "FIND", "type": "event", "text": "FIND '{find}' IN lv_message. 실행 후 sy-subrc가 갱신됩니다." }
+  ],
+  "validations": [
+    { "field": "first", "test": "required", "label": "Error", "text": "First String이 비어 있습니다.", "modal": "첫 번째 문자열을 입력하세요." },
+    { "field": "last", "test": "required", "label": "Error", "text": "Second String이 비어 있습니다.", "modal": "두 번째 문자열을 입력하세요." }
+  ],
+  "successSteps": [
+    { "label": "Return Code", "type": "info", "text": "{findOutcome}" },
+    { "label": "Volatility", "type": "event", "text": "{finalSubrc}" }
+  ],
+  "result": {
+    "label": "Output List",
+    "type": "info",
+    "text": "처리 로그 — sy-subrc는 검사 대상 문장 바로 다음 줄에서 확인해야 안전합니다.",
+    "columns": [
+      { "key": "item", "head": "항목" },
+      { "key": "detail", "head": "결과" }
+    ],
+    "rows": [
+      { "item": "문자열", "detail": "{first} {last}" },
+      { "item": "SY-DATUM", "detail": "YYYYMMDD 형식의 시스템 날짜" },
+      { "item": "SY-UNAME", "detail": "현재 로그인 사용자" },
+      { "item": "첫 FIND", "detail": "{findOutcome}" },
+      { "item": "최종 검사", "detail": "{finalSubrc}" }
+    ]
+  }
+}
+    </template>
+  </div>
 </section>
 
 <section class="lesson-section">
@@ -233,9 +346,10 @@ lv_full = |{ lv_first } { lv_last }|.    <span class="abap-token-comment">" 문�
 <section class="lesson-section">
   <h2>8. 공식 문서로 더 확인하기</h2>
   <div class="link-list">
-    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abenstring_processing.htm" target="_blank" rel="noopener">SAP Help Portal: String Processing<span>문자열 타입과 연결·템플릿 등 처리 방법을 확인합니다.</span></a>
-    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abapsy_fields.htm" target="_blank" rel="noopener">SAP Help Portal: System Fields (SY)<span><code>SY-DATUM</code>·<code>SY-UNAME</code>·<code>SY-SUBRC</code> 등 시스템 필드 목록을 확인합니다.</span></a>
-    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/abenstring_templates.htm" target="_blank" rel="noopener">SAP Help Portal: String Templates<span>문자열 템플릿(<code>|...|</code>)과 포맷 옵션을 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRING_PROCESSING.html" target="_blank" rel="noopener">SAP Help Portal: String Processing<span>문자열 타입과 연결·템플릿 등 처리 방법을 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSYSTEM_FIELDS.html" target="_blank" rel="noopener">SAP Help Portal: System Fields (SY)<span><code>SY-DATUM</code>·<code>SY-UNAME</code>·<code>SY-SUBRC</code> 등 시스템 필드 목록을 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRING_TEMPLATES.html" target="_blank" rel="noopener">SAP Help Portal: String Templates<span>문자열 템플릿(<code>|...|</code>)과 포맷 옵션을 확인합니다.</span></a>
+    <a href="https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPFIND.html" target="_blank" rel="noopener">SAP Help Portal: FIND<span>문자열 검색 후 <code>SY-SUBRC</code>가 어떻게 설정되는지 확인합니다.</span></a>
   </div>
 </section>
 

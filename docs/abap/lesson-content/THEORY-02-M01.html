@@ -1,4 +1,4 @@
-<!-- lesson-content/THEORY-02-M01.html | 최종수정 2026-06-17 01:08 KST -->
+<!-- lesson-content/THEORY-02-M01.html | 최종수정 2026-06-19 23:33 KST -->
 
 <div class="lesson-callout tip">
   <div class="lesson-callout-icon">🎯</div>
@@ -287,6 +287,7 @@
   <h2>6. 직접 해보기: SE38에서 첫 프로그램 만들고 실행하기</h2>
   <p>
     아래 sandbox는 실제 SAP 시스템이 없어도 <span class="glossary-term" data-glossary="SE38">SE38</span>의 작업 순서를 그대로 눌러 보는 미니 실습입니다. 프로그램 이름과 제목을 바꿔 실행해 보세요. <strong>이름을 일부러 <code>Z</code>/<code>Y</code> 없이</strong> 넣으면 네임스페이스 검증에서 막히는 것을 직접 확인할 수 있습니다.
+    <code>Code Variant</code>를 오류 케이스로 바꾸면 마침표 누락과 <code>*</code> 주석 위치 오류도 구문 검사 단계에서 막힙니다.
   </p>
   <div class="interactive-sap-sandbox">
     <div class="sap-gui-header">
@@ -302,6 +303,14 @@
         <label>Title</label>
         <input type="text" class="sap-input sap-input-medium" id="m01-title" value="나의 첫 ABAP 프로그램" maxlength="40">
       </div>
+      <div class="sap-field-row">
+        <label>Code Variant</label>
+        <select class="sap-input sap-input-medium" id="m01-variant">
+          <option value="valid" selected>정상: REPORT/WRITE 마침표 포함</option>
+          <option value="missing-period">오류: REPORT 마침표 누락</option>
+          <option value="indented-star">오류: 들여쓴 * 주석</option>
+        </select>
+      </div>
       <button class="sap-btn-execute" type="button">저장 → 검사 → 활성화 → 실행(F8)</button>
     </div>
     <div class="sap-result-log">
@@ -311,7 +320,8 @@
 {
   "fields": {
     "prog": "#m01-prog",
-    "title": "#m01-title"
+    "title": "#m01-title",
+    "variant": "#m01-variant"
   },
   "steps": [
     { "label": "SE38", "type": "event", "text": "명령창에 SE38을 입력하고 프로그램 이름 {prog}을 넣은 뒤 [Create]를 누릅니다." },
@@ -320,7 +330,8 @@
   "validations": [
     { "field": "prog", "test": "required", "label": "Error", "text": "프로그램 이름이 비어 있습니다.", "modal": "프로그램 이름을 입력하세요." },
     { "field": "prog", "test": "regex", "pattern": "^[ZY][A-Z0-9_]{2,29}$", "label": "Error", "text": "고객 프로그램 이름은 대문자/숫자/밑줄로 구성하고 Z 또는 Y로 시작해야 합니다.", "modal": "표준 네임스페이스 위반입니다. 예: Z_HELLO_ABAP" },
-    { "field": "title", "test": "required", "label": "Error", "text": "프로그램 제목(Title)이 비어 있습니다.", "modal": "Title을 입력하세요." }
+    { "field": "title", "test": "required", "label": "Error", "text": "프로그램 제목(Title)이 비어 있습니다.", "modal": "Title을 입력하세요." },
+    { "field": "variant", "test": "equals", "value": "valid", "label": "Syntax Check", "text": "선택한 Code Variant는 구문 오류를 포함합니다. 마침표와 주석 위치를 고친 정상 variant로 바꿔야 활성화할 수 있습니다.", "modal": "ABAP 문장은 마침표로 끝나야 하고, * 전체 줄 주석은 1열에 있어야 합니다." }
   ],
   "successSteps": [
     { "label": "Editor", "type": "info", "text": "에디터에 REPORT {prog}. 가 자동 생성됩니다. 그 아래에 WRITE 'Hello, ABAP!'. 를 작성합니다." },

@@ -18,7 +18,8 @@
     "everyday_analogy": "이해하기 쉬운 일상 사례: 자동차 공장의 '표준 부품 규격서'와 같아요. 모든 부서가 이 규격서 하나만 보고 부품을 만들기 때문에 나중에 조립이 안 되는 불상사가 없습니다.",
     "used_in_lessons": [
       "THEORY-01-M01",
-      "THEORY-01-M02"
+      "THEORY-01-M02",
+      "THEORY-04-M01"
     ],
     "design_theme": "primary",
     "html_content": ""
@@ -58,7 +59,8 @@
       "THEORY-01-M04",
       "THEORY-01-M05",
       "THEORY-01-M06",
-      "THEORY-02-M02"
+      "THEORY-02-M02",
+      "THEORY-04-M01"
     ],
     "design_theme": "warn",
     "html_content": "<p>최신 SAP 환경(ABAP Cloud 등)에서는 SE11 대신 <strong>ADT</strong> 사용을 권장합니다.</p>"
@@ -80,7 +82,8 @@
     "used_in_lessons": [
       "THEORY-01-M01",
       "THEORY-01-M02",
-      "THEORY-01-M03"
+      "THEORY-01-M03",
+      "THEORY-04-M01"
     ],
     "design_theme": "primary",
     "html_content": "<p>Domain 위에 의미를 입히는 것이 <strong>Data Element</strong>입니다. (재질 → 의미 순서)</p>"
@@ -256,7 +259,8 @@
     "desc": "MANDT 필드를 통해 클라이언트별로 데이터가 분리되는 테이블 성격입니다. 로그인한 클라이언트 기준으로 데이터가 자동 필터링됩니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 같은 건물 안에서도 각 층 출입증이 있어 자기 층 자료실만 열 수 있는 것과 같아요.",
     "used_in_lessons": [
-      "THEORY-01-M05"
+      "THEORY-01-M05",
+      "THEORY-01-M06"
     ],
     "design_theme": "info",
     "html_content": ""
@@ -437,7 +441,8 @@
     "desc": "WRITE 문 등으로 출력한 결과가 표시되는 ABAP 리포트의 기본 리스트 화면입니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 프린터로 뽑은 결과표처럼, 프로그램이 만든 값을 줄줄이 보여주는 화면입니다.",
     "used_in_lessons": [
-      "THEORY-02-M03"
+      "THEORY-02-M03",
+      "THEORY-03-M03"
     ],
     "design_theme": "primary",
     "html_content": ""
@@ -584,6 +589,7 @@
       "THEORY-03-M01",
       "THEORY-03-M02",
       "THEORY-03-M03",
+      "THEORY-03-M04",
       "THEORY-04-M01",
       "THEORY-04-M05",
       "THEORY-09-M02"
@@ -596,7 +602,11 @@
     "desc": "ABAP Report 실행 전에 사용자에게 조회 조건이나 입력값을 받기 위해 자동으로 표시되는 입력 화면입니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 검색 사이트에서 검색어, 기간, 카테고리를 먼저 입력하는 검색 조건 화면과 같아요.",
     "used_in_lessons": [
-      "THEORY-03-M01"
+      "THEORY-03-M01",
+      "THEORY-03-M02",
+      "THEORY-03-M03",
+      "THEORY-03-M04",
+      "THEORY-04-M01"
     ],
     "design_theme": "primary",
     "html_content": ""
@@ -732,6 +742,7 @@
     "everyday_analogy": "이해하기 쉬운 일상 사례: '이 과목은 보통 이 참고서를 봅니다'라는 안내문과 같아요. 실제 시험 채점 기준으로 연결하려면 별도 약속이 필요합니다.",
     "used_in_lessons": [
       "THEORY-01-M02",
+      "THEORY-04-M01",
       "THEORY-04-M02"
     ],
     "design_theme": "warn",
@@ -2265,6 +2276,8 @@
     "desc": "입력 검증을 통과한 뒤 실행되는, 리포트의 메인 로직 이벤트입니다. 주로 데이터 조회와 가공을 합니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 주문과 확인이 끝난 뒤 실제로 요리를 시작하는 단계예요.",
     "used_in_lessons": [
+      "THEORY-03-M01",
+      "THEORY-03-M03",
       "THEORY-13-M01",
       "THEORY-13-M05"
     ],
@@ -2316,6 +2329,7 @@
     "desc": "사용자가 실행을 누른 직후, 메인 로직 전에 입력값을 검증하는 이벤트입니다. 오류 시 화면을 다시 보여줘 수정하게 합니다.",
     "everyday_analogy": "이해하기 쉬운 일상 사례: 주문을 받고 '그 메뉴는 재료가 없어요'라고 확인해 다시 고르게 하는 단계예요.",
     "used_in_lessons": [
+      "THEORY-03-M01",
       "THEORY-13-M04"
     ],
     "design_theme": "primary",
@@ -3774,8 +3788,13 @@
       "THEORY-02-M01",
       "THEORY-02-M02",
       "THEORY-02-M03",
+      "THEORY-02-M04",
       "THEORY-02-M05",
-      "THEORY-03-M01"
+      "THEORY-02-M06",
+      "THEORY-03-M01",
+      "THEORY-03-M02",
+      "THEORY-03-M03",
+      "THEORY-03-M04"
     ],
     "design_theme": "primary",
     "html_content": ""
